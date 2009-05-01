@@ -1,0 +1,72 @@
+<?php
+
+class video_duration
+{
+
+    function find_video_duration_ffmpeg($duration_arr)
+    {
+        global $config;
+        $video = $duration_arr['src'];
+        $debug = isset($duration_arr['debug']) ? $duration_arr['debug'] : 0;
+        $cmd = $config['ffmpeg'] . " -i " . $video;
+        @exec("$cmd 2>&1", $output);
+        $output_all = implode("\n", $output);
+
+        if ($debug)
+        {
+            echo "<p>$cmd</p>";
+            echo "<pre>";
+            print_r($output_all);
+            echo "</pre>";
+        }
+
+        if (@preg_match('/Duration: ([0-9][0-9]:[0-9][0-9]:[0-9\.]+), .*/', $output_all, $regs))
+        {
+            $sec = $regs[1];
+            $duration_array = split(":", $sec);
+            $sec = ($duration_array[0] * 3600) + ($duration_array[1] * 60) + $duration_array[2];
+            $sec = (int) $sec;
+        }
+        else
+        {
+            $sec = 0;
+        }
+        return $sec;
+    }
+
+    function find_video_duration_mplayer($duration_arr)
+    {
+        global $config;
+        $video = $duration_arr['src'];
+        $debug = isset($duration_arr['debug']) ? $duration_arr['debug'] : 0;
+        $cmd = $config['mplayer'] . " -vo null -ao null -frames 0 -identify " . $video;
+        @exec("$cmd 2>&1", $output);
+        $output_all = implode("\n", $output);
+
+        if ($debug)
+        {
+            echo "<p>$cmd</p>";
+            echo "<pre>";
+            print_r($output_all);
+            echo "</pre>";
+        }
+
+        if (@preg_match('/ID_LENGTH=([0-9\.]+)/', $output_all, $regs))
+        {
+            $sec = (int) $regs[1];
+        }
+        else
+        {
+            $sec = 0;
+        }
+        return $sec;
+    }
+
+    function find_video_duration_ffmpeg_php($duration_arr)
+    {
+        $video = $duration_arr['src'];
+        $output = new ffmpeg_movie($video);
+        $sec = $output->getDuration();
+        return (int) $sec;
+    }
+}

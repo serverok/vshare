@@ -1,0 +1,157 @@
+<?php
+/******************************************************************************
+ *
+ *   COMPANY: BuyScripts.in
+ *   PROJECT: vShare Youtube Clone
+ *   VERSION: 2.7
+ *   LISENSE: http://buyscripts.in/vshare-license.html
+ *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ *
+ *   This program is a commercial software and any kind of using it must agree 
+ *   to vShare license.
+ *
+ ******************************************************************************/
+
+require '../include/config.php';
+
+check_admin_login();
+
+$admin_listing_per_page = get_config('admin_listing_per_page');
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+
+if ($page < 1)
+{
+    $page = 1;
+}
+
+if (! isset($_GET['a']) || $_GET['a'] == '')
+{
+    $_GET['a'] = 'all';
+}
+
+if ($_GET['a'] == 'all' || $_GET['a'] == 'public' || $_GET['a'] == 'private')
+{
+    
+    if ($_GET['a'] == 'all')
+    {
+        $query = '';
+    }
+    else
+    {
+        $query = "WHERE `video_type`='$_GET[a]'";
+    }
+    
+    if (! isset($_GET['sort']) || $_GET['sort'] == '')
+    {
+        $query .= " ORDER BY `video_id` DESC";
+    }
+    else
+    {
+        $query .= " ORDER BY $_GET[sort]";
+    }
+    
+    $sql = "SELECT count(*) AS `total` FROM
+           `videos` $query";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $total = $tmp['total'];
+    
+    $start = ($page - 1) * $admin_listing_per_page;
+    
+    require 'Pager/Pager.php';
+    require 'Pager/Sliding.php';
+    
+    $params = array();
+    $params['mode'] = 'Sliding';
+    $params['perPage'] = $admin_listing_per_page;
+    $params['linkClass'] = 'pager';
+    $params['delta'] = 2;
+    $params['totalItems'] = $total;
+    $params['urlVar'] = 'page';
+    
+    $pager = & new Pager_Sliding($params);
+    $data = $pager->getPageData();
+    $links = $pager->getLinks();
+    
+    $sql = "SELECT * FROM `videos`
+           $query
+           LIMIT $start, $admin_listing_per_page";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $videos = mysql_fetch_all($result);
+    
+    $smarty->assign('links', $links["all"]);
+    $smarty->assign('grandtotal', $total);
+    $smarty->assign('total', $total + 0);
+    $smarty->assign('page', $page + 0);
+    $smarty->assign('videos', $videos);
+    $smarty->assign('a', $_GET['a']);
+
+}
+else if ($_GET['a'] == 'inappropriate')
+{
+    
+    if (isset($_GET['action']) && $_GET['action'] == 'del' && isset($_GET['video_id']) && is_numeric($_GET['video_id']))
+    {
+        $sql = "DELETE FROM `inappropriate_requests` WHERE
+               `inappropriate_request_video_id`=" . (int) $_GET['video_id'];
+        mysql_query($sql) or mysql_die($sql);
+    }
+    
+    if (isset($_GET['action']) && $_GET['action'] == 'delete')
+    {
+        $sql = "DELETE FROM `inappropriate_requests`";
+        mysql_query($sql) or mysql_die($sql);
+    }
+    
+    if (isset($_GET['sort']) && $_GET['sort'] != '')
+    {
+        $query = " ORDER BY " . $_GET['sort'];
+    }
+    else
+    {
+        $query = " ORDER BY `inappropriate_request_date` DESC";
+    }
+    
+    $sql = "SELECT count(inappropriate_request_video_id) AS `total` FROM `inappropriate_requests`
+           $query";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_array($result);
+    $total = $tmp['total'];
+    
+    $start_from = ($page - 1) * $admin_listing_per_page;
+    
+    require 'Pager/Pager.php';
+    require 'Pager/Sliding.php';
+    
+    $params = array(
+        'mode' => 'Sliding',
+        'perPage' => $admin_listing_per_page,
+        'linkClass' => 'pager',
+        'delta' => 2,
+        'totalItems' => $total,
+        'urlVar' => 'page'
+    );
+    
+    $pager = & new Pager_Sliding($params);
+    $data = $pager->getPageData();
+    $links = $pager->getLinks();
+    
+    $sql = "SELECT * FROM `inappropriate_requests`
+           $query
+           LIMIT $start_from, $admin_listing_per_page";
+    $result = mysql_query($sql) or mysql_die();
+    $videos = mysql_fetch_all($result);
+    
+    $smarty->assign('links', $links['all']);
+    $smarty->assign('grandtotal', $total);
+    $smarty->assign('total', $total + 0);
+    $smarty->assign('page', $page + 0);
+    $smarty->assign('videos', $videos);
+}
+
+$smarty->assign('err', $err);
+$smarty->assign('msg', $msg);
+$smarty->display('admin/header.tpl');
+$smarty->display('admin/videos.tpl');
+$smarty->display('admin/footer.tpl');
+db_close();

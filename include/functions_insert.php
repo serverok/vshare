@@ -1,0 +1,1120 @@
+<?php
+
+function insert_tags()
+{
+    global $conn;
+    
+    $sql = "SELECT * FROM `tags` WHERE
+           `active`='1' AND
+           `tag_count` > 0
+            ORDER BY `used_on` DESC
+            LIMIT " . get_config('home_num_tags');
+    $result = mysql_query($sql) or mysql_die($sql);
+    
+    if (mysql_num_rows($result) < 1)
+    {
+        return '';
+    }
+    
+    require 'HTML/TagCloud.php';
+    $tags = new HTML_TagCloud();
+    
+    while ($tag = mysql_fetch_assoc($result))
+    {
+        $tag_url = VSHARE_URL . '/tag/' . mb_strtolower($tag['tag']) . '/';
+        $tags->addElement($tag['tag'], $tag_url, $tag['tag_count'], $tag['used_on']);
+    }
+    
+    return $tags->buildHTML();
+}
+
+function insert_show_videos($a)
+{
+    if ($a['type'] == "top")
+    {
+        $query = "ORDER BY `video_view_number` DESC";
+    }
+    else if ($a['type'] == 'new')
+    {
+        $query = "ORDER BY `video_add_time` DESC";
+    }
+    else if ($a['type'] == 'recently_viewed')
+    {
+        $query = "ORDER BY `video_view_time` DESC";
+    }
+    else if ($a['type'] == 'featured')
+    {
+        $query = "AND `video_featured`='yes' ORDER BY `video_add_time` DESC";
+    }
+    
+    $sql = "SELECT * FROM `videos` WHERE
+           `video_type`='public' AND
+           `video_active`=1 AND
+           `video_approve`=1 " . $query . "
+            LIMIT " . (int) $a['num_videos'];
+    $result = mysql_query($sql) or mysql_die($sql);
+    
+    if ($a['type'] == 'featured' && mysql_num_rows($result) < 1)
+    {
+        $sql = "SELECT * FROM videos WHERE
+               `video_type`='public' AND
+               `video_active`='1' AND
+               `video_approve`='1'
+                LIMIT " . (int) $a['num_videos'];
+        $result = mysql_query($sql) or mysql_die($sql);
+    }
+    
+    while ($video_info = mysql_fetch_assoc($result))
+    {
+        $videos[] = $video_info;
+    }
+    
+    return $videos;
+}
+
+function insert_id_to_name($id)
+{
+    global $config , $conn;
+    $sql = "SELECT `user_name` FROM `users` WHERE
+           `user_id`='" . (int) $id['un'] . "'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp['user_name'];
+}
+
+function insert_tag_to_name($a)
+{
+    if ($a[tag] == 'recent')
+    {
+        $res = 'Most Recent';
+    }
+    else if ($a[tag] == 'viewed')
+    {
+        $res = "Most Viewed";
+    }
+    else if ($a[tag] == 'discussed')
+    {
+        $res = 'Most Discussed';
+    }
+    else if ($a[tag] == 'favorites')
+    {
+        $res = 'Top Favorites';
+    }
+    else if ($a[tag] == 'rated')
+    {
+        $res = 'Top Rated';
+    }
+    else if ($a[tag] == 'featured')
+    {
+        $res = 'Featured';
+    }
+    else if ($a[tag] == 'random')
+    {
+        $res = 'Random';
+    }
+    return $res;
+}
+
+function insert_time_range($info)
+{
+    global $config , $conn;
+    $range = '';
+    $present = $_SERVER['REQUEST_TIME'];
+    $execute_query = 1;
+    
+    $field_arr = array(
+        'video_add_time',
+        'user_last_login_time',
+        'user_join_time',
+        'comment_add_time',
+        'group_create_time',
+        'group_topic_add_time'
+    );
+    if (! in_array($info['field'], $field_arr))
+    {
+        $execute_query = 0;
+    }
+    
+    $qfield_arr = array(
+        'video_id',
+        'user_id',
+        'comment_id',
+        'group_id',
+        'group_topic_id'
+    );
+    if (! in_array($info['IDFR'], $qfield_arr))
+    {
+        $execute_query = 0;
+    }
+    
+    $table_arr = array(
+        'videos',
+        'users',
+        'comments',
+        'groups',
+        'group_topics'
+    );
+    if (! in_array($info['tbl'], $table_arr))
+    {
+        $execute_query = 0;
+    }
+    
+    if ($execute_query == 1)
+    {
+        $sql = "SELECT `$info[field]` FROM `$info[tbl]` WHERE
+               `$info[IDFR]`='" . (int) $info['id'] . "'";
+        $result = mysql_query($sql) or mysql_die($sql);
+        $tmp = mysql_fetch_assoc($result);
+        $addtime = $tmp[$info['field']];
+        $interval = $present - $addtime;
+        if ($interval > 0)
+        {
+            $day = $interval / (60 * 60 * 24);
+            if ($day >= 1)
+            {
+                $range = floor($day) . ' days ';
+                $interval = $interval - (60 * 60 * 24 * floor($day));
+            }
+            if ($interval > 0 && $range == '')
+            {
+                $hour = $interval / (60 * 60);
+                if ($hour >= 1)
+                {
+                    $range = floor($hour) . ' hours ';
+                    $interval = $interval - (60 * 60 * floor($hour));
+                }
+            }
+            if ($interval > 0 && $range == '')
+            {
+                $min = $interval / (60);
+                if ($min >= 1)
+                {
+                    $range = floor($min) . ' minutes ';
+                    $interval = $interval - (60 * floor($min));
+                }
+            }
+            if ($interval > 0 && $range == '')
+            {
+                $scn = $interval;
+                if ($scn >= 1)
+                {
+                    $range = $scn . ' seconds ';
+                }
+            }
+            if ($range != '')
+            {
+                $range = $range . ' ago';
+            }
+            else
+            {
+                $range = 'just now';
+            }
+            return $range;
+        }
+        else
+        {
+            return '1 seconds ago';
+        }
+    }
+    else
+    {
+        return "error";
+    }
+}
+
+function insert_time_to_date($a)
+{
+    global $conn;
+    $date = date('F j, Y, g:i a', $a['tm']);
+    return $date;
+}
+
+function insert_video_channel($a)
+{
+    global $conn;
+    
+    if ($a['tbl'] == '')
+    {
+        $sqlx = "`video_channels` AS `channel` FROM `videos` WHERE `video_id`='" . (int) $a['vid'] . "'";
+    }
+    else
+    {
+        $sqlx = "`group_channels` FROM `groups` WHERE `group_id`='" . (int) $a['gid'] . "'";
+    }
+    
+    $sql = "SELECT $sqlx";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    if ($a['tbl'] == '')
+    {
+        $ch_id = explode('|', $tmp['channel']);
+    }
+    else
+    {
+        $ch_id = explode('|', $tmp['group_channels']);
+    }
+    
+    for ($i = 0; $i < count($ch_id); $i ++)
+    {
+        if (! empty($ch_id[$i]))
+        {
+            $sql = "SELECT `channel_id`,`channel_name`,`channel_seo_name` FROM `channels` WHERE
+                   `channel_id`='" . (int) $ch_id[$i] . "'";
+            $result = mysql_query($sql) or mysql_die($sql);
+            
+            while ($channel = mysql_fetch_assoc($result))
+            {
+                $ch_info[] = $channel;
+            }
+        }
+    }
+    
+    return $ch_info;
+}
+
+function insert_show_rate($a)
+{
+    global $conn , $config;
+    $list = '';
+    $rate = $a['rte'];
+    $rating = $a['rated'];
+    if ($rate != 0)
+    {
+        $rate = $rate / $rating;
+        $num_full_star = floor($rate);
+        
+        for ($i = 0; $i < $num_full_star; $i ++)
+        {
+            $list .= '<img src="' . VSHARE_URL . '/templates/images/star.gif" alt="star" />&nbsp;';
+        }
+        
+        if ($rate == $num_full_star)
+        {
+            $num_falf_star = 0;
+        }
+        else
+        {
+            $num_falf_star = 1;
+            $list .= '<img src="' . VSHARE_URL . '/templates/images/half_star.gif" alt="half star" />';
+        }
+        
+        $num_blank_star = 5 - $num_full_star - $num_falf_star;
+        
+        for ($i = 0; $i < $num_blank_star; $i ++)
+        {
+            $list .= '<img src="' . VSHARE_URL . '/templates/images/blank_star.gif" alt="blank star" />';
+        }
+    }
+    else
+    {
+        $rate = 0;
+    }
+    
+    if ($rate > 0)
+    {
+        return $list;
+    }
+    else
+    {
+        return 'Not yet rated';
+    }
+}
+
+function insert_row_count($a)
+{
+    global $conn;
+    $execute_query = 1;
+    
+    $table_arr = array(
+        'group_members',
+        'group_videos',
+        'group_topics'
+    );
+    if (! in_array($a['table'], $table_arr))
+    {
+        $execute_query = 0;
+    }
+    
+    $field_arr1 = array(
+        'group_member_group_id',
+        'group_video_group_id',
+        'group_topic_group_id'
+    );
+    if (! in_array($a['field1'], $field_arr1))
+    {
+        $execute_query = 0;
+    }
+    
+    $field_arr2 = array(
+        'group_member_approved',
+        'group_video_approved',
+        'group_topic_approved'
+    );
+    if (! in_array($a['field2'], $field_arr2))
+    {
+        $execute_query = 0;
+    }
+    
+    if ($execute_query == 1)
+    {
+        $sql = "SELECT count(*) AS `total` FROM `$a[table]` WHERE
+	           `$a[field1]`='" . (int) $a['group_id'] . "' AND
+               `$a[field2]`='yes'";
+        $result = mysql_query($sql) or mysql_die($sql);
+        $tmp = mysql_fetch_assoc($result);
+        return $tmp['total'];
+    }
+    else
+    {
+        return 'error';
+    }
+}
+
+function insert_channel_count($a)
+{
+    global $conn;
+    $dt = date('Y-m-d');
+    $sql_extra = ' AND `video_active`=1 AND `video_approve`=1';
+    $sql = "SELECT count(*) AS `dytotal` FROM `videos` WHERE
+           `video_channels` LIKE '%|$a[cid]|%' AND
+           `video_add_date`='$dt'
+            $sql_extra";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $list[0] = $tmp['dytotal'];
+    $sql = "SELECT count(*) AS `chtotal` FROM `videos` WHERE
+           `video_channels` LIKE '%|$a[cid]|%'
+            $sql_extra";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $list[1] = $tmp['chtotal'];
+    $sql = "SELECT count(*) AS `grtotal` FROM `groups` WHERE
+           `group_channels` LIKE '%|$a[cid]|%'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $list[2] = $tmp['grtotal'];
+    return $list;
+}
+
+function insert_get_photo($a)
+{
+    global $conn;
+    $sql = "SELECT max(video_id) AS `vid` FROM `videos` WHERE
+           `video_user_id`='" . (int) $a['uid'] . "'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp['vid'];
+}
+
+function insert_video_info($a)
+{
+    global $conn;
+    $sql = "SELECT * FROM `videos` WHERE
+           `video_id`='" . (int) $a['vid'] . "'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $x[] = $tmp;
+    return $x;
+}
+
+function insert_comment_info($a)
+{
+    global $conn;
+    $sql = "SELECT * FROM `comments` WHERE
+           `comment_video_id`='" . (int) $a['vid'] . "'
+            ORDER BY `comment_id` ASC";
+    $result = mysql_query($sql) or mysql_die($sql);
+    while ($comment_info = mysql_fetch_assoc($result))
+    {
+        $comment_info['comment_text'] = nl2br($comment_info['comment_text']);
+        $comments[] = $comment_info;
+    }
+    return $comments;
+}
+
+function insert_comment_count($a)
+{
+    global $conn;
+    $sql = "SELECT count(*) AS `total` FROM `comments` WHERE
+           `comment_video_id`='" . (int) $a['vid'] . "'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp['total'];
+}
+
+function insert_video_count($a)
+{
+    global $conn;
+    
+    $add = "";
+    
+    if ($a['type'] == 'public')
+    {
+        $add = " AND `video_type`='public'";
+    }
+    else if ($a['type'] == 'private')
+    {
+        $add = " AND `video_type`='private'";
+    }
+    
+    $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
+           `video_user_id`='" . (int) $a['uid'] . "'
+            $add AND
+           `video_approve`='1' AND
+           `video_active`='1'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp['total'];
+}
+
+function insert_favour_count($a)
+{
+    global $conn;
+    $sql = "SELECT count(*) AS `total` FROM
+           `videos` AS `v`,
+           `favourite` AS `f` WHERE
+            f.favourite_user_id='" . (int) $a['uid'] . "' AND
+            f.favourite_video_id=v.video_id";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp['total'];
+}
+
+function insert_playlist_count($a)
+{
+    global $conn;
+    //    $sql = "SELECT count(*) AS total FROM playlist WHERE UID='$a[uid]'";
+    $sql = "SELECT count(*) AS `total` FROM
+           `playlists` AS `pl`,
+           `videos` AS `v` WHERE
+            pl.playlist_user_id='" . (int) $a['uid'] . "' AND
+            pl.playlist_video_id=v.video_id";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp['total'];
+}
+
+function insert_msg_count()
+{
+    global $conn;
+    $sql = "SELECT count(*) AS `total` FROM `mails` WHERE
+           `mail_receiver`='" . mysql_clean($_SESSION['USERNAME']) . "' AND
+           `mail_read`='0' AND
+           `mail_inbox_track`='2'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp['total'] + 0;
+}
+
+function insert_friends_count($a)
+{
+    global $conn;
+    $sql = "SELECT count(*) AS `total` FROM `friends` WHERE
+           `friend_user_id`='" . (int) $a['uid'] . "' AND
+           `friend_status`='Confirmed'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp['total'];
+}
+
+function insert_recently_active_users($a)
+{
+    global $conn;
+    $sql = "SELECT DISTINCT `user_login_user_id` FROM `user_logins`
+            ORDER BY `user_login_id` DESC
+            LIMIT " . get_config('num_last_users_online');
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_all($result);
+    return $tmp;
+}
+
+function insert_group_count($a)
+{
+    global $conn;
+    
+    if ($a['chid'] != '')
+    {
+        $from = 'groups';
+        $add1 = "WHERE `group_channels` LIKE '%|$a[chid]|%' ";
+    }
+    
+    if ($a['uid'] != '')
+    {
+        $add1 = "WHERE m.group_member_group_id=o.group_id AND m.group_member_user_id='" . (int) $a['uid'] . "'";
+        $from = "`groups` AS o,`group_members` AS m";
+    }
+    
+    if ($a['type'] == 'public')
+    {
+        $add2 = "AND `group_type`='public'";
+    }
+    
+    if ($a['type'] == 'private')
+    {
+        $add2 = "AND `group_type`='private'";
+    }
+    
+    $sql = "SELECT count(*) AS `total` FROM $from
+            $add1 $add2";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp['total'];
+}
+
+function insert_group_info_count($a)
+{
+    global $conn;
+    $sql_extra == '';
+    $execute_query = 1;
+    
+    if (isset($a['query']))
+    {
+        if ($a['query'] == 1)
+        {
+            $sql_extra = "AND `$a[field1]`='yes'";
+        }
+        else
+        {
+            echo "<h1>$a[query] - It is insecure to pass string</h1>";
+            exit();
+        }
+    }
+    
+    if ($a['tbl'] == 'groups')
+    {
+        $sql = "SELECT count(*) AS `total` FROM `groups` WHERE
+               `group_id`='" . (int) $a['gid'] . "' " . $sql_extra;
+        $result = mysql_query($sql) or mysql_die($sql);
+        $tmp = mysql_fetch_assoc($result);
+        return $tmp['total'];
+    }
+    else
+    {
+        $table_arr = array(
+            'group_members',
+            'group_videos',
+            'group_topics'
+        );
+        if (! in_array($a['tbl'], $table_arr))
+        {
+            $execute_query = 0;
+        }
+        
+        $field_arr1 = array(
+            'group_member_approved',
+            'group_video_approved',
+            'group_topic_approved'
+        );
+        if (! in_array($a['field1'], $field_arr1))
+        {
+            $execute_query = 0;
+        }
+        
+        $field_arr2 = array(
+            'group_member_group_id',
+            'group_video_group_id',
+            'group_topic_group_id'
+        );
+        if (! in_array($a['field2'], $field_arr2))
+        {
+            $execute_query = 0;
+        }
+        
+        if ($execute_query == 1)
+        {
+            $sql = "SELECT count(*) AS `total` FROM `$a[tbl]` WHERE
+    				`$a[field2]`='" . (int) $a['gid'] . "' " . $sql_extra;
+            $result = mysql_query($sql) or mysql_die($sql);
+            $tmp = mysql_fetch_assoc($result);
+            return $tmp['total'];
+        }
+        else
+        {
+            return "error";
+        }
+    }
+}
+
+function insert_topic_count($a)
+{
+    global $conn;
+    $sql = "SELECT count(*) AS `total` FROM `group_topics` WHERE
+           `group_topic_group_id`='" . (int) $a['GID'] . "' AND
+           `group_topic_approved`='yes'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp['total'];
+}
+
+function insert__count($a)
+{
+    global $conn;
+    $sql = "SELECT count(*) AS `total` FROM `group_topics` WHERE
+           `group_topic_group_id`='" . (int) $a['GID'] . "' AND
+           `group_topic_approved`='yes'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp['total'];
+}
+
+function insert_post_count($a)
+{
+    global $conn;
+    $sql = "SELECT count(*) AS `total` FROM `group_topic_posts` WHERE
+           `group_topic_post_topic_id`='" . (int) $a['TID'] . "'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp['total'];
+}
+
+function insert_group_image($a)
+{
+    global $servers;
+    $group_image_video_id = 0;
+    
+    $sql = "SELECT * FROM `groups` WHERE
+           `group_id`='" . (int) $a['gid'] . "'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    
+    if ($tmp['group_image'] == 'owner_only')
+    {
+        $group_image_video_id = $tmp['group_image_video'];
+    }
+    else
+    {
+        $sql = "SELECT `group_video_video_id` FROM " . mysql_clean($a['tbl']) . " WHERE
+               `group_video_group_id`='" . (int) $a['gid'] . "'
+                ORDER BY `AID` DESC
+                LIMIT 1";
+        $result = mysql_query($sql) or mysql_die($sql);
+        if (mysql_num_rows($result) > 0)
+        {
+            $tmp = mysql_fetch_assoc($result);
+            $group_image_video_id = $tmp['group_video_video_id'];
+        }
+    }
+    
+    if ($group_image_video_id != 0)
+    {
+        $sql = "SELECT video_id,video_folder,video_thumb_server_id FROM `videos` WHERE
+    			`video_id`=$group_image_video_id";
+        $result = mysql_query($sql) or mysql_die($sql);
+        $tmp = mysql_fetch_assoc($result);
+        
+        $tmp['video_thumb_url'] = $servers[$tmp['video_thumb_server_id']];
+        return $tmp;
+    }
+    else
+    {
+        return 0;
+    }
+
+}
+
+function insert_member_img($a)
+{
+    global $conn , $config , $servers;
+    
+    $user_id = $a['UID'];
+    $photo_type = isset($a['type']) ? $a['type'] : 0;
+    $img_size = 'width=80 height=60';
+    
+    if ($photo_type == 1)
+    {
+        $img_size = 'width="50"';
+    }
+    
+    $sql = "SELECT `user_photo` FROM `users` WHERE
+    	   `user_id`='" . (int) $user_id . "'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $user_info = mysql_fetch_assoc($result);
+    
+    if ($user_info['user_photo'] == 1)
+    {
+        if ($photo_type == 1)
+        {
+            echo '<img class="preview" src="' . VSHARE_URL . '/photo/1_' . $user_id . '.jpg" alt="user image" />';
+        }
+        else
+        {
+            echo '<img class="preview" src="' . VSHARE_URL . '/photo/' . $user_id . '.jpg" alt="user image" />';
+        }
+    
+    }
+    else
+    {
+        $sql = "SELECT `video_id`, `video_folder`, `video_thumb_server_id` FROM `videos` WHERE
+               `video_user_id`='" . (int) $user_id . "' AND
+               `video_active`=1 AND
+               `video_approve`=1
+                ORDER BY `video_id` DESC
+                LIMIT 1";
+        $result = mysql_query($sql) or mysql_die($sql);
+        
+        if (mysql_num_rows($result) > 0)
+        {
+            $vdo_obj = mysql_fetch_assoc($result);
+            
+            echo '<img class="preview" src="' . $servers[$vdo_obj['video_thumb_server_id']] . '/thumb/' . $vdo_obj['video_folder'] . '1_' . $vdo_obj['video_id'] . '.jpg"' . $img_size . ' alt="" />';
+        }
+        else
+        {
+            echo '<img class="preview" src="' . IMG_CSS_URL . '/images/no_pic.gif"' . $img_size . ' alt="" />';
+        }
+    }
+}
+
+function insert_check_group_mem($a)
+{
+    global $conn;
+    if ($_SESSION['UID'] != '')
+    {
+        $sql = "SELECT count(*) AS `total` FROM `group_members` WHERE
+               `group_member_group_id`='" . (int) $a['gid'] . "' AND
+               `group_member_user_id`='" . (int) $_SESSION['UID'] . "'";
+        $result = mysql_query($sql) or mysql_die($sql);
+        $tmp = mysql_fetch_assoc($result);
+        return $tmp['total'];
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+function insert_timediff($var)
+{
+    $mytime = $var['time'];
+    $now = $_SERVER['REQUEST_TIME'];
+    $diff = $now - $mytime;
+    $second = $diff % 60;
+    $minutes = ($diff / 60) % 60;
+    $hours = ($diff / 3600) % 24;
+    $days = ($diff / (3600 * 24)) % 30;
+    $months = ($diff / (3600 * 24 * 30)) % 12;
+    $years = ($diff / (3600 * 24 * 30 * 12)) % 10000;
+    
+    $x = array();
+    $x['days'] = $days;
+    $x['hours'] = $hours;
+    $x['minutes'] = $minutes;
+    $x['seconds'] = $second;
+    if ($years == 1)
+    {
+        echo "$years year ago";
+    }
+    else if ($years > 1)
+    {
+        echo "$years years ago";
+    }
+    else if ($months == 1)
+    {
+        echo "$months month ago";
+    }
+    else if ($months > 1)
+    {
+        echo "$months months ago";
+    }
+    else if ($days == 1)
+    {
+        echo "$days day ago";
+    }
+    else if ($days > 1)
+    {
+        echo "$days days ago";
+    }
+    else if ($hours == 1)
+    {
+        echo "$hours hour ago";
+    }
+    else if ($hours > 1)
+    {
+        echo "$hours hours ago";
+    }
+    else if ($minutes == 1)
+    {
+        echo "$minutes minute ago";
+    }
+    else if ($minutes > 1)
+    {
+        echo "$minutes minutes ago";
+    }
+    else if ($second == 1)
+    {
+        echo "$second second ago";
+    }
+    else if ($second > 1)
+    {
+        echo "$second seconds ago";
+    }
+}
+
+function insert_showlist($v)
+{
+    global $conn;
+    $sql = "SELECT `friend_type` FROM `friends` WHERE
+           `friend_id`=" . (int) $v['id'];
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $type = str_replace('All|', '', $tmp['friend_type']);
+    $type = str_replace('All', '', $type);
+    $type = str_replace('|', ', ', $type);
+    return $type;
+}
+
+function insert_getfield($v)
+{
+    global $conn;
+    $execute_query = 1;
+    
+    $table_arr = array(
+        'groups',
+        'group_topic_posts',
+        'videos',
+        'users'
+    );
+    if (! in_array($v['table'], $table_arr))
+    {
+        $execute_query = 0;
+    }
+    
+    $field_arr = array(
+        'group_owner_id',
+        'group_topic_post_date',
+        'video_title',
+        'video_seo_name',
+        'video_user_id',
+        'user_website'
+    );
+    if (! in_array($v['field'], $field_arr))
+    {
+        $execute_query = 0;
+    }
+    
+    $qfield_arr = array(
+        'group_id',
+        'group_topic_post_topic_id',
+        'video_id',
+        'group_owner_id',
+        'user_id'
+    );
+    if (! in_array($v['qfield'], $qfield_arr))
+    {
+        $execute_query = 0;
+    }
+    
+    if (isset($v['order']))
+    {
+        $order_arr = array(
+            'order by group_topic_post_id desc',
+            'order by video_id desc',
+            'order by user_id desc',
+            'order by group_id desc'
+        );
+        if (! in_array(strtolower($v['order']), $order_arr))
+        {
+            $execute_query = 0;
+        }
+    }
+    else
+    {
+        $v['order'] = '';
+    }
+    
+    if ($execute_query == 1)
+    {
+        $sql = "SELECT `$v[field]` FROM `$v[table]` WHERE
+               `$v[qfield]`='" . mysql_clean($v['qvalue']) . "' " . mysql_clean($v['order']);
+        $result = mysql_query($sql) or mysql_die($sql);
+        $tmp = mysql_fetch_assoc($result);
+        return $tmp[$v['field']];
+    }
+}
+
+function insert_format_size($v)
+{
+    $size = $v['size'];
+    if ($v['type'] == 'byte')
+    {
+    
+    }
+    else
+    {
+        if ($size < 1024)
+        {
+            $output = round($size, 2) . ' MB';
+        }
+        else if ($size < 1024 * 1024)
+        {
+            $output = round($size / 1024, 2) . ' GB';
+        }
+    }
+    echo $output;
+}
+
+function insert_advertise($v)
+{
+    global $conn;
+    $sql = "SELECT `adv_text` FROM `adv` WHERE
+           `adv_name`='" . mysql_clean($v['adv_name']) . "' AND
+           `adv_status`='Active'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    echo $tmp['adv_text'];
+}
+
+function insert_adv_status($v)
+{
+    global $conn;
+    $sql = "SELECT `adv_status` FROM `adv` WHERE
+           `adv_name`='" . mysql_clean($v['adv_name']) . "'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp['adv_status'];
+}
+
+function insert_subscriber_info($v)
+{
+    global $conn;
+    $sql = "SELECT s.pack_id, `package_name`, `used_space`, `used_bw`, `total_video`, `expired_time` FROM
+           `subscriber` AS `s`,
+           `packages` AS `p` WHERE
+           `UID`='" . (int) $v['uid'] . "' AND
+            s.pack_id=p.package_id";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    return $tmp;
+}
+
+function insert_id_to_uploaddate($v)
+{
+    global $conn;
+    $sql = "SELECT `video_add_date` FROM `videos` WHERE
+           `video_id`='" . (int) $v['un'] . "'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $list = explode('-', $tmp['video_add_date']);
+    
+    print_r($list[2]);
+    print_r('-');
+    print_r($list[1]);
+    print_r('-');
+    print_r($list[0]);
+}
+
+function insert_voter_name($voter_id)
+{
+    global $config;
+    $sql = "SELECT * FROM `users` WHERE
+           `user_id`='" . (int) $voter_id['id'] . "'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $name['name'] = $tmp['user_name'];
+    $photo_dir = VSHARE_DIR . '/photo/' . $voter_id['id'] . '.jpg';
+    
+    if ($tmp['user_photo'] == 1)
+    {
+        $photo_url = STATIC_URL . '/photo/' . $voter_id['id'] . '.jpg';
+    }
+    else
+    {
+        $photo_url = IMG_CSS_URL . '/images/no_pic.gif';
+    }
+    $name['voter_photo'] = $photo_url;
+    return $name;
+}
+
+function insert_show_stats()
+{
+    global $conn;
+    $stats = array();
+    $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
+           `video_active`='1' AND
+           `video_approve`='1'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $stats['total_video'] = $tmp['total'];
+    
+    $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
+           `video_active`='1' AND
+           `video_approve`='1' AND
+           `video_type`='public'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $stats['total_public_video'] = $tmp['total'];
+    
+    $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
+           `video_active`='1' AND
+           `video_approve`='1' AND
+           `video_type`='private'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $stats['total_private_video'] = $tmp['total'];
+    
+    $sql = "SELECT count(user_id) AS `total` FROM `users`";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $stats['total_users'] = $tmp['total'];
+    
+    $sql = "SELECT count(*) AS `total` FROM `channels`";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $stats['total_channel'] = $tmp['total'];
+    
+    $sql = "SELECT count(*) AS `total` FROM `groups`";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_assoc($result);
+    $stats['total_groups'] = $tmp['total'];
+    return $stats;
+}
+
+function insert_user_rate($a)
+{
+    global $config;
+    
+    $sql = "SELECT count(*) AS `tot`,sum(vote) FROM `uservote` WHERE
+	       `candate_id`=" . (int) $a['user_id'] . "
+	        GROUP BY `candate_id`";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $vote_info = mysql_fetch_assoc($result);
+    $list = '<div style="cursor: pointer;">';
+    $rate = $vote_info['sum(vote)'];
+    $rating = $vote_info['tot'];
+    
+    $rate = $rate / $rating;
+    $num_full_star = floor($rate);
+    $count = 0;
+    
+    for ($i = 0; $i < $num_full_star; $i ++)
+    {
+        $count ++;
+        $list .= '<img src="' . IMG_CSS_URL . '/images/star.gif" onclick="user_rate(' . $_SESSION['UID'] . ',' . $a['user_id'] . ',' . $count . ');" alt="rate" />&nbsp;';
+    }
+    
+    if ($rate == $num_full_star)
+    {
+        $num_falf_star = 0;
+    }
+    else
+    {
+        $num_falf_star = 1;
+        $list .= '<img src="' . IMG_CSS_URL . '/images/half_star.gif" onclick="user_rate(' . $_SESSION['UID'] . ',' . $a['user_id'] . ',' . $count . ');" alt="rate" />';
+    }
+    
+    $num_blank_star = 5 - $num_full_star - $num_falf_star;
+    
+    for ($i = 0; $i < $num_blank_star; $i ++)
+    {
+        $count ++;
+        $list .= '<img src="' . IMG_CSS_URL . '/images/blank_star.gif" onclick="user_rate(' . $_SESSION['UID'] . ',' . $a['user_id'] . ',' . $count . ');" alt="rate" />';
+    }
+    
+    $list .= '</div>';
+    echo $list;
+}
+
+function insert_x_debug_time()
+{
+    echo '<div class="x-debug-time">Generated in ' . xdebug_time_index() . 'Seconds</div>';
+}

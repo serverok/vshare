@@ -1,0 +1,32 @@
+==============================================
+SERVER REQUIREMENTS
+==============================================
+
+1.  MySQL (version 4 or higher)
+2.  PHP 5
+3.  ffmpeg (http://ffmpeg.mplayerhq.hu)
+4.  ffmpeg-php (http://ffmpeg-php.sourceforge.net)
+5.  mplayer + mencoder (http://www.mplayerhq.hu/design7/dload.html )
+6.  flv2tool (http://inlet-media.de/flvtool2)
+7.  LAME MP3 Encoder
+8.  Libogg + Libvorbis (http://www.xiph.org/downloads)
+9.  gcc
+10. automake
+11. autoconf
+12. libtool
+13. ruby
+14. Zend Optimizer
+
+==============================================
+VSHARE HOSTING AND INSTALLATION
+==============================================
+
+HostOnNet.com provide Web Hosting with youtube 
+clone requirements pre installed.
+
+http://www.hostonnet.com/ffmpeg_hosting.php
+
+
+http://www.hostonnet.com/youtube-clone-script-installation.php
+
+==============================================

@@ -1,0 +1,51 @@
+<?php
+/******************************************************************************
+ *
+ *   COMPANY: BuyScripts.in
+ *   PROJECT: vShare Youtube Clone
+ *   VERSION: 2.7
+ *   LISENSE: http://buyscripts.in/vshare-license.html
+ *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ *
+ *   This program is a commercial software and any kind of using it must agree 
+ *   to vShare license.
+ *
+ ******************************************************************************/
+
+require '../include/config.php';
+require '../include/language/' . LANG . '/lang_admin_advertisement_edit.php';
+
+check_admin_login();
+
+if (isset($_POST['submit']))
+{
+    if ($_POST['advertisement_text'] == '')
+    {
+        $err = $lang['advt_code_empty'];
+    }
+    else
+    {
+        $sql = "UPDATE `adv` SET
+               `adv_text`='" . mysql_clean($_POST['advertisement_text']) . "' WHERE
+               `adv_id`='" . (int) $_GET['adv_id'] . "'";
+        mysql_query($sql) or mysql_die($sql);
+        set_message($lang['advt_saved'], 'success');
+        $redirect_url = VSHARE_URL . '/admin/advertisements.php';
+        redirect($redirect_url);
+    }
+}
+
+$advertisement_id = isset($_GET['adv_id']) ? $_GET['adv_id'] : 0;
+
+$sql = "SELECT * FROM `adv` WHERE
+       `adv_id`='" . (int) $advertisement_id . "'";
+$result = mysql_query($sql) or mysql_die($sql);
+$advertisement_info = mysql_fetch_assoc($result);
+
+$smarty->assign('advertisement_info', $advertisement_info);
+$smarty->assign('err', $err);
+$smarty->assign('msg', $msg);
+$smarty->display('admin/header.tpl');
+$smarty->display('admin/advertisement_edit.tpl');
+$smarty->display('admin/footer.tpl');
+db_close();

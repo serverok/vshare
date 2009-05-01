@@ -1,0 +1,143 @@
+body {
+    background-color:#334075;
+    font-family:verdana;
+    margin:0;
+    padding:0;
+    background:#11568c url(./images/body-bg.jpg) repeat-x scroll center top;
+}
+input {
+    font-family:Verdana, Geneva, sans-serif;
+}
+div#wrapper {
+    width:800px;
+    margin:0 auto;
+    background-color:#fff;
+    min-height:600px;
+    border-left:3px dotted #16619c;
+    border-right:3px dotted #16619c
+}
+div#wrapper div#page {
+    padding:2em;
+}
+div#wrapper div#header {
+    background-color:#FFF;
+    position:relative;
+    border-bottom:1px solid #000;
+}
+div#wrapper div#header h1 {
+    position:absolute;
+    top:-0.4em;
+    right:1em;
+    display:block;
+    color:#39F;
+    font-size:1.5em;
+}
+div#wrapper div#footer {
+    background-color:#FFF;
+    padding:1px 0 1px 1em;
+    border-top:1px solid black
+}
+div#wrapper div#footer p {
+    font-size:0.8em;
+}
+div#wrapper div#page h1 {
+    font-size:1.4em;
+    color:#0172b6;
+    background-color:#F9FFFF;
+    border:1px solid #006699;
+    font-weight:bold;
+    padding:5px;
+    text-transform:uppercase
+}
+form#foler-input-form {
+    margin:1em 0 2em 0;
+}
+input {
+    font-size:16px;
+    margin:0.5em 0;
+    background:#FFC;
+    border:1px solid #000;
+    width:25em;
+    padding:5px;
+}
+input:hover {
+    border:1px solid #F93;
+}
+input.button {
+    font-size:16px;
+    width:15em;
+    background-color: #333333;
+    color: #FFFFFF;
+    margin-right: 6px;
+}
+div#wrapper div#page ul#check-default-folders li {
+    background:transparent url(./images/ok-tick.jpg) no-repeat scroll 1px 8px;
+    padding:0.5em 0 0.5em 2em;
+    color:#333;
+    list-style-type: none;
+}
+div#wrapper div#page ul#check-default-folders li.error {
+    background:transparent url(./images/error-tick.jpg) no-repeat scroll 1px 8px;
+    color:#F00;
+    font-weight:bold;
+}
+div.error {
+    color:#F00;
+    background-color:#FF9;
+    font-weight:bold;
+    border:1px solid red;
+}
+div.error li {
+    margin:0.5em 0;
+}
+p.config-created, p.tables-created {
+    font-weight:bold;
+    color:#093;
+    font-size:1em;
+    margin:2em 0;
+}
+p.table-already-exists {
+    font-weight:bold;
+    color:#F00;
+}
+p.install-finish-success {
+    color:#009900;
+    font-size:1.2em;
+    font-weight:bold;
+}
+p.install-finish-warning, p.upgrade-finish-warning {
+    color:#ff0000;
+    font-size:1em;
+    font-weight:bold
+}
+div.login-info {
+    font-size:14px;
+    font-weight:bold;
+    color:#0f4c7c;
+    margin-botton:1em;
+}
+div.login-info a, div.login-info a:visited {
+    color:#009;
+}
+div.login-info a:hover {
+    color:#f00;
+}
+
+/* upgrade */
+
+p.backup-warning {
+    color:#ff0000;
+    font-weight:bold;
+    font-size:2em;
+}
+
+p.upgrade-finished {
+    font-weight:bold;
+    font-size:2em;
+    color:#090;
+}
+
+p.upgrade-finished-version {
+	font-weight:bold;
+	color:#666;
+}

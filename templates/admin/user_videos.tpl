@@ -1,0 +1,109 @@
+<h1>Videos By User : {$user_name} ({$total})</h1>
+
+{if $total > 0}
+
+<table cellspacing="1" cellpadding="3" width="100%" border="0">
+
+	<tr class="tabletitle">
+		<td>
+			<b>ID</b>
+			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_id+asc">
+				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+			</a>
+			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_id+desc">
+				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+			</a>
+		</td>
+
+		<td>
+			<b>Title</b>
+			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_title+asc">
+				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+			</a>
+			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_title+desc">
+				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+			</a>
+		</td>
+		<td>
+			<b>Type</b>
+			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_type+asc">
+				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+			</a>
+			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_type+desc">
+				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+			</a>
+		</td>
+		<td>
+			<b>Duration</b>
+			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_duration+asc">
+				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+			</a>
+			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_duration+desc">
+				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+			</a>
+		</td>
+		<td>
+			<b>Featured</b>
+			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_featured+asc">
+				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+			</a>
+			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_featured+desc">
+				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+			</a>
+		</td>
+		<td>
+			<b>Date</b>
+			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_add_date+asc">
+				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+			</a>
+			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_add_date+desc">
+				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+			</a>
+		</td>
+		<td align="center">
+			<b>Action</b>
+		</td>
+	</tr>
+
+	{section name=aa loop=$videos}
+	<tr bgcolor="{cycle values="#F8F8F8,#F2F2F2"}">
+		<td>
+			{$videos[aa].video_id}
+		</td>
+		<td>
+			<a href="video_details.php?id={$videos[aa].video_id}">{$videos[aa].video_title}</a>
+		</td>
+		<td align="center">
+			{$videos[aa].video_type}
+		</td>
+		<td align="center">
+			{$videos[aa].video_length}
+		</td>
+		<td align="center">
+			{$videos[aa].video_featured}
+		</td>
+		<td align="center">
+			{$videos[aa].video_add_date|date_format}
+		</td>
+		<td align="center">
+			<a href="video_edit.php?action=edit&video_id={$videos[aa].video_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
+				<img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
+			</a>
+			<a href="video_delete.php?id={$videos[aa].video_id}" onclick='Javascript:return confirm("Are you sure you want to delete?");'>
+				<img src="{$img_css_url}/images/del.gif" title="Delete" alt="Delete" />
+			</a>
+		</td>
+	</tr>
+	{/section}
+
+</table>
+
+<div class="margin-tb-1em">
+    {$links}
+</div>
+
+{else}
+
+<h5>There is no video uploaded by user {$user_name}</h5>
+    
+{/if}

@@ -1,0 +1,64 @@
+<?php
+/******************************************************************************
+ *
+ *   COMPANY: BuyScripts.in
+ *   PROJECT: vShare Youtube Clone
+ *   VERSION: 2.7
+ *   LISENSE: http://buyscripts.in/vshare-license.html
+ *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ *
+ *   This program is a commercial software and any kind of using it must agree 
+ *   to vShare license.
+ *
+ ******************************************************************************/
+
+require 'include/config.php';
+require 'include/class.ftp.php';
+require 'include/language/' . LANG . '/lang_user_delete_done.php';
+
+if (isset($_GET['k']) && isset($_GET['i']))
+{
+    $data1 = "DELETE_USER";
+    $sql = "SELECT * FROM `verify_code` WHERE
+           `data1`='" . mysql_clean($data1) . "' AND
+           `vkey`='" . mysql_clean($_GET['k']) . "' AND
+           `id`='" . mysql_clean($_GET['i']) . "'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    
+    if (mysql_num_rows($result) == 1)
+    {
+        $verify_info = mysql_fetch_assoc($result);
+        $verify_id = $verify_info['id'];
+        $verify_key = $verify_info['vkey'];
+        $user_id = $verify_info['data2'];
+        
+        /* 0 - not really delete videos */
+        
+        User::delete($user_id, 0);
+        
+        $sql = "DELETE FROM `verify_code` WHERE
+               `id`='" . (int) $_GET['i'] . "'";
+        mysql_query($sql) or mysql_die($sql);
+        
+        if (isset($_SESSION['UID']))
+        {
+            User::logout();
+        }
+        
+        db_close();
+        set_message($lang['account_deleted'], 'success');
+        $redirect_url = VSHARE_URL . '/index.php';
+        redirect($redirect_url);
+    
+    }
+    else
+    {
+        $err = $lang['invalid_vkey'];
+    }
+}
+
+$smarty->assign('msg', $msg);
+$smarty->assign('err', $err);
+$smarty->display('header.tpl');
+$smarty->display('footer.tpl');
+db_close();

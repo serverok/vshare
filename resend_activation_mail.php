@@ -1,0 +1,141 @@
+<?php
+/******************************************************************************
+ *
+ *   COMPANY: BuyScripts.in
+ *   PROJECT: vShare Youtube Clone
+ *   VERSION: 2.7
+ *   LISENSE: http://buyscripts.in/vshare-license.html
+ *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ *
+ *   This program is a commercial software and any kind of using it must agree 
+ *   to vShare license.
+ *
+ ******************************************************************************/
+
+require 'include/config.php';
+require 'include/class.mail.php';
+require 'include/class.validate.php';
+require 'include/language/' . LANG . '/lang_resend_activation_mail.php';
+
+if (! isset($_SESSION['INACTIVE_USER']))
+{
+    $redirect_url = VSHARE_URL . '/login';
+    redirect($redirect_url);
+    exit(0);
+}
+
+if (isset($_POST['submit']))
+{
+    
+    if ($_POST['email'] == '')
+    {
+        $err = $lang['email_null'];
+    }
+    else if (! validate::email($_POST['email']))
+    {
+        $err = $lang['email_invalid'];
+    }
+    
+    if ($err == '')
+    {
+        $sql = "SELECT * FROM `users` WHERE
+               `user_name`='" . mysql_clean($_SESSION['INACTIVE_USER']) . "' AND
+               `user_account_status`='Inactive'";
+        $result = mysql_query($sql) or mysql_die($sql);
+        
+        if (mysql_num_rows($result) > 0)
+        {
+            $user_info = mysql_fetch_assoc($result);
+            
+            if ($user_info['user_email'] != $_POST['email'])
+            {
+                if (! check_field_exists($_POST['email'], 'user_email', 'users'))
+                {
+                    $sql = "UPDATE `users` SET
+                           `user_email`='" . mysql_clean($_POST['email']) . "' WHERE
+                           `user_name`='" . mysql_clean($_SESSION['INACTIVE_USER']) . "'";
+                    mysql_query($sql) or mysql_die($sql);
+                    $user_info['user_email'] = $_POST['email'];
+                }
+                else
+                {
+                    $err = $lang['email_exist'];
+                }
+            }
+            
+            if ($err == '')
+            {
+                $data1 = 'SIGNUP' . $user_info['user_id'];
+                
+                $sql = "SELECT * FROM `verify_code` WHERE
+                       `data1`='" . mysql_clean($data1) . "'";
+                $result = mysql_query($sql) or mysql_die($sql);
+                
+                if (mysql_num_rows($result) > 0)
+                {
+                    $verify_info = mysql_fetch_assoc($result);
+                    $vkey = $verify_info['vkey'];
+                    $verify_id = $verify_info['id'];
+                }
+                else
+                {
+                    $vkey = $_SERVER['REQUEST_TIME'] . rand(1, 99999999);
+                    $vkey = md5($vkey);
+                    
+                    $sql = "INSERT INTO `verify_code` SET
+                           `vkey`='" . mysql_clean($vkey) . "',
+                           `data1`='" . mysql_clean($data1) . "'";
+                    
+                    $result = mysql_query($sql) or mysql_die($sql);
+                    $verify_id = mysql_insert_id();
+                }
+                
+                $verify_url = VSHARE_URL . '/verify/user/' . $user_info['user_id'] . '/' . $verify_id . '/' .  $vkey . '/';
+                
+                $sql = "SELECT * FROM `email_templates` WHERE
+                       `email_id`='resend_activation'";
+                $result = mysql_query($sql) or mysql_die($sql);
+                $tmp = mysql_fetch_assoc($result);
+                $email_subject = $tmp['email_subject'];
+                $email_body_tmp = $tmp['email_body'];
+                
+                $email_subject = str_replace('[SITE_NAME]', $config['site_name'], $email_subject);
+                $email_subject = str_replace('[SITE_URL]', VSHARE_URL, $email_subject);
+                
+                $email_body_tmp = str_replace('[SITE_NAME]', $config['site_name'], $email_body_tmp);
+                $email_body_tmp = str_replace('[SITE_URL]', VSHARE_URL, $email_body_tmp);
+                $email_body_tmp = str_replace('[VERIFY_URL]', $verify_url, $email_body_tmp);
+                $email_body_tmp = str_replace('[USERNAME]', $user_info['user_name'], $email_body_tmp);
+                
+                $mail_detailes = array();
+                $mail_detailes['from_email'] = $config['admin_email'];
+                $mail_detailes['from_name'] = $config['site_name'];
+                $mail_detailes['to_email'] = $_POST['email'];
+                $mail_detailes['to_name'] = $_SESSION['INACTIVE_USER'];
+                $mail_detailes['subject'] = $email_subject;
+                $mail_detailes['body'] = $email_body_tmp;
+                $mail = new Mail();
+                $mail->send($mail_detailes);
+                $smarty->assign('activation_mail_sent', 'mail_sent');
+            }
+        }
+        else
+        {
+            $err = $lang['not_found'];
+        }
+    }
+}
+
+$sql = "SELECT `user_email` FROM `users` WHERE
+       `user_name`='" . mysql_clean($_SESSION['INACTIVE_USER']) . "'";
+$result = mysql_query($sql) or mysql_die($sql);
+$user_info = mysql_fetch_assoc($result);
+$smarty->assign('user_email', $user_info['user_email']);
+
+$smarty->assign('err', $err);
+$smarty->assign('msg', $msg);
+$smarty->assign('sub_menu', 'menu_home.tpl');
+$smarty->display('header.tpl');
+$smarty->display('resend_activation_mail.tpl');
+$smarty->display('footer.tpl');
+db_close();

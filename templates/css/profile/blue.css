@@ -1,0 +1,123 @@
+body {
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    background-color:#545454;
+    margin: 0px;
+    padding: 0px;
+    background-image: none;
+}
+#wrapper 
+{
+    margin: 0 auto;
+    padding: 0;
+    text-align:left;
+    width:60em; /* !IE */
+ *width:960px;/* IE */
+    min-width:960px;
+}
+#menu {
+    width: 100%;
+    margin-bottom: 2em;
+}
+#menu ul {
+    font: bold 11px Arial;
+    margin:0px;
+    padding:0px;
+    list-style: none;
+}
+#menu li {
+    float: left;
+    display: inline;
+    background-color:#4e94d9;
+}
+#menu a {
+    display: block;
+    font-size:10pt;
+    color: #fff;
+    margin: 0 1px 0 0;
+    padding:12px 0;
+    letter-spacing: 1px;
+    width:136.1px;
+    text-align:center;
+    background-image:none;
+    background-color:#0067CE;
+}
+#menu a:hover {
+    color: #FFFF00;
+    text-decoration:underline;
+}
+.bg2
+{
+    background-color:#eaebf0;
+}
+div.section {
+    border:0px;
+    color:#575757;
+    font-size:11px;
+    margin:0 0 0.8em;
+    padding:0;
+}
+div.section div.hd {
+    background-color:#0067CE;
+    background-image: none;
+    border-left:0px solid #0059B3;
+    border-right:0px solid #0059B3;
+}
+.comment_head {
+    background-color:#e5e5e5;
+    border-bottom:1px solid #0067CE;
+    border-top:1px solid #0067CE;
+}
+.comment_body {
+    color:#000000;
+    margin:7px;
+    text-align:left;
+}
+.comment-bg1 {
+    background-color:#d4e1ef;
+}
+.comment-bg2{
+    background-color:#c8d2db;
+}
+.user-info{
+    color:#000000;
+}
+a 
+{
+    color:#0067ce;
+    text-decoration: none;
+    font-weight: bold;
+}
+a:link
+{
+    color:#0067ce;
+    text-decoration: none;
+    font-weight: bold;
+}
+a:visited
+{
+    text-decoration: none;
+    color:#0067ce;
+}
+a:hover
+{
+    color: #0000CC;
+}
+a:active
+{
+    text-decoration: none;
+    color: #3ca5eb;
+}
+.menu_footer {
+    background-image:none;
+    text-align: center;
+    padding: 8px 0;
+    margin: 1em 0;
+    background-color:#0067CE;
+}
+.menu_footer a, .menu_footer a:visited {
+    color: #ffffff;
+}
+.menu_footer a:hover {
+    color: #ffff00;
+}
