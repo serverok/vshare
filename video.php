@@ -24,15 +24,12 @@ if ($page < 1)
     $page = 1;
 }
 
-
-$view_type = isset($_GET['viewtype']) ? $_GET['viewtype'] : 'basic';
+$view_type = isset($_GET['view_type']) ? $_GET['view_type'] : 'basic';
 
 if ($view_type != 'basic')
 {
     $view_type = 'detailed';
 }
-
-$smarty->assign('viewtype', $view_type);
 
 $category = $_GET['category'];
 
@@ -70,9 +67,12 @@ else
 
 $view = Cache::load($cache_id);
 
-if (!$view)
+if (! $view)
 {
+    $view = array();
     
+    $view['view_type'] = $view_type;
+    $view['category'] = $category;
     if ($category == 'featured')
     {
         $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
@@ -93,13 +93,14 @@ if (!$view)
     
     $result = mysql_query($sql) or mysql_die($sql);
     $video_info = mysql_fetch_assoc($result);
-    $total = $video_info['total'];
+    $view['total'] = $video_info['total'];
     
     $start_from = ($page - 1) * $config['num_watch_videos'];
     
     if ($category == 'recent')
     {
-        $html_title = 'Most Recent Videos';
+        $view['html_title'] = 'Most Recent Videos';
+        $view['display_order'] = 'Most Recent';
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
                `video_active`='1' AND
@@ -110,7 +111,8 @@ if (!$view)
     }
     else if ($category == 'viewed')
     {
-        $html_title = 'Most Viewed Videos';
+        $view['html_title'] = 'Most Viewed Videos';
+        $view['display_order'] = 'Most Viewed';
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
                `video_active`='1' AND
@@ -121,7 +123,8 @@ if (!$view)
     }
     else if ($category == 'discussed')
     {
-        $html_title = 'Most Discussed Videos';
+        $view['html_title'] = 'Most Discussed Videos';
+        $view['display_order'] = 'Most Discussed';
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
                `video_active`='1' AND
@@ -132,7 +135,8 @@ if (!$view)
     }
     else if ($category == 'favorites')
     {
-        $html_title = 'Top Favorites Videos';
+        $view['html_title'] = 'Top Favorites Videos';
+        $view['display_order'] = 'Top Favorites';
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
                `video_active`='1' AND
@@ -143,7 +147,8 @@ if (!$view)
     }
     else if ($category == 'rated')
     {
-        $html_title = 'Top Rated Videos';
+        $view['html_title'] = 'Top Rated Videos';
+        $view['display_order'] = 'Top Rated';
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
                `video_active`='1' AND
@@ -154,7 +159,8 @@ if (!$view)
     }
     else if ($category == 'featured')
     {
-        $html_title = 'Featured Videos';
+        $view['html_title'] = 'Featured Videos';
+        $view['display_order'] = 'Featured';
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
                `video_active`='1' AND
@@ -166,7 +172,8 @@ if (!$view)
     }
     else if ($category == 'random')
     {
-        $html_title = 'Random Videos';
+        $view['html_title'] = 'Random Videos';
+        $view['display_order'] = 'Random';
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
                `video_active`='1' AND
@@ -185,32 +192,20 @@ if (!$view)
         $videos[] = $video;
     }
     
-    $start_num = $start_from + 1;
-    $end_num = $start_from + $video_count;
-    
-    $page_links = paginate($total, $config['num_watch_videos'], '.', '', $page);
-    
-    $smarty->assign('page', $page);
-    $smarty->assign('start_num', $start_num);
-    $smarty->assign('end_num', $end_num);
-    $smarty->assign('total', $total);
+    $view['start_num'] = $start_from + 1;
+    $view['end_num'] = $start_from + $video_count;
+    $view['page'] = $page;
+    $view['page_links'] = paginate($view['total'], $config['num_watch_videos'], '.', '', $page);
     $view['videos'] = $videos;
-    
-    $view['html_title'] = $html_title;
-    $view['html_keywords'] = $html_title;
-    $view['html_description'] = $html_title;
     Cache::save($cache_id, $view);
-}    
+}
 
 $smarty->assign('html_title', $view['html_title']);
 $smarty->assign('html_keywords', $view['html_title']);
 $smarty->assign('html_description', $view['html_title']);
-
 $smarty->assign('view', $view);
-$smarty->assign('type', $category);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
-$smarty->assign('page_links', $page_links);
 $smarty->assign('sub_menu', 'menu_watch.tpl');
 $smarty->display('header.tpl');
 $smarty->display('video.tpl');

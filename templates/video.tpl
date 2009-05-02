@@ -3,28 +3,23 @@
     <div class="hd">
     
         <div class="hd-l">
-            {if $smarty.request.category eq ""}
-                {assign var="category" value=recent}
-            {else}
-                {assign var="category" value=$smarty.request.category}
-            {/if}
-            {insert name=tag_to_name assign=tag_name tag=$category}
-            {$tag_name}
+            {$view.display_order}
             {if $channel_name ne ''}
                 {$channel_name} videos
             {/if}
         </div>
         
         <div style="float:right;margin-right:1em;">
-            Videos {$start_num}-{$end_num} of {$total}
+            Videos {$view.start_num}-{$view.end_num} of {$view.total}
         </div>
     
         <div class="hd-r" style="width:120px;">
             {if $channel_name eq ''}
-                {if $smarty.request.view_type eq "detailed"}
-                   <a  href="{$base_url}/{$type}/{$page}">Basic View</a>
+                
+                {if $view.view_type eq "detailed"}
+                   <a  href="{$base_url}/{$view.category}/{$view.page}">Basic View</a>
                 {else}
-                    <a  href="{$base_url}/detailed/{$type}/{$page}">Detailed View</a>
+                    <a  href="{$base_url}/detailed/{$view.category}/{$view.page}">Detailed View</a>
                 {/if}
             {/if}
         </div>
@@ -121,9 +116,9 @@
         
     </div> <!-- video_block -->
    
-    {if $page_links ne ""}
+    {if $view.page_links ne ""}
         <div class="page_links">
-            Pages: &nbsp; &nbsp; {$page_links}
+            Pages: &nbsp; &nbsp; {$view.page_links}
         </div>
     {/if}
 

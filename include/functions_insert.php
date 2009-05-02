@@ -82,39 +82,6 @@ function insert_id_to_name($id)
     return $tmp['user_name'];
 }
 
-function insert_tag_to_name($a)
-{
-    if ($a[tag] == 'recent')
-    {
-        $res = 'Most Recent';
-    }
-    else if ($a[tag] == 'viewed')
-    {
-        $res = "Most Viewed";
-    }
-    else if ($a[tag] == 'discussed')
-    {
-        $res = 'Most Discussed';
-    }
-    else if ($a[tag] == 'favorites')
-    {
-        $res = 'Top Favorites';
-    }
-    else if ($a[tag] == 'rated')
-    {
-        $res = 'Top Rated';
-    }
-    else if ($a[tag] == 'featured')
-    {
-        $res = 'Featured';
-    }
-    else if ($a[tag] == 'random')
-    {
-        $res = 'Random';
-    }
-    return $res;
-}
-
 function insert_time_range($info)
 {
     global $config , $conn;
