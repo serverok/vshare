@@ -156,8 +156,8 @@ if (isset($show_video) && $show_video == 1 && $err == '')
         if ($_SESSION['UID'] != $video_info['video_user_id'])
         {
             $sql = "UPDATE `users` SET
-                      `user_video_viewed`=`user_video_viewed`+1 WHERE
-                      `user_id`='" . (int) $video_info['video_user_id'] . "'";
+                   `user_video_viewed`=`user_video_viewed`+1 WHERE
+                   `user_id`='" . (int) $video_info['video_user_id'] . "'";
             mysql_query($sql) or mysql_die($sql);
         }
         
@@ -173,11 +173,6 @@ if (isset($show_video) && $show_video == 1 && $err == '')
                    `playlist_video_id`='" . (int) $video_id . "'";
             $result = mysql_query($sql) or mysql_die($sql);
         }
-    }
-    
-    if (! isset($_GET['action']))
-    {
-        $_GET['action'] = '';
     }
     
     $cache_id = 'view_video_' . $video_id;
