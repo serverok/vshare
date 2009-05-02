@@ -405,15 +405,16 @@ function process_video($vid, $debug = 1)
             {
                 $log_text = 'ERROR: moving uploaded file failed';
                 write_log($log_text, $log_file_name, $debug, 'html');
-                if ($file_extn == 'flv')
+            }
+            
+            if ($file_extn == 'flv')
+            {
+                if (get_config('enable_flvtool') == 1)
                 {
-                    if (get_config('enable_flvtool') == 1)
-                    {
-                        $cmd_flvtool = $config['flvtool'] . ' -U ' . $video_flv;
-                        $tmp = exec($cmd_flvtool, $exec_result);
-                        $log_text = "<h2>Running flvtool2: $cmd_flvtool</h2>";
-                        write_log($log_text, $log_file_name, $debug, 'html');
-                    }
+                    $cmd_flvtool = $config['flvtool'] . ' -U ' . $video_flv;
+                    $tmp = exec($cmd_flvtool, $exec_result);
+                    $log_text = "<h2>Running flvtool2: $cmd_flvtool</h2>";
+                    write_log($log_text, $log_file_name, $debug, 'html');
                 }
             }
         }
