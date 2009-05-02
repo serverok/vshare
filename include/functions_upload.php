@@ -277,14 +277,14 @@ function process_video($vid, $debug = 1)
                 require VSHARE_DIR . '/include/class.tags.php';
                 $tags = new Tags($download_info['keywords'], $convert_vid, $download_info['user_id'], "0|{$download_info['channels']}|0");
                 $tags->add();
-				
-				$video_tags = $tags->get_tags();
-				$video_keywords = implode(' ',$video_tags);
-				
-				$sql = "UPDATE `videos` SET `video_keywords`='" . mysql_clean($video_keywords) . "' WHERE
+                
+                $video_tags = $tags->get_tags();
+                $video_keywords = implode(' ', $video_tags);
+                
+                $sql = "UPDATE `videos` SET `video_keywords`='" . mysql_clean($video_keywords) . "' WHERE
 						`video_id`='" . (int) $convert_vid . "'";
-				mysql_query($sql) or mysql_die($sql);
-				
+                mysql_query($sql) or mysql_die($sql);
+                
                 unset($tags);
             }
         }
@@ -405,6 +405,16 @@ function process_video($vid, $debug = 1)
             {
                 $log_text = 'ERROR: moving uploaded file failed';
                 write_log($log_text, $log_file_name, $debug, 'html');
+                if ($file_extn == 'flv')
+                {
+                    if (get_config('enable_flvtool') == 1)
+                    {
+                        $cmd_flvtool = $config['flvtool'] . ' -U ' . $video_flv;
+                        $tmp = exec($cmd_flvtool, $exec_result);
+                        $log_text = "<h2>Running flvtool2: $cmd_flvtool</h2>";
+                        write_log($log_text, $log_file_name, $debug, 'html');
+                    }
+                }
             }
         }
         else
