@@ -19,7 +19,7 @@ function download_video($vid)
     
     $video_filename = VSHARE_DIR . '/video/' . $video_info['file'];
     
-    if (file_exists($video_filename))
+    if (file_exists($video_filename) && is_file($video_filename))
     {
         unlink($video_filename);
         write_log("Deleted File: $video_filename");
