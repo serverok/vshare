@@ -1,3 +1,3 @@
 <?php
 
-require '/home/web/config.php';
+require '/home/filmshar/public_html/config.php';
