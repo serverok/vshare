@@ -2,6 +2,7 @@
 
 function seo_name($s)
 {
+    $s = stripslashes($s);
     $s = strip_tags($s);
     $s = preg_replace('!&[^;\s]+;!', '', $s);
     $s = convert_high_ascii($s);
