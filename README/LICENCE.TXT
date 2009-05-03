@@ -26,13 +26,8 @@ and within the HTML that the scripts generate, MUST remain intact.
 "Powered by" wording that appears online, must remain
 visible to the human eye.
 
-If we found you removed "Powered by vShare" and link to 
-BuyScripts.in, you will not get any further 
-update or security fix for your licence.
-
-
 You have option to remove "Powered by vShare" link 
 by paying one time link removel fee of $15.
 
-http://www.buyscripts.in/vshare-license.html
-http://www.buyscripts.in/vshare-branding-free.html
+http://buyscripts.in/vshare-license.html
+http://buyscripts.in/vshare-branding-free.html
