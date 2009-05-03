@@ -86,18 +86,22 @@ if (isset($_POST['submit']))
                     $upload->url = $video_url;
                     $upload->debug = 1;
                     
-                    if ($type == 'public' && $config['approve'] == 1)
+                    if ($config['approve'] == 1)
                     {
                         $current_keyword = mysql_clean($video_info['video_keywords']);
                         $tags = new Tags($video_info['video_keywords'], $vid, $user_id, "0|$channel_id|0");
                         $tags->add();
+                        $video_tags = $tags->get_tags();
+                        $sql = "UPDATE `videos` SET
+                               `video_keywords`='" . mysql_clean(implode(' ',$video_tags)) . "' WHERE
+                               `video_id`='" . (int) $vid . "'";
+                        mysql_query($sql) or mysql_die($sql);
                     }
                     
                     if ($_POST['import_site'] == 'youtube')
                     {
                         $upload->youtube();
                     }
-                
                 }
                 else
                 {
