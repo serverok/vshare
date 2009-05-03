@@ -83,14 +83,6 @@ set_include_path('.' . PATH_SEPARATOR . VSHARE_DIR . '/include/' . PATH_SEPARATO
 
 $result_per_page = 20;
 
-$msg = (isset($_GET['msg'])) ? $_GET['msg'] : '';
-$err = (isset($_GET['err'])) ? $_GET['err'] : '';
-
-if ($msg != '' || $err != '')
-{
-    echo "<h1>Use set_message function to pass message. Refer include/vshare.php and functions.php</h1>";
-}
-
 if (isset($_SESSION['vshare_message']))
 {
     switch ($_SESSION['vshare_message_type'])
