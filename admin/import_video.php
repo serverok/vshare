@@ -134,6 +134,7 @@ if (isset($_POST['submit']))
                `title`='" . mysql_clean($video_title) . "',
                `description`='" . mysql_clean($video_description) . "',
                `keywords`='" . mysql_clean($video_keywords) . "',
+               `process_queue_upload_ip`='" . User::get_ip() . "',
                `type`='" . mysql_clean($_POST['video_privacy']) . "',
                `channels`='$listch',
                `status`=0,
@@ -144,11 +145,10 @@ if (isset($_POST['submit']))
     }
 }
 
-$channels = channels::get_all();
 $smarty->assign('num_max_channels', $num_max_channels);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
-$smarty->assign('channels', $channels);
+$smarty->assign('channels', channels::get_all());
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/import_video.tpl');
 $smarty->display('admin/footer.tpl');
