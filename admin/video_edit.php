@@ -141,24 +141,6 @@ $active_box = "
 
 $smarty->assign('active_box', $active_box);
 
-if ($video['video_approve'] == 1)
-{
-    $approve_yes = 'selected="selected"';
-    $approve_no = '';
-}
-else
-{
-    $approve_no = 'selected="selected"';
-    $approve_yes = '';
-}
-
-$approve_box = "
-<option value='1' $approve_yes>Yes</option>
-<option value='0' $approve_no>No</option>
-";
-
-$smarty->assign('approve_box', $approve_box);
-
 if ($video['video_allow_comment'] == 'yes')
 {
     $video_allow_comment_yes = 'selected="selected"';
