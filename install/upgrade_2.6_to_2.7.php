@@ -107,6 +107,8 @@ mysql_query($sql) or die ('Unable to execute query' . $sql);
 $sql = "SELECT * FROM `videos` WHERE `video_type`='public'";
 $result = mysql_query($sql) or die($sql);
 
+echo 'Upgrading: ';
+
 while ($video_info = mysql_fetch_assoc($result))
 {
     $video_id = $video_info['video_id'];
@@ -122,10 +124,11 @@ while ($video_info = mysql_fetch_assoc($result))
     $video_tags = $tags->get_tags();
     $video_keywords_new = implode(' ', $video_tags);
     
-    echo $sql = "UPDATE `videos` SET 
-                `video_keywords`='" . mysql_clean($video_keywords_new) . "' WHERE 
-                `video_id`='" . (int) $video_id . "'";
+    $sql = "UPDATE `videos` SET 
+           `video_keywords`='" . mysql_clean($video_keywords_new) . "' WHERE 
+           `video_id`='" . (int) $video_id . "'";
     mysql_query($sql) or die($sql);
+    echo '.';
 }
 
 write_log('#### UPGRADE 2.6 to 2.7 FINISHED ####', 'vshare_upgrade', 0,'txt');
