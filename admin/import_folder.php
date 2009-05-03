@@ -21,6 +21,8 @@ $import_folder = VSHARE_DIR . '/templates_c/import';
 
 $videos = array();
 
+$folder_empty = 0;
+
 if (is_dir($import_folder))
 {
     $import_video = dir($import_folder);
@@ -46,10 +48,10 @@ if (is_dir($import_folder))
 }
 else
 {
-    $err = 1;
+    $folder_empty = 1;
 }
 
-$smarty->assign('err', $err);
+$smarty->assign('folder_empty', $folder_empty);
 $smarty->assign('import_video', $videos);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/import_folder.tpl');

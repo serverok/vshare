@@ -1,6 +1,6 @@
 <h1>Import Folder</h1>
 
-{if $err eq "1"}
+{if $folder_empty eq "1"}
 
 	<p>To Import videos from folder, you need to do the following</p>
 
