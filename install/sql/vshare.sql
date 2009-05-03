@@ -560,7 +560,7 @@ INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('adult', '1');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('video_comments_per_page', '5');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('user_comments_per_page', '5');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('num_new_videos', '5');
-INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('num_watch_videos', '10');
+INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('num_watch_videos', '20');
 
 -- Table structure for table `servers`
 

@@ -340,6 +340,7 @@ ALTER TABLE `videos` ADD FULLTEXT (`video_keywords`);
 
 UPDATE `sconfig` SET `svalue` = '600' WHERE `soption` = 'player_width';
 UPDATE `sconfig` SET `svalue` = '500' WHERE `soption` = 'player_height';
+UPDATE `sconfig` SET `svalue` = '20' WHERE `soption` = 'num_watch_videos';
 
 ALTER TABLE `process_queue` CHANGE `user_ip` `process_queue_upload_ip` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 
