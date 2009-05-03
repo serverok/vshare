@@ -12,12 +12,12 @@
         </div>
 
         <div class="uplod">
-            <a href="{$base_url}/upload.php"><span>Upload</span></a>
+            <a href="{$base_url}/upload/"><span>Upload</span></a>
             Quickly upload and tag videos in almost any video format.
         </div>
 
         <div class="share">
-            <a href="{$base_url}/invite_friends.php"><span>Share</span></a>
+            <a href="{$base_url}/friends/invite/"><span>Share</span></a>
             Easily share your videos with everyone, put videos on your space or watch them here.
         </div>
    
