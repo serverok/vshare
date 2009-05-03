@@ -110,6 +110,7 @@ if (isset($_POST['submit']))
 			               `title`='" . mysql_clean($video_info['video_title']) . "',
 			               `description`='" . mysql_clean($video_info['video_description']) . "',
 			               `keywords`='" . mysql_clean($video_info['video_keywords']) . "',
+			               `process_queue_upload_ip`='" . User::get_ip() . "',
 			               `type`='public',
 			               `channels`='0|" . mysql_clean($channel_id) . "|0',
 			               `status`='0',
