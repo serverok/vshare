@@ -540,11 +540,6 @@ function insert_group_info_count($a)
         {
             $sql_extra = "AND `$a[field1]`='yes'";
         }
-        else
-        {
-            echo "<h1>$a[query] - It is insecure to pass string</h1>";
-            exit();
-        }
     }
     
     if ($a['tbl'] == 'groups')
@@ -1079,9 +1074,4 @@ function insert_user_rate($a)
     
     $list .= '</div>';
     echo $list;
-}
-
-function insert_x_debug_time()
-{
-    echo '<div class="x-debug-time">Generated in ' . xdebug_time_index() . 'Seconds</div>';
 }
