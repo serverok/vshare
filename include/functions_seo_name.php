@@ -98,6 +98,7 @@ function clean_special_chrs($title)
         "-->",
         "<",
         ">",
+        "'",
         '"',
         '&',
         '$',
