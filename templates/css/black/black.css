@@ -356,8 +356,8 @@ TOP MENU
 	width: 100%;
 	margin-bottom: 2em;
     margin-top:5px;
-	border-top:1px solid #383838;
-	border-bottom:1px solid #383838
+	border-top:1px solid #333;
+	border-bottom:1px solid #515152
  }
 #menu ul {
 	font: bold 11px Arial;
@@ -382,7 +382,7 @@ TOP MENU
 	background-image: url("./images/menu.gif");
 }
 #menu a:hover {
-	color: #cd670c;
+	color: #ffff00;
 	text-decoration:underline;
 }
 /*
@@ -852,7 +852,7 @@ form#create-group > div.submit {
 	margin-bottom:10px;
 	background:#161616;
 	border:1px solid #272727;
-	color:#575757;
+	color:#888888;
 	font-size:12px;
 }
 #watch-uplod-share span {

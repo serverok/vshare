@@ -25,7 +25,7 @@
                             {if $group_image_info eq "0"}
                                 <img class="preview" src="{$img_css_url}/images/no_videos_groups.gif" width="120px" height="90" alt="" />
                             {else}
-                                <img height="90" src="{$group_image_info.video_thumb_url}/thumb/{$group_image_info.video_folder}1_{$group_image_info.video_id}.jpg" alt="" />
+                                <img width="120px" height="90" src="{$group_image_info.video_thumb_url}/thumb/{$group_image_info.video_folder}1_{$group_image_info.video_id}.jpg" alt="" />
                             {/if} 
                         </a>
                         {if $groups[i].group_owner_id eq $smarty.session.UID}
