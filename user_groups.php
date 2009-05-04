@@ -55,7 +55,20 @@ $sql = "SELECT g.*, gm.group_member_group_id FROM
         LIMIT $start_from, $config[items_per_page]";
 $result = mysql_query($sql) or mysql_die($sql);
 $num_result = mysql_num_rows($result);
-$groups = mysql_fetch_all($result);
+
+$user_group_keywords_all = '';
+
+while ($group_row = mysql_fetch_assoc($result))
+{
+    $groups[] = $group_row;
+    $user_group_keywords_all .= $group_row['group_keyword'] . ' ';
+}
+
+$user_group_keywords_array = split(' ', $user_group_keywords_all);
+
+$view = array();
+$view['user_group_keywords_array'] = array_remove_duplicate($user_group_keywords_array);
+$smarty->assign('view', $view);
 
 $start_num = $start_from + 1;
 $end_num = $start_from + $num_result;
@@ -67,8 +80,6 @@ $smarty->assign('page_links', $page_links);
 $smarty->assign('total', $total);
 $smarty->assign('groups', $groups);
 $smarty->assign('user_info', $user_info);
-$tags = group_tags($sql);
-$smarty->assign('tags', $tags);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('page', $page);

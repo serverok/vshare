@@ -74,8 +74,8 @@
             </div>
         
             <div class="tags"><b>Group Tags:</b>
-                {section name=i loop=$tags}
-                <p><a href="{$base_url}/search_group.php?search_type=search_groups&search={$tags[i]}">{$tags[i]}</a></p>
+                {section name=i loop=$view.user_group_keywords_array}
+                <p><a href="{$base_url}/tag/{$view.user_group_keywords_array[i]}/">{$view.user_group_keywords_array[i]}</a></p>
                 {/section}
             </div>
         </div> <!-- section -->

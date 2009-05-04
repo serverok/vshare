@@ -75,62 +75,7 @@ $sql = "ALTER TABLE `videos` CHANGE
 mysql_query($sql) or mysql_die($sql);
 write_log($sql, 'vshare_upgrade', 0,'txt');
 
-// rebuld tags
-
-$sql = "DROP TABLE `tags`, `tag_video`";
-mysql_query($sql) or die ('Unable to execute query' . $sql);
-
-$sql = "
-CREATE TABLE IF NOT EXISTS `tags` (
-  `id` int(11) NOT NULL auto_increment,
-  `tag` varchar(255) NOT NULL,
-  `tag_count` int(11) NOT NULL default '0',
-  `used_on` int(11) NOT NULL default '0',
-  `active` tinyint(1) NOT NULL default '1',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
-
-mysql_query($sql) or die ('Unable to execute query' . $sql);
-
-$sql = "
-CREATE TABLE IF NOT EXISTS `tag_video` (
-  `id` int(11) NOT NULL auto_increment,
-  `tag_id` int(11) NOT NULL,
-  `vid` int(11) NOT NULL,
-  `chid` varchar(255) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
-
-mysql_query($sql) or die ('Unable to execute query' . $sql);
-
-
-$sql = "SELECT * FROM `videos` WHERE `video_type`='public'";
-$result = mysql_query($sql) or die($sql);
-
-echo 'Upgrading: ';
-
-while ($video_info = mysql_fetch_assoc($result))
-{
-    $video_id = $video_info['video_id'];
-    $video_keywords = $video_info['video_keywords'];
-    $video_channels = $video_info['video_channels'];
-    $video_user_id = $video_info['video_user_id'];
-    $video_add_time = $video_info['video_add_time'];
-
-    $tags = new Tags($video_keywords, $video_id, $video_user_id, $video_channels);
-    $tags->settime($video_add_time);
-    $tags->add();
-    
-    $video_tags = $tags->get_tags();
-    $video_keywords_new = implode(' ', $video_tags);
-    
-    $sql = "UPDATE `videos` SET 
-           `video_keywords`='" . mysql_clean($video_keywords_new) . "' WHERE 
-           `video_id`='" . (int) $video_id . "'";
-    mysql_query($sql) or die($sql);
-    echo '.';
-}
-
 write_log('#### UPGRADE 2.6 to 2.7 FINISHED ####', 'vshare_upgrade', 0,'txt');
 
-upgrade_next_step("2.7");
+$next_step = VSHARE_URL . '/install/build_tags_2.7.php';
+upgrade_next_step("2.7","$next_step");

@@ -24,8 +24,7 @@ class Tags
         {
             if (mb_strlen($kw, 'UTF-8') > 1 && mb_strlen($kw, 'UTF-8') < 20)
             {
-                $kw = mysql_clean(trim($kw));
-                $kw = str_replace(' ', '-', $kw);
+                $kw = trim($kw);
                 $new_kw_arr[] = $kw;
             }
         }
@@ -52,9 +51,9 @@ class Tags
                 
                 if ($tag_info['tag_count'] > 0)
                 {
-                    $sql = "UPDATE tags SET `tag_count`=`tag_count`-1 WHERE
+                    $sql = "UPDATE `tags` SET `tag_count`=`tag_count`-1 WHERE
                            `tag`='" . $this->tags[$i] . "'";
-                    $result = mysql_query($sql) or mysql_die($sql);
+                    mysql_query($sql) or mysql_die($sql);
                 }
             }
         }
@@ -62,25 +61,24 @@ class Tags
 
     function add()
     {
-        
         foreach ($this->tags as $tag)
         {
-            
             $sql = "SELECT * FROM `tags` WHERE
                    `tag`='" . mysql_clean($tag) . "'";
-            $result = mysql_query($sql);
+            mysql_query($sql) or mysql_die($sql);
             
             if (mysql_num_rows($result) > 0)
             {
                 $tag_info = mysql_fetch_assoc($result);
+                
                 $sql = "UPDATE `tags` SET
                        `tag_count`=`tag_count`+1,
-                       `used_on`=$this->now WHERE
-                       `tag`='$tag'";
+                       `used_on`='$this->now' WHERE
+                       `tag`='" . mysql_clean($tag) . "'";
                 $tmp = mysql_query($sql) or mysql_die($sql);
                 $sql = "INSERT INTO `tag_video` SET
-                       `tag_id`=$tag_info[id],
-                       `vid`=$this->vid,
+                       `tag_id`='$tag_info[id]',
+                       `vid`='$this->vid',
                        `chid`='$this->channels'";
                 $tmp = mysql_query($sql) or mysql_die($sql);
             }
@@ -88,8 +86,8 @@ class Tags
             {
                 $sql = "INSERT INTO `tags` SET
                        `tag`='$tag',
-                       `tag_count`=1,
-                       `used_on`=$this->now";
+                       `tag_count`='1',
+                       `used_on`='$this->now'";
                 $tmp = mysql_query($sql) or mysql_die($sql);
                 $tags_id = mysql_insert_id();
                 $sql = "INSERT INTO `tag_video` SET
@@ -110,7 +108,6 @@ class Tags
     {
         $bad = array(
             "_",
-//            "-",
             "^",
             ")",
             "(",
@@ -124,6 +121,7 @@ class Tags
             "-->",
             "<",
             ">",
+            "'",
             '"',
             '&',
             '$',
@@ -152,139 +150,6 @@ class Tags
         );
         
         return stripslashes(str_replace($bad, '', $tags));
-    }
-
-    function common_word($tag)
-    {
-        $common_words = array(
-            'i',
-            'me',
-            'my',
-            'myself',
-            'we',
-            'our',
-            'ours',
-            'ourselves',
-            'you',
-            'your',
-            'yours',
-            'yourself',
-            'yourselves',
-            'he',
-            'him',
-            'his',
-            'himself',
-            'she',
-            'her',
-            'hers',
-            'herself',
-            'it',
-            'its',
-            'itself',
-            'they',
-            'them',
-            'their',
-            'theirs',
-            'themselves',
-            'what',
-            'which',
-            'who',
-            'whom',
-            'this',
-            'that',
-            'these',
-            'those',
-            'am',
-            'is',
-            'are',
-            'was',
-            'were',
-            'be',
-            'been',
-            'being',
-            'have',
-            'has',
-            'had',
-            'having',
-            'do',
-            'does',
-            'did',
-            'doing',
-            'a',
-            'an',
-            'the',
-            'and',
-            'but',
-            'if',
-            'or',
-            'because',
-            'as',
-            'until',
-            'while',
-            'of',
-            'at',
-            'by',
-            'for',
-            'with',
-            'about',
-            'against',
-            'between',
-            'into',
-            'through',
-            'during',
-            'before',
-            'after',
-            'above',
-            'below',
-            'to',
-            'from',
-            'up',
-            'down',
-            'in',
-            'out',
-            'on',
-            'off',
-            'over',
-            'under',
-            'again',
-            'further',
-            'then',
-            'once',
-            'here',
-            'there',
-            'when',
-            'where',
-            'why',
-            'how',
-            'all',
-            'any',
-            'both',
-            'each',
-            'few',
-            'more',
-            'most',
-            'other',
-            'some',
-            'such',
-            'no',
-            'nor',
-            'not',
-            'only',
-            'own',
-            'same',
-            'so',
-            'than',
-            'too',
-            'very'
-        );
-        foreach ($common_words as $common_word)
-        {
-            if (preg_match("/\b$common_word\b/i", $tag))
-            {
-                $tag = preg_replace("/\b$common_word\b/i", '', $tag);
-            }
-        }
-        return $tag;
     }
 
     function get_tags()
