@@ -218,6 +218,10 @@ class User
         $token = md5($token);
         setcookie('VSHARE_AL_USER', $user_name, time() + 60 * 60 * 24 * 100, '/');
         setcookie('VSHARE_AL_PASSWORD', $token, time() + 60 * 60 * 24 * 100, '/');
+        // set new token for session auth
+        $token = $password . $user_salt;
+        $token = md5($token);
+        $_SESSION['pwd'] = $token;
     }
 
     function login_auto()
