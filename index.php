@@ -127,12 +127,11 @@ if (! $view)
     $view['home_tags'] = insert_tags();
     $view['new_videos'] = $new_videos;
     $view['new_video_total'] = mysql_num_rows($result);
-    $view['html_extra'] = $smarty->fetch('index_js.tpl');
     Cache::save($cache_id, $view);
 }
 
 $smarty->assign('view', $view);
-$smarty->assign('html_extra', $view['html_extra']);
+$smarty->assign('html_extra', $smarty->fetch('index_js.tpl'));
 $smarty->assign('num_last_users_online', get_config('num_last_users_online'));
 $smarty->assign('home_num_tags', get_config('home_num_tags'));
 $smarty->assign('msg', $msg);
