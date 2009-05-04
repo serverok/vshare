@@ -67,19 +67,19 @@ img {
 }
 .vshare-success {
 	font-weight: bold;
-	color: #529214;
-	background-color: #E6EFC2;
-	border: 1px solid #C6D880;
+	color: #090;
+	background-color: #FAFFF1;
+	border: 1px solid #A9D260;
 	padding:1em;
-	margin: 1em 0em;
+	margin: 5px 0 10px 0;
 }
 .vshare-error {
 	font-weight: bold;
-	color: #8A1F11;
+	color: #f00;
 	padding:1em;
-	margin: 1px 0em;
-	background-color: #FBE3E4;
-	border: 1px solid #FBC2C4;
+	margin: 5px 0 10px 0;
+	background-color: #FFFFEE;
+	border: 1px solid #ff6600;
 }
 /* common */
 
