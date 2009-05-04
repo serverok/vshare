@@ -2,16 +2,15 @@
 
 require '../include/config.php';
 
-$admin_email = '';
-$ipn_debug = 0;
-
+$admin_email = $config['admin_email'];
+$ipn_debug = 1;
 
 $req = 'cmd=_notify-validate';
 
 foreach ($_POST as $key => $value)
 {
-	$value = urlencode(stripslashes($value));
-	$req .= "&$key=$value";
+    $value = urlencode(stripslashes($value));
+    $req .= "&$key=$value";
 }
 
 $header = "POST /cgi-bin/webscr HTTP/1.0\r\n";
@@ -20,14 +19,14 @@ $header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
 
 if ($config['enable_test_payment'] == 'yes')
 {
-	$paypal_url = 'www.sandbox.paypal.com';
+    $paypal_url = 'www.sandbox.paypal.com';
 }
 else
 {
-	$paypal_url = 'www.paypal.com';
+    $paypal_url = 'www.paypal.com';
 }
 
-$fp = fsockopen ($paypal_url, 80, $errno, $errstr, 30);
+$fp = fsockopen($paypal_url, 80, $errno, $errstr, 30);
 
 // assign posted variables to local variables
 $item_name = $_POST['item_name'];
@@ -71,15 +70,14 @@ $custom = $_POST['custom'];
 $notify_version = $_POST['notify_version'];
 $verify_sign = $_POST['verify_sign'];
 $payer_business_name = $_POST['payer_business_name'];
-$payer_id =$_POST['payer_id'];
+$payer_id = $_POST['payer_id'];
 $mc_currency = $_POST['mc_currency'];
 $mc_fee = $_POST['mc_fee'];
 $exchange_rate = $_POST['exchange_rate'];
-$settle_currency  = $_POST['settle_currency'];
-$parent_txn_id  = $_POST['parent_txn_id'];
+$settle_currency = $_POST['settle_currency'];
+$parent_txn_id = $_POST['parent_txn_id'];
 
 $custom = urldecode($_POST['custom']);
-
 
 $message = <<<message
 ----------------------------------
@@ -130,105 +128,114 @@ parent_txn_id  = $parent_txn_id
 
 message;
 
-
-if (!$fp)
+if (! $fp)
 {
-	if($ipn_debug == 1)
-	{
-		mail($admin_email, "[IPN] UNABLE TO CONNECT PAYPAL",$message);
-	}
+    if ($ipn_debug == 1)
+    {
+        mail($admin_email, "[IPN] UNABLE TO CONNECT PAYPAL", $message);
+    }
 }
 else
 {
-
-fputs($fp,$header.$req);
-
-while (!feof($fp))
-{
-
-$res = fgets ($fp, 1024);
-
-if (strcmp ($res, "VERIFIED") == 0)
-{
-
-# payment_currency is correct
-
-    if ($config["paypal_currency"] != $mc_currency)
+    
+    fputs($fp, $header . $req);
+    
+    while (! feof($fp))
     {
-    $error[] = "Fraud attempt was detected. (Payer uses another currency then site)";
-    }
+        
+        $res = fgets($fp, 1024);
+        
+        if (strcmp($res, "VERIFIED") == 0)
+        {
+            
+            # payment_currency is correct
+            
 
-# Check receiver email
+            if ($config["paypal_currency"] != $mc_currency)
+            {
+                $error[] = "Fraud attempt was detected. (Payer uses another currency then site)";
+            }
+            
+            # Check receiver email
+            
 
-    if (strtolower($receiver_email) != strtolower($config["paypal_receiver_email"]))
-    {
-    $error[] = "Fraud attempt was detected. (PayPal's receiver email is not equal to attempting's receiver email: $receiver_email)";
-    }
+            if (strtolower($receiver_email) != strtolower($config["paypal_receiver_email"]))
+            {
+                $error[] = "Fraud attempt was detected. (PayPal's receiver email is not equal to attempting's receiver email: $receiver_email)";
+            }
+            
+            // check the payment_status is Completed
+            // check that txn_id has not been previously processed
+            // check that payment_amount/payment_currency are correct
+            // process payment
+            // if 'VERIFIED', send an email of IPN variables and values to the specified email address
+            
 
+            if (count($error) == 0)
+            {
+                
+                if ($ipn_debug == 1)
+                {
+                    mail($admin_email, "VERIFIED IPN", $message);
+                }
+                
+                $sql_log = '';
+                
+                ####################### PAYMENT SUCCESS START ############################
+                
 
-// check the payment_status is Completed
-// check that txn_id has not been previously processed
-// check that payment_amount/payment_currency are correct
-// process payment
-// if 'VERIFIED', send an email of IPN variables and values to the specified email address
-
-if (count($error) == 0)
-{
-
-    if ($ipn_debug == 1)
-    {
-        mail($admin_email, "VERIFIED IPN", $message);
-    }
-
-    ####################### PAYMENT SUCCESS START ############################
-
-    list ($tInvoiceID,$tIsRecurring,$tGenerateInvoice) = explode("_", $_POST["custom"]);
-
-    $custom_array = explode('|', $custom);
-    $userid = $custom_array[0];
-    $pack_id = $custom_array[1];
-    $period = $custom_array[2];
-    $the_price = $custom_array[3];
-
-    $expired_time = date("Y-m-d H:i:s", strtotime("+$period"));
-
-    $sql = "UPDATE subscriber SET
+                list($tInvoiceID, $tIsRecurring, $tGenerateInvoice) = explode("_", $_POST["custom"]);
+                
+                $custom_array = explode('|', $custom);
+                $userid = $custom_array[0];
+                $pack_id = $custom_array[1];
+                $period = $custom_array[2];
+                $the_price = $custom_array[3];
+                
+                $expired_time = date("Y-m-d H:i:s", strtotime("+$period"));
+                
+                $sql = "UPDATE subscriber SET
            `pack_id`='$pack_id',
            `subscribe_time`='" . date("Y-m-d H:i:s") . "',
            `expired_time`='" . mysql_clean($expired_time) . "' WHERE
            `UID`='" . (int) $userid . "'";
-    $result = mysql_query($sql);
-
-    $sql = "UPDATE `users` SET account_status='Active' WHERE UID=$userid";
-    $result = mysql_query($sql);
-
-    $sql = "SELECT * from `users` WHERE
+                mysql_query($sql);
+                $sql_log .= "<p>$sql</p>";
+                
+                $sql = "UPDATE `users` SET 
+           `user_account_status`='Active' WHERE 
+           `user_id`='$userid'";
+                mysql_query($sql);
+                $sql_log .= "<p>$sql</p>";
+                
+                $sql = "SELECT * from `users` WHERE
     	   `user_id`=$userid";
-    $result = mysql_query($sql);
-    $user_info = mysql_fetch_object($result);
-    $to = $user_info->email;
-    $username = $user_info->username;
-
-    $name = $config['site_name'];
-    $from = $config['admin_email'];
-
-    $sql = "SELECT * from `package` WHERE
-    	   `pack_id`=$pack_id";
-    $result = mysql_query($sql);
-    $package_info = mysql_fetch_object($result);
-    $package_name = $package_info->pack_name;
-
-    $smarty->assign('userid', $userid);
-    $smarty->assign('username', $username);
-    $smarty->assign('pack_id', $pack_id);
-    $smarty->assign('pack_name', "$package_name");
-    $smarty->assign('amount', "$the_price");
-    $smarty->assign('period', "$period");
-    $smarty->assign('expired_time',"$expired_time");
-
-    $vshare_url = VSHARE_URL;
-    
-$body = "
+                $result = mysql_query($sql);
+                $sql_log .= "<p>$sql</p>";
+                $user_info = mysql_fetch_assoc($result);
+                $to = $user_info['user_email'];
+                $username = $user_info['user_name'];
+                
+                $name = $config['site_name'];
+                $from = $config['admin_email'];
+                
+                $sql = "SELECT * from `packages` WHERE
+    	   `package_id`=$pack_id";
+                $result = mysql_query($sql);
+                $package_info = mysql_fetch_assoc($result);
+                $package_name = $package_info['package_name'];
+                
+                $smarty->assign('userid', $userid);
+                $smarty->assign('username', $username);
+                $smarty->assign('pack_id', $pack_id);
+                $smarty->assign('pack_name', "$package_name");
+                $smarty->assign('amount', "$the_price");
+                $smarty->assign('period', "$period");
+                $smarty->assign('expired_time', "$expired_time");
+                
+                $vshare_url = VSHARE_URL;
+                
+                $body = "
 	<P>Hello  $username,</P>
 
 	<P>Your payment received successfully. Your payment status is:</P>
@@ -246,20 +253,20 @@ $body = "
 
 	<P>$config[site_name] Team</p>
 ";
+                
+                $headers = "From: " . $from . "\n";
+                $headers .= "Content-Type: text/html\n";
+                $subj = "Receipt for your payment to" . $config['site_name'];
+                
+                mail("$to", "$subj", "$body", "$headers");
+                
+                ####################### PAYMENT SUCCESS ############################ END
+                
 
-    $headers  = "From: " . $from . "\n";
-    $headers .= "Content-Type: text/html\n";
-    $subj = "Receipt for your payment to" . $config['site_name'];
+                ####################### SEND MAIL TO ADMIN ############################
+                
 
-    mail("$to","$subj","$body","$headers");
-
-
-####################### PAYMENT SUCCESS ############################ END
-
-
-####################### SEND MAIL TO ADMIN ############################
-
-$message_admin =<<<EOT
+                $message_admin = <<<EOT
 
 User: $username
 Package: $package_name
@@ -269,44 +276,45 @@ Expiry Date: $expired_time
 Payer Email: $payer_email
 Total: $mc_gross
 Payment Date: $payment_date
-
+----
+$sql_log
 EOT;
+                
+                $subject = $config["site_name"] . " - Got Payment";
+                
+                mail($admin_email, $subject, $message_admin);
+                
+            ####################### SEND MAIL TO ADMIN ############################  END
+            
 
-    $subject = $config["site_name"] . " - Got Payment";
-
-    mail($admin_email,$subject,$message_admin);
-
-    ####################### SEND MAIL TO ADMIN ############################  END
-
-
-    }
-    else
-    {
-
-$error_list = implode("\n",$error);
-
-$message = "
+            }
+            else
+            {
+                
+                $error_list = implode("\n", $error);
+                
+                $message = "
 $message
 ===============================
 ERRORS
 ===============================
 $error_list
 ";
-
-    if ($ipn_debug == 1)
-    {
-    	mail($admin_email, "VERIFIED IPN WITH ERRORS", $message);
-    }
-
-    }
+                
+                if ($ipn_debug == 1)
+                {
+                    mail($admin_email, "VERIFIED IPN WITH ERRORS", $message);
+                }
+            
+            }
         }
-        else if (strcmp ($res, "INVALID") == 0)
+        else if (strcmp($res, "INVALID") == 0)
         {
             if ($ipn_debug == 1)
             {
-            	mail($admin_email, "INVALID IPN", $message);
+                mail($admin_email, "INVALID IPN", $message);
             }
         }
     }
-    fclose ($fp);
+    fclose($fp);
 }
