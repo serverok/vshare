@@ -214,7 +214,9 @@
             </div>
             
         {/if}
-        
+    
+    </div>
+    
     {/if}
 
 </div> <!-- content -->
