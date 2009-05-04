@@ -83,6 +83,9 @@ set_include_path('.' . PATH_SEPARATOR . VSHARE_DIR . '/include/' . PATH_SEPARATO
 
 $result_per_page = 20;
 
+$msg = '';
+$err = '';
+
 if (isset($_SESSION['vshare_message']))
 {
     switch ($_SESSION['vshare_message_type'])
