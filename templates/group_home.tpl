@@ -155,67 +155,7 @@
             </div> <!-- group-home-info --> 
 
             <div class="clearfix"></div>
-
-            <!--Topics  start -->             
-
-            <!--
-            
             <br />
-            
-            <div class="bg2">
-
-                <div id="display_topics">&nbsp;</div>
-                
-                    {if $smarty.session.UID ne ""}
-                        {if $smarty.session.UID eq $group_info.group_owner_id or $group_info.group_posting ne 'owner_only'}
-                            {if $checkmem ne "0"}
-                                {if $is_member eq "yes"}
-                                    <div id="add_topic_msg">
-                                        &nbsp;
-                                    </div>
-                                        <div id="add_topic">
-                                    
-                                        <div style="padding-left: 5px; font-weight: bold; padding-bottom: 5px; color: #808080; padding-top: 8px">
-                                            Add New Topic:
-                                        </div>
-                                        
-                                        <div style="padding-left: 5px; padding-bottom: 5px">
-
-                                            <form name=add_group_topic action="javascript:void(0);" method="post">
-                                                <textarea tabindex="2" name="topic_title" rows="3" cols="55"></textarea>
-                                                <br />Attach a video:
-                                                <select name="topic_video">{$video_ops}</select>
-                                                <input type="hidden" name="group_id" value="{$group_info.group_id}" />
-                                                <input type="hidden" name="group_url" value="{$group_info.group_url}" />
-                                                <input type="submit" value="Add Topic" name="add_topic" onclick="add_topics();" />
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                {/if}
-                            {else}
-                                <div align="center">
-                                    <b>You need to join this group to post a topic.</b>
-                                    <br /><br />
-                                </div>
-                            {/if}
-                        {/if}
-                    {else}
-                        <br /><br />
-                        <div style="padding-left: 5px; font-weight: bold; padding-bottom: 5px; color: #444;
-                            padding-top: 8px" align="center">
-                            Please <a href="{$base_url}/login/">Login</a> to post new topic
-                        </div>
-                    {/if}
-                </div>
-                -->
-                
-               <!--Topic section end-->
-           
-            </div> <!-- section -->
-
-            <br />
-
             <div class="section bg2 clearfix">
 
                 <div class="hd">
