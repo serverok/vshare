@@ -113,9 +113,6 @@ $sql = "SELECT * FROM `videos` WHERE
 $result = mysql_query($sql) or mysql_die($sql);
 $num_result = mysql_num_rows($result);
 
-$tags = group_tags($sql);
-$smarty->assign('tags', $tags);
-
 if ($num_result > 0)
 {
     $group_add_video_keywords_all = '';

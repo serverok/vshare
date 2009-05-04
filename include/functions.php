@@ -199,41 +199,6 @@ function check_field_exists($fvalue, $field, $table)
     }
 }
 
-function group_tags($sql)
-{
-    global $conn , $config;
-    $list = '';
-    $result = mysql_query($sql) or mysql_die($sql);
-    while ($tmp = mysql_fetch_assoc($result))
-    {
-        if (! empty($tmp['group_id']))
-        {
-            $list .= ',' . $tmp['group_keyword'];
-        }
-        else
-        {
-            $list .= ',' . $tmp['video_keywords'];
-        }
-    
-    }
-    
-    $list = trim($list);
-    require VSHARE_DIR . '/include/class.tags.php';
-    $tags = new Tags($list, '0', '0', '0|1|0');
-    $taglist = $tags->get_tags();
-    
-    //echo "$sql<pre>"; print_r($taglist);exit;
-    for ($i = 0; $i < count($taglist); $i ++)
-    {
-        $taglist[$i] = stripslashes($taglist[$i]);
-    }
-    
-    if ($list != '')
-    {
-        return $taglist;
-    }
-}
-
 function timediff($my_time, $current_time = '')
 {
     $time1 = strtotime($my_time);
