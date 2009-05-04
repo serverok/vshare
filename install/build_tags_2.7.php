@@ -5,7 +5,7 @@ require '../include/class.tags.php';
 require './inc/functions_upgrade.php';
 require './tpl/header.php';
 
-echo '<p>Rebuilding Video Tags:</p>';
+echo '<h1>Rebuilding Video Tags</h1>';
 
 $sql = "DROP TABLE `tags`, `tag_video`";
 mysql_query($sql) or die ('Unable to execute query' . $sql);
@@ -63,7 +63,7 @@ while ($video_info = mysql_fetch_assoc($result))
 $sql = "SELECT `group_id`,`group_keyword` FROM `groups`";
 $result = mysql_query($sql) or mysql_die($sql);
 
-echo '<p>Rebuilding Group Tags:</p>';
+echo '<h2>Rebuilding Group Tags</h1>';
 
 while ( $group_info = mysql_fetch_assoc($result) )
 {
