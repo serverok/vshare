@@ -179,11 +179,9 @@ if (isset($_POST['submit']))
                        `total_video`=`total_video`+1 WHERE
                        `UID`='" . (int) $user_id . "'";
             mysql_query($sql) or mysql_die($sql);
-            set_message($lang['successfully'], 'success');
             $redirect_url = VSHARE_URL . '/upload/success/' . $video_id . '/remote/';
             redirect($redirect_url);
         }
-    
     }
     else
     {

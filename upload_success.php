@@ -22,9 +22,10 @@ if ($guest_upload == 0)
     User::is_logged_in();
 }
 
-if (isset($_GET['id']))
+$upload_id = $_GET['upload_id'];
+
+if ($upload_id != 'remote')
 {
-    
     $id = $_GET['id'];
     if (! is_numeric($id))
     {
@@ -73,9 +74,9 @@ if (isset($_GET['id']))
     }
 
 }
-else if (isset($_GET['vid']))
+else
 {
-    $vid = $_GET['vid'];
+    $vid = $_GET['id'];
     
     $sql = "SELECT * FROM `videos` WHERE
            `video_id`='" . (int) $vid . "'";
@@ -95,7 +96,6 @@ else if (isset($_GET['vid']))
 
 if ($video_processed == 1)
 {
-    
     if ($video_info['video_vtype'] == 0)
     {
         if ($video_info['video_server_id'] == 0)
@@ -110,18 +110,12 @@ if ($video_processed == 1)
             $server_info = mysql_fetch_assoc($result);
             $flv_url = $server_info['url'] . '/' . $video_info['video_folder'] . $video_info['video_flv_name'];
         }
+        
         $smarty->assign('flv_url', $flv_url);
     }
 }
 
-$upload_id = isset($_GET['upload_id']) ? $_GET['upload_id'] : '';
-
-if ($upload_id == 'remote')
-{
-    $upload_id = '';
-}
-
-if ($upload_id != '')
+if ($upload_id != 'remote')
 {
     unset($_SESSION["$upload_id"]['field_privacy']);
     unset($_SESSION["$upload_id"]['description']);
@@ -133,7 +127,6 @@ if ($upload_id != '')
 
 $smarty->assign('video_processed', $video_processed);
 $smarty->assign('err', $err);
-$smarty->assign('msg', $msg);
 if (isset($_GET['vid'])) $smarty->assign('vidid', $_GET['vid']);
 $smarty->display('header.tpl');
 $smarty->display('upload_success.tpl');

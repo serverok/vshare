@@ -26,8 +26,8 @@
                 <input onclick="javascript:document.linkForm.video_link.focus();document.linkForm.video_link.select();"
                 readonly="readonly" value="{$base_url}/view/{$video_info.video_id}/{$video_info.video_seo_name}/" name="video_link" />
             </div>
-        
-            {if $embed_show eq "1" && $video_info.vtype == 0}
+            
+            {if $embed_show eq "1" && $video_info.video_vtype == 0}
             
                 <h2>Embed your video: </h2>
                 
