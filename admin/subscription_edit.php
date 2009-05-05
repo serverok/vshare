@@ -82,7 +82,9 @@ if (isset($_POST['edit']))
         $month = date("m", strtotime($expired_time));
         $date = date("d", strtotime($expired_time));
         
-        for ($y = $year - 5; $y <= $year + 10; $y ++)
+        $year_expire = date('Y');
+        
+        for ($y = $year_expire; $y <= $year_expire + 10; $y ++)
         {
             $expire_year[] = $y;
         }
