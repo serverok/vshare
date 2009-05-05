@@ -63,7 +63,7 @@ while ($video_info = mysql_fetch_assoc($result))
 $sql = "SELECT `group_id`,`group_keyword` FROM `groups`";
 $result = mysql_query($sql) or mysql_die($sql);
 
-echo '<h2>Rebuilding Group Tags</h1>';
+echo '<h1>Rebuilding Group Tags</h1>';
 
 while ( $group_info = mysql_fetch_assoc($result) )
 {
