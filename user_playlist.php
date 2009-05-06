@@ -56,6 +56,7 @@ $sql = "SELECT * FROM
 $result = mysql_query($sql) or mysql_die($sql);
 $results_on_this_page = mysql_num_rows($result);
 $video_keywords_all = '';
+$video_info = array();
 
 while ($video = mysql_fetch_assoc($result))
 {
