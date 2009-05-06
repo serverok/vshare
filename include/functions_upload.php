@@ -500,7 +500,7 @@ function process_video($vid, $debug = 1)
 
         $must_upload_to_remote = 0;
         $re_convert_server_id = 0;
-        $upload_to_ftp == 1;
+        $upload_to_ftp = 1;
         
         if ($re_process_vid > 0)
         {

@@ -89,6 +89,7 @@ if (isset($_GET['keyword']))
         
         $smarty->assign('user_name', $user_name);
         $smarty->assign('channel_id', $channel_id);
+        $smarty->assign('links', $links['all']);
     }
     else
     {
@@ -97,7 +98,6 @@ if (isset($_GET['keyword']))
 }
 
 $smarty->assign('channels', channels::get_all());
-$smarty->assign('links', $links['pages']);
 $smarty->assign('next', $next);
 $smarty->assign('err', $err);
 $smarty->assign('previous', $previous);
