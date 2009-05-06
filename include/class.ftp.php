@@ -407,11 +407,11 @@ class Ftp
     {
         if (ftp_delete($this->conn_id, $file))
         {
-            $this->log('Successfully delete file: ' . $file);
+            $this->log('Successfully delete file: ' . $file . '<br />');
         }
         else
         {
-            $this->log('File delete failed :' . $file);
+            $this->log('File delete failed :' . $file . '<br />');
         }
     }
 
