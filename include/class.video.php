@@ -444,6 +444,7 @@ class Video
             {
                 $ftp_config = array();
                 $ftp_config['video_id'] = $video_id;
+                $ftp_config['debug'] = $config['debug'];
                 $ftp_config['log_file_name'] = $log_file_name;
                 $ftp = new Ftp();
                 $ftp->delete_video($ftp_config);
@@ -477,6 +478,7 @@ class Video
                 unset($ftp_config);
                 unset($ftp);
                 $ftp_config['video_id'] = $video_id;
+                $ftp_config['debug'] = $config['debug'];
                 $ftp_config['log_file_name'] = $log_file_name;
                 $ftp = new Ftp();
                 $ftp->delete_thumb($ftp_config);

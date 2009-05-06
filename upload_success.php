@@ -105,7 +105,7 @@ if ($video_processed == 1)
         else
         {
             $sql = "SELECT * FROM `servers` WHERE
-                   `id`='" . (int) $video_info['server_id'] . "'";
+                   `id`='" . (int) $video_info['video_server_id'] . "'";
             $result = mysql_query($sql) or mysql_die($sql);
             $server_info = mysql_fetch_assoc($result);
             $flv_url = $server_info['url'] . '/' . $video_info['video_folder'] . $video_info['video_flv_name'];
