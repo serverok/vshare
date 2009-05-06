@@ -16,6 +16,7 @@ $html_title = 'VSHARE UPGRADE';
 require '../include/config.php';
 require '../include/functions_seo_name.php';
 require '../include/class.tags.php';
+require './inc/class.sql_import.php';
 require './tpl/header.php';
 
 if ($config['version'] != '2.5')
