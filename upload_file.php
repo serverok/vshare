@@ -309,22 +309,25 @@ if (isset($process_video) && $process_video == 1)
     redirect($redirect_url);
 }
 
-$html_extra = '
-<script language="javascript" type="text/javascript">
-var JQ = jQuery.noConflict();
-    JQ(document).ready(function(){
-        iniFilePage();
-        JQ("#upfile_0").bind("keypress", function(e){ if(e == 13){ return false; } });
-        JQ("#upfile_0").bind("change", function(e){ addUploadSlot(1); });
-        JQ("#upload_button").bind("click", function(e){ linkUpload(); });
-        JQ("#reset_button").bind("click", function(e){ resetForm(); });
-    });
-</script>
-';
+if ($use_upload_progress_bar == 1)
+{
+    $html_extra = '
+    <script language="javascript" type="text/javascript">
+    var JQ = jQuery.noConflict();
+        JQ(document).ready(function(){
+            iniFilePage();
+            JQ("#upfile_0").bind("keypress", function(e){ if(e == 13){ return false; } });
+            JQ("#upfile_0").bind("change", function(e){ addUploadSlot(1); });
+            JQ("#upload_button").bind("click", function(e){ linkUpload(); });
+            JQ("#reset_button").bind("click", function(e){ resetForm(); });
+        });
+    </script>
+    ';
+    $smarty->assign('html_extra', $html_extra);
+}
 
 $html_head_extra = '<link rel="stylesheet" type="text/css"  href="' . VSHARE_URL . '/ubr/ubr.css">';
 
-$smarty->assign('html_extra', $html_extra);
 $smarty->assign('html_head_extra', $html_head_extra);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
