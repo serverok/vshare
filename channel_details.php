@@ -50,6 +50,8 @@ if ($num_rows > 0)
             LIMIT $num_channel_videos";
     $result = mysql_query($sql) or mysql_die($sql);
     
+    $recent_channel_videos = array();
+    
     while ($recent_channel_video = mysql_fetch_assoc($result))
     {
         $recent_channel_video['video_thumb_url'] = $servers[$recent_channel_video['video_thumb_server_id']];
@@ -67,13 +69,18 @@ if ($num_rows > 0)
             ORDER BY `video_view_number` DESC
             LIMIT $num_channel_videos";
     $result = mysql_query($sql) or mysql_die($sql);
+    $total = mysql_num_rows($result);
+    
+    $mostview = array();
     
     while ($video = mysql_fetch_assoc($result))
     {
         $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
         $mostview[] = $video;
     }
-    $total = mysql_num_rows($result);
+    
+    $smarty->assign('mostview', $mostview);
+    $smarty->assign('total', $total);
     
     $sql = "SELECT t.* FROM
            `tag_video` AS tv,
@@ -107,9 +114,6 @@ if ($num_rows > 0)
         }
         $smarty->assign('tags', $tagcloud->buildHTML());
     }
-    
-    $smarty->assign('mostview', $mostview);
-    $smarty->assign('total', $total);
     $smarty->assign('channel', $channel);
 }
 
