@@ -35,7 +35,7 @@
             <option value="1" {if $smarty.post.server_type == "1"}selected="selected"{/if}>THUMBNAIL SERVER</option>
             <option value="2" {if $smarty.post.server_type == "2"}selected="selected"{/if}>MOD_SECDOWNLOAD (LIGHTTPD)</option>
         </select>
-        <a href="http://docs.buyscripts.in/Video_Server_Type" target="_blank">
+        <a href="http://labs.buyscripts.in/projects/vshare/wiki/Add_Server" target="_blank">
             <img src="{$img_css_url}/images/help.png" alt="help" />
         </a>
     </div>
