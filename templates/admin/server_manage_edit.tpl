@@ -41,7 +41,7 @@
             <input type="hidden" name="server_type" value="1" />
             THUMBNAIL SERVER
         {/if}
-        <a href="http://docs.buyscripts.in/Video_Server_Type" target="_blank">
+        <a href="http://labs.buyscripts.in/projects/vshare/wiki/Video_Server_Type" target="_blank">
             <img src="{$img_css_url}/images/help.png" alt="help" />
         </a>
     </div>
