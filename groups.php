@@ -15,6 +15,8 @@
 require 'include/config.php';
 require 'include/class.channels.php';
 
+$category = '';
+
 if (isset($_GET['chid']) && is_numeric($_GET['chid']))
 {
     $sql = "SELECT * FROM `channels` WHERE
