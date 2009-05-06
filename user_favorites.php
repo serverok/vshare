@@ -67,7 +67,8 @@ $result = mysql_query($sql) or mysql_die($sql);
 $results_on_this_page = mysql_num_rows($result);
 
 $video_keywords_all = '';
-
+$favorite_videos = array();
+ 
 while ($favorite_video = mysql_fetch_assoc($result))
 {
     $favorite_video['video_thumb_url'] = $servers[$favorite_video['video_thumb_server_id']];
