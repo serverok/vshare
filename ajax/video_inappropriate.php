@@ -1,4 +1,16 @@
 <?php
+/******************************************************************************
+ *
+ *   COMPANY: BuyScripts.in
+ *   PROJECT: vShare Youtube Clone
+ *   VERSION: 2.7
+ *   LISENSE: http://buyscripts.in/vshare-license.html
+ *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ *
+ *   This program is a commercial software and any kind of using it must agree 
+ *   to vShare license.
+ *
+ ******************************************************************************/
 
 require '../include/config.php';
 require '../include/class.mail.php';
@@ -8,14 +20,26 @@ require '../include/language/' . LANG . '/lang_video_inappropriate.php';
 $video_id = isset($_POST['vid']) ? $_POST['vid'] : '';
 $abuse_type = isset($_POST['abuse_type']) ? $_POST['abuse_type'] : '';
 $comment = isset($_POST['comment']) ? $_POST['comment'] : '';
-$comment = strip_tags($comment);
+$comment = trim(strip_tags($comment));
+
+$abuse_type_all = array(
+    'porn',
+    'racism',
+    'prohibited',
+    'violent',
+    'copyright'
+);
+
+if (! in_array($abuse_type, $abuse_type_all))
+{
+    $err = 'Invalid abuse type';
+}
 
 if (! is_numeric($video_id))
 {
     $err = $lang['vid_invalid'];
 }
-
-if (strlen($comment) < 5)
+else if (strlen($comment) < 10)
 {
     $err = $lang['comment_short'];
 }

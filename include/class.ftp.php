@@ -374,7 +374,7 @@ class Ftp
         $this->initialize($config);
         $this->get_video_info();
         
-        if (! $this->select_staic_server())
+        if (! $this->select_thumb_server())
         {
             $this->log('<p>Unable to select FTP server.</p>');
             return 0;

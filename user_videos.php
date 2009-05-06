@@ -70,7 +70,7 @@ if (isset($_POST['remove_video']) && is_numeric($_POST['VID']))
     {
         $msg = Video::delete($_POST['VID'], $_SESSION['UID'], 0);
         set_message($lang['video_deleted'], 'success');
-        $redirect_url = VSHARE_URL . '/' . $_SESSION['USERNAME'] . '/public/';
+        $redirect_url = VSHARE_URL . '/' . $_SESSION['USERNAME'] . '/' . $type . '/';
         redirect($redirect_url);
     }
 }
