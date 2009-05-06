@@ -158,9 +158,9 @@ class Ftp
         $this->video_id = $config['video_id'];
         $this->log_file_name = $config['log_file_name'];
         $this->must_upload = isset($config['must_upload']) ? $config['must_upload'] : '';
-        $this->debug = $config['debug'];
-        $this->user_id = $config['user_id'];
-        $this->server_id = $config['server_id'];
+        $this->debug = isset($config['debug']) ? $config['debug'] : 0;
+        $this->user_id = isset($config['user_id']) ? $config['user_id'] : 0;
+        $this->server_id = isset($config['server_id']) ? $config['server_id'] : 0;
     }
 
     function upload_video($config)
