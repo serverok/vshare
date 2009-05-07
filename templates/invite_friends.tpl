@@ -3,7 +3,7 @@
     {if $smarty.get.welcome eq "1"}
     
         <div class="page">
-            <h2>Welcome to {$site_name}, {$user_name}!</h2>
+            <h2>Welcome to {$site_name}, {$smarty.session.USERNAME}!</h2>
             <p>We hope you enjoy your experience. Write anytime to let us know how we can serve you better.</p>
             <p><i>The {$site_name} Team</i></p>
         </div>
