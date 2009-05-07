@@ -1,13 +1,16 @@
 <?php
 
+$html_title = 'Rebuilding Video Tags';
+
 require '../include/config.php';
 require '../include/class.tags.php';
 require './inc/functions_upgrade.php';
 require './tpl/header.php';
 
-echo '<h1>Rebuilding Video Tags</h1>';
 
-$sql = "DROP TABLE `tags`, `tag_video`";
+echo '<h1>' . $html_title . '</h1>';
+
+$sql = "DROP TABLE IF EXISTS `tags`, `tag_video`";
 mysql_query($sql) or die ('Unable to execute query' . $sql);
 
 $sql = "
@@ -17,7 +20,8 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `tag_count` int(11) NOT NULL default '0',
   `used_on` int(11) NOT NULL default '0',
   `active` tinyint(1) NOT NULL default '1',
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `tag` (`tag`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
 mysql_query($sql) or die ('Unable to execute query' . $sql);

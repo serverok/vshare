@@ -65,7 +65,7 @@ class Tags
         {
             $sql = "SELECT * FROM `tags` WHERE
                    `tag`='" . mysql_clean($tag) . "'";
-            mysql_query($sql) or mysql_die($sql);
+            $result = mysql_query($sql) or mysql_die($sql);
             
             if (mysql_num_rows($result) > 0)
             {
