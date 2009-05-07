@@ -54,11 +54,27 @@ class Ftp
         }
     }
 
-    function select_thumb_server()
+    function select_thumb_server($server_id=0)
     {
-        $sql = "SELECT * FROM `servers` WHERE
-               `server_type`='1' AND
-               `status`='1'";
+        if ($server_id != 0)
+        {
+            $sql = "SELECT * FROM `servers` WHERE
+                   `id`='". (int) $server_id ."' AND
+                   `status`='1'";
+        }
+        else if($this->video_info['video_thumb_server_id'] == 0)
+        {
+            $sql = "SELECT * FROM `servers` WHERE
+                   `server_type`='1' AND
+                   `status`='1'";
+        }
+        else
+        {
+            $sql = "SELECT * FROM `servers` WHERE
+                   `id`='". (int) $this->video_info['video_thumb_server_id'] ."' AND
+                   `status`='1'";
+        }
+        
         $result = mysql_query($sql) or mysql_die($sql);
         
         if (! mysql_num_rows($result))
@@ -168,7 +184,7 @@ class Ftp
         $this->initialize($config);
         $this->get_video_info();
         
-        if (! $this->select_video_server())
+        if (! $this->select_video_server($this->video_info['video_thumb_server_id']))
         {
             $this->log('<p>Unable to select FTP server.</p>');
             return 0;
@@ -364,8 +380,7 @@ class Ftp
             $this->log('<p>FTP ERROR: chdir("$this->video_info[video_folder]").</p>');
             return 0;
         }
-        
-        $file = $this->server_info['folder'] . '/' . $this->video_info['video_folder'] . $this->video_info['video_flv_name'];
+        $file = $this->video_info['video_flv_name'];
         $this->delete($file);
     }
 
@@ -386,18 +401,24 @@ class Ftp
             return 0;
         }
         
+        if (! $this->ftp_cd('thumb'))
+        {
+            $this->log('<p>FTP ERROR: chdir("thumb").</p>');
+            return 0;
+        }
+        
         if (! $this->ftp_cd($this->video_info['video_folder']))
         {
             $this->log('<p>FTP ERROR: chdir("$this->video_info[video_folder]").</p>');
             return 0;
         }
-        
-        $thumb_path = $this->server_info['folder'] . '/thumb/' . $this->video_info['video_folder'] . $this->video_id . '.jpg';
+
+        $thumb_path = $this->video_id . '.jpg';
         $this->delete($thumb_path);
         
         for ($i = 1; $i <= 3; $i ++)
         {
-            $thumb_path = $this->server_info['folder'] . '/thumb/' . $this->video_info['video_folder'] . $i . '_' . $this->video_id . '.jpg';
+            $thumb_path =  $i . '_' . $this->video_id . '.jpg';
             $this->delete($thumb_path);
         }
     
