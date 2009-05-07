@@ -66,7 +66,8 @@ class Ftp
         {
             $sql = "SELECT * FROM `servers` WHERE
                    `server_type`='1' AND
-                   `status`='1'";
+                   `status`='1' ORDER BY `space_used` ASC
+                    LIMIT 1";
         }
         else
         {
@@ -74,7 +75,7 @@ class Ftp
                    `id`='". (int) $this->video_info['video_thumb_server_id'] ."' AND
                    `status`='1'";
         }
-        
+        echo $sql;
         $result = mysql_query($sql) or mysql_die($sql);
         
         if (! mysql_num_rows($result))
@@ -343,7 +344,12 @@ class Ftp
         $sql = "UPDATE `videos` SET
         	   `video_thumb_server_id`='" . (int) $this->server_info['id'] . "' WHERE
         	   `video_id`='" . (int) $this->video_id . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
+        mysql_query($sql) or mysql_die($sql);
+
+        $sql = "UPDATE `servers` SET
+               `space_used`=`space_used`+4 WHERE
+               `id`='" . (int) $this->server_info['id'] . "'";
+        mysql_query($sql) or mysql_die($sql);
         
         $this->close();
         return 1;
@@ -421,7 +427,11 @@ class Ftp
             $thumb_path =  $i . '_' . $this->video_id . '.jpg';
             $this->delete($thumb_path);
         }
-    
+        
+        $sql = "UPDATE `servers` SET
+               `space_used`=`space_used`-4 WHERE
+               `id`='" . (int) $this->server_info['id'] . "'";
+        mysql_query($sql) or mysql_die($sql);
     }
 
     function delete($file)
