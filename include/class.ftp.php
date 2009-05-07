@@ -75,7 +75,7 @@ class Ftp
                    `id`='". (int) $this->video_info['video_thumb_server_id'] ."' AND
                    `status`='1'";
         }
-        echo $sql;
+        
         $result = mysql_query($sql) or mysql_die($sql);
         
         if (! mysql_num_rows($result))
