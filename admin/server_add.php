@@ -72,7 +72,7 @@ if (isset($_POST['submit']))
                `user_name`='" . mysql_clean($server_user_name) . "',
                `password`='" . mysql_clean($server_password) . "',
                `folder` = '" . mysql_clean($server_folder) . "',
-               `status`='0',
+               `status`='1',
                `server_type`='" . (int) $server_type . "',
                `server_secdownload_secret`='" . (int) $server_secdownload_secret . "'";
         $result = mysql_query($sql) or mysql_die($sql);
