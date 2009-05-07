@@ -75,6 +75,31 @@ $sql = "ALTER TABLE `videos` CHANGE
 mysql_query($sql) or mysql_die($sql);
 write_log($sql, 'vshare_upgrade', 0,'txt');
 
+$dir = VSHARE_DIR . '/photo/';
+
+if (is_dir($dir))
+{
+    if ($dh = opendir($dir))
+    {
+        while (($file = readdir($dh)) !== false)
+        {
+            if (preg_match("/.jpg/i", $file))
+            {
+                $user_id = str_replace('.jpg', '',$file);
+                
+                if (preg_match('/^[0123456789]+$/', $user_id))
+                {
+                    $sql = "UPDATE `users` SET `user_photo`='1' WHERE `user_id`='" . (int) $user_id . "'";
+                    mysql_query($sql) or mysql_die($sql);
+                    //echo '<p>' . $sql . '</p>';
+                }
+            }
+        
+        }
+        closedir($dh);
+    }
+}
+
 write_log('#### UPGRADE 2.6 to 2.7 FINISHED ####', 'vshare_upgrade', 0,'txt');
 
 $next_step = VSHARE_URL . '/install/build_tags_2.7.php';
