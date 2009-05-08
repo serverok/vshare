@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.css.php';
+require_once 'include/class.css.php';
 
 css::set($_GET['css']);
 

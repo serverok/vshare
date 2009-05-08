@@ -105,13 +105,13 @@ if (isset($_SESSION['vshare_message']))
 
 if (! isset($_SESSION['CSS']))
 {
-    require VSHARE_DIR . '/include/class.css.php';
+    require_once VSHARE_DIR . '/include/class.css.php';
     css::cookie();
 }
 
 if (! isset($_SESSION['LANG']))
 {
-    require VSHARE_DIR . '/include/class.language.php';
+    require_once VSHARE_DIR . '/include/class.language.php';
     language::cookie();
 }
 
