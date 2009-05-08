@@ -264,6 +264,8 @@ if (isset($show_video) && $show_video == 1 && $err == '')
     $html_title = htmlspecialchars_uni($video_info['video_title']);
     $html_keywords = htmlspecialchars_uni($video_info['video_keywords']);
     $html_description = htmlspecialchars_uni($video_info['video_description']);
+    $html_keywords_array = explode(' ',$html_keywords);
+    $html_keywords = implode(', ', $html_keywords_array);
     
     $smarty->assign('html_description', $html_description);
     $smarty->assign('html_title', $html_title);
