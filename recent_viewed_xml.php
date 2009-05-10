@@ -14,6 +14,13 @@
 
 require 'include/config.php';
 
+header('Content-type: text/html; charset=UTF-8');
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Last-Modified: ' . date('r'));
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0', FALSE);
+header('Pragma: no-cache');
+
 $sql = "SELECT * FROM `videos` WHERE 
        `video_type`='public' AND 
        `video_active`='1' 
