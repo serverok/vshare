@@ -1584,6 +1584,19 @@ form#upload div.indent {
 form#upload div.submit {
     margin-left:210px;
 }
+/*upload_remote.tpl*/
+
+form#upload-remote-form
+{
+    margin: 2em auto 5em auto;
+    width:500px;
+}
+form#upload-remote-form p
+{
+	font-size:1em;
+	font-weight:bold;
+}
+
 /*upload_success.tpl*/
 
 div.upload-success h2 {

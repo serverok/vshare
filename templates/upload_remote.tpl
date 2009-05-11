@@ -1,21 +1,15 @@
-<form action="" method="post">
+<form action="" method="post" id="upload-remote-form">
 
     <div>
-        <label>Enter URL:</label>
-        <input type="text" name="url" size="60" />
-    </div>
-     
-    <div>
-        <label>Correspondence URL:</label>
-        <div>
-            <a href="http://www.youtube.com" target="_blank">YouTube.com</a>,
-            <a href="http://revver.com" target="_blank">Revver.com</a>,
-            <a href="http://www.metacafe.com/" target="_blank">Metacafe.com</a>
-        </div>
-    </div>
-    
-    <div class="submit">
+        <p>Enter URL of video:</p>
+        <input type="text" name="url" size="60" /><br /><br />
         <input type="submit" name="submit" value="Upload" />
+        <p>Correspondence URL:</p>
+        <pre>
+http://www.youtube.com/watch?v=xxxxxx
+http://revver.com/video/xxxxx/yyyyyyy
+http://www.metacafe.com/watch/xxxx/yyyy/
+        </pre>
     </div>
     
 </form>
