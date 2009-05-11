@@ -34,7 +34,7 @@ while ($data = mysql_fetch_array($result))
     $video_url = VSHARE_URL . '/view/' . $data['video_id'] . '/' . $data['video_seo_name'] . '/';
     $thumb_url = $servers[$data['video_thumb_server_id']] . '/thumb/' . $data['video_folder'] . '1_' . $data['video_id'] . '.jpg';
     
-    echo '<video>' . '<title>' . $data['video_title'] . '</title>' . '<run_time>' . $data['video_duration'] . '</run_time>' . '<url>' . $video_url . '</url>' . '<thumbnail_url>' . $thumb_url . '</thumbnail_url>' . '</video>';
+    echo '<video>' . '<title>' . $data['video_title'] . '</title>' . '<run_time>' . $data['video_length'] . '</run_time>' . '<url>' . $video_url . '</url>' . '<thumbnail_url>' . $thumb_url . '</thumbnail_url>' . '</video>';
 
 }
 echo '</video_list></vshare>';
