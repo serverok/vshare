@@ -346,7 +346,7 @@
                 {section name=i loop=$user_friends start=0 max=4}
                     <li>
                         <a href="{$base_url}/{$user_friends[i].friend_name}">
-                        {insert name=member_img UID=$user_friends[i].friend_friend_id }<br />
+                        {insert name=member_img UID=$user_friends[i].friend_friend_id}<br />
                         {$user_friends[i].friend_name|truncate:25:'...'}
                         </a>                        
                     </li>
