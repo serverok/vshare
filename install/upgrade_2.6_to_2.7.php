@@ -91,7 +91,22 @@ if (is_dir($dir))
                 {
                     $sql = "UPDATE `users` SET `user_photo`='1' WHERE `user_id`='" . (int) $user_id . "'";
                     mysql_query($sql) or mysql_die($sql);
-                    //echo '<p>' . $sql . '</p>';
+                    
+                    $size = getimagesize($dir . $file);
+            
+                    if ($size[0] > 121 || $size[1] > 91)
+                    {
+                        $location_photo = VSHARE_DIR . '/photo/' . $user_id . '.jpg';
+                        $location_avatar = VSHARE_DIR . '/photo/1_' . $user_id . '.jpg';
+                        
+                        $current_file = $dir . $file;
+                        $file_tmp_name = $dir . $user_id . '_tmp.jpg';
+                        rename($current_file, $file_tmp_name);
+                        
+                        createThumb($file_tmp_name, $location_photo, $config['img_max_width'], $config['img_max_height']);
+                        createThumb($file_tmp_name, $location_avatar, 50, 40);
+                        unlink($file_tmp_name);
+                    }
                 }
             }
         
