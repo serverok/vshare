@@ -23,7 +23,8 @@ header('Pragma: no-cache');
 
 $sql = "SELECT * FROM `videos` WHERE 
        `video_type`='public' AND 
-       `video_active`='1' 
+       `video_active`='1' AND
+       `video_approve`='1'
         ORDER BY `video_view_time` DESC 
         LIMIT 0, 5";
 $result = mysql_query($sql) or mysql_die($sql);
