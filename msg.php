@@ -21,6 +21,8 @@ $mail_types = array(
     'outbox'
 );
 
+$_GET['folder'] = isset($_GET['folder']) ? $_GET['folder'] : 'inbox';
+
 if (! in_array($_GET['folder'], $mail_types))
 {
     $_GET['folder'] = 'inbox';
