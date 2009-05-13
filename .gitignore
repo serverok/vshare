@@ -1,0 +1,15 @@
+photo/*
+templates_c/*
+photo/*.jpg
+thumb/*
+flvideo/*
+video/*
+include/htmlpurifier/HTMLPurifier/DefinitionCache/Serializer/HTML/*
+.settings/*
+.cache/*
+.project
+cache
+tools/*
+sql_change/*
+chimg/*
+
