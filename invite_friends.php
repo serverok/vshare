@@ -95,7 +95,7 @@ if (isset($_POST['submit']))
                 
                 if (mysql_num_rows($result) > 0)
                 {
-                    $msg .= $friend_email . '-' . $lang['invite_friends_duplicate'] . '<br />';
+                    $msg .= $friend_email . ' - ' . $lang['invite_friends_duplicate'] . '<br />';
                 }
                 else
                 {
