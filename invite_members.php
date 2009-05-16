@@ -22,7 +22,7 @@ User::is_logged_in();
 $_GET['group_url'] = htmlspecialchars_uni($_GET['group_url']);
 
 $sql = "SELECT * FROM `groups` WHERE
-       `group_url`='" . mysql_clean($_GET[group_url]) . "'";
+       `group_url`='" . mysql_clean($_GET['group_url']) . "'";
 $result = mysql_query($sql) or mysql_die($sql);
 
 if (mysql_num_rows($result) < 1)
