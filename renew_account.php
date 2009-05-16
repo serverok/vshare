@@ -21,14 +21,15 @@ if ($config['enable_package'] == 'yes')
 {
     if (isset($_POST['submit']))
     {
-        if ($_POST['package_id'] == '')
+        $package_id = isset($_POST['package_id']) ? $_POST['package_id'] : '';
+        
+        if ( $package_id == '')
         {
             $err = $lang['select_package'];
         }
         else
         {
-            $_POST['pack_id'] = intval($_POST['pack_id']);
-            $redirect_url = VSHARE_URL . '/package_options.php?package_id=' . $_POST['package_id'] . '&user_id=' . $_GET['uid'];
+            $redirect_url = VSHARE_URL . '/package_options.php?package_id=' . (int) $package_id . '&user_id=' . $_GET['uid'];
             redirect($redirect_url);
         }
     }
