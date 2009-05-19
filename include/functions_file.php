@@ -10,9 +10,9 @@ function get_file_url($server_id, $folder, $name)
     $result = mysql_query($sql) or mysql_die($sql);
     $server_info = mysql_fetch_assoc($result);
 
-    if ($server_info['secdownload'] == 1 && $server_id != 0)
+    if ($server_info['server_type'] == 2 && $server_id != 0)
     {
-        $secret = $config['secdownload_secret'];
+        $secret = $server_info['server_secdownload_secret'];
 
         //$f = '/' . $folder . '/' . $name;
         $f = '/' . $name;
