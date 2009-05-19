@@ -15,6 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_user_delete.php';
 require '../include/class.ftp.php';
+require '../include/class.video.php';
 
 check_admin_login();
 
