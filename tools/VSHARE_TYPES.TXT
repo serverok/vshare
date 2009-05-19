@@ -11,20 +11,20 @@ video_thumb_cmd
 server_type
 ===========================================================
 
-flv server		0
-static server		1
-mod_secdownload		2
+flv server          0
+static server       1
+mod_secdownload     2
 
 ===========================================================
 Process Queue Status
 ===========================================================
-0	Added to process queue for download (ready to download)
-1	Started Download
-2	Download or Upload Finished (ready to process)
-3	Download error
-4	Convert Started
-5	Conver OK
-6	Convert Error
+0    Added to process queue for download (ready to download)
+1    Started Download
+2    Download or Upload Finished (ready to process)
+3    Download error
+4    Convert Started
+5    Conver OK
+6    Convert Error
 
 ===========================================================
 video_vtype
