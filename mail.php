@@ -60,6 +60,8 @@ $sql = "SELECT * FROM `mails` WHERE
         LIMIT $start_from, $config[items_per_page]";
 $result = mysql_query($sql) or mysql_die($sql);
 
+$mails = array();
+
 while ($mail = mysql_fetch_assoc($result))
 {
     $mail['mail_date'] = date('d M Y G:i ', strtotime($mail['mail_date']));
