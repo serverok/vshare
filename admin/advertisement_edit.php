@@ -29,9 +29,7 @@ if (isset($_POST['submit']))
                `adv_text`='" . mysql_clean($_POST['advertisement_text']) . "' WHERE
                `adv_id`='" . (int) $_GET['adv_id'] . "'";
         mysql_query($sql) or mysql_die($sql);
-        set_message($lang['advt_saved'], 'success');
-        $redirect_url = VSHARE_URL . '/admin/advertisements.php';
-        redirect($redirect_url);
+        $msg = $lang['advt_saved'];
     }
 }
 
