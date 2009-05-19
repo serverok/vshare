@@ -116,15 +116,42 @@ if (isset($_POST['submit']))
             mysql_query($sql);
         }
         
-        $sql = "UPDATE `sconfig` SET
-               `svalue`='" . $_POST['paypal_receiver_email'] . "' WHERE
-               `soption`='paypal_receiver_email'";
-        mysql_query($sql);
-        
-        $sql = "UPDATE `sconfig` SET
-               `svalue`='" . $_POST['enable_test_payment'] . "' WHERE
-               `soption`='enable_test_payment'";
-        mysql_query($sql);
+        if ($err == '')
+        {
+            $sql = "UPDATE `sconfig` SET
+                   `svalue`='" . mysql_clean($_POST['paypal_receiver_email']) . "' WHERE
+                   `soption`='paypal_receiver_email'";
+            mysql_query($sql);
+            
+            $sql = "UPDATE `sconfig` SET
+                   `svalue`='" . mysql_clean($_POST['enable_test_payment']) . "' WHERE
+                   `soption`='enable_test_payment'";
+            mysql_query($sql);
+            
+            if (preg_match("/CCBill/i", $payment_method))
+            {
+                if (! is_numeric($_POST['ccbill_ac_no']))
+                {
+                    $err = 'CCBill account number must be numeric';
+                }
+                else if (! is_numeric($_POST['ccbill_sub_ac_no']))
+                {
+                    $err = 'CCBill sub account number must be numeric';
+                }
+                else
+                {
+                    $sql = "UPDATE `sconfig` SET
+                           `svalue`='" . (int) $_POST['ccbill_ac_no'] . "' WHERE
+                           `soption`='ccbill_ac_no'";
+                    mysql_query($sql);
+                    
+                    $sql = "UPDATE `sconfig` SET
+                           `svalue`='" . (int) $_POST['ccbill_sub_ac_no'] . "' WHERE
+                           `soption`='ccbill_sub_ac_no'";
+                    mysql_query($sql);
+                }
+            }
+        }
     }
     
     if ($err == '')
@@ -146,6 +173,9 @@ else
 
 $smarty->assign('service_ops', $service_ops);
 
+$ccbill_enabled = '';
+$paypal_enabled = '';
+
 if ($config['payment_method'] != '')
 {
     $method = explode('|', $config['payment_method']);
@@ -154,16 +184,16 @@ if ($config['payment_method'] != '')
     {
         if ($v == 'Paypal')
         {
-            $pay_checked = "checked=\"checked\"";
+            $paypal_enabled = "checked=\"checked\"";
         }
-        elseif ($v == 'ccbill')
+        else if ($v == 'CCBill')
         {
-            $aut_checked = "checked=\"checked\"";
+            $ccbill_enabled = "checked=\"checked\"";
         }
     }
 }
 
-$payment_method_ops = '<input type="checkbox" name="method[]" value="Paypal" ' . $pay_checked . ' /> Paypal<br />';
+$payment_method_ops = '<input type="checkbox" name="method[]" value="Paypal" ' . $paypal_enabled . ' /> Paypal <input type="checkbox" name="method[]" value="CCBill" ' . $ccbill_enabled . ' /> CCBill<br />';
 
 $smarty->assign('allow_html', get_config('allow_html'));
 $smarty->assign('payment_method_ops', $payment_method_ops);
