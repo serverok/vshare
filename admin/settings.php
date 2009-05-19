@@ -101,6 +101,8 @@ if (isset($_POST['submit']))
     
     if ($config['enable_package'] == 'yes')
     {
+        $_POST['method'] = isset($_POST['method']) ? $_POST['method'] : '';
+        
         if ($_POST['method'] == '')
         {
             $err = $lang['payment_method_empty'];
