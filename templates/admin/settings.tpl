@@ -126,16 +126,26 @@
         </div>
         
         <div>
-            <label>Enable Test Payment ?</label>
-            <div class="indent">
-                <input type=radio name=enable_test_payment value="yes" {if $enable_test_payment eq "yes"}checked="checked"{/if} /> Yes<br />
-                <input type=radio name=enable_test_payment value="no" {if $enable_test_payment ne "yes"}checked="checked"{/if} /> No<br />
-            </div>
+            <label>CCBill Account No:</label>
+            <input type="text" name="ccbill_ac_no" value="{$ccbill_ac_no}">
+        </div>
+        
+        <div>
+            <label>CCBill Sub account No:</label>
+            <input type="text" name="ccbill_sub_ac_no" value="{$ccbill_sub_ac_no}">
         </div>
         
         <div>
             <label for="paypal_receiver_email">Paypal Receiver Email:</label>
             <input name="paypal_receiver_email" id="paypal_receiver_email" value="{$paypal_receiver_email}" size="40" />
+        </div>
+        
+        <div>
+            <label>Enable Test Payment ?</label>
+            <div class="indent">
+                <input type=radio name=enable_test_payment value="yes" {if $enable_test_payment eq "yes"}checked="checked"{/if} /> Yes<br />
+                <input type=radio name=enable_test_payment value="no" {if $enable_test_payment ne "yes"}checked="checked"{/if} /> No<br />
+            </div>
         </div>
     
     {/if}
