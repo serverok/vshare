@@ -187,7 +187,8 @@
     <div align="center" style="background-color:#FFF5D9;border:1px solid #FED973;padding:2px">
         <a href="user_edit.php?action=edit&uid={$user.user_id}&page={$smarty.request.page}">Edit</a> &nbsp;
         <a href="user_videos.php?uid={$user.user_id}">Videos</a> &nbsp;
-        <a href="user_delete.php?uid={$user.user_id}" onclick='Javascript:return confirm("Are you sure you want to delete?");'>Delete</a>
+        <a href="user_delete.php?uid={$user.user_id}" onclick='Javascript:return confirm("Are you sure you want to delete?");'>Delete</a>&nbsp;
+        <a href="mail_users.php?email={$user.user_email}&uname={$user.user_name}">Send Mail</a>
     </div>
 
 </div>
