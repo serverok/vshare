@@ -140,15 +140,41 @@ if (isset($_POST['submit']))
                 }
                 else
                 {
-                    $sql = "UPDATE `sconfig` SET
-                           `svalue`='" . (int) $_POST['ccbill_ac_no'] . "' WHERE
-                           `soption`='ccbill_ac_no'";
-                    mysql_query($sql);
+                    $_POST['ccbill_ac_no'] = isset($_POST['ccbill_ac_no']) ? $_POST['ccbill_ac_no'] : '';
+                    $_POST['ccbill_ac_no'] = trim($_POST['ccbill_ac_no']);
+
+                    if ( isset($config['ccbill_ac_no']) )
+                    {
+                        $sql = "UPDATE `sconfig` SET
+                               `svalue`='" . mysql_clean($_POST['ccbill_ac_no']) . "' WHERE
+                               `soption`='ccbill_ac_no'";
+                        mysql_query($sql);
+                    }
+                    else
+                    {
+                        $sql = "INSERT INTO `sconfig` SET
+                               `soption`='ccbill_ac_no',
+                               `svalue`='" . mysql_clean($_POST['ccbill_ac_no']) . "'";
+                        mysql_query($sql);
+                    }
+
+                    $_POST['ccbill_sub_ac_no'] = isset($_POST['ccbill_sub_ac_no']) ? $_POST['ccbill_sub_ac_no'] : '';
+                    $_POST['ccbill_sub_ac_no'] = trim($_POST['ccbill_sub_ac_no']);
                     
-                    $sql = "UPDATE `sconfig` SET
-                           `svalue`='" . (int) $_POST['ccbill_sub_ac_no'] . "' WHERE
-                           `soption`='ccbill_sub_ac_no'";
-                    mysql_query($sql);
+                    if ( isset($config['ccbill_sub_ac_no']) )
+                    {
+                        $sql = "UPDATE `sconfig` SET
+                               `svalue`='" . mysql_clean($_POST['ccbill_sub_ac_no']) . "' WHERE
+                               `soption`='ccbill_sub_ac_no'";
+                        mysql_query($sql);
+                    }
+                    else
+                    {
+                        $sql = "INSERT INTO `sconfig` SET
+                               `soption`='ccbill_sub_ac_no',
+                               `svalue`='" . mysql_clean($_POST['ccbill_sub_ac_no']) . "'";
+                        mysql_query($sql);
+                    }
                 }
             }
         }
