@@ -67,6 +67,7 @@ class video_duration
         $video = $duration_arr['src'];
         $output = new ffmpeg_movie($video);
         $sec = $output->getDuration();
-        return (int) $sec;
+        $sec = round($sec, 2);
+        return $sec;
     }
 }
