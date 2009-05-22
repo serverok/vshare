@@ -783,7 +783,17 @@ function sec2hms($sec, $useColon = true)
         $hms .= '00:';
     }
     
-    $seconds = intval($sec % 60);
+    if ($sec > 59)
+    {
+        $seconds = intval($sec % 60);
+    }
+    else
+    {
+        $sec_tmp = round($sec, 2);
+        $sec_tmp = $sec_tmp * 100;
+        $seconds = $sec_tmp;
+    }
+    
     $hms .= str_pad($seconds, 2, '0', STR_PAD_LEFT);
     return $hms;
 }
