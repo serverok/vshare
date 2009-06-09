@@ -36,11 +36,15 @@ if (isset($_POST['add_channel']))
     
     $seo_name = seo_name($_POST['channel_name']);
     
-    if (check_field_exists($seo_name, 'channel_name', 'channels'))
+    if (check_field_exists($_POST['channel_name'], 'channel_name', 'channels'))
+    {
+        $err = $lang['channel_exists'];
+    } 
+    else if (check_field_exists($seo_name, 'channel_seo_name', 'channels'))
     {
         $err = $lang['channel_exists'];
     }
-    
+        
     if ($err == '')
     {
         $sql = "INSERT INTO `channels` SET
