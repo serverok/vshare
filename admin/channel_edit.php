@@ -31,10 +31,33 @@ if (isset($_POST['edit_channel']))
     {
         $err = $lang['channel_description_null'];
     }
-    else
+
+    $_POST['name'] = trim($_POST['name']);
+    $seo_name = seo_name($_POST['name']);
+    
+    $sql = "SELECT * FROM `channels` WHERE 
+    	   `channel_seo_name`='" . $seo_name . "' AND
+    	   `channel_id`!='" . (int) $_POST['id'] . "'";
+    $result = mysql_query($sql);
+    
+    if (mysql_num_rows($result)) 
+    {
+        $err =  'Channel with the name already exists';
+    }
+    
+    $sql = "SELECT * FROM `channels` WHERE 
+    	   `channel_name`='" . mysql_clean($_POST['name']) . "' AND
+    	   `channel_id`!='" . (int) $_POST['id'] . "'";
+    $result = mysql_query($sql);
+    
+    if (mysql_num_rows($result))
+    {
+        $err =  'Channel with the name already exists';
+    }
+    
+    if ($err == '')
     {
         
-        $seo_name = seo_name($_POST['name']);
         $sql = "UPDATE `channels` SET
                `channel_name` = '" . mysql_clean($_POST['name']) . "',
                `channel_seo_name` = '" . mysql_clean($seo_name) . "',
@@ -53,6 +76,10 @@ if (isset($_POST['edit_channel']))
             $redirect_url = VSHARE_URL . '/admin/channel_search.php?id=' . $_POST['id'] . '&action=search';
             redirect($redirect_url);
         }
+    }
+    else
+    {
+        $_GET['chid'] = $_POST['id'];
     }
 }
 
