@@ -37,7 +37,7 @@
 #**********************************************************************************************************************************
 #	ATTENTION: THE $TEMP_DIR AND $DATA_DELIMITER VALUES MUST BE DUPLICATED IN THE "UBR_INI.PHP" FILE
 #**********************************************************************************************************************************
-my $TEMP_DIR        = '/home/web/vshare/templates_c/';       # MUST BE DUPLICATED IN THE "UBR_INI.PHP" FILE
+my $TEMP_DIR        = '/www/web/vshare/templates_c/';       # MUST BE DUPLICATED IN THE "UBR_INI.PHP" FILE
 my $DATA_DELIMITER  = '<=>';                  # MUST BE DUPLICATED IN THE "UBR_INI.PHP" FILE
 my $DEBUG_PERL = 0;                           # Enable to view version and environment variables (config will not be loaded)
 
