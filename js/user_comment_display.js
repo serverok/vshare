@@ -17,5 +17,5 @@ function user_comment_display_success(response)
 
 function user_comment_display_error()
 {
-	alert("connection failed");
+    $('#comm_result').html('connection failed');
 }
