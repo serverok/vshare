@@ -58,6 +58,8 @@ $num_result = mysql_num_rows($result);
 
 $user_group_keywords_all = '';
 
+$groups = array();
+
 while ($group_row = mysql_fetch_assoc($result))
 {
     $groups[] = $group_row;
