@@ -3,7 +3,7 @@
 class User
 {
 
-    function login($user_name, $admin_login = 0)
+    static function login($user_name, $admin_login = 0)
     {
         global $conn , $config;
         
@@ -57,7 +57,7 @@ class User
         }
     }
 
-    function logout()
+    static function logout()
     {
         if (isset($_SESSION['UID'])) unset($_SESSION['UID']);
         if (isset($_SESSION['EMAIL'])) unset($_SESSION['EMAIL']);
@@ -68,7 +68,7 @@ class User
         setcookie('VSHARE_AL_PASSWORD', '', $_SERVER['REQUEST_TIME'] - 10000, '/');
     }
 
-    function get_ip()
+    static function get_ip()
     {
         if (isset($_SERVER['HTTP_CLIENT_IP']))
         {
@@ -96,7 +96,7 @@ class User
         }
     }
 
-    function upload_photo()
+    static function upload_photo()
     {
         global $conn , $config;
         
@@ -113,7 +113,7 @@ class User
         $result = mysql_query($sql) or mysql_die($sql);
     }
 
-    function get_photo($user_photo = 0, $user_id)
+    static function get_photo($user_photo = 0, $user_id)
     {
         global $conn , $config;
         
@@ -127,7 +127,7 @@ class User
         return $photo_url;
     }
 
-    function get_user_name_by_id($user_id)
+    static function get_user_name_by_id($user_id)
     {
         $sql = "SELECT `user_name` FROM `users` WHERE
                `user_id`='" . (int) $user_id . "'";
@@ -143,7 +143,7 @@ class User
         }
     }
 
-    function get_user_by_id($user_id)
+    static function get_user_by_id($user_id)
     {
         $sql = "SELECT * FROM `users` WHERE
                `user_id`='" . (int) $user_id . "'";
@@ -160,7 +160,7 @@ class User
         }
     }
 
-    function get_user_by_name($user_name)
+    static function get_user_by_name($user_name)
     {
         $sql = "SELECT * FROM `users` WHERE
            `user_id`='" . (int) $user_name . "'";
@@ -168,7 +168,7 @@ class User
         $user = mysql_fetch_assoc($result);
     }
 
-    function validate_url($url)
+    static function validate_url($url)
     {
         if (! $parse_url = parse_url($url))
         {
@@ -198,7 +198,7 @@ class User
         return $url;
     }
 
-    function set_auto_login_cookie($user_name)
+    static function set_auto_login_cookie($user_name)
     {
         $user_salt = md5(uniqid(rand(), TRUE));
         
@@ -224,7 +224,7 @@ class User
         $_SESSION['pwd'] = $token;
     }
 
-    function login_auto()
+    static function login_auto()
     {
         $sql = "SELECT user_password,user_salt FROM `users` WHERE
                `user_name`='" . mysql_clean($_COOKIE['VSHARE_AL_USER']) . "'";
@@ -249,7 +249,7 @@ class User
         }
     }
 
-    function is_logged_in()
+    static function is_logged_in()
     {
         global $config;
         $loged_in = 0;
@@ -290,7 +290,7 @@ class User
         }
     }
 
-    function delete($user_id, $is_admin = 0)
+    static function delete($user_id, $is_admin = 0)
     {
         $user_info = User::get_user_by_id($user_id);
         
@@ -301,10 +301,16 @@ class User
         }
         
         $photo_path = VSHARE_DIR . '/photo/' . $user_id . '.jpg';
+        $photo_path_avatar = VSHARE_DIR . '/photo/1_' . $user_id . '.jpg';
         
         if (file_exists($photo_path) && is_file($photo_path))
         {
             unlink($photo_path);
+        }
+        
+        if (file_exists($photo_path_avatar) && is_file($photo_path_avatar))
+        {
+            unlink($photo_path_avatar);
         }
         
         $user_name = $user_info['user_name'];
@@ -383,4 +389,44 @@ class User
                `user_id`='" . (int) $user_id . "'";
         mysql_query($sql) or mysql_die($sql);
     }
+	
+	static function friend_add($id,$key,$user_id)
+	{
+		$sql = "SELECT * FROM `verify_code` WHERE
+			   `id`='" . (int) $id . "' AND
+			   `vkey`='" . mysql_clean($key) . "'";
+		$result = mysql_query($sql) or mysql_die($sql);
+		
+		if (mysql_num_rows($result) == 1)
+		{
+			$tmp = mysql_fetch_assoc($result);
+			$fid = $tmp['data1'];
+			
+			$sql = "SELECT * FROM `users` WHERE
+				   `user_id`='". (int) $user_id . "'";
+			$result = mysql_query($sql) or mysql_die($sql);
+			$user_info = mysql_fetch_assoc($result);
+			
+			
+			$sql = "SELECT * FROM `friends` WHERE
+				   `friend_id`='" . (int) $fid . "'";
+			$result = mysql_query($sql) or mysql_die();
+			$tmp = mysql_fetch_assoc($result);
+			$friend_id = $tmp['friend_user_id'];
+			
+			$sql = "SELECT * FROM `users` WHERE
+				   `user_id`='" . (int) $friend_id . "'";
+			$result = mysql_query($sql) or mysql_die($sql);
+			$tmp = mysql_fetch_assoc($result);
+			$friend_user_name = $tmp['user_name'];
+			
+			$signup_auto_friend = get_config('signup_auto_friend');
+			$friends = new Friends();
+			
+			if ($friend_user_name != $signup_auto_friend && !$friends->already_friends($user_id,$friend_id))
+			{
+				$friends->make_friends($user_info['user_name'], $friend_user_name);
+			}
+		}
+	}
 }
