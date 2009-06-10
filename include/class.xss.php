@@ -2,7 +2,7 @@
 
 class Xss
 {
-    function clean($string)
+    static function clean($string)
     {
         if (is_array($string))
         {
