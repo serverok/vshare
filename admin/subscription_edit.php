@@ -124,10 +124,11 @@ else if (isset($_POST['save_subscription']))
     $result = mysql_query($sql) or mysql_die($sql);
     $myobj = mysql_fetch_object($result);
     $pack_id = $myobj->package_id;
+    
     $sql = "UPDATE `subscriber` SET `pack_id`=$pack_id,
            `expired_time`='$new_expired_time',
-           `used_space`=" . mysql_clean($_POST['used_space']) . ",
-           `total_video`=" . mysql_clean($_POST['total_video']) . " WHERE
+           `used_space`='" . (float) $_POST['used_space'] . "',
+           `total_video`='" . (int) $_POST['total_video'] . "' WHERE
            `UID`='" . (int) $_POST['uid'] . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     $todo = 'saved';
