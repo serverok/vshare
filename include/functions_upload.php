@@ -99,6 +99,7 @@ function download_video($vid)
         {
             write_log('ERROR: unable to connect');
             echo 'ERROR: unable to connect<br />';
+            echo '<p>' . $video_url . '</p>';
             $err = 1;
         }
         else if ($file_size == 1)
