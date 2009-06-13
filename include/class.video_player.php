@@ -127,10 +127,11 @@ class video_player
 
     function flv_url()
     {
-        global $config;
+        global $config, $servers;
         $file = $this->video_info['video_embed_code'];
         $video_id = $this->video_info['video_id'];
         $video_folder = $this->video_info['video_folder'];
+        $video_thumb_url = $servers[$this->video_info['video_thumb_server_id']];
         require VSHARE_DIR . '/include/player.inc';
         return $vshare_player;
     }
