@@ -29,9 +29,9 @@ Process Queue Status
 ===========================================================
 video_vtype
 ===========================================================
-LOCAL              0
-YOUTUBE            1
-FLV FILE           2
+LOCAL              0		Video Hosted on vShare site (local and remote servers)
+YOUTUBE            1		Embed Youtube Video
+FLV FILE           2		Hotlink remote FLV
 STAGE6.COM         3
 REVVER.COM         4
 METACAFE.COM       5
