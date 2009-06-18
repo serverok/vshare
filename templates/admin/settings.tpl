@@ -134,6 +134,11 @@
             <label>CCBill Sub account No:</label>
             <input type="text" name="ccbill_sub_ac_no" value="{$ccbill_sub_ac_no}">
         </div>
+		
+		<div>
+            <label>CCBill Form Name:</label>
+            <input type="text" name="ccbill_form_name" value="{$ccbill_form_name}">
+        </div>
         
         <div>
             <label for="paypal_receiver_email">Paypal Receiver Email:</label>
