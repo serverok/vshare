@@ -1,8 +1,7 @@
 <?php
 
 $vshare_version = '2.7';
-$vshare_release = '20090310';
-
+date_default_timezone_set('GMT');
 set_time_limit(0);
 
 $conn = mysql_connect($db_host, $db_user, $db_pass);
