@@ -692,7 +692,7 @@ function check_subscriber_videos($uid)
 function find_age($dob)
 {
     list($birth_year, $birth_month, $birth_day) = explode('-', $dob);
-    $datestamp = date('d.m.Y', mktime());
+    $datestamp = date('d.m.Y');
     $t_arr = explode('.', $datestamp);
     $current_day = $t_arr[0];
     $current_month = $t_arr[1];
