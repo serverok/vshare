@@ -17,6 +17,8 @@ require 'include/config.php';
 User::is_logged_in();
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$friends = array();
+$friend_videos = array();
 
 if ($page < 1)
 {
@@ -67,7 +69,7 @@ if ($num_friends > 0)
         $result = mysql_query($sql) or mysql_die();
         $num_result = mysql_num_rows($result);
         
-        $friend_videos = array();
+        
         
         if ($num_result > 0)
         {
@@ -123,10 +125,16 @@ if ($num_friends > 0)
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('page', $page);
-$smarty->assign('start_num', $start_num);
-$smarty->assign('end_num', $end_num);
-$smarty->assign('total', $total);
-$smarty->assign('answers', $friend_videos);
+
+if (count($friend_videos) > 0 )
+{
+	$smarty->assign('start_num', $start_num);
+	$smarty->assign('end_num', $end_num);
+	$smarty->assign('total', $total);
+	$smarty->assign('answers', $friend_videos);
+}
+
+
 $smarty->assign('sub_menu', 'menu_friends.tpl');
 $smarty->display('header.tpl');
 $smarty->display('user_friends_favourites.tpl');
