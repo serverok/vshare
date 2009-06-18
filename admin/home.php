@@ -17,7 +17,6 @@ require '../include/config.php';
 check_admin_login();
 
 $smarty->assign('vshare_version', $vshare_version);
-$smarty->assign('vshare_release', $vshare_release);
 
 # number of videos
 
