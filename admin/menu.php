@@ -285,6 +285,11 @@ $menu_items = array(
         'subscription_edit.php',
         7
     ),
+    array(
+        'Payments',
+        'payments.php',
+        0
+    ),
     
     array(
         'Bad Words',
