@@ -142,42 +142,62 @@ if (isset($_POST['submit']))
                 {
                     $_POST['ccbill_ac_no'] = isset($_POST['ccbill_ac_no']) ? $_POST['ccbill_ac_no'] : '';
                     $_POST['ccbill_ac_no'] = trim($_POST['ccbill_ac_no']);
-
-                    if ( isset($config['ccbill_ac_no']) )
+                    
+                    if (check_config_exists('ccbill_ac_no'))
                     {
-                        $sql = "UPDATE `sconfig` SET
-                               `svalue`='" . mysql_clean($_POST['ccbill_ac_no']) . "' WHERE
-                               `soption`='ccbill_ac_no'";
+                        $sql = "UPDATE `config` SET
+                               `config_value`='" . mysql_clean($_POST['ccbill_ac_no']) . "' WHERE
+                               `config_name`='ccbill_ac_no'";
                         mysql_query($sql);
                     }
                     else
                     {
-                        $sql = "INSERT INTO `sconfig` SET
-                               `soption`='ccbill_ac_no',
-                               `svalue`='" . mysql_clean($_POST['ccbill_ac_no']) . "'";
+                        $sql = "INSERT INTO `config` SET
+                               `config_name`='ccbill_ac_no',
+                               `config_value`='" . mysql_clean($_POST['ccbill_ac_no']) . "'";
                         mysql_query($sql);
                     }
-
+                    
                     $_POST['ccbill_sub_ac_no'] = isset($_POST['ccbill_sub_ac_no']) ? $_POST['ccbill_sub_ac_no'] : '';
                     $_POST['ccbill_sub_ac_no'] = trim($_POST['ccbill_sub_ac_no']);
                     
-                    if ( isset($config['ccbill_sub_ac_no']) )
+                    if (check_config_exists('ccbill_sub_ac_no'))
                     {
-                        $sql = "UPDATE `sconfig` SET
-                               `svalue`='" . mysql_clean($_POST['ccbill_sub_ac_no']) . "' WHERE
-                               `soption`='ccbill_sub_ac_no'";
+                        $sql = "UPDATE `config` SET
+                               `config_value`='" . mysql_clean($_POST['ccbill_sub_ac_no']) . "' WHERE
+                               `config_name`='ccbill_sub_ac_no'";
                         mysql_query($sql);
                     }
                     else
                     {
-                        $sql = "INSERT INTO `sconfig` SET
-                               `soption`='ccbill_sub_ac_no',
-                               `svalue`='" . mysql_clean($_POST['ccbill_sub_ac_no']) . "'";
+                        $sql = "INSERT INTO `config` SET
+                               `config_name`='ccbill_sub_ac_no',
+                               `config_value`='" . mysql_clean($_POST['ccbill_sub_ac_no']) . "'";
                         mysql_query($sql);
                     }
+                    
+                    $_POST['ccbill_form_name'] = isset($_POST['ccbill_form_name']) ? $_POST['ccbill_form_name'] : '';
+                    $_POST['ccbill_form_name'] = trim($_POST['ccbill_form_name']);
+                    
+                    if (check_config_exists('ccbill_form_name'))
+                    {
+                        $sql = "UPDATE `config` SET
+                               `config_value`='" . mysql_clean($_POST['ccbill_form_name']) . "' WHERE
+                               `config_name`='ccbill_form_name'";
+                        mysql_query($sql);
+                    }
+                    else
+                    {
+                        $sql = "INSERT INTO `config` SET
+                               `config_name`='ccbill_form_name',
+                               `config_value`='" . mysql_clean($_POST['ccbill_form_name']) . "'";
+                        mysql_query($sql);
+                    }
+                
                 }
             }
         }
+    
     }
     
     if ($err == '')
@@ -220,6 +240,10 @@ if ($config['payment_method'] != '')
 }
 
 $payment_method_ops = '<input type="checkbox" name="method[]" value="Paypal" ' . $paypal_enabled . ' /> Paypal <input type="checkbox" name="method[]" value="CCBill" ' . $ccbill_enabled . ' /> CCBill<br />';
+
+$smarty->assign('ccbill_ac_no', get_config('ccbill_ac_no'));
+$smarty->assign('ccbill_sub_ac_no', get_config('ccbill_sub_ac_no'));
+$smarty->assign('ccbill_form_name', get_config('ccbill_form_name'));
 
 $smarty->assign('allow_html', get_config('allow_html'));
 $smarty->assign('payment_method_ops', $payment_method_ops);
