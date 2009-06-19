@@ -861,3 +861,22 @@ function array_remove_duplicate($source_array)
     }
     return $array_new;
 }
+
+function check_config_exists($config_name)
+{
+    global $config;
+    
+    $sql = "SELECT * FROM `config` WHERE
+		   `config_name`='" . mysql_clean($config_name) . "'";
+    $result = mysql_query($sql);
+    
+    if (mysql_num_rows($result) > 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+
+}
