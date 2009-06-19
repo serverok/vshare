@@ -129,10 +129,11 @@ if (isset($_POST['submit']))
         $city = urlencode($_POST['user_city']);
         $country = $_POST['user_country'];
         
-        $client_accnum = $config['ccbill_ac_no'];
-        $client_subacc = $config['ccbill_sub_ac_no'];
+        $ccbill_ac_no = get_config('ccbill_ac_no');
+        $ccbill_sub_ac_no = get_config('ccbill_sub_ac_no');
+        $ccbill_form_name = get_config('ccbill_form_name');
         
-        $ccbill_link = 'https://bill.ccbill.com/jpost/signup.cgi?clientAccnum=' . $client_accnum . '&clientSubacc=' . $client_subacc . '&formName=11cc&customer_fname=' . $first_name . '&customer_lname=' . $last_name . '&city=' . $city . '&country=' . $country . '&accountingAmount=' . $theprice . '&vshare_payment_id=' . $payment_id . '&productDesc=' . $product_desc;
+        $ccbill_link = 'https://bill.ccbill.com/jpost/signup.cgi?clientAccnum=' . $ccbill_ac_no . '&clientSubacc=' . $ccbill_sub_ac_no . '&formName=' . $ccbill_form_name . '&customer_fname=' . $first_name . '&customer_lname=' . $last_name . '&city=' . $city . '&country=' . $country . '&accountingAmount=' . $theprice . '&vshare_payment_id=' . $payment_id . '&productDesc=' . $product_desc;
         redirect($ccbill_link);
     }
 }
