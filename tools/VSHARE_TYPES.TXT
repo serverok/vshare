@@ -11,9 +11,11 @@ video_thumb_cmd
 server_type
 ===========================================================
 
-flv server          0
-static server       1
-mod_secdownload     2
+0 - VIDEO SERVER
+1 - THUMBNAIL SERVER
+2 - MOD_SECDOWNLOAD (LIGHTTPD)
+
+http://labs.buyscripts.in/projects/vshare/wiki/Video_Server_Type
 
 ===========================================================
 Process Queue Status
