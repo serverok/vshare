@@ -30,13 +30,13 @@ if ($err == '')
     if (mb_strlen($search_string) < 4)
     {
         $sql_extra = "WHERE `video_title` REGEXP '" . mysql_clean($search_string) . "' OR 	
-                      `video_description` REGEXP '" . mysql_clean($search_string) . "' OR
-                      `video_keywords` REGEXP '" . mysql_clean($search_string) . "' AND";
+                     `video_description` REGEXP '" . mysql_clean($search_string) . "' OR
+                     `video_keywords` REGEXP '" . mysql_clean($search_string) . "' AND";
     }
     else
     {
         $sql_extra = "WHERE MATCH (video_title,video_description,video_keywords) 
-                       AGAINST ('" . mysql_clean($search_string) . "' IN BOOLEAN MODE)AND";
+                      AGAINST ('" . mysql_clean($search_string) . "' IN BOOLEAN MODE) AND";
     }
     
     $sql = "SELECT `video_id` FROM `videos`
