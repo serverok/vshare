@@ -6,7 +6,7 @@ INSERT INTO `sconfig` (`soption`, `svalue`) VALUES ('video_comments_per_page', '
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES ('user_comments_per_page', '5');
 INSERT INTO `sconfig` (`soption`, `svalue` ) VALUES ('num_new_videos', '4');
 INSERT INTO `sconfig` (`soption`, `svalue` ) VALUES ('num_watch_videos', '12');
-INSERT INTO `config` ( `config_name` , `config_value` ) VALUES ('video_duration_cmd', '2');
+INSERT INTO `config` ( `config_name` , `config_value` ) VALUES ('video_duration_cmd', '0');
 INSERT INTO `config` ( `config_name` , `config_value` ) VALUES ('editor_wysiwyg_admin', '1');
 INSERT INTO `config` ( `config_name` , `config_value` ) VALUES ('editor_wysiwyg_email', '1');
 INSERT INTO `config` ( `config_name` , `config_value` ) VALUES ('mail_abuse_report', '1');
