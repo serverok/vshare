@@ -88,6 +88,9 @@ function download_video($vid)
             $desination = VSHARE_DIR . '/video/' . $file_name;
         }
         
+        echo "<p>Downloading Video : $video_url</p>";
+        echo "<p>Destination : $desination</p>";
+        
         $file_size = download($video_url, $desination);
         
         write_log('Download Finished');
@@ -99,7 +102,6 @@ function download_video($vid)
         {
             write_log('ERROR: unable to connect');
             echo 'ERROR: unable to connect<br />';
-            echo '<p>' . $video_url . '</p>';
             $err = 1;
         }
         else if ($file_size == 1)
