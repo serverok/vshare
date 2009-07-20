@@ -17,7 +17,7 @@ else if (! isset($_SESSION['UID']))
 
 if ($err != '')
 {
-    if ($config['debug']) error_log("$err \n", 3, VSHARE_DIR . '/ajax/log.txt');
+    if ($config['debug']) error_log("$err \n", 3, VSHARE_DIR . '/templates_c/ajax_video_feature_log.txt');
     return_json($err, 'error');
     exit();
 }
