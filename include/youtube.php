@@ -2,22 +2,20 @@
 
 function get_youtube_flv_url($url)
 {
-    $debug = 0;
-    $v = $url;
-    if ($debug) echo "<p>$v</p>";
-
-    $v = split('=', $url);
-    $video_id = $v[1];
-
     $content = file_get_contents($url);
-
-    if (preg_match_all("/&t=[^&]*/", $content, $matches))
+    
+    if (preg_match_all("/fmt_url_map.*/", $content, $matches))
     {
-        $t = $matches[0][0];
-        $t = preg_split("/=/", $t);
-        $t = $t[1];
-        $flv_url = 'http://www.youtube.com/get_video.php?video_id=' . $video_id . '&t=' . $t . '&.flv';
+        $url = urldecode($matches[0][0]);
+        $urls = explode('|', $url);
+        $url = $urls[1];
+        $urls = explode(',', $url);
+        $flv_url = $urls[0];
+        return $flv_url;
     }
-
-    return $flv_url;
+    else
+    {
+        echo "<p>failed to find youtube video url.</p>";
+        exit();
+    }
 }
