@@ -76,6 +76,8 @@ if ($total > 0 )
 		
 		while($payment = mysql_fetch_assoc($result))
 		{
+			$period = $payment['payment_amount']/$payment['package_price'];
+			$payment['total_period'] = $period;
 			$payment_info[] = $payment; 
 		}
 
