@@ -20,6 +20,8 @@ check_admin_login();
 
 $num_max_channels = get_config('num_max_channels');
 
+$todo = '';
+
 if (isset($_POST['submit']))
 {
     $err = '';
@@ -37,7 +39,7 @@ if (isset($_POST['submit']))
     {
         $err = $lang['title_too_short'];
     }
-    else if ((count($_POST[channel]) < 1) || (count($_POST[channel]) > $num_max_channels))
+    else if ((count($_POST['channel']) < 1) || (count($_POST['channel']) > $num_max_channels))
     {
         $err = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
     }
