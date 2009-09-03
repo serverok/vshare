@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -16,13 +17,15 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ip.php 17470 2009-08-08 22:27:09Z thomas $
+ * @version    $Id: Hex.php 17470 2009-08-08 22:27:09Z thomas $
  */
+
 
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'Zend/Validate/Abstract.php';
+
 
 /**
  * @category   Zend
@@ -30,44 +33,40 @@ require_once 'Zend/Validate/Abstract.php';
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Validate_Ip extends Zend_Validate_Abstract
+class Zend_Validate_Hex extends Zend_Validate_Abstract
 {
-    const INVALID        = 'ipInvalid';
-    const NOT_IP_ADDRESS = 'notIpAddress';
+    const INVALID = 'hexInvalid';
+    const NOT_HEX = 'notHex';
 
     /**
+     * Validation failure message template definitions
+     *
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID        => "Invalid type given, value should be a string",
-        self::NOT_IP_ADDRESS => "'%value%' does not appear to be a valid IP address"
+        self::INVALID => "Invalid type given, value should be a string",
+        self::NOT_HEX => "'%value%' has not only hexadecimal digit characters"
     );
 
     /**
      * Defined by Zend_Validate_Interface
      *
-     * Returns true if and only if $value is a valid IP address
+     * Returns true if and only if $value contains only hexadecimal digit characters
      *
-     * @param  mixed $value
+     * @param  string $value
      * @return boolean
      */
     public function isValid($value)
     {
-        if (!is_string($value)) {
+        if (!is_string($value) && !is_int($value)) {
             $this->_error(self::INVALID);
             return false;
         }
 
         $this->_setValue($value);
-
-        if ((ip2long($value) === false) || (long2ip(ip2long($value)) !== $value)) {
-            if (!function_exists('inet_pton')) {
-                $this->_error(self::NOT_IP_ADDRESS);
-                return false;
-            } else if ((@inet_pton($value) === false) ||(inet_ntop(@inet_pton($value)) !== $value)) {
-                $this->_error(self::NOT_IP_ADDRESS);
-                return false;
-            }
+        if (!ctype_xdigit((string) $value)) {
+            $this->_error(self::NOT_HEX);
+            return false;
         }
 
         return true;

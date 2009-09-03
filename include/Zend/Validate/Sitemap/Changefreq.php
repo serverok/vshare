@@ -14,9 +14,10 @@
  *
  * @category   Zend
  * @package    Zend_Validate
+ * @subpackage Sitemap
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ip.php 17470 2009-08-08 22:27:09Z thomas $
+ * @version    $Id: Changefreq.php 17470 2009-08-08 22:27:09Z thomas $
  */
 
 /**
@@ -25,52 +26,64 @@
 require_once 'Zend/Validate/Abstract.php';
 
 /**
+ * Validates whether a given value is valid as a sitemap <changefreq> value
+ *
+ * @link       http://www.sitemaps.org/protocol.php Sitemaps XML format
+ *
  * @category   Zend
  * @package    Zend_Validate
+ * @subpackage Sitemap
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Validate_Ip extends Zend_Validate_Abstract
+class Zend_Validate_Sitemap_Changefreq extends Zend_Validate_Abstract
 {
-    const INVALID        = 'ipInvalid';
-    const NOT_IP_ADDRESS = 'notIpAddress';
+    /**
+     * Validation key for not valid
+     *
+     */
+    const NOT_VALID = 'invalidSitemapChangefreq';
 
     /**
+     * Validation failure message template definitions
+     *
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID        => "Invalid type given, value should be a string",
-        self::NOT_IP_ADDRESS => "'%value%' does not appear to be a valid IP address"
+        self::NOT_VALID => "'%value%' is not a valid sitemap changefreq",
     );
 
     /**
-     * Defined by Zend_Validate_Interface
+     * Valid change frequencies
      *
-     * Returns true if and only if $value is a valid IP address
+     * @var array
+     */
+    protected $_changeFreqs = array(
+        'always',  'hourly', 'daily', 'weekly',
+        'monthly', 'yearly', 'never'
+    );
+
+    /**
+     * Validates if a string is valid as a sitemap changefreq
      *
-     * @param  mixed $value
+     * @link http://www.sitemaps.org/protocol.php#changefreqdef <changefreq>
+     *
+     * @param  string  $value  value to validate
      * @return boolean
      */
     public function isValid($value)
     {
+        $this->_setValue($value);
+
         if (!is_string($value)) {
-            $this->_error(self::INVALID);
             return false;
         }
 
-        $this->_setValue($value);
-
-        if ((ip2long($value) === false) || (long2ip(ip2long($value)) !== $value)) {
-            if (!function_exists('inet_pton')) {
-                $this->_error(self::NOT_IP_ADDRESS);
-                return false;
-            } else if ((@inet_pton($value) === false) ||(inet_ntop(@inet_pton($value)) !== $value)) {
-                $this->_error(self::NOT_IP_ADDRESS);
-                return false;
-            }
+        if (!in_array($value, $this->_changeFreqs, true)) {
+            $this->_error(self::NOT_VALID);
+            return false;
         }
 
         return true;
     }
-
 }

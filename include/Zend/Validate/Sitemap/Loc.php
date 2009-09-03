@@ -14,9 +14,10 @@
  *
  * @category   Zend
  * @package    Zend_Validate
+ * @subpackage Sitemap
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ip.php 17470 2009-08-08 22:27:09Z thomas $
+ * @version    $Id: Loc.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
@@ -25,52 +26,54 @@
 require_once 'Zend/Validate/Abstract.php';
 
 /**
+ * @see Zend_Uri
+ */
+require_once 'Zend/Uri.php';
+
+/**
+ * Validates whether a given value is valid as a sitemap <loc> value
+ *
+ * @link       http://www.sitemaps.org/protocol.php Sitemaps XML format
+ *
  * @category   Zend
  * @package    Zend_Validate
+ * @subpackage Sitemap
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Validate_Ip extends Zend_Validate_Abstract
+class Zend_Validate_Sitemap_Loc extends Zend_Validate_Abstract
 {
-    const INVALID        = 'ipInvalid';
-    const NOT_IP_ADDRESS = 'notIpAddress';
+    /**
+     * Validation key for not valid
+     *
+     */
+    const NOT_VALID = 'invalidSitemapLoc';
 
     /**
+     * Validation failure message template definitions
+     *
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID        => "Invalid type given, value should be a string",
-        self::NOT_IP_ADDRESS => "'%value%' does not appear to be a valid IP address"
+        self::NOT_VALID => "'%value%' is not a valid sitemap location",
     );
 
     /**
-     * Defined by Zend_Validate_Interface
+     * Validates if a string is valid as a sitemap location
      *
-     * Returns true if and only if $value is a valid IP address
+     * @link http://www.sitemaps.org/protocol.php#locdef <loc>
      *
-     * @param  mixed $value
+     * @param  string  $value  value to validate
      * @return boolean
      */
     public function isValid($value)
     {
+        $this->_setValue($value);
+
         if (!is_string($value)) {
-            $this->_error(self::INVALID);
             return false;
         }
 
-        $this->_setValue($value);
-
-        if ((ip2long($value) === false) || (long2ip(ip2long($value)) !== $value)) {
-            if (!function_exists('inet_pton')) {
-                $this->_error(self::NOT_IP_ADDRESS);
-                return false;
-            } else if ((@inet_pton($value) === false) ||(inet_ntop(@inet_pton($value)) !== $value)) {
-                $this->_error(self::NOT_IP_ADDRESS);
-                return false;
-            }
-        }
-
-        return true;
+        return Zend_Uri::check($value);
     }
-
 }

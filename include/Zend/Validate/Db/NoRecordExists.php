@@ -17,21 +17,36 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exception.php 16223 2009-06-21 20:04:53Z thomas $
+ * @version    $Id: NoRecordExists.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
-
 /**
- * @see Zend_Exception
+ * @see Zend_Validate_Db_Abstract
  */
-require_once 'Zend/Exception.php';
-
+require_once 'Zend/Validate/Db/Abstract.php';
 
 /**
+ * Confirms a record does not exist in a table.
+ *
  * @category   Zend
  * @package    Zend_Validate
+ * @uses       Zend_Validate_Db_Abstract
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Validate_Exception extends Zend_Exception
-{}
+class Zend_Validate_Db_NoRecordExists extends Zend_Validate_Db_Abstract
+{
+    public function isValid($value)
+    {
+        $valid = true;
+        $this->_setValue($value);
+
+        $result = $this->_query($value);
+        if ($result) {
+            $valid = false;
+            $this->_error(self::ERROR_RECORD_FOUND);
+        }
+
+        return $valid;
+    }
+}
