@@ -447,7 +447,11 @@ class Video
                 $ftp_config['debug'] = $config['debug'];
                 $ftp_config['log_file_name'] = $log_file_name;
                 $ftp = new Ftp();
-                $ftp->delete_video($ftp_config);
+                if (!$ftp->delete_video($ftp_config))
+                {
+                    echo 'Delete failed';
+                    exit;
+                }
                 $ftp->close();
             }
             else if ($delete == 1)
