@@ -9,7 +9,7 @@ include/htmlpurifier/HTMLPurifier/DefinitionCache/Serializer/HTML/*
 .cache/*
 .project
 cache
-tools/*
+tools/test/test_media/*
 sql_change/*
 chimg/*
 */Thumbs.db
