@@ -143,12 +143,16 @@ if (isset($_POST['submit']))
             mysql_query($sql) or mysql_die($sql);
         }
         
-        if (is_numeric($_POST['enable_flvtool']))
+        if (isset($_POST['flv_metadata']))
         {
-            $sql = "UPDATE `config` SET
-                   `config_value`='" . (int) $_POST['enable_flvtool'] . "' WHERE
-                   `config_name`='enable_flvtool'";
-            mysql_query($sql) or mysql_die($sql);
+            
+        	if ($_POST['flv_metadata'] == 'yamdi' || $_POST['flv_metadata'] == 'flvtool' || $_POST['flv_metadata'] == 'none')
+            {
+	        	$sql = "UPDATE `config` SET
+	                   `config_value`='" . mysql_clean($_POST['flv_metadata']) . "' WHERE
+	                   `config_name`='flv_metadata'";
+	            mysql_query($sql) or mysql_die($sql);
+            }
         }
         
         if (is_numeric($_POST['guest_upload']))
@@ -187,6 +191,7 @@ if (isset($_POST['submit']))
     }
 }
 
+$smarty->assign('flv_meta_data', get_config('flv_metadata'));
 $smarty->assign('video_duration_cmd', get_config('video_duration_cmd'));
 $smarty->assign('num_channel_video', get_config('num_channel_video'));
 $smarty->assign('guest_upload', get_config('guest_upload'));
