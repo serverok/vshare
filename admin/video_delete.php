@@ -51,12 +51,12 @@ else
 {
     $err = $lang['video_id_empty'];
 }
-
+/*
 if (isset($_SERVER['HTTP_REFERER']) && strstr($_SERVER['HTTP_REFERER'], 'video_user_deleted.php?msg=' . $msg . 'err=' . $err))
 {
     $redirect_url = $_SERVER['HTTP_REFERER'];
     redirect($redirect_url);
-}
+}*/
 
 $smarty->assign('msg', $msg);
 $smarty->assign('err', $err);
