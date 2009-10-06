@@ -16,13 +16,15 @@ function download_video($vid)
     $result = mysql_query($sql) or mysql_die($sql);
     $video_info = mysql_fetch_assoc($result);
     $video_url = $video_info['url'];
+    echo "<P>video url : $video_url</p>";
     
     $video_filename = VSHARE_DIR . '/video/' . $video_info['file'];
+    echo "<P>Video Downloaded to : $video_filename</p>";
     
     if (file_exists($video_filename) && is_file($video_filename))
     {
         unlink($video_filename);
-        write_log("Deleted File: $video_filename");
+        echo "<p>Deleted File: $video_filename</p>";
     }
     
     write_log($video_url);
@@ -32,7 +34,7 @@ function download_video($vid)
         $file_extn = 'flv';
         $rename_file = 1;
         $video_url = get_youtube_flv_url($video_url);
-        write_log($video_url);
+        echo "<p>Youtube FLV location: $video_url</p>";
     }
     else if (strstr($video_url, 'googlevideo'))
     {
