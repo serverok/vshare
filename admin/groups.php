@@ -91,7 +91,7 @@ if (($_GET['a'] == 'all') || ($_GET['a'] == 'public') || ($_GET['a'] == 'private
         'urlVar' => 'page'
     );
     
-    $pager = & new Pager_Sliding($params);
+    $pager = new Pager_Sliding($params);
     $data = $pager->getPageData();
     $links = $pager->getLinks();
     

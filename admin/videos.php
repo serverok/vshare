@@ -69,7 +69,7 @@ if ($_GET['a'] == 'all' || $_GET['a'] == 'public' || $_GET['a'] == 'private')
     $params['totalItems'] = $total;
     $params['urlVar'] = 'page';
     
-    $pager = & new Pager_Sliding($params);
+    $pager = new Pager_Sliding($params);
     $data = $pager->getPageData();
     $links = $pager->getLinks();
     
@@ -132,7 +132,7 @@ else if ($_GET['a'] == 'inappropriate')
         'urlVar' => 'page'
     );
     
-    $pager = & new Pager_Sliding($params);
+    $pager = new Pager_Sliding($params);
     $data = $pager->getPageData();
     $links = $pager->getLinks();
     
