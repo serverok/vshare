@@ -61,7 +61,7 @@ $params = array(
     'urlVar' => 'page'
 );
 
-$pager = & new pager_sliding($params);
+$pager = new pager_sliding($params);
 $data = $pager->getpagedata();
 $link = $pager->getLinks();
 
