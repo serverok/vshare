@@ -52,7 +52,7 @@ if (mysql_num_rows($result) > 0)
             'fileName' => 'javascript:display_user_comments(%d)'
         );
         
-        $pager = & new Pager_Sliding($params);
+        $pager = new Pager_Sliding($params);
         $data = $pager->getPageData();
         $links = $pager->getLinks();
         

@@ -41,7 +41,7 @@ $params['path'] = '';
 $params['append'] = false;
 $params['fileName'] = 'javascript:show_comments(' . $video_id . ',%d)';
 
-$pager = & new Pager_Sliding($params);
+$pager = new Pager_Sliding($params);
 $data = $pager->getPageData();
 $links = $pager->getLinks();
 

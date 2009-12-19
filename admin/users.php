@@ -3,7 +3,7 @@
  *
  *   COMPANY: BuyScripts.in
  *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.7
+ *   VERSION: 2.8
  *   LISENSE: http://buyscripts.in/vshare-license.html
  *   WEBSITE: http://buyscripts.in/youtube_clone.html
  *
@@ -67,7 +67,7 @@ $params['delta'] = 2;
 $params['totalItems'] = $total;
 $params['urlVar'] = 'page';
 
-$pager = & new Pager_Sliding($params);
+$pager = new Pager_Sliding($params);
 $data = $pager->getPageData();
 $links = $pager->getLinks();
 
