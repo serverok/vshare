@@ -13,7 +13,8 @@
  ******************************************************************************/
  
 require '../include/config.php';
-require '../include/functions.php';
+
+check_admin_login();
 
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id_desc';
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -62,7 +63,7 @@ if ($total > 0 )
 	$params['totalItems'] = $total;
 	$params['urlVar'] = 'page';
 
-	$pager = & new Pager_Sliding($params);
+	$pager = new Pager_Sliding($params);
 	$data = $pager->getPageData();
 	$links = $pager->getLinks();
 		
