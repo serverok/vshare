@@ -41,7 +41,7 @@ if (isset($_POST['action']))
     $msg = 'Tag has been ' . $_POST['action'] . 'd.';
 }
 
-$sql = "SELECT count(*) AS `total` FROM `tags`";
+$sql = "SELECT count(*) AS `total` FROM `tags` WHERE `active`='1'";
 $result = mysql_query($sql) or mysql_die($sql);
 $total = mysql_fetch_array($result);
 $total = $total['total'];
@@ -64,7 +64,8 @@ $pager = new Pager_Sliding($params);
 $data = $pager->getPageData();
 $links = $pager->getLinks();
 
-$sql = "SELECT * FROM `tags`
+$sql = "SELECT * FROM `tags` WHERE
+	   `active`='1'
         LIMIT $start, $result_per_page";
 $result = mysql_query($sql) or mysql_die($sql);
 $tags = mysql_fetch_all($result);
