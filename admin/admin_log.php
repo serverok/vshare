@@ -24,18 +24,22 @@ if ($page < 1)
     $page = 1;
 }
 
+$allow_sort = array(
+    'admin_log_ip asc',
+    'admin_log_ip desc',
+    'admin_log_time asc',
+    'admin_log_time desc'
+);
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 
-if ($sort == '')
+if (! in_array($sort, $allow_sort))
 {
-    $query = " ORDER BY `admin_log_id` DESC";    
+    $query = " ORDER BY `admin_log_id` DESC";
 }
 else
 {
-    $query = " ORDER BY " . mysql_clean($sort);    
+    $query = " ORDER BY " . mysql_clean($sort);
 }
-
-//http://linux/web/vshare/admin/admin_log.php?sort=admin_log_1ip+desc&page=1
 
 $sql = "SELECT count(*) AS `total` FROM
 	   `admin_log` $query";
