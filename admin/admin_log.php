@@ -30,6 +30,7 @@ $allow_sort = array(
     'admin_log_time asc',
     'admin_log_time desc'
 );
+
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 
 if (! in_array($sort, $allow_sort))
@@ -74,7 +75,6 @@ $smarty->assign('admin_log_info', $admin_log_info);
 $smarty->assign('links', $links["all"]);
 $smarty->assign('page', $page + 0);
 $smarty->assign('sort', $sort);
-
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
