@@ -57,7 +57,7 @@ class validate
 
     static function email($email)
     {
-        $email_regexp = "^([-!#\$%&'*+./0-9=?A-Z^_`a-z{|}~])+@([-!#\$%&'*+/0-9=?A-Z^_`a-z{|}~]+\\.)+[a-zA-Z]{2,4}\$";
-        return eregi($email_regexp, $email);
+        $email_regexp = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i";
+        return preg_match($email_regexp, $email);
     }
 }
