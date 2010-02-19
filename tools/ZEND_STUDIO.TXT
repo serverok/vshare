@@ -1,0 +1,25 @@
+==============================================================================
+SOURCE CODE FORMATING
+==============================================================================
+Window > Preferences > PHP > Code Style > Formatter > Import
+
+tools/vshare.xml
+
+Now to format source code, do
+
+Source > Format
+
+Shortcut: Ctrl + Shift + F
+
+
+==============================================================================
+SPACE INSTEAD OF TABS
+==============================================================================
+
+Window > Preferences > General > Text Editors
+
+
+Insert spaces for tab (chk)
+
+==============================================================================
+
