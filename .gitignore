@@ -14,4 +14,5 @@ sql_change/*
 chimg/*
 */Thumbs.db
 include/config.php
-
+patch/*
+cgi-bin/*
