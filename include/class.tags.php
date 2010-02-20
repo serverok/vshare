@@ -13,8 +13,8 @@ class Tags
         $this->vid = $vid;
         $this->uid = $uid;
         $keywords = $this->clean_tags($keywords);
-        $keywords = ereg_replace("[,]+", " ", $keywords);
-        $keywords = ereg_replace("[ ]+", " ", $keywords);
+        $keywords = preg_replace("/[,]+/", " ", $keywords);
+        $keywords = preg_replace("/[\s]+/", " ", $keywords);
         $keywords = trim($keywords);
         $kw_arr = explode(' ', $keywords);
         $keywords_unique = array_unique($kw_arr);
