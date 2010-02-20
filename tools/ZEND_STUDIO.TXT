@@ -22,4 +22,10 @@ Window > Preferences > General > Text Editors
 Insert spaces for tab (chk)
 
 ==============================================================================
+Remove Empty Space after a link (ignore empty lines)
+==============================================================================
 
+Window > Preferences > PHP > Editor > Save Actions > Remove Trailing Whitespace > Ignore empty lines
+
+
+==============================================================================
