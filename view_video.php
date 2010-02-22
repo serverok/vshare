@@ -7,7 +7,7 @@
  *   LISENSE: http://buyscripts.in/vshare-license.html
  *   WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
+ *   This program is a commercial software and any kind of using it must agree
  *   to vShare license.
  *
  ******************************************************************************/
@@ -290,6 +290,7 @@ $(function(){
 <script language="JavaScript" type="text/javascript" src="' . VSHARE_URL . '/js/video_comment_add.js"></script>
 <script language="JavaScript" type="text/javascript" src="' . VSHARE_URL . '/js/video_add_favorite.js"></script>
 <script language="JavaScript" type="text/javascript" src="' . VSHARE_URL . '/js/video_comment_delete.js"></script>
+<script language="JavaScript" type="text/javascript" src="' . VSHARE_URL . '/js/user_videos.js"></script>
 ';
 
 $smarty->assign('html_extra', $html_extra);
