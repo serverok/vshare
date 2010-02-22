@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: 2.8
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -65,7 +65,7 @@ if (isset($_POST['submit']))
             $sender_url = VSHARE_URL . '/';
         }
         
-        $email_array = split(',', $emails);
+        $email_array = explode(',', $emails);
         $report = array();
         
         $sql = "SELECT `video_seo_name` FROM `videos` WHERE
