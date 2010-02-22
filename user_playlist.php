@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: 2.8
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -61,13 +61,13 @@ $video_info = array();
 while ($video = mysql_fetch_assoc($result))
 {
     $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
-    $video['video_keywords_array'] = split(' ',$video['video_keywords']);
+    $video['video_keywords_array'] = explode(' ', $video['video_keywords']);
     $video_keywords_all .= $video['video_keywords'] . ' ';
     $video_info[] = $video;
 }
 
 $view = array();
-$video_keywords_array_all = split(' ',$video_keywords_all);
+$video_keywords_array_all = explode(' ', $video_keywords_all);
 $view['video_keywords_array_all'] = array_remove_duplicate($video_keywords_array_all);
 
 $start_num = $start_from + 1;
