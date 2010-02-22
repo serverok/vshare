@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: 2.8
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -69,14 +69,12 @@ if ($num_friends > 0)
         $result = mysql_query($sql) or mysql_die();
         $num_result = mysql_num_rows($result);
         
-        
-        
         if ($num_result > 0)
         {
             while ($friend = mysql_fetch_assoc($result))
             {
                 $friend['video_thumb_url'] = $servers[$friend['video_thumb_server_id']];
-                $friend['video_keywords_array'] = split(' ', $friend['video_keywords']);
+                $friend['video_keywords_array'] = preg_split('/\s+/', $friend['video_keywords']);
                 $friend_videos[] = $friend;
                 $favorite_video_id[] = $friend['video_id'];
             }
@@ -88,9 +86,10 @@ if ($num_friends > 0)
     $page_links = paginate($total, $config['items_per_page'], '.', '', $page);
     $smarty->assign('page_links', $page_links);
     
-    //find favorited user name
+    /*
+     * find favorited user name
+     */
     
-
     $favorited_by = array();
     
     for ($i = 0; $i < count($favorite_video_id); $i ++)
@@ -126,14 +125,13 @@ $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('page', $page);
 
-if (count($friend_videos) > 0 )
+if (count($friend_videos) > 0)
 {
-	$smarty->assign('start_num', $start_num);
-	$smarty->assign('end_num', $end_num);
-	$smarty->assign('total', $total);
-	$smarty->assign('answers', $friend_videos);
+    $smarty->assign('start_num', $start_num);
+    $smarty->assign('end_num', $end_num);
+    $smarty->assign('total', $total);
+    $smarty->assign('answers', $friend_videos);
 }
-
 
 $smarty->assign('sub_menu', 'menu_friends.tpl');
 $smarty->display('header.tpl');
