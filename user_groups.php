@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: 2.8
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -66,7 +66,7 @@ while ($group_row = mysql_fetch_assoc($result))
     $user_group_keywords_all .= $group_row['group_keyword'] . ' ';
 }
 
-$user_group_keywords_array = split(' ', $user_group_keywords_all);
+$user_group_keywords_array = explode(' ', $user_group_keywords_all);
 
 $view = array();
 $view['user_group_keywords_array'] = array_remove_duplicate($user_group_keywords_array);
