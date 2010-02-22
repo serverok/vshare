@@ -134,7 +134,7 @@ if (mysql_num_rows($result) > 0)
         }
         
       
-        $row['video_keywords_array'] = split(' ', $row['video_keywords']);
+        $row['video_keywords_array'] = explode(' ', $row['video_keywords']);
         $row['video_thumb_url'] = $servers[$row['video_thumb_server_id']];
         $favorite_videos[] = $row;
         $favorite_video_keywords .= $row['video_keywords'] . ' ';
@@ -147,7 +147,7 @@ else
     $msg = $lang['no_favorites'];
 }
 
-$video_keywords_array = split(' ', $favorite_video_keywords);
+$video_keywords_array = explode(' ', $favorite_video_keywords);
 $video_keywords_array = array_remove_duplicate($video_keywords_array);
 
 
