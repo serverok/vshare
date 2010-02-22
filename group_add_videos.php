@@ -7,7 +7,7 @@
  *   LISENSE: http://buyscripts.in/vshare-license.html
  *   WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
+ *   This program is a commercial software and any kind of using it must agree
  *   to vShare license.
  *
  ******************************************************************************/
@@ -134,18 +134,18 @@ if ($num_result > 0)
         }
         
         $video_row['video_thumb_url'] = $servers[$video_row['video_thumb_server_id']];
-        $video_row['video_keywords_array'] = split(' ', $video_row['video_keywords']);
+        $video_row['video_keywords_array'] = explode(' ', $video_row['video_keywords']);
         $group_add_video_keywords_all .= $video_row['video_keywords'] . ' ';
         $videos[] = $video_row;
     }
     
-    $group_video_keywords_array = split(' ', $group_add_video_keywords_all);
+    $group_video_keywords_array = explode(' ', $group_add_video_keywords_all);
     $group_video_keywords_array_new = array_remove_duplicate($group_video_keywords_array);
 
 
     $view = array();
     $view['group_add_video_keywords_array'] = $group_video_keywords_array_new;
-    $smarty->assign('view',$view);    
+    $smarty->assign('view',$view);
 }
 else
 {
