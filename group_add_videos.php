@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: 2.8
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -141,11 +141,10 @@ if ($num_result > 0)
     
     $group_video_keywords_array = explode(' ', $group_add_video_keywords_all);
     $group_video_keywords_array_new = array_remove_duplicate($group_video_keywords_array);
-
-
+    
     $view = array();
     $view['group_add_video_keywords_array'] = $group_video_keywords_array_new;
-    $smarty->assign('view',$view);
+    $smarty->assign('view', $view);
 }
 else
 {
