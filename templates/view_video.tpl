@@ -288,6 +288,17 @@
         {insert name=advertise adv_name='video_right_single'}
     </div>
     
+    <!-- User videos -->
+    
+    <h3>
+        <a href="javascript:void(0);" onclick="show_user_videos('{$view.video_info.video_user_id}');">
+            More from: {$view.user_info.user_name}
+        </a>
+    </h3>
+    <div id="show_user_videos" style="display: none;"></div>
+   
+    <!-- End user videos -->
+    
     <div class="section bg2">
     
         <div class="hd">
