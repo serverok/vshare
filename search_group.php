@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: 2.8
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -67,30 +67,30 @@ if ($err == '')
         
         $result = mysql_query($sql) or mysql_die($sql);
         $group_keywords_all = '';
-
-        while($group = mysql_fetch_assoc($result))
+        
+        while ($group = mysql_fetch_assoc($result))
         {
-           $group['group_keywords_array'] = split(' ',$group['group_keyword']);
-           $group_keywords_all .= $group['group_keyword'] . ' ';
-           $group_info[] = $group;      
+            $group['group_keywords_array'] = explode(' ', $group['group_keyword']);
+            $group_keywords_all .= $group['group_keyword'] . ' ';
+            $group_info[] = $group;
         }
         
         $view = array();
-        $group_keywords_array_all = split(' ',$group_keywords_all);
+        $group_keywords_array_all = explode(' ', $group_keywords_all);
         $view['group_keywords_array_all'] = array_remove_duplicate($group_keywords_array_all);
-      
+        
         $start_num = $start_from + 1;
         $end_num = $start_from + mysql_num_rows($result);
         
         $page_link = '';
-        $total_page = $total/$config['items_per_page'];
+        $total_page = $total / $config['items_per_page'];
         
         for ($k = 1; $k <= $total_page; $k ++)
         {
             $page_link .= "<a href=\"search_group.php?page=$k&search=$_GET[search]\">$k</a>&nbsp;&nbsp;";
         }
         $view['groups'] = $group_info;
-
+        
         $smarty->assign('view', $view);
         $smarty->assign('page', $page);
         $smarty->assign('total', $total);
