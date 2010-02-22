@@ -67,6 +67,7 @@
         <li><a href="{$base_url}/channels/">CHANNELS</a></li>
         <li><a href="{$base_url}/groups/featured/1">GROUPS</a></li>
         <li><a href="{$base_url}/friends/">FRIENDS</a></li>
+        <li><a href="{$base_url}/members/">PEOPLE</a></li>
         </ul>
     </div>
 
