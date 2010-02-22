@@ -7,7 +7,7 @@
  *   LISENSE: http://buyscripts.in/vshare-license.html
  *   WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
+ *   This program is a commercial software and any kind of using it must agree
  *   to vShare license.
  *
  ******************************************************************************/
@@ -62,13 +62,13 @@ if (mysql_num_rows($result) > 0)
     while ($videoRow = mysql_fetch_assoc($result))
     {
         $videoRow['video_thumb_url'] = $servers[$videoRow['video_thumb_server_id']];
-        $videoRow['video_keywords_array'] = split(' ',$videoRow['video_keywords']);
+        $videoRow['video_keywords_array'] = explode(' ',$videoRow['video_keywords']);
         $video_keywords_all .= $videoRow['video_keywords'] . ' ';
         $videoRows[] = $videoRow;
     }
     
     $view = array();
-    $video_keywords_array_all = split(' ',$video_keywords_all);
+    $video_keywords_array_all = explode(' ',$video_keywords_all);
     $view['video_keywords_array_all'] = array_remove_duplicate($video_keywords_array_all);
     
     $start_num = $start_from + 1;
