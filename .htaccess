@@ -22,6 +22,8 @@ RewriteRule ^download/(.*)/ download.php?video_id=$1 [L,QSA]
 RewriteRule ^friends/recommend/(.*)/ recommend_friends.php?video_id=$1 [QSA,L]
 RewriteRule ^friends/invite/ invite_friends.php?user_name=$1&page=$2 [L,QSA]
 RewriteRule ^friends/(.*) friends.php?page=$1 [L,QSA]
+RewriteRule ^members/(.*)/(.*) members.php?sort=$1&page=$2 [L,QSA]
+RewriteRule ^members/(.*) members.php?page=$1 [L,QSA]
 RewriteRule ^detailed/recent/(.*) video.php?category=recent&page=$1&view_type=detailed
 RewriteRule ^detailed/viewed/(.*) video.php?category=viewed&page=$1&view_type=detailed
 RewriteRule ^detailed/discussed/(.*) video.php?category=discussed&page=$1&view_type=detailed
