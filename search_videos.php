@@ -1,14 +1,14 @@
 ﻿<?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: 2.8
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -29,13 +29,13 @@ if ($err == '')
     
     if (mb_strlen($search_string) < 4)
     {
-        $sql_extra = "WHERE `video_title` REGEXP '" . mysql_clean($search_string) . "' OR 	
+        $sql_extra = "WHERE `video_title` REGEXP '" . mysql_clean($search_string) . "' OR
                      `video_description` REGEXP '" . mysql_clean($search_string) . "' OR
                      `video_keywords` REGEXP '" . mysql_clean($search_string) . "' AND";
     }
     else
     {
-        $sql_extra = "WHERE MATCH (video_title,video_description,video_keywords) 
+        $sql_extra = "WHERE MATCH (video_title,video_description,video_keywords)
                       AGAINST ('" . mysql_clean($search_string) . "' IN BOOLEAN MODE) AND";
     }
     
@@ -60,7 +60,7 @@ if ($err == '')
         
         $start_from = ($page - 1) * $config['items_per_page'];
         
-        $sql = "SELECT * FROM `videos` 
+        $sql = "SELECT * FROM `videos`
                 $sql_extra
                `video_type`='public' AND
                `video_approve`='1' AND
@@ -72,7 +72,7 @@ if ($err == '')
         while ($video = mysql_fetch_assoc($result))
         {
             $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
-            $video['video_keywords_array'] = split(' ', $video['video_keywords']);
+            $video['video_keywords_array'] = explode(' ', $video['video_keywords']);
             $video_info[] = $video;
             $vid[] = $video['video_id'];
         }
