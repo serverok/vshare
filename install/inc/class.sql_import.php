@@ -93,7 +93,7 @@ class Sql2Db
                 $querylines ++;
             }
             
-            if (ereg(";$", trim($dumpline)) && ! $inparents)
+            if (preg_match("/;$/", trim($dumpline)) && ! $inparents)
             {
                 $query = trim($query);
                 
