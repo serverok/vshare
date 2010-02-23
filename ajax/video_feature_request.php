@@ -22,21 +22,21 @@ if ($err != '')
     exit();
 }
 
-$sql = "SELECT count(*) AS `total` FROM `feature_requests` WHERE 
+$sql = "SELECT count(*) AS `total` FROM `feature_requests` WHERE
        `feature_request_video_id`='" . (int) $videoId . "'";
 $result = mysql_query($sql) or musql_die($sql);
 $tmp = mysql_fetch_assoc($result);
 
 if ($tmp['total'] > 0)
 {
-    $sql = "UPDATE `feature_requests` SET 
+    $sql = "UPDATE `feature_requests` SET
            `feature_request_count`=feature_request_count + 1,
-           `feature_request_date`='" . date("Y-m-d") . "' WHERE 
+           `feature_request_date`='" . date("Y-m-d") . "' WHERE
            `feature_request_video_id`='" . (int) $videoId . "'";
 }
 else
 {
-    $sql = "INSERT `feature_requests` SET 
+    $sql = "INSERT `feature_requests` SET
            `feature_request_video_id`=" . (int) $videoId . ",
            `feature_request_count`=1,
            `feature_request_date`='" . date("Y-m-d") . "'";

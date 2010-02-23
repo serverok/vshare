@@ -30,14 +30,14 @@
         <a href="{$base_url}/friends/recommend/{$view.video_info.video_id}/"><img src="{$img_css_url}/images/tell.gif" border="0" alt="Share" />&nbsp; Share</a>
         
         {if $allow_download == 1 && $view.video_info.video_vtype eq 0}
-            &nbsp; &nbsp; 
+            &nbsp; &nbsp;
             <a href="{$base_url}/download/{$view.video_info.video_id}/">
                 <img src="{$img_css_url}/images/download.png" border="0" alt="download video" />&nbsp; Download
             </a>
         {/if}
         
         {if $smarty.session.UID eq $view.video_info.video_user_id}
-            &nbsp; &nbsp; 
+            &nbsp; &nbsp;
             <a href="{$base_url}/edit/video/{$view.video_info.video_id}">
                 <img src="{$img_css_url}/images/page_edit.png" border="0" alt="edit" />&nbsp; Edit
             </a>
@@ -51,7 +51,7 @@
         {insert name=video_rating assign=rating id=$view.video_info.video_id}{$rating}
     </div>
 
-    <!-- video feedback end --> 
+    <!-- video feedback end -->
  
     <div id="video-tools-feedback">
 
@@ -194,7 +194,7 @@
                             <label>Embeddable Player:</label>
                             <br /><br />
                             <input name="video_play" value='{if $embed_type eq "0"}<iframe vspace="0" hspace="0" allowtransparency="true" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border:0px;" width="435" height="470" SRC="{$base_url}/show.php?id={$view.video_info.video_id}"></iframe>{else}<object width="425" height="350" type="application/x-shockwave-flash" data="{$base_url}/player/player.swf"><param name="movie" value="{$base_url}/player/player.swf"><param name="flashvars" value="&file={$base_url}/xml_playlist.php?id={$view.video_info.video_id}&height=350&image={$view.video_info.video_thumb_url}/thumb/{$view.video_info.video_folder}{$view.video_info.video_id}.jpg&width=425&location={$base_url}/player/player.swf&logo={$img_css_url}/images/watermark.gif&link={$watermark_url}&linktarget=_blank"/></object>{/if}' size="60" onclick="javascript:document.linkForm.video_play.focus();document.linkForm.video_play.select();" readonly="readonly" />
-                            <div> 
+                            <div>
                                 (Put this video on your website. Works on Friendster, eBay, Blogger, MySpace!)
                             </div>
                         {/if}
@@ -233,7 +233,7 @@
 
     <div id="section_comment"></div>
 
-</div> <!-- video-content --> 
+</div> <!-- video-content -->
 
 <div id="view-video-sidebar">
 
@@ -288,7 +288,7 @@
         {insert name=advertise adv_name='video_right_single'}
     </div>
     
-    <!-- User videos -->
+    <!-- user videos -->
     
     <h3>
         <a href="javascript:void(0);" onclick="show_user_videos('{$view.video_info.video_user_id}');">
@@ -297,7 +297,7 @@
     </h3>
     <div id="show_user_videos" style="display: none;"></div>
    
-    <!-- End user videos -->
+    <!-- end user videos -->
     
     <div class="section bg2">
     
