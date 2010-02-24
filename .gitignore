@@ -12,7 +12,7 @@ cache
 tools/test/test_media/*
 sql_change/*
 chimg/*
-*/Thumbs.db
+Thumbs.db
 include/config.php
 patch/*
 cgi-bin/*
