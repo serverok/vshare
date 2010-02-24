@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -18,21 +18,21 @@ check_admin_login();
 
 if (isset($_POST['submit']))
 {
-	for ($i = 0;$i < count($_POST['delete_log']);$i++)
-	{
-		$sql = "DELETE FROM `admin_log` WHERE
+    for ($i = 0; $i < count($_POST['delete_log']); $i ++)
+    {
+        $sql = "DELETE FROM `admin_log` WHERE
 			   `admin_log_id`='" . (int) $_POST['delete_log'][$i] . "'";
-		mysql_query($sql) or mysql_die($sql);
-	}
+        mysql_query($sql) or mysql_die($sql);
+    }
 }
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
 if (isset($_GET['delete_all']))
 {
-	$sql = "DELETE FROM `admin_log`";
-	mysql_query($sql) or mysql_die($sql);
-	$page = 1;
+    $sql = "DELETE FROM `admin_log`";
+    mysql_query($sql) or mysql_die($sql);
+    $page = 1;
 }
 
 db_close();

@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -39,12 +39,12 @@ if (isset($_POST['add_channel']))
     if (check_field_exists($_POST['channel_name'], 'channel_name', 'channels'))
     {
         $err = $lang['channel_exists'];
-    } 
+    }
     else if (check_field_exists($seo_name, 'channel_seo_name', 'channels'))
     {
         $err = $lang['channel_exists'];
     }
-        
+    
     if ($err == '')
     {
         $sql = "INSERT INTO `channels` SET

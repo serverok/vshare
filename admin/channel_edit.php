@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -31,28 +31,28 @@ if (isset($_POST['edit_channel']))
     {
         $err = $lang['channel_description_null'];
     }
-
+    
     $_POST['name'] = trim($_POST['name']);
     $seo_name = seo_name($_POST['name']);
     
-    $sql = "SELECT * FROM `channels` WHERE 
+    $sql = "SELECT * FROM `channels` WHERE
     	   `channel_seo_name`='" . $seo_name . "' AND
     	   `channel_id`!='" . (int) $_POST['id'] . "'";
     $result = mysql_query($sql);
     
-    if (mysql_num_rows($result)) 
+    if (mysql_num_rows($result))
     {
-        $err =  'Channel with the name already exists';
+        $err = 'Channel with the name already exists';
     }
     
-    $sql = "SELECT * FROM `channels` WHERE 
+    $sql = "SELECT * FROM `channels` WHERE
     	   `channel_name`='" . mysql_clean($_POST['name']) . "' AND
     	   `channel_id`!='" . (int) $_POST['id'] . "'";
     $result = mysql_query($sql);
     
     if (mysql_num_rows($result))
     {
-        $err =  'Channel with the name already exists';
+        $err = 'Channel with the name already exists';
     }
     
     if ($err == '')

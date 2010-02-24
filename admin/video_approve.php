@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -53,7 +53,7 @@ if (isset($_GET['action']) && $_GET["action"] == 'approve')
         $tags->add();
         $video_tags = $tags->get_tags();
         $sql = "UPDATE `videos` SET
-               `video_keywords`='" . mysql_clean(implode(' ',$video_tags)) . "' WHERE
+               `video_keywords`='" . mysql_clean(implode(' ', $video_tags)) . "' WHERE
                `video_id`='" . (int) $_GET['video_id'] . "'";
         mysql_query($sql) or mysql_die($sql);
     }

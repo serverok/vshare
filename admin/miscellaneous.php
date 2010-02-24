@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -146,12 +146,12 @@ if (isset($_POST['submit']))
         if (isset($_POST['flv_metadata']))
         {
             
-        	if ($_POST['flv_metadata'] == 'yamdi' || $_POST['flv_metadata'] == 'flvtool' || $_POST['flv_metadata'] == 'none')
+            if ($_POST['flv_metadata'] == 'yamdi' || $_POST['flv_metadata'] == 'flvtool' || $_POST['flv_metadata'] == 'none')
             {
-	        	$sql = "UPDATE `config` SET
+                $sql = "UPDATE `config` SET
 	                   `config_value`='" . mysql_clean($_POST['flv_metadata']) . "' WHERE
 	                   `config_name`='flv_metadata'";
-	            mysql_query($sql) or mysql_die($sql);
+                mysql_query($sql) or mysql_die($sql);
             }
         }
         

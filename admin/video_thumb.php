@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -27,7 +27,7 @@ if (is_numeric($_GET['id']))
     $result = mysql_query($sql) or mysql_die($sql);
     $video_info = mysql_fetch_assoc($result);
     $video_src = VSHARE_DIR . '/video/' . $video_info['video_name'];
-	$log_file_name = 're_create_thumb_' . $video_info['video_id'];
+    $log_file_name = 're_create_thumb_' . $video_info['video_id'];
     
     if ($config['debug'])
     {

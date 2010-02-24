@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -20,7 +20,7 @@ check_admin_login();
 
 if (isset($_POST['submit']))
 {
-    $_POST['keyword'] = preg_replace('/[\,\s]+/',' ',$_POST['keyword']);
+    $_POST['keyword'] = preg_replace('/[\,\s]+/', ' ', $_POST['keyword']);
     
     $sql = "UPDATE `groups` SET
            `group_name`='" . mysql_clean($_POST['group_name']) . "',
