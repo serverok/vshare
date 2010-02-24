@@ -71,12 +71,13 @@
         	
         	{/section}
         	
-        </div>        
+        </div>
         
+        {if $page_links ne ''}
 		<div class="page_links">
 			Pages: &nbsp; {$page_links}
 		</div>
-        
+        {/if}
 	</div>
 	
 </div>
