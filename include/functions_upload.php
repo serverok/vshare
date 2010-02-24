@@ -401,7 +401,7 @@ function process_video($vid, $debug = 1)
         $log_text = "<p>Create Thumbnail with $create_thumb_with - END</p>";
         write_log($log_text, $log_file_name, $debug, 'html');
         
-        if ($file_extn == 'flv' || $file_extn == 'mp4')
+        if ($file_extn == 'flv')
         {
             $log_text = "<h2>MOVING UPLOADED FLV: $video_src => $video_flv</h2>";
             write_log($log_text, $log_file_name, $debug, 'html');
