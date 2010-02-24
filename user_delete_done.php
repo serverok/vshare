@@ -7,13 +7,14 @@
  *   LISENSE: http://buyscripts.in/vshare-license.html
  *   WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
+ *   This program is a commercial software and any kind of using it must agree
  *   to vShare license.
  *
  ******************************************************************************/
 
 require 'include/config.php';
 require 'include/class.ftp.php';
+require 'include/class.video.php';
 require 'include/language/' . LANG . '/lang_user_delete_done.php';
 
 if (isset($_GET['k']) && isset($_GET['i']))
