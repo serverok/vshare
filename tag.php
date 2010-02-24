@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -54,8 +54,8 @@ if ($err == '')
     $sql_all = "SELECT * FROM
                `tag_video` AS `tag_video`,
                `tags` AS `tags`,
-               `videos` AS `videos` WHERE 
-                tags.tag='" . mysql_clean($search_string) . "' AND 
+               `videos` AS `videos` WHERE
+                tags.tag='" . mysql_clean($search_string) . "' AND
                 tags.id=tag_video.tag_id AND
                 tag_video.vid=videos.video_id AND
                 videos.video_type='public' AND
@@ -89,7 +89,7 @@ if ($err == '')
         while ($video = mysql_fetch_assoc($result))
         {
             $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
-            $video['video_keywords_array'] = split(' ',$video['video_keywords']);
+            $video['video_keywords_array'] = split(' ', $video['video_keywords']);
             $video_info[] = $video;
             $vid[] = $video['video_id'];
         }

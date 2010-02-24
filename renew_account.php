@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -23,7 +23,7 @@ if ($config['enable_package'] == 'yes')
     {
         $package_id = isset($_POST['package_id']) ? $_POST['package_id'] : '';
         
-        if ( $package_id == '')
+        if ($package_id == '')
         {
             $err = $lang['select_package'];
         }

@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -68,18 +68,18 @@ $results_on_this_page = mysql_num_rows($result);
 
 $video_keywords_all = '';
 $favorite_videos = array();
- 
+
 while ($favorite_video = mysql_fetch_assoc($result))
 {
     $favorite_video['video_thumb_url'] = $servers[$favorite_video['video_thumb_server_id']];
-    $favorite_video['video_keywords_array'] = explode(' ',$favorite_video['video_keywords']);
+    $favorite_video['video_keywords_array'] = explode(' ', $favorite_video['video_keywords']);
     $video_keywords_all .= $favorite_video['video_keywords'] . ' ';
     $favorite_videos[] = $favorite_video;
-    
+
 }
 
 $view = array();
-$video_keywords_all = explode(' ',$video_keywords_all);
+$video_keywords_all = explode(' ', $video_keywords_all);
 $view['video_keywords_all_array'] = array_remove_duplicate($video_keywords_all);
 
 $start_num = $start_from + 1;

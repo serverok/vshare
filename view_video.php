@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -204,13 +204,13 @@ if (isset($show_video) && $show_video == 1 && $err == '')
                 break;
             }
         }
-
+        
         if ($video_this === '')
         {
             $num_related_videos = count($related_videos);
             if ($num_related_videos > 4)
             {
-                $video_this = (int) $num_related_videos/2;
+                $video_this = (int) $num_related_videos / 2;
                 $related_videos[$video_this] = $video_info;
             }
             else if ($num_related_videos > 2)
@@ -264,7 +264,7 @@ if (isset($show_video) && $show_video == 1 && $err == '')
     $html_title = htmlspecialchars_uni($video_info['video_title']);
     $html_keywords = htmlspecialchars_uni($video_info['video_keywords']);
     $html_description = htmlspecialchars_uni($video_info['video_description']);
-    $html_keywords_array = explode(' ',$html_keywords);
+    $html_keywords_array = explode(' ', $html_keywords);
     $html_keywords = implode(', ', $html_keywords_array);
     
     $smarty->assign('html_description', $html_description);
