@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -41,7 +41,7 @@ if (isset($_GET['id']) && (is_numeric($_GET['key'])))
         if ($_SESSION['UID'] == $tmp['friend_user_id'])
         {
             
-            $sql = "DELETE FROM `friends` WHERE 
+            $sql = "DELETE FROM `friends` WHERE
                     `friend_id`='$fid'";
             mysql_query($sql) or mysql_die($sql);
             

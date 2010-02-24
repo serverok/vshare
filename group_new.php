@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -27,8 +27,8 @@ if (isset($_POST['submit']))
     
     $tags = strip_tags($_POST['tags']);
     $tags = trim($tags);
-    $tags = preg_replace('/[\,\s]+/',' ',$tags);    
-
+    $tags = preg_replace('/[\,\s]+/', ' ', $tags);
+    
     $description = htmlspecialchars_uni($_POST['description']);
     $description = trim($description);
     

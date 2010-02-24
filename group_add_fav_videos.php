@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -133,13 +133,12 @@ if (mysql_num_rows($result) > 0)
             $row['in_group'] = 0;
         }
         
-      
         $row['video_keywords_array'] = explode(' ', $row['video_keywords']);
         $row['video_thumb_url'] = $servers[$row['video_thumb_server_id']];
         $favorite_videos[] = $row;
         $favorite_video_keywords .= $row['video_keywords'] . ' ';
     }
-   
+    
     $smarty->assign('favorite_videos', $favorite_videos);
 }
 else
@@ -149,7 +148,6 @@ else
 
 $video_keywords_array = explode(' ', $favorite_video_keywords);
 $video_keywords_array = array_remove_duplicate($video_keywords_array);
-
 
 $start_num = $start_from + 1;
 $end_num = $start_from + mysql_num_rows($result);

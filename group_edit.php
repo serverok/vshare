@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.8
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -75,7 +75,7 @@ if (isset($_POST['submit']))
     {
         $_POST['group_image'] = 'immediate';
     }
-    $_POST['group_keyword'] = preg_replace('/[\,\s]+/',' ',$_POST['group_keyword']); 
+    $_POST['group_keyword'] = preg_replace('/[\,\s]+/', ' ', $_POST['group_keyword']);
     
     if ($err == '')
     {
