@@ -31,7 +31,7 @@ if (! is_numeric($video_id))
 
 $video_info = Video::get_video_info($video_id);
 
-if ($video_info == 0)
+if ($video_info == 0 || $video_info['video_user_id'] == 0)
 {
     set_message($lang['video_not_found'], 'error');
     $redirect_url = VSHARE_URL . '/';
