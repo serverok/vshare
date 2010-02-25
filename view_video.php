@@ -252,16 +252,19 @@ if (isset($show_video) && $show_video == 1 && $err == '')
                 $smarty->assign('favourite', 1);
             }
             
-            $sql = "SELECT `pack_id` FROM `subscriber` WHERE
-                   `UID`='" . (int) $_SESSION['UID'] . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
-            $subscriber_info = mysql_fetch_assoc($result);
-            
-            $sql = "SELECT `package_allow_download` FROM `packages` WHERE
-                   `package_id`='" . (int) $subscriber_info['pack_id'] . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
-            $package_info = mysql_fetch_assoc($result);
-            $view['package_allow_video_download'] = $package_info['package_allow_download'];
+            if ($config['allow_download'] == 1)
+            {
+                $sql = "SELECT `pack_id` FROM `subscriber` WHERE
+	                   `UID`='" . (int) $_SESSION['UID'] . "'";
+                $result = mysql_query($sql) or mysql_die($sql);
+                $subscriber_info = mysql_fetch_assoc($result);
+                
+                $sql = "SELECT `package_allow_download` FROM `packages` WHERE
+	                   `package_id`='" . (int) $subscriber_info['pack_id'] . "'";
+                $result = mysql_query($sql) or mysql_die($sql);
+                $package_info = mysql_fetch_assoc($result);
+                $view['package_allow_video_download'] = $package_info['package_allow_download'];
+            }
         }
         
         $sql = "SELECT `user_name`,`user_website` FROM `users` WHERE
