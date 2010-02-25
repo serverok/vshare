@@ -29,7 +29,8 @@ if (isset($_POST['submit']))
          `package_videos`='" . mysql_clean($_POST['package_videos']) . "',
          `package_period`='" . mysql_clean($_POST['package_period']) . "',
          `package_status`='" . mysql_clean($_POST['package_status']) . "',
-         `package_trial_period`='" . mysql_clean($package_trail_period) . "' WHERE
+         `package_trial_period`='" . mysql_clean($package_trail_period) . "',
+         `package_allow_download`='" . (int) $_POST['allow_download'] . "' WHERE
          `package_id`='" . (int) $_POST['package_id'] . "'";
     mysql_query($sql) or mysql_die($sql);
     
@@ -91,8 +92,23 @@ $status_ops = "
 <option value='Active' $select_active>Active</option>
 <option value='Inactive' $select_inactive>Inactive</option>";
 
+if ($package['package_allow_download'] == 1)
+{
+    $select_download = "selected=\"selected\"";
+}
+else
+{
+    $select_download = '';
+}
+
+$download_ops = "
+<option value='0' $select_download>No</option>
+<option value='1' $select_download>Yes</option>
+";
+
 $smarty->assign('period_ops', $period_ops);
 $smarty->assign('status_ops', $status_ops);
+$smarty->assign('download_ops', $download_ops);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
