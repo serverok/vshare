@@ -102,7 +102,7 @@
 				<a href="user_edit.php?action=edit&uid={$users[aa].user_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
                     <img src="{$img_css_url}/images/edit.gif" title="Edit User" alt="Edit User" />
                 </a> |
-				<a href="user_delete.php?uid={$users[aa].user_id}" onclick="Javascript:return confirm('Are you sure you want to delete?');">
+                <a href="user_delete.php?uid={$users[aa].user_id}&a={$smarty.get.a}&page={$smarty.get.page}&sort={$smarty.get.sort}" onclick="Javascript:return confirm('Are you sure you want to delete?');">
                     <img src="{$img_css_url}/images/del.gif" title="Delete User" alt="Delete User" />
                 </a> |
 				<a href="mail_users.php?email={$users[aa].user_email}&uname={$users[aa].user_name}">Mail</a> |

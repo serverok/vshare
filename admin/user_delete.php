@@ -40,5 +40,22 @@ $msg = str_replace('[USERNAME]', $user_info['user_name'], $lang['user_deleted'])
 set_message($msg, 'success');
 
 db_close();
-$redirect_url = VSHARE_URL . '/admin/users.php';
+
+$_GET['a'] = isset($_GET['a']) ? $_GET['a'] : 'All';
+
+if ($_GET['a'] == '')
+{
+    $_GET['a'] = 'All';
+}
+
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+
+if ($page < 1)
+{
+    $page = 1;
+}
+
+$sort = isset($_GET['sort']) ? $_GET['sort'] : '';
+
+$redirect_url = VSHARE_URL . '/admin/users.php?a=' . $_GET['a'] . '&sort=' . $sort . '&page=' . $page;
 redirect($redirect_url);
