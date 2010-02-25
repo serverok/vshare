@@ -22,7 +22,7 @@
     {if $package.package_trial ne "yes"}
         <div>
             <label for="package_price">Price (US $):</label>
-            <input name="package_price" id="package_price" value="{$package.package_price}" size="8" /> 
+            <input name="package_price" id="package_price" value="{$package.package_price}" size="8" />
         </div>
     {/if}
 
@@ -43,6 +43,11 @@
             <input name="package_trial_period" id="package_trial_period" value="{$package.package_trial_period}" size="8" />
         </div>
     {/if}
+
+    <div>
+        <label for="allow_download">Allow Video Download:</label>
+        <select name="allow_download" id="allow_download">{$download_ops}</select>
+    </div>
 
     <div>
         <label for="package_status">Status:</label>
