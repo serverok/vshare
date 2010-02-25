@@ -66,6 +66,15 @@
 
     <tr class="tablerow1">
         <td width="40%">
+            <b>Allow Video Download</b>
+        </td>
+        <td>
+            {if $package.package_allow_download eq '1'} Yes {else} No {/if}
+        </td>
+    </tr>
+
+    <tr class="tablerow1">
+        <td width="40%">
             <b>Status</b>
         </td>
         <td>

@@ -22,6 +22,9 @@
             <b>Period</b>
         </td>
         <td align="center">
+            <b>Allow Download</b>
+        </td>
+        <td align="center">
             <b>Status</b>
         </td>
         <td align="center">
@@ -51,6 +54,9 @@
             </td>
             <td align="center">
                 {if $packages[aa].package_trial eq "yes"}{$packages[aa].package_trial_period} days{else}{$packages[aa].package_period}{/if}
+            </td>
+            <td align="center">
+                {if $packages[aa].package_allow_download eq '1'} Yes {else} No {/if}
             </td>
             <td align="center">
                 {$packages[aa].package_status}
