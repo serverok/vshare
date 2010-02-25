@@ -29,7 +29,7 @@
         <a href="javascript:void(0)" onclick="inappropriate()"><img src="{$img_css_url}/images/flag.gif" border="0" alt="Inappropriate" />&nbsp; Inappropriate </a> &nbsp; &nbsp;
         <a href="{$base_url}/friends/recommend/{$view.video_info.video_id}/"><img src="{$img_css_url}/images/tell.gif" border="0" alt="Share" />&nbsp; Share</a>
         
-        {if $allow_download == 1 && $view.video_info.video_vtype eq 0}
+        {if $allow_download == 1 && $view.video_info.video_vtype eq 0 && $view.package_allow_video_download eq '1'}
             &nbsp; &nbsp;
             <a href="{$base_url}/download/{$view.video_info.video_id}/">
                 <img src="{$img_css_url}/images/download.png" border="0" alt="download video" />&nbsp; Download
