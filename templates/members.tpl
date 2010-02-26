@@ -6,7 +6,6 @@
 		<option value="video_uploaded" {if $sort eq 'video_uploaded'}selected{/if}>Most Video Uploaded</option>
 		<option value="profile_viewed" {if $sort eq 'profile_viewed'}selected{/if}>Most Profile Viewed</option>
 		<option value="video_viewed" {if $sort eq 'video_viewed'}selected{/if}>Most Video Viewed</option>
-		<option value="subscribed" {if $sort eq 'subscribed'}selected{/if}>Most Subscribed</option>
 	</select>
 	
 	<br /><br />
