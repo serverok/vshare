@@ -41,10 +41,11 @@
     </div>
 
     <div>
-        <label for="enable_flvtool">Flvtool:</label>
-        <select name="enable_flvtool" id="enable_flvtool">
-            <option value="0" {if $enable_flvtool =='0'}selected="selected"{/if}>Disabled</option>
-            <option value="1" {if $enable_flvtool =='1'}selected="selected"{/if}>Enabled</option>
+       <label for="flv_metadata">Metadata:</label>
+        <select name="flv_metadata" id="flv_metadata">
+            <option value="yamdi" {if $flv_metadata =='yamdi'}selected="selected"{/if}>yamdi</option>
+            <option value="flvtool" {if $flv_metadata =='flvtool'}selected="selected"{/if}>flvtool</option>
+            <option value="none" {if $flv_metadata =='none'}selected="selected"{/if}>None</option>
         </select>
     </div>
 
