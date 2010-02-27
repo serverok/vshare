@@ -191,7 +191,7 @@ if (isset($_POST['submit']))
     }
 }
 
-$smarty->assign('flv_meta_data', get_config('flv_metadata'));
+$smarty->assign('flv_metadata', get_config('flv_metadata'));
 $smarty->assign('video_duration_cmd', get_config('video_duration_cmd'));
 $smarty->assign('num_channel_video', get_config('num_channel_video'));
 $smarty->assign('guest_upload', get_config('guest_upload'));
