@@ -330,7 +330,7 @@ function process_video($vid, $debug = 1)
         require VSHARE_DIR . '/include/class.video_duration.php';
         
         $video_duration_cmd = get_config('video_duration_cmd');
-        
+        $flv_metadata = get_config('flv_metadata');
         $duration_arr = array();
         $duration_arr['src'] = $video_src;
         $duration_arr['debug'] = $debug;
@@ -412,14 +412,34 @@ function process_video($vid, $debug = 1)
                 write_log($log_text, $log_file_name, $debug, 'html');
             }
             
-            if ($file_extn == 'flv')
+            if ($file_extn == 'flv' && $flv_metadata != 'none')
             {
-                if (get_config('enable_flvtool') == 1)
+                if ($flv_metadata == 'flvtool')
                 {
                     $cmd_flvtool = $config['flvtool'] . ' -U ' . $video_flv;
                     $tmp = exec($cmd_flvtool, $exec_result);
                     $log_text = "<h2>Running flvtool2: $cmd_flvtool</h2>";
                     write_log($log_text, $log_file_name, $debug, 'html');
+                }
+                else if ($flv_metadata == 'yamdi')
+                {
+                    $video_metadata_flv = VSHARE_DIR . '/flvideo/' . $video_folder . 'metadata_' . $rand_flv_name;
+                    $log_text = "Metadata Flv : $video_metadata_flv";
+                    write_log($log_text, $log_file_name, $debug, 'html');
+                    
+                    $cmd_yamdi = "/usr/bin/yamdi -i $video_flv -o $video_metadata_flv";
+                    $tmp = exec($cmd_yamdi, $exec_result);
+                    
+                    $log_text = "<h2>Running yamdi: $cmd_yamdi</h2>";
+                    write_log($log_text, $log_file_name, $debug, 'html');
+                    
+                    if (file_exists($video_metadata_flv))
+                    {
+                        unlink($video_flv);
+                        rename($video_metadata_flv, VSHARE_DIR . '/flvideo/' . $video_folder . $rand_flv_name);
+                        $log_text = "Rename : $video_metadata_flv---$rand_flv_name";
+                        write_log($log_text, $log_file_name, $debug, 'html');
+                    }
                 }
             }
         }
@@ -451,17 +471,38 @@ function process_video($vid, $debug = 1)
             $log_text = '<p>Return value: ' . $tmp . '</p>';
             write_log($log_text, $log_file_name, $debug, 'html');
             
-            # flvtool2
+            # flvtool
+            $flv_metadata = get_config('flv_metadata');
             
-
-            $enable_flvtool = get_config('enable_flvtool');
-            
-            if ($enable_flvtool == 1)
+            if ($flv_metadata != 'none' && $file_extn != 'mp4')
             {
-                $cmd_flvtool = $config['flvtool'] . ' -U ' . $video_flv;
-                $tmp = exec($cmd_flvtool, $exec_result);
-                $log_text = "<h2>Running flvtool2: $cmd_flvtool</h2>";
-                write_log($log_text, $log_file_name, $debug, 'html');
+                if ($flv_metadata == 'flvtool')
+                {
+                    $cmd_flvtool = $config['flvtool'] . ' -U ' . $video_flv;
+                    $tmp = exec($cmd_flvtool, $exec_result);
+                    $log_text = "<h2>Running flvtool2: $cmd_flvtool</h2>";
+                    write_log($log_text, $log_file_name, $debug, 'html');
+                }
+                else if ($flv_metadata == 'yamdi')
+                {
+                    $video_metadata_flv = VSHARE_DIR . '/flvideo/' . $video_folder . 'metadata_' . $rand_flv_name;
+                    $log_text = "Metadata Flv : $video_metadata_flv";
+                    write_log($log_text, $log_file_name, $debug, 'html');
+                    
+                    $cmd_yamdi = "/usr/bin/yamdi -i $video_flv -o $video_metadata_flv";
+                    $tmp = exec($cmd_yamdi, $exec_result);
+                    
+                    $log_text = "<h2>Running yamdi: $cmd_yamdi</h2>";
+                    write_log($log_text, $log_file_name, $debug, 'html');
+                    
+                    if (file_exists($video_metadata_flv))
+                    {
+                        unlink($video_flv);
+                        rename($video_metadata_flv, VSHARE_DIR . '/flvideo/' . $video_folder . $rand_flv_name);
+                        $log_text = "Rename : $video_metadata_flv---$rand_flv_name";
+                        write_log($log_text, $log_file_name, $debug, 'html');
+                    }
+                }
             }
         }
         
