@@ -1,41 +1,29 @@
 <?php
 
-require VSHARE_DIR . '/include/class.html2text.php';
-
 class Mail
 {
-
+    
+    public $mail = array();
+    
     function send($mail)
     {
-        $vshareMailer = new PHPMailer();
-        $vshareMailer->CharSet = 'UTF-8';
-        $vshareMailer->From = $mail['from_email'];
-        $vshareMailer->FromName = $mail['from_name'];
-        $vshareMailer->Subject = $mail['subject'];
-        $vshareMailer->ClearAllRecipients();
-
-        if (isset($mail['to_name']) && ! stristr($mail['to_name'], '@'))
-        {
-            $vshareMailer->AddAddress($mail['to_email'], $mail['to_name']);
-        }
-        else
-        {
-            $vshareMailer->AddAddress($mail['to_email']);
-        }
-
-        $vshareMailer->Body = $mail['body'];
-        $vshareMailer->AltBody = $this->html2text($mail['body']);
-        $vshareMailer->IsHTML(true);
-
-        $status = $vshareMailer->Send();
-        $vshareMailer->ClearAddresses();
-        $vshareMailer->ClearAttachments();
-        return $status;
+        $this->mail = $mail;
+        $this->zendMail();
     }
-
-    function html2text($body)
+    
+    function zendMail()
     {
-        $asciiText = new Html2Text($body, 80); // 80 columns maximum
-        return $asciiText->convert();
+        require 'Zend/Loader.php';
+        Zend_Loader::loadClass('Zend_Mail');
+        
+        $email = new Zend_Mail('UTF-8');
+        $email->setBodyText($this->mail['body']);
+        $email->setBodyHtml($this->mail['body']);
+        $email->setFrom($this->mail['from_email'], $this->mail['from_name']);
+        $email->addTo($this->mail['to_email'], $this->mail['to_name']);
+        $email->setSubject($this->mail['subject']);
+        $email->send();
+        
     }
+
 }
