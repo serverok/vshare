@@ -13,11 +13,15 @@ class Mail
     
     function zendMail()
     {
+        require VSHARE_DIR . '/include/class.html2text.php';
         require 'Zend/Loader.php';
         Zend_Loader::loadClass('Zend_Mail');
         
+        $html2text = new Html2Text($this->mail['body'], 80);
+        $body_text = $html2text->convert();
+        
         $email = new Zend_Mail('UTF-8');
-        $email->setBodyText($this->mail['body']);
+        $email->setBodyText($body_text);
         $email->setBodyHtml($this->mail['body']);
         $email->setFrom($this->mail['from_email'], $this->mail['from_name']);
         $email->addTo($this->mail['to_email'], $this->mail['to_name']);
