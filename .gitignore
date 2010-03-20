@@ -10,7 +10,6 @@ include/htmlpurifier/HTMLPurifier/DefinitionCache/Serializer/HTML/*
 .project
 cache
 tools/test/test_media/*
-sql_change/*
 chimg/*
 Thumbs.db
 include/config.php

@@ -266,6 +266,13 @@ function process_video($vid, $debug = 1)
             $result = mysql_query($sql) or mysql_die($sql);
             $convert_vid = mysql_insert_id();
             
+            if (! empty($download_info['import_track_id']))
+            {
+                $sql = "UPDATE `import_track` SET `import_track_video_id`=" . (int) $convert_vid . " WHERE
+                       `import_track_id`=" . (int) $download_info['import_track_id'];
+                $result = mysql_query($sql) or mysql_die($sql);
+            }
+            
             $log_text = '<hr /><p>sql</p><p>' . $sql . '</p>';
             write_log($log_text, $log_file_name, $debug, 'html');
             

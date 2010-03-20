@@ -87,6 +87,7 @@ class Video
         
         // conditon 1
         
+
         if ($this->video_info['video_type'] != $this->video_type)
         {
             if ($this->video_type == 'public')
@@ -98,9 +99,10 @@ class Video
                 $tags_delete = 1;
             }
         }
-
+        
         // condition 2
         
+
         if ($this->video_info['video_keywords'] != $this->video_keywords && $this->video_type == 'public')
         {
             $tags_delete = 1;
@@ -119,7 +121,7 @@ class Video
             $tags = new Tags($this->video_keywords, $this->video_id, $this->video_info['video_user_id'], $channel_list_formatted);
             $tags->add();
             $video_tags = $tags->get_tags();
-            $this->video_keywords = implode(' ',$video_tags);
+            $this->video_keywords = implode(' ', $video_tags);
             unset($tags);
         }
         
@@ -153,7 +155,7 @@ class Video
         
         return 1;
     }
-    
+
     public static function get_video_info($video_id)
     {
         $sql = "SELECT * FROM `videos` WHERE
@@ -169,7 +171,7 @@ class Video
             return 0;
         }
     }
-    
+
     public static function validate_video_info()
     {
         global $lang , $num_max_channels;
@@ -286,7 +288,7 @@ class Video
             return 1;
         }
     }
-    
+
     public static function get_related_videos($video_id)
     {
         global $config , $servers;
@@ -328,7 +330,7 @@ class Video
         }
         #echo count($related_vid);
         
-        
+
         if (count($related_vid) < 2)
         {
             $sql = "SELECT `video_id` FROM `videos` WHERE
@@ -361,7 +363,7 @@ class Video
         
         # Generate List of Related Videos
         
-        
+
         $array_index_start = $video_this - ($config['rel_video_per_page'] / 2);
         
         if ($array_index_start < 0)
@@ -417,7 +419,7 @@ class Video
         
         return $related_videos;
     }
-    
+
     function delete($video_id, $video_uid, $delete = 1)
     {
         global $conn , $config;
@@ -447,10 +449,10 @@ class Video
                 $ftp_config['debug'] = $config['debug'];
                 $ftp_config['log_file_name'] = $log_file_name;
                 $ftp = new Ftp();
-                if (!$ftp->delete_video($ftp_config))
+                if (! $ftp->delete_video($ftp_config))
                 {
                     echo 'Delete failed';
-                    exit;
+                    exit();
                 }
                 $ftp->close();
             }
@@ -504,6 +506,9 @@ class Video
                 mysql_query($sql) or mysql_die($sql);
                 $sql = "DELETE FROM `videos` WHERE
                        `video_id`=$video_id";
+                mysql_query($sql) or mysql_die($sql);
+                $sql = "DELETE FROM `import_track` WHERE
+                       `import_track_video_id`=$video_id";
                 mysql_query($sql) or mysql_die($sql);
             }
             else

@@ -108,7 +108,7 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('editor_wysiwyg_admi
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('editor_wysiwyg_email', '1');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('mail_abuse_report', '1');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_auto_friend', '');
-INSERT INTO `config` (`config_name`, `config_value`) VALUES('enable_flvtool', '1');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('flv_metadata', 'flvtool');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('video_flv_delete', '1');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('video_source_delete', '0');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('num_max_channels', '3');
@@ -334,6 +334,7 @@ CREATE TABLE IF NOT EXISTS `import_auto` (
 CREATE TABLE IF NOT EXISTS `import_track` (
   `import_track_id` int(11) NOT NULL auto_increment,
   `import_track_unique_id` varchar(255) NOT NULL,
+  `import_track_video_id` INT( 11 ) NOT NULL,
   `import_track_site` varchar(255) NOT NULL,
   PRIMARY KEY  (`import_track_id`),
   UNIQUE KEY `import_track_unique_id` (`import_track_unique_id`)
@@ -384,6 +385,7 @@ CREATE TABLE IF NOT EXISTS `packages` (
   `package_status` enum('Active','Inactive') NOT NULL default 'Active',
   `package_trial` char(3) NOT NULL default 'no',
   `package_trial_period` int(11) default NULL,
+  `package_allow_download` INT( 11 ) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`package_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
@@ -472,6 +474,7 @@ CREATE TABLE IF NOT EXISTS `process_queue` (
   `file` varchar(255) NOT NULL,
   `vid` int(11) NOT NULL,
   `process_queue_upload_ip` varchar(20) NOT NULL,
+  `import_track_id` INT( 11 ) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

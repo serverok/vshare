@@ -51,6 +51,7 @@ if (isset($_POST['submit']))
 					   `import_track_unique_id`='" . mysql_clean($video_id[$i]) . "' ,
 					   `import_track_site`='" . mysql_clean($_POST['import_site']) . "'";
                 $result = mysql_query($sql) or mysql_die($sql);
+                $import_track_id = mysql_insert_id();
                 
                 if ($_POST['import_site'] == 'youtube')
                 {
@@ -102,6 +103,10 @@ if (isset($_POST['submit']))
                     {
                         $upload->youtube();
                     }
+                    
+                    $sql = "UPDATE `import_track` SET `import_track_video_id`=" . (int) $vid . " WHERE
+                           `import_track_id`=" . (int) $import_track_id;
+                    $result = mysql_query($sql) or mysql_die($sql);
                 }
                 else
                 {
@@ -114,9 +119,11 @@ if (isset($_POST['submit']))
 			               `type`='public',
 			               `channels`='0|" . mysql_clean($channel_id) . "|0',
 			               `status`='0',
-			               `url`='" . mysql_clean($video_url) . "'";
+			               `url`='" . mysql_clean($video_url) . "',
+			               `import_track_id`=" . (int) $import_track_id;
                     $result = mysql_query($sql) or mysql_die($sql);
                 }
+            
             }
         }
     }
