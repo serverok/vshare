@@ -27,7 +27,19 @@
         <div id="top-links">
             {if $smarty.session.USERNAME ne ""}
              
-                 Welcome, <a href="{$base_url}/{$smarty.session.USERNAME}">{$smarty.session.USERNAME}</a> |&nbsp;<a href="{$base_url}/myaccount.php">My account</a> |
+                 <span id="user-drop-down">
+					Welcome,
+					<a href="{$base_url}/{$smarty.session.USERNAME}">{$smarty.session.USERNAME}</a> <span class="arrow"><img src="{$img_css_url}/images/down-arrow.png" width="10" height="10" /></span>
+					<ul id="user-menues" style="display: none;">
+						<li><a href="{$base_url}/{$smarty.session.USERNAME}/myaccount.php">My Account</a></li>
+						<li><a href="{$base_url}/{$smarty.session.USERNAME}/public/">Public Videos</a></li>
+						<li><a href="{$base_url}/{$smarty.session.USERNAME}/private/">Private Videos</a></li>
+						<li><a href="{$base_url}/{$smarty.session.USERNAME}/favorites/">Favorites</a></li>
+						<li><a href="{$base_url}/{$smarty.session.USERNAME}/friends/">Friends</a></li>
+						<li><a href="{$base_url}/{$smarty.session.USERNAME}/playlist/">Playlist</a></li>
+						<li><a href="{$base_url}/{$smarty.session.USERNAME}/groups/">Groups</a></li>
+					</ul>
+				</span> |
                  <a href="{$base_url}/mail.php?folder=inbox"><img class="mail" height="12" {if $total_msg eq ""}src="{$img_css_url}/images/icon_mail_off.gif"{else}src="{$img_css_url}/images/newmail.gif"{/if} width="14" border="0" alt="mail" /></a>
                  (<a  href="{$base_url}/mail.php?folder=inbox">{insert name="msg_count" assign=total_msg}{$total_msg}</a>) 
                  <a href="{$base_url}/logout/" class="bold">Log Out</a> | 
@@ -85,4 +97,3 @@
     <div id="main" class="clearfix">
     
         {include file=error.tpl}
-        

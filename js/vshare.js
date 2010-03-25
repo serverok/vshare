@@ -117,3 +117,10 @@ function unapprove_post(id,idHlinkAprove)
 	}
 }
 
+/* User menu drop-down */
+
+$("#user-drop-down .arrow").click(function(){
+	$("#user-menues").toggle().css({'width':$("#user-drop-down").width() - 8 + 'px' });
+	$("#user-drop-down").toggleClass('highlights');
+	$(".arrow").toggleClass('highlights');
+});
