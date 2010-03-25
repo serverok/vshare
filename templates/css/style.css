@@ -1908,3 +1908,20 @@ div.x-debug-time {
     font-weight:bold;
     padding:4px;
 }
+
+
+/* myaccount */
+
+#myaccount li {
+display:inline;
+float:left;
+margin:0 0 10px 90px;
+width:320px;
+font-size:14px;
+font-weight:bold;
+}
+
+#myaccount li img{
+padding-bottom: 4px; 
+vertical-align: middle;
+}
