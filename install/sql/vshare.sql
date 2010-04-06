@@ -673,6 +673,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_photo` tinyint(1) NOT NULL default '0',
   `user_background` tinyint(1) NOT NULL default '0',
   `user_style` varchar(255) NOT NULL,
+  `user_friend_invition` tinyint(1) NOT NULL default '1',
+  `user_private_message` tinyint(1) NOT NULL default '1',
+  `user_profile_comment` tinyint(1) NOT NULL default '1',
+  `user_favourite_public` tinyint(1) NOT NULL default '1',
+  `user_playlist_public` tinyint(1) NOT NULL default '1',
   PRIMARY KEY  (`user_id`),
   UNIQUE KEY `user_email` (`user_email`),
   UNIQUE KEY `user_name` (`user_name`)

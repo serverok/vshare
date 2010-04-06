@@ -151,6 +151,25 @@ $num_result = mysql_num_rows($result);
 $groups = mysql_fetch_all($result);
 $smarty->assign('groups', $groups);
 
+if (isset($_SESSION['UID']) && $_SESSION['UID'] == $user_info['user_id'])
+{
+    $allow_playlist = $allow_favorite = $allow_friend = $allow_comment = $allow_private_message = 1;
+}
+else
+{
+    $allow_playlist = $user_info['user_playlist_public'];
+    $allow_favorite = $user_info['user_favourite_public'];
+    $allow_friend = $user_info['user_friend_invition'];
+    $allow_comment = $user_info['user_profile_comment'];
+    $allow_private_message = $user_info['user_private_message'];
+}
+
+$smarty->assign('allow_playlist', $allow_playlist);
+$smarty->assign('allow_favorite', $allow_favorite);
+$smarty->assign('allow_friend', $allow_friend);
+$smarty->assign('allow_comment', $allow_comment);
+$smarty->assign('allow_private_message', $allow_private_message);
+
 if ($user_info['user_style'] == '')
 {
     $user_css = '/css/profile/default.css';

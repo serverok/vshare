@@ -8,8 +8,12 @@
 	<li><a href="{$base_url}/{$user_info.user_name}">Profile</li>
 	<li><a href="{$base_url}/{$user_info.user_name}/public/">Public Videos ({$publicvdo})</a></li>
 	<li><a href="{$base_url}/{$user_info.user_name}/private/">Private Videos ({$privatvdo})</a></li>
+	{if $allow_favorite eq '1'}
 	<li><a href="{$base_url}/{$user_info.user_name}/favorites/">Favorites ({$favcount})</a></li>
+	{/if}
 	<li><a href="{$base_url}/{$user_info.user_name}/friends/">Friends ({$friendcount})</a></li>
+	{if $allow_playlist eq '1'}
 	<li><a href="{$base_url}/{$user_info.user_name}/playlist/">Playlist ({$playcount})</a></li>
+	{/if}
 	<li class="last"><a href="{$base_url}/{$user_info.user_name}/groups/">Groups ({$grpcount})</a></li>
 </ul>

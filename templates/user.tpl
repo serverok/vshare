@@ -87,6 +87,7 @@
             {if $smarty.session.USERNAME eq $user_info.user_name}
                 [ <a class="submenu" href="{$base_url}/{$user_info.user_name}/edit/">Edit Profile</a> ] |
                 [ <a class="submenu" href="{$base_url}/user_photo_upload.php">Upload Photo</a> ]<br /><br />
+                [ <a class="submenu" href="{$base_url}/user_privacy.php">Privacy Settings</a> ] |
                 {if $enable_package eq "yes"}
                     [ <a class="submenu" href="{$base_url}/renew_account.php?uid={$user_info.user_id}&action=upgrade">Upgrade Package</a> ] |
                 {/if}
@@ -195,21 +196,27 @@
                 </div>
                 
                 <div class="float-r">
+                    {if $allow_comment eq '1'}
                     <a href="#profile-comments">
                         <img src="{$base_url}/templates/images/add-comment.gif" alt="add comments" width="20" height="17">Add Comments
                     </a>
+                    {/if}
                     <br />
                     
                     {if $is_friend ne "yes"}
+                        {if $allow_friend eq '1'}
                         <a href="{$base_url}/invite_friends.php?UID={$user_info.user_id}">
                             <img src="{$base_url}/templates/images/add-friends.gif" alt="add friends" width="20" height="17"/>Add as Friend 
                         </a>
+                        {/if}
                         <br />
                     {/if}
                     
+                    {if $allow_private_message eq '1'}
                     <a href="compose.php?receiver={$user_info.user_name}">
                         <img src="{$base_url}/templates/images/send-message.gif" width="20" height="17" alt="send message"/>Send Messages 
                     </a> 
+                    {/if}
                     <br /> 
                     <br /> 
                     <!-- AddThis Button BEGIN -->
@@ -363,11 +370,13 @@
             </div>
             
             <div id="comment_box" align="center">
+            {if $allow_comment eq 1}
                 <form name="comment_form"  action="" method="post">
                     <textarea name="user_comment" rows="3" cols="40" id="user_comment"></textarea> <br />
                     <input type="button" value="Add Comment" name="submit"
                     onclick="post_profile_comment({$user_info.user_id})" />   
                 </form>
+            {/if}
             </div>
             
             <div id="comm_result"></div>
