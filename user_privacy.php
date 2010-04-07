@@ -13,6 +13,7 @@
  ******************************************************************************/
 
 require 'include/config.php';
+require 'include/language/' . LANG . '/lang_user_privacy.php';
 
 User::is_logged_in();
 
@@ -26,6 +27,10 @@ if (isset($_POST['submit']))
 		   `user_playlist_public`=" . (int) $_POST['user_playlist_public'] . "
 		    WHERE `user_id`='" . (int) $_SESSION['UID'] . "'";
     $result = mysql_query($sql) or mysql_die($sql);
+    
+    set_message($lang['settings_updated'], 'success');
+    $redirect_url = VSHARE_URL . '/' . $_SESSION['USERNAME'];
+    redirect($redirect_url);
 }
 
 $sql = "SELECT * FROM `users` WHERE

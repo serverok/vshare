@@ -65,7 +65,7 @@
                                 Rate Me
                                 <img class="rating" src="{$img_css_url}/images/blank_star.gif" onclick="user_rate({$smarty.session.UID},{$user_info.user_id},1)" alt="" />
                                 <img class="rating" src="{$img_css_url}/images/blank_star.gif" onclick="user_rate({$smarty.session.UID},{$user_info.user_id},2)" alt="" />
-                                <img class="rating" src="{$img_css_url}/images/blank_star.gif" onclick="user_rate({$smarty.session.UID},{$user_info.user_id},3)" alt="" /> 
+                                <img class="rating" src="{$img_css_url}/images/blank_star.gif" onclick="user_rate({$smarty.session.UID},{$user_info.user_id},3)" alt="" />
                                 <img class="rating" src="{$img_css_url}/images/blank_star.gif" onclick="user_rate({$smarty.session.UID},{$user_info.user_id},4)" alt="" />
                                 <img class="rating" src="{$img_css_url}/images/blank_star.gif" onclick="user_rate({$smarty.session.UID},{$user_info.user_id},5)" alt="" />
                             </td>
@@ -87,7 +87,7 @@
             {if $smarty.session.USERNAME eq $user_info.user_name}
                 [ <a class="submenu" href="{$base_url}/{$user_info.user_name}/edit/">Edit Profile</a> ] |
                 [ <a class="submenu" href="{$base_url}/user_photo_upload.php">Upload Photo</a> ]<br /><br />
-                [ <a class="submenu" href="{$base_url}/user_privacy.php">Privacy Settings</a> ] |
+                [ <a class="submenu" href="{$base_url}/privacy/">Privacy Settings</a> ] |
                 {if $enable_package eq "yes"}
                     [ <a class="submenu" href="{$base_url}/renew_account.php?uid={$user_info.user_id}&action=upgrade">Upgrade Package</a> ] |
                 {/if}
@@ -102,13 +102,13 @@
                 Profile viewed <b>{$user_info.user_profile_viewed}</b> times<br />
                 I've watched <b>{$user_info.user_watched_video}</b> videos<br />
                 {insert name=friends_count assign=num_friends uid=$user_info.user_id}
-                I have <b>{$num_friends}</b> 
+                I have <b>{$num_friends}</b>
                 <a href="{$base_url}/{$user_info.user_name}/friends/">
                     friends
                 </a>
             </div>
         
-            <div class="user-info"> 
+            <div class="user-info">
                 <b>Signed up :</b> {insert name=time_range assign=stime field=user_join_time IDFR=user_id id=$user_info.user_id tbl=users} {$stime}
             </div>
 
@@ -146,12 +146,12 @@
             
             {if $user_info.user_school ne ""}
                 <div class="user-info">
-                    <b>Schools : </b>{$user_info.user_school}   
+                    <b>Schools : </b>{$user_info.user_school}
                 </div>
             {/if}
             
             {if $user_info.user_interest_hobby ne ""}
-                <div class="user-info"> 
+                <div class="user-info">
                     <b>Interests &amp; Hobbies : </b>{$user_info.user_interest_hobby}
                 </div>
             {/if}
@@ -176,12 +176,12 @@
             {/if}
             
             {if $user_info.user_friends_name ne ""}
-                <div class="user-info"> 
+                <div class="user-info">
                     <b>Friends : </b> {$user_info.user_friends_name}
                 </div>
             {/if}
        
-        </div>    <!-- section end-->    
+        </div>    <!-- section end-->
         
         <div class="section bg2 clearfix">
         
@@ -206,7 +206,7 @@
                     {if $is_friend ne "yes"}
                         {if $allow_friend eq '1'}
                         <a href="{$base_url}/invite_friends.php?UID={$user_info.user_id}">
-                            <img src="{$base_url}/templates/images/add-friends.gif" alt="add friends" width="20" height="17"/>Add as Friend 
+                            <img src="{$base_url}/templates/images/add-friends.gif" alt="add friends" width="20" height="17"/>Add as Friend
                         </a>
                         {/if}
                         <br />
@@ -214,11 +214,11 @@
                     
                     {if $allow_private_message eq '1'}
                     <a href="compose.php?receiver={$user_info.user_name}">
-                        <img src="{$base_url}/templates/images/send-message.gif" width="20" height="17" alt="send message"/>Send Messages 
-                    </a> 
+                        <img src="{$base_url}/templates/images/send-message.gif" width="20" height="17" alt="send message"/>Send Messages
+                    </a>
                     {/if}
-                    <br /> 
-                    <br /> 
+                    <br />
+                    <br />
                     <!-- AddThis Button BEGIN -->
                     <script type="text/javascript">var addthis_pub="buyscripts";</script>
                     <a href="http://www.addthis.com/bookmark.php?v=20" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s7.addthis.com/static/btn/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/200/addthis_widget.js"></script>
@@ -231,7 +231,7 @@
                     {$user_info.user_name}'s Profile Url:<br /><br />
                     <a href="{$base_url}/{$user_info.user_name}">{$base_url}/{$user_info.user_name}</a>
                 </b>
-            </div> 
+            </div>
             
         </div>
     
@@ -252,7 +252,7 @@
                         <img class="preview" src="{$img_css_url}/images/no_videos_groups.gif" width="70px" height="50" alt="" />
                         {else}
                         <img class="preview" width="70px" height="50" alt="" src="{$group_image_info.video_thumb_url}/thumb/{$group_image_info.video_folder}1_{$group_image_info.video_id}.jpg" alt="" />
-                        {/if} 
+                        {/if}
                         </a>
                         <a href="{$base_url}/group/{$groups[i].group_url}/">
                         {$groups[i].group_name}
@@ -285,7 +285,7 @@
                 
                 {/section}
             </ul>
-        </div><!-- user group end-->    
+        </div><!-- user group end-->
 
     </div>  <!-- box1 end-->
 
@@ -305,11 +305,11 @@
                    {section name=i loop=$new_video start=0 max=4}
                 <li>
                     <a href="{$base_url}/view/{$new_video[i].video_id}/{$new_video[i].video_seo_name}/">
-                    <img class="preview" src="{$new_video[i].video_thumb_url}/thumb/{$new_video[i].video_folder}1_{$new_video[i].video_id}.jpg" 
+                    <img class="preview" src="{$new_video[i].video_thumb_url}/thumb/{$new_video[i].video_folder}1_{$new_video[i].video_id}.jpg"
                    width="120" height="90" alt="{$new_videos[i].video_title}" /><br />
                    {$new_video[i].video_title|truncate:25:'...'}
                    </a>
-                   <br />                         
+                   <br />
                 </li>
                    {/section}
                 </ul>
@@ -355,7 +355,7 @@
                         <a href="{$base_url}/{$user_friends[i].friend_name}">
                         {insert name=member_img UID=$user_friends[i].friend_friend_id}<br />
                         {$user_friends[i].friend_name|truncate:25:'...'}
-                        </a>                        
+                        </a>
                     </li>
                 {/section}
            </ul>
@@ -374,7 +374,7 @@
                 <form name="comment_form"  action="" method="post">
                     <textarea name="user_comment" rows="3" cols="40" id="user_comment"></textarea> <br />
                     <input type="button" value="Add Comment" name="submit"
-                    onclick="post_profile_comment({$user_info.user_id})" />   
+                    onclick="post_profile_comment({$user_info.user_id})" />
                 </form>
             {/if}
             </div>

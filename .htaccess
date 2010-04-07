@@ -66,6 +66,7 @@ RewriteRule ^confirm/friend/(.*)/(.*) friend_accept.php?id=$1&key=$2
 RewriteRule ^search/(.*)/(.*) search_videos.php?search_string=$1&page=$2 [L,QSA]
 RewriteRule ^search/(.*)/(.*)/(.*)/(.*)/(.*)/(.*) advanced_search.php?words=$1&channels=$2&user=$3&relevence=$4&sort=$5&page=$6
 RewriteRule ^style/(.*)/ style.php?css=$1 [L,QSA]
+RewriteRule ^privacy/ user_privacy.php [L,QSA]
 RewriteRule ^([^/\.]+)/favorites/(.*) user_favorites.php?user_name=$1&page=$2
 RewriteRule ^([^/\.]+)/playlist/(.*) user_playlist.php?user_name=$1&page=$2
 RewriteRule ^([^/\.]+)/friends/videos/(.*) user_friends_videos.php?user_name=$1&page=$2 [L,QSA]

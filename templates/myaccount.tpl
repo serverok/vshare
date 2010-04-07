@@ -49,7 +49,7 @@
 				
 						<li>
 							
-								<a href="{$base_url}/user_privacy.php" style="text-decoration: none;">
+								<a href="{$base_url}/privacy/" style="text-decoration: none;">
 									<img src="{$img_css_url}/images/privacy_settings.png" border="0" /> Privacy Settings
 								</a>
 							
