@@ -13,7 +13,7 @@
     {insert name=advertise adv_name='player_bottom'}
     
     <div align="center">
-        <a href="http://www.facebook.com/share.php?u={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;title={$view.video_info.video_title}" title="FaceBook"><img src="{$img_css_url}/images/facebook.jpg" border="0" alt="facebook" /></a>&nbsp;
+        <a href="javascript:void(0);" title="FaceBook"><img src="{$img_css_url}/images/facebook.jpg" border="0" alt="facebook" onclick="window.open('http://www.facebook.com/share.php?u={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;t={$view.video_info.video_title}','facebook', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,width=750,height=400,left = 0,top = 0');"/></a>&nbsp;
         <a href="http://digg.com/submit?phase=2&amp;url={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;title={$view.video_info.video_title}" title="Digg It!"><img src="{$img_css_url}/images/digg.png" border="0" alt="digg" /></a>&nbsp;
         <a href="http://del.icio.us/post?url={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;title={$view.video_info.video_title}" title="del.icio.us"><img src="{$img_css_url}/images/delicious.png" border="0" alt="delicious" /></a>&nbsp;
         <a href="http://newsvine.com/_tools/seed&amp;save?u={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;u={$view.video_info.video_title}" title="NewsVine"><img src="{$img_css_url}/images/newsvine.png" border="0" alt="newsvine" /></a>&nbsp;

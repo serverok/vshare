@@ -289,6 +289,17 @@ if (isset($show_video) && $show_video == 1 && $err == '')
 
 $user_id_js = isset($_SESSION['UID']) ? (int) $_SESSION['UID'] : 0;
 
+$html_head_extra = '
+<meta name="video_type" content="application/x-shockwave-flash" />
+<meta name="video_height" content="360" />
+<meta name="video_width" content="640" />
+<link rel="image_src" href="' . $video_info['video_thumb_url'] . '/thumb/' . $video_info['video_folder'] . $video_info['video_id'] . '.jpg" type="image/jpeg" />
+<link rel="image_src" href="' . $video_info['video_thumb_url'] . '/thumb/' . $video_info['video_folder'] . '1_' . $video_info['video_id'] . '.jpg" type="image/jpeg" />
+<link rel="image_src" href="' . $video_info['video_thumb_url'] . '/thumb/' . $video_info['video_folder'] . '2_' . $video_info['video_id'] . '.jpg" type="image/jpeg" />
+<link rel="thumbnail" href="' . $video_info['video_thumb_url'] . '/thumb/' . $video_info['video_folder'] . '3_' . $video_info['video_id'] . '.jpg" type="image/jpeg" />
+<link rel="video_src" href="' . VSHARE_URL . '/v/' . $video_info['video_id'] . '&hl=en_US&fs=1&"/>
+<meta name="video_type" content="application/x-shockwave-flash" />';
+
 $html_extra = '
 <script type="text/javascript">
 var vid=' . $video_id . ';
@@ -307,6 +318,7 @@ $(function(){
 <script language="JavaScript" type="text/javascript" src="' . VSHARE_URL . '/js/user_videos.js"></script>
 ';
 
+$smarty->assign('html_head_extra', $html_head_extra);
 $smarty->assign('html_extra', $html_extra);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);

@@ -41,11 +41,11 @@
 					</ul>
 				</span> |
                  <a href="{$base_url}/mail.php?folder=inbox"><img class="mail" height="12" {if $total_msg eq ""}src="{$img_css_url}/images/icon_mail_off.gif"{else}src="{$img_css_url}/images/newmail.gif"{/if} width="14" border="0" alt="mail" /></a>
-                 (<a  href="{$base_url}/mail.php?folder=inbox">{insert name="msg_count" assign=total_msg}{$total_msg}</a>) 
-                 <a href="{$base_url}/logout/" class="bold">Log Out</a> | 
+                 (<a  href="{$base_url}/mail.php?folder=inbox">{insert name="msg_count" assign=total_msg}{$total_msg}</a>)
+                 <a href="{$base_url}/logout/" class="bold">Log Out</a> |
             {else}
-                 <a href="{$base_url}/signup/">Sign Up</a> | 
-                 <a href="{$base_url}/login/">Log In</a> | 
+                 <a href="{$base_url}/signup/">Sign Up</a> |
+                 <a href="{$base_url}/login/">Log In</a> |
             {/if}
             <a href="{$base_url}/pages/help.html">Help</a>
             <a href="{$base_url}/rss/new/"><img border="0" src="{$img_css_url}/images/rss.gif" alt="rss" /></a>
