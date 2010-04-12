@@ -42,42 +42,33 @@ else
     $video_info['video_thumb_url'] = $servers[$video_info['video_thumb_server_id']];
 }
 
+if ($config['guest_limit'] > 36000)
+{
+    $config['guest_limit'] = 0;
+}
+
 if (! isset($_SESSION['UID']) && $err == '' && $config['guest_limit'] != 0)
 {
-    $guest_ip = User::get_ip();
-    $guest_date = date('d-m-y');
-    $sql = "SELECT * FROM `guest_info` WHERE
-           `guest_ip`='" . mysql_clean($guest_ip) . "' AND
-           `log_date`='" . mysql_clean($guest_date) . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $guest_row = mysql_num_rows($result);
-    $guest_info = mysql_fetch_assoc($result);
-    $my_duration = $guest_info['use_bw'];
+    if (isset($_COOKIE['video_watch_duration']))
+    {
+        $video_watch_duration = $_COOKIE['video_watch_duration'] + $video_info['video_duration'];
+    }
+    else
+    {
+        $video_watch_duration = $video_info['video_duration'];
+    }
     
-    if ($my_duration >= $config['guest_limit'])
+    /*
+     * 43200 for 12 hours 60 * 60 * 12
+     */
+    setcookie('video_watch_duration', $video_watch_duration, time() + 43200);
+    
+    if ($video_watch_duration > $config['guest_limit'])
     {
         $next = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
         $_SESSION['REDIRECT'] = $next;
         redirect(VSHARE_URL . '/signup/');
     }
-    
-    if ($guest_row > 0)
-    {
-        $bw = $my_duration + $video_info['video_duration'];
-        $sql = "UPDATE `guest_info` SET
-               `use_bw`='" . (int) $bw . "' WHERE
-               `guest_ip`='" . mysql_clean($guest_ip) . "' AND
-               `log_date`='" . mysql_clean($guest_date) . "'";
-    }
-    else
-    {
-        $bw = $video_info['video_duration'];
-        $sql = "INSERT INTO `guest_info` SET
-               `guest_ip`='" . mysql_clean($guest_ip) . "',
-               `log_date`='" . mysql_clean($guest_date) . "',
-               `use_bw`='" . (int) $bw . "'";
-    }
-    $result = mysql_query($sql) or mysql_die($sql);
 }
 
 if ($err == '')
