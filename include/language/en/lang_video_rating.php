@@ -9,3 +9,4 @@ $lang['vote'] = 'vote';
 $lang['votes'] = 'votes';
 $lang['rating'] = 'Rating:';
 $lang['cast'] = 'cast';
+$lang['cannot_rate'] = 'You can\'t rate your own video.';
