@@ -218,13 +218,7 @@ function process_video($vid, $debug = 1)
             
             $outExtn = '.flv';
             $rand_flv_name = $rand_name . '.flv';
-            
-            if ($file_extn == 'mp4')
-            {
-                $rand_flv_name = $rand_name . '.mp4';
-                $outExtn = '.mp4';
-            }
-            
+                        
             while (check_field_exists($rand_flv_name, 'video_flv_name', 'videos') == 1)
             {
                 $rand1 = time();
@@ -481,7 +475,7 @@ function process_video($vid, $debug = 1)
             # flvtool
             $flv_metadata = get_config('flv_metadata');
             
-            if ($flv_metadata != 'none' && $file_extn != 'mp4')
+            if ($flv_metadata != 'none')
             {
                 if ($flv_metadata == 'flvtool')
                 {
