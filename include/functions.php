@@ -20,6 +20,39 @@ function check_admin_login()
         $redirect_url = $config['baseurl'] . '/admin/index.php';
         redirect($redirect_url);
     }
+
+    write_admin_log();
+}
+
+function write_admin_log()
+{
+    $file_name_array = explode('/', $_SERVER['SCRIPT_FILENAME']);
+    $admin_log_script = $file_name_array[count($file_name_array)-1];
+
+    if ($admin_log_script == 'admin_log.php' || $admin_log_script == 'menu.php' || $admin_log_script == 'main.php')
+    {
+        return;
+    }
+
+    require_once 'class.user.php';
+    $user = new User();
+    $admin_log_ip = $user->get_ip();
+    $admin_log_user_id = isset($_SESSION['MUID']) ? (int) $_SESSION['MUID'] : 0;
+    $admin_log_time = time();
+    $admin_log_extra = '';
+
+    if (isset($_SERVER['QUERY_STRING']))
+    {
+        $admin_log_extra = $_SERVER['QUERY_STRING'];
+    }
+
+    $sql = "INSERT INTO `admin_log` SET
+           `admin_log_user_id`='$admin_log_user_id',
+           `admin_log_script`='$admin_log_script',
+           `admin_log_time`='$admin_log_time',
+           `admin_log_extra`='$admin_log_extra',
+           `admin_log_ip`='$admin_log_ip'";
+    $result = mysql_query($sql) or mysql_die($sql);
 }
 
 function mailing($recipient, $name, $from, $subj, $body, $bcc = '')

@@ -110,6 +110,11 @@ $menu_items = array(
         'advertisements.php',
         0
     ),
+    array(
+        'Admin Log',
+        'admin_log.php',
+        0
+    ),
     
     array(
         'All Users',
