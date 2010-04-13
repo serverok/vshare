@@ -796,3 +796,14 @@ CREATE TABLE IF NOT EXISTS `words` (
 
 -- Dumping data for table `words`
 --
+
+CREATE TABLE IF NOT EXISTS `admin_log` (
+  `admin_log_id` int(11) NOT NULL auto_increment,
+  `admin_log_user_id` int(11) NOT NULL,
+  `admin_log_script` varchar(255) NOT NULL,
+  `admin_log_time` int(11) NOT NULL,
+  `admin_log_action` varchar(255) NOT NULL,
+  `admin_log_extra` varchar(255) NOT NULL,
+  `admin_log_ip` varchar(255) NOT NULL,
+  PRIMARY KEY  (`admin_log_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
