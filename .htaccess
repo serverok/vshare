@@ -86,3 +86,6 @@ SecFilterScanPOST Off
 <IfModule mod_gzip.c>
 mod_gzip_on No
 </IfModule>
+
+ErrorDocument 404 /404.php
+
