@@ -77,6 +77,7 @@ RewriteRule ^([^/\.]+)/private/(.*)$ user_videos.php?user_name=$1&type=private&p
 RewriteRule ^([^/\.]+)/groups/(.*)$ user_groups.php?user_name=$1&page=$2 [L,QSA]
 RewriteRule ^([^/\.]+)/edit/(.*)$ user_profile_edit.php?user_name=$1 [L,QSA]
 RewriteRule ^([^/\.]+)?/?$ user.php?user_name=$1 [L,QSA]
+RewriteRule ^v/(.*) video_embed.php?video_id=$1 [L,QSA]
 
 <IfModule mod_security.c>
 SecFilterEngine Off
