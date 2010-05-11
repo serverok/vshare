@@ -54,10 +54,19 @@ if (isset($_POST['submit']))
         mysql_query($sql) or mysql_die($sql);
         $smarty->assign('player_height', $_POST['player_height']);
     }
-    
+
+    if (isset($_POST['youtube_player']))
+    {
+        $sql = "UPDATE `config` SET
+               `config_value`='" . mysql_clean($_POST['youtube_player']) . "' WHERE
+               `config_name`='youtube_player'";
+        mysql_query($sql) or mysql_die($sql);
+    }
+
     $msg = $lang['settings_updated'];
 }
 
+$smarty->assign('youtube_player', get_config('youtube_player'));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

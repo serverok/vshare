@@ -117,6 +117,7 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('allow_html', '1');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('num_channel_video', '4');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('guest_upload', '0');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('guest_upload_user', '');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('youtube_player', 'youtube');
 
 -- Table structure for table `contact`
 

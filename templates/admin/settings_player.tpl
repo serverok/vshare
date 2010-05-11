@@ -26,7 +26,15 @@
         <label for="player_height">Player Height:</label>
         <input type="text" name="player_height" id="player_height" value="{$player_height}" size="5" />
     </div>
-
+    
+    <div>
+        <label for="youtube_player">Youtube video player:</label>
+        <select name="youtube_player" id="youtube_player">
+            <option value="youtube" {if $youtube_player =='youtube'}selected="selected"{/if}>Youtube Player</option>
+            <option value="vshare" {if $youtube_player =='vshare'}selected="selected"{/if}>vShare Player</option>
+        </select>
+    </div>
+    
     <div class="submit">
         <input type="submit" name="submit" value="Update" />
     </div>

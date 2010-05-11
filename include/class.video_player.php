@@ -88,7 +88,20 @@ class video_player
 
     function youtube()
     {
-        global $config;
+        global $config,$servers;
+        $youtube_player = get_config('youtube_player');
+        
+        if ($youtube_player == 'vshare')
+        {
+            $video_folder = $this->video_info['video_folder'];
+            $file = 'http://www.youtube.com/v/' . $this->video_info['video_name'];
+            $video_id = $this->video_info['video_id'];
+            $video_thumb_url = $servers[$this->video_info['video_thumb_server_id']];
+
+	        require VSHARE_DIR . '/include/player.inc';
+	        return $vshare_player;
+        }
+                
         $vshare_player = '
         <object width="' . $config['player_width'] . '" height="' . $config['player_height'] . '">
         <param name="movie" value="http://www.youtube.com/v/' . $this->video_info['video_name'] . '&autoplay=' . $config['player_autostart'] . '&hl=en&fs=1"></param>

@@ -18,3 +18,5 @@ CREATE TABLE IF NOT EXISTS `admin_log` (
   `admin_log_ip` varchar(255) NOT NULL,
   PRIMARY KEY  (`admin_log_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+INSERT INTO `config` (`config_name`, `config_value`) VALUES ('youtube_player', 'youtube');
