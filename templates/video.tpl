@@ -1,3 +1,27 @@
+<div id="sidebar" style="float: left;">
+
+    <div class="section bg2">
+        <div class="hd">
+            <div class="hd-l">
+                Video Categories
+            </div>
+        </div>
+        
+        <ul style="list-style-type:none;">
+            {section name=i loop=$view.channels}
+                {insert name=channel_count assign=chinfo cid=$view.channels[i].channel_id}
+                <li style="margin: 2px 1px 3px -20px;">
+                    <a style="font-weight: normal;" href="{$base_url}/channel/{$view.channels[i].channel_id}/{$view.category}/{$view.view_type}/1">{$view.channels[i].channel_name}</a> <small>({$chinfo[1]})</small>
+                </li>
+            {/section}
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+
+<div id="content" style="float:right;">
+
 <div class="section bg2">
 
     <div class="hd">
@@ -14,13 +38,18 @@
         </div>
     
         <div class="hd-r" style="width:120px;">
-            {if $channel_name eq ''}
-                
-                {if $view.view_type eq "detailed"}
-                   <a  href="{$base_url}/{$view.category}/{$view.page}">Basic View</a>
-                {else}
-                    <a  href="{$base_url}/detailed/{$view.category}/{$view.page}">Detailed View</a>
-                {/if}
+            {if $channel_name ne ""}
+	            {if $view.view_type eq "detailed"}
+	                <a  href="{$base_url}/{if $channel_name ne ''}channel/{$smarty.get.chid}/{/if}{$view.category}/basic/{$view.page}">Basic View</a>
+	            {else}
+	                <a  href="{$base_url}/{if $channel_name ne ''}channel/{$smarty.get.chid}/{/if}{$view.category}/detailed/{$view.page}">Detailed View</a>
+	            {/if}
+            {else}
+	            {if $view.view_type eq "detailed"}
+	                <a  href="{$base_url}/{$view.category}/{$view.page}">Basic View</a>
+	            {else}
+	                <a  href="{$base_url}/detailed/{$view.category}/{$view.page}">Detailed View</a>
+	            {/if}
             {/if}
         </div>
     
@@ -123,3 +152,5 @@
     {/if}
 
 </div> <!-- section -->
+
+</div> <!-- content -->

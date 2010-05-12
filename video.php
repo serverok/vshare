@@ -14,6 +14,7 @@
 
 require 'include/config.php';
 require 'include/class.cache.php';
+require 'include/class.channels.php';
 
 Cache::init();
 
@@ -197,6 +198,10 @@ if (! $view)
     $view['page'] = $page;
     $view['page_links'] = paginate($view['total'], $config['num_watch_videos'], '.', '', $page);
     $view['videos'] = $videos;
+    
+    $channels = channels::get_all();
+    $view['channels'] = $channels;
+    
     Cache::save($cache_id, $view);
 }
 

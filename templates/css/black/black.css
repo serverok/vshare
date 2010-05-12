@@ -278,13 +278,13 @@ div.watch-detailed {
 	padding:1em;
 }
 div.watch-detailed div.box1 {
-	width:420px;
+	width:400px;
 	float:left;
 	padding:4px;
-	margin-right:10px;
+	margin-right:5px;
 }
 div.watch-detailed div.box2 {
-	width:400px;
+	width:320px;
 	text-align: left;
 	padding-top:4px;
 	overflow:hidden

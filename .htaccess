@@ -17,6 +17,7 @@ RewriteRule ^upload/success/(.*)/(.*)/ upload_success.php?id=$1&upload_id=$2 [L,
 RewriteRule ^upload/ upload.php [L,QSA]
 RewriteRule ^channel/(.*)/(.*)/recent/(.*) video.php?category=recent&chid=$1&page=$3
 RewriteRule ^channel/(.*)/(.*)/viewed/(.*) video.php?category=viewed&chid=$1&page=$3
+RewriteRule ^channel/(.*)/(.*)/(.*)/(.*) video.php?chid=$1&category=$2&view_type=$3&page=$4
 RewriteRule ^channel/(.*)/(.*)/ channel_details.php?id=$1
 RewriteRule ^download/(.*)/ download.php?video_id=$1 [L,QSA]
 RewriteRule ^friends/recommend/(.*)/ recommend_friends.php?video_id=$1 [QSA,L]
