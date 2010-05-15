@@ -8,7 +8,8 @@ $cmd_ffmpeg = "$config[ffmpeg] -i '$video_src' -acodec libmp3lame -ar 22050 -ab 
 # For latest version of mplayer
 $cmd_mencoder = "$config[mencoder] '$video_src' -o $video_flv -of lavf -oac mp3lame -lameopts abr:br=56 -ovc lavc -lavcopts vcodec=flv:vbitrate=500:mbd=2:mv0:trell:v4mv:cbp:last_pred=3 -srate 22050 -ofps 24 -vf harddup";
 
-//$convert_mp4 = "$config[ffmpeg] -i '$video_src' -acodec libfaac -ab 96k -vcodec libx264 -vpre hq -crf 22 -threads 0 -b 500k $video_flv";
+# Convert video to mp4
+$cmd_mp4 = "$config[ffmpeg] -i '$video_src' -acodec libfaac -ab 96k -vcodec libx264 -vpre hq -crf 22 -threads 0 -b 500k $video_flv";
 
 $convert_mp4 = $cmd_mencoder;
 $convert_3gp = $cmd_mencoder;

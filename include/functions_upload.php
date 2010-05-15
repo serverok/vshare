@@ -144,6 +144,7 @@ function process_video($vid, $debug = 1)
     $log_file_name = 'convert_log_' . $vid;
     require VSHARE_DIR . '/include/functions_seo_name.php';
     require VSHARE_DIR . '/include/class.mail.php';
+    require VSHARE_DIR . '/include/settings/video_format.php';
     
     $err = 0;
     $re_convert = 0;
@@ -216,8 +217,16 @@ function process_video($vid, $debug = 1)
             $rand2 = mt_rand();
             $rand_name = $rand1 . $rand2;
             
-            $outExtn = '.flv';
-            $rand_flv_name = $rand_name . '.flv';
+            if ($video_output_format == 'mp4')
+            {
+                $outExtn = '.mp4';
+            }
+            else
+            {
+                $outExtn = '.flv';
+            }
+            
+            $rand_flv_name = $rand_name . $outExtn;
                         
             while (check_field_exists($rand_flv_name, 'video_flv_name', 'videos') == 1)
             {
@@ -417,12 +426,21 @@ function process_video($vid, $debug = 1)
         {
             require VSHARE_DIR . '/include/settings/video_conversion.php';
             $cmd_convert_v = 'convert_' . $file_extn;
+            
+            if ($video_output_format == 'mp4')
+            {
+                $cmd_convert = $cmd_mp4;
+            }
+            else
+            {
+                $cmd_convert = ${$cmd_convert_v};
+            }
+            
             $log_text = '<p>$cmd_convert_v = ' . $cmd_convert_v . '</p>';
             write_log($log_text, $log_file_name, $debug, 'html');
-            $cmd_convert = ${$cmd_convert_v};
             $log_text = '<p>' . __LINE__ . ' $cmd_convert = ' . $cmd_convert . '</p>';
             write_log($log_text, $log_file_name, $debug, 'html');
-            
+
             $tmp = exec($cmd_convert, $exec_result);
             
             $return_data_all = '';
@@ -445,8 +463,10 @@ function process_video($vid, $debug = 1)
         /*
          * insert flv metadata
          */
-        
-        flv_metadata($rand_flv_name, $video_folder, $log_file_name, $debug);
+        if ($video_output_format == 'flv')
+        {
+            flv_metadata($rand_flv_name, $video_folder, $log_file_name, $debug);
+        }
                     
         if (! file_exists($video_flv))
         {
