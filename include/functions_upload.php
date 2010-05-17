@@ -227,7 +227,7 @@ function process_video($vid, $debug = 1)
             }
             
             $rand_flv_name = $rand_name . $outExtn;
-                        
+            
             while (check_field_exists($rand_flv_name, 'video_flv_name', 'videos') == 1)
             {
                 $rand1 = time();
@@ -338,6 +338,7 @@ function process_video($vid, $debug = 1)
         write_log($log_text, $log_file_name, $debug, 'html');
         
         require VSHARE_DIR . '/include/class.video_duration.php';
+        require VSHARE_DIR . '/include/class.video_bitrate.php';
         require VSHARE_DIR . '/include/functions_flv.php';
         
         $video_duration_cmd = get_config('video_duration_cmd');
@@ -361,7 +362,23 @@ function process_video($vid, $debug = 1)
             $find_duration_with = 'ffmpeg-php';
         }
         
+        $bit_rate = (int) video_bitrate::findVideoBitrateFfmpeg($duration_arr);
+        
         unset($duration_arr);
+        
+        /*
+         * This is to set max bitrate for generated videos
+         */
+        
+        $bit_rate_max = 500;
+        
+        if ($bit_rate > $bit_rate_max)
+        {
+            // $bit_rate = 500;
+        }
+        
+        $log_text = "<p>Source Video bitrate: $bit_rate</p>";
+        write_log($log_text, $log_file_name, $debug, 'html');
         
         $log_text = "<p>Duration ($find_duration_with): $duration</p>";
         write_log($log_text, $log_file_name, $debug, 'html');
@@ -440,7 +457,7 @@ function process_video($vid, $debug = 1)
             write_log($log_text, $log_file_name, $debug, 'html');
             $log_text = '<p>' . __LINE__ . ' $cmd_convert = ' . $cmd_convert . '</p>';
             write_log($log_text, $log_file_name, $debug, 'html');
-
+            
             $tmp = exec($cmd_convert, $exec_result);
             
             $return_data_all = '';
@@ -467,7 +484,7 @@ function process_video($vid, $debug = 1)
         {
             flv_metadata($rand_flv_name, $video_folder, $log_file_name, $debug);
         }
-                    
+        
         if (! file_exists($video_flv))
         {
             $err = 1;
