@@ -145,11 +145,18 @@ if (isset($_POST['submit']))
     {
         if ($captcha_type == 'recaptcha')
         {
-            $result = $recaptcha->verify($_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
-            
-            if (! $result->isValid())
+            if ($_POST['recaptcha_response_field'] == '')
             {
-                $err = $lang['captcha_invalid'];
+                $err = $lang['captcha_null'];
+            }
+            else
+            {
+	            $result = $recaptcha->verify($_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
+	            
+	            if (! $result->isValid())
+	            {
+	                $err = $lang['captcha_invalid'];
+	            }
             }
         }
         else
