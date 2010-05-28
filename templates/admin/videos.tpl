@@ -126,6 +126,15 @@
                 </a>
             </td>
             <td>
+                <b>Views</b>
+                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_view_number+asc&page={$page}">
+                    <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+                </a>
+                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_view_number+desc&page={$page}">
+                    <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+                </a>
+            </td>
+            <td>
                 <b>Date</b>
                 <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_add_date+asc&page={$page}">
                     <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
@@ -147,6 +156,7 @@
                 <td align="center">{$videos[aa].video_type}</td>
                 <td align="center">{$videos[aa].video_length}</td>
                 <td align="center">{$videos[aa].video_featured}</td>
+                <td align="center">{$videos[aa].video_view_number}</td>
                 <td align="center">{$videos[aa].video_add_date|date_format}</td>
                 <td align="center">
                     <a href="video_edit.php?a={$a}&action=edit&video_id={$videos[aa].video_id}&page={$page}&sort={$smarty.request.sort}">
