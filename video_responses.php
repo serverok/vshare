@@ -1,0 +1,106 @@
+<?php
+/******************************************************************************
+ *
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
+ *
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
+ *
+ ******************************************************************************/
+
+require 'include/config.php';
+require 'include/class.video.php';
+require 'include/class.cache.php';
+require 'include/language/' . LANG . '/lang_video_response.php';
+
+$video_id = isset($_GET['video_id']) ? $_GET['video_id'] : '';
+
+if (! is_numeric($video_id))
+{
+    redirect(VSHARE_URL);
+}
+
+Cache::init();
+
+$page = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
+
+if ($page < 1)
+{
+    $page = 1;
+}
+
+if (isset($_POST['remove_video']))
+{
+    User::is_logged_in();
+    
+    if (is_numeric($_POST['response_video_id']))
+    {
+        $sql = "DELETE FROM `video_responses` WHERE
+               `video_response_video_id`='" . (int) $_POST['response_video_id'] . "' AND
+               `video_response_to_video_id`='" . (int) $video_id . "'";
+        mysql_query($sql) or mysql_die($sql);
+        
+        set_message($lang['video_removed'], 'success');
+        
+        $redirect_url = VSHARE_URL . '/response/' . $video_id . '/videos/' . $page;
+        redirect($redirect_url);
+    }
+}
+
+$cache_id = 'video_response' . $video_id . $page;
+
+$view = Cache::load($cache_id);
+
+if (! $view)
+{
+    $view = array();
+    
+    $video_info = Video::get_video_info($video_id);
+    $video_info['video_thumb_url'] = $servers[$video_info['video_thumb_server_id']];
+    $view['video_info'] = $video_info;
+    
+    $sql = "SELECT count(*) AS `total` FROM `video_responses` WHERE
+           `video_response_to_video_id`='" . (int) $video_id . "' AND
+           `video_response_active`='1'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $total = mysql_fetch_assoc($result);
+    $view['total'] = $total['total'];
+    
+    $start_from = ($page - 1) * $config['num_watch_videos'];
+    
+    $sql = "SELECT v.* FROM `video_responses` AS `vr`,`videos` AS `v` WHERE
+            vr.video_response_to_video_id='" . (int) $video_id . "' AND
+            vr.video_response_active='1' AND
+            vr.video_response_video_id=v.video_id
+            ORDER BY vr.video_response_add_time DESC
+            LIMIT $start_from, $config[num_watch_videos]";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $video_count = mysql_num_rows($result);
+    
+    if ($video_count > 0)
+    {
+        while ($video = mysql_fetch_assoc($result))
+        {
+            $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
+            $videos[] = $video;
+        }
+        
+        $view['start_num'] = $start_from + 1;
+        $view['end_num'] = $start_from + $video_count;
+        $view['page'] = $page;
+        $view['page_links'] = paginate($view['total'], $config['num_watch_videos'], '.', '', $page);
+        $view['videos'] = $videos;
+    }
+}
+
+$smarty->assign('view', $view);
+$smarty->assign('err', $err);
+$smarty->assign('msg', $msg);
+$smarty->display('header.tpl');
+$smarty->display('video_responses.tpl');
+$smarty->display('footer.tpl');
+db_close();

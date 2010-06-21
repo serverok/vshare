@@ -629,6 +629,14 @@ CLASSES
     margin-bottom: 5px;
     color: #666666;
 }
+.video-response {
+   float:left;
+   height:120px;
+   width:112px;
+   margin:2px 3px;
+   overflow:hidden;
+   text-align:left;    
+}
 /*view_video.tpl only = >   = > end*/
 
 .formHighlight {
@@ -1981,3 +1989,49 @@ vertical-align: middle;
 	background-color: #999999;
 }
 
+/* video reponses */
+
+div.response-body {
+   margin: 5px 5px;
+}
+div.response-body div.video-info {
+   width: 600px;
+   float: left;
+   overflow: hidden;
+}
+div.response-body div.video-info span.video-title {
+   font-size: 16px;
+   font-weight: bold;
+}
+div.response-body div.video-info div.box1 {
+   width: 140px;
+   float: left;
+}
+div.response-body div.video-info div.box2 {
+   width: 400px;
+   float: left;
+   padding: 2px;
+}
+div.response-body div.video-info div.box2 span {
+   margin: 2px;
+   display: block;
+}
+div.response-body div.video-info div.box2 span.video_title a {
+   color: #0066FF;
+}
+div.response-body div.user-info {
+   width: 250px;
+   float: left;
+}
+div.response-body div.user-info span {
+   margin: 2px 5px;
+   display: block;
+}
+div.response-body select.video-options {
+   height: 230px;
+   margin-bottom: 5px;
+   width: 320px;
+}
+div.response-body h3 {
+   margin: 0;
+}

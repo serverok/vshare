@@ -180,6 +180,9 @@ if (isset($show_video) && $show_video == 1 && $err == '')
         $tags = explode(' ', $video_info['video_keywords']);
         $view['tags'] = $tags;
         
+        # Response Videos Start
+        $view['video_responses'] = Video::get_response_videos($video_id, '5');
+        
         # Related Videos Start
         
 
@@ -256,6 +259,17 @@ if (isset($show_video) && $show_video == 1 && $err == '')
                 $package_info = mysql_fetch_assoc($result);
                 $view['package_allow_video_download'] = $package_info['package_allow_download'];
             }
+        }
+        
+        $sql = "SELECT v.* FROM `videos` AS `v`,`video_responses` AS `vr` WHERE
+                vr.video_response_video_id='" . (int) $video_id . "' AND
+                vr.video_response_to_video_id=v.video_id";
+        $result = mysql_query($sql) or mysql_die($sql);
+        
+        if (mysql_num_rows($result) > 0)
+        {
+            $owner_video_info = mysql_fetch_assoc($result);
+            $view['owner_video_info'] = $owner_video_info;
         }
         
         $sql = "SELECT `user_name`,`user_website` FROM `users` WHERE

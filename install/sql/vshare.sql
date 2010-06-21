@@ -180,6 +180,7 @@ INSERT INTO `email_templates` (`email_id`, `email_subject`, `email_body`, `comme
 INSERT INTO `email_templates` (`email_id`, `email_subject`, `email_body`, `comment`) VALUES('upload_notify_admin', 'New Video Upload at [SITE_NAME] by [USERNAME]', '<p>USER ID: [USER_ID]</p><p>USER IP: [USER_IP]</p><p>USERNAME: [USERNAME]</p><p>TITLE: [TITLE]</p><p>DESCRIPTION: [DESCRIPTION]</p><p>KEYWORDS: [KEYWORDS]</p><p>CHANNEL: [CHANNELS]</p><p>TYPE: [TYPE]</p><p>VIDEO URL: [VIDEO_URL]</p>', 'Admin Notification for video upload');
 INSERT INTO `email_templates` (`email_id`, `email_subject`, `email_body`, `comment`) VALUES('abuse_report', 'Abuse report on [VIDEO_TITLE]', '<p>Hi Admin,</p>  <p>Following video is reported as Inappropriate.</p><p><a href="[VIDEO_URL] ">[VIDEO_URL]</a></p><p>Abuse Type: <font color="#000000">[TYPE_ABUSE]</font></p><p>Comments: <font color="#000000">[ABUSE_COMMENTS]</font></p><p>Reported by:</p><p>User Name: [USER_NAME]<br />IP Address: &nbsp;[REMOTE_ADDR]</p><p>Thanks,</p><p><a href="[SITE_URL]">[SITE_NAME]</a></p>', 'Report Inappropriate Video');
 INSERT INTO `email_templates` (`email_id`, `email_subject`, `email_body`, `comment`) VALUES('delete_user', '[SITE_NAME] Account Delete Verification - [USERNAME]', '<p>Hi [USERNAME],</p><p>You or some one from IP: [USER_IP] requested to delete the account [USERNAME]</p><p><a href="[SITE_URL]/[USERNAME]">[SITE_URL]/[USERNAME]</a></p><p>To delete the account, click the link below</p><p><a href="[VERIFY_URL]">[VERIFY_URL]</a></p><p>Thank you,</p><p><a href="[SITE_URL]">[SITE_NAME]</a></p>', 'Account delete verification Mail');
+INSERT INTO `email_templates` (`email_id` ,`email_subject` ,`email_body` ,`comment`) VALUES('video_response_notify', '[SITE_NAME] - Video response to "[VIDEO_TITLE]"', '<p><a href="[SITE_URL]/[USERNAME]">[USERNAME]</a> has posted a video in response to <a href="[VIDEO_URL]">[VIDEO_TITLE]</a></p> <p>Response Video: <a href="[RESPONSE_VIDEO_URL]">[RESPONSE_VIDEO_TITLE]</a></p><p>This video requires your approval. You can approve or reject it by visiting the following link.</p><p><a href="[VERIFY_LINK]">[VERIFY_LINK]</a></p><p>Thanks</p><p><a href="[SITE_URL]">[SITE_NAME]</a> Team</p>', 'video response notify');
 
 -- Table structure for table `favourite`
 
@@ -808,3 +809,16 @@ CREATE TABLE IF NOT EXISTS `admin_log` (
   `admin_log_ip` varchar(255) NOT NULL,
   PRIMARY KEY  (`admin_log_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- Table structure for table `video_responses`
+
+CREATE TABLE IF NOT EXISTS `video_responses` (
+  `video_response_id` int(11) NOT NULL auto_increment,
+  `video_response_video_id` int(11) NOT NULL,
+  `video_response_to_video_id` int(11) NOT NULL,
+  `video_response_active` int(1) NOT NULL default '0',
+  `video_response_add_time` int(11) NOT NULL,
+  PRIMARY KEY  (`video_response_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- Dumping data for table `video_responses`

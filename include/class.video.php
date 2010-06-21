@@ -582,4 +582,35 @@ class Video
             return 0;
         }
     }
+    
+    function get_response_videos($video_id, $limit = '')
+    {
+        global $conn , $servers;
+        
+        if (! empty($limit))
+        {
+            $limit = 'LIMIT ' . (int) $limit;
+        }
+        
+        $sql = "SELECT v.* FROM `videos` AS `v`,`video_responses` AS `vr` WHERE
+                vr.video_response_to_video_id='" . (int) $video_id . "' AND
+                vr.video_response_active='1' AND
+                vr.video_response_video_id=v.video_id
+                ORDER BY vr.video_response_add_time DESC
+                $limit";
+        $result = mysql_query($sql) or mysql_die($sql);
+        
+        $video_info = array();
+        
+        if (mysql_num_rows($result) > 0)
+        {
+            while ($video = mysql_fetch_assoc($result))
+            {
+                $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
+                $video_info[] = $video;
+            }
+        }
+        
+        return $video_info;
+    }
 }

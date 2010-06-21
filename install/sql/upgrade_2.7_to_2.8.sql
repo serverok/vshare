@@ -20,3 +20,14 @@ CREATE TABLE IF NOT EXISTS `admin_log` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO `config` (`config_name`, `config_value`) VALUES ('youtube_player', 'youtube');
+
+CREATE TABLE IF NOT EXISTS `video_responses` (
+  `video_response_id` int(11) NOT NULL auto_increment,
+  `video_response_video_id` int(11) NOT NULL,
+  `video_response_to_video_id` int(11) NOT NULL,
+  `video_response_active` int(1) NOT NULL default '0',
+  `video_response_add_time` int(11) NOT NULL,
+  PRIMARY KEY  (`video_response_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+INSERT INTO `email_templates` (`email_id` ,`email_subject` ,`email_body` ,`comment`) VALUES ('video_response_notify', '[SITE_NAME] - Video response to "[VIDEO_TITLE]"', '<p><a href="[SITE_URL]/[USERNAME]">[USERNAME]</a> has posted a video in response to <a href="[VIDEO_URL]">[VIDEO_TITLE]</a></p> <p>Response Video: <a href="[RESPONSE_VIDEO_URL]">[RESPONSE_VIDEO_TITLE]</a></p><p>This video requires your approval. You can approve or reject it by visiting the following link.</p><p><a href="[VERIFY_LINK]">[VERIFY_LINK]</a></p><p>Thanks</p><p><a href="[SITE_URL]">[SITE_NAME]</a> Team</p>', 'video response notify');

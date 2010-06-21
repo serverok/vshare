@@ -1075,3 +1075,15 @@ function insert_user_rate($a)
     $list .= '</div>';
     echo $list;
 }
+
+function insert_video_response_count($a)
+{
+    global $conn;
+    
+    $sql = "SELECT count(*) AS `count` FROM `video_responses` WHERE
+           `video_response_to_video_id`='" . (int) $a['video_id'] . "' AND
+           `video_response_active`='1'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = mysql_fetch_array($result);
+    return $tmp['count'];
+}

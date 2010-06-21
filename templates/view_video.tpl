@@ -12,6 +12,12 @@
     
     {insert name=advertise adv_name='player_bottom'}
     
+    {if $view.owner_video_info ne ''}
+	<div id="videos-details">
+	    <label>This is a video response to <a href="{$base_url}/view/{$view.owner_video_info.video_id}/{$view.owner_video_info.video_seo_name}/">{$view.owner_video_info.video_title}</a></label>
+	</div>
+	{/if}
+        
     <div align="center">
         <a href="javascript:void(0);" title="FaceBook"><img src="{$img_css_url}/images/facebook.jpg" border="0" alt="facebook" onclick="window.open('http://www.facebook.com/share.php?u={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;t={$view.video_info.video_title}','facebook', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,width=750,height=400,left = 0,top = 0');"/></a>&nbsp;
         <a href="http://digg.com/submit?phase=2&amp;url={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;title={$view.video_info.video_title}" title="Digg It!"><img src="{$img_css_url}/images/digg.png" border="0" alt="digg" /></a>&nbsp;
@@ -123,6 +129,39 @@
         </div>
     
     </div> <!-- section -->
+    
+    <div class="section clearfix">
+    {insert name=video_response_count video_id=$view.video_info.video_id assign=response_count}
+        <div class="hd">
+            <div class="hd-l">
+                Video Responses ({$response_count})
+                
+                {if $response_count gt '0'}
+                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="{$base_url}/response/{$view.video_info.video_id}/videos/1">View All</a>
+                {/if}
+            </div>
+            
+            <div class="hd-r"><a href="{$base_url}/video_response_upload/{$view.video_info.video_id}">Post Video Response</a></div>
+        </div>
+        
+        {section name=i loop=$view.video_responses}
+            <div class="video-response">
+                <a href="{$base_url}/view/{$view.video_responses[i].video_id}/{$view.video_responses[i].video_seo_name}/" title="{$view.video_responses[i].video_title}">
+                    <img class="preview" src="{$view.video_responses[i].video_thumb_url}/thumb/{$view.video_responses[i].video_folder}1_{$view.video_responses[i].video_id}.jpg" width="80px" height="60" alt="{$view.video_responses[i].video_title}" />
+                    <br />
+                    {$view.video_responses[i].video_title|truncate:20}
+                </a>
+                <br />
+                {$view.video_responses[i].video_view_number} views
+                <br />
+                {insert name=id_to_name assign=uname un=$view.video_responses[i].video_user_id}
+                <a href="{$base_url}/{$uname}">{$uname}</a>
+                <br />
+            </div>
+        {sectionelse}
+            <center><p>Be the first to post a video response!</p></center>
+        {/section}
+    </div>
     
     <div class="section">
     
