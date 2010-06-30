@@ -92,7 +92,7 @@
     
     {insert name=advertise adv_name='banner_top'}
     
-    {include file=search_box.tpl}
+    {*{include file=search_box.tpl}*}
     
     <div id="main" class="clearfix">
     
