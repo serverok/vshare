@@ -71,6 +71,7 @@ RewriteRule ^privacy/ user_privacy.php [L,QSA]
 RewriteRule ^video_response_upload/(.*) upload_video_response.php?vid=$1 [L,QSA]
 RewriteRule ^response/(.*)/videos/(.*) video_responses.php?video_id=$1&page=$2 [L,QSA]
 RewriteRule ^verify/response/(.*)/(.*)/(.*)/ video_response_verify.php?u=$1&i=$2&k=$3
+RewriteRule ^([^/\.]+)/account/ myaccount.php
 RewriteRule ^([^/\.]+)/favorites/(.*) user_favorites.php?user_name=$1&page=$2
 RewriteRule ^([^/\.]+)/playlist/(.*) user_playlist.php?user_name=$1&page=$2
 RewriteRule ^([^/\.]+)/friends/videos/(.*) user_friends_videos.php?user_name=$1&page=$2 [L,QSA]

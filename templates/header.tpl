@@ -31,7 +31,7 @@
 					Welcome,
 					<a href="{$base_url}/{$smarty.session.USERNAME}">{$smarty.session.USERNAME}</a> <span class="arrow"><img src="{$img_css_url}/images/down-arrow.png" width="10" height="10" /></span>
 					<ul id="user-menues" style="display: none;">
-						<li><a href="{$base_url}/{$smarty.session.USERNAME}/myaccount.php">My Account</a></li>
+						<li><a href="{$base_url}/{$smarty.session.USERNAME}/account/">My Account</a></li>
 						<li><a href="{$base_url}/{$smarty.session.USERNAME}/public/">Public Videos</a></li>
 						<li><a href="{$base_url}/{$smarty.session.USERNAME}/private/">Private Videos</a></li>
 						<li><a href="{$base_url}/{$smarty.session.USERNAME}/favorites/">Favorites</a></li>
