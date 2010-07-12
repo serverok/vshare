@@ -13,11 +13,14 @@
         
             <div class="video-entry clearfix">
                  
-	           	<div class="box1"> 
-					<a href="{$base_url}/view/{$favVideos[i].video_id}/{$favVideos[i].video_seo_name}/">
-					   <img class="preview" src="{$favVideos[i].video_thumb_url}/thumb/{$favVideos[i].video_folder}1_{$favVideos[i].video_id}.jpg" width="120" height="90" alt="" />
-					</a>
-				  
+	           	<div class="box1">
+	           	   <div class="preview default-img-adjust">
+	           	       <a href="{$base_url}/view/{$favVideos[i].video_id}/{$favVideos[i].video_seo_name}/">
+	           	           <img src="{$favVideos[i].video_thumb_url}/thumb/{$favVideos[i].video_folder}1_{$favVideos[i].video_id}.jpg" alt="" />
+	           	       </a>
+	           	       <div class="video-time">{$favVideos[i].video_length}</div>
+	           	   </div>
+
 					{if $smarty.session.USERNAME eq $user_info.user_name}
 						<center>
 							<form name="USERFAVOUR" method="post" action="">
@@ -28,8 +31,8 @@
 					{/if}
 				</div>
 
-				<div class="box2"> 
-					<p class="video-entry-title">            
+				<div class="box2">
+					<p class="video-entry-title">
 						<a href="{$base_url}/view/{$favVideos[i].video_id}/{$favVideos[i].video_seo_name}/">
 					    {$favVideos[i].video_title}</a>
 					</p>
@@ -46,11 +49,11 @@
 					<p class="video-entry-details">
 						{insert name=time_to_date assign=todate tm=$favVideos[i].video_add_time}
 						Added: {$todate} <br /><br />
-						Time: {$favVideos[i].video_length} | Views: {$favVideos[i].video_view_number} |
+						Views: {$favVideos[i].video_view_number} |
 						{insert name=comment_count assign=commentcount vid=$favVideos[i].video_id}
 						Comments: {$commentcount} <br /><br />
 						Rating: {insert name=show_rate assign=vrate rte=$favVideos[i].video_rate rated=$favVideos[i].video_rated_by}{$vrate}<br />
-					</p>   
+					</p>
 				</div>
 				
 			</div>  <!-- video-entry -->

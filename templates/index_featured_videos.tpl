@@ -10,9 +10,12 @@
         <div class="featured-block clearfix">
 
             <div class="box1">
-                <a href="{$base_url}/view/{$featured_videos[i].video_id}/{$featured_videos[i].video_seo_name}/">
-                    <img src="{$featured_videos[i].video_thumb_url}/thumb/{$featured_videos[i].video_folder}1_{$featured_videos[i].video_id}.jpg" width="120" height="90" alt="{$featured_videos[i].video_title}" />
-                </a>
+                <div class="preview default-img-adjust">
+                    <a href="{$base_url}/view/{$featured_videos[i].video_id}/{$featured_videos[i].video_seo_name}/">
+                        <img src="{$featured_videos[i].video_thumb_url}/thumb/{$featured_videos[i].video_folder}1_{$featured_videos[i].video_id}.jpg" alt="{$featured_videos[i].video_title}" />
+                    </a>
+                    <div class="video-time">{$featured_videos[i].video_length}</div>
+                </div>
             </div>
         
             <div class="box2">
@@ -40,7 +43,6 @@
                         {$user_name}
                     </a>
                     <br />
-                    Runtime: {$featured_videos[i].video_length} |
                     Views: {$featured_videos[i].video_view_number} |
                     {insert name=comment_count assign=commentcount vid=$featured_videos[i].video_id}
                     Comments: {$commentcount}

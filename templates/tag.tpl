@@ -33,15 +33,26 @@
         <div class="tags-video-entry clearfix">
         
             <div class="box1">
-				<a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">
-    				<img src="{$video_info[i].video_thumb_url}/thumb/{$video_info[i].video_folder}1_{$video_info[i].video_id}.jpg" width="120" height="90" alt=""  class="preview"/>
-				</a>
-				<a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">
-				    <img src="{$video_info[i].video_thumb_url}/thumb/{$video_info[i].video_folder}2_{$video_info[i].video_id}.jpg" width="120" height="90" alt=""  class="preview"/>
-				</a>
-				<a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">
-				    <img src="{$video_info[i].video_thumb_url}/thumb/{$video_info[i].video_folder}3_{$video_info[i].video_id}.jpg" width="120" height="90" alt="" class="preview"/>
-				</a>
+                <div class="preview search-videos-img-adjust">
+					<a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">
+	    				<img src="{$video_info[i].video_thumb_url}/thumb/{$video_info[i].video_folder}1_{$video_info[i].video_id}.jpg" alt="" />
+					</a>
+					<div class="video-time">{$video_info[i].video_length}</div>
+				</div>
+				
+				<div class="preview search-videos-img-adjust">
+					<a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">
+					    <img src="{$video_info[i].video_thumb_url}/thumb/{$video_info[i].video_folder}2_{$video_info[i].video_id}.jpg" alt="" />
+					</a>
+					<div class="video-time">{$video_info[i].video_length}</div>
+				</div>
+				
+				<div class="preview search-videos-img-adjust">
+					<a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">
+					    <img src="{$video_info[i].video_thumb_url}/thumb/{$video_info[i].video_folder}3_{$video_info[i].video_id}.jpg" alt="" />
+					</a>
+					<div class="video-time">{$video_info[i].video_length}</div>
+				</div>
             </div>
             
             <div class="box2">
@@ -78,13 +89,12 @@
 						{$uname}
 					</a>
 					<br /><br />
-					Runtime: {$video_info[i].video_length} | 
 					Views: {$video_info[i].video_view_number} |
 					{insert name=comment_count assign=commentcount vid=$video_info[i].video_id}
-					Comments: {$commentcount} 
+					Comments: {$commentcount}
 					<br /><br />
 			        {insert name=show_rate assign=rate rte=$video_info[i].video_rate rated=$video_info[i].video_rated_by}
-				    {$rate} 
+				    {$rate}
 			    </p>
 			</div>
         

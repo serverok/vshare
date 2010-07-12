@@ -22,7 +22,7 @@
         <div class="channel-details-user">
             <a href="{$base_url}/{$user_name}">{insert name=member_img UID=$most_active_users[i].video_user_id}</a>
             <br />
-            <a href="{$base_url}/{$user_name}">{$user_name}</a> ({$most_active_users[i].total})            
+            <a href="{$base_url}/{$user_name}">{$user_name}</a> ({$most_active_users[i].total})
         </div>
     {/section}
     
@@ -48,18 +48,19 @@
         
         <div class="channel-details-video">
         
-            <a href="{$base_url}/view/{$recent_channel_videos[j].video_id}/{$recent_channel_videos[j].video_seo_name}/">
-                <img class="preview" src="{$recent_channel_videos[j].video_thumb_url}/thumb/{$recent_channel_videos[j].video_folder}1_{$recent_channel_videos[j].video_id}.jpg" width="120px" height="90" alt="" />
-            </a>
-            <p class="video_title">
-                <a href="{$base_url}/view/{$recent_channel_videos[j].video_id}/{$recent_channel_videos[j].video_seo_name}/">
-                    {$recent_channel_videos[j].video_title}
-                </a>
-            </p>
+            <div class="preview channel-details-img-adjust">
+	            <a href="{$base_url}/view/{$recent_channel_videos[j].video_id}/{$recent_channel_videos[j].video_seo_name}/">
+	                <img src="{$recent_channel_videos[j].video_thumb_url}/thumb/{$recent_channel_videos[j].video_folder}1_{$recent_channel_videos[j].video_id}.jpg" alt="" />
+	            </a>
+	            <div class="video-time">{$recent_channel_videos[j].video_length}</div>
+	        </div>
+	        
+	        <a href="{$base_url}/view/{$recent_channel_videos[j].video_id}/{$recent_channel_videos[j].video_seo_name}/">
+	           {$recent_channel_videos[j].video_title}
+	        </a>
     
             <p class="video_details">
                 By: {insert name=id_to_name assign=user_name un=$recent_channel_videos[j].video_user_id}<a href="{$base_url}/{$user_name}">{$user_name}</a><br />
-                Time: {$recent_channel_videos[j].video_length}<br />
                 Views: {$recent_channel_videos[j].video_view_number}<br />
                 {insert name=comment_count assign=commentcount vid=$recent_channel_videos[j].video_id}
                 Comments: {$commentcount}<br />
@@ -94,10 +95,12 @@
 		
     <div class="channel-details-video">
     
-        <a href="{$base_url}/view/{$mostview[k].video_id}/{$mostview[k].video_seo_name}/">
-        <img class="preview" src="{$mostview[k].video_thumb_url}/thumb/{$mostview[k].video_folder}1_{$mostview[k].video_id}.jpg" width="120px" height="90" alt="" />
-        </a>
-        <br />
+        <div class="preview channel-details-img-adjust">
+	        <a href="{$base_url}/view/{$mostview[k].video_id}/{$mostview[k].video_seo_name}/">
+	           <img src="{$mostview[k].video_thumb_url}/thumb/{$mostview[k].video_folder}1_{$mostview[k].video_id}.jpg" alt="" />
+	        </a>
+	        <div class="video-time">{$mostview[k].video_length}</div>
+	    </div>
         
         <a href="{$base_url}/view/{$mostview[k].video_id}/{$mostview[k].video_seo_name}/">
             {$mostview[k].video_title}
@@ -106,7 +109,6 @@
         <p class="video_details">
             {insert name=id_to_name assign=user_name un=$mostview[k].video_user_id}
             By: <a href="{$base_url}/{$user_name}">{$user_name}</a><br />
-            Time: {$mostview[k].video_length}<br />
             Views: {$mostview[k].video_view_number}<br />
             {insert name=comment_count assign=commentcount vid=$mostview[k].video_id}
             Comments: {$commentcount}<br />

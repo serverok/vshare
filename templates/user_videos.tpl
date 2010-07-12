@@ -22,9 +22,12 @@
 
                 <div class="box1">
                 
-                    <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
-                        <img class="preview" src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}1_{$view.videos[i].video_id}.jpg" width="120" height="90" alt="{$view.videos[i].video_title}" />
-                    </a>
+                    <div class="preview default-img-adjust">
+                        <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
+                            <img src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}1_{$view.videos[i].video_id}.jpg" alt="{$view.videos[i].video_title}" />
+                        </a>
+                        <div class="video-time">{$view.videos[i].video_length}</div>
+                    </div>
 
                     {if $user_info.user_name == $smarty.session.USERNAME}
                     
@@ -66,7 +69,7 @@
                     <p class="video_details">
                         {insert name=time_to_date assign=todate tm=$view.videos[i].video_add_time}
                         Added: {$todate} <br />
-                        Time: {$view.videos[i].video_length} | Views: {$view.videos[i].video_view_number} |
+                        Views: {$view.videos[i].video_view_number} |
                         {insert name=comment_count assign=commentcount vid=$view.videos[i].video_id}
                         Comments: {$commentcount}
                         {insert name=show_rate assign=my_rate rte=$view.videos[i].video_rate rated=$view.videos[i].video_rated_by}

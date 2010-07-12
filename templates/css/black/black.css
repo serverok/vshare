@@ -52,11 +52,6 @@ div.home-video-box {
 div.home-video-box-hover {
 	background-color:#100e0e;
 }
-div.home-video-box img {
-	border:1px solid #272727;
-    margin:5px;
-    padding:5px;
-}
 div.home-video-box p {
 	margin:0;
 }
@@ -78,13 +73,6 @@ div.featured-block div.box2 {
 }
 div.featured-block div.box1 {
 	width: 120px;
-}
-div.featured-block div.box1 img {
-	border:5px solid #FFFFFF;
-	h: expression(onmouseover=new Function("this.style.border='5px solid #70AF00';"), onmouseout=new Function("this.style.border='5px solid #FFFFFF';"));
-}
-div.featured-block div.box1 img:hover {
-	border:5px solid #70AF00;
 }
 p.video_title{  
     font-size: 13px;
@@ -131,9 +119,7 @@ p.video_details a:hover {
     overflow: hidden;
     text-align:center;
 }
-.watch-video-box img {
-	margin:5px 0 0 0px;
-}
+
 /* channels */
 
 ul#channels {
@@ -198,7 +184,6 @@ div.video {
 }
 img.preview {
 	border:5px solid #FFFFFF;
-	h: expression(onmouseover=new Function("this.style.border='5px solid #70AF00';"), onmouseout=new Function("this.style.border='5px solid #FFFFFF';"));
 }
 img.preview:hover {
 	border:5px solid #70AF00;
@@ -225,13 +210,6 @@ div.video-entry div.box2 {
 div.video-entry div.box1 {
 	width: 120px;
 	text-align: center;
-}
-div.video-entry div.box1 img {
-	border:5px solid #FFFFFF;
-	h: expression(onmouseover=new Function("this.style.border='5px solid #70AF00';"), onmouseout=new Function("this.style.border='5px solid #FFFFFF';"));
-}
-div.video-entry div.box1 img:hover {
-	border:5px solid #70AF00;
 }
 p.video-entry-title {
 	margin:0px;
@@ -269,7 +247,6 @@ ul#watch-videos li {
 }
 ul#watch-videos li img {
 	display:inline;
-	margin:0px 0px 0 2px;
 }
 /* video.tpl */
 
@@ -278,7 +255,7 @@ div.watch-detailed {
 	padding:1em;
 }
 div.watch-detailed div.box1 {
-	width:400px;
+	width:402px;
 	float:left;
 	padding:4px;
 	margin-right:5px;

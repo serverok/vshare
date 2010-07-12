@@ -14,9 +14,13 @@
             <div class="video-entry bg2 clearfix">
                 
                 <div class="box1">
-                    <a href="{$base_url}/view/{$videos[i].video_id}/{$videos[i].video_seo_name}/">
-                        <img src="{$videos[i].video_thumb_url}/thumb/{$videos[i].video_folder}1_{$videos[i].video_id}.jpg" width="120px" height="90" alt="" />
-                    </a>
+                    <div class="preview default-img-adjust">
+                        <a href="{$base_url}/view/{$videos[i].video_id}/{$videos[i].video_seo_name}/">
+                            <img src="{$videos[i].video_thumb_url}/thumb/{$videos[i].video_folder}1_{$videos[i].video_id}.jpg" alt="" />
+                        </a>
+                        <div class="video-time">{$videos[i].video_length}</div>
+                    </div>
+                    
                     {if $user_info.user_name eq $smarty.session.USERNAME}
                         <a href="{$base_url}/playlist_delete.php?vid={$videos[i].video_id}&page={$page}">
                             <img src="{$img_css_url}/images/del.gif" border="0" alt="" />
@@ -26,7 +30,7 @@
                                          
                 <div class="box2">
                     <p class="video-entry-title">
-                        <a href="{$base_url}/view/{$videos[i].video_id}/{$videos[i].video_seo_name}/">{$videos[i].video_title}</a>					
+                        <a href="{$base_url}/view/{$videos[i].video_id}/{$videos[i].video_seo_name}/">{$videos[i].video_title}</a>
                     </p>
                     <p class="video-entry-description">{$videos[i].video_description}</p>
     
@@ -39,7 +43,7 @@
                     <p class="video-entry-details">
                         {insert name=time_to_date assign=todate tm=$videos[i].video_add_time}
                         Added: {$todate}<br /><br />
-                        Time: {$videos[i].video_length} | Views: {$videos[i].video_view_number} |
+                        Views: {$videos[i].video_view_number} |
                         {insert name=comment_count assign=commentcount vid=$videos[i].video_id}
                         Comments: {$commentcount}<br /><br />
                         Rating: {insert name=show_rate assign=vrate rte=$videos[i].video_rate rated=$videos[i].video_rated_by}{$vrate}

@@ -15,10 +15,13 @@
 		
 		<div class="video-entry bg2">
 		   
-			<div class="box1">
-				<a href="{$base_url}/view/{$answers[i].video_id}/{$answers[i].video_seo_name}/">
-					<img src="{$answers[i].video_thumb_url}/thumb/{$answers[i].video_folder}1_{$answers[i].video_id}.jpg" width="120" height="90" alt="" />
-				</a>
+            <div class="box1">
+                <div class="preview default-img-adjust">
+                    <a href="{$base_url}/view/{$answers[i].video_id}/{$answers[i].video_seo_name}/">
+					   <img src="{$answers[i].video_thumb_url}/thumb/{$answers[i].video_folder}1_{$answers[i].video_id}.jpg" alt="" />
+				    </a>
+				    <div class="video-time">{$answers[i].video_length}</div>
+				</div>
 			</div>
 			  
 			<div class="box2">
@@ -46,9 +49,9 @@
 					{assign var="favorited_video_id" value=$answers[i].video_id}
 					 favorited by {$favorited_by.$favorited_video_id}<br /><br />
 
-					Time: {$answers[i].video_length} | Views: {$answers[i].video_view_number} |
+					Views: {$answers[i].video_view_number} |
 					{insert name=comment_count assign=commentcount vid=$answers[i].video_id}
-					Comments: {$commentcount} 
+					Comments: {$commentcount}
 					Rating: {insert name=show_rate assign=vrate rte=$answers[i].video_rate rated=$answers[i].video_rated_by}{$vrate}
 				</p>
 

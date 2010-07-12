@@ -6,7 +6,7 @@
     
         <div class="hd">
             <div class="hd-l">
-                Group : 
+                Group :
                 <a href="{$base_url}/group/{$group_info.group_url}/">
                     {$group_info.group_name}
                 </a>
@@ -38,7 +38,9 @@
                     {else}
                         <img class="preview" src="{$group_image_info.video_thumb_url}/thumb/{$group_image_info.video_folder}1_{$group_image_info.video_id}.jpg" width="120" height="90" alt="" />
                     {/if}
-        
+                    
+                    <br />
+                    
                     {if $smarty.session.UID ne "" and $checkmem ne "0"}
                     
                         {if $smarty.session.UID eq $group_info.group_owner_id}
@@ -84,7 +86,7 @@
                     <p class="video-entry-title">{$group_info.group_description}</p>
                     
                     <p class="video-entry-tags">
-                        <img width="38" height="14" src="{$img_css_url}/images/tags.gif" alt="" />: {$group_info.group_keyword} 
+                        <img width="38" height="14" src="{$img_css_url}/images/tags.gif" alt="" />: {$group_info.group_keyword}
                     </p>
                     
                     <p class="video-entry-details">
@@ -128,7 +130,7 @@
                             You are not a member of this group.
                         {/if}
                         
-                        </b> 
+                        </b>
                         <br />
                         Group URL:
                         <a href="{$base_url}/group/{$group_info.group_url}/">{$base_url}/group/{$group_info.group_url}/</a>
@@ -152,7 +154,7 @@
 
                 </div> <!-- box2 -->
     
-            </div> <!-- group-home-info --> 
+            </div> <!-- group-home-info -->
 
             <div class="clearfix"></div>
             <br />
@@ -172,9 +174,13 @@
                 <ul id="user-video">
                     {section name=i loop=$group_videos}
                     <li>
+                        <div class="preview default-img-adjust">
+                            <a href="{$base_url}/view/{$group_videos[i].video_id}/{$group_videos[i].video_seo_name}/">
+                                <img src="{$group_videos[i].video_thumb_url}/thumb/{$group_videos[i].video_folder}1_{$group_videos[i].video_id}.jpg" alt="" />
+                            </a>
+                            <div class="video-time">{$group_videos[i].video_length}</div>
+                        </div>
                         <a href="{$base_url}/view/{$group_videos[i].video_id}/{$group_videos[i].video_seo_name}/">
-                            <img class="preview" src="{$group_videos[i].video_thumb_url}/thumb/{$group_videos[i].video_folder}1_{$group_videos[i].video_id}.jpg" width="120" height="90" alt="" />
-                            <br />
                             {$group_videos[i].video_title}
                         </a>
                     </li>

@@ -63,11 +63,12 @@
             
                 <div class="watch-video-box">
                 
-                    <p class="video_title">
+                    <div class="preview watch-video-box-img-adjust">
                         <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
-                            <img class="preview" src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}1_{$view.videos[i].video_id}.jpg" width="120px" height="90" alt="{$view.videos[i].video_title}" />
+                            <img src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}1_{$view.videos[i].video_id}.jpg" alt="{$view.videos[i].video_title}" />
                         </a>
-                    </p>
+                        <div class="video-time">{$view.videos[i].video_length}</div>
+                    </div>
                 
                     <p class="video_title">
                         <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">{$view.videos[i].video_title}</a>
@@ -78,7 +79,6 @@
                     </p>
                 
                     <p class="video_details">
-                        Time: {$view.videos[i].video_length}<br />
                         Views: {$view.videos[i].video_view_number} | {insert name=comment_count assign=commentcount vid=$view.videos[i].video_id}Comments: {$commentcount}
                     </p>
                 
@@ -101,9 +101,26 @@
                <div class="watch-detailed clearfix">
     
                     <div class="box1">
-                        <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/"><img class="preview" src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}1_{$view.videos[i].video_id}.jpg" width="120px" height="90" alt="" /></a>
-                        <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/"><img class="preview" src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}2_{$view.videos[i].video_id}.jpg" width="120px" height="90" alt="" /></a>
-                        <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/"><img class="preview" src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}3_{$view.videos[i].video_id}.jpg" width="120px" height="90" alt="" /></a>
+                        <div class="preview search-videos-img-adjust">
+                            <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
+                                <img src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}1_{$view.videos[i].video_id}.jpg" alt="" />
+                            </a>
+                            <div class="video-time">{$view.videos[i].video_length}</div>
+                        </div>
+                        
+                        <div class="preview search-videos-img-adjust">
+                            <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
+                                <img src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}2_{$view.videos[i].video_id}.jpg" alt="" />
+                            </a>
+                            <div class="video-time">{$view.videos[i].video_length}</div>
+                        </div>
+                        
+                        <div class="preview search-videos-img-adjust">
+                            <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
+                                <img src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}3_{$view.videos[i].video_id}.jpg" alt="" />
+                            </a>
+                            <div class="video-time">{$view.videos[i].video_length}</div>
+                        </div>
                     </div>
     
                     <div class="box2">
@@ -124,7 +141,6 @@
                         </p>
     
                         <p class="video_details">
-                            Time: {$view.videos[i].video_length}<br />
                             Views: {$view.videos[i].video_view_number} |
                             {insert name=comment_count assign=commentcount vid=$view.videos[i].video_id}
                             Comments: {$commentcount}

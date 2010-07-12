@@ -3,9 +3,12 @@
     <div class="video-info">
         <span class="video-title">{$view.video_info.video_title}</span>
         <div class="box1">
-            <a href="{$base_url}/view/{$video_info.video_id}/{$video_info.video_seo_name}/">
-                <img class="preview" src="{$video_info.video_thumb_url}/thumb/{$video_info.video_folder}1_{$video_info.video_id}.jpg" width="120px" height="90" />
-            </a>
+            <div class="preview default-img-adjust">
+                <a href="{$base_url}/view/{$video_info.video_id}/{$video_info.video_seo_name}/">
+                    <img src="{$video_info.video_thumb_url}/thumb/{$video_info.video_folder}1_{$video_info.video_id}.jpg" />
+                </a>
+                <div class="video-time">{$video_info.video_length}</div>
+            </div>
         </div>
         
         <div class="box2">
@@ -24,7 +27,6 @@
             </span>
             
             <span class="video_details">
-                Time: {$video_info.video_length} |
                 Views: {$video_info.video_view_number} |
                 Comments: {$video_info.video_com_num} |
                 Rating: {insert name=show_rate assign=rate rte=$video_info.video_rate rated=$video_info.video_rated_by}{$rate}

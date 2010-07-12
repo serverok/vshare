@@ -6,7 +6,7 @@
     
         <div class="hd">
             <div class="hd-l">
-                Add Videos to Group: 
+                Add Videos to Group:
                 <a href="{$base_url}/group/{$group_info.group_url}/">
                     {$group_info.group_name}
                 </a>
@@ -18,12 +18,15 @@
     
         {section name=i loop=$videos}
         
-            <div class="video-entry bg2"> 
+            <div class="video-entry bg2">
                 
                 <div class="box1">
-                    <a href="{$base_url}/view/{$videos[i].video_id}/{$videos[i].video_seo_name}/">
-                        <img src="{$videos[i].video_thumb_url}/thumb/{$videos[i].video_folder}1_{$videos[i].video_id}.jpg" width="120" height="90" alt="" />
-                    </a>
+                    <div class="preview default-img-adjust">
+	                    <a href="{$base_url}/view/{$videos[i].video_id}/{$videos[i].video_seo_name}/">
+	                        <img src="{$videos[i].video_thumb_url}/thumb/{$videos[i].video_folder}1_{$videos[i].video_id}.jpg" alt="" />
+	                    </a>
+	                    <div class="video-time">{$videos[i].video_length}</div>
+	                </div>
                 </div>
                 
                 <div class="box2">
@@ -43,7 +46,7 @@
                     <p class="video-entry-details">
                         {insert name=time_to_date assign=todate tm=$videos[i].video_add_time}
                         Added: {$todate}<br /><br />
-                        Runtime: {$videos[i].video_length} | Views: {$videos[i].video_view_number} |
+                        Views: {$videos[i].video_view_number} |
                         {insert name=comment_count assign=commentcount vid=$videos[i].video_id}
                         Comments: {$commentcount}
                     </p>

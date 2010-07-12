@@ -146,9 +146,14 @@
         
         {section name=i loop=$view.video_responses}
             <div class="video-response">
-                <a href="{$base_url}/view/{$view.video_responses[i].video_id}/{$view.video_responses[i].video_seo_name}/" title="{$view.video_responses[i].video_title}">
-                    <img class="preview" src="{$view.video_responses[i].video_thumb_url}/thumb/{$view.video_responses[i].video_folder}1_{$view.video_responses[i].video_id}.jpg" width="80px" height="60" alt="{$view.video_responses[i].video_title}" />
-                    <br />
+                <div class="preview related-video-img-adjust">
+                    <a href="{$base_url}/view/{$view.video_responses[i].video_id}/{$view.video_responses[i].video_seo_name}/" title="{$view.video_responses[i].video_title}">
+                        <img src="{$view.video_responses[i].video_thumb_url}/thumb/{$view.video_responses[i].video_folder}1_{$view.video_responses[i].video_id}.jpg" alt="{$view.video_responses[i].video_title}" />
+                    </a>
+                    <div class="video-time">{$view.video_responses[i].video_length}</div>
+                </div>
+                
+                <a href="{$base_url}/view/{$view.video_responses[i].video_id}/{$view.video_responses[i].video_seo_name}/">
                     {$view.video_responses[i].video_title|truncate:20}
                 </a>
                 <br />
@@ -290,9 +295,12 @@
                 {if $view.video_prev == 0}
                     <img src="{$img_css_url}/images/no_prev.gif" class="preview" width="60" height="45" alt="no prev" /><br />&lt; PREV
                 {else}
-                    <a href="{$base_url}/view/{$view.video_prev.video_id}/{$view.video_prev.video_seo_name}/">
-                        <img src="{$view.video_prev.video_thumb_url}/thumb/{$view.video_prev.video_folder}1_{$view.video_prev.video_id}.jpg" class="preview" width="60" height="45" alt="Prev" />
-                    </a>
+                    <div class="preview view-video-watch-img-adjust">
+                        <a href="{$base_url}/view/{$view.video_prev.video_id}/{$view.video_prev.video_seo_name}/">
+                            <img src="{$view.video_prev.video_thumb_url}/thumb/{$view.video_prev.video_folder}1_{$view.video_prev.video_id}.jpg" alt="Prev" />
+                        </a>
+                        <div class="video-time">{$view.video_prev.video_length}</div>
+                    </div>
             
                     <div>
                         <a href="{$base_url}/view/{$view.video_prev.video_id}/{$view.video_prev.video_seo_name}/">
@@ -311,9 +319,12 @@
                 {if $view.video_next == 0}
                     <img src="{$img_css_url}/images/no_next.gif" class="preview" width="60" height="45" alt="no next" /><br />NEXT &gt;
                 {else}
-                    <a href="{$base_url}/view/{$view.video_next.video_id}/{$view.video_next.video_seo_name}/">
-                        <img src="{$view.video_next.video_thumb_url}/thumb/{$view.video_next.video_folder}1_{$view.video_next.video_id}.jpg" class="preview" width="60" height="45" alt="related videos" />
-                    </a>
+                    <div class="preview view-video-watch-img-adjust">
+	                    <a href="{$base_url}/view/{$view.video_next.video_id}/{$view.video_next.video_seo_name}/">
+	                        <img src="{$view.video_next.video_thumb_url}/thumb/{$view.video_next.video_folder}1_{$view.video_next.video_id}.jpg" alt="related videos" />
+	                    </a>
+	                    <div class="video-time">{$view.video_next.video_length}</div>
+	                </div>
                     <div>
                         <a href="{$base_url}/view/{$view.video_next.video_id}/{$view.video_next.video_seo_name}/">
                             NEXT &gt;
@@ -351,18 +362,21 @@
             {section name=i loop=$view.related_videos}
             
                 {if $smarty.request.id eq $view.related_videos[i].video_id}
-                    <div class="related-video playing-bg">
+                    <div class="related-video playing-bg clearfix">
                 {else}
-                    <div class="related-video">
+                    <div class="related-video clearfix">
                 {/if}
 
                     <div class="box1">
-                        <a href="{$base_url}/view/{$view.related_videos[i].video_id}/{$view.related_videos[i].video_seo_name}/" target="_parent">
-                        <img class="preview" src="{$view.related_videos[i].video_thumb_url}/thumb/{$view.related_videos[i].video_folder}1_{$view.related_videos[i].video_id}.jpg" width="80" height="60" alt="related videos" />
-                        </a>
+                        <div class="preview related-video-img-adjust">
+	                        <a href="{$base_url}/view/{$view.related_videos[i].video_id}/{$view.related_videos[i].video_seo_name}/" target="_parent">
+	                           <img src="{$view.related_videos[i].video_thumb_url}/thumb/{$view.related_videos[i].video_folder}1_{$view.related_videos[i].video_id}.jpg" alt="related videos" />
+	                        </a>
+	                        <div class="video-time">{$view.related_videos[i].video_length}</div>
+	                    </div>
                     </div>
                     
-                    <div class="box2">
+                    <div class="box2 clearfix">
                     
                         <div class="moduleFrameTitle">
                             <a href="{$base_url}/view/{$view.related_videos[i].video_id}/{$view.related_videos[i].video_seo_name}/" target="_parent">
@@ -376,7 +390,6 @@
                         </div>
 
                         <div class="moduleFrameDetails">
-                            Time: {$view.related_videos[i].video_length}<br />
                             Views: {$view.related_videos[i].video_view_number}<br />
                             Comments: {$view.related_videos[i].video_com_num}
                         </div>

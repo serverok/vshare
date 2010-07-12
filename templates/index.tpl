@@ -36,10 +36,16 @@
 
             {section name=i loop=$view.new_videos}
                 <div class="home-video-box">
-                    <a href="{$base_url}/view/{$view.new_videos[i].video_id}/{$view.new_videos[i].video_seo_name}/">
-                    <img width="80" height="60" src="{$view.new_videos[i].video_thumb_url}/thumb/{$view.new_videos[i].video_folder}1_{$view.new_videos[i].video_id}.jpg" alt="{$view.new_videos[i].video_title}" />
-                    <br />
-                    {$view.new_videos[i].video_title|truncate:20:"...":true}</a>
+                    <div class="preview home-video-box-img-adjust">
+                        <a href="{$base_url}/view/{$view.new_videos[i].video_id}/{$view.new_videos[i].video_seo_name}/">
+                            <img src="{$view.new_videos[i].video_thumb_url}/thumb/{$view.new_videos[i].video_folder}1_{$view.new_videos[i].video_id}.jpg" alt="{$view.new_videos[i].video_title}" />
+                        </a>
+                        <div class="video-time">{$view.new_videos[i].video_length}</div>
+                    </div>
+                    
+                    <a href="{$base_url}/view/{$view.new_videos[i].video_id}/{$view.new_videos[i].video_seo_name}/" >
+                        {$view.new_videos[i].video_title|truncate:20:"...":true}
+                    </a>
                 </div>
             {/section}
         </div>
@@ -59,11 +65,17 @@
             
             {section name=i loop=$view.recent_videos}
                 <div class="home-video-box">
+                    <div class="preview home-video-box-img-adjust">
+                        <a href="{$base_url}/view/{$view.recent_videos[i].video_id}/{$view.recent_videos[i].video_seo_name}/">
+                            <img src="{$view.recent_videos[i].video_thumb_url}/thumb/{$view.recent_videos[i].video_folder}1_{$view.recent_videos[i].video_id}.jpg" alt="{$view.recent_videos[i].video_title}" />
+                        </a>
+                        <div class="video-time" >{$view.recent_videos[i].video_length}</div>
+                    </div>
+                    
                     <a href="{$base_url}/view/{$view.recent_videos[i].video_id}/{$view.recent_videos[i].video_seo_name}/">
-                        <img width="80" height="60" src="{$view.recent_videos[i].video_thumb_url}/thumb/{$view.recent_videos[i].video_folder}1_{$view.recent_videos[i].video_id}.jpg" alt="{$view.recent_videos[i].video_title}" /><br />
-                        {$view.recent_videos[i].video_title|truncate:30:"...":true}
+                        {$view.recent_videos[i].video_title|truncate:20:"...":true}
                     </a>
-                    <br />
+                    
                     <p>{insert name=timediff value=var time=$view.recent_videos[i].video_view_time}</p>
                 </div>
             {/section}
@@ -145,7 +157,7 @@
                     
                 </p>
 
-            {/section} 
+            {/section}
        
         <p class="icon-key">
             <b>Icon Key:</b><br /><br />

@@ -17,9 +17,12 @@
             <div class="video-entry bg2">
 
                 <div class="box1">
-                    <a href="{$base_url}/view/{$group_videos[i].video_id}/{$group_videos[i].video_seo_name}/">
-                        <img src="{$group_videos[i].video_thumb_url}/thumb/{$group_videos[i].video_folder}1_{$group_videos[i].video_id}.jpg" width="120" height="90" alt="" />
-                    </a>
+                    <div class="preview default-img-adjust">
+	                    <a href="{$base_url}/view/{$group_videos[i].video_id}/{$group_videos[i].video_seo_name}/">
+	                        <img src="{$group_videos[i].video_thumb_url}/thumb/{$group_videos[i].video_folder}1_{$group_videos[i].video_id}.jpg" alt="" />
+	                    </a>
+	                    <div class="video-time">{$group_videos[i].video_length}</div>
+	                </div>
 
                     {if $smarty.session.UID eq $group_info.group_owner_id and $group_videos[i].group_video_approved eq "no"}
                         <form action="{$base_url}/group_videos.php?group_url={$group_info.group_url}&gid={$group_info.group_id}&page={$page}" method="post">
@@ -57,7 +60,7 @@
                         {insert name=time_to_date assign=todate tm=$group_videos[i].video_add_time}
                         {insert name=id_to_name assign=uname un=$group_videos[i].video_user_id}
                         Added: {$todate} by <a href="{$base_url}/{$uname}">{$uname}</a><br /><br />
-                        Time: {$group_videos[i].video_length} | Views: {$group_videos[i].video_view_number} |
+                        Views: {$group_videos[i].video_view_number} |
                         {insert name=comment_count assign=commentcount vid=$group_videos[i].video_id}
                         Comments: {$commentcount}<br /><br />
                         Rating: {insert name=show_rate assign=vrate rte=$group_videos[i].video_rate rated=$group_videos[i].video_rated_by}{$vrate}
@@ -71,9 +74,9 @@
         {if $total gt $items_per_page}
             <div class="page_links">Pages: {$page_links}</div>
         {/if}
-    </div>  <!-- section --> 
+    </div>  <!-- section -->
 
-</div><!-- content --> 
+</div><!-- content -->
 
 <div id="sidebar">
 
@@ -89,9 +92,9 @@
             {/section}
             
         </div>
-    </div> 
+    </div>
       
-</div> 
+</div>
 
 {else}
 

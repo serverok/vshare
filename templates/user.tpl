@@ -303,14 +303,18 @@
                     <br />
                 <ul id="user-video">
                    {section name=i loop=$new_video start=0 max=4}
-                <li>
-                    <a href="{$base_url}/view/{$new_video[i].video_id}/{$new_video[i].video_seo_name}/">
-                    <img class="preview" src="{$new_video[i].video_thumb_url}/thumb/{$new_video[i].video_folder}1_{$new_video[i].video_id}.jpg"
-                   width="120" height="90" alt="{$new_videos[i].video_title}" /><br />
-                   {$new_video[i].video_title|truncate:25:'...'}
-                   </a>
-                   <br />
-                </li>
+	                <li>
+	                   <div class="preview default-img-adjust">
+	                       <a href="{$base_url}/view/{$new_video[i].video_id}/{$new_video[i].video_seo_name}/">
+	                           <img src="{$new_video[i].video_thumb_url}/thumb/{$new_video[i].video_folder}1_{$new_video[i].video_id}.jpg" alt="{$new_videos[i].video_title}" />
+	                       </a>
+	                       <div class="video-time">{$new_video[i].video_length}</div>
+	                   </div>
+	                   
+	                   <a href="{$base_url}/view/{$new_video[i].video_id}/{$new_video[i].video_seo_name}/">
+	                       {$new_video[i].video_title|truncate:25:'...'}
+	                   </a>
+	                </li>
                    {/section}
                 </ul>
             </div>     <!-- NEW VIDEOS ENDS -->
@@ -325,12 +329,18 @@
                         <br />
                    <ul id="user-video">
                         {section name=i loop=$popular start=0 max=4}
-                    <li>
-                        <a href="{$base_url}/view/{$popular[i].video_id}/{$popular[i].video_seo_name}/">
-                        <img class="preview" src="{$popular[i].video_thumb_url}/thumb/{$popular[i].video_folder}1_{$popular[i].video_id}.jpg" width="120" height="90" alt="{$popular[i].video_title}" /><br />
-                        {$popular[i].video_title|truncate:25:'...'}
-                        </a>
-                     </li>
+	                    <li>
+	                       <div class="preview default-img-adjust">
+	                           <a href="{$base_url}/view/{$popular[i].video_id}/{$popular[i].video_seo_name}/">
+	                               <img src="{$popular[i].video_thumb_url}/thumb/{$popular[i].video_folder}1_{$popular[i].video_id}.jpg" alt="{$popular[i].video_title}" />
+	                           </a>
+	                           <div class="video-time">{$popular[i].video_length}</div>
+	                       </div>
+	                       
+	                       <a href="{$base_url}/view/{$popular[i].video_id}/{$popular[i].video_seo_name}/">
+	                           {$popular[i].video_title|truncate:25:'...'}
+	                       </a>
+	                     </li>
                         {/section}
                    </ul>
            </div>

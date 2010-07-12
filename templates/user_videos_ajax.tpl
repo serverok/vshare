@@ -5,15 +5,18 @@
 		<div class="clearfix">
 		
 			{if $smarty.request.video_id eq $user_videos[i].video_id}
-			<div class="related-video playing-bg">
+			<div class="related-video playing-bg clearfix">
                 {else}
-                <div class="related-video">
+                <div class="related-video clearfix">
                 {/if}
 
 				<div class="box1">
-					<a href="{$base_url}/view/{$user_videos[i].video_id}/{$user_videos[i].video_seo_name}/" target="_parent">
-						<img class="preview" src="{$user_videos[i].video_thumb_url}/thumb/{$user_videos[i].video_folder}1_{$user_videos[i].video_id}.jpg" width="80" height="60" alt="related videos" />
-					</a>
+				    <div class="preview related-video-img-adjust">
+				        <a href="{$base_url}/view/{$user_videos[i].video_id}/{$user_videos[i].video_seo_name}/" target="_parent">
+						  <img src="{$user_videos[i].video_thumb_url}/thumb/{$user_videos[i].video_folder}1_{$user_videos[i].video_id}.jpg" alt="{$user_videos[i].video_title}" />
+					   </a>
+					   <div class="video-time">{$user_videos[i].video_length}</div>
+					</div>
 				</div>
 
 				<div class="box2">
@@ -27,7 +30,6 @@
 					<div class="moduleFrameDetails"></div>
 
 					<div class="moduleFrameDetails">
-						Time: {$user_videos[i].video_length}<br />
 						Views: {$user_videos[i].video_view_number}<br />
 						Comments: {$user_videos[i].video_com_num}
 					</div>

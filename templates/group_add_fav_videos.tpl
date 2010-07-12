@@ -7,7 +7,7 @@
             <div class="hd">
             
                 <div class="hd-l">
-                    Add Favorite Videos to Group: 
+                    Add Favorite Videos to Group:
                     <a href="{$base_url}/group/{$group_info.group_url}/">
                         {$group_name}
                     </a>
@@ -24,9 +24,12 @@
                 <div class="video-entry bg2">
                 
                     <div class="box1">
-                        <a href="{$base_url}/view/{$favorite_videos[i].video_id}/{$favorite_videos[i].video_seo_name}/">
-                            <img  height="90" src="{$favorite_videos[i].video_thumb_url}/thumb/{$favorite_videos[i].video_folder}1_{$favorite_videos[i].video_id}.jpg" width="120" alt="" />
-                        </a>
+                        <div class="preview default-img-adjust">
+	                        <a href="{$base_url}/view/{$favorite_videos[i].video_id}/{$favorite_videos[i].video_seo_name}/">
+	                            <img src="{$favorite_videos[i].video_thumb_url}/thumb/{$favorite_videos[i].video_folder}1_{$favorite_videos[i].video_id}.jpg" alt="" />
+	                        </a>
+	                        <div class="video-time">{$favorite_videos[i].video_length}</div>
+	                    </div>
                     </div>
                     
                     <div class="box2">
@@ -47,7 +50,7 @@
                         <p class="video-entry-details">
                             {insert name=time_to_date assign=todate tm=$favorite_videos[i].video_add_time}
                             Added: {$todate} <br /><br />
-                            Time: {$favorite_videos[i].video_length} | Views: {$favorite_videos[i].video_view_number} |
+                            Views: {$favorite_videos[i].video_view_number} |
                             {insert name=comment_count assign=commentcount vid=$favorite_videos[i].video_id}
                             Comments: {$commentcount}<br /><br />
                             Rating: {insert name=show_rate assign=vrate rte=$favorite_videos[i].video_rate rated=$favorite_videos[i].video_rated_by}{$vrate}
