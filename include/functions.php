@@ -823,7 +823,6 @@ function sec2hms($sec, $useColon = true)
     else
     {
         $sec_tmp = round($sec, 2);
-        $sec_tmp = $sec_tmp * 100;
         $seconds = $sec_tmp;
     }
     
