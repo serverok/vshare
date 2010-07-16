@@ -24,7 +24,7 @@
         <select name="GID">
             {$group_ops}
         </select>
-    </div>            
+    </div>
     
     {else}
     
@@ -50,6 +50,7 @@
 
 </form>
 
+{if $editor_wysiwyg_email eq "1"}
 <script language="javascript" type="text/javascript" src="{$base_url}/js/tiny_mce/tiny_mce.js"></script>
 
 {literal}
@@ -70,7 +71,11 @@
         paste_convert_headers_to_strong : false,
         paste_strip_class_attributes : "all",
         paste_remove_spans : false,
-        paste_remove_styles : false
+        paste_remove_styles : false,
+        convert_urls: true,
+        relative_urls: false,
+        remove_script_host: false
     });
 </script>
 {/literal}
+{/if}

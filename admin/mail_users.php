@@ -217,6 +217,7 @@ function mail2user($email, $site_name, $admin_email, $subj, $htmlCode)
     $mail->send($mail_detailes);
 }
 
+$smarty->assign('editor_wysiwyg_email', get_config('editor_wysiwyg_email'));
 $smarty->assign('msg', $msg);
 $smarty->assign('err', $err);
 $smarty->display('admin/header.tpl');
