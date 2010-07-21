@@ -61,7 +61,7 @@ if (isset($_POST['submit']))
                 
                 if ($_POST['import_method'] == 'embed')
                 {
-                    
+                    $video_length = sec2hms($video_info['video_duration']);
                     $seo_name = seo_name($video_info['video_title']);
                     
                     $sql = "INSERT INTO `videos` SET
@@ -72,8 +72,8 @@ if (isset($_POST['submit']))
 		                   `video_seo_name`='" . mysql_clean($seo_name) . "',
 		                   `video_channels`='0|" . mysql_clean($channel_id) . "|0',
 		                   `video_type`='" . mysql_clean('public') . "',
-		                   `video_duration`=1,
-		                   `video_length`='01:00',
+		                   `video_duration`='" . (int) $video_info['video_duration'] . "',
+		                   `video_length`='" . mysql_clean($video_length) . "',
 		                   `video_add_time`='" . $_SERVER['REQUEST_TIME'] . "',
 		                   `video_add_date`='" . date('Y-m-d') . "',
 		                   `video_active`='1',

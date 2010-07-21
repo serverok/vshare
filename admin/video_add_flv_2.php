@@ -111,6 +111,26 @@ if (isset($_POST['submit']))
             $vtype = 6;
         }
         
+        $video_duration = '1';
+        $video_length = '01:00';
+        
+        if (preg_match("/youtube/i", $embed_code))
+        {
+            require '../include/class.bulk_import.php';
+            
+            $youtube_video_id = BulkImport::getYoutubeVideoId($embed_code);
+            
+            if (! empty($youtube_video_id))
+            {
+                require 'Zend/Loader.php';
+                Zend_Loader::loadClass('Zend_Gdata_YouTube');
+                
+                $youtube_video_info = BulkImport::getYoutubeVideoInfo($youtube_video_id);
+                $video_duration = $youtube_video_info['video_duration'];
+                $video_length = sec2hms($youtube_video_info['video_duration']);
+            }
+        }
+        
         $sql = "INSERT INTO `videos` SET
                `video_user_id`=" . (int) $video_user_id . ",
                `video_title`='" . mysql_clean($video_title) . "',
@@ -122,8 +142,8 @@ if (isset($_POST['submit']))
                `video_type`='$video_type',
                `video_vtype`=$vtype,
                `video_adult`='$video_adult',
-               `video_duration`=1,
-               `video_length`='01:00',
+               `video_duration`='" . (int) $video_duration . "',
+               `video_length`='" . mysql_clean($video_length) . "',
                `video_add_time`='" . time() . "',
                `video_add_date`='" . date("Y-m-d") . "',
                `video_active`='1',

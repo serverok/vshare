@@ -118,6 +118,26 @@ if (isset($_POST['submit']))
         # TO CREATE SEO NAME
         $seo_name = seo_name($upload_video_title);
         
+        $video_duration = '1';
+        $video_length = '01:00';
+        
+        if (preg_match("/youtube/i", $url))
+        {
+            require 'include/class.bulk_import.php';
+            
+            $youtube_video_id = BulkImport::getYoutubeVideoId($url);
+            
+            if (! empty($youtube_video_id))
+            {
+                require 'Zend/Loader.php';
+                Zend_Loader::loadClass('Zend_Gdata_YouTube');
+                
+                $youtube_video_info = BulkImport::getYoutubeVideoInfo($youtube_video_id);
+                $video_duration = $youtube_video_info['video_duration'];
+                $video_length = sec2hms($youtube_video_info['video_duration']);
+            }
+        }
+        
         # INSERT VIDEO TABLE VALUES
         
 
@@ -130,8 +150,8 @@ if (isset($_POST['submit']))
                    `video_channels`='0|" . mysql_clean($channels) . "|0',
                    `video_type`='" . mysql_clean($type) . "',
                    `video_adult`='" . (int) $adult . "',
-                   `video_duration`=1,
-                   `video_length`='01:00',
+                   `video_duration`='" . (int) $video_duration . "',
+                   `video_length`='" . mysql_clean($video_length) . "',
                    `video_add_time`='" . $_SERVER['REQUEST_TIME'] . "',
                    `video_add_date`='" . date('Y-m-d') . "',
                    `video_active`='1',
