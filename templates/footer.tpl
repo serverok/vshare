@@ -27,10 +27,12 @@
     </div> <!-- footer -->
 
 </div> <!-- wrapper -->
+<div class="quicklist_box" id="quicklist_box"></div>
 </body>
 </html>
 <script language="JavaScript" type="text/javascript">
 var baseurl='{$base_url}';
 </script>
 <script language="JavaScript" type="text/javascript" src="{$base_url}/js/vshare.js"></script>
+<script language="JavaScript" type="text/javascript" src="{$base_url}/js/video_queue.js"></script>
 {$html_extra}

@@ -372,6 +372,7 @@
 	                        <a href="{$base_url}/view/{$view.related_videos[i].video_id}/{$view.related_videos[i].video_seo_name}/" target="_parent">
 	                           <img src="{$view.related_videos[i].video_thumb_url}/thumb/{$view.related_videos[i].video_folder}1_{$view.related_videos[i].video_id}.jpg" alt="related videos" />
 	                        </a>
+	                        <div class="video-queue" id="{$view.related_videos[i].video_id}_related" rel="video_queue" style="width:77px;">&nbsp;</div>
 	                        <div class="video-time">{$view.related_videos[i].video_length}</div>
 	                    </div>
                     </div>

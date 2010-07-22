@@ -15,6 +15,7 @@
 				        <a href="{$base_url}/view/{$user_videos[i].video_id}/{$user_videos[i].video_seo_name}/" target="_parent">
 						  <img src="{$user_videos[i].video_thumb_url}/thumb/{$user_videos[i].video_folder}1_{$user_videos[i].video_id}.jpg" alt="{$user_videos[i].video_title}" />
 					   </a>
+					   <div class="video-queue" id="{$user_videos[i].video_id}_user" rel="video_queue" style="width:77px;">&nbsp;</div>
 					   <div class="video-time">{$user_videos[i].video_length}</div>
 					</div>
 				</div>
@@ -56,3 +57,22 @@
 	</div>
 	
 </div>
+<script language="JavaScript" type="text/javascript" src="{$base_url}/js/video_queue.js"></script>
+
+{literal}
+<script type="text/javascript">
+//$(document.ready(function(){
+    $('div [rel=video_queue]').each(function(){
+           $(this).click(function(){
+                 var myClass = new Array();
+                 myClass['video-queue'] = 'video-queue-info';
+                 myClass['video-queue-info'] = 'video-queue-info';
+                 var video_id = $(this).attr('id');
+                 var class = $(this).attr('class');
+                 $("#"+video_id).removeClass(class).addClass(myClass[class]);
+                 $("#"+video_id).html('Added to queue');
+            });
+});
+//});
+</script>
+{/literal}

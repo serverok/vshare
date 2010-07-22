@@ -28,6 +28,7 @@
 	                        <a href="{$base_url}/view/{$favorite_videos[i].video_id}/{$favorite_videos[i].video_seo_name}/">
 	                            <img src="{$favorite_videos[i].video_thumb_url}/thumb/{$favorite_videos[i].video_folder}1_{$favorite_videos[i].video_id}.jpg" alt="" />
 	                        </a>
+	                        <div class="video-queue home-video-queue"  id="{$favorite_videos[i].video_id}_favorite" rel="video_queue">&nbsp;</div>
 	                        <div class="video-time">{$favorite_videos[i].video_length}</div>
 	                    </div>
                     </div>

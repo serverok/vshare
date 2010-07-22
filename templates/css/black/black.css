@@ -1295,3 +1295,11 @@ form#recover-password div.submit {
 	background-color: #444444;
 }
 
+div.quicklist_box div#quicklist_cont {
+    display: block;
+    border: 0px solid red;
+    background: #000000;
+    padding: 1px;
+    max-height: 400px;
+    overflow: auto;
+}

@@ -52,6 +52,7 @@
 	            <a href="{$base_url}/view/{$recent_channel_videos[j].video_id}/{$recent_channel_videos[j].video_seo_name}/">
 	                <img src="{$recent_channel_videos[j].video_thumb_url}/thumb/{$recent_channel_videos[j].video_folder}1_{$recent_channel_videos[j].video_id}.jpg" alt="" />
 	            </a>
+	            <div class="video-queue home-video-queue"  id="{$recent_channel_videos[j].video_id}_recent" rel="video_queue">&nbsp;</div>
 	            <div class="video-time">{$recent_channel_videos[j].video_length}</div>
 	        </div>
 	        
@@ -99,6 +100,7 @@
 	        <a href="{$base_url}/view/{$mostview[k].video_id}/{$mostview[k].video_seo_name}/">
 	           <img src="{$mostview[k].video_thumb_url}/thumb/{$mostview[k].video_folder}1_{$mostview[k].video_id}.jpg" alt="" />
 	        </a>
+	        <div class="video-queue home-video-queue"  id="{$mostview[k].video_id}_most" rel="video_queue">&nbsp;</div>
 	        <div class="video-time">{$mostview[k].video_length}</div>
 	    </div>
         

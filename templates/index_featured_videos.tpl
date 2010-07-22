@@ -14,6 +14,7 @@
                     <a href="{$base_url}/view/{$featured_videos[i].video_id}/{$featured_videos[i].video_seo_name}/">
                         <img src="{$featured_videos[i].video_thumb_url}/thumb/{$featured_videos[i].video_folder}1_{$featured_videos[i].video_id}.jpg" alt="{$featured_videos[i].video_title}" />
                     </a>
+                    <div class="video-queue home-video-queue"  id="{$featured_videos[i].video_id}_featured" rel="video_queue">&nbsp;</div>
                     <div class="video-time">{$featured_videos[i].video_length}</div>
                 </div>
             </div>

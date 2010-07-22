@@ -2070,3 +2070,91 @@ div.view-video-watch-img-adjust {
     width: 60px;
     height: 45px;
 }
+.video-queue{
+    position: absolute;
+    bottom: -1px;
+    background-image: url('../images/quick_icon.png');
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 15px;
+    cursor: pointer;
+    float: left;
+    left: 0px;
+}
+.video-queue-info{
+    padding-left:2px;
+    height:29px;
+    font-size:10px;
+    font-weight:bold;
+    background-color:#A0CD5B;
+    position:absolute;
+    color:#000000;;
+    width:100%;
+    cursor:pointer;
+    float:left;
+    opacity:0.8;
+    text-align:left;
+    bottom:0px;
+    left:0px;
+}
+ 
+.home-video-queue{
+    /*bottom:-1px;
+    left:-1px;*/
+}
+
+div.quicklist_box {
+    border: 1px double #c3b7ac;
+   border-width: 1px 0 0 1px;
+    background-color:#efebe7;
+    bottom:-1px;
+    font-size: 10px;
+    position:fixed;
+    right:0;
+    width:275px;
+    z-index:1000;
+    overflow: hidden;
+   -moz-border-radius: 5px 0 0 0;
+    -webkit-border-radius: 5px 0 0 0;
+    -o-border-radius: 5px 0 0 0;
+}
+div.quicklist_box_head {
+    color:#666666;
+    font-size:11px;
+    font-weight:bold;
+   height: 15px;
+   padding: 2px 2px 0 2px;
+}
+div.quicklist_box div.quicklist_box_head a {
+    font-weight: normal;
+   color:#333333;
+   border: none;
+   outline: none;
+}
+div.quicklist_box div.float-l {
+    float: left;
+   margin: 1px 3px 1px 1px;
+}
+div.quicklist_box div.float-r {
+    float: right;
+}
+div.quicklist_box div#quicklist_cont {
+    display: block;
+    border: 0px solid red;
+   background: #FFFFFF;
+   padding: 1px;
+   max-height: 400px;
+   overflow: auto;
+}
+div.quicklist_box span.video-time {
+    background:none repeat scroll 0 0 #333333;
+    bottom:4px;
+    color:#FFFFFF;
+    font-size:9px;
+    padding:1px;
+    position:absolute;
+    right:4px;
+    -moz-border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
+    -o-border-radius: 5px 0 0 5px;
+}

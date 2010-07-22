@@ -178,6 +178,7 @@
                             <a href="{$base_url}/view/{$group_videos[i].video_id}/{$group_videos[i].video_seo_name}/">
                                 <img src="{$group_videos[i].video_thumb_url}/thumb/{$group_videos[i].video_folder}1_{$group_videos[i].video_id}.jpg" alt="" />
                             </a>
+                            <div class="video-queue home-video-queue"  id="{$group_videos[i].video_id}_home" rel="video_queue">&nbsp;</div>
                             <div class="video-time">{$group_videos[i].video_length}</div>
                         </div>
                         <a href="{$base_url}/view/{$group_videos[i].video_id}/{$group_videos[i].video_seo_name}/">

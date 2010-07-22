@@ -308,6 +308,7 @@
 	                       <a href="{$base_url}/view/{$new_video[i].video_id}/{$new_video[i].video_seo_name}/">
 	                           <img src="{$new_video[i].video_thumb_url}/thumb/{$new_video[i].video_folder}1_{$new_video[i].video_id}.jpg" alt="{$new_videos[i].video_title}" />
 	                       </a>
+	                       <div class="video-queue" id="{$new_video[i].video_id}_new" rel="video_queue">&nbsp;</div>
 	                       <div class="video-time">{$new_video[i].video_length}</div>
 	                   </div>
 	                   
@@ -334,6 +335,7 @@
 	                           <a href="{$base_url}/view/{$popular[i].video_id}/{$popular[i].video_seo_name}/">
 	                               <img src="{$popular[i].video_thumb_url}/thumb/{$popular[i].video_folder}1_{$popular[i].video_id}.jpg" alt="{$popular[i].video_title}" />
 	                           </a>
+	                           <div class="video-queue" id="{$popular[i].video_id}_popular" rel="video_queue">&nbsp;</div>
 	                           <div class="video-time">{$popular[i].video_length}</div>
 	                       </div>
 	                       

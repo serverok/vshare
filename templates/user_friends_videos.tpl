@@ -17,6 +17,7 @@
 					       <a href="{$base_url}/view/{$videoRows[i].video_id}/{$videoRows[i].video_seo_name}/">
 					           <img src="{$videoRows[i].video_thumb_url}/thumb/{$videoRows[i].video_folder}1_{$videoRows[i].video_id}.jpg" alt="" />
 					       </a>
+					       <div class="video-queue" id="{$videoRows[i].video_id}" rel="video_queue">
 					       <div class="video-time">{$videoRows[i].video_length}</div>
 					   </div>
 					</div>
