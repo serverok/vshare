@@ -1,0 +1,96 @@
+$("#playlist-form-btn").click(function(){
+	if ($("#show_playlists").is(':hidden')) {
+		var left = document.getElementById("playlist-form-btn").offsetLeft;
+		var top = document.getElementById("playlist-form-btn").offsetTop + 15;
+		$("#show_playlists").css({'left':left+'px','top':top+'px'}).show();
+		show_playlists();
+		return false;
+	} else {
+		$("#video_playlist_form").slideUp('fast');
+		$("#show_playlists").hide();
+	}
+});
+
+$(document).click(function(){
+	$("#show_playlists").hide();
+});
+
+function create_playlist() {
+	var playlist_name = $("form#pl-frm input#playlist_name").val();
+	
+	if (playlist_name == '') {
+		return false;
+	}
+	
+	$("#show_playlists").hide();
+	
+	var sUrl = baseurl + "/ajax/playlist.php";
+	var postData = "action=create_playlist&playlist_name=" + playlist_name;
+	
+	$.ajax({
+	    type: "GET",
+	    url: sUrl,
+	    data: postData,
+	    dataType: 'html',
+	    success: function(msg) {
+			$("form#pl-frm input#playlist_name").val('');
+			
+			if (isNaN(parseInt(msg))) {
+				$("#video-tools-result").html(msg).slideDown('fast');
+			} else {
+				add_video_playlist(msg);
+			}
+		},
+	    error: function() {
+			//$("#video-tools-result").html('connection failed').show();
+		}
+	});
+}
+
+function show_playlists() {
+	$("#show_playlists").html('<img src="' + baseurl + '/templates/images/loading.gif" />');
+
+	var sUrl = baseurl + "/ajax/playlist.php";
+	var postData = "action=show_playlist&user_id=" + user_id;
+	
+	$.ajax({
+	    type: "GET",
+	    url: sUrl,
+	    data: postData,
+	    dataType: 'html',
+	    success: function(msg) {
+			$("#show_playlists").html(msg);
+		},
+	    error: function() {
+			//$("#video-tools-result").html('connection failed').show();
+		}
+	});
+}
+
+function add_video_playlist(pl_id) {
+	var playlist_id = pl_id;
+	
+	if (playlist_id == 0) {
+		playlist_id = $("form#show-pl-frm select#playlist_id").val();
+	}
+	
+	var sUrl = baseurl + "/ajax/playlist.php";
+	var postData = "action=add_playlist_video&video_id=" + vid + "&playlist_id=" + playlist_id;
+	
+	if (playlist_id == '') {
+		return false;
+	}
+	
+	$.ajax({
+		type: "GET",
+		url: sUrl,
+		data: postData,
+		dataType: 'html',
+		success: function(msg) {
+			$("#video-tools-result").html(msg).slideDown('fast');
+		},
+		error: function() {
+			//$("#video-tools-result").html('connection failed').show();
+		}
+	});
+}

@@ -31,3 +31,19 @@ CREATE TABLE IF NOT EXISTS `video_responses` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO `email_templates` (`email_id` ,`email_subject` ,`email_body` ,`comment`) VALUES ('video_response_notify', '[SITE_NAME] - Video response to "[VIDEO_TITLE]"', '<p><a href="[SITE_URL]/[USERNAME]">[USERNAME]</a> has posted a video in response to <a href="[VIDEO_URL]">[VIDEO_TITLE]</a></p> <p>Response Video: <a href="[RESPONSE_VIDEO_URL]">[RESPONSE_VIDEO_TITLE]</a></p><p>This video requires your approval. You can approve or reject it by visiting the following link.</p><p><a href="[VERIFY_LINK]">[VERIFY_LINK]</a></p><p>Thanks</p><p><a href="[SITE_URL]">[SITE_NAME]</a> Team</p>', 'video response notify');
+
+DROP TABLE IF EXISTS `playlists`;
+
+CREATE TABLE IF NOT EXISTS `playlists_videos` (
+`playlists_videos_playlist_id` int( 11 ) NOT NULL DEFAULT 0,
+`playlists_videos_video_id` bigint( 20 ) default NULL
+);
+
+CREATE TABLE IF NOT EXISTS `playlists` (
+`playlist_id` int(11) NOT NULL auto_increment,
+`playlist_user_id` int(11) NOT NULL,
+`playlist_name` varchar(50) NOT NULL,
+`playlist_add_date` varchar(255) NOT NULL,
+PRIMARY KEY (`playlist_id`)
+);
+

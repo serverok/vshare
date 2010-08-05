@@ -151,19 +151,6 @@ if (isset($show_video) && $show_video == 1 && $err == '')
                    `user_id`='" . (int) $video_info['video_user_id'] . "'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
-        $sql = "SELECT * FROM `playlists` WHERE
-               `playlist_user_id`='" . (int) $_SESSION['UID'] . "' AND
-               `playlist_video_id`='" . (int) $video_id . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) == 0)
-        {
-            $sql = "INSERT INTO `playlists` SET
-                   `playlist_user_id`='" . (int) $_SESSION['UID'] . "',
-                   `playlist_video_id`='" . (int) $video_id . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
-        }
     }
     
     $cache_id = 'view_video_' . $video_id;
@@ -321,6 +308,7 @@ $(function(){
 <script language="JavaScript" type="text/javascript" src="' . VSHARE_URL . '/js/video_add_favorite.js"></script>
 <script language="JavaScript" type="text/javascript" src="' . VSHARE_URL . '/js/video_comment_delete.js"></script>
 <script language="JavaScript" type="text/javascript" src="' . VSHARE_URL . '/js/user_videos.js"></script>
+<script language="JavaScript" type="text/javascript" src="' . VSHARE_URL . '/js/playlist.js"></script>
 ';
 
 $smarty->assign('html_head_extra', $html_head_extra);

@@ -425,11 +425,22 @@ INSERT INTO `pages` (`page_id`, `page_name`, `page_title`, `page_keywords`, `pag
 
 -- Table structure for table `playlists`
 
+CREATE TABLE IF NOT EXISTS `playlists_videos` (
+`playlists_videos_playlist_id` int( 11 ) NOT NULL DEFAULT 0,
+`playlists_videos_video_id` bigint( 20 ) default NULL
+);
+
+-- Dumping data for table `playlists_videos`
+
+-- Table structure for table `playlists`
+
 CREATE TABLE IF NOT EXISTS `playlists` (
-  `playlist_user_id` bigint(20) default NULL,
-  `playlist_video_id` bigint(20) default NULL,
-  UNIQUE KEY `playlist_key` (`playlist_user_id`,`playlist_video_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+`playlist_id` int(11) NOT NULL auto_increment,
+`playlist_user_id` int(11) NOT NULL,
+`playlist_name` varchar(50) NOT NULL,
+`playlist_add_date` varchar(255) NOT NULL,
+PRIMARY KEY (`playlist_id`)
+);
 
 -- Dumping data for table `playlists`
 

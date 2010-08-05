@@ -451,11 +451,8 @@ function insert_playlist_count($a)
 {
     global $conn;
     //    $sql = "SELECT count(*) AS total FROM playlist WHERE UID='$a[uid]'";
-    $sql = "SELECT count(*) AS `total` FROM
-           `playlists` AS `pl`,
-           `videos` AS `v` WHERE
-            pl.playlist_user_id='" . (int) $a['uid'] . "' AND
-            pl.playlist_video_id=v.video_id";
+    $sql = "SELECT count(*) AS `total` FROM `playlists` WHERE
+           `playlist_user_id`='" . (int) $a['uid'] . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
     return $tmp['total'];

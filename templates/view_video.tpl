@@ -44,6 +44,13 @@
             {/if}
         {/if}
         
+        &nbsp; &nbsp;
+        <a id="playlist-form-btn" href="javascript:void(0);">
+            <img src="{$img_css_url}/images/icon_playlist.gif" border="0" alt="playlist" />&nbsp; Add to Playlist
+        </a>
+        
+        <div id="show_playlists"></div>
+        
         {if $smarty.session.UID eq $view.video_info.video_user_id}
             &nbsp; &nbsp;
             <a href="{$base_url}/edit/video/{$view.video_info.video_id}">

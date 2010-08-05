@@ -2158,3 +2158,38 @@ div.quicklist_box span.video-time {
     -webkit-border-radius: 5px 0 0 5px;
     -o-border-radius: 5px 0 0 5px;
 }
+
+div#view-video-content div#show_playlists {
+    border: 1px solid #999999;
+    -moz-box-shadow: 0 0 3px #999999;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-o-border-radius: 3px;
+	position: absolute;
+	z-index: 100;
+	min-width: 200px;
+	display: none;
+	padding: 1px;
+	background: #EBEBEB none repeat scroll 0 0;
+}
+div#view-video-content div#show_playlists ul {
+	padding: 0;
+	display: inline;
+}
+div#view-video-content div#show_playlists ul li {
+	list-style:none outside none;
+	text-align: left;
+	border-bottom: 1px solid #EBEBEB;
+	background: #FFFFFF;
+}
+div#view-video-content div#show_playlists ul li:hover {
+	background: #EBEBEB;
+}
+div#view-video-content div#show_playlists ul li span {
+	color: #333333;
+	cursor: pointer;
+	display: block;
+	padding: 0.4166em 0.6666em;
+	text-decoration: none;
+	white-space: nowrap;
+}

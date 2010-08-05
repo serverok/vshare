@@ -1,12 +1,49 @@
-{if $total gt "0"}
+<div id="sidebar" style="float: left;">
+    <div class="section bg2">
+        <div class="hd">
+            <div class="hd-l">Playlists</div>
+        </div>
+        
+        <ul style="list-style-type:none;">
+            {section name=i loop=$playlists}
+                <li style="margin: 2px 1px 5px -25px;">
+                    <a style="font-weight: normal;" href="{$base_url}/{$user_info.user_name}/playlist/{$playlists[i].playlist_name}/1">{$playlists[i].playlist_name}</a>
+                </li>
+            {/section}
+        </ul>
+        
+        <div class="clearfix"></div>
+        
+        {if $user_info.user_id eq $smarty.session.UID}
+            <form method="post" name="pl-frm" id="pl-frm" action="">
+                <div>
+                    <span>Create New Playlist:</span>
+                    <input type="text" name="playlist_name" id="playlist_name" size="15" />
+                    <input type="submit" name="create_playlist" id="create" value="Add" />
+                </div>
+            </form>
+        {/if}
+            
+    </div>
+</div>
 
-<div id="content">
+<div id="content" style="float: right;">
+    {if $playlists|@count eq "0"}
+        <center><b>There is no playlist found.</b></center>
+    {else}
 
     <div class="section">
         
         <div class="hd">
-             <div class="hd-l">Playlist of {$user_info.user_name}</div>
-             <div class="hd-r">Videos {$start_num}-{$end_num} of {$total}</div>
+            <div class="hd-l">Videos of: {$playlist_info.playlist_name}</div>
+            
+            {if $smarty.session.UID eq $playlist_info.playlist_user_id}
+            <div class="hd-l">
+                &nbsp;&nbsp;&nbsp;[<small><a onclick="Javascript:return confirm('Are you sure you want to delete?');" href="{$base_url}/playlist_delete.php?pl_id={$playlist_info.playlist_id}&action=pl_del">Delete Playlist</a></small>]
+            </div>
+            {/if}
+            
+            <div class="hd-r">Videos {$start_num}-{$end_num} of {$total}</div>
         </div>
 
         {section name=i loop=$videos}
@@ -23,7 +60,7 @@
                     </div>
                     
                     {if $user_info.user_name eq $smarty.session.USERNAME}
-                        <a href="{$base_url}/playlist_delete.php?vid={$videos[i].video_id}&page={$page}">
+                        <a href="{$base_url}/playlist_delete.php?pl_id={$playlist_info.playlist_id}&action=vdo_del&vid={$videos[i].video_id}&page={$page}">
                             <img src="{$img_css_url}/images/del.gif" border="0" alt="" />
                         </a>
                     {/if}
@@ -51,7 +88,8 @@
                     </p>
                 </div>
             </div> <!-- video-entry -->
-            
+        {sectionelse}
+            <center><p>There is no video found.</p></center>
         {/section}
 
         {if $page_links ne ""}
@@ -60,28 +98,7 @@
     
     </div> <!-- section -->
     
+    {/if}
+    
 </div> <!-- content-->
 
-<div id="sidebar">
-
-    <div class="section bg2">
-  
-       <div class="hd">
-          <div class="hd-l"><a href="{$base_url}/invite_friends.php">Share your videos !</a></div>
-        </div>
-    
-        <div class="tags">
-            <b>My Tags:</b>
-            {section name=i loop=$view.video_keywords_array_all}
-                <p><a href="{$base_url}/tag/{$view.video_keywords_array_all[i]}/">{$view.video_keywords_array_all[i]}</a></p>
-            {/section}
-        </div>
-    </div>
-
-</div> <!-- sidebar -->
-
-{else}
-
-<center><b>There is no playlist found</b></center>
-
-{/if}

@@ -1303,3 +1303,38 @@ div.quicklist_box div#quicklist_cont {
     max-height: 400px;
     overflow: auto;
 }
+
+div#view-video-content div#show_playlists {
+    border: 1px solid #444444;
+    -moz-box-shadow: 0 0 3px #444444;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    position: absolute;
+    z-index: 100;
+    min-width: 200px;
+    display: none;
+    padding: 0 1px;
+    background: #333333 none repeat scroll 0 0;
+}
+div#view-video-content div#show_playlists ul {
+    padding: 0;
+    display: inline;
+}
+div#view-video-content div#show_playlists ul li {
+    list-style:none outside none;
+    text-align: left;
+    border-bottom: 1px solid #444444;
+    background: #333333;
+}
+div#view-video-content div#show_playlists ul li:hover {
+    background: #444444;
+}
+div#view-video-content div#show_playlists ul li span {
+    color: #CACACA;
+    cursor: pointer;
+    display: block;
+    padding: 0.4166em 0.6666em;
+    text-decoration: none;
+    white-space: nowrap;
+}
