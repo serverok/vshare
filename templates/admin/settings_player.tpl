@@ -28,6 +28,14 @@
     </div>
     
     <div>
+        <label for="vshare_player">Video player:</label>
+        <select name="vshare_player" id="vshare_player">
+            <option value="JW Player" {if $vshare_player == 'JW Player'}selected="selected"{/if}>JW Player</option>
+            <option value="StrobeMediaPlayback" {if $vshare_player == 'StrobeMediaPlayback'}selected="selected"{/if}>StrobeMediaPlayback</option>
+        </select>
+    </div>
+
+    <div>
         <label for="youtube_player">Youtube video player:</label>
         <select name="youtube_player" id="youtube_player">
             <option value="youtube" {if $youtube_player =='youtube'}selected="selected"{/if}>Youtube Player</option>

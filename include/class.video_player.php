@@ -81,7 +81,8 @@ class video_player
             }
         }
         $video_thumb_url = $servers[$this->video_info['video_thumb_server_id']];
-
+        $vshare_player = get_config('vshare_player');
+        
         require VSHARE_DIR . '/include/player.inc';
         return $vshare_player;
     }
@@ -145,6 +146,7 @@ class video_player
         $video_id = $this->video_info['video_id'];
         $video_folder = $this->video_info['video_folder'];
         $video_thumb_url = $servers[$this->video_info['video_thumb_server_id']];
+        $vshare_player = "JW Player";
         require VSHARE_DIR . '/include/player.inc';
         return $vshare_player;
     }

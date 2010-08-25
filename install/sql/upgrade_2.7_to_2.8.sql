@@ -47,3 +47,6 @@ CREATE TABLE IF NOT EXISTS `playlists` (
 PRIMARY KEY (`playlist_id`)
 );
 
+INSERT INTO `config` (`config_name`, `config_value`) VALUES ('vshare_player', 'JW Player');
+
+

@@ -63,9 +63,18 @@ if (isset($_POST['submit']))
         mysql_query($sql) or mysql_die($sql);
     }
 
+    if (isset($_POST['vshare_player']))
+    {
+        $sql = "UPDATE `config` SET
+               `config_value`='" . mysql_clean($_POST['vshare_player']) . "' WHERE
+               `config_name`='vshare_player'";
+        mysql_query($sql) or mysql_die($sql);
+    }
+    
     $msg = $lang['settings_updated'];
 }
 
+$smarty->assign('vshare_player', get_config('vshare_player'));
 $smarty->assign('youtube_player', get_config('youtube_player'));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);

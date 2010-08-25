@@ -30,12 +30,22 @@ $video_info = mysql_fetch_assoc($result);
 $video_thumb_url = $servers[$video_info['video_thumb_server_id']];
 $logo = IMG_CSS_URL . '/images/watermark.gif';
 $image = $video_thumb_url . '/thumb/' . $video_info['video_folder'] . '/' . $video_id . '.jpg';
+$vshare_player = get_config('vshare_player');
 
-$file_url = 'file=' . VSHARE_URL . '/xml_playlist.php?id=' . $video_info['video_id'];
-
-$video_flv_player = VSHARE_URL . '/player/player.swf?';
-$video_flv_player .= $file_url;
-$video_flv_player .= '&logo=' . $logo;
+if ($vshare_player == 'StrobeMediaPlayback')
+{
+    $file_url = 'src=' . VSHARE_URL . '/flvideo/' . $video_info['video_folder'] . $video_info['video_flv_name'];
+    $video_flv_player = VSHARE_URL . '/player/player_adobe.swf?';
+    $poster = '&poster=' . $image;
+    $video_flv_player .= $file_url . $poster;
+}
+else
+{
+    $file_url = 'file=' . VSHARE_URL . '/xml_playlist.php?id=' . $video_info['video_id'];
+    $video_flv_player = VSHARE_URL . '/player/player.swf?';
+    $video_flv_player .= $file_url;
+    $video_flv_player .= '&logo=' . $logo;
+}
 
 $sql = "UPDATE `videos` SET `video_view_number`=`video_view_number`+1 WHERE `video_id`=$video_id";
 $result = mysql_query($sql);
