@@ -9,6 +9,8 @@ RewriteRule ^install/(.*) - [L]
 RewriteRule ^ubr/(.*) - [L]
 RewriteRule ^$ index.php
 RewriteRule ^view/(.*)/(.*)/ view_video.php?id=$1 [L,QSA]
+RewriteRule ^view/(.*)/ video_redirect.php?id=$1 [L,QSA]
+RewriteRule ^view/(.*) video_redirect.php?id=$1 [L,QSA]
 RewriteRule ^tags/ tags.php [L,QSA]
 RewriteRule ^tag/(.*)/(.*) tag.php?search_string=$1&page=$2 [L,QSA]
 RewriteRule ^cache/ index.php [L,QSA]
