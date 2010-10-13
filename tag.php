@@ -23,18 +23,21 @@ if ($search_string == '')
     $err = $lang['search_key_empty'];
 }
 
-$sort = isset($_GET['sort']) ? $_GET['sort'] : '';
-
-$allowed_sort = array(
-    'adddate',
-    'viewnum',
-    'rate'
-);
-
-if (! in_array($sort, $allowed_sort))
+if (isset($_GET['sort']))
 {
-    $sort = '';
+    $allowed_sort = array(
+	    'adddate',
+	    'viewnum',
+	    'rate'
+	);
+	
+	if (in_array($_GET['sort'], $allowed_sort))
+	{
+	    $_SESSION['tag_sort_order'] = $_GET['sort'];
+	}
 }
+
+$sort = isset($_SESSION['tag_sort_order']) ? $_SESSION['tag_sort_order'] : '';
 
 switch ($sort)
 {
@@ -89,7 +92,7 @@ if ($err == '')
         while ($video = mysql_fetch_assoc($result))
         {
             $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
-            $video['video_keywords_array'] = split(' ', $video['video_keywords']);
+            $video['video_keywords_array'] = explode(' ', $video['video_keywords']);
             $video_info[] = $video;
             $vid[] = $video['video_id'];
         }

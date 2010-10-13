@@ -9,9 +9,9 @@
 
 <div class="tag-top-links">
     <b>Sort by:</b>
-    <a href="{$base_url}/tag/{$smarty.get.search_string}/?page={$page}&sort=adddate">Date Added</a> -
-    <a href="{$base_url}/tag/{$smarty.get.search_string}/?page={$page}&sort=viewnum">View Count</a> -
-    <a href="{$base_url}/tag/{$smarty.get.search_string}/?page={$page}&sort=rate">Rating</a>
+    <a href="{$base_url}/tag/{$smarty.get.search_string}/?sort=adddate">Date Added</a> -
+    <a href="{$base_url}/tag/{$smarty.get.search_string}/?sort=viewnum">View Count</a> -
+    <a href="{$base_url}/tag/{$smarty.get.search_string}/?sort=rate">Rating</a>
 </div>
 
 <div class="section bg2">
