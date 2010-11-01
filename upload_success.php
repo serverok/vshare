@@ -113,6 +113,25 @@ if ($video_processed == 1)
         
         $smarty->assign('flv_url', $flv_url);
     }
+    
+    if ($video_info['video_active'] == 1 && $video_info['video_approve'] == 1)
+    {
+        if (isset($_SESSION['UID']))
+        {
+	        update_user_video_count($_SESSION['UID'], 1);
+        }
+        else if ($guest_upload == 1)
+        {
+            $guest_upload_user = get_config('guest_upload_user');
+            
+            $sql = "SELECT `user_id` FROM `users` WHERE
+	               `user_name`='" . mysql_clean($guest_upload_user) . "'";
+	        $result = mysql_query($sql) or mysql_die($sql);
+	        $user_info = mysql_fetch_assoc($result);
+	        
+	        update_user_video_count($user_info['user_id'], 1);
+        }
+    }
 }
 
 if ($upload_id != 'remote')

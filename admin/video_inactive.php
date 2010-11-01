@@ -29,16 +29,40 @@ if ($todo == 'activate')
 {
     if (is_numeric($_GET['video_id']))
     {
-        $sql = "UPDATE `videos` SET
-               `video_active`='1' WHERE
+        $sql = "SELECT `video_user_id` FROM `videos` WHERE
                `video_id`='" . (int) $_GET['video_id'] . "'";
-        mysql_query($sql) or mysql_die();
-        $msg = $lang['activate_video'];
+        $result = mysql_query($sql) or mysql_die();
+        
+        if (mysql_num_rows($result) > 0)
+        {
+	        $sql = "UPDATE `videos` SET
+	               `video_active`='1' WHERE
+	               `video_id`='" . (int) $_GET['video_id'] . "'";
+	        mysql_query($sql) or mysql_die();
+	        
+	        $video_info = mysql_fetch_assoc($result);
+	        
+	        update_user_video_count($video_info['video_user_id'], 1);
+	        
+	        $msg = $lang['activate_video'];
+        }
     }
 }
 
 if ($todo == 'activate_all')
 {
+    $sql = "SELECT `video_user_id` FROM `videos` WHERE
+           `video_active`='0'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    
+    if (mysql_num_rows($result) > 0)
+    {
+        while (list($video_user_id) = mysql_fetch_array($result))
+        {
+            update_user_video_count($video_user_id, 1);
+        }
+    }
+    
     $sql = "UPDATE `videos` SET
            `video_active`='1'";
     mysql_query($sql) or mysql_die();

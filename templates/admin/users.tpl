@@ -43,6 +43,12 @@
 		</td>
 		<td>
 			<b>Video</b>
+			<a href="users.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=user_videos+asc&page={$page}">
+                <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+            </a>
+            <a href="users.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=user_videos+desc&page={$page}">
+                <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+            </a>
 		</td>
 		{if $enable_package eq "yes"}
 		<td>
@@ -80,13 +86,12 @@
 				{$users[aa].user_last_login_time|date_format}
 			</td>
 			<td align="right">
-				{insert name=video_count assign=vdo uid=$users[aa].user_id}
-				{if $vdo ne "0"}
+				{if $users[aa].user_videos gt "0"}
 					<a href="user_videos.php?uid={$users[aa].user_id}">
-						{$vdo}
+						{$users[aa].user_videos}
 					</a>
 				{else}
-					{$vdo}
+					{$users[aa].user_videos}
 				{/if}
 			</td>
 			{if $enable_package eq "yes"}

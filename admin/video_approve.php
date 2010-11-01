@@ -57,10 +57,24 @@ if (isset($_GET['action']) && $_GET["action"] == 'approve')
                `video_id`='" . (int) $_GET['video_id'] . "'";
         mysql_query($sql) or mysql_die($sql);
     }
+    
+    update_user_video_count($tmp['video_user_id'], 1);
 }
 
 if (isset($_GET['action']) && $_GET['action'] == 'approve_all')
 {
+    $sql = "SELECT `video_user_id` FROM `videos` WHERE
+           `video_approve`='0'";
+    $result = mysql_query($sql) or mysql_die($sql);
+    
+    if (mysql_num_rows($result) > 0)
+    {
+        while (list($video_user_id) = mysql_fetch_array($result))
+        {
+            update_user_video_count($video_user_id, 1);
+        }
+    }
+    
     $sql = "UPDATE `videos` SET
            `video_approve`='1'";
     mysql_query($sql) or mysql_die($sql);

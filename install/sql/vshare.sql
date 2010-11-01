@@ -692,6 +692,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_profile_comment` tinyint(1) NOT NULL default '1',
   `user_favourite_public` tinyint(1) NOT NULL default '1',
   `user_playlist_public` tinyint(1) NOT NULL default '1',
+  `user_videos` int(11) NOT NULL default '0',
   PRIMARY KEY  (`user_id`),
   UNIQUE KEY `user_email` (`user_email`),
   UNIQUE KEY `user_name` (`user_name`)

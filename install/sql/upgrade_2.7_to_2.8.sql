@@ -7,6 +7,7 @@ ALTER TABLE `users` ADD `user_private_message` tinyint(1) NOT NULL DEFAULT '1';
 ALTER TABLE `users` ADD `user_profile_comment` tinyint(1) NOT NULL DEFAULT '1';
 ALTER TABLE `users` ADD `user_favourite_public` tinyint(1) NOT NULL DEFAULT '1';
 ALTER TABLE `users` ADD `user_playlist_public` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `users` ADD `user_videos` INT( 11 ) NOT NULL DEFAULT '0';
 
 CREATE TABLE IF NOT EXISTS `admin_log` (
   `admin_log_id` int(11) NOT NULL auto_increment,

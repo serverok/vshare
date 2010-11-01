@@ -912,3 +912,21 @@ function check_config_exists($config_name)
     }
 
 }
+
+function update_user_video_count($user_id, $action = 1)
+{
+    if ($action == 1)
+    {
+        $sql = "UPDATE `users` SET
+               `user_videos`=`user_videos`+1 WHERE
+               `user_id`='" . (int) $user_id . "'";
+    }
+    else
+    {
+        $sql = "UPDATE `users` SET
+               `user_videos`=`user_videos`-1 WHERE
+               `user_id`='" . (int) $user_id . "'";
+    }
+    
+    mysql_query($sql) or mysql_die();
+}

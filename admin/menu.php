@@ -76,6 +76,11 @@ $menu_heading = array(
         'Servers',
         '#',
         1
+    ),
+    array(
+        'Maintenance',
+        '#',
+        1
     )
 );
 
@@ -356,6 +361,11 @@ $menu_items = array(
         'Add Server',
         'server_add.php',
         11
+    ),
+    array(
+        'Update Counters',
+        'update_counters.php',
+        12
     )
 );
 

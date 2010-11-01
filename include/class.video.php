@@ -136,6 +136,11 @@ class Video
             {
                 $sql_extra .= ",`video_embed_code`='$this->video_embeded_code'";
             }
+            
+            if ($this->video_info['video_active'] != $this->video_active)
+            {
+                update_user_video_count($this->video_info['video_user_id'], $this->video_active);
+            }
         }
         
         $sql = "UPDATE `videos` SET
@@ -518,6 +523,8 @@ class Video
                        `video_active`='0' WHERE
                        `video_id`='" . (int) $video_id . "'";
                 mysql_query($sql) or mysql_die($sql);
+                
+                update_user_video_count($video_uid, 0);
             }
             
             $sql = "UPDATE `groups` SET
@@ -541,8 +548,8 @@ class Video
                    `used_space`=used_space-$video_space WHERE
                    `UID`=$video_uid";
             mysql_query($sql) or mysql_die($sql);
-            $sql = "DELETE FROM `playlists` WHERE
-                   `playlist_video_id`=$video_id";
+            $sql = "DELETE FROM `playlists_videos` WHERE
+                   `playlists_videos_video_id`='" . (int) $video_id . "'";
             mysql_query($sql) or mysql_die($sql);
             $sql = "UPDATE `group_topics` SET
                    `group_topic_video_id`='0' WHERE
