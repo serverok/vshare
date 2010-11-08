@@ -1431,8 +1431,6 @@ div.channel-details-user a img {
 
 div.compose-container {
     padding:1em;
-    width:500px;
-    margin-left:120px;
 }
 div.compose-container form div label {
     width:60px;
@@ -2192,4 +2190,46 @@ div#view-video-content div#show_playlists ul li span {
 	padding: 0.4166em 0.6666em;
 	text-decoration: none;
 	white-space: nowrap;
+}
+
+div.folder-links {
+	border-color: #CCCCCC;
+    border-style: solid;
+    border-width: 1px 0 0;
+    width: 130px;
+    float: left;
+}
+div.folder-links button {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #FFFFFF;
+    cursor: pointer;
+    height: 2.0833em;
+    margin: 2px;
+    width: 125px;
+    overflow: visible;
+    text-align: left;
+    display: block;
+    color: #555555;
+}
+button::-moz-focus-inner { border: 0; }
+div.folder-links button:hover,div.folder-links button:focus {
+	background: none repeat scroll 0 0 #F6F6F6;
+    border: 1px solid #ACACAC;
+    color: #222222;
+	-moz-box-shadow: 0 0 4px #999999;
+}
+div.folder-links-result {
+    border-color: #CCCCCC;
+	border-style: solid;
+    border-width: 1px 1px 1px 3px;
+    float: left;
+    width: 625px;
+    min-height: 500px;
+    overflow: hidden;
+}
+div.folder-links-result .boxrow1 {
+	background-color: #F6F6F6;
+}
+div.folder-links-result .boxrow2 {
+    background-color: #FFFFFF;
 }

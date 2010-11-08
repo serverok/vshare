@@ -1338,3 +1338,44 @@ div#view-video-content div#show_playlists ul li span {
     text-decoration: none;
     white-space: nowrap;
 }
+
+div.folder-links {
+    border-color: #515152;
+    border-style: solid;
+    border-width: 1px 0 0;
+    width: 130px;
+    float: left;
+}
+div.folder-links button {
+    background: none repeat scroll 0 0 #000000;
+    border: 1px solid #000000;
+    cursor: pointer;
+    height: 2.0833em;
+    margin: 2px;
+    width: 125px;
+    overflow: visible;
+    text-align: left;
+    display: block;
+    color: #CACACA;
+}
+div.folder-links button:hover,div.folder-links button:focus {
+    background: none repeat scroll 0 0 #333333;
+    border: 1px solid #666666;
+    color: #FFFFFF;
+    -moz-box-shadow: 0 0 4px #CACACA;
+}
+div.folder-links-result {
+    border-color: #515152;
+    border-style: solid;
+    border-width: 1px 1px 1px 3px;
+    float: left;
+    width: 625px;
+    min-height: 500px;
+    overflow: hidden;
+}
+div.folder-links-result .boxrow1 {
+    background-color: #222222;
+}
+div.folder-links-result .boxrow2 {
+    background-color: #333333;
+}

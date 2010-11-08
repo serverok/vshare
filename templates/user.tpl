@@ -213,7 +213,7 @@
                     {/if}
                     
                     {if $allow_private_message eq '1'}
-                    <a href="compose.php?receiver={$user_info.user_name}">
+                    <a href="{$base_url}/mail.php?folder=compose&receiver={$user_info.user_name}">
                         <img src="{$base_url}/templates/images/send-message.gif" width="20" height="17" alt="send message"/>Send Messages
                     </a>
                     {/if}

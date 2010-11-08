@@ -216,7 +216,7 @@
                 </div>
                 
                 <div>
-                    (<a href="{$base_url}/compose.php?receiver={$view.user_info.user_name}">Send Me a Private Message!</a>)
+                    (<a href="{$base_url}/mail.php?folder=compose&receiver={$view.user_info.user_name}">Send Me a Private Message!</a>)
                 </div>
             
             </div>
