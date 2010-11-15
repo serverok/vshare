@@ -29,6 +29,11 @@ if (isset($_GET['action']))
     
     $items_per_page = isset($_GET['items_per_page']) ? (int) $_GET['items_per_page'] : $result_per_page;
     
+    if ($items_per_page < 1)
+    {
+    	$items_per_page = $result_per_page;
+    }
+
     $start = ($page - 1) * $items_per_page;
     $page ++;
     
