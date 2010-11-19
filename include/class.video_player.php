@@ -98,6 +98,7 @@ class video_player
             $file = 'http://www.youtube.com/v/' . $this->video_info['video_name'];
             $video_id = $this->video_info['video_id'];
             $video_thumb_url = $servers[$this->video_info['video_thumb_server_id']];
+            $vshare_player = get_config('vshare_player');
 
 	        require VSHARE_DIR . '/include/player.inc';
 	        return $vshare_player;
