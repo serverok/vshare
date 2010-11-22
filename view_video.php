@@ -29,7 +29,8 @@ if (! is_numeric($video_id))
     redirect(VSHARE_URL);
 }
 
-$video_info = Video::get_video_info($video_id);
+$video = new Video();
+$video_info = $video->get_video_info($video_id);
 
 if ($video_info == 0 || $video_info['video_user_id'] == 0)
 {
@@ -168,12 +169,12 @@ if (isset($show_video) && $show_video == 1 && $err == '')
         $view['tags'] = $tags;
         
         # Response Videos Start
-        $view['video_responses'] = Video::get_response_videos($video_id, '5');
+        $view['video_responses'] = $video->get_response_videos($video_id, '5');
         
         # Related Videos Start
         
 
-        $related_videos = Video::get_related_videos($video_id);
+        $related_videos = $video->get_related_videos($video_id);
         
         $video_this = '';
         

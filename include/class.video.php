@@ -26,7 +26,7 @@ class Video
     
     }
 
-    public static function video_update()
+    public function video_update()
     {
         global $lang;
         
@@ -161,7 +161,7 @@ class Video
         return 1;
     }
 
-    public static function get_video_info($video_id)
+    public function get_video_info($video_id)
     {
         $sql = "SELECT * FROM `videos` WHERE
                `video_id`='" . (int) $video_id . "'";
@@ -177,7 +177,7 @@ class Video
         }
     }
 
-    public static function validate_video_info()
+    public function validate_video_info()
     {
         global $lang , $num_max_channels;
         
@@ -294,11 +294,11 @@ class Video
         }
     }
 
-    public static function get_related_videos($video_id)
+    public function get_related_videos($video_id)
     {
         global $config , $servers;
         
-        $video_info = Video::get_video_info($video_id);
+        $video_info = $this->get_video_info($video_id);
         
         $keyword = trim($video_info['video_keywords']);
         $keyword = mysql_clean($keyword);
