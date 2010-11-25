@@ -26,15 +26,15 @@ if ($search_string == '')
 if (isset($_GET['sort']))
 {
     $allowed_sort = array(
-	    'adddate',
-	    'viewnum',
-	    'rate'
-	);
-	
-	if (in_array($_GET['sort'], $allowed_sort))
-	{
-	    $_SESSION['tag_sort_order'] = $_GET['sort'];
-	}
+        'adddate',
+        'viewnum',
+        'rate'
+    );
+    
+    if (in_array($_GET['sort'], $allowed_sort))
+    {
+        $_SESSION['tag_sort_order'] = $_GET['sort'];
+    }
 }
 
 $sort = isset($_SESSION['tag_sort_order']) ? $_SESSION['tag_sort_order'] : '';
@@ -78,6 +78,12 @@ if ($err == '')
         if ($page < 1)
         {
             $page = 1;
+        }
+        
+        if ($page > round($total / $config['items_per_page']))
+        {
+            require '404.php';
+            exit();
         }
         
         $start_from = ($page - 1) * $config['items_per_page'];
@@ -137,7 +143,8 @@ if ($err == '')
     }
     else
     {
-        $err = $lang['video_not_found'];
+        require '404.php';
+        exit();
     }
 }
 

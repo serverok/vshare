@@ -96,6 +96,12 @@ if (! $view)
     $video_info = mysql_fetch_assoc($result);
     $view['total'] = $video_info['total'];
     
+    if ($page > round($view['total'] / $config['num_watch_videos']))
+    {
+        require '404.php';
+        exit();
+    }
+    
     $start_from = ($page - 1) * $config['num_watch_videos'];
     
     if ($category == 'recent')

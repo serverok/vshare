@@ -23,9 +23,8 @@ $result = mysql_query($sql) or mysql_die($sql);
 
 if (mysql_num_rows($result) != 1)
 {
-    set_message($lang['user_not_found'], 'error');
-    $redirect_url = VSHARE_URL . '/index.php';
-    redirect($redirect_url);
+    require '404.php';
+    exit();
 }
 
 $user_info = mysql_fetch_assoc($result);

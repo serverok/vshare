@@ -12,7 +12,9 @@
  *
  ******************************************************************************/
 
-require 'include/config.php';
+require_once 'include/config.php';
+
+header("HTTP/1.0 404 Not Found");
 
 $sql = "SELECT * FROM `videos` WHERE
        `video_featured`='yes' AND
@@ -34,16 +36,15 @@ if (mysql_num_rows($result) == 0)
 
 if (mysql_num_rows($result) > 0)
 {
-    while($tmp = mysql_fetch_assoc($result))
+    while ($tmp = mysql_fetch_assoc($result))
     {
         $tmp['video_thumb_url'] = $servers[$tmp['video_server_id']];
         $video_info[] = $tmp;
     }
     
-    $smarty->assign('video_info',$video_info);
+    $smarty->assign('video_info', $video_info);
 }
 
-
-$smarty->assign('msg','We\'re sorry, the page you requested cannot be found.');
+$smarty->assign('msg', 'We\'re sorry, the page you requested cannot be found.');
 $smarty->display('404.tpl');
 db_close();
