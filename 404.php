@@ -14,7 +14,7 @@
 
 require_once 'include/config.php';
 
-header("HTTP/1.0 404 Not Found");
+header($_SERVER["SERVER_PROTOCOL"].' 404 Not Found');
 
 $sql = "SELECT * FROM `videos` WHERE
        `video_featured`='yes' AND
