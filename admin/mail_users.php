@@ -45,13 +45,39 @@ if (isset($_POST['submit']))
         {
             if ($_POST['UID'] == 'All')
             {
-                $sql = "SELECT `user_email` FROM `users` WHERE
-                       `user_account_status`='Active'";
+                $sql = "SELECT * FROM `email_templates` WHERE
+                       `email_id`='unsubscribe_admin_mail'";
+                $result = mysql_query($sql) or mysql_die($sql);
+                $email_template = mysql_fetch_assoc($result);
+                $mail_footer = $email_template['email_body'];
+                
+                $sql = "SELECT `user_id`, `user_name`, `user_email` FROM `users` WHERE
+                       `user_account_status`='Active' AND
+                       `user_subscribe_admin_mail`='1'";
                 $result = mysql_query($sql) or mysql_die($sql);
                 
                 while ($tmp = mysql_fetch_assoc($result))
                 {
-                    mail2user($tmp['user_email'], $config['site_name'], $config['admin_email'], $_POST['subj'], $_POST['htmlCode']);
+                    $user_id = $tmp['user_id'];
+                    $unsubscribe_id = md5(time() . $user_id . rand());
+                    $data1 = 'UNSUBSCRIBE_' . $user_id;
+                    
+                    $sql = "INSERT INTO `verify_code` SET
+                           `vkey`='" . $unsubscribe_id . "',
+                           `data1`='" . $data1 . "'";
+                    mysql_query($sql) or mysql_die($sql);
+                    
+                    $unsubscribe_url = VSHARE_URL . '/' . $tmp['user_name'] . '/unsubscribe/' . $unsubscribe_id;
+                    
+                    $mail_footer_tmp = $mail_footer;
+                    $mail_footer_tmp = str_replace('[SITE_NAME]', $config['site_name'], $mail_footer_tmp);
+                    $mail_footer_tmp = str_replace('[SITE_URL]', VSHARE_URL, $mail_footer_tmp);
+                    $mail_footer_tmp = str_replace('[UNSUBSCRIBE_URL]', $unsubscribe_url, $mail_footer_tmp);
+                    
+                    $htmlCode = $_POST['htmlCode'];
+                    $htmlCode .= $mail_footer_tmp;
+                    
+                    mail2user($tmp['user_email'], $config['site_name'], $config['admin_email'], $_POST['subj'], $htmlCode, $unsubscribe_url);
                 }
                 
                 set_message($lang['mail_all_ok'], 'success');
@@ -204,7 +230,7 @@ else if (isset($_GET['a']) && $_GET['a'] == 'group')
     $smarty->assign('group_ops', $group_ops);
 }
 
-function mail2user($email, $site_name, $admin_email, $subj, $htmlCode)
+function mail2user($email, $site_name, $admin_email, $subj, $htmlCode, $unsubscribe_url = '')
 {
     $mail_detailes = array();
     $mail_detailes['from_email'] = $admin_email;
@@ -213,6 +239,7 @@ function mail2user($email, $site_name, $admin_email, $subj, $htmlCode)
     $mail_detailes['to_name'] = "";
     $mail_detailes['subject'] = $subj;
     $mail_detailes['body'] = $htmlCode;
+    $mail_detailes['unsubscribe_url'] = $unsubscribe_url;
     $mail = new Mail();
     $mail->send($mail_detailes);
 }

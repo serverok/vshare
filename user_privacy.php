@@ -24,7 +24,8 @@ if (isset($_POST['submit']))
 		   `user_private_message`=" . (int) $_POST['user_private_message'] . ",
 		   `user_profile_comment`=" . (int) $_POST['user_profile_comment'] . ",
 		   `user_favourite_public`=" . (int) $_POST['user_favourite_public'] . ",
-		   `user_playlist_public`=" . (int) $_POST['user_playlist_public'] . "
+		   `user_playlist_public`=" . (int) $_POST['user_playlist_public'] . ",
+		   `user_subscribe_admin_mail`=" . (int) $_POST['user_subscribe_admin_mail'] . "
 		    WHERE `user_id`='" . (int) $_SESSION['UID'] . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     

@@ -52,6 +52,17 @@
 					</select>
 				</td>
 			</tr>
+			
+			<tr>
+			    <td>Receive Email from Admin</td>
+			    <td>
+			        <select name="user_subscribe_admin_mail">
+			            <option {if $user_info.user_subscribe_admin_mail eq '1'}selected{/if} value="1">Yes</option>
+			            <option {if $user_info.user_subscribe_admin_mail eq '0'}selected{/if} value="0">No</option>
+			        </select>
+			    </td>
+			</tr>
+
 			<tr>
 				<td>&nbsp;</td>
 			</tr>

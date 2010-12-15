@@ -26,6 +26,12 @@ class Mail
         $email->setFrom($this->mail['from_email'], $this->mail['from_name']);
         $email->addTo($this->mail['to_email'], $this->mail['to_name']);
         $email->setSubject($this->mail['subject']);
+        
+        if (isset($this->mail['unsubscribe_url']) && !empty($this->mail['unsubscribe_url']))
+        {
+            $email->addHeader('List-Unsubscribe', $this->mail['unsubscribe_url']);
+        }
+        
         $email->send();
         
     }

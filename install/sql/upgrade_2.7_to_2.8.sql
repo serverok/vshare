@@ -8,6 +8,7 @@ ALTER TABLE `users` ADD `user_profile_comment` tinyint(1) NOT NULL DEFAULT '1';
 ALTER TABLE `users` ADD `user_favourite_public` tinyint(1) NOT NULL DEFAULT '1';
 ALTER TABLE `users` ADD `user_playlist_public` tinyint(1) NOT NULL DEFAULT '1';
 ALTER TABLE `users` ADD `user_videos` INT( 11 ) NOT NULL DEFAULT '0';
+ALTER TABLE `users` ADD `user_subscribe_admin_mail` tinyint(1) NOT NULL DEFAULT '1' AFTER `user_email_verified`;
 
 CREATE TABLE IF NOT EXISTS `admin_log` (
   `admin_log_id` int(11) NOT NULL auto_increment,
@@ -32,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `video_responses` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 INSERT INTO `email_templates` (`email_id` ,`email_subject` ,`email_body` ,`comment`) VALUES ('video_response_notify', '[SITE_NAME] - Video response to "[VIDEO_TITLE]"', '<p><a href="[SITE_URL]/[USERNAME]">[USERNAME]</a> has posted a video in response to <a href="[VIDEO_URL]">[VIDEO_TITLE]</a></p> <p>Response Video: <a href="[RESPONSE_VIDEO_URL]">[RESPONSE_VIDEO_TITLE]</a></p><p>This video requires your approval. You can approve or reject it by visiting the following link.</p><p><a href="[VERIFY_LINK]">[VERIFY_LINK]</a></p><p>Thanks</p><p><a href="[SITE_URL]">[SITE_NAME]</a> Team</p>', 'video response notify');
+INSERT INTO `email_templates` (`email_id`, `email_subject`, `email_body`, `comment`) VALUES ('unsubscribe_admin_mail', 'admin mail footer', '<br />\r\n<a href="[UNSUBSCRIBE_URL]" target="_blank">Unsubscribe</a>', 'admin mail footer');
 
 DROP TABLE IF EXISTS `playlists`;
 
