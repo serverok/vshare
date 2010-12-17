@@ -179,33 +179,7 @@ if (isset($_POST['submit']))
     }
 }
 
-if (isset($_GET['a']) && $_GET['a'] == 'user')
-{
-    $sql = "SELECT `user_id`, `user_name` FROM `users` WHERE
-           `user_account_status`='Active'
-           ORDER BY `user_name`";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $user_ops = "<option value='0'>-- Select a user --</option>";
-    
-    while ($tmp = mysql_fetch_assoc($result))
-    {
-        if (isset($_POST['UID']) && $_POST['UID'] == $tmp['user_id'])
-        {
-            $sel = "selected";
-        }
-        else
-        {
-            $sel = '';
-        }
-        $user_ops .= "<option value='" . $tmp['user_id'] . "' $sel>" . $tmp['user_name'] . "</option>";
-    }
-    
-    $user_ops .= "<option value='All'>(Send to All)</option>";
-    
-    $smarty->assign('user_ops', $user_ops);
-
-}
-else if (isset($_GET['a']) && $_GET['a'] == 'group')
+if (isset($_GET['a']) && $_GET['a'] == 'group')
 {
     
     $sql = "SELECT `group_id`, `group_name` FROM `groups` ORDER BY `group_name`";

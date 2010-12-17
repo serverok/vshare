@@ -12,9 +12,8 @@
     
     <div>
         <label>Email To:</label>
-        <select name="UID">
-            {$user_ops}
-        </select>
+        ALL USERS
+        <input type="hidden" name="UID" value="All" />
     </div>
     
     {elseif $smarty.request.a eq "group"}
@@ -41,7 +40,7 @@
     </div>
     
     <div>
-        <textarea name="htmlCode" cols="90" rows="18">{$smarty.request.htmlCode}</textarea>
+        <textarea name="htmlCode" cols="100" rows="22">{$smarty.request.htmlCode}</textarea>
     </div>
     
     <div>
