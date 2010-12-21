@@ -154,6 +154,14 @@
         </div>
     
     {/if}
+    
+    <div>
+        <label for="family_filter">Family Filter:</label>
+        <select name="family_filter" id="family_filter">
+            <option value="1" {if $family_filter eq "1"}selected="selected"{/if}>Enable</option>
+            <option value="0" {if $family_filter eq "0"}selected="selected"{/if}>Disable</option>
+        </select>
+    </div>
 
     <div class="submit">
         <input type="submit" name="submit" value="Update" />

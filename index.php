@@ -17,6 +17,13 @@ require 'include/class.cache.php';
 
 Cache::init();
 
+$sql_adult_filter = '';
+
+if (get_family_filter())
+{
+	$sql_adult_filter = "AND `video_adult`='0'";
+}
+
 $mydate = date('Y-m-d');
 
 $sql = "SELECT * FROM `poll_question` WHERE
@@ -50,6 +57,7 @@ if (! $view)
            `video_active`='1' AND
            `video_approve`='1' AND
            `video_featured`='yes'
+            $sql_adult_filter
             ORDER BY `video_add_time` DESC";
     $result = mysql_query($sql) or mysql_die($sql);
     
@@ -59,6 +67,7 @@ if (! $view)
                `video_type`='public' AND
                `video_active`='1' AND
                `video_approve`='1'
+                $sql_adult_filter
                 LIMIT 4";
         $result = mysql_query($sql) or mysql_die($sql);
     }
@@ -90,6 +99,7 @@ if (! $view)
            `video_type`='public' AND
            `video_active`='1' AND
            `video_approve`='1'
+            $sql_adult_filter
             ORDER BY `video_view_time` DESC
             LIMIT 0, $config[recently_viewed_video]";
     $result = mysql_query($sql) or mysql_die($sql);
@@ -112,6 +122,7 @@ if (! $view)
            `video_active`='1' AND
            `video_approve`='1' AND
            `video_type`='public'
+            $sql_adult_filter
             ORDER BY `video_id` DESC
             LIMIT $config[num_new_videos]";
     $result = mysql_query($sql) or mysql_die($sql);

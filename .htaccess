@@ -61,6 +61,7 @@ RewriteRule ^include/(.*) http://www.vshare.in
 RewriteRule ^login/ login.php [L,QSA]
 RewriteRule ^logout/ logout.php [L,QSA]
 RewriteRule ^signup/ signup.php [L,QSA]
+RewriteRule ^family_filter/ family_filter.php [L,QSA]
 RewriteRule ^pages/(.*).html$ show_page.php?name=$1 [QSA,L]
 RewriteRule ^v/(.*)/ video_embed.php?video_id=$1 [L,QSA]
 RewriteRule ^verify/user/(.*)/(.*)/(.*)/ user_signup_verify.php?u=$1&i=$2&k=$3

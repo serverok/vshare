@@ -18,6 +18,13 @@ require 'include/class.channels.php';
 
 Cache::init();
 
+$sql_adult_filter = '';
+
+if (get_family_filter())
+{
+	$sql_adult_filter = "AND `video_adult`='0'";
+}
+
 $page = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
 
 if ($page < 1)
@@ -81,7 +88,8 @@ if (! $view)
                `video_featured`='yes' AND
                `video_active`='1' AND
                `video_approve`='1'
-                $channel_sql";
+                $channel_sql
+                $sql_adult_filter";
     }
     else
     {
@@ -89,7 +97,8 @@ if (! $view)
                `video_type`='public' AND
                `video_active`='1' AND
                `video_approve`='1'
-                $channel_sql";
+                $channel_sql
+                $sql_adult_filter";
     }
     
     $result = mysql_query($sql) or mysql_die($sql);
@@ -113,6 +122,7 @@ if (! $view)
                `video_active`='1' AND
                `video_approve`='1'
                 $channel_sql
+                $sql_adult_filter
                 ORDER BY `video_add_time` DESC
                 LIMIT $start_from, $config[num_watch_videos]";
     }
@@ -125,6 +135,7 @@ if (! $view)
                `video_active`='1' AND
                `video_approve`='1'
                 $channel_sql
+                $sql_adult_filter
                 ORDER BY `video_view_number` DESC
                 LIMIT $start_from, $config[num_watch_videos]";
     }
@@ -137,6 +148,7 @@ if (! $view)
                `video_active`='1' AND
                `video_approve`='1'
                 $channel_sql
+                $sql_adult_filter
                 ORDER BY `video_com_num` DESC
                 LIMIT $start_from, $config[num_watch_videos]";
     }
@@ -149,6 +161,7 @@ if (! $view)
                `video_active`='1' AND
                `video_approve`='1'
                 $channel_sql
+                $sql_adult_filter
                 ORDER BY `video_fav_num` DESC
                 LIMIT $start_from,$config[num_watch_videos]";
     }
@@ -161,6 +174,7 @@ if (! $view)
                `video_active`='1' AND
                `video_approve`='1'
                 $channel_sql
+                $sql_adult_filter
                 ORDER BY (video_rate/video_rated_by) DESC, video_rated_by DESC
                 LIMIT $start_from, $config[num_watch_videos]";
     }
@@ -174,6 +188,7 @@ if (! $view)
                `video_approve`='1'
                 $channel_sql AND
                `video_featured`='yes'
+                $sql_adult_filter
                 ORDER BY `video_add_time` DESC
                 LIMIT $start_from, $config[num_watch_videos]";
     }
@@ -186,6 +201,7 @@ if (! $view)
                `video_active`='1' AND
                `video_approve`='1'
                 $channel_sql
+                $sql_adult_filter
                 ORDER BY rand()
                 LIMIT $start_from, $config[num_watch_videos]";
     }

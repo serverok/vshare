@@ -204,6 +204,11 @@ if (isset($_POST['submit']))
         }
     }
     
+    $sql = "UPDATE `sconfig` SET
+           `svalue`='" . mysql_clean($_POST['family_filter']) . "' WHERE
+           `soption`='family_filter'";
+    mysql_query($sql);
+    
     if ($err == '')
     {
         set_message($lang['settings_updated'], 'success');

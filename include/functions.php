@@ -930,3 +930,35 @@ function update_user_video_count($user_id, $action = 1)
     
     mysql_query($sql) or mysql_die();
 }
+
+function get_family_filter()
+{	
+	global $config;
+	
+	if ($config['family_filter'] == 1)
+	{	
+		if (!isset($_COOKIE['FAMILY_FILTER']))
+		{
+			if (isset($_SESSION['UID']))
+			{
+				$sql = "SELECT `user_adult` FROM `users` WHERE
+				       `user_id`='" . (int) $_SESSION['UID'] . "'";
+				$result = mysql_query($sql) or mysql_die($sql);
+				$tmp = mysql_fetch_assoc($result);
+				$user_adult = $tmp['user_adult'];
+			}
+			else 
+			{
+				$user_adult = 1;
+			}
+			
+			setcookie('FAMILY_FILTER', $user_adult, time() + 8640000, '/');
+		}
+		
+		return isset($_COOKIE['FAMILY_FILTER']) ? $_COOKIE['FAMILY_FILTER'] : 1;
+	}
+	
+	return 0;
+}
+
+

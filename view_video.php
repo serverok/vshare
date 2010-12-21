@@ -43,6 +43,17 @@ else
     $video_info['video_thumb_url'] = $servers[$video_info['video_thumb_server_id']];
 }
 
+if ($video_info['video_adult'])
+{
+	if (get_family_filter())
+	{
+		$_SESSION['REDIRECT'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		$redirect_url = VSHARE_URL . '/family_filter/';
+		redirect($redirect_url);
+	}
+}
+
+
 if ($config['guest_limit'] > 36000)
 {
     $config['guest_limit'] = 0;

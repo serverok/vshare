@@ -47,6 +47,11 @@
                  <a href="{$base_url}/signup/">Sign Up</a> |
                  <a href="{$base_url}/login/">Log In</a> |
             {/if}
+            
+            {if $family_filter eq '1'}
+                Family Filter <a href="{$base_url}/family_filter/">{if $smarty.cookies.FAMILY_FILTER eq '1'}ON{else}OFF{/if}</a> |
+            {/if}
+            
             <a href="{$base_url}/pages/help.html">Help</a>
             <a href="{$base_url}/rss/new/"><img border="0" src="{$img_css_url}/images/rss.gif" alt="rss" /></a>
             

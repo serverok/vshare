@@ -579,6 +579,7 @@ INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('video_comments_per_page', '5
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('user_comments_per_page', '5');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('num_new_videos', '5');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('num_watch_videos', '20');
+INSERT INTO `sconfig` (`soption` ,`svalue`) VALUES('family_filter', '1');
 
 -- Table structure for table `servers`
 

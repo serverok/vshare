@@ -51,5 +51,5 @@ PRIMARY KEY (`playlist_id`)
 );
 
 INSERT INTO `config` (`config_name`, `config_value`) VALUES ('vshare_player', 'JW Player');
-
+INSERT INTO `sconfig` (`soption` ,`svalue`) VALUES ('family_filter', '1');
 
