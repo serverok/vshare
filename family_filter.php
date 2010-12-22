@@ -14,26 +14,19 @@
 
 require 'include/config.php';
 
-$redirect_url = VSHARE_URL . '/index.php';
-
-if (isset($_SESSION['REDIRECT']) && ! empty($_SESSION['REDIRECT']))
+if (isset($_SERVER['HTTP_REFERER']) && ! empty($_SERVER['HTTP_REFERER']))
 {
-    $redirect_url = $_SESSION['REDIRECT'];
-    unset($_SESSION['REDIRECT']);
-}
-else if (isset($_SERVER['HTTP_REFERER']) && ! empty($_SERVER['HTTP_REFERER']))
-{
-    $redirect_url = $_SERVER['HTTP_REFERER'];
+    if (!preg_match('/family_filter/i',$_SERVER['HTTP_REFERER'],$match) && !isset($_SESSION['REDIRECT']))
+    {
+        $_SESSION['REDIRECT'] = $_SERVER['HTTP_REFERER'];
+    }
 }
 
 if ($config['family_filter'] == 0)
 {
     db_close();
-    redirect($redirect_url);
+    redirect(VSHARE_URL);
 }
-
-$pure_redirect_url = str_replace(VSHARE_URL . '/', '', $redirect_url);
-$smarty->assign('pure_redirect_url', $pure_redirect_url);
 
 if ($_COOKIE['FAMILY_FILTER'] == 0)
 {
@@ -42,9 +35,12 @@ if ($_COOKIE['FAMILY_FILTER'] == 0)
     if (isset($_SESSION['UID']))
     {
         $sql = "UPDATE `users` SET `user_adult`='1' WHERE
-			   `user_id`='" . (int) $_SESSION['UID'] . "'";
+               `user_id`='" . (int) $_SESSION['UID'] . "'";
         $result = mysql_query($sql) or mysql_die($sql);
     }
+    
+    $redirect_url = $_SESSION['REDIRECT'];
+    unset($_SESSION['REDIRECT']);
     
     db_close();
     redirect($redirect_url);
@@ -58,14 +54,15 @@ else if ($_COOKIE['FAMILY_FILTER'] == 1)
         if (isset($_SESSION['UID']))
         {
             $sql = "UPDATE `users` SET `user_adult`='0' WHERE
-				   `user_id`='" . (int) $_SESSION['UID'] . "'";
+                   `user_id`='" . (int) $_SESSION['UID'] . "'";
             $result = mysql_query($sql) or mysql_die($sql);
         }
         
-        $pure_redirect_url = VSHARE_URL . '/' . $_POST['pure_redirect_url'];
+        $redirect_url = $_SESSION['REDIRECT'];
+        unset($_SESSION['REDIRECT']);
         
         db_close();
-        redirect($pure_redirect_url);
+        redirect($redirect_url);
     }
 }
 

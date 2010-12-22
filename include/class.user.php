@@ -53,7 +53,12 @@ class User
             $sql = "DELETE FROM user_logins WHERE 
                    `user_login_time` < '$time_old'";
             $result = mysql_query($sql);
-        
+            
+            if ($config['family_filter'] == 1)
+            {
+            	$user_adult = $user_info['user_adult'];
+            	setcookie('FAMILY_FILTER', $user_adult, time() + 8640000, '/');
+            }
         }
     }
 

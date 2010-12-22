@@ -11,7 +11,6 @@
 			<li>Click the button below if you are over 18 and would like to turn OFF the Family Filter.</li>
 			<li style="list-style:none;margin: 5px 0 5px 0;padding: 5px 0 5px 0;">
 				<form method="POST" action="">
-					<input type="hidden" name="pure_redirect_url" value="{$pure_redirect_url}">
 					<input type="submit" value="I am over 18 - set Family Filter OFF" name="submit" />
 				</form>
 			</li>
