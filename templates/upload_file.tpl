@@ -69,7 +69,7 @@
     
     <input type="hidden" name="upload_id" value="{$upload_id}" />
     
-    <div style="margin-left:84px;">  
+    <div style="margin-left:84px;">
         <label>File:</label>
     </div>
     
@@ -86,8 +86,8 @@
             {/if}
 
             <div class="formHighlightText">
-                <strong>Max. video file size: 100 MB. No copyrighted or obscene material.</strong><br />
-                After uploading, you can edit or remove this video at any time under the "My Videos" link 
+                <strong>Max. video file size: 100 MB. No copyrighted {if $smarty.session.$upload_id.adult eq "0"}or obscene {/if}material.</strong><br />
+                After uploading, you can edit or remove this video at any time under the "My Videos" link
                 on the top of the page.
             </div>
         </div>
@@ -104,7 +104,7 @@
             <input name="upload_final" type="submit" value="Upload Video" />
             </div>
         {/if}
-    </div>   
+    </div>
         
     {if $use_upload_progress_bar eq "1"}
     

@@ -3,7 +3,7 @@
     <h1>Edit Video</h1>
 
     <div style="margin-top:2em;">
-        <label> Video ID:</label>              
+        <label> Video ID:</label>
         {$video.video_id}
     </div>
 
@@ -71,7 +71,7 @@
     </div>
 
     <div>
-        <label for="video_allow_rated">  Can be rated ?:</label>
+        <label for="video_allow_rated">Can be rated ?:</label>
         <select name="video_allow_rated" id="video_allow_rated">{$rate_box}</select>
     </div>
 
@@ -79,6 +79,18 @@
         <label for="video_allow_embed">Can be embedded ?:</label>
         <select name="video_allow_embed" id="video_allow_embed">{$embed_box}:</select>
     </div>
+    
+    {if $family_filter eq "1"}
+	    <div>
+	        <label for="video_adult">Adult Video ?:</label>
+	        <select name="video_adult" id="video_adult">
+	            <option value="0" {if $video.video_adult eq "0"}selected{/if}>No</option>
+	            <option value="1" {if $video.video_adult eq "1"}selected{/if}>Yes</option>
+	        </select>
+	    </div>
+	{else}
+        <input type="hidden" name="video_adult" value="0" />
+    {/if}
 
     <div class="submit">
         <input type="submit" name="submit" value="Update" />

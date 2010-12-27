@@ -369,6 +369,15 @@ $menu_items = array(
     )
 );
 
+if ($config['family_filter'] == 1)
+{
+    $menu_items[] = array(
+        'Adult Videos',
+        'videos.php?a=adult',
+        2
+    );
+}
+
 $smarty->assign('menu_heading', $menu_heading);
 $smarty->assign('menu_items', $menu_items);
 $smarty->display('admin/header.tpl');

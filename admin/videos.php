@@ -29,12 +29,16 @@ if (! isset($_GET['a']) || $_GET['a'] == '')
     $_GET['a'] = 'all';
 }
 
-if ($_GET['a'] == 'all' || $_GET['a'] == 'public' || $_GET['a'] == 'private')
+if ($_GET['a'] == 'all' || $_GET['a'] == 'public' || $_GET['a'] == 'private' || $_GET['a'] == 'adult')
 {
     
     if ($_GET['a'] == 'all')
     {
         $query = '';
+    }
+    else if ($_GET['a'] == 'adult')
+    {
+        $query = "WHERE `video_adult`='1'";
     }
     else
     {

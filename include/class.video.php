@@ -18,6 +18,7 @@ class Video
     public $video_active;
     public $video_duration;
     public $video_embeded_code;
+    public $video_adult;
     public $is_admin = 0;
     public $video_info;
 
@@ -130,7 +131,8 @@ class Video
             $sql_extra .= ",`video_featured`='$this->video_featured',
                             `video_active`='$this->video_active',
                             `video_duration`='$this->video_duration',
-                            `video_length`='" . sec2hms($this->video_duration) . "'";
+                            `video_length`='" . sec2hms($this->video_duration) . "',
+                            `video_adult`='$this->video_adult'";
             
             if ($this->video_info['video_vtype'] == 2 || $this->video_info['video_vtype'] == 6)
             {
@@ -277,6 +279,11 @@ class Video
             $error[] = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
         }
         
+        if ($this->video_adult != 1)
+        {
+            $this->video_adult = 0;
+        }
+                
         if (count($error))
         {
             $error_msg = '<ul>';

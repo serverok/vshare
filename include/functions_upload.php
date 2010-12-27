@@ -264,6 +264,7 @@ function process_video($vid, $debug = 1)
                    `video_type`='" . mysql_clean($download_info['type']) . "',
                    `video_active`='0',
                    `video_approve`='" . $config['approve'] . "',
+                   `video_adult`='" . (int) $download_info['adult'] . "',
                    `video_folder`='" . mysql_clean($video_folder) . "'";
             
             $result = mysql_query($sql) or mysql_die($sql);

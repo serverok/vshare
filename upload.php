@@ -91,6 +91,11 @@ if (isset($_POST['action_upload']))
         $listch = htmlspecialchars_uni($listch);
     }
     
+    if ($_POST['video_adult'] != 1)
+    {
+        $_POST['video_adult'] = 0;
+    }
+    
     $upload_id = md5($_SERVER['REQUEST_TIME'] . rand(1, 2000));
     $upload_info = array();
     $upload_info['title'] = $_POST['video_title'];
@@ -98,7 +103,7 @@ if (isset($_POST['action_upload']))
     $upload_info['keywords'] = $_POST['video_keywords'];
     $upload_info['channels'] = $listch;
     $upload_info['field_privacy'] = $_POST['field_privacy'];
-    $upload_info['adult'] = 0;
+    $upload_info['adult'] = $_POST['video_adult'];
     $upload_info['type'] = $_POST['field_privacy'];
     
     $_SESSION["$upload_id"] = $upload_info;

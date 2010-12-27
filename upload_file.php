@@ -256,6 +256,7 @@ if (isset($process_video) && $process_video == 1)
     $video_keywords = $_SESSION["$upload_id"]['keywords'];
     $video_channels = $_SESSION["$upload_id"]['channels'];
     $video_privacy = $_SESSION["$upload_id"]['field_privacy'];
+    $video_adult = $_SESSION["$upload_id"]['adult'];
     
     $upload_file_size = filesize($upload_file_path);
     $upload_file_size = round($upload_file_size / (1024 * 1024));
@@ -278,7 +279,8 @@ if (isset($process_video) && $process_video == 1)
            `type`='" . mysql_clean($video_privacy) . "',
            `user`='" . mysql_clean($user_name) . "',
            `process_queue_upload_ip`='" . User::get_ip() . "',
-           `status`='2'";
+           `status`='2',
+           `adult`='" . (int) $video_adult . "'";
     
     $result = mysql_query($sql) or mysql_die($sql);
     $qid = mysql_insert_id();

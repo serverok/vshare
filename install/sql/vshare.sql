@@ -490,6 +490,7 @@ CREATE TABLE IF NOT EXISTS `process_queue` (
   `vid` int(11) NOT NULL,
   `process_queue_upload_ip` varchar(20) NOT NULL,
   `import_track_id` INT( 11 ) NOT NULL,
+  `adult` TINYINT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

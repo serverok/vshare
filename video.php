@@ -105,12 +105,6 @@ if (! $view)
     $video_info = mysql_fetch_assoc($result);
     $view['total'] = $video_info['total'];
     
-    if ($page > round($view['total'] / $config['num_watch_videos']))
-    {
-        require '404.php';
-        exit();
-    }
-    
     $start_from = ($page - 1) * $config['num_watch_videos'];
     
     if ($category == 'recent')
@@ -209,6 +203,12 @@ if (! $view)
     $result = mysql_query($sql) or mysql_die($sql);
     $video_count = mysql_num_rows($result);
     
+    if (!$video_count)
+    {
+        require '404.php';
+        exit();
+    }
+
     while ($video = mysql_fetch_assoc($result))
     {
         $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];

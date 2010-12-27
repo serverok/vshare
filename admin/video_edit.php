@@ -46,6 +46,7 @@ if (isset($_POST['submit']))
     $video->video_allow_rated = $_POST['video_allow_rated'];
     $video->video_allow_embed = $_POST['video_allow_embed'];
     $video->video_embeded_code = isset($_POST['video_embed_code']) ? $_POST['video_embed_code'] : '';
+    $video->video_adult = (int) $_POST['video_adult'];
     $video->is_admin = 1;
     $save = $video->video_update();
     

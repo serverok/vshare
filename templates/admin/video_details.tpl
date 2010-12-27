@@ -95,6 +95,13 @@
         {$video.video_allow_embed}
     </div>
     
+    {if $family_filter eq "1"}
+	    <div>
+	        <label>Adult Video</label>
+	        {if $video.video_adult eq "1"}Yes{else}No{/if}
+	    </div>
+    {/if}
+
     <div style="background-color:#FFFfD9;margin-top:1em;border:1px solid #FED973;padding:2px;text-align:center;">
         {if $video_type eq "0"}
         <a href="video_rename_flv.php?id={$video.video_id}">Rename FLV Video</a> &nbsp;
