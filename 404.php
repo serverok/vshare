@@ -36,6 +36,8 @@ if (mysql_num_rows($result) == 0)
 
 if (mysql_num_rows($result) > 0)
 {
+    $video_info = array();
+    
     while ($tmp = mysql_fetch_assoc($result))
     {
         $tmp['video_thumb_url'] = $servers[$tmp['video_server_id']];

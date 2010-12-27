@@ -5,7 +5,7 @@
 </head>
 <body align="center">
 <center>
-<div id="404" style="width:650px;">
+<div style="width:650px;">
 	<div id="message" class="rounded-corner">{$msg}</div>
 	<div id="search-wrapper" class="rounded-corner">
 	   <div class="logo"><img src="{$img_css_url}/images/logo.jpg"></div>
@@ -24,7 +24,7 @@
 	   <a href="{$base_url}/viewed/">Most Watched Videos</a>
 	</div>
 
-	   <div style="margin-top:10px;">
+	 <div style="margin-top:10px;">
 	       <div id="featured_box">
 	           Featured Videos
 	       </div>
@@ -38,7 +38,7 @@
 			           <a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/" style="font-weight:bold;">
 			             {$video_info[i].video_title|truncate:25:'...'}
 			           </a><br />
-			           {insert name=time_range assign=added_on field=video_add_time IDFR=video_id id={insert name=time_range assign=added_on field=video_add_time IDFR=video_id id=$video_info[i].video_id tbl=videos}
+			           {insert name=time_range assign=added_on field=video_add_time IDFR=video_id id=$video_info[i].video_id tbl=videos}
 			           <span class="featured_video_box_span">{$added_on}</span><br />
 			           <span class="featured_video_box_span">{$video_info[i].video_view_number} views</span><br />
 			           <span class="featured_video_box_span">
@@ -60,12 +60,6 @@
 
 		<div class="copy">
 		    Copyright &copy; {$smarty.now|date_format:"%Y"} {$site_name}. All rights reserved.<br />
-		    <!--
-		    REMOVING THE LINE BELOW CONSTITUTES A VIOLATION
-		    OF YOUR LICENSE AGREEMENT AND WILL RESULT IN
-		    SIGNIFICANT PENALITIES IF REMOVED.
-		    -->
-		    Powered by <a class="copy" href="http://buyscripts.in/youtube_clone.html" target="_blank">vShare</a>
 		</div>
 </div>
 </center>
