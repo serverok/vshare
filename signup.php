@@ -192,6 +192,21 @@ if (isset($_POST['submit']))
         {
             $err = $validate_date;
         }
+        else
+        {
+		$signup_age_min_enforce = get_config('signup_age_min_enforce');
+
+		if ($signup_age_min_enforce == 1)
+		{
+			$age = find_age($bdate);
+			$age_minimum = get_config('signup_age_min');
+
+			if ($age < $age_minimum)
+			{
+				$err = str_replace('[AGE_MINIMUM]',$age_minimum,$lang['signup_enforce']);
+			}
+		}
+        }
     }
     $smarty->assign('signup', $signup);
     
@@ -466,6 +481,7 @@ if ($signup_dob == 1)
     $smarty->assign('years', $years);
 }
 
+$smarty->assign('age_minimum', get_config('signup_age_min'));
 $smarty->assign('captcha_type', $captcha_type);
 $smarty->assign('signup_dob', $signup_dob);
 $smarty->assign('err', $err);

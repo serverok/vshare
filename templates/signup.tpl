@@ -111,7 +111,7 @@
            <div class="indent">
                 <ul>
                     <li>
-                        I certify I am over 13 years old.
+                        I certify I am over {$age_minimum} years old.
                     </li>
                     <li>
                         I agree to the 

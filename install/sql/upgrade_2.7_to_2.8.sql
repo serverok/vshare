@@ -53,4 +53,5 @@ PRIMARY KEY (`playlist_id`)
 INSERT INTO `config` (`config_name`, `config_value`) VALUES ('vshare_player', 'JW Player');
 INSERT INTO `sconfig` (`soption` ,`svalue`) VALUES ('family_filter', '1');
 ALTER TABLE `process_queue` ADD `adult` TINYINT( 1 ) NOT NULL DEFAULT '0';
-
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min_enforce', '0');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min', '18');

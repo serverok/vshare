@@ -119,6 +119,8 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('guest_upload', '0')
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('guest_upload_user', '');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('youtube_player', 'youtube');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('vshare_player', 'JW Player');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min_enforce', '0');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min', '18');
 
 -- Table structure for table `contact`
 

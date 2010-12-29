@@ -28,6 +28,33 @@ if (isset($_POST['submit']))
         mysql_query($sql) or mysql_die($sql);
     }
     
+    if (is_numeric($_POST['signup_age_min']))
+    {
+        $sql = "UPDATE `config` SET
+               `config_value`='" . (int) $_POST['signup_age_min'] . "' WHERE
+               `config_name`='signup_age_min'";
+        mysql_query($sql) or mysql_die($sql);
+    }
+    
+    if (is_numeric($_POST['signup_age_min_enforce']))
+    {
+        $sql = "UPDATE `config` SET
+               `config_value`='" . (int) $_POST['signup_age_min_enforce'] . "' WHERE
+               `config_name`='signup_age_min_enforce'";
+        mysql_query($sql) or mysql_die($sql);
+        
+        if ($_POST['signup_age_min_enforce'] == 1)
+        {
+        	if ($_POST['signup_dob'] == 0)
+        	{
+		        $sql = "UPDATE `config` SET
+		               `config_value`='1' WHERE
+		               `config_name`='signup_dob'";
+		        mysql_query($sql) or mysql_die($sql);
+        	}
+        }
+    }
+    
     if (is_numeric($_POST['signup']))
     {
         $sql = "UPDATE `config` SET
@@ -99,6 +126,8 @@ if (isset($_POST['submit']))
     }
 }
 
+$smarty->assign('signup_age_min', get_config('signup_age_min'));
+$smarty->assign('signup_age_min_enforce', get_config('signup_age_min_enforce'));
 $smarty->assign('signup_enable', get_config('signup_enable'));
 $smarty->assign('signup_auto_friend', get_config('signup_auto_friend'));
 $smarty->assign('signup_dob', get_config('signup_dob'));

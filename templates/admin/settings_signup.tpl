@@ -53,6 +53,19 @@
     </div>
     
     <div>
+        <label for="signup_age_min">Age Minimum:</label>
+        <input type="text" name="signup_age_min" value="{$signup_age_min}" id="signup_age_min">
+    </div>
+
+     <div>
+        <label for="signup_age_min_enforce">Age Minimum Enforce:</label>
+        <select name="signup_age_min_enforce" id="signup_age_min_enforce">
+            <option value="0" {if $signup_age_min_enforce =='0'}selected="selected"{/if}>No</option>
+            <option value="1" {if $signup_age_min_enforce =='1'}selected="selected"{/if}>Yes</option>
+        </select>
+    </div>
+
+    <div>
         <label for="signup_auto_friend">Default Friend:</label>
         <input type="text" name="signup_auto_friend" id="signup_auto_friend" value="{$signup_auto_friend}" />
     </div>
