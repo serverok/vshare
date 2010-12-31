@@ -137,6 +137,11 @@ $menu_items = array(
         1
     ),
     array(
+        'Suspend Users',
+        'users.php?a=Suspend',
+        1
+    ),
+    array(
         'Search Users',
         'user_search.php',
         1

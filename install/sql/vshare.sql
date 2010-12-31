@@ -681,7 +681,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_ip` varchar(255) NOT NULL,
   `user_email_verified` char(3) NOT NULL default 'no',
   `user_subscribe_admin_mail` tinyint(1) NOT NULL default '1',
-  `user_account_status` enum('Active','Inactive') NOT NULL default 'Active',
+  `user_account_status` enum('Active','Inactive','Suspended') NOT NULL default 'Active',
   `user_vote` varchar(5) NOT NULL,
   `user_rated_by` varchar(5) NOT NULL default '0',
   `user_rate` varchar(5) NOT NULL default '0',

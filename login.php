@@ -74,6 +74,10 @@ if (isset($_POST['action_login']))
                 $err = $lang['inactive_user'];
                 $_SESSION['INACTIVE_USER'] = $user_info['user_name'];
             }
+            else if ($user_info['user_account_status'] == 'Suspended')
+            {
+                $err = $lang['user_suspended'];
+            }
         }
         
         if ($err == '')
