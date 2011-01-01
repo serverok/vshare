@@ -73,20 +73,21 @@ $email_ver_box = "
 
 $smarty->assign('email_ver_box', $email_ver_box);
 
+$account_status_active = '';
+$account_status_inactive = '';
+$account_status_suspended = '';
+
 if ($user['user_account_status'] == 'Active')
 {
-    $account_status_inactive = '';
     $account_status_active = "selected=\"selected\"";
 }
 else if ($user['user_account_status'] == 'Inactive')
 {
     $account_status_inactive = "selected=\"selected\"";
-    $account_status_active = "";
 }
 else if ($user['user_account_status'] == 'Suspended')
 {
     $account_status_suspended = "selected=\"selected\"";
-    $account_status_active = "";
 }
 
 $account_status_box = "
