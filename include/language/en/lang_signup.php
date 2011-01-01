@@ -19,3 +19,4 @@ $lang['signup_dob_null'] = 'Please enter your date of birth';
 $lang['signup_dob_invalid'] = 'Invalid date of birth';
 $lang['signup_disable'] = 'Signup is disabled by Admin, try later.';
 $lang['signup_verify_email'] = 'Your account has been created. However, this site requires account activation, an activation key has been sent to the e-mail address you provided. Please check your e-mail for further information.';
+$lang['signup_enforce'] = 'You must be at least [AGE_MINIMUM] years old to join.';
