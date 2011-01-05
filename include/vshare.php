@@ -119,3 +119,12 @@ if (! isset($_SESSION['USERNAME']) && isset($_COOKIE['VSHARE_AL_PASSWORD']))
     User::login_auto();
 }
 define('LANG', $_SESSION['LANG']);
+
+if ($config['family_filter'] == 1)
+{
+	if (!isset($_SESSION['FAMILY_FILTER']))
+	{
+	    $_SESSION['FAMILY_FILTER'] = 1;
+	}
+}
+

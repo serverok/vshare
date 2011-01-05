@@ -932,12 +932,12 @@ function update_user_video_count($user_id, $action = 1)
 }
 
 function get_family_filter()
-{	
+{
 	global $config;
 	
 	if ($config['family_filter'] == 1)
-	{	
-		if (!isset($_COOKIE['FAMILY_FILTER']))
+	{
+		if (!isset($_SESSION['FAMILY_FILTER']))
 		{
 			if (isset($_SESSION['UID']))
 			{
@@ -947,18 +947,16 @@ function get_family_filter()
 				$tmp = mysql_fetch_assoc($result);
 				$user_adult = $tmp['user_adult'];
 			}
-			else 
+			else
 			{
 				$user_adult = 1;
 			}
 			
-			setcookie('FAMILY_FILTER', $user_adult, time() + 8640000, '/');
+			$_SESSION['FAMILY_FILTER'] = $user_adult;
 		}
 		
-		return isset($_COOKIE['FAMILY_FILTER']) ? $_COOKIE['FAMILY_FILTER'] : 1;
+		return $_SESSION['FAMILY_FILTER'];
 	}
 	
 	return 0;
 }
-
-

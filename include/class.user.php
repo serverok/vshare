@@ -39,7 +39,7 @@ class User
             
             $ip = User::get_ip();
             
-            $sql = "INSERT INTO user_logins SET 
+            $sql = "INSERT INTO user_logins SET
                    `user_login_user_id`='" . (int) $_SESSION['UID'] . "',
                    `user_login_time`='" . mysql_clean($_SERVER['REQUEST_TIME']) . "',
                    `user_login_ip`='" . mysql_clean($ip) . "'";
@@ -50,7 +50,7 @@ class User
             $delete_days_old = 100;
             $time_old = $_SERVER['REQUEST_TIME'] - (86400 * $delete_days_old);
             
-            $sql = "DELETE FROM user_logins WHERE 
+            $sql = "DELETE FROM user_logins WHERE
                    `user_login_time` < '$time_old'";
             $result = mysql_query($sql);
             
@@ -64,6 +64,8 @@ class User
 
     static function logout()
     {
+        global $config;
+        
         if (isset($_SESSION['UID'])) unset($_SESSION['UID']);
         if (isset($_SESSION['EMAIL'])) unset($_SESSION['EMAIL']);
         if (isset($_SESSION['USERNAME'])) unset($_SESSION['USERNAME']);
@@ -71,6 +73,11 @@ class User
         if (isset($_SESSION['pwd'])) unset($_SESSION['pwd']);
         setcookie('VSHARE_AL_USER', '', $_SERVER['REQUEST_TIME'] - 10000, '/');
         setcookie('VSHARE_AL_PASSWORD', '', $_SERVER['REQUEST_TIME'] - 10000, '/');
+        
+        if ($config['family_filter'] == 1)
+        {
+            $_SESSION['FAMILY_FILTER'] = 1;
+        }
     }
 
     static function get_ip()
@@ -378,7 +385,7 @@ class User
         mysql_query($sql) or mysql_die($sql);
         
         $sql = "DELETE FROM `mails` WHERE
-               `mail_sender`='$user_name' OR 
+               `mail_sender`='$user_name' OR
                `mail_receiver`='$user_name'";
         mysql_query($sql) or mysql_die($sql);
         

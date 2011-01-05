@@ -21,10 +21,18 @@ header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Cache-Control: post-check=0, pre-check=0', FALSE);
 header('Pragma: no-cache');
 
+$sql_adult_filter = '';
+
+if (get_family_filter())
+{
+    $sql_adult_filter = "AND `video_adult`='0'";
+}
+
 $sql = "SELECT * FROM `videos` WHERE
        `video_type`='public' AND
        `video_active`='1' AND
        `video_approve`='1'
+        $sql_adult_filter
         ORDER BY `video_view_time` DESC
         LIMIT 0, 5";
 $result = mysql_query($sql) or mysql_die($sql);

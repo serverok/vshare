@@ -14,23 +14,36 @@
 
 require 'include/config.php';
 
-if (isset($_SERVER['HTTP_REFERER']) && ! empty($_SERVER['HTTP_REFERER']))
-{
-    if (!preg_match('/family_filter/i',$_SERVER['HTTP_REFERER'],$match) && !isset($_SESSION['REDIRECT']))
-    {
-        $_SESSION['REDIRECT'] = $_SERVER['HTTP_REFERER'];
-    }
-}
-
-if ($config['family_filter'] == 0)
+if ($config['family_filter'] == 0 || !isset($_SESSION['UID']))
 {
     db_close();
     redirect(VSHARE_URL);
 }
 
-if ($_COOKIE['FAMILY_FILTER'] == 0)
+
+
+if (! isset($_SESSION['REDIRECT']) || empty($_SESSION['REDIRECT']))
 {
-    setcookie('FAMILY_FILTER', 1, time() + 8640000, '/');
+    if (! preg_match('/family_filter/i', $_SERVER['HTTP_REFERER']))
+    {
+        if (preg_match("/" . preg_quote(VSHARE_URL, '/') . "/i", $_SERVER['HTTP_REFERER']))
+        {
+            $_SESSION['REDIRECT'] = $_SERVER['HTTP_REFERER'];
+        }
+        else
+        {
+        	$_SESSION['REDIRECT'] = VSHARE_URL;
+        }
+    }
+    else
+    {
+    	$_SESSION['REDIRECT'] = VSHARE_URL;
+    }
+}
+
+if ($_SESSION['FAMILY_FILTER'] == 0)
+{
+    $_SESSION['FAMILY_FILTER'] = 1;
     
     if (isset($_SESSION['UID']))
     {
@@ -41,15 +54,14 @@ if ($_COOKIE['FAMILY_FILTER'] == 0)
     
     $redirect_url = $_SESSION['REDIRECT'];
     unset($_SESSION['REDIRECT']);
-    
     db_close();
     redirect($redirect_url);
 }
-else if ($_COOKIE['FAMILY_FILTER'] == 1)
+else
 {
     if (isset($_POST['submit']))
     {
-        setcookie('FAMILY_FILTER', 0, time() + 8640000, '/');
+        $_SESSION['FAMILY_FILTER'] = 0;
         
         if (isset($_SESSION['UID']))
         {
@@ -66,6 +78,7 @@ else if ($_COOKIE['FAMILY_FILTER'] == 1)
     }
 }
 
+$smarty->assign('age_minimum', get_config('signup_age_min'));
 $smarty->display('header.tpl');
 $smarty->display('family_filter.tpl');
 $smarty->display('footer.tpl');

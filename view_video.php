@@ -47,7 +47,6 @@ if ($video_info['video_adult'])
 {
 	if (get_family_filter())
 	{
-		$_SESSION['REDIRECT'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		$redirect_url = VSHARE_URL . '/family_filter/';
 		redirect($redirect_url);
 	}

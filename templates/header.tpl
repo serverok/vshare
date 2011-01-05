@@ -49,7 +49,7 @@
             {/if}
             
             {if $family_filter eq '1'}
-                Family Filter <a href="{$base_url}/family_filter/">{if $smarty.cookies.FAMILY_FILTER eq '1'}ON{else}OFF{/if}</a> |
+                Family Filter <a href="{$base_url}/family_filter/">{if $smarty.session.FAMILY_FILTER eq '1'}ON{else}OFF{/if}</a> |
             {/if}
             
             <a href="{$base_url}/pages/help.html">Help</a>
