@@ -14,7 +14,7 @@
 
 require 'include/config.php';
 
-if ($config['family_filter'] == 0 || !isset($_SESSION['UID']))
+if ($config['family_filter'] == 0)
 {
     db_close();
     redirect(VSHARE_URL);

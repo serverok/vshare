@@ -56,8 +56,7 @@ class User
             
             if ($config['family_filter'] == 1)
             {
-            	$user_adult = $user_info['user_adult'];
-            	setcookie('FAMILY_FILTER', $user_adult, time() + 8640000, '/');
+            	$_SESSION['FAMILY_FILTER'] = $user_info['user_adult'];
             }
         }
     }
