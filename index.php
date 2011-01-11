@@ -81,7 +81,7 @@ if (! $view)
         $featured_videos[] = $featured_video;
     }
     
-    if (mysql_num_rows($result) > 1)
+    if (mysql_num_rows($result) > 0)
     {
         $smarty->assign('featured_videos', $featured_videos);
         $view['featured_video_block'] = $smarty->fetch('index_featured_videos.tpl');
