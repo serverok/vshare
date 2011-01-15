@@ -575,15 +575,19 @@ CLASSES
     border: 1px solid #fb9999;
  }
 .vshare-success {
-    font-weight: bold;
-    color: #060;
+    font-weight: 700;
+    color: #FF0000;
     text-align: center;
     vertical-align: middle;
     padding: 1em;
-    background-color: #CCFFFF;
+    background-color: #FFC;
     margin-bottom: 0.2em;
-    font-size: 14px;
-    border: 1px solid #336699;
+    background-image:url(../images/success.gif);
+    background-repeat: no-repeat;
+    margin-top: auto;
+    margin-right: auto;
+    margin-left: auto;
+    border: 1px solid #F00;
 }
 .confirmation {
     font-size: 14px;
