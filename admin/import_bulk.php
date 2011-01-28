@@ -52,7 +52,7 @@ if (isset($_GET['keyword']))
         foreach ($feed as $entry)
         {
             $video['video_id'] = $entry->getVideoId();
-            $video['thumb_url'] = $entry->mediaGroup->thumbnail[0]->url;
+            $video['thumb_url'] = $entry->mediaGroup->thumbnail[1]->url;
             $video['video_title'] = (string) $entry->mediaGroup->title;
             $video['video_description'] = (string) $entry->mediaGroup->description;
             $video['video_title'] = htmlspecialchars($video['video_title'], ENT_QUOTES, 'UTF-8');
