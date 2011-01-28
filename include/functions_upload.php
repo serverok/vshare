@@ -140,7 +140,8 @@ function download_video($vid)
 function process_video($vid, $debug = 1)
 {
     
-    global $config;
+    global $config, $db_host, $db_user, $db_pass, $db_name;
+    
     $log_file_name = 'convert_log_' . $vid;
     require VSHARE_DIR . '/include/functions_seo_name.php';
     require VSHARE_DIR . '/include/class.mail.php';
@@ -343,6 +344,9 @@ function process_video($vid, $debug = 1)
         require VSHARE_DIR . '/include/functions_flv.php';
         
         $video_duration_cmd = get_config('video_duration_cmd');
+        
+        db_close();
+        
         $duration_arr = array();
         $duration_arr['src'] = $video_src;
         $duration_arr['debug'] = $debug;
@@ -485,6 +489,11 @@ function process_video($vid, $debug = 1)
         {
             flv_metadata($rand_flv_name, $video_folder, $log_file_name, $debug);
         }
+        
+        $conn = mysql_connect($db_host, $db_user, $db_pass) or die('Can\'t connect : ' . mysql_error());
+        mysql_select_db($db_name, $conn) or die('Can\'t select database : ' . mysql_error());
+        mysql_set_charset('utf8', $conn);
+        
         
         if (! file_exists($video_flv))
         {
