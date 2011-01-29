@@ -16,6 +16,7 @@ RewriteRule ^tag/(.*)/(.*) tag.php?search_string=$1&page=$2 [L,QSA]
 RewriteRule ^cache/ index.php [L,QSA]
 RewriteRule ^channels/ channels.php [L,QSA]
 RewriteRule ^upload/success/(.*)/(.*)/ upload_success.php?id=$1&upload_id=$2 [L,QSA]
+RewriteRule ^upload/embed/ upload_embed.php
 RewriteRule ^upload/ upload.php [L,QSA]
 RewriteRule ^channel/(.*)/(.*)/recent/(.*) video.php?category=recent&chid=$1&page=$3
 RewriteRule ^channel/(.*)/(.*)/viewed/(.*) video.php?category=viewed&chid=$1&page=$3
