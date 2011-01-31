@@ -34,7 +34,6 @@ RewriteRule ^detailed/discussed/(.*) video.php?category=discussed&page=$1&view_t
 RewriteRule ^detailed/favorites/(.*) video.php?category=favorites&page=$1&view_type=detailed
 RewriteRule ^detailed/rated/(.*) video.php?category=rated&page=$1&view_type=detailed
 RewriteRule ^detailed/featured/(.*) video.php?category=featured&page=$1&view_type=detailed
-RewriteRule ^detailed/random/(.*) video.php?category=random&page=$1&view_type=detailed
 RewriteRule ^recent/(.*) video.php?category=recent&page=$1
 RewriteRule ^viewed/(.*) video.php?category=viewed&page=$1
 RewriteRule ^edit/video/(.*) video_edit.php?video_id=$1
@@ -42,7 +41,6 @@ RewriteRule ^discussed/(.*) video.php?category=discussed&page=$1
 RewriteRule ^favorites/(.*) video.php?category=favorites&page=$1
 RewriteRule ^rated/(.*) video.php?category=rated&page=$1
 RewriteRule ^featured/(.*) video.php?category=featured&page=$1
-RewriteRule ^random/(.*) video.php?category=random&page=$1
 RewriteRule ^rss/new/ rss.php?type=new [L]
 RewriteRule ^rss/comments/ rss.php?type=comments [L]
 RewriteRule ^rss/views/ rss.php?type=views [L]

@@ -42,7 +42,6 @@ if ($view_type != 'basic')
 $category = $_GET['category'];
 
 $category_all = array(
-    'random',
     'recent',
     'viewed',
     'discussed',
@@ -184,19 +183,6 @@ if (! $view)
                `video_featured`='yes'
                 $sql_adult_filter
                 ORDER BY `video_add_time` DESC
-                LIMIT $start_from, $config[num_watch_videos]";
-    }
-    else if ($category == 'random')
-    {
-        $view['html_title'] = 'Random Videos';
-        $view['display_order'] = 'Random';
-        $sql = "SELECT * FROM `videos` WHERE
-               `video_type`='public' AND
-               `video_active`='1' AND
-               `video_approve`='1'
-                $channel_sql
-                $sql_adult_filter
-                ORDER BY rand()
                 LIMIT $start_from, $config[num_watch_videos]";
     }
     
