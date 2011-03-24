@@ -189,12 +189,14 @@ if (! $view)
     $result = mysql_query($sql) or mysql_die($sql);
     $video_count = mysql_num_rows($result);
     
-    if (!$video_count)
+    if (!$video_count && $page > 1)
     {
         require '404.php';
         exit();
     }
-
+    
+    $videos = array();
+    
     while ($video = mysql_fetch_assoc($result))
     {
         $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];

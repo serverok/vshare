@@ -92,7 +92,9 @@
                         {/if}
                     </p>
                 </div>
-                
+            {sectionelse}
+                <br />
+                <center><p><b>There are no videos found.</b></p></center>
             {/section}
       
         {else}
@@ -158,7 +160,9 @@
                     </div>
                     
                 </div> <!--watch-detailed-->
-             
+            {sectionelse}
+                <br />
+                <center><p><b>There are no videos found.</b></p></center>
             {/section}
         
         {/if}

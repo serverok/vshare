@@ -1,4 +1,3 @@
-start = 1;
 
 function createNewList() 
 {
