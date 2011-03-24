@@ -371,6 +371,11 @@ $menu_items = array(
         'Update Counters',
         'update_counters.php',
         12
+    ),
+    array(
+        'View PHP Info',
+        'phpinfo.php',
+        12
     )
 );
 
