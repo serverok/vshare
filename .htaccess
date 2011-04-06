@@ -67,7 +67,6 @@ RewriteRule ^verify/user/(.*)/(.*)/(.*)/ user_signup_verify.php?u=$1&i=$2&k=$3
 RewriteRule ^verify/email/(.*)/(.*)/(.*)/ confirm_email.php?u=$1&i=$2&k=$3
 RewriteRule ^confirm/friend/(.*)/(.*) friend_accept.php?id=$1&key=$2
 RewriteRule ^search/(.*)/(.*) search_videos.php?search_string=$1&page=$2 [L,QSA]
-RewriteRule ^search/(.*)/(.*)/(.*)/(.*)/(.*)/(.*) advanced_search.php?words=$1&channels=$2&user=$3&relevence=$4&sort=$5&page=$6
 RewriteRule ^style/(.*)/ style.php?css=$1 [L,QSA]
 RewriteRule ^privacy/ user_privacy.php [L,QSA]
 RewriteRule ^video_response_upload/(.*) upload_video_response.php?vid=$1 [L,QSA]
