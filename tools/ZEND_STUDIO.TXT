@@ -16,7 +16,7 @@ Shortcut: Ctrl + Shift + F
 SPACE INSTEAD OF TABS
 ==============================================================================
 
-Window > Preferences > General > Text Editors
+Window > Preferences > General > Editors > Text Editors
 
 
 Insert spaces for tab (chk)
@@ -29,3 +29,11 @@ Window > Preferences > PHP > Editor > Save Actions > Remove Trailing Whitespace 
 
 
 ==============================================================================
+SAVE IN UNIX FORMAT
+==============================================================================
+
+Right Click Project in Zend Studio
+
+Take "Property"
+
+Resource > New text file line delimiter > Other > Unix
