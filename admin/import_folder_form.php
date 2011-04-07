@@ -76,8 +76,8 @@ if (isset($_POST['submit']))
             $pos = strrpos($file_name, '.');
             $file_extn = strtolower(substr($file_name, $pos + 1, strlen($file_name) - $pos));
             $file_no_extn = basename($file_name, ".$file_extn");
-            $file_no_extn = ereg_replace("[&$#]+", ' ', $file_no_extn);
-            $file_no_extn = ereg_replace("[ ]+", '-', $file_no_extn);
+            $file_no_extn = preg_replace("/[&$#]+/", ' ', $file_no_extn);
+            $file_no_extn = preg_replace("/\s+/", '-', $file_no_extn);
             $file_name = $file_no_extn . '.' . $file_extn;
             $file_path = VSHARE_DIR . '/video/' . $file_name;
             $i = 0;

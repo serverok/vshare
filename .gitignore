@@ -8,6 +8,7 @@ include/htmlpurifier/HTMLPurifier/DefinitionCache/Serializer/HTML/*
 .settings/*
 .cache/*
 .project
+.buildpath
 cache
 tools/test/test_media/*
 chimg/*
