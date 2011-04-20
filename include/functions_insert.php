@@ -339,19 +339,21 @@ function insert_row_count($a)
 
 function insert_channel_count($a)
 {
-    global $conn;
+    global $conn, $sql_adult_filter;
     $dt = date('Y-m-d');
     $sql_extra = ' AND `video_active`=1 AND `video_approve`=1';
     $sql = "SELECT count(*) AS `dytotal` FROM `videos` WHERE
            `video_channels` LIKE '%|$a[cid]|%' AND
            `video_add_date`='$dt'
-            $sql_extra";
+            $sql_extra
+            $sql_adult_filter";
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
     $list[0] = $tmp['dytotal'];
     $sql = "SELECT count(*) AS `chtotal` FROM `videos` WHERE
            `video_channels` LIKE '%|$a[cid]|%'
-            $sql_extra";
+            $sql_extra
+            $sql_adult_filter";
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
     $list[1] = $tmp['chtotal'];

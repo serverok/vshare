@@ -16,6 +16,13 @@ require 'include/config.php';
 require 'include/class.channels.php';
 require 'include/language/' . LANG . '/lang_channels.php';
 
+$sql_adult_filter = '';
+
+if (get_family_filter())
+{
+    $sql_adult_filter = "AND `video_adult`='0'";
+}
+
 $channels = channels::get_all();
 
 if ($channels == 0)
