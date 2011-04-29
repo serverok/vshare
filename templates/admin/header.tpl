@@ -8,4 +8,4 @@
 {$html_head}
 </head>
 <body>
-{include file=error.tpl}
+{include file="error.tpl"}

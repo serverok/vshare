@@ -85,7 +85,7 @@
 
         <div class="clearfix"></div>
         
-        {if $page_links ne "" }
+        {if $page_links ne ""}
             <div class="page_links">
                 Pages:{$page_links}
             </div>

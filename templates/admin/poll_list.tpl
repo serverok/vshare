@@ -3,8 +3,8 @@
 {section name=i loop=$pollArray}
 
     <p>
-        <b>Q: </b> 
-        {$pollArray[i].poll_qty} 
+        <b>Q: </b>
+        {$pollArray[i].poll_qty}
         ( <a href="poll_edit.php?poll_id={$pollArray[i].poll_id}">
             <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
         </a> <a href="poll_list.php?action=delete&poll_id={$pollArray[i].poll_id}" onclick="return confirm('Click OK to delete poll')">
@@ -21,7 +21,7 @@
         {/section}
     </table>
 
-    <p><i>Start Date:{$pollArray[i].start_date} End Date:{$pollArray[i].end_date }</i></p>
+    <p><i>Start Date:{$pollArray[i].start_date} End Date:{$pollArray[i].end_date}</i></p>
 
     <hr size="1" />
 

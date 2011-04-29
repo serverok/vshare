@@ -93,7 +93,7 @@
             
                     I would like to add you to the list of people I may share videos with.<br /><br />
             
-                    Personal message from [{if $first_name ne "" }{$first_name}{else}Your Name{/if}]:<br /><br />
+                    Personal message from [{if $first_name ne ""}{$first_name}{else}Your Name{/if}]:<br /><br />
                     
                     <textarea name="message" rows="5" cols="45">Have you heard about {$site_name}? I love this site.</textarea>
                 </div>

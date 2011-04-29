@@ -38,13 +38,13 @@
                         {foreach from=$months item=month}
                             <option {if $month eq $signup.month} selected {/if}>{$month}</option>
                         {/foreach}
-                    </select>                        
+                    </select>
                     <select name="day">
                         <option>dd</option>
                         {foreach from=$days item=day}
                             <option {if $day eq $signup.day} selected {/if}>{$day}</option>
                         {/foreach}
-                    </select>                        
+                    </select>
                     <select name="year">
                         <option>yyyy</option>
                         {foreach from=$years item=year}
@@ -55,7 +55,7 @@
             
             {/if}
             
-            {if $signup_captcha eq "1" }
+            {if $signup_captcha eq "1"}
                 {if $captcha_type eq 'default'}
                     <div>
                         <label>Security Code:</label>

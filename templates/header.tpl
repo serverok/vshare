@@ -97,8 +97,8 @@
     
     {insert name=advertise adv_name='banner_top'}
     
-    {*{include file=search_box.tpl}*}
+    {*{include file="search_box.tpl"}*}
     
     <div id="main" class="clearfix">
     
-        {include file=error.tpl}
+        {include file="error.tpl"}
