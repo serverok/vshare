@@ -1,7 +1,7 @@
 vShare          2.7              05 May 2009
-TinyMCE         3.2.3.1          07 May 2009
-ZendFramework   1.7.6            27 Feb 2009
-Pager	        2.4.8	         21 Apr 2009             http://pear.php.net/package/Pager/
-
+TinyMCE		3.4.2		 30 Apr 2011		http://tinymce.moxiecode.com
+ZendFramework   1.7.6            27 Feb 2009		 
+Pager	        2.4.8	         21 Apr 2009            http://pear.php.net/package/Pager/
+Smarty		3.0.7		 11 Feb 2011		http://www.smarty.net/download
 
 
