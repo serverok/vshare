@@ -45,9 +45,9 @@
     tinyMCE.init({
         mode : "textareas",
         theme : "advanced",
-        plugins : "table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,zoom,media,searchreplace,print,contextmenu,paste,directionality,fullscreen",
-        theme_advanced_buttons1_add : "fontselect,fontsizeselect",
-        theme_advanced_buttons2_add : "separator,preview,forecolor,backcolor,hr",
+        plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
+        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+        theme_advanced_buttons2 : "bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor,hr,|,sub,sup",
         theme_advanced_buttons3 : "",
         theme_advanced_toolbar_align : "left",
         theme_advanced_toolbar_location : "top",
@@ -58,7 +58,16 @@
         paste_convert_headers_to_strong : false,
         paste_strip_class_attributes : "all",
         paste_remove_spans : false,
-        paste_remove_styles : false
+        paste_remove_styles : false,
+        style_formats : [
+	        {title : 'Bold text', inline : 'b'},
+	        {title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+	        {title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
+	        {title : 'Example 1', inline : 'span', classes : 'example1'},
+	        {title : 'Example 2', inline : 'span', classes : 'example2'},
+	        {title : 'Table styles'},
+	        {title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+        ]
     });
 </script>
 {/literal}
