@@ -23,7 +23,7 @@ class video_duration
         if (@preg_match('/Duration: ([0-9][0-9]:[0-9][0-9]:[0-9\.]+), .*/', $output_all, $regs))
         {
             $sec = $regs[1];
-            $duration_array = split(":", $sec);
+            $duration_array = explode(":", $sec);
             $sec = ($duration_array[0] * 3600) + ($duration_array[1] * 60) + $duration_array[2];
             $sec = (int) $sec;
         }
