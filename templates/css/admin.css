@@ -73,6 +73,14 @@ img {
 	padding:1em;
 	margin: 5px 0 10px 0;
 }
+.vshare-success-button {
+	float:right;
+	border:0;
+	background-image:url(../images/msg_close.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 18px;
+}
 .vshare-error {
 	font-weight: bold;
 	color: #f00;

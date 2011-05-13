@@ -332,7 +332,8 @@ if (isset($_POST['submit']))
             $mail = new Mail();
             $mail->send($email);
             
-            $msg = $lang['verification_mail_send'];
+            $signup_verification_msg = $lang['verification_mail_send'];
+            $smarty->assign('signup_verification_msg', $signup_verification_msg);
         }
         # send activation mail end
         
@@ -430,7 +431,8 @@ if (isset($_POST['submit']))
         {
             if ($config['signup_verify'] == '1')
             {
-                $msg = $lang['signup_verify_email'];
+                $signup_verification_msg = $lang['signup_verify_email'];
+                $smarty->assign('signup_verification_msg', $signup_verification_msg);
             }
             else
             {

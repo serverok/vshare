@@ -1,3 +1,6 @@
+{if $signup_verification_msg ne ""}
+	<div class="signup_verification_msg">{$signup_verification_msg}</div>
+{else}
 <div id="signup-box">
 
     <div class="section bg2">
@@ -13,7 +16,7 @@
             <div>
                 <label for="user_name">User Name:</label>
                 <input type="text" id="user_name" name="user_name" value="{$signup.user_name}" />
-            </div>                
+            </div>
             
             <div>
                 <label for="email">Email:</label>
@@ -114,15 +117,15 @@
                         I certify I am over {$age_minimum} years old.
                     </li>
                     <li>
-                        I agree to the 
-                        <a href="{$base_url}/pages/terms.html" target="_blank">terms of use</a> and 
+                        I agree to the
+                        <a href="{$base_url}/pages/terms.html" target="_blank">terms of use</a> and
                         <a href="{$base_url}/pages/privacy.html" target="_blank">privacy policy</a>.
                     </li>
                 </ul>
             </div>
             
             <div class="submit">
-                <input type="submit" value="Signup" name="submit" /> 
+                <input type="submit" value="Signup" name="submit" />
             </div>
             
         </form>
@@ -135,7 +138,7 @@
 
     <div class="section bg2">
     
-        <div class="hd">        
+        <div class="hd">
             <div class="hd-l">{$site_name} Log In</div>
         </div>
     
@@ -164,3 +167,4 @@
     </div>
 
 </div> <!-- login_box2 -->
+{/if}
