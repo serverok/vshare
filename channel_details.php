@@ -34,6 +34,7 @@ if ($num_rows > 0)
            `video_channels` LIKE '%|" . (int) $_GET['id'] . "|%' AND
            `video_approve`='1' AND
            `video_active`='1' AND
+           `video_type`='public' AND
            `video_user_id` > '0'
             GROUP BY `video_user_id`
             ORDER BY `total` DESC
@@ -45,7 +46,8 @@ if ($num_rows > 0)
     $sql = "SELECT * FROM `videos` WHERE
            `video_channels` LIKE '%|" . (int) $_GET['id'] . "|%' AND
            `video_approve`='1' AND
-           `video_active`='1'
+           `video_active`='1' AND
+           `video_type`='public'
             ORDER BY `video_add_time` DESC
             LIMIT $num_channel_videos";
     $result = mysql_query($sql) or mysql_die($sql);
@@ -65,7 +67,8 @@ if ($num_rows > 0)
     $sql = "SELECT * FROM `videos` WHERE
            `video_channels` LIKE '%|" . (int) $_GET['id'] . "|%' AND
            `video_approve`='1' AND
-           `video_active`='1'
+           `video_active`='1' AND
+           `video_type`='public'
             ORDER BY `video_view_number` DESC
             LIMIT $num_channel_videos";
     $result = mysql_query($sql) or mysql_die($sql);
