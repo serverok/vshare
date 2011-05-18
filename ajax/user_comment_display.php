@@ -25,12 +25,12 @@ if (mysql_num_rows($result) > 0)
     
     if ($total > 0)
     {
-        $start_from = ($page - 1) * $config['items_per_page'];
+        $start_from = ($page - 1) * $config['user_comments_per_page'];
         
         $sql = "SELECT * FROM `profile_comments` WHERE
                `profile_comment_user_id`='" . (int) $user_info['user_id'] . "'
                 ORDER BY `profile_comment_id` DESC
-                LIMIT $start_from, $config[items_per_page]";
+                LIMIT $start_from, $config[user_comments_per_page]";
         $result = mysql_query($sql) or mysql_die();
         
         $profile_comments = mysql_fetch_all($result);
@@ -41,7 +41,7 @@ if (mysql_num_rows($result) > 0)
         
         $params = array(
             'mode' => 'Sliding',
-            'perPage' => $config['items_per_page'],
+            'perPage' => $config['user_comments_per_page'],
             'delta' => 2,
             'totalItems' => $total,
             'nextImg' => 'Next',
