@@ -16,3 +16,4 @@ Thumbs.db
 include/config.php
 patch/*
 cgi-bin/*
+sitemap/*
