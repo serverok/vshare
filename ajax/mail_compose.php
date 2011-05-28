@@ -56,7 +56,7 @@ if (isset($_GET['action']))
                 if ($user_mail_today > $user_daily_mail_limit)
                 {
                     set_message($lang['email_limit_exceeded'], 'success');
-                    redirect(VSHARE_URL);
+                    echo 'sent';
                     exit();
                 }
                 

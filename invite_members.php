@@ -170,7 +170,7 @@ if (isset($_POST['send']) && $allow_invite == 1)
                     if (mysql_num_rows($result) == 0)
                     {
                         $sql = "INSERT INTO `buddy_list` SET
-                               `username`='" . mysql_clean($_SESSION['USERNAME']) . "',
+                               `user_name`='" . mysql_clean($_SESSION['USERNAME']) . "',
                                `buddy_name`='" . mysql_clean($_POST['flist'][$i]) . "'";
                         $temp = mysql_query($sql) or mysql_die($sql);
                     }
