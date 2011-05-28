@@ -138,6 +138,11 @@
         <input type="text" name="num_max_channels" id="num_max_channels" value="{$num_max_channels}" />
     </div>
 
+    <div>
+        <label for="user_daily_mail_limit">Daily Mail Limit Per User:</label>
+        <input type="text" name="user_daily_mail_limit" id="user_daily_mail_limit" value="{$user_daily_mail_limit}" />
+    </div>
+
     <div class="submit">
         <input type="submit" name="submit" value="Update" />
     </div>

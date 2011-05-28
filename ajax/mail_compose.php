@@ -33,6 +33,14 @@ if (isset($_GET['action']))
         
         if (empty($err))
         {
+            $user_daily_mail_limit = get_config('user_daily_mail_limit');
+            
+            $sql = "SELECT count(*) AS `total` FROM `mail_logs` WHERE
+                   `mail_log_user_id`='" . (int) $_SESSION['UID'] . "'";
+            $result_log = mysql_query($sql) or mysql_die($sql);
+            $mail_log_info = mysql_fetch_assoc($result_log);
+            $user_mail_today = $mail_log_info['total'];
+            
             $sql = "SELECT * FROM `users` WHERE
 	               `user_name`='" . mysql_clean($mail_to) . "'";
             $result = mysql_query($sql) or mysql_die($sql);
@@ -43,6 +51,20 @@ if (isset($_GET['action']))
             }
             else
             {
+                $user_mail_today ++;
+                
+                if ($user_mail_today > $user_daily_mail_limit)
+                {
+                    set_message($lang['email_limit_exceeded'], 'success');
+                    redirect(VSHARE_URL);
+                    exit();
+                }
+                
+                $sql = "INSERT INTO `mail_logs` SET
+                       `mail_log_user_id`='" . (int) $_SESSION['UID'] . "',
+                       `mail_log_time`='" . time() . "'";
+                mysql_query($sql) or mysql_die($sql);
+                
                 $user_info = mysql_fetch_assoc($result);
                 
                 if ($user_info['user_private_message'] == 0)

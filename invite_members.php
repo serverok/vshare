@@ -79,6 +79,14 @@ if (isset($_POST['send']) && $allow_invite == 1)
     }
     else
     {
+        $user_daily_mail_limit = get_config('user_daily_mail_limit');
+        
+        $sql = "SELECT count(*) AS `total` FROM `mail_logs` WHERE
+               `mail_log_user_id`='" . (int) $_SESSION['UID'] . "'";
+        $result_log = mysql_query($sql) or mysql_die($sql);
+        $mail_log_info = mysql_fetch_assoc($result_log);
+        $user_mail_today = $mail_log_info['total'];
+        
         if ($sender_info['user_first_name'] == '')
         {
             $sender_name = $sender_info['user_name'];
@@ -120,6 +128,19 @@ if (isset($_POST['send']) && $allow_invite == 1)
                 
                 if ($count > 0)
                 {
+                    $user_mail_today ++;
+                    
+                    if ($user_mail_today > $user_daily_mail_limit)
+                    {
+                        $msg .= $lang['email_limit_exceeded'];
+                        break;
+                    }
+                    
+                    $sql = "INSERT INTO `mail_logs` SET
+                           `mail_log_user_id`='" . (int) $_SESSION['UID'] . "',
+                           `mail_log_time`='" . time() . "'";
+                    mysql_query($sql) or mysql_die($sql);
+                    
                     $email_body_tmp = $email_body;
                     $verify_url = VSHARE_URL . '/group/' . $_GET['group_url'] . '/join/' . $key . '/';
                     
@@ -142,7 +163,7 @@ if (isset($_POST['send']) && $allow_invite == 1)
                     $temp = mysql_query($sql) or mysql_die($sql);
                     
                     $sql = "SELECT * FROM `buddy_list` WHERE
-                           `username`='" . mysql_clean($_SESSION['USERNAME']) . "' AND
+                           `user_name`='" . mysql_clean($_SESSION['USERNAME']) . "' AND
                            `buddy_name`='" . mysql_clean($_POST['flist'][$i]) . "'";
                     $result = mysql_query($sql) or mysql_die($sql);
                     
@@ -176,6 +197,19 @@ if (isset($_POST['send']) && $allow_invite == 1)
             {
                 if (validate::email($emails[$i]))
                 {
+                    $user_mail_today ++;
+                    
+                    if ($user_mail_today > $user_daily_mail_limit)
+                    {
+                        $msg .= $lang['email_limit_exceeded'];
+                        break;
+                    }
+                    
+                    $sql = "INSERT INTO `mail_logs` SET
+                           `mail_log_user_id`='" . (int) $_SESSION['UID'] . "',
+                           `mail_log_time`='" . time() . "'";
+                    mysql_query($sql) or mysql_die($sql);
+                    
                     $key = $_SERVER['REQUEST_TIME'] . rand(1, 99999999);
                     $sql = "INSERT INTO `verify_code` SET
                        `vkey`='" . mysql_clean($key) . "',
@@ -203,16 +237,22 @@ if (isset($_POST['send']) && $allow_invite == 1)
                     $email['body'] = $email_body_tmp;
                     $mail = new Mail();
                     $mail->send($email);
+                    
+                    $msg .= $emails[$i] . ' - ' . $lang['invite_sent'] . '<br />';
                 }
             
             }
         }
         
-        set_message($lang['invite_sent'], 'success');
+        set_message($msg, 'success');
         $redirect_url = VSHARE_URL . '/group/' . $_GET['group_url'] . '/invite/';
         redirect($redirect_url);
     }
 }
+
+$sql = "DELETE FROM `mail_logs` WHERE
+       `mail_log_time` < '" . strtotime("last day") . "'";
+mysql_query($sql) or mysql_die($sql);
 
 $sql = "SELECT `user_first_name` FROM `users` WHERE
        `user_id`='" . (int) $_SESSION['UID'] . "'";

@@ -58,10 +58,18 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min', '1
 ALTER TABLE `users` CHANGE `user_account_status` `user_account_status` ENUM( 'Active', 'Inactive', 'Suspended' ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Active';
 
 CREATE TABLE IF NOT EXISTS `sitemap` (
-	`sitemap_id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-	`sitemap_name` VARCHAR( 255 ) NOT NULL ,
-	`sitemap_create_date` INT( 11 ) NOT NULL ,
-	`sitemap_url_count` INT( 11 ) NOT NULL default '0',
-	`sitemap_size` INT( 11 ) NOT NULL ,
-	`sitemap_last_video_id` INT( 11 ) NOT NULL
+  `sitemap_id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  `sitemap_name` VARCHAR( 255 ) NOT NULL ,
+  `sitemap_create_date` INT( 11 ) NOT NULL ,
+  `sitemap_url_count` INT( 11 ) NOT NULL default '0',
+  `sitemap_size` INT( 11 ) NOT NULL ,
+  `sitemap_last_video_id` INT( 11 ) NOT NULL
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+INSERT INTO `config` (`config_name` ,`config_value`) VALUES ('user_daily_mail_limit', '50');
+
+CREATE TABLE `mail_logs` (
+  `mail_log_id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  `mail_log_user_id` INT( 11 ) NOT NULL ,
+  `mail_log_time` INT( 11 ) NOT NULL
+) ENGINE = MYISAM CHARACTER SET utf8;

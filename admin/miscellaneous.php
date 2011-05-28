@@ -187,10 +187,19 @@ if (isset($_POST['submit']))
             mysql_query($sql) or mysql_die($sql);
         }
         
+        if (is_numeric($_POST['user_daily_mail_limit']))
+        {
+            $sql = "UPDATE `config` SET
+                   `config_value`='" . intval($_POST['user_daily_mail_limit']) . "' WHERE
+                   `config_name`='user_daily_mail_limit'";
+            mysql_query($sql) or mysql_die($sql);
+        }
+        
         $msg = $lang['settings_updated'];
     }
 }
 
+$smarty->assign('user_daily_mail_limit', get_config('user_daily_mail_limit'));
 $smarty->assign('flv_metadata', get_config('flv_metadata'));
 $smarty->assign('video_duration_cmd', get_config('video_duration_cmd'));
 $smarty->assign('num_channel_video', get_config('num_channel_video'));

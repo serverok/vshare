@@ -121,6 +121,7 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('youtube_player', 'y
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('vshare_player', 'JW Player');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min_enforce', '0');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min', '18');
+INSERT INTO `config` (`config_name` ,`config_value`) VALUES('user_daily_mail_limit', '50');
 
 -- Table structure for table `contact`
 
@@ -843,10 +844,19 @@ CREATE TABLE IF NOT EXISTS `video_responses` (
 -- Dumping data for table `video_responses`
 
 CREATE TABLE IF NOT EXISTS `sitemap` (
-	`sitemap_id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-	`sitemap_name` VARCHAR( 255 ) NOT NULL ,
-	`sitemap_create_date` INT( 11 ) NOT NULL ,
-	`sitemap_url_count` INT( 11 ) NOT NULL default '0',
-	`sitemap_size` INT( 11 ) NOT NULL ,
-	`sitemap_last_video_id` INT( 11 ) NOT NULL
+  `sitemap_id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  `sitemap_name` VARCHAR( 255 ) NOT NULL ,
+  `sitemap_create_date` INT( 11 ) NOT NULL ,
+  `sitemap_url_count` INT( 11 ) NOT NULL default '0',
+  `sitemap_size` INT( 11 ) NOT NULL ,
+  `sitemap_last_video_id` INT( 11 ) NOT NULL
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+-- Table structure for table `mail_logs`
+
+CREATE TABLE `mail_logs` (
+  `mail_log_id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  `mail_log_user_id` INT( 11 ) NOT NULL ,
+  `mail_log_time` INT( 11 ) NOT NULL
+) ENGINE = MYISAM CHARACTER SET utf8;
+
