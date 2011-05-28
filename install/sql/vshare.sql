@@ -841,3 +841,12 @@ CREATE TABLE IF NOT EXISTS `video_responses` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- Dumping data for table `video_responses`
+
+CREATE TABLE IF NOT EXISTS `sitemap` (
+	`sitemap_id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+	`sitemap_name` VARCHAR( 255 ) NOT NULL ,
+	`sitemap_create_date` INT( 11 ) NOT NULL ,
+	`sitemap_url_count` INT( 11 ) NOT NULL default '0',
+	`sitemap_size` INT( 11 ) NOT NULL ,
+	`sitemap_last_video_id` INT( 11 ) NOT NULL
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;

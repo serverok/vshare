@@ -368,6 +368,11 @@ $menu_items = array(
         11
     ),
     array(
+        'Site Map',
+        'sitemap.php',
+        12
+    ),
+    array(
         'Update Counters',
         'update_counters.php',
         12
