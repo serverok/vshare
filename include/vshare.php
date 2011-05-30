@@ -23,7 +23,6 @@ define('VSHARE_URL', $config['baseurl']);
 $config['TMB_DIR'] = VSHARE_DIR . '/thumb';
 
 require VSHARE_DIR . '/include/smarty/libs/Smarty.class.php';
-require VSHARE_DIR . '/include/phpmailer/class.phpmailer.php';
 require VSHARE_DIR . '/include/functions.php';
 require VSHARE_DIR . '/include/class.user.php';
 
