@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.7
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -21,7 +21,8 @@ $vshare_versions = array(
     '2.4',
     '2.5',
     '2.6',
-    '2.7'
+    '2.7',
+    '2.8'
 );
 
 if (! in_array($config['version'], $vshare_versions))
@@ -61,6 +62,12 @@ switch ($config['version'])
         $redirect_url = VSHARE_URL . '/install/upgrade_2.6_to_2.7.php';
         break;
     case '2.7':
+        $redirect_url = VSHARE_URL . '/install/upgrade_2.7_to_2.8.1.php';
+        break;
+    case '2.8':
+        $redirect_url = VSHARE_URL . '/install/upgrade_2.8_to_2.8.1.php';
+        break;
+    case '2.8.1':
         $redirect_url = VSHARE_URL . '/install/upgrade_finished.php';
         break;
     default:
