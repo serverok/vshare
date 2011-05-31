@@ -433,7 +433,7 @@ INSERT INTO `pages` (`page_id`, `page_name`, `page_title`, `page_keywords`, `pag
 CREATE TABLE IF NOT EXISTS `playlists_videos` (
 `playlists_videos_playlist_id` int( 11 ) NOT NULL DEFAULT 0,
 `playlists_videos_video_id` bigint( 20 ) default NULL
-);
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- Dumping data for table `playlists_videos`
 
@@ -445,7 +445,7 @@ CREATE TABLE IF NOT EXISTS `playlists` (
 `playlist_name` varchar(50) NOT NULL,
 `playlist_add_date` varchar(255) NOT NULL,
 PRIMARY KEY (`playlist_id`)
-);
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- Dumping data for table `playlists`
 
