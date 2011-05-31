@@ -138,9 +138,9 @@ p.upgrade-finished-version {
 	color:#666;
 }
 span.msg {
-     color:#941837;
-     font-weight:bold;
-	font-size: 17px;
+    color: #FF4800;
+    font: 29px/29px "Lucida Sans Unicode";
+    letter-spacing: -2px;
 }
 .re-install-msg {
      color:#828181;
@@ -149,7 +149,7 @@ span.msg {
 .button {
 	display: inline-block;
 	border: 1px solid rgb(0, 0, 0);
-	padding: 30px;
+	padding: 15px;
 	text-decoration: none;
 	-moz-border-radius: 3px 3px 3px 3px;
 	text-transform: uppercase;
@@ -158,13 +158,10 @@ span.msg {
 	-moz-box-shadow: 5px 5px 5px #ccc;
 	-webkit-box-shadow: 5px 5px 5px #ccc;
 	font-size: 15px;
+	font-weight:bold
 }
+
 hr {
-    border-color: #ACADAC -moz-use-text-color #000000;
-    border-left: 0 none;
-    border-right: 0 none;
-    border-style: dotted none solid;
-    border-width: 1px 0;
     height: 2px;
     text-align: left;
 }

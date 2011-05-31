@@ -1,4 +1,4 @@
-vShare          2.7              05 May 2009
+vShare          2.8.1            02-Jun-2011
 TinyMCE		3.4.2		 30 Apr 2011		http://tinymce.moxiecode.com
 ZendFramework   1.7.6            27 Feb 2009		 
 Pager	        2.4.8	         21 Apr 2009            http://pear.php.net/package/Pager/
