@@ -17,23 +17,11 @@ require '../include/class.sitemap.php';
 
 check_admin_login();
 
-$sitemap_action = isset($_GET['action']) ? $_GET['action'] : '';
-$sitemap_id = isset($_GET['sitemap_id']) ? $_GET['sitemap_id'] : 0;
-
 $sitemap = new sitemap();
 
 if (isset($_POST['generate_sitemap']))
 {
     $msg = $sitemap->generate();
-}
-
-if ($sitemap_action == 'update')
-{
-    $msg =  $sitemap->updateSitemap($sitemap_id);
-}
-else if ($sitemap_action == 'delete')
-{
-    $sitemap->deleteSitemap($sitemap_id);
 }
 
 $smarty->assign('msg', $msg);
