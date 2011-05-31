@@ -1,14 +1,14 @@
 <?php
 /******************************************************************************
  *
- *   COMPANY: BuyScripts.in
- *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.7
- *   LISENSE: http://buyscripts.in/vshare-license.html
- *   WEBSITE: http://buyscripts.in/youtube_clone.html
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
- *   to vShare license.
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
  *
  ******************************************************************************/
 
@@ -21,14 +21,14 @@ $tables = array();
 
 $q = mysql_query('SHOW TABLES');
 
-while ($r = @mysql_fetch_array($q)) 
+while ($r = @mysql_fetch_array($q))
 {
     $tables[] = $r[0];
 }
 
 @mysql_free_result($q);
 
-if(in_array('videos', $tables)) 
+if (in_array('videos', $tables))
 {
     echo "<p>Your database already have tables needed for vshare. If you are upgrading, use the upgrade script instead.</p>";
     echo "<p class=\"table-already-exists\">If you are doing fresh install, make sure the database is empty.</p>";
@@ -43,17 +43,17 @@ if(in_array('videos', $tables))
     <input type=\"hidden\" name=\"action\" value=\"create_tables\" />
     </form>";
 
-} 
-else 
+}
+else
 {
     require 'inc/class.sql_import.php';
     $sql_import = new Sql2Db('sql/vshare.sql');
     $sql_import->debug_filename = 'install';
     $sql_import->import();
     
-    $buyscript_pass =  rand();
+    $buyscript_pass = rand();
     $buyscript_pass_md5 = md5($buyscript_pass);
-
+    
     $sql = "INSERT INTO `users` SET
            `user_email`='you@yourdomain.com',
            `user_name`='vshare',
@@ -65,7 +65,7 @@ else
            `user_join_time`='" . time() . "',
            `user_last_login_time`='" . time() . "'";
     $result = mysql_query($sql) or mysql_die($sql);
-
+    
     echo "<p class=\"tables-created\">Database tables created.</p>
         <form action=\"install_finished.php\" METHOD=\"POST\">
         <input type=\"hidden\" name=\"buyscript_pass\" value=\"$buyscript_pass\" />

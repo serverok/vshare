@@ -3,11 +3,11 @@
  *
  *   COMPANY: BuyScripts.in
  *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.7
+ *   VERSION: [VSHARE_VERSION]
  *   LISENSE: http://buyscripts.in/vshare-license.html
  *   WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
+ *   This program is a commercial software and any kind of using it must agree
  *   to vShare license.
  *
  ******************************************************************************/
@@ -59,7 +59,7 @@ if (isset($_POST['connect_info']))
     $db_user = $_POST['db_user'];
     $db_pass = $_POST['db_pass'];
     $folder = $_POST['folder'];
-
+    
     if (!is_dir($folder))
     {
         $error .= '<li>folder not found : ' . $folder . '</li>';
@@ -80,7 +80,7 @@ if (isset($_POST['connect_info']))
             $error .= '<li>Succesfuly connected to database server, but failed to open the database (' . $db_name . '). Please check the data and try again. ' . mysql_error() . '</li>';
         }
     }
-
+    
     if ($error == '')
     {
         $fp = fopen('../include/config.php', 'w');
@@ -116,26 +116,27 @@ EOT;
     fclose($fp);
 
     require './tpl/header.php';
+
 ?>
 
 <p class="config-created">Configuration file created (include/config.php)</p>
 
 <form method="post" action="install_create_tables.php">
-<input type="submit" class="button" name=submit value="Continue Installation"> 
-<input type="hidden" name="db_host" value="<?php echo $db_server; ?>"> 
-<input type="hidden" name="db_name" value="<?php echo $db_name; ?>"> 
-<input type="hidden" name="db_user" value="<?php echo $db_user; ?>"> 
-<input type="hidden" name="db_pass" value="<?php echo $db_pass; ?>"> 
+<input type="submit" class="button" name=submit value="Continue Installation">
+<input type="hidden" name="db_host" value="<?php echo $db_server; ?>">
+<input type="hidden" name="db_name" value="<?php echo $db_name; ?>">
+<input type="hidden" name="db_user" value="<?php echo $db_user; ?>">
+<input type="hidden" name="db_pass" value="<?php echo $db_pass; ?>">
 <input type="hidden" name="action" value="create_tables">
 </form>
 
 <?php
-            
-        require 'tpl/footer.php';            
+
+        require 'tpl/footer.php';
         exit(0);
     }
 }
-else 
+else
 {
     
     $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -197,9 +198,9 @@ if ($error != '')
 
 ?>
 
-<h1>Database & Website Settings</h1>
+<h1>Database &amp; Website Settings</h1>
 
-<P>vShare only run if your server support all <a href="http://labs.buyscripts.in/projects/vshare/wiki/Requirements" target="_blank">requirements</A>. If you don't know path to ffmpeg, mencoder, flvtool2, etc... installed on your server, ask your server provider.</p>
+<P>vShare only run if your server support all <a href="http://buyscripts.in/requirements.html" target="_blank">requirements</A>. If you don't know path to ffmpeg, mencoder, flvtool2, etc... installed on your server, ask your server provider.</p>
 
 <form name="myform2" method="POST" action="">
 
@@ -267,4 +268,3 @@ if ($error != '')
 
 require 'tpl/footer.php';
 
-?>

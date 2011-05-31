@@ -12,6 +12,12 @@
  *
  ******************************************************************************/
 
+if (filesize('include/config.php') < 100)
+{
+	Header('Location: ./install/install.php');
+	exit;
+}
+
 require 'include/config.php';
 require 'include/class.cache.php';
 
