@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php echo $html_title; ?></title>
 <link href="tpl/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
 </head>
 <body>
 
@@ -14,5 +15,4 @@
     </div>
 
     <div id="page">
-    
     
