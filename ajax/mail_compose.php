@@ -167,6 +167,10 @@ if (isset($_GET['action']))
     }
 }
 
+$sql = "DELETE FROM `mail_logs` WHERE
+       `mail_log_time` < '" . strtotime("last day") . "'";
+mysql_query($sql) or mysql_die($sql);
+
 $smarty->assign('mail_to', $mail_to);
 $smarty->assign('mail_subject', $mail_subject);
 $smarty->assign('err', $err);
