@@ -244,8 +244,15 @@ class sitemap
     {
         if (! is_dir(VSHARE_DIR . '/sitemap'))
         {
-            mkdir(VSHARE_DIR . '/sitemap');
-            chdir(VSHARE_DIR . '/sitemap');
+            if (! mkdir(VSHARE_DIR . '/sitemap'))
+            {
+                die('Create folder sitemap with 777 permission');
+            }
+            
+            if (! chdir(VSHARE_DIR . '/sitemap'))
+            {
+                die('Failed to change directory sitemap');
+            }
         }
     }
 
