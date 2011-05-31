@@ -24,18 +24,19 @@ $sitemap = new sitemap();
 
 if (isset($_POST['generate_sitemap']))
 {
-    $sitemap->generate();
+    $msg = $sitemap->generate();
 }
 
 if ($sitemap_action == 'update')
 {
-    $sitemap->updateSitemap($sitemap_id);
+    $msg =  $sitemap->updateSitemap($sitemap_id);
 }
 else if ($sitemap_action == 'delete')
 {
     $sitemap->deleteSitemap($sitemap_id);
 }
 
+$smarty->assign('msg', $msg);
 $smarty->assign('sitemap', $sitemap->getSitemapInfo());
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/sitemap.tpl');

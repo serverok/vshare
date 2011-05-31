@@ -16,8 +16,9 @@ class sitemap
 	private $sitemap_xml = '';
 	private $sitemap_url_count = 0;
 	private $sitemap_size_limit = 10485760;
-	private $sitemap_url_limit = 50000;
+	private $sitemap_url_limit = 20000;
 	private $sitemap_url = '';
+	private $sitemap_xml_read = '';
 	
 	public function getSitemapInfo()
 	{
@@ -40,7 +41,7 @@ class sitemap
 	
 		if (mysql_num_rows($result) === 0)
 		{
-			$this->sitemap_name = 'sitemap_' . substr(md5(time() . rand()), 0, 6) .  '.xml';
+			$this->sitemap_name = $this->createNewSitemapName();
 		}
 		else
 		{	
@@ -63,7 +64,7 @@ class sitemap
 			$this->createSitemap($video_info);
 		}
 		
-		$this->createSitemapIndex();
+		return $this->createSitemapIndex();
 	}
 	
 	private function createSitemapIndex()
@@ -73,26 +74,27 @@ class sitemap
 		
 		if (mysql_num_rows($result) > 0)
 		{	
-			$fp = fopen(VSHARE_DIR . '/sitemap/sitemap_index.xml', 'w');
-			
+			$gz = gzopen(VSHARE_DIR . '/sitemap/sitemap_index.xml.gz','w9');
 			$sitemap_index = $this->sitemap_index_header;
-			fwrite($fp, $sitemap_index);
+			gzwrite($gz, $sitemap_index);
 			
 			while($sitemap_info = mysql_fetch_assoc($result))
 			{
 				$sitemap = '<sitemap>';
-				fwrite($fp,	"\n\t\t" . $sitemap . "\n\t\t\t");
+				gzwrite($gz,"\n\t\t" . $sitemap . "\n\t\t\t");
 				$loc = '<loc>' . VSHARE_URL . '/sitemap/' . $sitemap_info['sitemap_name'] . '</loc>';
-				fwrite($fp, $loc . "\n\t\t\t");
+				gzwrite($gz, $loc . "\n\t\t\t");
 				$lastmod = '<lastmod>' . date('Y-m-d h:i:s', $sitemap_info['sitemap_create_date']) . '</lastmod>';
-				fwrite($fp, $lastmod . "\n\t\t");
+				gzwrite($gz, $lastmod . "\n\t\t");
 				$sitemap = '</sitemap>';
-				fwrite($fp, $sitemap . "\n");
+				gzwrite($gz, $sitemap . "\n");
 			}
 			
 			$sitemap_index = $this->sitemap_index_close;
-			fwrite($fp, $sitemap_index);
-			fclose($fp);
+			gzwrite($gz, $sitemap_index);
+			gzclose($gz);
+
+			return $this->submitToGoogle();
 		}
 	}	
 	
@@ -131,7 +133,7 @@ class sitemap
 				$this->createSitemap($video_info[$i]);
 			}
 			
-			$this->createSitemapIndex();   		
+			return $this->createSitemapIndex();
 		}
 	}	 
 
@@ -160,10 +162,22 @@ class sitemap
 		$this->checkSitemapDir();
 		$this->checkSitemap();
 		$this->getUrl($video_info);
-		$fp = fopen(VSHARE_DIR . '/sitemap/' . $this->sitemap_name, 'w');
-		fwrite($fp, $this->sitemap_xml);
-		fwrite($fp, $this->sitemap_urlset_close);
-		fclose($fp);
+
+		$gz = gzopen(VSHARE_DIR . '/sitemap/' . $this->sitemap_name,'w9');
+
+		if (file_exists(VSHARE_DIR . '/sitemap/' . $this->sitemap_name) && filesize(VSHARE_DIR . '/sitemap/' . $this->sitemap_name) > 26)
+		{
+			gzwrite($gz, $this->sitemap_xml_read);
+		}
+		else
+		{
+			gzwrite($gz, $this->sitemap_xml_header);
+			gzwrite($gz, $this->sitemap_urlset_open);
+		}
+
+		gzwrite($gz, $this->sitemap_xml);
+		gzwrite($gz, $this->sitemap_urlset_close);
+		gzclose($gz);
 		
 		$sitemap_size = filesize(VSHARE_DIR . '/sitemap/' . $this->sitemap_name);		
 		
@@ -188,7 +202,7 @@ class sitemap
 			$video_info['video_description'] = preg_replace('/&/i',htmlentities('&'),$video_info['video_description']);	
 		}		
 		
-		$this->sitemap_xml .= '
+		$this->sitemap_xml ='
 		<url> 
    			<loc>' . VSHARE_URL . '/view/' . $video_info['video_id'] . '/'. $video_info['video_seo_name'] .'/</loc> 
     		<video:video>     
@@ -237,9 +251,6 @@ class sitemap
 	
 	private function checkSitemap()
 	{
-		$this->sitemap_xml = $this->sitemap_xml_header;
-		$this->sitemap_xml .= $this->sitemap_urlset_open;
-		
 		if (file_exists(VSHARE_DIR . '/sitemap/' . $this->sitemap_name))
 		{	
 			$sql = "SELECT `sitemap_url_count` FROM `sitemap` WHERE
@@ -252,17 +263,19 @@ class sitemap
 					
 				if ($sitemap_info['sitemap_url_count'] < $this->sitemap_url_limit && filesize(VSHARE_DIR . '/sitemap/' . $this->sitemap_name) <= $this->sitemap_size_limit) 
 				{
-					$this->sitemap_xml = file_get_contents(VSHARE_DIR . '/sitemap/' . $this->sitemap_name);
-					$this->sitemap_xml = preg_replace('/<\/urlset>/i','',$this->sitemap_xml);
+					$zd = gzopen(VSHARE_DIR . '/sitemap/' . $this->sitemap_name, "r");
+					$this->sitemap_xml_read = gzread($zd, 10000);
+					gzclose($zd);
+					$this->sitemap_xml_read = preg_replace('/<\/urlset>/i','',$this->sitemap_xml_read);
 				}
 				else 
 				{
-					$this->sitemap_name = 'sitemap_' . substr(md5(time() . rand()), 0, 6) .  '.xml';
+					$this->sitemap_name = $this->createNewSitemapName();
 				}
 			}
 			else 
 			{
-				$this->sitemap_name = 'sitemap_' . substr(md5(time() . rand()), 0, 6) .  '.xml';
+				$this->sitemap_name = $this->createNewSitemapName();
 			}
 		}
 		 
@@ -286,4 +299,33 @@ class sitemap
 		return $format_size;
 	}
 	
+	private function createNewSitemapName()
+	{
+		$i = 0;
+		$sitemap_name = 'sitemap';
+		$sitemap_extn = 'xml.gz';
+		$file_name = $sitemap_name . '.' . $sitemap_extn;
+		$desination = VSHARE_DIR . '/sitemap/' . $file_name;
+
+		while (file_exists($desination))
+	{
+		$i ++;
+		$file_name = $sitemap_name . '_' . $i . '.' . $sitemap_extn;
+		$desination = VSHARE_DIR . '/sitemap/' . $file_name;
+	}
+
+	return $file_name;
+	}
+
+	private function submitToGoogle()
+	{
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "http://www.google.com/webmasters/tools/ping?sitemap=" . VSHARE_URL . "/sitemap/sitemap_index.xml.gz");
+		curl_setopt($ch, CURLOPT_HEADER, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$msg = curl_exec($ch);
+		curl_close($ch);
+		return $msg;
+	}
+
 }

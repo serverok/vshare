@@ -6,6 +6,7 @@
 	<span style="color:#961E3C;">
 		{$sitemap[0].sitemap_name|date_format}
 	</span>
+	<a href="{$base_url}/sitemap_index.xml.gz" target="_blank">View Sitemap Index</a>
 </span> 
 <br /><br />
 
@@ -43,10 +44,11 @@
 </table>
 
 <br />
-<a href="{$base_url}/sitemap/sitemap_index.xml" target="_blank">View Sitemap Index</a><br /><br />
+<!--
 <a href="http://www.google.com/webmasters/tools/ping?sitemap={$base_url}/sitemap/sitemap_index.xml" target="_blank">Submit sitemap to google</a> |
+-->
 {/if}
-<br /><br />
+
 <form method="POST" action="">
-	<input type="submit" name="generate_sitemap" value="Generate Sitemap" style="height: 40px;">
+	<input type="submit" name="generate_sitemap" value="Generate Sitemap">
 </form>
