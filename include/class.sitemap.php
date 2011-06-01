@@ -36,7 +36,7 @@ class sitemap
 
     public function generateDaily()
     {
-        $sql = "SELECT * FROM `sitemap` ORDER BY `sitemap_id` DESC LIMIT 1";
+        $sql = "SELECT `sitemap_create_date` FROM `sitemap` ORDER BY `sitemap_id` DESC LIMIT 1";
         $result = mysql_query($sql) or mysql_die($sql);
         $sitemap_info = mysql_fetch_assoc($result);
         $sitemap_create_date = $sitemap_info['sitemap_create_date'];
