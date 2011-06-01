@@ -2,7 +2,6 @@
 
 # RUN THIS IN LINUX AS REPLACE COMMAND IN WINDOWS WILL NOT WORK
 
-
 VERSION=$1
 
 if [ ! $VERSION ]
@@ -11,7 +10,9 @@ then
    exit 1
 fi
 
-mkdir ../test/vshare_$VERSION
+rm -rf ../relese/
+mkdir ../relese/
+mkdir ../relese/vshare_$VERSION
 git archive master --format=tar | gzip > ../test/vshare_$VERSION/vshare.tar.gz
 cd ../test/vshare_$VERSION/
 tar zxf vshare.tar.gz
@@ -201,3 +202,17 @@ replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./video_responses
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./video_response_verify.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./view_video.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./xml_playlist.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/install.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/upgrade.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/index.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/upgrade_start.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/upgrade_finished.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/upgrade_2.8_to_2.8.1.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/install_finished.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/install_collect_info.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/install_create_tables.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/upgrade_2.7_to_2.8.1.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./upload_embed.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/sitemap.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/install_collect_info.php
+find ./ -name '*.php' -exec grep 'VSHARE_VERSION' {} \; -print
