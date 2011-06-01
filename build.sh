@@ -13,13 +13,15 @@ fi
 rm -rf ../relese/
 mkdir ../relese/
 mkdir ../relese/vshare_$VERSION
-git archive master --format=tar | gzip > ../test/vshare_$VERSION/vshare.tar.gz
-cd ../test/vshare_$VERSION/
+git archive master --format=tar | gzip > ../relese/vshare_$VERSION/vshare.tar.gz
+cd ../relese/vshare_$VERSION/
 tar zxf vshare.tar.gz
 rm -f vshare.tar.gz
 rm -f .gitignore
 rm -f build.sh
 rm -rf tools
+
+read -p "Press Enter key to start replace..."
 
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./404.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/admin_log.php
@@ -215,4 +217,29 @@ replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/upgrade
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./upload_embed.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/sitemap.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/install_collect_info.php
+chown -R buyscrip:buyscrip /home/buyscrip/vshare_build/relese/
+cd /home/buyscrip/vshare_build/relese/
+
+echo "ZIP File Created, verify create Time"
+
+zip -r vshare_$VERSION.zip vshare_$VERSION
+chown buyscrip:buyscrip vshare_$VERSION.zip
+cd /home/buyscrip/vshare_build/relese/
+
+if [ -f /home/buyscrip/downloads/vshare_$VERSION.zip ]
+then
+    mv /home/buyscrip/downloads/vshare_$VERSION.zip /home/buyscrip/downloads/vshare_$VERSION.zip.$(date +%m%d%Y%H)
+    echo "Renaming existing ZIP file"
+fi
+
+cp vshare_$VERSION.zip /home/buyscrip/downloads
+
+ls -lh /home/buyscrip/downloads | grep vshare_$VERSION.zip
+date
+
+read -p "Press Enter key to check for VSHARE_VERSION ..."
+
+cd /home/buyscrip/vshare_build/relese/vshare_$VERSION
 find ./ -name '*.php' -exec grep 'VSHARE_VERSION' {} \; -print
+
+echo "Finished"
