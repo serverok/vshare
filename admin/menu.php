@@ -301,12 +301,6 @@ $menu_items = array(
         7
     ),
     array(
-        'Payments',
-        'payments.php',
-        0
-    ),
-    
-    array(
         'Bad Words',
         'bad_words.php',
         8
@@ -391,6 +385,15 @@ if ($config['family_filter'] == 1)
         'videos.php?a=adult',
         2
     );
+}
+
+if ($config['enable_package'] == 'yes')
+{
+	$menu_items[] = array(
+        'Payments',
+        'payments.php',
+        0
+	);
 }
 
 $smarty->assign('menu_heading', $menu_heading);
