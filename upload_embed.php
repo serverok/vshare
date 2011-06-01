@@ -3,7 +3,7 @@
  *
  * COMPANY: BuyScripts.in
  * PROJECT: vShare Youtube Clone
- * VERSION: 2.7
+ * VERSION: [VSHARE_VERSION]
  * LISENSE: http://buyscripts.in/vshare-license.html
  * WEBSITE: http://buyscripts.in/youtube_clone.html
  *
@@ -19,6 +19,10 @@ require 'include/class.tags.php';
 require 'include/class.bulk_import.php';
 require 'Zend/Loader.php';
 Zend_Loader::loadClass('Zend_Gdata_YouTube');
+
+require 'include/class.sitemap.php';
+$sitemap = new sitemap();
+$sitemap->generateDaily();
 
 $guest_upload = get_config('guest_upload');
 
@@ -52,23 +56,23 @@ if (isset($_POST['action_upload']))
     {
         $url = $_POST['url'];
         $channel_id = $_POST['channel'];
-
-		if (isset($_POST['field_privacy']))
-		{
-			if ($_POST['field_privacy'] == 'public')
-			{
-				$type = 'public';
-			}
-			else
-			{
-				$type = 'private';
-			}
-		}
-		else
-		{
-			$type = 'public';
-		}
-
+        
+        if (isset($_POST['field_privacy']))
+        {
+            if ($_POST['field_privacy'] == 'public')
+            {
+                $type = 'public';
+            }
+            else
+            {
+                $type = 'private';
+            }
+        }
+        else
+        {
+            $type = 'public';
+        }
+        
         $import_site = 'youtube';
         
         if (preg_match("/youtube/i", $url))
@@ -143,10 +147,10 @@ if (isset($_POST['action_upload']))
                 }
             }
         }
-		else
-		{
-			$err = 'Link specified is not supported';
-		}
+        else
+        {
+            $err = 'Link specified is not supported';
+        }
     }
 }
 

@@ -34,12 +34,27 @@ class sitemap
         return $this->sitemap_info;
     }
 
+    public function generateDaily()
+    {
+        $sql = "SELECT * FROM `sitemap` ORDER BY `sitemap_id` DESC LIMIT 1";
+        $result = mysql_query($sql) or mysql_die($sql);
+        $sitemap_info = mysql_fetch_assoc($result);
+        $sitemap_create_date = $sitemap_info['sitemap_create_date'];
+        $sitemap_expiry_time = $sitemap_create_date + 86400;	//  86400 = seconds in 24 hours
+        $now_time = time();
+        
+        if ($sitemap_expiry_time < $now_time)
+        {
+            $this->generate();
+        }
+    }
+
     public function generate()
     {
         $sql = "SELECT * FROM `sitemap` ORDER BY `sitemap_id` DESC LIMIT 1";
         $result = mysql_query($sql) or mysql_die($sql);
         
-        if (mysql_num_rows($result) === 0)
+        if (mysql_num_rows($result) == 0)
         {
             $this->sitemap_name = $this->createNewSitemapName();
         }
@@ -95,65 +110,6 @@ class sitemap
             gzclose($gz);
             
             return $this->submitToGoogle();
-        }
-    }
-
-    public function updateSitemap($sitemap_id)
-    {
-        $sql = "SELECT * FROM `sitemap` WHERE
-			   `sitemap_id`='$sitemap_id'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) > 0)
-        {
-            $sitemap_info = mysql_fetch_assoc($result);
-            $this->sitemap_url_count = $sitemap_info['sitemap_url_count'];
-            $this->sitemap_name = $sitemap_info['sitemap_name'];
-            
-            $sql = "UPDATE `sitemap` SET
-					`sitemap_url_count`='0',
-					`sitemap_size`='0' WHERE
-			        `sitemap_id`='$sitemap_id'";
-            $result = mysql_query($sql) or mysql_die($sql);
-            
-            $sql = "SELECT * FROM `videos` WHERE
-	   		   		`video_approve`='1' AND
-	   		   		`video_active`='1' AND
-	   		   		`video_id`<=" . $sitemap_info['sitemap_last_video_id'] . "
-	   		   		ORDER BY `video_id` DESC LIMIT " . $sitemap_info['sitemap_url_count'];
-            $result = mysql_query($sql) or mysql_die($sql);
-            
-            $video_info = mysql_fetch_all($result);
-            unlink(VSHARE_DIR . '/sitemap/' . $this->sitemap_name);
-            
-            $start = count($video_info) - 1;
-            
-            for ($i = $start; $i >= 0; $i --)
-            {
-                $this->createSitemap($video_info[$i]);
-            }
-            
-            return $this->createSitemapIndex();
-        }
-    }
-
-    public function deleteSitemap($sitemap_id)
-    {
-        $sql = "SELECT `sitemap_name` FROM `sitemap` WHERE
-			   `sitemap_id`='$sitemap_id'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) > 0)
-        {
-            $tmp = mysql_fetch_assoc($result);
-            
-            if (file_exists(VSHARE_DIR . '/sitemap/' . $tmp['sitemap_name']))
-            {
-                unlink(VSHARE_DIR . '/sitemap/' . $tmp['sitemap_name']);
-            }
-            
-            $sql = "DELETE FROM `sitemap` WHERE `sitemap_id`='$sitemap_id'";
-            $result = mysql_query($sql) or mysql_die($sql);
         }
     }
 
