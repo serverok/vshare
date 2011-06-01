@@ -195,21 +195,27 @@ else
                 $expired_time = date("Y-m-d H:i:s", strtotime("+$period"));
                 
                 $sql = "UPDATE subscriber SET
-           `pack_id`='$pack_id',
-           `subscribe_time`='" . date("Y-m-d H:i:s") . "',
-           `expired_time`='" . mysql_clean($expired_time) . "' WHERE
-           `UID`='" . (int) $userid . "'";
+           			   `pack_id`='$pack_id',
+                       `subscribe_time`='" . date("Y-m-d H:i:s") . "',
+                       `expired_time`='" . mysql_clean($expired_time) . "' WHERE
+                       `UID`='" . (int) $userid . "'";
                 mysql_query($sql);
                 $sql_log .= "<p>$sql</p>";
                 
-                $sql = "UPDATE `users` SET 
-           `user_account_status`='Active' WHERE 
-           `user_id`='$userid'";
+                $sql = "UPDATE `payments` SET
+                       `payment_completed`='1' WHERE
+                       `payment_id`='" . (int) $_POST['vshare_payment_id'] . "'";
+                mysql_query($sql);
+                $sql_log .= "<p>$sql</p>";
+                
+                $sql = "UPDATE `users` SET
+                       `user_account_status`='Active' WHERE
+                       `user_id`='$userid'";
                 mysql_query($sql);
                 $sql_log .= "<p>$sql</p>";
                 
                 $sql = "SELECT * from `users` WHERE
-    	   `user_id`=$userid";
+    	               `user_id`=$userid";
                 $result = mysql_query($sql);
                 $sql_log .= "<p>$sql</p>";
                 $user_info = mysql_fetch_assoc($result);
@@ -220,7 +226,7 @@ else
                 $from = $config['admin_email'];
                 
                 $sql = "SELECT * from `packages` WHERE
-    	   `package_id`=$pack_id";
+    	               `package_id`=$pack_id";
                 $result = mysql_query($sql);
                 $package_info = mysql_fetch_assoc($result);
                 $package_name = $package_info['package_name'];
@@ -283,8 +289,8 @@ EOT;
                 $subject = $config["site_name"] . " - Got Payment";
                 
                 mail($admin_email, $subject, $message_admin);
-                
-            ####################### SEND MAIL TO ADMIN ############################  END
+            
+    ####################### SEND MAIL TO ADMIN ############################  END
             
 
             }

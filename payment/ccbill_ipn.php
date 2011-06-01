@@ -97,22 +97,21 @@ vshare_payment_id = {$_POST['vshare_payment_id']}
 
 EOT;
 
-
-if ( empty($_POST['reasonForDeclineCode']) && $_POST['currencyCode'] == 840  )
+if (empty($_POST['reasonForDeclineCode']))
 {
-    $sql = "SELECT * FROM `payments` WHERE 
+    $sql = "SELECT * FROM `payments` WHERE
     	   `payment_id`='" . (int) $_POST['vshare_payment_id'] . "'";
     $result = mysql_query($sql);
     
     $log_txt .= "$sql\n";
     
-    if (!$result)
+    if (! $result)
     {
         $log_txt .= "PAYMENT INFO NOT FOUND\n";
     }
     
     $payments = mysql_fetch_assoc($result);
-        
+    
     $user_id = $payments['payment_user_id'];
     $package_id = $payments['payment_package_id'];
     $period = $payments['payment_period'];
@@ -145,16 +144,23 @@ if ( empty($_POST['reasonForDeclineCode']) && $_POST['currencyCode'] == 840  )
            `expired_time`='" . mysql_clean($expired_time) . "' WHERE
            `UID`='" . (int) $user_id . "'";
     mysql_query($sql);
-
+    
     $log_txt .= "$sql\n";
     
-    $sql = "UPDATE `users` SET 
-           `user_account_status`='Active' WHERE 
+    $sql = "UPDATE `payments` SET
+           `payment_completed`='1' WHERE
+           `payment_id`='" . (int) $_POST['vshare_payment_id'] . "'";
+    mysql_query($sql);
+    
+    $log_txt .= "$sql\n";
+    
+    $sql = "UPDATE `users` SET
+           `user_account_status`='Active' WHERE
            `user_id`='" . (int) $user_id . "'";
     mysql_query($sql);
     
     $log_txt .= "$sql\n";
-        
+    
     $sql = "SELECT * from `users` WHERE
     	   `user_id`='" . (int) $user_id . "'";
     $result = mysql_query($sql);
@@ -174,7 +180,7 @@ if ( empty($_POST['reasonForDeclineCode']) && $_POST['currencyCode'] == 840  )
     $log_txt .= "$sql\n";
     
     $vshare_url = VSHARE_URL;
-                
+    
     $body = "
 	<P>Hello  $username,</P>
 
@@ -193,7 +199,7 @@ if ( empty($_POST['reasonForDeclineCode']) && $_POST['currencyCode'] == 840  )
 
 	<P>$config[site_name] Team</p>
     ";
-                
+    
     $headers = "From: " . $config['admin_email'] . "\n";
     $headers .= "Content-Type: text/html\n";
     $subj = "Receipt for your payment to" . $config['site_name'];
@@ -204,8 +210,10 @@ if ( empty($_POST['reasonForDeclineCode']) && $_POST['currencyCode'] == 840  )
     
     ####################### PAYMENT SUCCESS ########################### END
     
+
     ####################### SEND MAIL TO ADMIN ############################
     
+
     $message_admin = <<<EOT
 User: $username
 Package: $package_name
@@ -218,15 +226,16 @@ Payment Date: $start_date
 ----
 $sql_log
 EOT;
-                
+    
     $subject = $config['site_name'] . " - Got Payment";
     
     mail($config['admin_email'], $subject, $message_admin);
     
-$log_txt .= "$message_admin\n";
-        
+    $log_txt .= "$message_admin\n";
+
     ####################### SEND MAIL TO ADMIN ######################## END
-    
+
+
 }
 else
 {
