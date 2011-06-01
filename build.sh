@@ -13,8 +13,8 @@ fi
 rm -rf ../relese/
 mkdir ../relese/
 mkdir ../relese/vshare_$VERSION
-git archive master --format=tar | gzip > ../test/vshare_$VERSION/vshare.tar.gz
-cd ../test/vshare_$VERSION/
+git archive master --format=tar | gzip > ../relese/vshare_$VERSION/vshare.tar.gz
+cd ../relese/vshare_$VERSION/
 tar zxf vshare.tar.gz
 rm -f vshare.tar.gz
 rm -f .gitignore
@@ -215,4 +215,14 @@ replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/upgrade
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./upload_embed.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/sitemap.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/install_collect_info.php
+chown -R buyscrip:buyscrip /home/buyscrip/vshare_build/relese/
+
+cd /home/buyscrip/vshare_build/relese/
+
+zip -r vshare_$VERSION.zip vshare_$VERSION
+chown buyscrip:buyscrip vshare_$VERSION.zip
+cd /home/buyscrip/vshare_build/relese/
+cp vshare_$VERSION.zip /home/buyscrip/downloads
+
+cd /home/buyscrip/vshare_build/relese/vshare_$VERSION
 find ./ -name '*.php' -exec grep 'VSHARE_VERSION' {} \; -print
