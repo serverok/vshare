@@ -22,7 +22,8 @@ $vshare_versions = array(
     '2.5',
     '2.6',
     '2.7',
-    '2.8'
+    '2.8',
+    '2.8.1'
 );
 
 if (! in_array($config['version'], $vshare_versions))

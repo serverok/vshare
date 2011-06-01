@@ -1,6 +1,6 @@
 <?php
 
-define('VSHARE_VERSION_NEW', '2.7');
+define('VSHARE_VERSION_NEW', '2.8.1');
 
 if (function_exists('set_time_limit'))
 {
