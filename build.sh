@@ -218,12 +218,14 @@ replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./upload_embed.ph
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/sitemap.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/install_collect_info.php
 chown -R buyscrip:buyscrip /home/buyscrip/vshare_build/relese/
-cd /home/buyscrip/vshare_build/relese/
 
 echo "ZIP File Created, verify create Time"
 
+cd /home/buyscrip/vshare_build/relese/
+
 zip -r vshare_$VERSION.zip vshare_$VERSION
 chown buyscrip:buyscrip vshare_$VERSION.zip
+
 cd /home/buyscrip/vshare_build/relese/
 
 if [ -f /home/buyscrip/downloads/vshare_$VERSION.zip ]
