@@ -140,7 +140,7 @@ function download_video($vid)
 function process_video($vid, $debug = 1)
 {
     
-    global $config, $db_host, $db_user, $db_pass, $db_name;
+    global $config , $db_host , $db_user , $db_pass , $db_name;
     
     $log_file_name = 'convert_log_' . $vid;
     require VSHARE_DIR . '/include/functions_seo_name.php';
@@ -482,6 +482,10 @@ function process_video($vid, $debug = 1)
             write_log($log_text, $log_file_name, $debug, 'html');
         }
         
+        $conn = mysql_connect($db_host, $db_user, $db_pass) or die('Can\'t connect : ' . mysql_error());
+        mysql_select_db($db_name, $conn) or die('Can\'t select database : ' . mysql_error());
+        mysql_set_charset('utf8', $conn);
+        
         /*
          * insert flv metadata
          */
@@ -489,11 +493,6 @@ function process_video($vid, $debug = 1)
         {
             flv_metadata($rand_flv_name, $video_folder, $log_file_name, $debug);
         }
-        
-        $conn = mysql_connect($db_host, $db_user, $db_pass) or die('Can\'t connect : ' . mysql_error());
-        mysql_select_db($db_name, $conn) or die('Can\'t select database : ' . mysql_error());
-        mysql_set_charset('utf8', $conn);
-        
         
         if (! file_exists($video_flv))
         {
