@@ -5,7 +5,7 @@
  * Redistribution of source must retain this copyright notice.
  */
 
-require (VSHARE_DIR . "/include/class.htmlparser.php");
+require_once (VSHARE_DIR . "/include/class.htmlparser.php");
 
 /**
  * Class Html2Text. (HtmlParser example.)
