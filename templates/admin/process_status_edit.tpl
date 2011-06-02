@@ -23,12 +23,12 @@
         {/if}
     </div>
 
-    <div>    
+    <div>
         <label>Edit Status:</label>
         
         <select name="status" id="status_value">
             <option value="{$video_info.status}">No Change</option>
-            {if $video_info.url != "" }
+            {if $video_info.url != ""}
                 <option value="0">Download Again</option>
             {/if}
             <option value="2">Convert Again</option>
@@ -36,8 +36,8 @@
         
     </div>
     
-    <div class="submit">   
+    <div class="submit">
             <input type="submit" name="submit" value="Update" />
-    </div>    
+    </div>
     
 </form>
