@@ -1,34 +1,3 @@
-body, * {
-    font-family: verdana, arial, helvetica, sans-serif;
-}
-body {
-    font-size: 12px;
-    background-color:#fff;
-    margin: 0px;
-    padding: 0px;
-}
-a {
-    color:#0033CC;
-    text-decoration: none;
-    font-weight: normal;
-}
-a:link {
-    color:#0033CC;
-    text-decoration: none;
-    font-weight: normal;
-}
-a:visited {
-    text-decoration: none;
-    color:#0033CC;
-}
-a:hover {
-    text-decoration: underline;
-    color: #0033CC;
-}
-a:active {
-    text-decoration: none;
-    color: #0033CC;
-}
 #links {
     margin-top:10px;
     text-align:center;

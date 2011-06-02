@@ -1,12 +1,7 @@
-<html>
-<head>
-<title>404 Not Found</title>
 <link href="{$img_css_url}/css/404.css" rel="stylesheet" type="text/css" />
-</head>
-<body align="center">
 <center>
 <div style="width:650px;">
-	<div id="message" class="rounded-corner">{$msg}</div>
+	<div id="message" class="rounded-corner">{$msg_404}</div>
 	<div id="search-wrapper" class="rounded-corner">
 	   <div class="logo"><img src="{$img_css_url}/images/logo.jpg"></div>
 	   <div style="box-sizing:border-box;float:left;padding:14px 0 0px 10px;">
@@ -56,12 +51,5 @@
 		   </div>
 		   
 	   </div>
-	
-
-		<div class="copy">
-		    Copyright &copy; {$smarty.now|date_format:"%Y"} {$site_name}. All rights reserved.<br />
-		</div>
 </div>
 </center>
-</body>
-</html>
