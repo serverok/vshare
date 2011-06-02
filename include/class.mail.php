@@ -13,7 +13,7 @@ class Mail
     
     function zendMail()
     {
-        require VSHARE_DIR . '/include/class.html2text.php';
+        require_once VSHARE_DIR . '/include/class.html2text.php';
         require 'Zend/Loader.php';
         Zend_Loader::loadClass('Zend_Mail');
         
