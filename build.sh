@@ -219,7 +219,7 @@ replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/sitemap.p
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/install_collect_info.php
 chown -R buyscrip:buyscrip /home/buyscrip/vshare_build/relese/
 
-echo "ZIP File Created, verify create Time"
+read -p "Press Enter key to create ZIP file..."
 
 cd /home/buyscrip/vshare_build/relese/
 
@@ -230,11 +230,13 @@ cd /home/buyscrip/vshare_build/relese/
 
 if [ -f /home/buyscrip/downloads/vshare_$VERSION.zip ]
 then
-    mv /home/buyscrip/downloads/vshare_$VERSION.zip /home/buyscrip/downloads/vshare_$VERSION.zip.$(date +%m%d%Y%H)
+    mv /home/buyscrip/downloads/vshare_$VERSION.zip /home/buyscrip/downloads/vshare_$VERSION.zip.$(date +%m%d%Y%H).backup
     echo "Renaming existing ZIP file"
 fi
 
 cp vshare_$VERSION.zip /home/buyscrip/downloads
+
+echo "VERIFY ZIP CREATE TIME"
 
 ls -lh /home/buyscrip/downloads | grep vshare_$VERSION.zip
 date
