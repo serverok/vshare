@@ -80,7 +80,7 @@ if ($err == '')
             $page = 1;
         }
         
-        if ($page > round($total / $config['items_per_page']))
+        if ($page > ceil($total / $config['items_per_page']))
         {
             require '404.php';
             exit();
