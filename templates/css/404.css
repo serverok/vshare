@@ -1,156 +1,56 @@
-#links {
-    margin-top:10px;
-    text-align:center;
+.links {
+    margin: 10px 0;
+    text-align: center;
+    width: 650px;
 }
-#message
-{
-    background-color:#FFFFCC;
-    border:1px solid #FFCC05;
-    color:#666666;
-    font-size:12px;
-    font-weight:bold;
-    margin-top:50px;
-    padding:12px 0;
-    text-align:center;
-
+.links a {
+    display: inline-block;
+    margin: 0 5px;
 }
-.rounded-corner {
-    -moz-border-radius-bottomleft:5px;
-    -webkit-border-radius-bottomleft:5px;
-    -moz-border-radius-bottomright:5px;
-    -webkit-border-radius-bottomright:5px;
-    -moz-border-radius-topleft:5px;
-    -webkit-border-radius-topleft:5px;
-    -moz-border-radius-topright:5px;
-    -webkit-border-radius-topright:5px;
-    
+#message {
+    background-color: #FFFFCC;
+    border: 1px solid #FFCC05;
+    border-radius: 5px 5px 5px 5px;
+    color: #666666;
+    display: inline-block;
+    font-weight: bold;
+    min-width: 600px;
+    padding: 12px;
+    text-align: center;
 }
-#search-wrapper
-{
-    border:1px solid #CCCCCC;
-    margin-top:10px;
-    padding:15px 0 ;
-    height:55px;
+.video_section {
+	display: inline-block;
+    min-width: 643px;
 }
-.search-btn
-{
-    background-color: #D2E3FB;
-    -moz-border-radius-bottomleft:3px;
-    -webkit-border-radius-bottomleft:3px;
-    -moz-border-radius-bottomright:3px;
-    -webkit-border-radius-bottomright:3px;
-    -moz-border-radius-topleft:3px;
-    -webkit-border-radius-topleft:3px;
-    -moz-border-radius-topright:3px;
-    -webkit-border-radius-topright:3px;
-	-o-broder-radius:3px;
-	-border-radius:3px;
-	border:1px solid #A1B4D9;
-	height:24px;
-	color:#0033CC;
-	font-weight:bold;
-}
-.featured_video_box
-{
-    box-sizing:border-box;
-    float:left;
-    width:147px;
-    height:150px;
-    font-size:12px;
+.featured_videos {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 6px;
     text-align: left;
-    padding:4px 0 0 10px;
-    margin-left: 4px;
+    vertical-align: top;
 }
-.logo
-{
-    box-sizing:border-box;
-    float:left;
-    border-right:1px solid #CCCCCC;
-	width:190px;
-	margin-top:-10;
-	padding-left:2px;
+.video_box {
+    padding: 8px 6px 6px;
+    text-align: left;
 }
-.logo img
-{
-    width:180px;
-	height:70px;
-	border:0;
+.featured_video_box {
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: top;
+    width: 157px;
 }
-.copy, a.copy, a.copy:link, a.copy:visited {
-    color:#000000;
-    font-size:10px;
-    font-weight:normal;
-    margin-top:0.6em;
-    text-align:center;
-}
-.video_image
-{
+.video_image {
     border:3px double #999999;
 }
-
-
-.clearfix:after {
-    content: ".";
+.featured_video_box_span {
+    color: #999999;
     display: block;
-    clear: both;
-    visibility: hidden;
-    line-height: 0;
-    height: 0;
+    font-size: 11px;
+    margin-left: 5px;
+    text-align: left;
 }
-.clearfix {
-    display: inline-block;
-}
-html[xmlns] .clearfix {
-    display: block;
-}
-* html .clearfix {
-    height: 1%;
-}
-
-input[type=text]
-{
-    width:370px;
-}
-#featured_box
-{
-    float:left;
-    width:620px;
-    text-align:left;
-    background-color:#D2E3FB;
-    border:1px solid #A1B4D9;
-    font-size:16px;
-    font-weight:bold;
-    height:23px;
-    padding:6px 18px 0 10px;
-    vertical-align:top;
-	-moz-border-radius-topleft:5px;
-	-webkit-border-radius-topleft:5px;
-	border-radius-topleft:5px;
-	-o-border-radius-topleft:5px;
-    -moz-border-radius-topright:5px;
-	-webkit-border-radius-topright:5px;
-	border-radius-topright:5px;
-	-o-border-radius-topright:5px;
-}
-#video_box
-{
-    border:1px solid #A1B4D9;
-    height:200px;
-	-moz-border-radius-bottomright:5px;
-	-webkit-border-radius-bottomright:5px;
-	-o-border-radius-bottomright:5px;
-	border-radius-bottomright:5px;
-	-moz-border-radius-bottomleft:5px;
-	-webkit-border-radius-bottomleft:5px;
-	-o-border-radius-bottomleft:5px;
-	border-radius-bottomleft:5px;
-}
-.featured_video_box_span
-{
-    color : #999999;
-	font-size : 10px;
-}
-.featured_video_box_span img
-{
-	width : 11px;
+.featured_video_box_span img {
+	width : 13px;
 }
