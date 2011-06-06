@@ -217,6 +217,9 @@ replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/upgrade
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./upload_embed.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/sitemap.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/install_collect_info.php
+
+echo '' > /home/buyscrip/vshare_build/relese/vshare_$VERSION/include/config.php
+
 chown -R buyscrip:buyscrip /home/buyscrip/vshare_build/relese/
 
 read -p "Press Enter key to create ZIP file..."
