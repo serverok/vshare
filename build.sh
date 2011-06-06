@@ -236,6 +236,8 @@ fi
 
 cp vshare_$VERSION.zip /home/buyscrip/downloads
 
+chown buyscrip:buyscrip /home/buyscrip/downloads/vshare_$VERSION.zip
+
 echo "VERIFY ZIP CREATE TIME"
 
 ls -lh /home/buyscrip/downloads | grep vshare_$VERSION.zip
