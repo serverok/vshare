@@ -1,6 +1,10 @@
 #!/bin/bash
 
 # RUN THIS IN LINUX AS REPLACE COMMAND IN WINDOWS WILL NOT WORK
+# cd /home/buyscrip/vshare_build/vshare
+# git pull origin master
+# sh ./build.sh 2.8.1
+# ls -l /home/buyscrip/downloads
 
 VERSION=$1
 
@@ -233,7 +237,7 @@ cd /home/buyscrip/vshare_build/relese/
 
 if [ -f /home/buyscrip/downloads/vshare_$VERSION.zip ]
 then
-    mv /home/buyscrip/downloads/vshare_$VERSION.zip /home/buyscrip/downloads/vshare_$VERSION.zip.$(date +%m%d%Y%H).backup
+    mv /home/buyscrip/downloads/vshare_$VERSION.zip /home/buyscrip/downloads/vshare_$VERSION.zip.$(date +%m%d%Y%H%i%s).backup
     echo "Renaming existing ZIP file"
 fi
 
