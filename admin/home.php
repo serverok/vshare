@@ -114,31 +114,12 @@ if ($check_version_now == 1)
     $errstr = '';
     $version_info = '';
     
-    if ($fsock = @fsockopen('buyscripts.in', 80, $errno, $errstr, 10))
-    {
-        @fputs($fsock, "GET /vshare/version.txt HTTP/1.1\r\n");
-        @fputs($fsock, "HOST: buyscripts.in\r\n");
-        @fputs($fsock, "Connection: close\r\n\r\n");
-        
-        $get_info = false;
-        
-        while (! @feof($fsock))
-        {
-            if ($get_info)
-            {
-                $version_info .= @fread($fsock, 1024);
-            }
-            else
-            {
-                if (@fgets($fsock, 1024) == "\r\n")
-                {
-                    $get_info = true;
-                }
-            }
-        }
-        
-        @fclose($fsock);
-    }
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'http://buyscripts.in/vshare/version.txt');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+    $version_info = curl_exec($ch);
+    curl_close($ch);
     
     $fp = fopen($version_file, 'w');
     fwrite($fp, $version_info);
