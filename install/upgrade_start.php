@@ -14,6 +14,13 @@
 
 require '../include/config.php';
 
+if (! isset($config) || ! is_array($config))
+{
+    echo '<div stye="font-family:verdana;"><p><font size="4" color="#FF0000">ERROR: File include/config.php Missing.</font></p>
+          <p>Restore include/config.php and try again.</p></div>';
+    exit(0);
+}
+
 $vshare_versions = array(
     '20070625',
     '20070712',
