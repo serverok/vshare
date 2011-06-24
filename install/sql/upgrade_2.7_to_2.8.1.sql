@@ -74,4 +74,6 @@ CREATE TABLE `mail_logs` (
   `mail_log_time` INT( 11 ) NOT NULL
 ) ENGINE = MYISAM CHARACTER SET utf8;
 
+UPDATE `sconfig` SET `svalue` = '640' WHERE `soption` = 'player_width';
+UPDATE `sconfig` SET `svalue` = '390' WHERE `soption` = 'player_height';
 UPDATE `sconfig` SET `svalue` = '2.8.1' WHERE `soption` = 'version';
