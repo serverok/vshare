@@ -27,6 +27,8 @@
         <a href="http://simpy.com/simpy/LinkAdd.do?href={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;title={$view.video_info.video_title}" title="Simpy"><img src="{$img_css_url}/images/simpy.png"border="0" alt="simpy" /></a>&nbsp;
         <a href="http://spurl.net/spurl.php?title={$view.video_info.title}&amp;url={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/" title="Spurl"><img src="{$img_css_url}/images/spurl.png" border="0" alt="spurl" /></a>&nbsp;
         <a href="http://myweb2.search.yahoo.com/myresults/bookmarklet?u={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;t={$view.video_info.video_title}" title="My Yahoo!"><img src="{$img_css_url}/images/yahoo.png" border="0" alt="yahoo" /></a>
+	<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script><g:plusone size="small"></g:plusone>
+
         
         <br />
         
@@ -343,7 +345,7 @@
        
     </div> <!-- section -->
 
-    <div class="section bg2" style="text-align:center;padding:0.5em;">
+    <div class="section bg2">
         {insert name=advertise adv_name='video_right_single'}
     </div>
     

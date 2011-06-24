@@ -367,8 +367,8 @@ LAYOUT
     padding: 0;
     text-align:left;
     width:60em; /* !IE */
-   *width:960px;/* IE */
-    min-width:960px;
+   *width:970px;/* IE */
+    min-width:970px;
     background-color:#FFF;
 }
 #header {
@@ -383,7 +383,7 @@ LAYOUT
 }
 #content {
     margin: 0;
-    width:760px;
+    width:770px;
     float: left;
 }
 #sidebar {
@@ -432,6 +432,7 @@ TOP MENU
     width: 100%;
     margin-bottom: 2em;
     margin-top:2px;
+	background-image: url("../images/menu.gif");
 }
 #menu ul {
     font: bold 11px Arial;
@@ -1046,7 +1047,7 @@ form#create-group > div.submit {
 }
 /* watch upload share */
 #watch-uplod-share {
-    width:760px;
+    width:770px;
     margin-bottom:10px;
     background:#E1E4F2;
     border-top:1px solid #5170a8;
@@ -1641,16 +1642,14 @@ form#group-edit div.submit {
 /* view_video.tpl */
 
 div#view-video-content {
-    width:600px;
+    width:640px;
     float:left;
     background:#ffffff;
-    padding:5px
 }
 div#view-video-sidebar {
     background:#ffffff;
     float:right;
-    width:323px;
-    padding:5px
+    width:310px;
 }
 div#view-video-content div#video-rating {
     width:220px;
