@@ -162,6 +162,7 @@ function process_video($vid, $debug = 1)
     $download_info = mysql_fetch_assoc($result);
     $video_file_name = $download_info['file'];
     $re_process_vid = $download_info['vid'];
+    $convert_vid = $download_info['id'];
     
     $status = $download_info['status'];
     
