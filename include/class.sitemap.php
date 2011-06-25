@@ -61,7 +61,6 @@ class sitemap
         else
         {
             $sitemap_info = mysql_fetch_assoc($result);
-            
             $last_video_id = $sitemap_info['sitemap_last_video_id'];
             $this->sitemap_url_count = $sitemap_info['sitemap_url_count'];
             $this->where = "AND `video_id`>$last_video_id";
@@ -296,6 +295,29 @@ class sitemap
         curl_exec($ch);
         curl_close($ch);
         return 'Sitemap Generated And Submitted to Google';
+    }
+
+    public function deleteSitemap()
+    {
+        $sitemap_info = $this->getSitemapInfo();
+        
+        $sql = "DELETE FROM `sitemap`";
+        $result = mysql_query($sql) or mysql_die($sql);
+        
+        foreach ($sitemap_info as $key => $val)
+        {
+            if (file_exists(VSHARE_DIR . '/sitemap/' . $val['sitemap_name']))
+            {
+                unlink(VSHARE_DIR . '/sitemap/' . $val['sitemap_name']);
+            }
+        }
+        
+        if (file_exists(VSHARE_DIR . '/sitemap/sitemap_index.xml.gz'))
+        {
+            unlink(VSHARE_DIR . '/sitemap/sitemap_index.xml.gz');
+        }
+        
+        $this->sitemap_info = array();
     }
 
 }
