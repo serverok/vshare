@@ -40,7 +40,7 @@ class sitemap
         $result = mysql_query($sql) or mysql_die($sql);
         $sitemap_info = mysql_fetch_assoc($result);
         $sitemap_create_date = $sitemap_info['sitemap_create_date'];
-        $sitemap_expiry_time = $sitemap_create_date + 86400;	//  86400 = seconds in 24 hours
+        $sitemap_expiry_time = $sitemap_create_date + 86400; //  86400 = seconds in 24 hours
         $now_time = time();
         
         if ($sitemap_expiry_time < $now_time)
@@ -226,8 +226,15 @@ class sitemap
                 
                 if ($sitemap_info['sitemap_url_count'] < $this->sitemap_url_limit && filesize(VSHARE_DIR . '/sitemap/' . $this->sitemap_name) <= $this->sitemap_size_limit)
                 {
+                    
+                    $sitemap_gz = fopen(VSHARE_DIR . '/sitemap/' . $this->sitemap_name, "rb");
+                    fseek($sitemap_gz, - 4, SEEK_END);
+                    $buffer = fread($sitemap_gz, 4);
+                    $sitemap_gz_file_size = end(unpack("V", $buffer));
+                    fclose($sitemap_gz);
+                    
                     $zd = gzopen(VSHARE_DIR . '/sitemap/' . $this->sitemap_name, "r");
-                    $this->sitemap_xml_read = gzread($zd, 10000);
+                    $this->sitemap_xml_read = gzread($zd, $sitemap_gz_file_size);
                     gzclose($zd);
                     $this->sitemap_xml_read = preg_replace('/<\/urlset>/i', '', $this->sitemap_xml_read);
                 }
