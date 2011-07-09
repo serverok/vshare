@@ -387,7 +387,7 @@ class Ftp
             return 0;
         }
         $file = $this->video_info['video_flv_name'];
-        $this->delete($file);
+        return $this->delete($file);
     }
 
     function delete_thumb($config)
@@ -439,10 +439,12 @@ class Ftp
         if (ftp_delete($this->conn_id, $file))
         {
             $this->log('Successfully delete file: ' . $file . '<br />');
+            return 1;
         }
         else
         {
             $this->log('File delete failed :' . $file . '<br />');
+            return 0;
         }
     }
 
