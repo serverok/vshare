@@ -17,6 +17,7 @@ class Xss
             $config->set('HTML', 'Doctype', 'XHTML 1.0 Transitional');
             $config->set('HTML', 'Allowed', 'a[href|title],img[src|alt|width|height],em,strong,p,pre,b');
             $config->set('AutoFormat', 'Linkify', true);
+            $config->set('AutoFormat', 'AutoParagraph', true);
             $purifier = new HTMLPurifier($config);
             return $purifier->purify($string);
         }

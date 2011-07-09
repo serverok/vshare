@@ -66,6 +66,7 @@ if ($num_result == 0)
 else
 {
     $video_info = mysql_fetch_assoc($result);
+    $video_info['video_description'] = str_replace(array('<p>', '</p>'), '', $video_info['video_description']);
 }
 
 $chid = explode('|', $video_info['video_channels']);
