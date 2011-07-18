@@ -1,5 +1,18 @@
 <?php
 
+/******************************************************************************
+ *
+ * COMPANY: BuyScripts.in
+ * PROJECT: vShare Youtube Clone
+ * VERSION: [VSHARE_VERSION]
+ * LISENSE: http://buyscripts.in/vshare-license.html
+ * WEBSITE: http://buyscripts.in/youtube_clone.html
+ *
+ * This program is a commercial software and any kind of using it must agree
+ * to vShare license.
+ *
+ ******************************************************************************/
+
 function download_video($vid)
 {
     global $config;
@@ -343,6 +356,7 @@ function process_video($vid, $debug = 1)
         require VSHARE_DIR . '/include/class.video_duration.php';
         require VSHARE_DIR . '/include/class.video_bitrate.php';
         require VSHARE_DIR . '/include/functions_flv.php';
+        require VSHARE_DIR . '/include/functions_mp4.php';
         
         $video_duration_cmd = get_config('video_duration_cmd');
         
@@ -493,6 +507,10 @@ function process_video($vid, $debug = 1)
         if ($video_output_format == 'flv')
         {
             flv_metadata($rand_flv_name, $video_folder, $log_file_name, $debug);
+        }
+        else if ($video_output_format == 'mp4')
+        {
+            mp4_metadata($rand_flv_name, $video_folder, $log_file_name, $debug);
         }
         
         if (! file_exists($video_flv))
