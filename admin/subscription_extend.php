@@ -193,8 +193,8 @@ function extend_subscription($user_name, $period)
             $sql = "SELECT * FROM `packages` WHERE
                    `package_trial`='yes'";
             $result = mysql_query($sql) or mysql_die($sql);
-            $myobj = mysql_fetch_object($result);
-            $pack_id = $myobj->pack_id;
+            $package_info = mysql_fetch_assoc($result);
+            $pack_id = $package_info['package_id'];
             
             $subscribe_time = date('Y-m-d H:i:s');
             $new_expired_time = date('Y-m-d H:i:s', strtotime("+$period"));

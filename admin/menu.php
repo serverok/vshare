@@ -120,7 +120,7 @@ $menu_items = array(
         'admin_log.php',
         0
     ),
-    
+
     array(
         'All Users',
         'users.php',
@@ -149,6 +149,11 @@ $menu_items = array(
     array(
         'Email Users',
         'mail_users.php?a=user',
+        1
+    ),
+    array(
+        'Add User',
+        'user_add.php',
         1
     ),
     
