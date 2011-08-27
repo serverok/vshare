@@ -569,10 +569,10 @@ class Video
             
             if ($delete == 1)
             {
-                $ff = VSHARE_DIR . '/thumb/' . $video_id . '.jpg';
-                $ff1 = VSHARE_DIR . '/thumb/1_' . $video_id . '.jpg';
-                $ff2 = VSHARE_DIR . '/thumb/2_' . $video_id . '.jpg';
-                $ff3 = VSHARE_DIR . '/thumb/3_' . $video_id . '.jpg';
+                $ff = VSHARE_DIR . '/thumb/' . $video_folder . $video_id . '.jpg';
+                $ff1 = VSHARE_DIR . '/thumb/' . $video_folder . '1_' . $video_id . '.jpg';
+                $ff2 = VSHARE_DIR . '/thumb/' . $video_folder . '2_' . $video_id . '.jpg';
+                $ff3 = VSHARE_DIR . '/thumb/' . $video_folder . '3_' . $video_id . '.jpg';
                 
                 if (file_exists($ff)) @unlink($ff);
                 if (file_exists($ff1)) @unlink($ff1);

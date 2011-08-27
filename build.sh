@@ -221,6 +221,9 @@ replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/upgrade
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./upload_embed.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/sitemap.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/install_collect_info.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./include/functions_mp4.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./include/functions_upload.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/user_add.php
 
 echo '' > /home/buyscrip/vshare_build/relese/vshare_$VERSION/include/config.php
 mv /home/buyscrip/vshare_build/relese/vshare_$VERSION/cgi-bin/ubr_upload_sample.pl /home/buyscrip/vshare_build/relese/vshare_$VERSION/cgi-bin/ubr_upload.pl
