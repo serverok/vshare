@@ -228,14 +228,14 @@ replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/user_add.
 echo '' > /home/buyscrip/vshare_build/relese/vshare_$VERSION/include/config.php
 mv /home/buyscrip/vshare_build/relese/vshare_$VERSION/cgi-bin/ubr_upload_sample.pl /home/buyscrip/vshare_build/relese/vshare_$VERSION/cgi-bin/ubr_upload.pl
 
-chown -R buyscrip:buyscrip /home/buyscrip/vshare_build/relese/
+# chown -R buyscrip:buyscrip /home/buyscrip/vshare_build/relese/
 
 read -p "Press Enter key to create ZIP file..."
 
 cd /home/buyscrip/vshare_build/relese/
 
 zip -r vshare_$VERSION.zip vshare_$VERSION
-chown buyscrip:buyscrip vshare_$VERSION.zip
+# chown buyscrip:buyscrip vshare_$VERSION.zip
 
 cd /home/buyscrip/vshare_build/relese/
 
@@ -247,7 +247,8 @@ fi
 
 cp vshare_$VERSION.zip /home/buyscrip/downloads
 
-chown buyscrip:buyscrip /home/buyscrip/downloads/vshare_$VERSION.zip
+# chown buyscrip:buyscrip /home/buyscrip/downloads/vshare_$VERSION.zip
+chmod 755 /home/buyscrip/downloads/vshare_$VERSION.zip
 
 echo "VERIFY ZIP CREATE TIME"
 
