@@ -283,7 +283,7 @@ class Video
         {
             $this->video_adult = 0;
         }
-                
+        
         if (count($error))
         {
             $error_msg = '<ul>';
@@ -301,132 +301,21 @@ class Video
         }
     }
 
-    public function get_related_videos($video_id)
+    public function get_related_videos($video_id, $keyword)
     {
         global $config , $servers;
         
-        $video_info = $this->get_video_info($video_id);
+        $keyword = strip_tags($keyword);
         
-        $keyword = trim($video_info['video_keywords']);
-        $keyword = mysql_clean($keyword);
-        #echo $keyword;
+        $sql = "SELECT *, MATCH (video_title) AGAINST ('$keyword' IN BOOLEAN MODE) AS `relevance` FROM `videos` WHERE MATCH (video_title) AGAINST ('$keyword' IN BOOLEAN MODE) ORDER BY `relevance` DESC limit " . $config['rel_video_per_page'];
+        $result = mysql_query($sql) or mysql_die($sql);
         
-
-        $tag = new Tags($keyword, $video_id, '', '0||0');
-        $tags = $tag->get_tags();
-        unset($tag);
-        #echo "<pre>";print_r($tags);echo "</pre>";
+        $related_videos = array();
         
-
-        $related_vid = array();
-        
-        for ($i = 0; $i < count($tags); $i ++)
+        while ($tmp = mysql_fetch_assoc($result))
         {
-            $sql = "SELECT tv.vid FROM
-                   `tag_video` AS tv,
-                   `tags` AS t WHERE
-                    tv.tag_id=t.id AND
-                    t.tag='" . mysql_clean($tags[$i]) . "'
-                    GROUP BY tv.vid";
-            $result = mysql_query($sql) or mysql_die($sql);
-            
-            while ($tmp_array = mysql_fetch_assoc($result))
-            {
-                $tmp = $tmp_array['vid'];
-                if (! in_array($tmp, $related_vid))
-                {
-                    $related_vid[] = $tmp;
-                }
-            }
-            unset($tmp_array);
-        }
-        #echo count($related_vid);
-        
-
-        if (count($related_vid) < 2)
-        {
-            $sql = "SELECT `video_id` FROM `videos` WHERE
-                   `video_user_id`='" . (int) $video_info['video_user_id'] . "' AND
-                   `video_type`='public' AND
-                   `video_active`=1 AND
-                   `video_approve`=1
-                    ORDER BY `video_id` DESC";
-            $result = mysql_query($sql) or mysql_die($sql);
-            
-            while ($tmp_array = mysql_fetch_assoc($result))
-            {
-                if (! in_array($tmp_array['video_id'], $related_vid))
-                {
-                    $related_vid[] = $tmp_array['video_id'];
-                }
-            }
-        }
-        
-        # Find Position Of Curent Video in related_vid array
-        $video_this = 0;
-        for ($i = 0; $i < count($related_vid); $i ++)
-        {
-            if ($related_vid[$i] == $video_id)
-            {
-                $video_this = $i;
-                break;
-            }
-        }
-        
-        # Generate List of Related Videos
-        
-
-        $array_index_start = $video_this - ($config['rel_video_per_page'] / 2);
-        
-        if ($array_index_start < 0)
-        {
-            $array_index_start = 0;
-            if (count($related_vid) > $config['rel_video_per_page'])
-            {
-                $array_index_end = $config['rel_video_per_page'] - 1;
-            }
-            else
-            {
-                $array_index_end = count($related_vid) - 1;
-            }
-        }
-        
-        if (! isset($array_index_end))
-        {
-            $array_index_end = $video_this + ($config['rel_video_per_page'] / 2);
-            if ($array_index_end > count($related_vid))
-            {
-                $array_index_end = count($related_vid) - 1;
-            }
-        }
-        
-        #echo 'start' , $array_index_start , '<br />';
-        #echo 'end', $array_index_end;
-        
-
-        #echo "<pre>"; print_r($related_vid);
-        $array_index_start = intval($array_index_start);
-        $array_index_end = intval($array_index_end);
-        for ($i = $array_index_start; $i <= $array_index_end; $i ++)
-        {
-            if (isset($related_vid[$i]))
-            {
-                $sql = "SELECT * FROM `videos` WHERE
-                       `video_active`=1 AND
-                       `video_approve`=1 AND
-                       `video_type`='public' AND
-                       `video_id`=" . (int) $related_vid[$i];
-                #echo "$i > $sql <br />";
-                $result = mysql_query($sql) or mysql_die($sql);
-                if (mysql_num_rows($result) == 1)
-                {
-                    while ($related_video = mysql_fetch_assoc($result))
-                    {
-                        $related_video['video_thumb_url'] = $servers[$related_video['video_thumb_server_id']];
-                        $related_videos[] = $related_video;
-                    }
-                }
-            }
+            $tmp['video_thumb_url'] = $servers[$tmp['video_thumb_server_id']];
+            $related_videos[] = $tmp;
         }
         
         return $related_videos;
@@ -596,7 +485,7 @@ class Video
             return 0;
         }
     }
-    
+
     function get_response_videos($video_id, $limit = '')
     {
         global $conn , $servers;

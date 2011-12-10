@@ -183,8 +183,8 @@ if (isset($show_video) && $show_video == 1 && $err == '')
         
         # Related Videos Start
         
-
-        $related_videos = $video->get_related_videos($video_id);
+		$related_video_string =  trim($video_info['video_title']) . ' ' . trim($video_info['video_description']) . ' ' . trim($video_info['video_keywords']);
+        $related_videos = $video->get_related_videos($video_id, $related_video_string);
         
         $video_this = '';
         
