@@ -16,10 +16,6 @@ require 'include/config.php';
 require 'include/class.channels.php';
 require 'include/language/' . LANG . '/lang_upload.php';
 require 'include/class.xss.php';
-require 'include/class.sitemap.php';
-
-$sitemap = new sitemap();
-$sitemap->generateDaily();
 
 if (get_config('guest_upload') != 1)
 {
