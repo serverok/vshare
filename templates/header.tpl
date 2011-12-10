@@ -69,8 +69,8 @@
     </div>
 
     <div id="video-search">
-       <form method="get" action="{$base_url}/search.php">
-         <input class="text" value="{$smarty.request.search}" name="search" />
+       <form method="get" action="{$base_url}/search_videos.php">
+         <input class="text" value="{$smarty.request.search_string}" name="search_string" />
 		 <input type="hidden" name="type" value="video">
          <input type="submit" class="search-btn" value="Search" />
        </form>
