@@ -35,15 +35,16 @@ $smarty->caching = 0;
 
 $sql = "SELECT * FROM `sconfig`";
 $result = mysql_query($sql);
+$config = array();
 
 while ($tmp = mysql_fetch_assoc($result))
 {
     $field = $tmp['soption'];
     $config[$field] = $tmp['svalue'];
-    $smarty->assign($field, $config[$field]);
 }
 
 mysql_free_result($result);
+$smarty->assign($config);
 
 $sql = "SELECT * FROM `servers`";
 $result = mysql_query($sql);
@@ -58,13 +59,15 @@ if (mysql_num_rows($result) > 0)
         $servers[$tmp_server_id] = $tmp['url'];
     }
 }
-$smarty->assign('servers', $servers);
-
-$smarty->assign('base_url', VSHARE_URL);
-$smarty->assign('base_dir', VSHARE_DIR);
 
 define('IMG_CSS_URL', VSHARE_URL . '/templates');
-$smarty->assign('img_css_url', IMG_CSS_URL);
+
+$smarty->assign(array(
+    'servers' => $servers,
+    'base_url' => VSHARE_URL,
+    'base_dir' => VSHARE_DIR,
+    'img_css_url' => IMG_CSS_URL
+));
 
 if ($config['approve'] == 1)
 {
@@ -121,9 +124,9 @@ define('LANG', $_SESSION['LANG']);
 
 if ($config['family_filter'] == 1)
 {
-	if (!isset($_SESSION['FAMILY_FILTER']))
-	{
-	    $_SESSION['FAMILY_FILTER'] = 1;
-	}
+    if (! isset($_SESSION['FAMILY_FILTER']))
+    {
+        $_SESSION['FAMILY_FILTER'] = 1;
+    }
 }
 
