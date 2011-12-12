@@ -35,7 +35,6 @@ $smarty->caching = 0;
 
 $sql = "SELECT * FROM `sconfig`";
 $result = mysql_query($sql);
-$config = array();
 
 while ($tmp = mysql_fetch_assoc($result))
 {
