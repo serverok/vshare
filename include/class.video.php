@@ -301,13 +301,23 @@ class Video
         }
     }
 
-    public function get_related_videos($video_id, $keyword)
+    public function get_related_videos($video_id, $search_string)
     {
         global $config , $servers;
         
-        $keyword = strip_tags($keyword);
+        $search_string = strip_tags($search_string);
+        $search_string = mysql_clean($search_string);
         
-        $sql = "SELECT *, MATCH (video_title) AGAINST ('$keyword' IN BOOLEAN MODE) AS `relevance` FROM `videos` WHERE MATCH (video_title) AGAINST ('$keyword' IN BOOLEAN MODE) ORDER BY `relevance` DESC limit " . $config['rel_video_per_page'];
+        $sql_select_fields = "`video_id`, `video_title`,`video_description`,`video_keywords`, `video_seo_name`,  `video_thumb_server_id`, `video_folder`";
+        
+        $sql = "SELECT $sql_select_fields, MATCH (`video_title`) AGAINST ('$search_string' IN BOOLEAN MODE) AS `relevance`
+                FROM `videos` WHERE
+                MATCH (`video_title`) AGAINST ('$search_string' IN BOOLEAN MODE) AND
+               `video_type`='public' AND
+               `video_active`='1' AND
+               `video_approve`='1'
+                ORDER BY `relevance` DESC
+                LIMIT " . $config['rel_video_per_page'];
         $result = mysql_query($sql) or mysql_die($sql);
         
         $related_videos = array();
