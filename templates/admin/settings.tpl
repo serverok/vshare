@@ -25,7 +25,7 @@
     <div>
         <label for="admin_email">Admin Email:</label>
         <input name="admin_email" id="admin_email" value="{$admin_email}" size="40" />
-        <a href="http://labs.buyscripts.in/projects/vshare/wiki/List_Per_Page" target="_blank"><img src="{$img_css_url}/images/help.png" alt="help" /></a>
+        <a href="http://labs.buyscripts.in/projects/vshare/wiki/Admin_Email" target="_blank"><img src="{$img_css_url}/images/help.png" alt="help" /></a>
     </div>
 
     <div>
