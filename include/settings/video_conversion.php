@@ -21,3 +21,4 @@ $convert_mpeg = $cmd_mencoder;
 $convert_wmv = $cmd_mencoder;
 $convert_rm = $cmd_mencoder;
 $convert_dat = $cmd_mencoder;
+$convert_m4v = $cmd_ffmpeg;
