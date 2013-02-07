@@ -37,7 +37,7 @@ class upload_remote
                 $this->upload = download($source, $desination);
             }
             #Create Main Image
-            $source = 'http://img.youtube.com/vi/' . $video_id . '/2.jpg';
+            $source = 'http://img.youtube.com/vi/' . $video_id . '/0.jpg';
             $desination = VSHARE_DIR . '/thumb/' . $vid . '.jpg';
             $this->upload = download($source, $desination);
         }
