@@ -28,7 +28,7 @@ if (mysql_num_rows($result) > 0)
     
     if ($video_info['video_server_id'] > 0)
     {
-        $url = get_file_url($video_info['video_server_id'], $video_info['video_folder'], $video_info['video_flv_name']);
+        $url = get_video_url($video_info['video_server_id'], $video_info['video_folder'], $video_info['video_flv_name']);
     }
     else if ($video_info['video_vtype'] == '7')
     {

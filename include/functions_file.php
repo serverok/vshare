@@ -1,6 +1,6 @@
 <?php
 
-function get_file_url($server_id, $folder, $name)
+function get_video_url($server_id, $folder, $name)
 {
 
     global $config;
@@ -34,7 +34,7 @@ function get_file_url($server_id, $folder, $name)
     }
     else
     {
-        $file_url = VSHARE_URL . '/' . $folder . $name;
+        $file_url = VSHARE_URL . '/flvideo/' . $folder . $name;
     }
 
     return $file_url;
