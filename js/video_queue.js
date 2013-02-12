@@ -8,8 +8,8 @@ video_queue_display();
 			     myClass['video-queue-info'] = 'video-queue-info';
 			     myClass['video-queue home-video-queue'] = 'video-queue-info home-video-queue'
 			     var video_id = $(this).attr('id');
-			     var class = $(this).attr('class');
-			     $("#"+video_id).removeClass(class).addClass(myClass[class]);
+			     var cssClass = $(this).attr('class');
+			     $("#"+video_id).removeClass(cssClass).addClass(myClass[cssClass]);
 			     $("#"+video_id).html('Added to queue');
 
 			     if (video_id.match('_'))
