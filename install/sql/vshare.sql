@@ -112,7 +112,7 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('flv_metadata', 'flv
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('video_flv_delete', '1');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('video_source_delete', '0');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('num_max_channels', '3');
-INSERT INTO `config` (`config_name`, `config_value`) VALUES('captcha_type', 'default');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('captcha_type', 'recaptcha');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('allow_html', '1');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('num_channel_video', '4');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('guest_upload', '0');
