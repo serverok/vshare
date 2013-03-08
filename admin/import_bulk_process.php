@@ -34,14 +34,15 @@ if (isset($_POST['submit']))
     $channel_id = isset($_POST['channel_id']) ? (int) $_POST['channel_id'] : 0;
     
     $sql = "SELECT * FROM `users` AS u,`channels` AS c WHERE
-    		u.user_name='" . mysql_clean($user_name) . "' AND
-    		c.channel_id='" . (int) $channel_id . "'";
+            u.user_name='" . mysql_clean($user_name) . "' AND
+            c.channel_id='" . (int) $channel_id . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     
     if (mysql_num_rows($result) > 0)
     {
         $tmp = mysql_fetch_assoc($result);
         $user_id = $tmp['user_id'];
+        $user_video_num = 0;
         
         for ($i = 0; $i < count($video_id); $i ++)
         {
@@ -111,21 +112,27 @@ if (isset($_POST['submit']))
                 else
                 {
                     $sql = "INSERT INTO `process_queue`SET
-			               `user`='" . mysql_clean($user_name) . "',
-			               `title`='" . mysql_clean($video_info['video_title']) . "',
-			               `description`='" . mysql_clean($video_info['video_description']) . "',
-			               `keywords`='" . mysql_clean($video_info['video_keywords']) . "',
-			               `process_queue_upload_ip`='" . User::get_ip() . "',
-			               `type`='public',
-			               `channels`='0|" . mysql_clean($channel_id) . "|0',
-			               `status`='0',
-			               `url`='" . mysql_clean($video_url) . "',
-			               `import_track_id`=" . (int) $import_track_id;
+                           `user`='" . mysql_clean($user_name) . "',
+                           `title`='" . mysql_clean($video_info['video_title']) . "',
+                           `description`='" . mysql_clean($video_info['video_description']) . "',
+                           `keywords`='" . mysql_clean($video_info['video_keywords']) . "',
+                           `process_queue_upload_ip`='" . User::get_ip() . "',
+                           `type`='public',
+                           `channels`='0|" . mysql_clean($channel_id) . "|0',
+                           `status`='0',
+                           `url`='" . mysql_clean($video_url) . "',
+                           `import_track_id`=" . (int) $import_track_id;
                     $result = mysql_query($sql) or mysql_die($sql);
                 }
-            
+                
+                $user_video_num++;
             }
         }
+        
+        $sql = "UPDATE `subscriber` SET
+               `total_video`=`total_video`+$user_video_num WHERE
+               `UID`='" . (int) $user_id . "'";
+        mysql_query($sql) or mysql_die($sql);
     }
     
     $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';

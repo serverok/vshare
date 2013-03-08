@@ -85,18 +85,18 @@
 			<td>
 				{$users[aa].user_last_login_time|date_format}
 			</td>
+			{insert name=subscriber_info assign=pack uid=$users[aa].user_id}
 			<td align="right">
-				{if $users[aa].user_videos gt "0"}
+				{if $pack.total_video gt "0"}
 					<a href="user_videos.php?uid={$users[aa].user_id}">
-						{$users[aa].user_videos}
+						{$pack.total_video}
 					</a>
 				{else}
-					{$users[aa].user_videos}
+					0
 				{/if}
 			</td>
 			{if $enable_package eq "yes"}
 			<td>
-				{insert name=subscriber_info assign=pack uid=$users[aa].user_id}
 				{$pack.package_name}
 			</td>
 			{/if}
