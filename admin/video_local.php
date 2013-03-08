@@ -49,15 +49,16 @@ else
 }
 
 $sql = "SELECT * FROM `servers` WHERE
-	   `server_type`!=1 AND
-	   `status`=1
-	    ORDER BY `space_used` ASC
-	    LIMIT 1";
+        `server_type`!=1 AND
+        `status`=1
+        ORDER BY `space_used` ASC
+        LIMIT 1";
 $result = mysql_query($sql) or mysql_die($sql);
 $servers = mysql_fetch_all($result);
 
-$sql = "SELECT count(*) AS `total` FROM `videos` WHERE
-	   `video_server_id`=0";
+$sql = "SELECT count(`video_id`) AS `total` FROM `videos` WHERE
+       `video_vtype`='0' AND
+       `video_server_id`='0'";
 $result = mysql_query($sql) or mysql_die($sql);
 $tmp = mysql_fetch_assoc($result);
 $total = $tmp['total'];
@@ -80,17 +81,21 @@ $data = $pager->getPageData();
 $links = $pager->getLinks();
 
 $sql = "SELECT * FROM `videos` WHERE
-	   `video_server_id`='0'
-	   	$query
-	    LIMIT $start, $admin_listing_per_page";
+       `video_vtype`='0' AND
+       `video_server_id`='0'
+        $query
+        LIMIT $start, $admin_listing_per_page";
 $result = mysql_query($sql) or mysql_die($sql);
 $videos = mysql_fetch_all($result);
+mysql_free_result($result);
 
-$smarty->assign('links', $links["all"]);
-$smarty->assign('total', $total + 0);
-$smarty->assign('page', $page + 0);
-$smarty->assign('videos', $videos);
-$smarty->assign('servers', $servers);
+$smarty->assign(array(
+    'links' => $links["all"],
+    'total' => $total + 0,
+    'page' => $page + 0,
+    'videos' => $videos,
+    'servers' => $servers
+));
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/video_local.tpl');
 $smarty->display('admin/footer.tpl');
