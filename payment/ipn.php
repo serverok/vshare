@@ -14,19 +14,22 @@ foreach ($_POST as $key => $value)
 }
 
 $header = "POST /cgi-bin/webscr HTTP/1.0\r\n";
-$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
-$header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
 
 if ($config['enable_test_payment'] == 'yes')
 {
-    $paypal_url = 'www.sandbox.paypal.com';
+    $paypal_url = 'ssl://www.sandbox.paypal.com';
+    $header .= "Host: www.sandbox.paypal.com:443\r\n";
 }
 else
 {
-    $paypal_url = 'www.paypal.com';
+    $paypal_url = 'ssl://ipnpb.paypal.com';
+    $header .= "Host: ipnpb.paypal.com:443\r\n";
 }
 
-$fp = fsockopen($paypal_url, 80, $errno, $errstr, 30);
+$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+$header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
+
+$fp = fsockopen($paypal_url, 443, $errno, $errstr, 30);
 
 // assign posted variables to local variables
 $item_name = $_POST['item_name'];
@@ -128,6 +131,9 @@ parent_txn_id  = $parent_txn_id
 
 message;
 
+$name = $config['site_name'];
+$from = $config['admin_email'];
+
 if (! $fp)
 {
     if ($ipn_debug == 1)
@@ -184,18 +190,17 @@ else
                 ####################### PAYMENT SUCCESS START ############################
                 
 
-                list($tInvoiceID, $tIsRecurring, $tGenerateInvoice) = explode("_", $_POST["custom"]);
-                
                 $custom_array = explode('|', $custom);
                 $userid = $custom_array[0];
                 $pack_id = $custom_array[1];
                 $period = $custom_array[2];
                 $the_price = $custom_array[3];
+                $vshare_payment_id = $custom_array[4];
                 
                 $expired_time = date("Y-m-d H:i:s", strtotime("+$period"));
                 
                 $sql = "UPDATE subscriber SET
-           			   `pack_id`='$pack_id',
+                       `pack_id`='$pack_id',
                        `subscribe_time`='" . date("Y-m-d H:i:s") . "',
                        `expired_time`='" . mysql_clean($expired_time) . "' WHERE
                        `UID`='" . (int) $userid . "'";
@@ -204,7 +209,7 @@ else
                 
                 $sql = "UPDATE `payments` SET
                        `payment_completed`='1' WHERE
-                       `payment_id`='" . (int) $_POST['vshare_payment_id'] . "'";
+                       `payment_id`='" . (int) $vshare_payment_id . "'";
                 mysql_query($sql);
                 $sql_log .= "<p>$sql</p>";
                 
@@ -222,43 +227,27 @@ else
                 $to = $user_info['user_email'];
                 $username = $user_info['user_name'];
                 
-                $name = $config['site_name'];
-                $from = $config['admin_email'];
-                
                 $sql = "SELECT * from `packages` WHERE
     	               `package_id`=$pack_id";
                 $result = mysql_query($sql);
                 $package_info = mysql_fetch_assoc($result);
                 $package_name = $package_info['package_name'];
                 
-                $smarty->assign('userid', $userid);
-                $smarty->assign('username', $username);
-                $smarty->assign('pack_id', $pack_id);
-                $smarty->assign('pack_name', "$package_name");
-                $smarty->assign('amount', "$the_price");
-                $smarty->assign('period', "$period");
-                $smarty->assign('expired_time', "$expired_time");
-                
                 $vshare_url = VSHARE_URL;
                 
                 $body = "
-	<P>Hello  $username,</P>
-
-	<P>Your payment received successfully. Your payment status is:</P>
-
-	<table>
-	<tr><td>Package:</td><td>$pack_name</td></tr>
-	<tr><td>You have paid:</td><td>$$the_price</td></tr>
-	<tr><td>Subscribed for:</td><td>$period</td></tr>
-	<tr><td>Expire Date:</td><td>$expired_time</td></tr>
-	</table>
-
-	<P><a href='$vshare_url/login'>Click here</a> to login the site.</P>
-
-	<P>Thank You,</p>
-
-	<P>$config[site_name] Team</p>
-";
+	            <P>Hello  $username,</P>
+	            <P>Your payment received successfully. Your payment status is:</P>
+	            <table>
+	            <tr><td>Package:</td><td>$pack_name</td></tr>
+	            <tr><td>You have paid:</td><td>$$the_price</td></tr>
+	            <tr><td>Subscribed for:</td><td>$period</td></tr>
+	            <tr><td>Expire Date:</td><td>$expired_time</td></tr>
+	            </table>
+	            <P><a href='$vshare_url/login'>Click here</a> to login the site.</P>
+	            <P>Thank You,</p>
+	            <P>$config[site_name] Team</p>
+	            ";
                 
                 $headers = "From: " . $from . "\n";
                 $headers .= "Content-Type: text/html\n";
@@ -273,22 +262,23 @@ else
                 
 
                 $message_admin = <<<EOT
-
-User: $username
-Package: $package_name
-Amount: $the_price
-Period: $period
-Expiry Date: $expired_time
-Payer Email: $payer_email
-Total: $mc_gross
-Payment Date: $payment_date
-----
-$sql_log
+                <table>
+                <tr><td>User: $username</td></tr>
+                <tr><td>Package: $package_name</td></tr>
+                <tr><td>Amount: $the_price</td></tr>
+                <tr><td>Period: $period</td></tr>
+                <tr><td>Expiry Date: $expired_time</td></tr>
+                <tr><td>Payer Email: $payer_email</td></tr>
+                <tr><td>Total: $mc_gross</td></tr>
+                <tr><td>Payment Date: $payment_date</td></tr>
+                <tr><td>----</td></tr>
+                <tr><td>$sql_log</td></tr>
+                </table>
 EOT;
                 
                 $subject = $config["site_name"] . " - Got Payment";
                 
-                mail($admin_email, $subject, $message_admin);
+                mail($admin_email, $subject, $message_admin, $headers);
             
     ####################### SEND MAIL TO ADMIN ############################  END
             
@@ -296,22 +286,23 @@ EOT;
             }
             else
             {
-                
-                $error_list = implode("\n", $error);
-                
-                $message = "
-$message
-===============================
-ERRORS
-===============================
-$error_list
-";
-                
                 if ($ipn_debug == 1)
                 {
-                    mail($admin_email, "VERIFIED IPN WITH ERRORS", $message);
+                    $error_list = implode("\n", $error);
+                    
+                    $message = "
+                    <p>$message</p>
+                    <p>===============================</p>
+                    <p>ERRORS</p>
+                    <p>===============================</p>
+                    <p>$error_list</p>
+                    ";
+                    
+                    $headers = "From: " . $from . "\n";
+                    $headers .= "Content-Type: text/html\n";
+                    
+                    mail($admin_email, "VERIFIED IPN WITH ERRORS", $message, $headers);
                 }
-            
             }
         }
         else if (strcmp($res, "INVALID") == 0)

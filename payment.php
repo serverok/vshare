@@ -72,7 +72,7 @@ if (isset($_POST['submit']))
     $sql = "INSERT INTO `payments` SET `payment_hash`='" . $payment_hash . "',
     	   `payment_user_id`='" . (int) $_POST['user_id'] . "',
     	   `payment_package_id`='" . (int) $_POST['package_id'] . "',
-           `payment_period`='1',
+           `payment_period`='" . (int) $_POST['period'] . "',
            `payment_amount`='" . $totalprice . "'";
     $result = mysql_query($sql);
     
@@ -82,7 +82,7 @@ if (isset($_POST['submit']))
     {
         $s_period = $_POST['period'] . ' ' . $package['package_period'];
         $theprice = $totalprice;
-        $uniqueid = $_POST['user_id'] . '|' . $_POST['package_id'] . '|' . $s_period . '|' . $totalprice;
+        $uniqueid = $_POST['user_id'] . '|' . $_POST['package_id'] . '|' . $s_period . '|' . $totalprice . '|' . $payment_id;
         $uniqueid = urlencode($uniqueid);
         
         $business = urlencode($config['paypal_receiver_email']);
