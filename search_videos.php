@@ -78,7 +78,7 @@ if ($err == '')
         
         $start_from = ($page - 1) * $config['items_per_page'];
         $sql_limit = " LIMIT $start_from, $config[items_per_page]";
-        $sql_select_fields = "`video_id`, `video_title`,`video_description`,`video_keywords`, `video_seo_name`,  `video_thumb_server_id`, `video_folder`";
+        $sql_select_fields = "`video_id`,`video_user_id`,`video_title`,`video_description`,`video_seo_name`,`video_length`,`video_com_num`,`video_view_number`,`video_rate`,`video_rated_by`,`video_thumb_server_id`,`video_folder`";
         
         if ($fulltext_search)
         {
@@ -104,12 +104,13 @@ if ($err == '')
         while ($video = mysql_fetch_assoc($result))
         {
             $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
-            $video['video_keywords_array'] = explode(' ', $video['video_keywords']);
             $video_info[] = $video;
-            $vid[] = $video['video_id'];
+            $video_users[] = $video['video_user_id'];
         }
         
         $total_current_page = mysql_num_rows($result);
+        mysql_free_result($result);
+        
         $start_num = $start_from + 1;
         $end_num = $start_from + $total_current_page;
         $page_links = paginate($total, $config['items_per_page'], '.', '', $page);
@@ -129,12 +130,29 @@ if ($err == '')
         $data = $pager->getPageData();
         $page_links = $pager->getLinks();
         
-        $smarty->assign('page', $page);
-        $smarty->assign('start_num', $start_num);
-        $smarty->assign('end_num', $end_num);
-        $smarty->assign('page_links', $page_links['all']);
-        $smarty->assign('total', $total);
-        $smarty->assign('video_info', $video_info);
+        //Video users
+        $video_users = array_unique($video_users);
+        $video_users_text = implode(', ', $video_users);
+        
+        $sql = "SELECT `user_id`,`user_name` FROM `users` WHERE
+               `user_id` IN(" . $video_users_text . ")";
+        $result = mysql_query($sql) or mysql_die($sql);
+        $user_names = array();
+        
+        while (list($user_id, $user_name) = mysql_fetch_array($result))
+        {
+            $user_names[$user_id] = $user_name;
+        }
+        
+        $smarty->assign(array(
+            'page' => $page,
+            'start_num' => $start_num,
+            'end_num' => $end_num,
+            'page_links' => $page_links['all'],
+            'total' => $total,
+            'video_info' => $video_info,
+            'user_names' => $user_names
+        ));
     }
     else
     {
@@ -143,13 +161,16 @@ if ($err == '')
 }
 
 $search_string = str_replace('+', ' ', $search_string);
-$smarty->assign('search_string', $search_string);
-$smarty->assign('html_title', $search_string);
-$smarty->assign('html_keywords', $search_string);
-$smarty->assign('html_description', $search_string);
-$smarty->assign('err', $err);
-$smarty->assign('msg', $msg);
-$smarty->assign('sub_menu', 'menu_home.tpl');
+$smarty->assign(array(
+    'search_string' => $search_string,
+    'html_title' => $search_string,
+    'html_keywords' => $search_string,
+    'html_description' => $search_string,
+    'err' => $err,
+    'msg' => $msg,
+    'sub_menu' => 'menu_home.tpl'
+));
+
 $smarty->display('header.tpl');
 $smarty->display('search_videos.tpl');
 $smarty->display('footer.tpl');
