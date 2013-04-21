@@ -17,6 +17,7 @@
         <select name="signup_verify" id="signup_verify">
             <option value="1" {if $signup_verify eq "1"}selected="selected"{/if}>Enable</option>
             <option value="0" {if $signup_verify eq "0"}selected="selected"{/if}>Disable</option>
+            <option value="2" {if $signup_verify eq "2"}selected="selected"{/if}>Admin</option>
         </select>
     </div>
 

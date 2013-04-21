@@ -70,8 +70,17 @@ if (isset($_POST['action_login']))
                     }
                 }
                 
-                $smarty->assign('inactive_user', '1');
-                $err = $lang['inactive_user'];
+                if ($config['signup_verify'] == '2')
+                {
+                    $err = $lang['inactive_user_admin'];
+                    $smarty->assign('inactive_user', '0');
+                }
+                else
+                {
+                    $err = $lang['inactive_user'];
+                    $smarty->assign('inactive_user', '1');
+                }
+                
                 $_SESSION['INACTIVE_USER'] = $user_info['user_name'];
             }
             else if ($user_info['user_account_status'] == 'Suspended')

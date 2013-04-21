@@ -434,6 +434,16 @@ if (isset($_POST['submit']))
                 $signup_verification_msg = $lang['signup_verify_email'];
                 $smarty->assign('signup_verification_msg', $signup_verification_msg);
             }
+            else if ($config['signup_verify'] == '2')
+            {
+                $sql = "UPDATE `users` SET
+                       `user_account_status`='Inactive' WHERE
+                       `user_id`='" . (int) $userid . "'";
+                mysql_query($sql) or mysql_die($sql);
+                
+                $signup_verification_msg = $lang['signup_verify_admin'];
+                $smarty->assign('signup_verification_msg', $signup_verification_msg);
+            }
             else
             {
                 User::login($_POST['user_name']);
