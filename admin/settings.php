@@ -68,7 +68,12 @@ if (isset($_POST['submit']))
            `svalue`='" . $_POST['approve'] . "' WHERE
            `soption`='approve'";
     mysql_query($sql);
-    
+
+    $sql = 'UPDATE `config` SET
+            `config_value`="' . $_POST['moderate_video_links'] . '" WHERE
+            `config_name`="moderate_video_links"';
+    mysql_query($sql);
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['debug'] . "' WHERE
            `soption`='debug'";
@@ -253,6 +258,7 @@ $payment_method_ops = '<input type="checkbox" name="method[]" value="Paypal" ' .
 $smarty->assign('ccbill_ac_no', get_config('ccbill_ac_no'));
 $smarty->assign('ccbill_sub_ac_no', get_config('ccbill_sub_ac_no'));
 $smarty->assign('ccbill_form_name', get_config('ccbill_form_name'));
+$smarty->assign('moderate_video_links', get_config('moderate_video_links'));
 
 $smarty->assign('allow_html', get_config('allow_html'));
 $smarty->assign('payment_method_ops', $payment_method_ops);

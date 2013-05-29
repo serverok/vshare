@@ -122,6 +122,8 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('vshare_player', 'JW
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min_enforce', '0');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min', '18');
 INSERT INTO `config` (`config_name` ,`config_value`) VALUES('user_daily_mail_limit', '50');
+INSERT INTO `config` (`config_name` ,`config_value`) VALUES('moderate_video_links', '1');
+
 
 -- Table structure for table `contact`
 

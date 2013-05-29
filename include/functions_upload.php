@@ -265,6 +265,14 @@ function process_video($vid, $debug = 1)
                 mkdir(VSHARE_DIR . '/flvideo/' . $video_folder);
             }
             
+            if ($config['approve'] == 1 && get_config('moderate_video_links') == 1)
+            {
+                if (preg_match('{\b(?:http://)?(www\.)?([^\s]+)*(\.[a-z]{2,3})\b}mi', $download_info['description']))
+                {
+                    $config['approve'] = 0;
+                }
+            }
+
             $sql = "INSERT INTO `videos` SET
                    `video_user_id`='" . (int) $download_info['user_id'] . "',
                    `video_seo_name`='" . mysql_clean($seo_name) . "',

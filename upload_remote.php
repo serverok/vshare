@@ -137,7 +137,15 @@ if (isset($_POST['submit']))
                 $video_length = sec2hms($youtube_video_info['video_duration']);
             }
         }
-        
+
+        if ($config['approve'] == 1 && get_config('moderate_video_links') == 1)
+        {
+            if (preg_match('{\b(?:http://)?(www\.)?([^\s]+)*(\.[a-z]{2,3})\b}mi', $upload_video_descr))
+            {
+                $config['approve'] = 0;
+            }
+        }
+
         # INSERT VIDEO TABLE VALUES
         
 

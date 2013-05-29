@@ -69,7 +69,7 @@
         </select>
         <a href="http://labs.buyscripts.in/projects/vshare/wiki/Allow_Links_in_comment" target="_blank"><img src="{$img_css_url}/images/help.png" alt="help" /></a>
     </div>
-    
+
     <div>
         <label for="auto_approve">Auto Approve:</label>
         <select name="approve" id="auto_approve">
@@ -77,6 +77,14 @@
             <option value="0" {if $approve eq "0"}selected="selected"{/if}>Disable</option>
         </select>
         <a href="http://labs.buyscripts.in/projects/vshare/wiki/Auto_Approve" target="_blank"><img src="{$img_css_url}/images/help.png" alt="help" /></a>
+    </div>
+
+    <div>
+        <label for="moderate_video_links">Moderate Uploads with Link:</label>
+        <select name="moderate_video_links" id="moderate_video_links">
+            <option value="1" {if $moderate_video_links eq "1"}selected="selected"{/if}>Yes</option>
+            <option value="0" {if $moderate_video_links eq "0"}selected="selected"{/if}>No</option>
+        </select>
     </div>
 
     <div>
