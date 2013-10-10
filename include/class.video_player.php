@@ -51,38 +51,14 @@ class video_player
     {
         global $config , $servers;
 
+        $video_id = $this->video_info['video_id'];
         $video_folder = $this->video_info['video_folder'];
 
-        if ($this->video_info['video_server_id'] == 0)
-        {
-            $file = VSHARE_URL . '/flvideo/' . $video_folder . $this->video_info['video_flv_name'];
-            $video_id = $this->video_info['video_id'];
-        }
-        else
-        {
-            $sql = "SELECT * FROM `servers` WHERE
-			       `id`='" . (int) $this->video_info['video_server_id'] . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
-            $server_info = mysql_fetch_assoc($result);
-            $video_id = $this->video_info['video_id'];
-
-            if ($server_info['server_type'] == 2)
-            {
-                $uri_prefix = '/dl/';
-                $f = '/' . $this->video_info['video_folder'] . $this->video_info['video_flv_name'];
-                $t = time();
-                $t_hex = sprintf('%08x', $t);
-                $m = md5($server_info['server_secdownload_secret'] . $f . $t_hex);
-                $file = $server_info['url'] . $uri_prefix . $m . '/' . $t_hex . $f;
-            }
-            else
-            {
-                $file = $server_info['url'] . '/' . $this->video_info['video_folder'] . $this->video_info['video_flv_name'];
-            }
-        }
+        require VSHARE_DIR . '/include/functions_file.php';
+        $file = get_video_url($this->video_info['video_server_id'], $this->video_info['video_folder'], $this->video_info['video_flv_name']);
         $video_thumb_url = $servers[$this->video_info['video_thumb_server_id']];
         $vshare_player = get_config('vshare_player');
-        
+
         require VSHARE_DIR . '/include/player.inc';
         return $vshare_player;
     }
@@ -91,7 +67,7 @@ class video_player
     {
         global $config,$servers;
         $youtube_player = get_config('youtube_player');
-        
+
         if ($youtube_player == 'vshare')
         {
             $video_folder = $this->video_info['video_folder'];
@@ -103,7 +79,7 @@ class video_player
 	        require VSHARE_DIR . '/include/player.inc';
 	        return $vshare_player;
         }
-                
+
         $vshare_player = '
         <object width="' . $config['player_width'] . '" height="' . $config['player_height'] . '">
         <param name="movie" value="http://www.youtube.com/v/' . $this->video_info['video_name'] . '&autoplay=' . $config['player_autostart'] . '&hl=en&fs=1"></param>

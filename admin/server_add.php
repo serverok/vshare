@@ -21,13 +21,13 @@ if (isset($_POST['submit']))
 {
     $server_url = $_POST['server_url'];
     $server_ip = $_POST['server_ip'];
-    
+
     $server_user_name = $_POST['server_username'];
     $server_password = $_POST['server_password'];
     $server_folder = $_POST['server_folder'];
     $server_type = $_POST['server_type'];
     $server_secdownload_secret = isset($_POST['server_secdownload_secret']) ? $_POST['server_secdownload_secret'] : '';
-    
+
     if ($server_url == '')
     {
         $err = $lang['server_url_null'];
@@ -56,14 +56,14 @@ if (isset($_POST['submit']))
     {
         $err = $lang['server_type_invalid'];
     }
-    else if ($server_type == 2)
+    else if ($server_type == 2 || $server_type == 3)
     {
         if (strlen($server_secdownload_secret) < 4)
         {
             $err = $lang['server_secdownload_secret_empty'];
         }
     }
-    
+
     if ($err == '')
     {
         $sql = "INSERT INTO `servers` SET
@@ -76,7 +76,7 @@ if (isset($_POST['submit']))
                `server_type`='" . (int) $server_type . "',
                `server_secdownload_secret`='" . (int) $server_secdownload_secret . "'";
         $result = mysql_query($sql) or mysql_die($sql);
-        
+
         db_close();
         set_message($lang['server_added'], 'success');
         $redirect_url = VSHARE_URL . '/admin/server_manage.php';

@@ -19,9 +19,9 @@ check_admin_login();
 
 if (isset($_POST['submit']))
 {
-    
+
     $server_id = (int) $_POST['server_id'];
-    
+
     if ($_POST['server_ip'] == '')
     {
         $err = $lang['ip_numeric'];
@@ -38,16 +38,16 @@ if (isset($_POST['submit']))
     {
         $err = $lang['password_empty'];
     }
-    else if ($_POST['server_type'] == 2)
+    else if ($_POST['server_type'] == 2 || $_POST['server_type'] == 3)
     {
         $server_secdownload_secret = isset($_POST['server_secdownload_secret']) ? $_POST['server_secdownload_secret'] : '';
-        
+
         if (strlen($server_secdownload_secret) < 10)
         {
             $err = 'You must enter secdownload.secret';
         }
     }
-    
+
     if ($err == '')
     {
         $sql = "UPDATE `servers` SET
@@ -65,7 +65,7 @@ if (isset($_POST['submit']))
         $redirect_url = VSHARE_URL . '/admin/server_manage.php';
         redirect($redirect_url);
     }
-    
+
     db_close();
     set_message($err, 'error');
     $redirect_url = VSHARE_URL . '/admin/server_manage_edit.php?id=' . $server_id;

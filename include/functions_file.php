@@ -4,33 +4,32 @@ function get_video_url($server_id, $folder, $name)
 {
 
     global $config;
+    $folder = trim($folder);
 
     $sql = "SELECT * FROM `servers` WHERE
            `id`=$server_id";
     $result = mysql_query($sql) or mysql_die($sql);
     $server_info = mysql_fetch_assoc($result);
+    $secret = $server_info['server_secdownload_secret'];
 
     if ($server_info['server_type'] == 2 && $server_id != 0)
     {
-        $secret = $server_info['server_secdownload_secret'];
-
-        //$f = '/' . $folder . '/' . $name;
-        $f = '/' . $name;
+        // lighttpd mod_secdownload
+        $uri_prefix = '/dl/';
+        $f = '/' . $folder . $name;
         $t = time();
-        $t_hex = sprintf("%08x", $t);
+        $t_hex = sprintf('%08x', $t);
         $m = md5($secret . $f . $t_hex);
-        $url_parts = parse_url($server_info['url']);
-
-        if ($url_parts['port'] == 80)
-        {
-            $server_url = 'http://' . $url_parts['host'];
-        }
-        else
-        {
-            $server_url = 'http://' . $url_parts['host'] . ':' . $url_parts['port'];
-        }
-
-        $file_url = $server_url . '/dl/' . $m . '/' . $t_hex . $f;
+        $file_url = $server_info['url'] .  $uri_prefix . $m . '/' . $t_hex . $f;
+    }
+    else if ($server_info['server_type'] == 3 && $server_id != 0)
+    {
+        // nginx ngx_http_secure_link_module
+        $file_uri = '/' . $folder . $name;
+        $time = time()+ 3600;
+        $md5hash_sd = md5($time . '.' . $file_uri .'.' . $secret, true);
+        $md5hash_sd = str_replace('=', '', strtr(base64_encode($md5hash_sd), '+/', '-_'));
+        $file_url =  $server_info['url'] . '/media/' . $md5hash_sd . ',' .$time . $file_uri;
     }
     else
     {

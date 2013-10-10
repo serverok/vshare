@@ -69,6 +69,8 @@
                     THUMBNAIL SERVER
                 {elseif $server_info[i].server_type == "2"}
                     SECDOWNLOAD
+                {elseif $server_info[i].server_type == "3"}
+                    ngx_http_secure_link_module
                 {/if}
             </td>
             <td>

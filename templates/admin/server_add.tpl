@@ -34,14 +34,15 @@
             <option value="0" {if $smarty.post.server_type == "0"}selected="selected"{/if}>VIDEO SERVER</option>
             <option value="1" {if $smarty.post.server_type == "1"}selected="selected"{/if}>THUMBNAIL SERVER</option>
             <option value="2" {if $smarty.post.server_type == "2"}selected="selected"{/if}>MOD_SECDOWNLOAD (LIGHTTPD)</option>
+            <option value="3" {if $smarty.post.server_type == "3"}selected="selected"{/if}>ngx_http_secure_link_module</option>
         </select>
         <a href="http://labs.buyscripts.in/projects/vshare/wiki/Add_Server" target="_blank">
             <img src="{$img_css_url}/images/help.png" alt="help" />
         </a>
     </div>
 
-    <div {if $smarty.post.server_type != 2}style="display:none"{/if} id="secdownload_secret_div">
-        <label for="server_secdownload_secret">secdownload.secret</label>
+    <div {if $smarty.post.server_type == 2}style="display:block"{else}style="display:none"{/if} id="secret_div">
+        <label for="server_secdownload_secret">secret</label>
         <input type="text" name="server_secdownload_secret" id="server_secdownload_secret" size="50" value="{$smarty.post.secdownload_secret}" />
     </div>
 
@@ -55,13 +56,13 @@
 <script type="text/javascript">
 	function server_type_change(obj_id)
 	{
-		if (obj_id == "2")
+		if (obj_id == "2" || obj_id == "3")
 		{
-			$('#secdownload_secret_div').fadeIn('slow');
-		} 
+			$('#secret_div').fadeIn('slow');
+		}
 		else
 		{
-			$('#secdownload_secret_div').fadeOut('slow');
+			$('#secret_div').fadeOut('slow');
 		}
 	}
 
