@@ -13,7 +13,7 @@ function check_admin_login()
             $admin_loged_in = 1;
         }
     }
-    
+
     if ($admin_loged_in == 0)
     {
         set_message('You are not logged in.', 'error');
@@ -73,7 +73,7 @@ function years($sel = '')
 {
     $year = '';
     $init = date('Y');
-    
+
     for ($i = 1900; $i <= $init; $i ++)
     {
         if ($i == $sel)
@@ -154,20 +154,20 @@ function createThumb($srcname, $destname, $maxwidth, $maxheight)
     global $config;
     $oldimg = $srcname; //$config['basepath']."/photo/".$srcname;
     $newimg = $destname; //$config['basepath']."/photo/".$destname;
-    
+
 
     $imagedata = GetImageSize($oldimg);
     $imagewidth = $imagedata[0];
     $imageheight = $imagedata[1];
     $imagetype = $imagedata[2];
-    
+
     $shrinkage = 1;
-    
+
     if ($imagewidth > $maxwidth)
     {
         $shrinkage = $maxwidth / $imagewidth;
     }
-    
+
     if ($shrinkage != 1)
     {
         $dest_height = $shrinkage * $imageheight;
@@ -178,14 +178,14 @@ function createThumb($srcname, $destname, $maxwidth, $maxheight)
         $dest_height = $imageheight;
         $dest_width = $imagewidth;
     }
-    
+
     if ($dest_height > $maxheight)
     {
         $shrinkage = $maxheight / $dest_height;
         $dest_width = $shrinkage * $dest_width;
         $dest_height = $maxheight;
     }
-    
+
     if ($imagetype == 2)
     {
         $src_img = imagecreatefromjpeg($oldimg);
@@ -235,7 +235,7 @@ function check_field_exists($fvalue, $field, $table)
 function timediff($my_time, $current_time = '')
 {
     $time1 = strtotime($my_time);
-    
+
     if ($current_time == '')
     {
         $time2 = $_SERVER['REQUEST_TIME'];
@@ -244,7 +244,7 @@ function timediff($my_time, $current_time = '')
     {
         $time2 = strtotime($current_time);
     }
-    
+
     $diff = $time2 - $time1;
     $second = $diff % 60;
     $minutes = ($diff / 60) % 60;
@@ -255,7 +255,7 @@ function timediff($my_time, $current_time = '')
     $x['hours'] = $hours;
     $x['minutes'] = $minutes;
     $x['seconds'] = $second;
-    
+
     return $x;
 }
 
@@ -289,7 +289,7 @@ function format_size($size)
 {
     if ($size['type'] == 'byte')
     {
-    
+
     }
     else
     {
@@ -305,16 +305,16 @@ function format_size($size)
     return $output;
 }
 
-function upload_jpg($_FILES, $var_name, $file_name, $img_width = 128, $dir = "upload/", $rename = '')
+function upload_jpg($FILE, $var_name, $file_name, $img_width = 128, $dir = "upload/", $rename = '')
 {
-    
-    if ($_FILES[$var_name]['name'])
+
+    if ($FILE[$var_name]['name'])
     {
         $file_url = $dir . uniqid("") . tmp;
-        $ext = strrchr($_FILES[$var_name]['name'], '.');
-        move_uploaded_file($_FILES[$var_name]['tmp_name'], $file_url);
-        
-        if ($_FILES[$var_name]['error'] > 0)
+        $ext = strrchr($FILE[$var_name]['name'], '.');
+        move_uploaded_file($FILE[$var_name]['tmp_name'], $file_url);
+
+        if ($FILE[$var_name]['error'] > 0)
         {
             $err = 'Error occurs while uploading file';
         }
@@ -324,13 +324,13 @@ function upload_jpg($_FILES, $var_name, $file_name, $img_width = 128, $dir = "up
             $size = @getimagesize($file_url);
             $width = $size[0];
             $height = $size[1];
-            
+
             if ($width > $img_width)
             {
                 $percentage = $img_width / $width;
                 $width *= $percentage;
                 $height *= $percentage;
-                
+
                 $img_r = @imagecreatetruecolor($width, $height);
                 @imagecopyresampled($img_r, $img, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
             }
@@ -338,7 +338,7 @@ function upload_jpg($_FILES, $var_name, $file_name, $img_width = 128, $dir = "up
             {
                 $img_r = $img;
             }
-            
+
             $pic_name = $dir . $file_name;
             @ImageJpeg($img_r, $pic_name, 100);
             //                       rename("$pic_name", "$dir"."$rename");
@@ -350,14 +350,14 @@ function upload_jpg($_FILES, $var_name, $file_name, $img_width = 128, $dir = "up
             $err = 'File must be as .jpg format';
         }
     }
-    
+
     return $err;
 }
 
 function cc_month($sel = '')
 {
     $month = '';
-    
+
     for ($i = 1; $i <= 12; $i ++)
     {
         if ($i <= 9)
@@ -368,7 +368,7 @@ function cc_month($sel = '')
         {
             $j = $i;
         }
-        
+
         if ($i == $sel)
         {
             $month .= "<option value='$i' selected>$j</option>";
@@ -384,7 +384,7 @@ function cc_month($sel = '')
 function cc_year($sel = '')
 {
     $year = '';
-    
+
     for ($i = 2004; $i <= 2020; $i ++)
     {
         if ($i == $sel)
@@ -421,7 +421,7 @@ function check_subscriber($space = 0)
         $err = 'You cannot upload more than ' . format_size($pack['package_space']) . ' space';
         $type = 'space';
     }
-    
+
     if ($err != '')
     {
         $uid = $_SESSION['UID'];
@@ -452,10 +452,10 @@ function paginate($total, $result_per_page, $page_url, $page_id, $current_page)
 {
     $pagination_output = '';
     $numPages = ceil($total / $result_per_page);
-    
+
     $offset = 4;
     $span = ($offset * 2) + 1;
-    
+
     if ($numPages > 1)
     {
         if ($current_page > 1)
@@ -463,12 +463,12 @@ function paginate($total, $result_per_page, $page_url, $page_id, $current_page)
             $prevPage = $current_page - 1;
             $pagination_output .= "<a class='pagination_prev' href='$page_url/$prevPage'>&lt;</a> &nbsp; ";
         }
-        
+
         if ($current_page > $offset)
         {
             $pagination_output .= "<a class='pagination' href='$page_url/1'>1</A> ... ";
         }
-        
+
         if ($numPages > $span)
         {
             if ($current_page <= $offset)
@@ -489,9 +489,9 @@ function paginate($total, $result_per_page, $page_url, $page_id, $current_page)
             $start = 1;
             $span = $numPages;
         }
-        
+
         $limit = $span + (($start != 1) ? $start : 0);
-        
+
         for ($i = $start; $i <= $limit; $i ++)
         {
             if ($i != $current_page)
@@ -502,9 +502,9 @@ function paginate($total, $result_per_page, $page_url, $page_id, $current_page)
             {
                 $pagination_output .= "<span class='pagination_active'>";
             }
-            
+
             $pagination_output .= $i;
-            
+
             if ($i != $current_page)
             {
                 $pagination_output .= "</a>";
@@ -514,12 +514,12 @@ function paginate($total, $result_per_page, $page_url, $page_id, $current_page)
                 $pagination_output .= "</span>";
             }
         }
-        
+
         if ($current_page < ($numPages - $offset))
         {
             $pagination_output .= " ... <a class='pagination' href='$page_url/$numPages'>$numPages</a>";
         }
-        
+
         if ($current_page != $numPages)
         {
             $nextPage = $current_page + 1;
@@ -536,12 +536,12 @@ function disallow_user_names($user_name)
     $sql = "SELECT * FROM `disallow` WHERE
            `disallow_username`='" . mysql_clean($user_name) . "'";
     $result = mysql_query($sql) or mysql_die($sql);
-    
+
     if (mysql_num_rows($result) > 0)
     {
         $err = 1;
     }
-    
+
     return $err;
 }
 
@@ -561,7 +561,7 @@ function download($source, $destination)
         $err = 1;
         return $err;
     }
-    
+
     while (! feof($read))
     :
         $written += fwrite($write, fread($read, 1024));
@@ -577,12 +577,12 @@ function mysql_clean($value, $is_magic_quote_removed = 0)
     {
         $value = stripslashes($value);
     }
-    
+
     if (! is_numeric($value))
     {
         $value = mysql_real_escape_string($value);
     }
-    
+
     return $value;
 }
 
@@ -599,7 +599,7 @@ function mysql_die($msg)
 function write_log($txt, $logfile = 1, $echo = 0, $extension = 'txt')
 {
     global $config;
-    
+
     if ($logfile == 1)
     {
         $log_file = VSHARE_DIR . '/templates_c/debug.txt';
@@ -610,7 +610,7 @@ function write_log($txt, $logfile = 1, $echo = 0, $extension = 'txt')
     }
     $now = date("Y-m-d G:i:s");
     error_log("$now $txt\n\r", 3, $log_file);
-    
+
     if ($echo == 1)
     {
         echo $txt;
@@ -636,7 +636,7 @@ function check_subscriber_duration($uid)
     $duration = mysql_fetch_assoc($result);
     $expired_time = $duration['expired_time'];
     $subscribe_time = $duration['subscribe_time'];
-    
+
     if ($expired_time == '0000-00-00 00:00:00')
     {
         $expired_time = date("Y-m-d h:i:s");
@@ -645,7 +645,7 @@ function check_subscriber_duration($uid)
                `UID`='" . (int) $uid . "'";
         mysql_query($sql) or mysql_die($sql);
     }
-    
+
     if ($subscribe_time == '0000-00-00 00:00:00')
     {
         $subscribe_time = date("Y-m-d h:i:s");
@@ -654,10 +654,10 @@ function check_subscriber_duration($uid)
                `UID`='" . (int) $uid . "'";
         mysql_query($sql) or mysql_die($sql);
     }
-    
+
     $expired_time_in_sec = strtotime($expired_time);
     $current_time = $_SERVER['REQUEST_TIME'];
-    
+
     if ($expired_time_in_sec < $current_time)
     {
         $expired_time = date("j F Y", strtotime($expired_time));
@@ -680,12 +680,12 @@ function check_subscriber_space($user_id)
            `UID`='" . (int) $user_id . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     $subscribe_info = mysql_fetch_assoc($result);
-    
+
     $sql = "SELECT * FROM `packages` WHERE
            `package_id`='" . (int) $subscribe_info['pack_id'] . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     $pack = mysql_fetch_assoc($result);
-    
+
     if ($subscribe_info['used_space'] >= $pack['package_space'])
     {
         $msg = $lang['subscriber_space'];
@@ -705,12 +705,12 @@ function check_subscriber_videos($uid)
            `UID`='" . (int) $uid . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     $subscribe_info = mysql_fetch_assoc($result);
-    
+
     $sql = "SELECT * FROM `packages` WHERE
            `package_id`='" . (int) $subscribe_info['pack_id'] . "'";
     $tmp_result = mysql_query($sql) or mysql_die($sql);
     $pack = mysql_fetch_assoc($tmp_result);
-    
+
     if ($pack['package_videos'] != 0 && $subscribe_info['total_video'] >= $pack['package_videos'])
     {
         $msg = $lang['subscriber_video'];
@@ -731,7 +731,7 @@ function find_age($dob)
     $current_month = $t_arr[1];
     $current_year = $t_arr[2];
     $year_dif = $current_year - $birth_year;
-    
+
     if (($birth_month > $current_month) || ($birth_month == $current_month && $current_day < $birth_day))
     {
         $age = $year_dif - 1;
@@ -740,7 +740,7 @@ function find_age($dob)
     {
         $age = $year_dif;
     }
-    
+
     return $age;
 }
 
@@ -756,13 +756,13 @@ function mysql_fetch_all($result)
 
 function password_generator($lenght = 8)
 {
-    
+
     $password = array();
-    
+
     for ($i = 0; $i <= $lenght; $i ++)
     {
         $password[$i] = chr(rand(97, 122));
-        
+
         switch ($password[$i])
         {
             case 'a':
@@ -784,9 +784,9 @@ function password_generator($lenght = 8)
                 $password[$i] = 5;
                 break;
         }
-        
+
         $third = $i / 3;
-        
+
         if (is_int($third))
         {
             $password[$i] = strtoupper($password[$i]);
@@ -799,14 +799,14 @@ function sec2hms($sec, $useColon = true)
 {
     $hms = '';
     $hours = intval(intval($sec) / 3600);
-    
+
     if ($hours > 0)
     {
         $hms .= str_pad($hours, 2, '0', STR_PAD_LEFT) . ':';
     }
-    
+
     $minutes = intval(($sec / 60) % 60);
-    
+
     if ($minutes > 0)
     {
         $hms .= str_pad($minutes, 2, '0', STR_PAD_LEFT) . ':';
@@ -815,7 +815,7 @@ function sec2hms($sec, $useColon = true)
     {
         $hms .= '00:';
     }
-    
+
     if ($sec > 59)
     {
         $seconds = intval($sec % 60);
@@ -825,7 +825,7 @@ function sec2hms($sec, $useColon = true)
         $sec_tmp = round($sec, 2);
         $seconds = $sec_tmp;
     }
-    
+
     $hms .= str_pad($seconds, 2, '0', STR_PAD_LEFT);
     return $hms;
 }
@@ -839,14 +839,14 @@ function db_close()
 function is_ip($ip)
 {
     $valid = TRUE;
-    
+
     $ip = explode('.', $ip);
-    
+
     if (count($ip) != 4)
     {
         return FALSE;
     }
-    
+
     foreach ($ip as $block)
     {
         if (! is_numeric($block) || $block > 255 || $block < 1)
@@ -854,7 +854,7 @@ function is_ip($ip)
             $valid = FALSE;
         }
     }
-    
+
     return $valid;
 }
 
@@ -886,7 +886,7 @@ function array_remove_duplicate($source_array)
 {
     $source_array = array_unique($source_array);
     $array_new = array();
-    
+
     foreach ($source_array as $key)
     {
         $array_new[] = $key;
@@ -897,11 +897,11 @@ function array_remove_duplicate($source_array)
 function check_config_exists($config_name)
 {
     global $config;
-    
+
     $sql = "SELECT * FROM `config` WHERE
 		   `config_name`='" . mysql_clean($config_name) . "'";
     $result = mysql_query($sql);
-    
+
     if (mysql_num_rows($result) > 0)
     {
         return 1;
@@ -927,14 +927,14 @@ function update_user_video_count($user_id, $action = 1)
                `user_videos`=`user_videos`-1 WHERE
                `user_id`='" . (int) $user_id . "'";
     }
-    
+
     mysql_query($sql) or mysql_die();
 }
 
 function get_family_filter()
 {
 	global $config;
-	
+
 	if ($config['family_filter'] == 1)
 	{
 		if (!isset($_SESSION['FAMILY_FILTER']))
@@ -951,12 +951,12 @@ function get_family_filter()
 			{
 				$user_adult = 1;
 			}
-			
+
 			$_SESSION['FAMILY_FILTER'] = $user_adult;
 		}
-		
+
 		return $_SESSION['FAMILY_FILTER'];
 	}
-	
+
 	return 0;
 }
