@@ -161,16 +161,17 @@ if ($err == '')
 }
 
 $search_string = str_replace('+', ' ', $search_string);
+$html_title = "$search_string - Search results page $page";
+
 $smarty->assign(array(
     'search_string' => $search_string,
-    'html_title' => $search_string,
-    'html_keywords' => $search_string,
-    'html_description' => $search_string,
+    'html_title' => $html_title,
+    'html_keywords' => $html_title,
+    'html_description' => $html_title,
     'err' => $err,
     'msg' => $msg,
     'sub_menu' => 'menu_home.tpl'
 ));
-
 $smarty->display('header.tpl');
 $smarty->display('search_videos.tpl');
 $smarty->display('footer.tpl');

@@ -150,6 +150,10 @@ if (isset($_POST['action_login']))
     }
 }
 
+$smarty->assign(array(
+    'html_title' => 'Login',
+    'html_description' => 'Login'
+));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('sub_menu', 'menu_home.tpl');

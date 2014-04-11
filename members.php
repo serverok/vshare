@@ -134,6 +134,10 @@ $start_num = $start_from + 1;
 $end_num = $start_from + $results_on_this_page;
 $page_links = paginate($total, $config['items_per_page'], '.', '', $page);
 
+$smarty->assign(array(
+    'html_title' => $title . ' Members - page ' . $page,
+    'html_description' => $title . ' Members - page ' . $page
+));
 $smarty->assign('sort', $sort);
 $smarty->assign('title', $title);
 $smarty->assign('start_num', $start_num);

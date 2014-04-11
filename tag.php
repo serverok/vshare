@@ -38,17 +38,21 @@ if (isset($_GET['sort']))
 }
 
 $sort = isset($_SESSION['tag_sort_order']) ? $_SESSION['tag_sort_order'] : '';
+$sort_html = '';
 
 switch ($sort)
 {
     case 'viewnum':
         $sortby = "ORDER BY `video_view_number` DESC";
+        $sort_html = 'Most Viewed';
         break;
     case 'rate':
         $sortby = "ORDER BY (`video_rated_by`*`video_rate`) DESC";
+        $sort_html = 'Most Rated';
         break;
     default:
         $sortby = "ORDER BY `video_add_time` DESC";
+        $sort_html = 'Most Recent';
         break;
 }
 
@@ -143,12 +147,13 @@ if ($err == '')
     }
 }
 
+$html_title = $sort_html . ' ' . $search_string . ' Videos - page ' . $page;
 $search_string = str_replace('+', ' ', $search_string);
 $smarty->assign(array(
     'search_string' => $search_string,
-    'html_title' => $search_string,
-    'html_keywords' => $search_string,
-    'html_description' => $search_string,
+    'html_title' => $html_title,
+    'html_keywords' => $html_title,
+    'html_description' => $html_title,
     'err' => $err,
     'msg' => $msg,
     'sub_menu' => 'menu_home.tpl'

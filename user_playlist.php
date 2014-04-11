@@ -64,6 +64,8 @@ if (isset($_POST['create_playlist']) && isset($_SESSION['UID']))
     }
 }
 
+$html_playlist_name = '';
+
 $sql = "SELECT * FROM `playlists` WHERE
        `playlist_user_id`='" . (int) $user_info['user_id'] . "'
         ORDER BY `playlist_id` ASC";
@@ -85,6 +87,7 @@ if (mysql_num_rows($result) > 0)
     {
         $playlist_info = mysql_fetch_assoc($result);
         $smarty->assign('playlist_info', $playlist_info);
+        $html_playlist_name = $playlist_info['playlist_name'] . ' - ';
         
         $sql = "SELECT count(*) AS `total` FROM
                `videos` AS `v`, `playlists` AS `pl`, `playlists_videos` AS `pv` WHERE
@@ -131,6 +134,12 @@ if (mysql_num_rows($result) > 0)
     }
 }
 
+$html_title = "$html_playlist_name $user_info[user_name]'s playlists - page $page";
+$smarty->assign(array(
+    'html_title' => $html_title,
+    'html_description' => $html_title,
+    'html_keywords' => $html_title
+));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('page', $page);

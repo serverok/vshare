@@ -33,6 +33,8 @@ if (mysql_num_rows($result) < 1)
     $err = $lang['group_not_found'];
 }
 
+$html_title = '';
+
 if ($err == '')
 {
     $group_info = mysql_fetch_assoc($result);
@@ -139,6 +141,7 @@ if ($err == '')
     $end_num = $start_from + $num_videos;
     $page_links = paginate($total, $config['items_per_page'], '.', '', $page);
 
+    $html_title = "$group_info[group_name] - Videos page $page";
 }
 
 $group_video_keywords_array_new = array_remove_duplicate($group_video_keywords_array);
@@ -146,6 +149,11 @@ $group_video_keywords_array_new = array_remove_duplicate($group_video_keywords_a
 $view = array();
 $view['group_video_keywords_array'] = $group_video_keywords_array_new;
 
+$smarty->assign(array(
+    'html_title' => $html_title,
+    'html_description' => $html_title,
+    'html_keywords' => $html_title
+));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('page', $page);

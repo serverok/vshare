@@ -122,7 +122,7 @@ if ($num_rows > 0)
 
 $smarty->assign('html_title', $channel['channel_name']);
 $smarty->assign('html_keywords', $channel['channel_name']);
-$smarty->assign('html_description', $channel['channel_name']);
+$smarty->assign('html_description', $channel['channel_description']);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('header.tpl');

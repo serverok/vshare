@@ -66,10 +66,11 @@ if (isset($_GET['chid']))
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
     $smarty->assign('channel_name', $tmp['channel_name']);
+    $channel_name = $tmp['channel_name'] . ' ';
 }
 else
 {
-    $channel_sql = '';
+    $channel_sql = $channel_name = '';
 }
 
 $view = Cache::load($cache_id);
@@ -108,7 +109,7 @@ if (! $view)
     
     if ($category == 'recent')
     {
-        $view['html_title'] = 'Most Recent Videos';
+        $view['html_title'] = 'Most Recent ' . $channel_name . 'Videos';
         $view['display_order'] = 'Most Recent';
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
@@ -121,7 +122,7 @@ if (! $view)
     }
     else if ($category == 'viewed')
     {
-        $view['html_title'] = 'Most Viewed Videos';
+        $view['html_title'] = 'Most Viewed ' . $channel_name . 'Videos';
         $view['display_order'] = 'Most Viewed';
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
@@ -134,7 +135,7 @@ if (! $view)
     }
     else if ($category == 'discussed')
     {
-        $view['html_title'] = 'Most Discussed Videos';
+        $view['html_title'] = 'Most Discussed ' . $channel_name . 'Videos';
         $view['display_order'] = 'Most Discussed';
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
@@ -147,7 +148,7 @@ if (! $view)
     }
     else if ($category == 'favorites')
     {
-        $view['html_title'] = 'Top Favorites Videos';
+        $view['html_title'] = 'Top Favorites ' . $channel_name . 'Videos';
         $view['display_order'] = 'Top Favorites';
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
@@ -160,7 +161,7 @@ if (! $view)
     }
     else if ($category == 'rated')
     {
-        $view['html_title'] = 'Top Rated Videos';
+        $view['html_title'] = 'Top Rated ' . $channel_name . 'Videos';
         $view['display_order'] = 'Top Rated';
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
@@ -173,7 +174,7 @@ if (! $view)
     }
     else if ($category == 'featured')
     {
-        $view['html_title'] = 'Featured Videos';
+        $view['html_title'] = 'Featured ' . $channel_name . 'Videos';
         $view['display_order'] = 'Featured';
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
@@ -214,6 +215,8 @@ if (! $view)
     
     Cache::save($cache_id, $view);
 }
+
+$view['html_title'] = $view['html_title'] . ' - page ' . $page;
 
 $smarty->assign('html_title', $view['html_title']);
 $smarty->assign('html_keywords', $view['html_title']);

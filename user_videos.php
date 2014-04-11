@@ -168,6 +168,12 @@ if ($show_video == 1)
     $smarty->assign('view', $view);
 }
 
+$html_title = $user_info['user_name'] . '\'s videos page ' . $page;
+$smarty->assign(array(
+    'html_title' => $html_title,
+    'html_description' => $html_title,
+    'html_keywords' => $html_title
+));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('page', $page);

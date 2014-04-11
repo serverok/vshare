@@ -240,8 +240,8 @@ else
 
 $smarty->assign('show_group', $show_group);
 $smarty->assign('html_title', $group_info['group_name']);
-$smarty->assign('html_keywords', $group_info['group_name']);
-$smarty->assign('html_description', $group_info['group_name']);
+$smarty->assign('html_keywords', $group_info['group_keyword']);
+$smarty->assign('html_description', $group_info['group_description']);
 
 $add = base64_encode("&urlkey=$group_url");
 

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>{if $html_title ne ""}{$html_title} - {$site_name}{else}{$site_name} - Share Your Videos{/if}</title>
-<meta name="keywords" content="{if $html_keywords ne ""}{$html_keywords} {/if}{$meta_keywords}" />
+<meta name="keywords" content="{if $html_keywords ne ""}{$html_keywords}, {/if}{$meta_keywords}" />
 <meta name="description" content="{if $html_description ne ""}{$html_description} {/if}{$meta_description}" />
 <link rel="alternate" type="application/rss+xml" title="20 Latest videos" href="{$base_url}/rss/new/" />
 <link rel="alternate" type="application/rss+xml" title="20 Most Viewed Videos" href="{$base_url}/rss/views/" />

@@ -184,6 +184,12 @@ $page_link = paginate($total, $config['items_per_page'], '.', '', $page);
 
 $channels = channels::get_all();
 
+$html_title = "$category_tpl Groups - page $page";
+$smarty->assign(array(
+    'html_title' => $html_title,
+    'html_description' => $html_title,
+    'html_keywords' => $html_title
+));
 $smarty->assign('channels', $channels);
 $smarty->assign('category', $category_tpl);
 $smarty->assign('err', $err);

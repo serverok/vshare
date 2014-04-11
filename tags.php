@@ -71,8 +71,11 @@ if (! $popular_tags)
     Cache::save('popular_tags', $popular_tags);
 }
 
-$smarty->assign('popular_tags', $popular_tags);
-
+$smarty->assign(array(
+    'popular_tags' => $popular_tags,
+    'html_title' => 'Tags',
+    'html_description' => 'Tags'
+));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('sub_menu', 'menu_home.tpl');

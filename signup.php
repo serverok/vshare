@@ -493,6 +493,10 @@ if ($signup_dob == 1)
     $smarty->assign('years', $years);
 }
 
+$smarty->assign(array(
+    'html_title' => 'Sign Up',
+    'html_description' => 'Sign Up'
+));
 $smarty->assign('age_minimum', get_config('signup_age_min'));
 $smarty->assign('captcha_type', $captcha_type);
 $smarty->assign('signup_dob', $signup_dob);
