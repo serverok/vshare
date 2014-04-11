@@ -23,47 +23,47 @@ if (isset($_POST['submit']))
            `svalue`='" . mysql_clean($_POST['site_name']) . "' WHERE
            `soption`='site_name'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `config` SET
            `config_value`='" . (int) $_POST['allow_html'] . "' WHERE
            `config_name`='allow_html'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . mysql_clean($_POST['meta_keywords']) . "' WHERE
            `soption`='meta_keywords'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . mysql_clean($_POST['meta_description']) . "' WHERE
            `soption`='meta_description'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . mysql_clean($_POST['admin_email']) . "' WHERE
            `soption`='admin_email'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . mysql_clean($_POST['items_per_page']) . "' WHERE
            `soption`='items_per_page'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . (int) $_POST['rel_video_per_page'] . "' WHERE
            `soption`='rel_video_per_page'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . (int) $_POST['num_watch_videos'] . "' WHERE
            `soption`='num_watch_videos'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['enable_package'] . "' WHERE
            `soption`='enable_package'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['approve'] . "' WHERE
            `soption`='approve'";
@@ -78,36 +78,36 @@ if (isset($_POST['submit']))
            `svalue`='" . $_POST['debug'] . "' WHERE
            `soption`='debug'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['notify_upload'] . "' WHERE
            `soption`='notify_upload'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['guest_limit'] . "' WHERE
            `soption`='guest_limit'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['embed_show'] . "' WHERE
            `soption`='embed_show'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['embed_type'] . "' WHERE
            `soption`='embed_type'";
     mysql_query($sql);
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . (int) $_POST['cache_enable'] . "' WHERE
            `soption`='cache_enable'";
     mysql_query($sql);
-    
+
     if ($config['enable_package'] == 'yes')
     {
         $_POST['method'] = isset($_POST['method']) ? $_POST['method'] : '';
-        
+
         if ($_POST['method'] == '')
         {
             $err = $lang['payment_method_empty'];
@@ -120,19 +120,19 @@ if (isset($_POST['submit']))
                    `soption`='payment_method'";
             mysql_query($sql);
         }
-        
+
         if ($err == '')
         {
             $sql = "UPDATE `sconfig` SET
                    `svalue`='" . mysql_clean($_POST['paypal_receiver_email']) . "' WHERE
                    `soption`='paypal_receiver_email'";
             mysql_query($sql);
-            
+
             $sql = "UPDATE `sconfig` SET
                    `svalue`='" . mysql_clean($_POST['enable_test_payment']) . "' WHERE
                    `soption`='enable_test_payment'";
             mysql_query($sql);
-            
+
             if (preg_match("/CCBill/i", $payment_method))
             {
                 if (! is_numeric($_POST['ccbill_ac_no']))
@@ -147,7 +147,7 @@ if (isset($_POST['submit']))
                 {
                     $_POST['ccbill_ac_no'] = isset($_POST['ccbill_ac_no']) ? $_POST['ccbill_ac_no'] : '';
                     $_POST['ccbill_ac_no'] = trim($_POST['ccbill_ac_no']);
-                    
+
                     if (check_config_exists('ccbill_ac_no'))
                     {
                         $sql = "UPDATE `config` SET
@@ -162,10 +162,10 @@ if (isset($_POST['submit']))
                                `config_value`='" . mysql_clean($_POST['ccbill_ac_no']) . "'";
                         mysql_query($sql);
                     }
-                    
+
                     $_POST['ccbill_sub_ac_no'] = isset($_POST['ccbill_sub_ac_no']) ? $_POST['ccbill_sub_ac_no'] : '';
                     $_POST['ccbill_sub_ac_no'] = trim($_POST['ccbill_sub_ac_no']);
-                    
+
                     if (check_config_exists('ccbill_sub_ac_no'))
                     {
                         $sql = "UPDATE `config` SET
@@ -180,10 +180,10 @@ if (isset($_POST['submit']))
                                `config_value`='" . mysql_clean($_POST['ccbill_sub_ac_no']) . "'";
                         mysql_query($sql);
                     }
-                    
+
                     $_POST['ccbill_form_name'] = isset($_POST['ccbill_form_name']) ? $_POST['ccbill_form_name'] : '';
                     $_POST['ccbill_form_name'] = trim($_POST['ccbill_form_name']);
-                    
+
                     if (check_config_exists('ccbill_form_name'))
                     {
                         $sql = "UPDATE `config` SET
@@ -198,22 +198,52 @@ if (isset($_POST['submit']))
                                `config_value`='" . mysql_clean($_POST['ccbill_form_name']) . "'";
                         mysql_query($sql);
                     }
-                
+
                 }
             }
-            
-            $sql = "UPDATE `sconfig` SET
-                   `svalue`='" . mysql_clean($_POST['family_filter']) . "' WHERE
-                   `soption`='family_filter'";
-            mysql_query($sql);
         }
     }
-    
+
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . mysql_clean($_POST['family_filter']) . "' WHERE
            `soption`='family_filter'";
     mysql_query($sql);
-    
+
+    $hotlink_protection = (int) $_POST['hotlink_protection'];
+
+    $sql = 'UPDATE `config` SET
+            `config_value`="' . $hotlink_protection . '" WHERE
+            `config_name`="hotlink_protection"';
+    mysql_query($sql);
+
+    if ($hotlink_protection == 0)
+    {
+        $fp = fopen(VSHARE_DIR . '/flvideo/.htaccess', 'w');
+        fclose($fp);
+    }
+    else if ($hotlink_protection == 1)
+    {
+        $content = 'RewriteEngine On
+RewriteBase /
+RewriteCond %{HTTP_REFERER} !^' . VSHARE_URL . ' [NC]
+';
+        $fp = fopen(VSHARE_DIR . '/flvideo/.htaccess', 'w');
+        fwrite($fp, $content, strlen($content));
+        fclose($fp);
+    }
+    else if ($hotlink_protection == 2)
+    {
+        $content = 'RewriteEngine On
+RewriteBase /
+RewriteCond %{HTTP_REFERER} !^' . VSHARE_URL . ' [NC]
+RewriteCond %{HTTP_COOKIE} !vShareAllow=yes [NC]
+RewriteRule .* [F]
+';
+        $fp = fopen(VSHARE_DIR . '/flvideo/.htaccess', 'w');
+        fwrite($fp, $content, strlen($content));
+        fclose($fp);
+    }
+
     if ($err == '')
     {
         set_message($lang['settings_updated'], 'success');
@@ -239,7 +269,7 @@ $paypal_enabled = '';
 if ($config['payment_method'] != '')
 {
     $method = explode('|', $config['payment_method']);
-    
+
     while (list($k, $v) = each($method))
     {
         if ($v == 'Paypal')
@@ -259,6 +289,7 @@ $smarty->assign('ccbill_ac_no', get_config('ccbill_ac_no'));
 $smarty->assign('ccbill_sub_ac_no', get_config('ccbill_sub_ac_no'));
 $smarty->assign('ccbill_form_name', get_config('ccbill_form_name'));
 $smarty->assign('moderate_video_links', get_config('moderate_video_links'));
+$smarty->assign('hotlink_protection', get_config('hotlink_protection'));
 
 $smarty->assign('allow_html', get_config('allow_html'));
 $smarty->assign('payment_method_ops', $payment_method_ops);

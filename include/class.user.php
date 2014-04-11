@@ -29,7 +29,12 @@ class User
             $_SESSION['USERNAME'] = $user_info['user_name'];
             $_SESSION['EMAILVERIFIED'] = $user_info['user_email_verified'];
             $_SESSION['pwd'] = $token;
-            
+
+            if (get_config('hotlink_protection') == 2)
+            {
+                setcookie('vShareAllow', 'yes', time() + 60 * 60 * 24 * 100, '/');
+            }
+
             if ($admin_login == 1)
             {
                 return 1;
@@ -72,6 +77,8 @@ class User
         if (isset($_SESSION['pwd'])) unset($_SESSION['pwd']);
         setcookie('VSHARE_AL_USER', '', $_SERVER['REQUEST_TIME'] - 10000, '/');
         setcookie('VSHARE_AL_PASSWORD', '', $_SERVER['REQUEST_TIME'] - 10000, '/');
+        setcookie('vShareAllow', '', time() - 3600, '/');
+
         
         if ($config['family_filter'] == 1)
         {

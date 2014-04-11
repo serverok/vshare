@@ -123,6 +123,7 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min_enfo
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min', '18');
 INSERT INTO `config` (`config_name` ,`config_value`) VALUES('user_daily_mail_limit', '50');
 INSERT INTO `config` (`config_name` ,`config_value`) VALUES('moderate_video_links', '1');
+INSERT INTO `config` (`config_name` ,`config_value`) VALUES('hotlink_protection', '0');
 
 
 -- Table structure for table `contact`

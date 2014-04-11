@@ -1,7 +1,7 @@
 {include file="admin/settings_menu.tpl"}
 
 <h1>System Settings</h1>
-                
+
 <form method="post" action="settings.php">
 
     <div>
@@ -9,13 +9,13 @@
         <input name="site_name" id="site_name" value="{$site_name}" size="40" />
         <a href="http://labs.buyscripts.in/projects/vshare/wiki/Site_Name" target="_blank"><img src="{$img_css_url}/images/help.png" alt="help" /></a>
     </div>
-    
+
     <div>
         <label for="meta_keywords">Meta Keywords:</label>
         <input name="meta_keywords" id="meta_keywords" value="{$meta_keywords}" size="40" />
         <a href="http://labs.buyscripts.in/projects/vshare/wiki/Meta_Keywords" target="_blank"><img src="{$img_css_url}/images/help.png" alt="help" /></a>
     </div>
-    
+
     <div>
         <label for="meta_description">Meta Description:</label>
         <input name="meta_description" id="meta_description" value="{$meta_description}" size="40" />
@@ -51,7 +51,7 @@
         <input name="guest_limit" id="guest_limit" value="{$guest_limit}" size="40" />
         <a href="http://labs.buyscripts.in/projects/vshare/wiki/Guest_Limit" target="_blank"><img src="{$img_css_url}/images/help.png" alt="help" /></a>
     </div>
-    
+
     <div>
         <label for="cache_enable">Cache</label>
         <select name="cache_enable" id="cache_enable">
@@ -60,7 +60,7 @@
         </select>
         <a href="http://labs.buyscripts.in/projects/vshare/wiki/Cache" target="_blank"><img src="{$img_css_url}/images/help.png" alt="help" /></a>
     </div>
-    
+
     <div>
         <label for="allow_html">Allow Links in comment:</label>
         <select name="allow_html" id="allow_html">
@@ -125,34 +125,34 @@
         <select name="enable_package" id="enable_package">{$service_ops}</select>
         <a href="http://labs.buyscripts.in/projects/vshare/wiki/Service_Type" target="_blank"><img src="{$img_css_url}/images/help.png" alt="help" /></a>
     </div>
-    
+
     {if $enable_package eq "yes"}
-    
+
         <div>
             <label>Payment Method:</label>
             {$payment_method_ops}
         </div>
-        
+
         <div>
             <label>CCBill Account No:</label>
             <input type="text" name="ccbill_ac_no" value="{$ccbill_ac_no}">
         </div>
-        
+
         <div>
             <label>CCBill Sub account No:</label>
             <input type="text" name="ccbill_sub_ac_no" value="{$ccbill_sub_ac_no}">
         </div>
-		
+
 		<div>
             <label>CCBill Form Name:</label>
             <input type="text" name="ccbill_form_name" value="{$ccbill_form_name}">
         </div>
-        
+
         <div>
             <label for="paypal_receiver_email">Paypal Receiver Email:</label>
             <input name="paypal_receiver_email" id="paypal_receiver_email" value="{$paypal_receiver_email}" size="40" />
         </div>
-        
+
         <div>
             <label>Enable Test Payment ?</label>
             <div class="indent">
@@ -160,14 +160,23 @@
                 <input type=radio name=enable_test_payment value="no" {if $enable_test_payment ne "yes"}checked="checked"{/if} /> No<br />
             </div>
         </div>
-    
+
     {/if}
-    
+
     <div>
         <label for="family_filter">Family Filter:</label>
         <select name="family_filter" id="family_filter">
             <option value="1" {if $family_filter eq "1"}selected="selected"{/if}>Enable</option>
             <option value="0" {if $family_filter eq "0"}selected="selected"{/if}>Disable</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="hotlink_protection">Hotlink Protection:</label>
+        <select name="hotlink_protection">
+            <option value="0"{if $hotlink_protection eq "0"} selected="selected"{/if}>Disabled</option>
+            <option value="1"{if $hotlink_protection eq "1"} selected="selected"{/if}>Normal Hotlink Protection</option>
+            <option value="2"{if $hotlink_protection eq "2"} selected="selected"{/if}>Only Allow Logged in Users</option>
         </select>
     </div>
 
