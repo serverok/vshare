@@ -38,15 +38,14 @@
             
                 <p class="video_details">
                     {insert name=id_to_name assign=user_name un=$featured_videos[i].video_user_id}
-                    {insert name=time_range assign=added_on field=video_add_time IDFR=video_id id=$featured_videos[i].video_id tbl=videos}
+                    {insert name=time_range assign=added_on time=$featured_videos[i].video_add_time}
                     Added: {$added_on} by
                     <a href="{$base_url}/{$user_name}">
                         {$user_name}
                     </a>
                     <br />
                     Views: {$featured_videos[i].video_view_number} |
-                    {insert name=comment_count assign=commentcount vid=$featured_videos[i].video_id}
-                    Comments: {$commentcount}
+                    Comments: {$featured_videos[i].video_com_num}
                 
                     {if $featured_videos[i].video_rated_by gt "0"}
                         {insert name=show_rate assign=rate rte=$featured_videos[i].video_rate rated=$featured_videos[i].video_rated_by}

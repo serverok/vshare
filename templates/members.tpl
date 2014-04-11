@@ -34,11 +34,11 @@
                     </p>
                     
                     <p class="video_details">
-                        Joined :{insert name=time_range assign=stime field=user_join_time IDFR=user_id id=$members[i].user_id tbl=users} {$stime}
+                        Joined :{insert name=time_range assign=stime time=$members[i].user_join_time} {$stime}
                     </p>
                     
                     <p class="video_details">
-                    	Last Login: {insert name=time_range assign=rtime field=user_last_login_time IDFR=user_id id=$members[i].user_id tbl=users}{$rtime}
+			Last Login: {insert name=time_range assign=rtime time=$members[i].user_last_login_time} {$rtime}
                     </p>
                     
                     <p class="video_details">

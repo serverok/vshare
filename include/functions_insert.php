@@ -3,28 +3,28 @@
 function insert_tags()
 {
     global $conn;
-    
+
     $sql = "SELECT * FROM `tags` WHERE
            `active`='1' AND
            `tag_count` > 0
             ORDER BY `used_on` DESC
             LIMIT " . get_config('home_num_tags');
     $result = mysql_query($sql) or mysql_die($sql);
-    
+
     if (mysql_num_rows($result) < 1)
     {
         return '';
     }
-    
+
     require 'HTML/TagCloud.php';
     $tags = new HTML_TagCloud();
-    
+
     while ($tag = mysql_fetch_assoc($result))
     {
         $tag_url = VSHARE_URL . '/tag/' . mb_strtolower($tag['tag']) . '/';
         $tags->addElement($tag['tag'], $tag_url, $tag['tag_count'], $tag['used_on']);
     }
-    
+
     return $tags->buildHTML();
 }
 
@@ -46,14 +46,14 @@ function insert_show_videos($a)
     {
         $query = "AND `video_featured`='yes' ORDER BY `video_add_time` DESC";
     }
-    
+
     $sql = "SELECT * FROM `videos` WHERE
            `video_type`='public' AND
            `video_active`=1 AND
            `video_approve`=1 " . $query . "
             LIMIT " . (int) $a['num_videos'];
     $result = mysql_query($sql) or mysql_die($sql);
-    
+
     if ($a['type'] == 'featured' && mysql_num_rows($result) < 1)
     {
         $sql = "SELECT * FROM videos WHERE
@@ -63,12 +63,12 @@ function insert_show_videos($a)
                 LIMIT " . (int) $a['num_videos'];
         $result = mysql_query($sql) or mysql_die($sql);
     }
-    
+
     while ($video_info = mysql_fetch_assoc($result))
     {
         $videos[] = $video_info;
     }
-    
+
     return $videos;
 }
 
@@ -87,105 +87,56 @@ function insert_time_range($info)
     global $config , $conn;
     $range = '';
     $present = $_SERVER['REQUEST_TIME'];
-    $execute_query = 1;
-    
-    $field_arr = array(
-        'video_add_time',
-        'user_last_login_time',
-        'user_join_time',
-        'comment_add_time',
-        'group_create_time',
-        'group_topic_add_time'
-    );
-    if (! in_array($info['field'], $field_arr))
+    $addtime = $info['time'];
+    $interval = $present - $addtime;
+
+    if ($interval > 0)
     {
-        $execute_query = 0;
-    }
-    
-    $qfield_arr = array(
-        'video_id',
-        'user_id',
-        'comment_id',
-        'group_id',
-        'group_topic_id'
-    );
-    if (! in_array($info['IDFR'], $qfield_arr))
-    {
-        $execute_query = 0;
-    }
-    
-    $table_arr = array(
-        'videos',
-        'users',
-        'comments',
-        'groups',
-        'group_topics'
-    );
-    if (! in_array($info['tbl'], $table_arr))
-    {
-        $execute_query = 0;
-    }
-    
-    if ($execute_query == 1)
-    {
-        $sql = "SELECT `$info[field]` FROM `$info[tbl]` WHERE
-               `$info[IDFR]`='" . (int) $info['id'] . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        $tmp = mysql_fetch_assoc($result);
-        $addtime = $tmp[$info['field']];
-        $interval = $present - $addtime;
-        if ($interval > 0)
+        $day = $interval / (60 * 60 * 24);
+        if ($day >= 1)
         {
-            $day = $interval / (60 * 60 * 24);
-            if ($day >= 1)
+            $range = floor($day) . ' days ';
+            $interval = $interval - (60 * 60 * 24 * floor($day));
+        }
+        if ($interval > 0 && $range == '')
+        {
+            $hour = $interval / (60 * 60);
+            if ($hour >= 1)
             {
-                $range = floor($day) . ' days ';
-                $interval = $interval - (60 * 60 * 24 * floor($day));
+                $range = floor($hour) . ' hours ';
+                $interval = $interval - (60 * 60 * floor($hour));
             }
-            if ($interval > 0 && $range == '')
+        }
+        if ($interval > 0 && $range == '')
+        {
+            $min = $interval / (60);
+            if ($min >= 1)
             {
-                $hour = $interval / (60 * 60);
-                if ($hour >= 1)
-                {
-                    $range = floor($hour) . ' hours ';
-                    $interval = $interval - (60 * 60 * floor($hour));
-                }
+                $range = floor($min) . ' minutes ';
+                $interval = $interval - (60 * floor($min));
             }
-            if ($interval > 0 && $range == '')
+        }
+        if ($interval > 0 && $range == '')
+        {
+            $scn = $interval;
+            if ($scn >= 1)
             {
-                $min = $interval / (60);
-                if ($min >= 1)
-                {
-                    $range = floor($min) . ' minutes ';
-                    $interval = $interval - (60 * floor($min));
-                }
+                $range = $scn . ' seconds ';
             }
-            if ($interval > 0 && $range == '')
-            {
-                $scn = $interval;
-                if ($scn >= 1)
-                {
-                    $range = $scn . ' seconds ';
-                }
-            }
-            if ($range != '')
-            {
-                $range = $range . ' ago';
-            }
-            else
-            {
-                $range = 'just now';
-            }
-            return $range;
+        }
+        if ($range != '')
+        {
+            $range = $range . ' ago';
         }
         else
         {
-            return '1 seconds ago';
+            $range = 'just now';
         }
+        return $range;
     }
     else
     {
-        return "error";
+        return '1 seconds ago';
     }
 }
 
@@ -199,7 +150,7 @@ function insert_time_to_date($a)
 function insert_video_channel($a)
 {
     global $conn;
-    
+
     if ($a['tbl'] == '')
     {
         $sqlx = "`video_channels` AS `channel` FROM `videos` WHERE `video_id`='" . (int) $a['vid'] . "'";
@@ -208,7 +159,7 @@ function insert_video_channel($a)
     {
         $sqlx = "`group_channels` FROM `groups` WHERE `group_id`='" . (int) $a['gid'] . "'";
     }
-    
+
     $sql = "SELECT $sqlx";
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
@@ -220,7 +171,7 @@ function insert_video_channel($a)
     {
         $ch_id = explode('|', $tmp['group_channels']);
     }
-    
+
     for ($i = 0; $i < count($ch_id); $i ++)
     {
         if (! empty($ch_id[$i]))
@@ -228,14 +179,14 @@ function insert_video_channel($a)
             $sql = "SELECT `channel_id`,`channel_name`,`channel_seo_name` FROM `channels` WHERE
                    `channel_id`='" . (int) $ch_id[$i] . "'";
             $result = mysql_query($sql) or mysql_die($sql);
-            
+
             while ($channel = mysql_fetch_assoc($result))
             {
                 $ch_info[] = $channel;
             }
         }
     }
-    
+
     return $ch_info;
 }
 
@@ -249,12 +200,12 @@ function insert_show_rate($a)
     {
         $rate = $rate / $rating;
         $num_full_star = floor($rate);
-        
+
         for ($i = 0; $i < $num_full_star; $i ++)
         {
             $list .= '<img src="' . VSHARE_URL . '/templates/images/star.gif" alt="star" />&nbsp;';
         }
-        
+
         if ($rate == $num_full_star)
         {
             $num_falf_star = 0;
@@ -264,9 +215,9 @@ function insert_show_rate($a)
             $num_falf_star = 1;
             $list .= '<img src="' . VSHARE_URL . '/templates/images/half_star.gif" alt="half star" />';
         }
-        
+
         $num_blank_star = 5 - $num_full_star - $num_falf_star;
-        
+
         for ($i = 0; $i < $num_blank_star; $i ++)
         {
             $list .= '<img src="' . VSHARE_URL . '/templates/images/blank_star.gif" alt="blank star" />';
@@ -276,7 +227,7 @@ function insert_show_rate($a)
     {
         $rate = 0;
     }
-    
+
     if ($rate > 0)
     {
         return $list;
@@ -291,7 +242,7 @@ function insert_row_count($a)
 {
     global $conn;
     $execute_query = 1;
-    
+
     $table_arr = array(
         'group_members',
         'group_videos',
@@ -301,7 +252,7 @@ function insert_row_count($a)
     {
         $execute_query = 0;
     }
-    
+
     $field_arr1 = array(
         'group_member_group_id',
         'group_video_group_id',
@@ -311,7 +262,7 @@ function insert_row_count($a)
     {
         $execute_query = 0;
     }
-    
+
     $field_arr2 = array(
         'group_member_approved',
         'group_video_approved',
@@ -321,7 +272,7 @@ function insert_row_count($a)
     {
         $execute_query = 0;
     }
-    
+
     if ($execute_query == 1)
     {
         $sql = "SELECT count(*) AS `total` FROM `$a[table]` WHERE
@@ -414,9 +365,9 @@ function insert_comment_count($a)
 function insert_video_count($a)
 {
     global $conn;
-    
+
     $add = "";
-    
+
     if ($a['type'] == 'public')
     {
         $add = " AND `video_type`='public'";
@@ -425,7 +376,7 @@ function insert_video_count($a)
     {
         $add = " AND `video_type`='private'";
     }
-    
+
     $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
            `video_user_id`='" . (int) $a['uid'] . "'
             $add AND
@@ -497,29 +448,29 @@ function insert_recently_active_users($a)
 function insert_group_count($a)
 {
     global $conn;
-    
+
     if ($a['chid'] != '')
     {
         $from = 'groups';
         $add1 = "WHERE `group_channels` LIKE '%|$a[chid]|%' ";
     }
-    
+
     if ($a['uid'] != '')
     {
         $add1 = "WHERE m.group_member_group_id=o.group_id AND m.group_member_user_id='" . (int) $a['uid'] . "'";
         $from = "`groups` AS o,`group_members` AS m";
     }
-    
+
     if ($a['type'] == 'public')
     {
         $add2 = "AND `group_type`='public'";
     }
-    
+
     if ($a['type'] == 'private')
     {
         $add2 = "AND `group_type`='private'";
     }
-    
+
     $sql = "SELECT count(*) AS `total` FROM $from
             $add1 $add2";
     $result = mysql_query($sql) or mysql_die($sql);
@@ -532,7 +483,7 @@ function insert_group_info_count($a)
     global $conn;
     $sql_extra == '';
     $execute_query = 1;
-    
+
     if (isset($a['query']))
     {
         if ($a['query'] == 1)
@@ -540,7 +491,7 @@ function insert_group_info_count($a)
             $sql_extra = "AND `$a[field1]`='yes'";
         }
     }
-    
+
     if ($a['tbl'] == 'groups')
     {
         $sql = "SELECT count(*) AS `total` FROM `groups` WHERE
@@ -560,7 +511,7 @@ function insert_group_info_count($a)
         {
             $execute_query = 0;
         }
-        
+
         $field_arr1 = array(
             'group_member_approved',
             'group_video_approved',
@@ -570,7 +521,7 @@ function insert_group_info_count($a)
         {
             $execute_query = 0;
         }
-        
+
         $field_arr2 = array(
             'group_member_group_id',
             'group_video_group_id',
@@ -580,7 +531,7 @@ function insert_group_info_count($a)
         {
             $execute_query = 0;
         }
-        
+
         if ($execute_query == 1)
         {
             $sql = "SELECT count(*) AS `total` FROM `$a[tbl]` WHERE
@@ -632,12 +583,12 @@ function insert_group_image($a)
 {
     global $servers;
     $group_image_video_id = 0;
-    
+
     $sql = "SELECT * FROM `groups` WHERE
            `group_id`='" . (int) $a['gid'] . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
-    
+
     if ($tmp['group_image'] == 'owner_only')
     {
         $group_image_video_id = $tmp['group_image_video'];
@@ -655,14 +606,14 @@ function insert_group_image($a)
             $group_image_video_id = $tmp['group_video_video_id'];
         }
     }
-    
+
     if ($group_image_video_id != 0)
     {
         $sql = "SELECT video_id,video_folder,video_thumb_server_id FROM `videos` WHERE
     			`video_id`=$group_image_video_id";
         $result = mysql_query($sql) or mysql_die($sql);
         $tmp = mysql_fetch_assoc($result);
-        
+
         $tmp['video_thumb_url'] = $servers[$tmp['video_thumb_server_id']];
         return $tmp;
     }
@@ -676,21 +627,21 @@ function insert_group_image($a)
 function insert_member_img($a)
 {
     global $conn , $config , $servers;
-    
+
     $user_id = $a['UID'];
     $photo_type = isset($a['type']) ? $a['type'] : 0;
     $img_size = 'width=80 height=60';
-    
+
     if ($photo_type == 1)
     {
         $img_size = 'width="50"';
     }
-    
+
     $sql = "SELECT `user_photo` FROM `users` WHERE
     	   `user_id`='" . (int) $user_id . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     $user_info = mysql_fetch_assoc($result);
-    
+
     if ($user_info['user_photo'] == 1)
     {
         if ($photo_type == 1)
@@ -701,7 +652,7 @@ function insert_member_img($a)
         {
             echo '<img class="preview" src="' . VSHARE_URL . '/photo/' . $user_id . '.jpg" alt="user image" />';
         }
-    
+
     }
     else
     {
@@ -712,11 +663,11 @@ function insert_member_img($a)
                 ORDER BY `video_id` DESC
                 LIMIT 1";
         $result = mysql_query($sql) or mysql_die($sql);
-        
+
         if (mysql_num_rows($result) > 0)
         {
             $vdo_obj = mysql_fetch_assoc($result);
-            
+
             echo '<img class="preview" src="' . $servers[$vdo_obj['video_thumb_server_id']] . '/thumb/' . $vdo_obj['video_folder'] . '1_' . $vdo_obj['video_id'] . '.jpg"' . $img_size . ' alt="" />';
         }
         else
@@ -755,7 +706,7 @@ function insert_timediff($var)
     $days = ($diff / (3600 * 24)) % 30;
     $months = ($diff / (3600 * 24 * 30)) % 12;
     $years = ($diff / (3600 * 24 * 30 * 12)) % 10000;
-    
+
     $x = array();
     $x['days'] = $days;
     $x['hours'] = $hours;
@@ -828,7 +779,7 @@ function insert_getfield($v)
 {
     global $conn;
     $execute_query = 1;
-    
+
     $table_arr = array(
         'groups',
         'group_topic_posts',
@@ -839,7 +790,7 @@ function insert_getfield($v)
     {
         $execute_query = 0;
     }
-    
+
     $field_arr = array(
         'group_owner_id',
         'group_topic_post_date',
@@ -852,7 +803,7 @@ function insert_getfield($v)
     {
         $execute_query = 0;
     }
-    
+
     $qfield_arr = array(
         'group_id',
         'group_topic_post_topic_id',
@@ -864,7 +815,7 @@ function insert_getfield($v)
     {
         $execute_query = 0;
     }
-    
+
     if (isset($v['order']))
     {
         $order_arr = array(
@@ -882,7 +833,7 @@ function insert_getfield($v)
     {
         $v['order'] = '';
     }
-    
+
     if ($execute_query == 1)
     {
         $sql = "SELECT `$v[field]` FROM `$v[table]` WHERE
@@ -898,7 +849,7 @@ function insert_format_size($v)
     $size = $v['size'];
     if ($v['type'] == 'byte')
     {
-    
+
     }
     else
     {
@@ -956,7 +907,7 @@ function insert_id_to_uploaddate($v)
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
     $list = explode('-', $tmp['video_add_date']);
-    
+
     print_r($list[2]);
     print_r('-');
     print_r($list[1]);
@@ -973,7 +924,7 @@ function insert_voter_name($voter_id)
     $tmp = mysql_fetch_assoc($result);
     $name['name'] = $tmp['user_name'];
     $photo_dir = VSHARE_DIR . '/photo/' . $voter_id['id'] . '.jpg';
-    
+
     if ($tmp['user_photo'] == 1)
     {
         $photo_url = STATIC_URL . '/photo/' . $voter_id['id'] . '.jpg';
@@ -996,7 +947,7 @@ function insert_show_stats()
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
     $stats['total_video'] = $tmp['total'];
-    
+
     $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
            `video_active`='1' AND
            `video_approve`='1' AND
@@ -1004,7 +955,7 @@ function insert_show_stats()
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
     $stats['total_public_video'] = $tmp['total'];
-    
+
     $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
            `video_active`='1' AND
            `video_approve`='1' AND
@@ -1012,17 +963,17 @@ function insert_show_stats()
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
     $stats['total_private_video'] = $tmp['total'];
-    
+
     $sql = "SELECT count(user_id) AS `total` FROM `users`";
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
     $stats['total_users'] = $tmp['total'];
-    
+
     $sql = "SELECT count(*) AS `total` FROM `channels`";
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
     $stats['total_channel'] = $tmp['total'];
-    
+
     $sql = "SELECT count(*) AS `total` FROM `groups`";
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
@@ -1033,7 +984,7 @@ function insert_show_stats()
 function insert_user_rate($a)
 {
     global $config;
-    
+
     $sql = "SELECT count(*) AS `tot`,sum(vote) FROM `uservote` WHERE
 	       `candate_id`=" . (int) $a['user_id'] . "
 	        GROUP BY `candate_id`";
@@ -1042,17 +993,17 @@ function insert_user_rate($a)
     $list = '<div style="cursor: pointer;">';
     $rate = $vote_info['sum(vote)'];
     $rating = $vote_info['tot'];
-    
+
     $rate = $rate / $rating;
     $num_full_star = floor($rate);
     $count = 0;
-    
+
     for ($i = 0; $i < $num_full_star; $i ++)
     {
         $count ++;
         $list .= '<img src="' . IMG_CSS_URL . '/images/star.gif" onclick="user_rate(' . $_SESSION['UID'] . ',' . $a['user_id'] . ',' . $count . ');" alt="rate" />&nbsp;';
     }
-    
+
     if ($rate == $num_full_star)
     {
         $num_falf_star = 0;
@@ -1062,15 +1013,15 @@ function insert_user_rate($a)
         $num_falf_star = 1;
         $list .= '<img src="' . IMG_CSS_URL . '/images/half_star.gif" onclick="user_rate(' . $_SESSION['UID'] . ',' . $a['user_id'] . ',' . $count . ');" alt="rate" />';
     }
-    
+
     $num_blank_star = 5 - $num_full_star - $num_falf_star;
-    
+
     for ($i = 0; $i < $num_blank_star; $i ++)
     {
         $count ++;
         $list .= '<img src="' . IMG_CSS_URL . '/images/blank_star.gif" onclick="user_rate(' . $_SESSION['UID'] . ',' . $a['user_id'] . ',' . $count . ');" alt="rate" />';
     }
-    
+
     $list .= '</div>';
     echo $list;
 }
@@ -1078,7 +1029,7 @@ function insert_user_rate($a)
 function insert_video_response_count($a)
 {
     global $conn;
-    
+
     $sql = "SELECT count(*) AS `count` FROM `video_responses` WHERE
            `video_response_to_video_id`='" . (int) $a['video_id'] . "' AND
            `video_response_active`='1'";

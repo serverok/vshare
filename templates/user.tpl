@@ -37,7 +37,7 @@
                 {if $user_info.user_country ne ""}
                     {$user_info.user_country}<br />
                 {/if}
-                Last Login: {insert name=time_range assign=rtime field=user_last_login_time IDFR=user_id id=$user_info.user_id tbl=users}{$rtime}
+                Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login_time}{$rtime}
             </div>
        
             <div class="clear"></div>
@@ -109,7 +109,7 @@
             </div>
         
             <div class="user-info">
-                <b>Signed up :</b> {insert name=time_range assign=stime field=user_join_time IDFR=user_id id=$user_info.user_id tbl=users} {$stime}
+                <b>Signed up :</b> {insert name=time_range assign=stime time=$user_info.user_join_time} {$stime}
             </div>
 
             {if $user_info.relation ne ""}

@@ -60,7 +60,7 @@
 				</p>
 
 				<p class="video-entry-details">
-					{insert name=time_range assign=rtime field=video_add_time IDFR=video_id id=$video_info[i].video_id tbl=videos}
+					{insert name=time_range assign=rtime time=$video_info[i].video_add_time}
 					Added: {$rtime} by
 					<a href="{$base_url}/{$user_names[$video_info[i].video_user_id]}">
 						{$user_names[$video_info[i].video_user_id]}
