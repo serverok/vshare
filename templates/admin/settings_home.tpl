@@ -26,7 +26,7 @@
         <label for="num_new_videos">Number of New Videos:</label>
         <input type="text" name="num_new_videos" id="num_new_videos" value="{$num_new_videos}" size="3" />
     </div>
-    
+
     <div>
         <label for="recently_viewed_video">Number of Recently Viewed Videos:</label>
         <input type="text" name="recently_viewed_video" id="recently_viewed_video" value="{$recently_viewed_video}" size="3" />

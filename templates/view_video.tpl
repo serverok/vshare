@@ -5,19 +5,19 @@
             <div class="hd-l">{$view.video_info.video_title}</div>
         </div>
     </div>
-    
+
     {insert name=advertise adv_name='player_top'}
-    
+
     <div>{$view.VSHARE_PLAYER}</div>
-    
+
     {insert name=advertise adv_name='player_bottom'}
-    
+
     {if $view.owner_video_info ne ''}
 	<div id="videos-details">
 	    <label>This is a video response to <a href="{$base_url}/view/{$view.owner_video_info.video_id}/{$view.owner_video_info.video_seo_name}/">{$view.owner_video_info.video_title}</a></label>
 	</div>
 	{/if}
-        
+
     <div align="center">
         <a href="javascript:void(0);" title="FaceBook"><img src="{$img_css_url}/images/facebook.jpg" border="0" alt="facebook" onclick="window.open('http://www.facebook.com/share.php?u={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;t={$view.video_info.video_title}','facebook', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,width=750,height=400,left = 0,top = 0');"/></a>&nbsp;
         <a href="http://digg.com/submit?phase=2&amp;url={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;title={$view.video_info.video_title}" title="Digg It!"><img src="{$img_css_url}/images/digg.png" border="0" alt="digg" /></a>&nbsp;
@@ -29,14 +29,14 @@
         <a href="http://myweb2.search.yahoo.com/myresults/bookmarklet?u={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;t={$view.video_info.video_title}" title="My Yahoo!"><img src="{$img_css_url}/images/yahoo.png" border="0" alt="yahoo" /></a>
 	<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script><g:plusone size="small"></g:plusone>
 
-        
+
         <br />
-        
+
         <a href="javascript:void(0)" onclick="video_add_favorite({$view.video_info.video_id})"s><img src="{$img_css_url}/images/fav.gif" border="0" alt="Favorite" />&nbsp; Add to Favorites </a> &nbsp; &nbsp;
         <a href="javascript:void(0)" class="comments" onclick="feature()"><img src="{$img_css_url}/images/flag.gif" border="0" alt="Feature" />&nbsp; Feature This! </a> &nbsp; &nbsp;
         <a href="javascript:void(0)" onclick="inappropriate()"><img src="{$img_css_url}/images/flag.gif" border="0" alt="Inappropriate" />&nbsp; Inappropriate </a> &nbsp; &nbsp;
         <a href="{$base_url}/friends/recommend/{$view.video_info.video_id}/"><img src="{$img_css_url}/images/tell.gif" border="0" alt="Share" />&nbsp; Share</a>
-        
+
         {if $allow_download == 1}
             {if $view.video_info.video_vtype eq 0 && $view.package_allow_video_download eq '1'}
             &nbsp; &nbsp;
@@ -45,23 +45,23 @@
             </a>
             {/if}
         {/if}
-        
+
         &nbsp; &nbsp;
         <a id="playlist-form-btn" href="javascript:void(0);">
             <img src="{$img_css_url}/images/icon_playlist.gif" border="0" alt="playlist" />&nbsp; Add to Playlist
         </a>
-        
+
         <div id="show_playlists"></div>
-        
+
         {if $smarty.session.UID eq $view.video_info.video_user_id}
             &nbsp; &nbsp;
             <a href="{$base_url}/edit/video/{$view.video_info.video_id}">
                 <img src="{$img_css_url}/images/page_edit.png" border="0" alt="edit" />&nbsp; Edit
             </a>
         {/if}
-        
+
         <div id="video-tools-result"></div>
-    
+
     </div>
 
     <div id="video-rating">
@@ -69,11 +69,11 @@
     </div>
 
     <!-- video feedback end -->
- 
+
     <div id="video-tools-feedback">
 
         <form id="video-report-form" name="form1" onsubmit="javascript:feedback();" method="post" action="javascript:void(0)">
-        
+
             <div>Type of abuse</div>
             <div class="inapropriat">
                 <select name="abuse_type" id="abuse_type">
@@ -85,43 +85,43 @@
                     <option value="copyright">Copyright</option>
                 </select>
             </div>
-            
+
             <div class="inapropriat">Comments</div>
-            
+
             <div class="inapropriat">
                 <textarea name="abuse_comments" id="abuse_comments" cols="40" rows="4"></textarea>
             </div>
-            
+
             <div class="inapropriat">
                 <input type="submit" value="Send" name="send" class="button" />
             </div>
-            
+
             <div>
                 <a href="javascript:void(0)" onclick="inappropriate_cancel();">
                     <img src="{$img_css_url}/images/cancel.gif" alt="cancel" border="0" align="right" />
                 </a>
             </div>
-            
+
             <div class="clearfix"></div>
-            
+
         </form>
-        
+
     </div> <!-- video-tools-feedback -->
 
     <div class="view-video-description">
         {$view.video_info.video_description}
     </div>
-    
+
     <div class="view-video-added-by">
         Added on  {$view.video_info.video_add_date|date_format} by <a href="{$base_url}/{$view.user_info.user_name}">{$view.user_info.user_name}</a>
     </div>
 
     <div class="section">
-    
+
         <div class="hd">
             <div class="hd-l">Video Details</div>
         </div>
-        
+
         <div id="videos-details">
             Time: {$view.video_info.video_length} | Views: {$view.video_info.video_view_number} |
             <a href="#commentview">Comments:</a>  <span>{$view.video_info.video_com_num}</span><br />
@@ -136,23 +136,23 @@
                 <a href="{$base_url}/channel/{$channel[k].channel_id}/{$channel[k].channel_seo_name}/">{$channel[k].channel_name}</a> &nbsp;
             {/section}
         </div>
-    
+
     </div> <!-- section -->
-    
+
     <div class="section clearfix">
     {insert name=video_response_count video_id=$view.video_info.video_id assign=response_count}
         <div class="hd">
             <div class="hd-l">
                 Video Responses ({$response_count})
-                
+
                 {if $response_count gt '0'}
                     &nbsp;&nbsp;&nbsp;&nbsp;<a href="{$base_url}/response/{$view.video_info.video_id}/videos/1">View All</a>
                 {/if}
             </div>
-            
+
             <div class="hd-r"><a href="{$base_url}/video_response_upload/{$view.video_info.video_id}">Post Video Response</a></div>
         </div>
-        
+
         {section name=i loop=$view.video_responses}
             <div class="video-response">
                 <div class="preview related-video-img-adjust">
@@ -161,7 +161,7 @@
                     </a>
                     <div class="video-time">{$view.video_responses[i].video_length}</div>
                 </div>
-                
+
                 <a href="{$base_url}/view/{$view.video_responses[i].video_id}/{$view.video_responses[i].video_seo_name}/">
                     {$view.video_responses[i].video_title|truncate:20}
                 </a>
@@ -176,13 +176,13 @@
             <center><p>Be the first to post a video response!</p></center>
         {/section}
     </div>
-    
+
     <div class="section">
-    
+
         <div class="hd">
             <div class="hd-l">User Details</div>
         </div>
-        
+
         <div id="user-details" class="clearfix">
 
             <div class="box1">
@@ -190,9 +190,9 @@
                     {insert name=member_img UID=$view.video_info.video_user_id}
                 </a>
             </div>
-            
+
             <div class="box2">
-            
+
                 <div>
                     <label>Username:</label>
                     <a href="{$base_url}/{$view.user_info.user_name}" class="user-name">
@@ -206,29 +206,29 @@
                         <a class="user-web-site" href="{$view.user_info.user_website}" target="_blank">{$view.user_info.user_website}</a>
                     </div>
                 {/if}
-                
+
                 {insert name=video_count assign=vdocount uid=$view.video_info.video_user_id}
                 {insert name=favour_count assign=favcount uid=$view.video_info.video_user_id}
                 {insert name=friends_count assign=friendcount uid=$view.video_info.video_user_id}
-                
+
                 <div class="user-links">
                     <a href="{$base_url}/{$view.user_info.user_name}/public/">Videos</a>: {$vdocount} |
                     <a href="{$base_url}/{$view.user_info.user_name}/favorites/">Favorites</a>: {$favcount} |
                     <a href="{$base_url}/{$view.user_info.user_name}/friends/">Friends</a>: {$friendcount}
                 </div>
-                
+
                 <div>
                     (<a href="{$base_url}/mail.php?folder=compose&receiver={$view.user_info.user_name}">Send Me a Private Message!</a>)
                 </div>
-            
+
             </div>
-            
+
         </div>
-        
+
     </div> <!-- section -->
 
     <div class="section">
-    
+
         <div class="hd">
             <div class="hd-l">Share Details</div>
         </div>
@@ -255,11 +255,11 @@
                         {/if}
                     {/if}
                 </div>
-                
+
             </form>
-        
+
         </div>
-    
+
     </div> <!-- section -->
 
     <br />
@@ -269,7 +269,7 @@
     <div class="commentbox bg2">
 
         {if $view.video_info.video_allow_comment eq "yes"}
-        
+
             <div id="comment_box">
                 <div>Comment on this video:</div>
                 <form name="add_comment" method="post" action="">
@@ -277,9 +277,9 @@
                     <input type="button" name="post" value="Post comment" onclick="video_post_comment({$view.video_info.video_id})" />
                 </form>
             </div> <!-- comment_box -->
-        
+
         {/if}
-    
+
     </div> <!-- commentbox -->
 
     <div id="comment_post_result"></div>
@@ -293,13 +293,13 @@
 <div id="view-video-sidebar">
 
     <div class="section bg2 clearfix">
-    
+
         <div class="hd">
             <div class="hd-l">Watch</div>
         </div>
-        
+
        <ul id="watch-videos">
-       
+
             <li>
                 {if $view.video_prev == 0}
                     <img src="{$img_css_url}/images/no_prev.gif" class="preview" width="60" height="45" alt="no prev" /><br />&lt; PREV
@@ -310,7 +310,7 @@
                         </a>
                         <div class="video-time">{$view.video_prev.video_length}</div>
                     </div>
-            
+
                     <div>
                         <a href="{$base_url}/view/{$view.video_prev.video_id}/{$view.video_prev.video_seo_name}/">
                             &lt; PREV
@@ -342,39 +342,35 @@
                 {/if}
             </li>
        </ul>
-       
+
     </div> <!-- section -->
 
     <div class="section bg2">
         {insert name=advertise adv_name='video_right_single'}
     </div>
-    
+
     <!-- user videos -->
-    
+
     <h3>
         <a href="javascript:void(0);" onclick="show_user_videos('{$view.video_info.video_user_id}');">
             More from: {$view.user_info.user_name}
         </a>
     </h3>
     <div id="show_user_videos" style="display: none;"></div>
-   
+
     <!-- end user videos -->
-    
+
     <div class="section bg2">
-    
+
         <div class="hd">
             <div class="hd-l">Related Videos</div>
         </div>
-        
+
         <div id="related-video-box" class="clearfix">
-        
+
             {section name=i loop=$view.related_videos}
-            
-                {if $smarty.request.id eq $view.related_videos[i].video_id}
-                    <div class="related-video playing-bg clearfix">
-                {else}
-                    <div class="related-video clearfix">
-                {/if}
+
+                <div class="related-video clearfix">
 
                     <div class="box1">
                         <div class="preview related-video-img-adjust">
@@ -385,9 +381,9 @@
 	                        <div class="video-time">{$view.related_videos[i].video_length}</div>
 	                    </div>
                     </div>
-                    
+
                     <div class="box2 clearfix">
-                    
+
                         <div class="moduleFrameTitle">
                             <a href="{$base_url}/view/{$view.related_videos[i].video_id}/{$view.related_videos[i].video_seo_name}/" target="_parent">
                                 {$view.related_videos[i].video_title}
@@ -404,20 +400,14 @@
                             Comments: {$view.related_videos[i].video_com_num}
                         </div>
 
-                        {if $smarty.request.id eq $view.related_videos[i].video_id}
-                            <div class="playing-now">
-                                &lt;&lt;&lt;NOW PLAYING!
-                            </div>
-                        {/if}
-                        
                     </div>
-                
+
                 </div> <!-- related-video -->
-            
+
             {/section}
-            
+
         </div> <!-- related-video-box-->
-    
+
     </div> <!-- related-video-playing-->
 
 </div> <!-- video-sidebar -->

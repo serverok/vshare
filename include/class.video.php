@@ -24,29 +24,29 @@ class Video
 
     public function Video()
     {
-    
+
     }
 
     public function video_update()
     {
         global $lang;
-        
+
         $tags_delete = 0;
         $tags_add = 0;
         $sql_extra = '';
-        
+
         $valid = $this->validate_video_info();
-        
+
         if ($valid != 1)
         {
             return $valid;
         }
-        
+
         $channel_list_formatted = implode('|', $this->video_channels);
         $channel_list_formatted = '0|' . $channel_list_formatted . '|0';
-        
+
         $this->video_info = $this->get_video_info($this->video_id);
-        
+
         if ($this->is_admin == 0)
         {
             if ($_SESSION['UID'] != $this->video_info['video_user_id'])
@@ -55,39 +55,39 @@ class Video
                 return $error;
             }
         }
-        
+
         if ($this->video_info['video_title'] != $this->video_title)
         {
             require VSHARE_DIR . '/include/functions_seo_name.php';
             $seo_name = seo_name($this->video_title);
             $seo_name_org = $seo_name;
             $i = 1;
-            
+
             while (check_field_exists($seo_name, 'video_seo_name', 'videos'))
             {
                 $seo_name = $seo_name_org . '-' . $i;
                 $i ++;
             }
-            
+
             $sql_extra .= ",`video_seo_name`='" . mysql_clean($seo_name) . "' ";
             $this->video_info['video_seo_name'] = $seo_name;
         }
-        
+
         $tags_add = 0;
         $tags_delete = 0;
-        
+
         /*
         Add Tags
         1. when a private video changed to public
         2. when keywords edited
-        
+
         Delete Tags
         1. A video changed to private from public
         2. when keyword edited
         */
-        
+
         // conditon 1
-        
+
 
         if ($this->video_info['video_type'] != $this->video_type)
         {
@@ -100,23 +100,23 @@ class Video
                 $tags_delete = 1;
             }
         }
-        
+
         // condition 2
-        
+
 
         if ($this->video_info['video_keywords'] != $this->video_keywords && $this->video_type == 'public')
         {
             $tags_delete = 1;
             $tags_add = 1;
         }
-        
+
         if ($tags_delete == 1)
         {
             $tags = new Tags($this->video_info['video_keywords'], $this->video_id, $this->video_info['video_user_id'], $channel_list_formatted);
             $tags->delete();
             unset($tags);
         }
-        
+
         if ($tags_add == 1)
         {
             $tags = new Tags($this->video_keywords, $this->video_id, $this->video_info['video_user_id'], $channel_list_formatted);
@@ -125,7 +125,7 @@ class Video
             $this->video_keywords = implode(' ', $video_tags);
             unset($tags);
         }
-        
+
         if ($this->is_admin == 1)
         {
             $sql_extra .= ",`video_featured`='$this->video_featured',
@@ -133,18 +133,18 @@ class Video
                             `video_duration`='$this->video_duration',
                             `video_length`='" . sec2hms($this->video_duration) . "',
                             `video_adult`='$this->video_adult'";
-            
+
             if ($this->video_info['video_vtype'] == 2 || $this->video_info['video_vtype'] == 6)
             {
                 $sql_extra .= ",`video_embed_code`='$this->video_embeded_code'";
             }
-            
+
             if ($this->video_info['video_active'] != $this->video_active)
             {
                 update_user_video_count($this->video_info['video_user_id'], $this->video_active);
             }
         }
-        
+
         $sql = "UPDATE `videos` SET
                `video_title`='" . mysql_clean($this->video_title) . "',
                `video_description`='" . mysql_clean($this->video_description, 1) . "',
@@ -157,9 +157,9 @@ class Video
                 $sql_extra WHERE
                `video_id`='" . (int) $this->video_id . "' AND
                `video_user_id`='" . $this->video_info['video_user_id'] . "'";
-        
+
         mysql_query($sql) or mysql_die($sql);
-        
+
         return 1;
     }
 
@@ -168,7 +168,7 @@ class Video
         $sql = "SELECT * FROM `videos` WHERE
                `video_id`='" . (int) $video_id . "'";
         $result = mysql_query($sql) or mysql_die($sql);
-        
+
         if (mysql_numrows($result) == 1)
         {
             return mysql_fetch_assoc($result);
@@ -182,47 +182,47 @@ class Video
     public function validate_video_info()
     {
         global $lang , $num_max_channels;
-        
+
         $error = array();
-        
+
         $this->video_title = strip_tags($this->video_title);
         $this->video_title = trim($this->video_title);
-        
+
         $this->video_keywords = strip_tags($this->video_keywords);
         $this->video_keywords = trim($this->video_keywords);
-        
+
         $this->video_description = trim($this->video_description);
-        
+
         if (get_magic_quotes_gpc())
         {
             $this->video_description = stripslashes($this->video_description);
         }
-        
+
         if ($this->is_admin == 0)
         {
             $this->video_description = Xss::clean($this->video_description);
         }
-        
+
         if ($this->video_type != 'private')
         {
             $this->video_type = 'public';
         }
-        
+
         if ($this->video_allow_comment != 'no')
         {
             $this->video_allow_comment = 'yes';
         }
-        
+
         if ($this->video_allow_rated != 'no')
         {
             $this->video_allow_rated = 'yes';
         }
-        
+
         if ($this->video_featured != 'no')
         {
             $this->video_featured = 'yes';
         }
-        
+
         if ($this->video_allow_embed == 1)
         {
             $this->video_allow_embed = 'enabled';
@@ -231,12 +231,12 @@ class Video
         {
             $this->video_allow_embed = 'disabled';
         }
-        
+
         if ($this->video_active != 0)
         {
             $this->video_active = 1;
         }
-        
+
         if ($this->is_admin == 1)
         {
             if (! is_numeric($this->video_duration))
@@ -244,46 +244,46 @@ class Video
                 $error[] = $lang['video_duration_empty'];
             }
         }
-        
+
         if (strlen_uni($this->video_title) < 8)
         {
             $error[] = $lang['video_title_empty'];
         }
-        
+
         if (strlen_uni($this->video_description) < 8)
         {
             $error[] = $lang['video_description_empty'];
         }
-        
+
         if (strlen_uni($this->video_keywords) < 8)
         {
             $error[] = $lang['video_keyword_empty'];
         }
-        
+
         $channels_valid = array();
-        
+
         foreach ($this->video_channels as $channel)
         {
             $channel = (int) $channel;
-            
+
             if (! in_array($channel, $channels_valid) && check_field_exists($channel, 'channel_id', 'channels'))
             {
                 $channels_valid[] = $channel;
             }
         }
-        
+
         $this->video_channels = $channels_valid;
-        
+
         if ((count($this->video_channels) < 1) || (count($this->video_channels) > $num_max_channels))
         {
             $error[] = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
         }
-        
+
         if ($this->video_adult != 1)
         {
             $this->video_adult = 0;
         }
-        
+
         if (count($error))
         {
             $error_msg = '<ul>';
@@ -292,7 +292,7 @@ class Video
                 $error_msg .= '<li>' . $error[$i] . '</li>';
             }
             $error_msg .= '</ul>';
-            
+
             return $error_msg;
         }
         else
@@ -304,12 +304,12 @@ class Video
     public function get_related_videos($video_id, $search_string)
     {
         global $config , $servers;
-        
+
         $search_string = strip_tags($search_string);
         $search_string = mysql_clean($search_string);
-        
-        $sql_select_fields = "`video_id`, `video_title`,`video_description`,`video_keywords`, `video_seo_name`,  `video_thumb_server_id`, `video_folder`";
-        
+
+        $sql_select_fields = "`video_id`,`video_user_id`,`video_title`,`video_seo_name`,`video_length`,`video_view_number`,`video_com_num`,`video_thumb_server_id`, `video_folder`";
+
         $sql = "SELECT $sql_select_fields, MATCH (`video_title`) AGAINST ('$search_string' IN BOOLEAN MODE) AS `relevance`
                 FROM `videos` WHERE
                 MATCH (`video_title`) AGAINST ('$search_string' IN BOOLEAN MODE) AND
@@ -319,15 +319,20 @@ class Video
                 ORDER BY `relevance` DESC
                 LIMIT " . $config['rel_video_per_page'];
         $result = mysql_query($sql) or mysql_die($sql);
-        
+        $total = mysql_num_rows($result);
         $related_videos = array();
-        
+
         while ($tmp = mysql_fetch_assoc($result))
         {
+            if ($total > 1 && $tmp['video_id'] == $video_id)
+            {
+                continue;
+            }
+
             $tmp['video_thumb_url'] = $servers[$tmp['video_thumb_server_id']];
             $related_videos[] = $tmp;
         }
-        
+
         return $related_videos;
     }
 
@@ -335,13 +340,13 @@ class Video
     {
         global $conn , $config;
         $log_file_name = 'delete_' . $video_id;
-        
+
         $sql = "SELECT * FROM `videos` WHERE
                `video_id`='" . (int) $video_id . "' AND
                `video_user_id`='" . (int) $video_uid . "'";
         $result = mysql_query($sql) or mysql_die($sql);
         $num_result = mysql_num_rows($result);
-        
+
         if ($num_result == 1)
         {
             $video_info = mysql_fetch_assoc($result);
@@ -352,7 +357,7 @@ class Video
             $current_keyword = $video_info['video_keywords'];
             $server_id = $video_info['video_server_id'];
             $video_folder = $video_info['video_folder'];
-            
+
             if ($server_id != 0 && $delete == 1)
             {
                 $ftp_config = array();
@@ -369,12 +374,12 @@ class Video
             }
             else if ($delete == 1)
             {
-                
+
                 if ($vtype == 0 && $server_id == 0)
                 {
                     # DELETE FLV IF LOCAL VIDEO
                     $flv = VSHARE_DIR . '/flvideo/' . $video_folder . $video_flv_name;
-                    
+
                     if (file_exists($flv))
                     {
                         if (is_file($flv))
@@ -387,9 +392,9 @@ class Video
                         }
                     }
                 }
-            
+
             }
-            
+
             if ($video_info['video_thumb_server_id'] > 0)
             {
                 unset($ftp_config);
@@ -401,12 +406,12 @@ class Video
                 $ftp->delete_thumb($ftp_config);
                 $ftp->close();
             }
-            
+
             require_once VSHARE_DIR . '/include/class.tags.php';
             $tags = new Tags($current_keyword, $video_id, '', '');
             $tags->delete($delete);
             unset($tags);
-            
+
             if ($delete == 1)
             {
                 $sql = "DELETE FROM `comments` WHERE
@@ -429,10 +434,10 @@ class Video
                        `video_active`='0' WHERE
                        `video_id`='" . (int) $video_id . "'";
                 mysql_query($sql) or mysql_die($sql);
-                
+
                 update_user_video_count($video_uid, 0);
             }
-            
+
             $sql = "UPDATE `groups` SET
                    `group_image_video`='0' WHERE
                    `group_image_video`=$video_id";
@@ -465,19 +470,19 @@ class Video
                    `group_topic_post_video_id`='0' WHERE
                    `group_topic_post_video_id`='" . (int) $video_id . "'";
             mysql_query($sql) or mysql_die($sql);
-            
+
             if ($delete == 1)
             {
                 $ff = VSHARE_DIR . '/thumb/' . $video_folder . $video_id . '.jpg';
                 $ff1 = VSHARE_DIR . '/thumb/' . $video_folder . '1_' . $video_id . '.jpg';
                 $ff2 = VSHARE_DIR . '/thumb/' . $video_folder . '2_' . $video_id . '.jpg';
                 $ff3 = VSHARE_DIR . '/thumb/' . $video_folder . '3_' . $video_id . '.jpg';
-                
+
                 if (file_exists($ff)) @unlink($ff);
                 if (file_exists($ff1)) @unlink($ff1);
                 if (file_exists($ff2)) @unlink($ff2);
                 if (file_exists($ff3)) @unlink($ff3);
-                
+
                 if ($vtype == 0)
                 {
                     $ff4 = VSHARE_DIR . '/video/' . $vdoname;
@@ -487,7 +492,7 @@ class Video
                     }
                 }
             }
-            
+
             return 1;
         }
         else
@@ -499,12 +504,12 @@ class Video
     function get_response_videos($video_id, $limit = '')
     {
         global $conn , $servers;
-        
+
         if (! empty($limit))
         {
             $limit = 'LIMIT ' . (int) $limit;
         }
-        
+
         $sql = "SELECT v.* FROM `videos` AS `v`,`video_responses` AS `vr` WHERE
                 vr.video_response_to_video_id='" . (int) $video_id . "' AND
                 vr.video_response_active='1' AND
@@ -512,9 +517,9 @@ class Video
                 ORDER BY vr.video_response_add_time DESC
                 $limit";
         $result = mysql_query($sql) or mysql_die($sql);
-        
+
         $video_info = array();
-        
+
         if (mysql_num_rows($result) > 0)
         {
             while ($video = mysql_fetch_assoc($result))
@@ -523,7 +528,7 @@ class Video
                 $video_info[] = $video;
             }
         }
-        
+
         return $video_info;
     }
 }
