@@ -22,17 +22,17 @@ class BulkImport
 		$tmp['video_duration'] = $entry->mediaGroup->duration->seconds;
 		return $tmp;
     }
-    
+
     public static function getYoutubeVideoId($url = '')
     {
-        if (preg_match('/v\/(.[a-zA-Z0-9]+)/i', $url, $matches) || preg_match('/v=(.[a-zA-Z0-9]+)/i', $url, $matches))
+        if (preg_match('/v\/(.[a-zA-Z0-9_-]+)/i', $url, $matches) || preg_match('/v=(.[a-zA-Z0-9_-]+)/i', $url, $matches))
         {
             if (isset($matches[1]))
             {
                 return $matches[1];
             }
         }
-        
+
         return 0;
     }
 }
