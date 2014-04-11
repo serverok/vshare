@@ -156,7 +156,7 @@ $menu_items = array(
         'user_add.php',
         1
     ),
-    
+
     array(
         'All Videos',
         'videos.php',
@@ -222,7 +222,7 @@ $menu_items = array(
         'video_local.php',
         2
     ),
-    
+
     array(
         'View Channels',
         'channels.php',
@@ -243,7 +243,7 @@ $menu_items = array(
         'channel_sort.php',
         3
     ),
-    
+
     array(
         'All Groups',
         'groups.php',
@@ -284,7 +284,7 @@ $menu_items = array(
         'poll_add.php',
         6
     ),
-    
+
     array(
         'Packages',
         'packages.php',
@@ -315,7 +315,7 @@ $menu_items = array(
         'reserve_user_name.php',
         8
     ),
-    
+
     array(
         'List Pages',
         'page.php',
