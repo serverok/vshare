@@ -21,7 +21,6 @@ $sitemap = new sitemap();
 
 if (isset($_POST['generate_sitemap']))
 {
-    $sitemap->deleteSitemap();
     $msg = $sitemap->generate();
 }
 
