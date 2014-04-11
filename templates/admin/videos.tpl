@@ -77,8 +77,15 @@
     
 {else}
 
+    {if $a eq "embedded"}
+    <form method="post" action="" onsubmit="javascript:return confirm('Are you sure you want to delete?');">
+    {/if}
+
     <table cellspacing="1" cellpadding="3"  width="100%" border="0">
         <tr class="tabletitle">
+        {if $a eq "embedded"}
+            <td><input type="checkbox" id="check_all" /></td>
+        {/if}
             <td>
                 <b>ID</b>
                 <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_id+asc&page={$page}">
@@ -151,6 +158,9 @@
         {section name=aa loop=$videos}
         
             <tr class="{cycle values="tablerow1,tablerow2"}">
+            {if $a eq "embedded"}
+                <td><input type="checkbox" name="video_id_arr[]" value="{$videos[aa].video_id}" rel="video_ids" /></td>
+            {/if}
                 <td>{$videos[aa].video_id}</td>
                 <td><a href="video_details.php?a={$a}&id={$videos[aa].video_id}&page={$page}">{$videos[aa].video_title}</a></td>
                 <td align="center">{$videos[aa].video_type}</td>
@@ -175,4 +185,22 @@
     </div>
     {/if}
 
+    {if $a eq "embedded"}
+        <input type="submit" name="submit" id="video_del" value="Delete Selected Videos" />
+    </form>
+    {/if}
+
 {/if}
+
+{literal}
+<script type="text/javascript">
+$("input#check_all").click(function(){
+    var checked = $("input#check_all:checked").length;
+    $("input[rel=video_ids]").attr("checked", "");
+
+    if (checked == 1) {
+        $("input[rel=video_ids]").attr("checked", "checked");
+    }
+});
+</script>
+{/literal}

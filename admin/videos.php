@@ -13,6 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
+require '../include/class.video.php';
 
 check_admin_login();
 
@@ -29,9 +30,35 @@ if (! isset($_GET['a']) || $_GET['a'] == '')
     $_GET['a'] = 'all';
 }
 
-if ($_GET['a'] == 'all' || $_GET['a'] == 'public' || $_GET['a'] == 'private' || $_GET['a'] == 'adult')
+$view_types = array('all', 'public', 'private', 'adult', 'embedded');
+
+if (isset($_POST['video_id_arr']))
 {
+    $video_id_arr = $_POST['video_id_arr'];
+    $video_id_arr = array_unique($video_id_arr);
+    $video_id_arr_count = count($video_id_arr);
     
+    for ($i = 0;$i < $video_id_arr_count;$i++)
+    {
+        $sql = "SELECT `video_user_id` FROM `videos` WHERE
+               `video_id`='" . (int) $video_id_arr[$i] . "'";
+        $result = mysql_query($sql) or mysql_die($sql);
+
+        if (mysql_num_rows($result) == 1)
+        {
+            $video_info = mysql_fetch_assoc($result);
+            $video_user_id = $video_info['video_user_id'];
+            unset($video_info);
+
+            Video::delete($video_id_arr[$i], $video_user_id);
+        }
+    }
+
+    $msg = 'Selected Videos are Deleted.';
+}
+
+if (in_array($_GET['a'], $view_types))
+{
     if ($_GET['a'] == 'all')
     {
         $query = '';
@@ -39,6 +66,10 @@ if ($_GET['a'] == 'all' || $_GET['a'] == 'public' || $_GET['a'] == 'private' || 
     else if ($_GET['a'] == 'adult')
     {
         $query = "WHERE `video_adult`='1'";
+    }
+    else if ($_GET['a'] == 'embedded')
+    {
+        $query = "WHERE `video_vtype`>'0'";
     }
     else
     {

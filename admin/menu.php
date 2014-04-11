@@ -222,6 +222,11 @@ $menu_items = array(
         'video_local.php',
         2
     ),
+    array(
+        'Embedded Videos',
+        'videos.php?a=embedded',
+        2
+    ),
 
     array(
         'View Channels',
