@@ -45,15 +45,15 @@ if (isset($_POST['submit']))
         $_POST['password'] = stripslashes($_POST['password']);
         $_POST['password_confirm'] = stripslashes($_POST['password_confirm']);
     }
-    
+
     $_POST['user_name'] = trim($_POST['user_name']);
     $signup['user_name'] = $_POST['user_name'] = htmlspecialchars_uni($_POST['user_name']);
-    
+
     $signup['email'] = $_POST['email'] = htmlspecialchars_uni($_POST['email']);
-    
+
     $_POST['security_code'] = isset($_POST['security_code']) ? $_POST['security_code'] : '';
     $_POST['security_code'] = htmlspecialchars_uni($_POST['security_code']);
-    
+
     if ($_POST['email'] == '')
     {
         $err = $lang['email_null'];
@@ -129,7 +129,7 @@ if (isset($_POST['submit']))
             $invalid_user_name_chars[] = '+';
             $invalid_user_name_chars[] = '=';
             $invalid_user_name_chars[] = '.';
-            
+
             for ($i = 0; $i < count($invalid_user_name_chars); $i ++)
             {
                 if (stristr($_POST['user_name'], "$invalid_user_name_chars[$i]"))
@@ -140,7 +140,7 @@ if (isset($_POST['submit']))
             }
         }
     }
-    
+
     if (($config['signup_captcha'] == '1') and ($err == ''))
     {
         if ($captcha_type == 'recaptcha')
@@ -152,7 +152,7 @@ if (isset($_POST['submit']))
             else
             {
 	            $result = $recaptcha->verify($_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
-	            
+
 	            if (! $result->isValid())
 	            {
 	                $err = $lang['captcha_invalid'];
@@ -162,7 +162,7 @@ if (isset($_POST['submit']))
         else
         {
             $_POST['security_code'] = htmlspecialchars_uni($_POST['security_code']);
-            
+
             if ($_POST['security_code'] == '')
             {
                 $err = $lang['captcha_null'];
@@ -173,21 +173,21 @@ if (isset($_POST['submit']))
             }
         }
     }
-    
+
     if ($signup_dob == 1)
     {
         $signup['year'] = $_POST['year'];
         $signup['month'] = $_POST['month'];
         $signup['day'] = $_POST['day'];
-        
+
         $bdate = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
         if ($bdate == 'yyyy-mm-dd')
         {
             $err = $lang['signup_dob_null'];
         }
-        
+
         $validate_date = validate::date($_POST['month'], $_POST['day'], $_POST['year']);
-        
+
         if ($validate_date != 1)
         {
             $err = $validate_date;
@@ -209,10 +209,10 @@ if (isset($_POST['submit']))
         }
     }
     $smarty->assign('signup', $signup);
-    
+
     if ($err == '')
     {
-        
+        $user_ip = User::get_ip();
         $request_password = $_POST['password'];
         $request_password = md5($request_password);
         $sql = "INSERT INTO `users` SET
@@ -220,24 +220,25 @@ if (isset($_POST['submit']))
                `user_name`='" . mysql_clean($_POST['user_name']) . "',
                `user_password`='" . mysql_clean($request_password) . "',
                `user_join_time`='" . $_SERVER['REQUEST_TIME'] . "',
-               `user_last_login_time`='" . $_SERVER['REQUEST_TIME'] . "'";
+               `user_last_login_time`='" . $_SERVER['REQUEST_TIME'] . "',
+               `user_ip`='" . mysql_clean($user_ip) . "'";
         $result = mysql_query($sql) or mysql_die($sql);
         $userid = mysql_insert_id();
-        
+
         if ($userid == 0)
         {
             echo 'Unable to get last insert ID';
             exit(0);
         }
-        
+
         $auto_friend = get_config('signup_auto_friend');
-        
+
         if ((strlen($auto_friend) > 1) && (check_field_exists($auto_friend, 'user_name', 'users')))
         {
             $friend = new Friends();
             $friend->make_friends($auto_friend, $_POST['user_name']);
         }
-        
+
         if ($signup_dob == 1)
         {
             $sql = "UPDATE `users` SET
@@ -245,13 +246,13 @@ if (isset($_POST['submit']))
                    `user_id`='" . (int) $userid . "'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         $sql = "INSERT INTO `verify` SET `UID`='" . (int) $userid . "'";
         mysql_query($sql);
-        
+
         $sql = "INSERT INTO `subscriber` SET `UID`='" . (int) $userid . "'";
         mysql_query($sql);
-        
+
         if ($config['enable_package'] == 'yes')
         {
             //$_POST['pack_id'] = intval($_POST['pack_id']);
@@ -259,7 +260,7 @@ if (isset($_POST['submit']))
                    `package_id`='" . (int) $_POST['pack_id'] . "'";
             $result = mysql_query($sql) or mysql_die($sql);
             $tmp = mysql_fetch_assoc($result);
-            
+
             if ($tmp['package_trial'] == 'yes')
             {
                 $paid_member = 0;
@@ -273,55 +274,55 @@ if (isset($_POST['submit']))
         {
             $paid_member = 0;
         }
-        
+
         # send activation mail
-        
+
 
         if (($config['signup_verify'] == '1') && ($paid_member == 0))
         {
-            
+
             $sql = "UPDATE `users` SET
                    `user_account_status`='Inactive',
                    `user_email_verified`='no' WHERE
                    `user_id`='" . (int) $userid . "'";
             mysql_query($sql) or mysql_die($sql);
-            
+
             $data1 = 'SIGNUP' . $userid;
-            
+
             $vkey = $_SERVER['REQUEST_TIME'] . rand(1, 99999999);
             $vkey = md5($vkey);
-            
+
             $sql = "INSERT INTO `verify_code` SET
                    `vkey`='" . mysql_clean($vkey) . "',
                    `data1`='" . mysql_clean($data1) . "'";
-            
+
             $result = mysql_query($sql) or mysql_die($sql);
             $verify_id = mysql_insert_id();
-            
+
             $password = $_POST['password'];
             $user_name = $_POST['user_name'];
-            
+
             $sql = "SELECT * FROM `email_templates` WHERE
                    `email_id`='user_signup_mail'";
             $result = mysql_query($sql) or mysql_die($sql);
             $tmp = mysql_fetch_assoc($result);
             $email_subject = $tmp['email_subject'];
             $email_body_tmp = $tmp['email_body'];
-            
+
             $email_subject = str_replace('[SITE_NAME]', $config['site_name'], $email_subject);
             $email_subject = str_replace('[SITE_URL]', VSHARE_URL, $email_subject);
-            
+
             $verify_link = VSHARE_URL . '/verify/user/' . $userid . '/' . $verify_id . '/' . $vkey . '/';
-            
+
             $email_body_tmp = str_replace('[SITE_NAME]', $config['site_name'], $email_body_tmp);
             $email_body_tmp = str_replace('[SITE_URL]', VSHARE_URL, $email_body_tmp);
             $email_body_tmp = str_replace('[VERIFY_LINK]', $verify_link, $email_body_tmp);
             $email_body_tmp = str_replace('[USERNAME]', $user_name, $email_body_tmp);
             $email_body_tmp = str_replace('[PASSWORD]', $password, $email_body_tmp);
-            
+
             $headers = "From: $config[site_name] <$config[admin_email]> \n";
             $headers .= "Content-Type: text/html\n";
-            
+
             $email = array();
             $email['from_email'] = $config['admin_email'];
             $email['from_name'] = $config['site_name'];
@@ -331,36 +332,36 @@ if (isset($_POST['submit']))
             $email['body'] = $email_body_tmp;
             $mail = new Mail();
             $mail->send($email);
-            
+
             $signup_verification_msg = $lang['verification_mail_send'];
             $smarty->assign('signup_verification_msg', $signup_verification_msg);
         }
         # send activation mail end
-        
+
 
         # admin signup notify
-        
+
 
         if ($config['notify_signup'] == 1)
         {
-            
+
             $sql = "SELECT * FROM `email_templates` WHERE
                    `email_id`='admin_signup_notify'";
             $result = mysql_query($sql) or mysql_die($sql);
             $tmp = mysql_fetch_assoc($result);
             $email_body = $tmp['email_body'];
             $email_subject = $tmp['email_subject'];
-            
+
             $email_subject = str_replace('[USERNAME]', $_POST['user_name'], $email_subject);
             $email_subject = str_replace('[SITE_NAME]', $config['site_name'], $email_subject);
-            
+
             $email_body_tmp = $email_body;
             $email_body_tmp = str_replace('[USERNAME]', $_POST['user_name'], $email_body_tmp);
             $email_body_tmp = str_replace('[USER_EMAIL]', $_POST['email'], $email_body_tmp);
             $email_body_tmp = str_replace('[REMOTE_ADDR]', $_SERVER['REMOTE_ADDR'], $email_body_tmp);
             $email_body_tmp = str_replace('[HTTP_USER_AGENT]', $_SERVER['HTTP_USER_AGENT'], $email_body_tmp);
             $email_body_tmp = str_replace('[USER_URL]', VSHARE_URL . '/' . $_POST['user_name'], $email_body_tmp);
-            
+
             $email = array();
             $email['from_email'] = $config['admin_email'];
             $email['from_name'] = $config['site_name'];
@@ -371,31 +372,31 @@ if (isset($_POST['submit']))
             $mail = new Mail();
             $mail->send($email);
         }
-        
+
         # admin signup notify end
-        
+
 
         if ($config['enable_package'] == 'yes')
         {
-            
+
             $sql = "SELECT * FROM `packages` WHERE
                    `package_id`='" . (int) $_POST['pack_id'] . "'";
             $result = mysql_query($sql) or mysql_die($sql);
             $tmp = mysql_fetch_assoc($result);
-            
+
             if ($tmp['package_trial'] == 'yes')
             {
-                
+
                 $expired_time = date("Y-m-d H:i:s", strtotime("+" . $tmp['package_trial_period'] . " day"));
-                
+
                 $sql = "UPDATE `subscriber` SET
                        `pack_id`='" . (int) $_POST['pack_id'] . "',
                        `subscribe_time`='" . date("Y-m-d H:i:s") . "',
                        `expired_time`='$expired_time' WHERE
                        `UID`='" . (int) $userid . "'";
-                
+
                 mysql_query($sql) or mysql_die($sql);
-                
+
                 if ($config['signup_verify'] == '1')
                 {
                     $msg = $lang['signup_verify_email'];
@@ -406,7 +407,7 @@ if (isset($_POST['submit']))
                     $redirect_url = VSHARE_URL . '/friends/invite/?welcome=1';
                     redirect($redirect_url);
                 }
-            
+
             }
             else
             {
@@ -416,16 +417,16 @@ if (isset($_POST['submit']))
                        `expired_time`='" . date("Y-m-d H:i:s") . "' WHERE
                        `UID`='" . (int) $userid . "'";
                 mysql_query($sql) or mysql_die($sql);
-                
+
                 $sql = "UPDATE `users` SET
                        `user_account_status`='Inactive' WHERE
                        `user_id`='" . (int) $userid . "'";
                 mysql_query($sql) or mysql_die($sql);
-                
+
                 $redirect_url = VSHARE_URL . '/package_options.php?package_id=' . $_POST['pack_id'] . '&user_id=' . $userid;
                 redirect($redirect_url);
             }
-        
+
         }
         else
         {
@@ -440,7 +441,7 @@ if (isset($_POST['submit']))
                        `user_account_status`='Inactive' WHERE
                        `user_id`='" . (int) $userid . "'";
                 mysql_query($sql) or mysql_die($sql);
-                
+
                 $signup_verification_msg = $lang['signup_verify_admin'];
                 $smarty->assign('signup_verification_msg', $signup_verification_msg);
             }
@@ -460,7 +461,7 @@ if ($config['enable_package'] == 'yes')
            `package_status`='Active'
             ORDER BY `package_price` DESC";
     $result = mysql_query($sql) or mysql_die($sql);
-    
+
     while ($package = mysql_fetch_assoc($result))
     {
         $packages[] = $package;
@@ -470,26 +471,26 @@ if ($config['enable_package'] == 'yes')
 
 if ($signup_dob == 1)
 {
-    
+
     for ($i = 1; $i <= 12; $i ++)
     {
         $months[] = $i;
     }
-    
+
     $smarty->assign('months', $months);
-    
+
     for ($i = 1; $i <= 31; $i ++)
     {
         $days[] = $i;
     }
-    
+
     $smarty->assign('days', $days);
-    
+
     for ($i = 1930; $i <= date('Y'); $i ++)
     {
         $years[] = $i;
     }
-    
+
     $smarty->assign('years', $years);
 }
 
