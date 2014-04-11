@@ -377,6 +377,11 @@ $menu_items = array(
         12
     ),
     array(
+        'Regenerate Tags',
+        'tags_regenerate.php',
+        12
+    ),
+    array(
         'View PHP Info',
         'phpinfo.php',
         12
