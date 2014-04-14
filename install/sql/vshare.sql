@@ -122,6 +122,7 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('vshare_player', 'JW
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min_enforce', '0');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min', '18');
 INSERT INTO `config` (`config_name` ,`config_value`) VALUES('user_daily_mail_limit', '50');
+INSERT INTO `config` (`config_name` ,`config_value`) VALUES('video_comment_notify', '0');
 INSERT INTO `config` (`config_name` ,`config_value`) VALUES('moderate_video_links', '1');
 INSERT INTO `config` (`config_name` ,`config_value`) VALUES('hotlink_protection', '0');
 
@@ -189,6 +190,7 @@ INSERT INTO `email_templates` (`email_id`, `email_subject`, `email_body`, `comme
 INSERT INTO `email_templates` (`email_id`, `email_subject`, `email_body`, `comment`) VALUES('delete_user', '[SITE_NAME] Account Delete Verification - [USERNAME]', '<p>Hi [USERNAME],</p><p>You or some one from IP: [USER_IP] requested to delete the account [USERNAME]</p><p><a href="[SITE_URL]/[USERNAME]">[SITE_URL]/[USERNAME]</a></p><p>To delete the account, click the link below</p><p><a href="[VERIFY_URL]">[VERIFY_URL]</a></p><p>Thank you,</p><p><a href="[SITE_URL]">[SITE_NAME]</a></p>', 'Account delete verification Mail');
 INSERT INTO `email_templates` (`email_id` ,`email_subject` ,`email_body` ,`comment`) VALUES('video_response_notify', '[SITE_NAME] - Video response to "[VIDEO_TITLE]"', '<p><a href="[SITE_URL]/[USERNAME]">[USERNAME]</a> has posted a video in response to <a href="[VIDEO_URL]">[VIDEO_TITLE]</a></p> <p>Response Video: <a href="[RESPONSE_VIDEO_URL]">[RESPONSE_VIDEO_TITLE]</a></p><p>This video requires your approval. You can approve or reject it by visiting the following link.</p><p><a href="[VERIFY_LINK]">[VERIFY_LINK]</a></p><p>Thanks</p><p><a href="[SITE_URL]">[SITE_NAME]</a> Team</p>', 'video response notify');
 INSERT INTO `email_templates` (`email_id`, `email_subject`, `email_body`, `comment`) VALUES('unsubscribe_admin_mail', 'admin mail footer', '<br />\r\n<a href="[UNSUBSCRIBE_URL]" target="_blank">Unsubscribe</a>', 'admin mail footer');
+INSERT INTO `email_templates` (`email_id`, `email_subject`, `email_body`, `comment`) VALUES('video_comment_notify', '[SITE_NAME] - Comment posted on your video', '<p>Hello <a href="[SITE_URL]/[VIDEO_OWNER_NAME]">[VIDEO_OWNER_NAME]</a>,</p><p><a href="[SITE_URL]/[COMMENT_USER_NAME]">[COMMENT_USER_NAME]</a> has commented on your video.</p><p>Check it by clicking the following link,</p><p><a href="[VIDEO_URL]">[VIDEO_TITLE]</a></p><p>Thanks,</p><p><a href="[SITE_URL]">[SITE_NAME]</a> Team.</p>', 'video comment notification');
 
 -- Table structure for table `favourite`
 

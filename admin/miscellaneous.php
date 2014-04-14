@@ -30,7 +30,7 @@ if (isset($_POST['submit']))
             $err = $lang['user_name_invalid'];
         }
     }
-    
+
     if ($err == '')
     {
         $sql = "UPDATE `sconfig` SET
@@ -38,7 +38,7 @@ if (isset($_POST['submit']))
                `soption`='video_rating'";
         mysql_query($sql) or mysql_die($sql);
         $smarty->assign('video_rating', $_POST['video_rating']);
-        
+
         if (is_numeric($_POST['allow_download']))
         {
             $sql = "UPDATE `sconfig` SET
@@ -47,7 +47,7 @@ if (isset($_POST['submit']))
             mysql_query($sql) or mysql_die($sql);
             $smarty->assign('allow_download', $_POST['allow_download']);
         }
-        
+
         if (is_numeric($_POST['admin_listing_per_page']))
         {
             $sql = "UPDATE `config` SET
@@ -55,7 +55,7 @@ if (isset($_POST['submit']))
                    `config_name`='admin_listing_per_page'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         if (is_numeric($_POST['process_upload']))
         {
             $sql = "UPDATE `config` SET
@@ -63,7 +63,7 @@ if (isset($_POST['submit']))
                    `config_name`='process_upload'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         if (is_numeric($_POST['video_duration_cmd']))
         {
             $sql = "UPDATE `config` SET
@@ -71,7 +71,7 @@ if (isset($_POST['submit']))
                    `config_name`='video_duration_cmd'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         if (is_numeric($_POST['process_notify_user']))
         {
             $sql = "UPDATE `config` SET
@@ -79,7 +79,7 @@ if (isset($_POST['submit']))
                    `config_name`='process_notify_user'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         if (is_numeric($_POST['video_flv_delete']))
         {
             $sql = "UPDATE `config` SET
@@ -87,7 +87,7 @@ if (isset($_POST['submit']))
                    `config_name`='video_flv_delete'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         if (is_numeric($_POST['recommend_all']))
         {
             $sql = "UPDATE `config` SET
@@ -95,12 +95,12 @@ if (isset($_POST['submit']))
                    `config_name`='recommend_all'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         $sql = "UPDATE `config` SET
                `config_value`='" . mysql_clean($_POST['php_path']) . "' WHERE
                `config_name`='php_path'";
         mysql_query($sql) or mysql_die($sql);
-        
+
         if (is_numeric($_POST['video_comments_per_page']))
         {
             $sql = "UPDATE `sconfig` SET
@@ -109,7 +109,16 @@ if (isset($_POST['submit']))
             $result = mysql_query($sql) or mysql_die($sql);
             $smarty->assign('video_comments_per_page', $_POST['video_comments_per_page']);
         }
-        
+
+        if (is_numeric($_POST['video_comment_notify']))
+        {
+            $sql = "UPDATE `config` SET
+                   `config_value`='" . (int) $_POST['video_comment_notify'] . "' WHERE
+                   `config_name`='video_comment_notify'";
+            mysql_query($sql) or mysql_die($sql);
+            $smarty->assign('video_comment_notify', $_POST['video_comment_notify']);
+        }
+
         if (is_numeric($_POST['user_comments_per_page']))
         {
             $sql = "UPDATE `sconfig` SET
@@ -118,7 +127,7 @@ if (isset($_POST['submit']))
             mysql_query($sql) or mysql_die($sql);
             $smarty->assign('user_comments_per_page', $_POST['user_comments_per_page']);
         }
-        
+
         if (is_numeric($_POST['editor_wysiwyg_admin']))
         {
             $sql = "UPDATE `config` SET
@@ -126,7 +135,7 @@ if (isset($_POST['submit']))
                    `config_name`='editor_wysiwyg_admin'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         if (is_numeric($_POST['editor_wysiwyg_email']))
         {
             $sql = "UPDATE `config` SET
@@ -134,7 +143,7 @@ if (isset($_POST['submit']))
                    `config_name`='editor_wysiwyg_email'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         if (is_numeric($_POST['mail_abuse_report']))
         {
             $sql = "UPDATE `config` SET
@@ -142,10 +151,10 @@ if (isset($_POST['submit']))
                    `config_name`='mail_abuse_report'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         if (isset($_POST['flv_metadata']))
         {
-            
+
             if ($_POST['flv_metadata'] == 'yamdi' || $_POST['flv_metadata'] == 'flvtool' || $_POST['flv_metadata'] == 'none')
             {
                 $sql = "UPDATE `config` SET
@@ -154,7 +163,7 @@ if (isset($_POST['submit']))
                 mysql_query($sql) or mysql_die($sql);
             }
         }
-        
+
         if (is_numeric($_POST['guest_upload']))
         {
             $sql = "UPDATE `config` SET
@@ -162,7 +171,7 @@ if (isset($_POST['submit']))
                    `config_name`='guest_upload'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         if (! empty($_POST['guest_upload_user']) && $_POST['guest_upload'] == 1)
         {
             $sql = "UPDATE `config` SET
@@ -170,7 +179,7 @@ if (isset($_POST['submit']))
                    `config_name`='guest_upload_user'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         if (is_numeric($_POST['num_channel_video']))
         {
             $sql = "UPDATE `config` SET
@@ -178,7 +187,7 @@ if (isset($_POST['submit']))
                    `config_name`='num_channel_video'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         if (is_numeric($_POST['num_max_channels']))
         {
             $sql = "UPDATE `config` SET
@@ -186,7 +195,7 @@ if (isset($_POST['submit']))
                    `config_name`='num_max_channels'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         if (is_numeric($_POST['user_daily_mail_limit']))
         {
             $sql = "UPDATE `config` SET
@@ -194,7 +203,7 @@ if (isset($_POST['submit']))
                    `config_name`='user_daily_mail_limit'";
             mysql_query($sql) or mysql_die($sql);
         }
-        
+
         $msg = $lang['settings_updated'];
     }
 }

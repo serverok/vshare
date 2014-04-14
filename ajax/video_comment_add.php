@@ -64,6 +64,46 @@ if (mysql_affected_rows() == 1)
            `video_com_num`=`video_com_num`+1 WHERE
            `video_id`='" . (int) $video_id . "'";
     mysql_query($sql) or mysql_die($sql);
+
+    if (get_config('video_comment_notify') == 1)
+    {
+        require '../include/class.mail.php';
+
+        $sql = "SELECT * FROM `email_templates` WHERE
+               `email_id`='video_comment_notify'";
+        $result = mysql_query($sql) or mysql_die($sql);
+        $mail_template = mysql_fetch_assoc($result);
+        $email_subject = $mail_template['email_subject'];
+        $email_body = $mail_template["email_body"];
+        $email_subject = str_replace("[SITE_NAME]", $config['site_name'], $email_subject);
+
+        $sql = "SELECT v.video_title,v.video_seo_name,u.user_name,u.user_email FROM
+               `videos` AS `v`, `users` AS `u` WHERE
+                v.video_id='" . (int) $video_id . "' AND
+                v.video_user_id=u.user_id";
+        $result = mysql_query($sql) or mysql_die();
+        $video_user_info = mysql_fetch_assoc($result);
+        mysql_free_result($result);
+
+        $video_url = VSHARE_URL . '/view/' . $video_id . '/' . $video_user_info['video_seo_name'] . '/';
+
+        $email_body = str_replace('[VIDEO_OWNER_NAME]', $video_user_info['user_name'], $email_body);
+        $email_body = str_replace('[COMMENT_USER_NAME]', $_SESSION['USERNAME'], $email_body);
+        $email_body = str_replace('[SITE_NAME]', $config['site_name'], $email_body);
+        $email_body = str_replace('[SITE_URL]', VSHARE_URL, $email_body);
+        $email_body = str_replace('[VIDEO_URL]', $video_url, $email_body);
+        $email_body = str_replace('[VIDEO_TITLE]', $video_user_info['video_title'], $email_body);
+
+        $mail_details = array();
+        $mail_details['from_email'] = $config['admin_email'];
+        $mail_details['from_name'] = $config['site_name'];
+        $mail_details['to_email'] = $video_user_info['user_email'];
+        $mail_details['to_name'] = $video_user_info['user_name'];
+        $mail_details['subject'] = $email_subject;
+        $mail_details['body'] = $email_body;
+        $mail = new Mail();
+        $mail->send($mail_details);
+    }
 }
 
 echo $lang['comment_posted'];

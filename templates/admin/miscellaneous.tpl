@@ -105,6 +105,14 @@
     </div>
 
     <div>
+        <label for="video_comment_notify">Video Comment Notification:</label>
+        <select name="video_comment_notify" id="video_comment_notify">
+            <option value="0" {if $video_comment_notify =='0'}selected="selected"{/if}>No</option>
+            <option value="1" {if $video_comment_notify =='1'}selected="selected"{/if}>Yes</option>
+        </select>
+    </div>
+
+    <div>
         <label for="user_comments_per_page">User Comments per page:</label>
         <input type="text" name="user_comments_per_page" id="user_comments_per_page" value="{$user_comments_per_page}" /></label>
     </div>

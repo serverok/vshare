@@ -42,7 +42,7 @@ if ($num_rows > 0)
     $result = mysql_query($sql) or mysql_die($sql);
     $most_active_users = mysql_fetch_all($result);
     $smarty->assign('most_active_users', $most_active_users);
-    
+
     $sql = "SELECT * FROM `videos` WHERE
            `video_channels` LIKE '%|" . (int) $_GET['id'] . "|%' AND
            `video_approve`='1' AND
@@ -51,18 +51,18 @@ if ($num_rows > 0)
             ORDER BY `video_add_time` DESC
             LIMIT $num_channel_videos";
     $result = mysql_query($sql) or mysql_die($sql);
-    
+
     $recent_channel_videos = array();
-    
+
     while ($recent_channel_video = mysql_fetch_assoc($result))
     {
         $recent_channel_video['video_thumb_url'] = $servers[$recent_channel_video['video_thumb_server_id']];
         $recent_channel_videos[] = $recent_channel_video;
     }
     $smarty->assign('recent_channel_videos', $recent_channel_videos);
-    
+
     # find popular videos on channel
-    
+
 
     $sql = "SELECT * FROM `videos` WHERE
            `video_channels` LIKE '%|" . (int) $_GET['id'] . "|%' AND
@@ -73,18 +73,18 @@ if ($num_rows > 0)
             LIMIT $num_channel_videos";
     $result = mysql_query($sql) or mysql_die($sql);
     $total = mysql_num_rows($result);
-    
+
     $mostview = array();
-    
+
     while ($video = mysql_fetch_assoc($result))
     {
         $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
         $mostview[] = $video;
     }
-    
+
     $smarty->assign('mostview', $mostview);
     $smarty->assign('total', $total);
-    
+
     $sql = "SELECT t.* FROM
            `tag_video` AS tv,
            `tags` AS t WHERE
@@ -94,7 +94,7 @@ if ($num_rows > 0)
             t.active=1
             ORDER BY t.tag_count DESC";
     $result = mysql_query($sql) or mysql_die($sql);
-    
+
     if (mysql_num_rows($result) > 0)
     {
         $tags = array();
@@ -109,7 +109,7 @@ if ($num_rows > 0)
                 $tagcloud->addElement($tag['tag'], $tag_url, $tag['tag_count'], $tag['used_on']);
                 $i ++;
             }
-            
+
             if ($i == 100)
             {
                 break;
