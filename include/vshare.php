@@ -4,16 +4,6 @@ $vshare_version = '2.8.1';
 date_default_timezone_set('GMT');
 set_time_limit(0);
 
-$conn = mysql_connect($db_host, $db_user, $db_pass);
-
-if (! $conn)
-{
-    die('Could not connect: ' . mysql_error());
-}
-
-mysql_select_db($db_name, $conn) or die('Can\'t select database : ' . mysql_error());
-mysql_set_charset('utf8', $conn);
-
 /*
  * set variables
  */
@@ -21,6 +11,14 @@ mysql_set_charset('utf8', $conn);
 define('VSHARE_DIR', $config['basedir']);
 define('VSHARE_URL', $config['baseurl']);
 $config['TMB_DIR'] = VSHARE_DIR . '/thumb';
+
+function vshare_autoload ($my_class_name) {
+        include(__DIR__ . '/classes/' . $my_class_name . ".php");
+}
+
+spl_autoload_register("vshare_autoload");
+
+DB::connect($db_host, $db_user, $db_pass, $db_name);
 
 require VSHARE_DIR . '/include/smarty/libs/Smarty.class.php';
 require VSHARE_DIR . '/include/functions.php';
@@ -34,25 +32,25 @@ $smarty->cache_dir = VSHARE_DIR . '/templates_c/cache';
 $smarty->caching = 0;
 
 $sql = "SELECT * FROM `sconfig`";
-$result = mysql_query($sql);
+$result = DB::query($sql);
 
-while ($tmp = mysql_fetch_assoc($result))
+while ($tmp = mysqli_fetch_assoc($result))
 {
     $field = $tmp['soption'];
     $config[$field] = $tmp['svalue'];
 }
 
-mysql_free_result($result);
+DB::freeResult();
 $smarty->assign($config);
 
 $sql = "SELECT * FROM `servers`";
-$result = mysql_query($sql);
+$result = DB::query($sql);
 
 $servers[0] = VSHARE_URL;
 
-if (mysql_num_rows($result) > 0)
+if (mysqli_num_rows($result) > 0)
 {
-    while ($tmp = mysql_fetch_assoc($result))
+    while ($tmp = mysqli_fetch_assoc($result))
     {
         $tmp_server_id = $tmp['id'];
         $servers[$tmp_server_id] = $tmp['url'];
