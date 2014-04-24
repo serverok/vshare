@@ -3,6 +3,13 @@
 class User
 {
 
+    public static function getUserByName($user_name)
+    {
+        $sql = 'SELECT * FROM `users` WHERE
+                `user_name`=\'' . DB::quote($user_name) . '\'';
+        return DB::fetch1($sql);
+    }
+
     static function login($user_name, $admin_login = 0)
     {
         global $config;

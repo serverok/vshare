@@ -20,41 +20,28 @@ if (isset($_POST['action_login']))
     $user_name = htmlspecialchars_uni($_POST['user_name']);
     $smarty->assign('user_name', $user_name);
     $password = $_POST['user_password'];
-    
-    if ($user_name == '')
-    {
+
+    if ($user_name == '') {
         $err = $lang['user_name_empty'];
-    }
-    else if ($password == '')
-    {
+    } else if ($password == '') {
         $err = $lang['password_empty'];
     }
-    
-    if ($err == '')
-    {
-        if (get_magic_quotes_gpc())
-        {
+
+    if ($err == '') {
+        if (get_magic_quotes_gpc()) {
             $user_name = stripslashes($user_name);
             $password = stripslashes($password);
         }
-        
-        $sql = "SELECT * FROM `users` WHERE
-               `user_name`='" . mysql_clean($user_name) . "' AND
-               `user_password`='" . md5($password) . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) < 1)
-        {
+
+        $user_info = User::getUserByName($user_name);
+
+        if ($user_info['user_password'] != md5($password)) {
             $err = $lang['invalid_login'];
         }
         else
         {
-            $user_info = mysql_fetch_assoc($result);
-            
-            if ($user_info['user_account_status'] == 'Inactive')
-            {
-                if ($config['enable_package'] == 'yes')
-                {
+            if ($user_info['user_account_status'] == 'Inactive') {
+                if ($config['enable_package'] == 'yes') {
                     $sql = "SELECT * FROM
                            `subscriber` AS `subs`,
                            `packages` AS `p` WHERE
@@ -62,43 +49,35 @@ if (isset($_POST['action_login']))
                             subs.pack_id=p.package_id";
                     $result = mysql_query($sql) or mysql_die($sql);
                     $package_info = mysql_fetch_assoc($result);
-                    
-                    if ($package_info['package_trial'] != 'yes')
-                    {
+
+                    if ($package_info['package_trial'] != 'yes') {
                         $redirect_url = $config['baseurl'] . '/renew_account.php?uid=' . $user_info['user_id'];
                         redirect($redirect_url);
                     }
                 }
-                
-                if ($config['signup_verify'] == '2')
-                {
+
+                if ($config['signup_verify'] == '2') {
                     $err = $lang['inactive_user_admin'];
                     $smarty->assign('inactive_user', '0');
-                }
-                else
-                {
+                } else {
                     $err = $lang['inactive_user'];
                     $smarty->assign('inactive_user', '1');
                 }
-                
+
                 $_SESSION['INACTIVE_USER'] = $user_info['user_name'];
-            }
-            else if ($user_info['user_account_status'] == 'Suspended')
-            {
+            } else if ($user_info['user_account_status'] == 'Suspended') {
                 $err = $lang['user_suspended'];
             }
         }
-        
+
         if ($err == '')
         {
-            if ($config['enable_package'] == 'yes')
-            {
+            if ($config['enable_package'] == 'yes') {
                 $sql = "SELECT * FROM `subscriber` WHERE
                        `UID`=" . (int) $user_info['user_id'];
                 $result = mysql_query($sql) or mysql_die($sql);
-                
-                if (mysql_num_rows($result) < 1)
-                {
+
+                if (mysql_num_rows($result) < 1) {
                     $sql = "INSERT INTO `subscriber` SET
                            `UID`=" . (int) $user_info['user_id'];
                     mysql_query($sql) or mysql_die($sql);
@@ -106,11 +85,10 @@ if (isset($_POST['action_login']))
                            `UID`=" . (int) $user_info['user_id'];
                     $result = mysql_query($sql) or mysql_die($sql);
                 }
-                
+
                 $subscription = mysql_fetch_assoc($result);
-                
-                if ($subscription['pack_id'] == 0)
-                {
+
+                if ($subscription['pack_id'] == 0) {
                     $sql = "SELECT * FROM `packages` WHERE
                            `package_trial`='yes'";
                     $result = mysql_query($sql) or mysql_die($sql);
@@ -122,29 +100,24 @@ if (isset($_POST['action_login']))
                            `expired_time`='$expired_time' WHERE
                            `UID`=" . (int) $user_info['user_id'];
                     mysql_query($sql) or mysql_die($sql);
-                }
-                else
-                {
+                } else {
                     check_subscriber_duration($user_info['user_id']);
                 }
             }
-            
+
             User::login($user_name);
-            
-            if (isset($_POST['autologin']))
-            {
+
+            if (isset($_POST['autologin'])) {
                 User::set_auto_login_cookie($user_name);
             }
-            
-            if (isset($_SESSION['REDIRECT']) && $_SESSION['REDIRECT'] != '')
-            {
+
+            if (isset($_SESSION['REDIRECT']) && $_SESSION['REDIRECT'] != '') {
                 $redirect_url = $_SESSION['REDIRECT'];
                 $_SESSION['REDIRECT'] = '';
-            }
-            else
-            {
+            } else {
                 $redirect_url = $config['baseurl'] . '/' . $user_info['user_name'];
             }
+
             redirect($redirect_url);
         }
     }
@@ -160,4 +133,4 @@ $smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
 $smarty->display('login.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
