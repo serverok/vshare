@@ -23,8 +23,7 @@ header('Pragma: no-cache');
 
 $sql_adult_filter = '';
 
-if (get_family_filter())
-{
+if (get_family_filter()) {
     $sql_adult_filter = "AND `video_adult`='0'";
 }
 
@@ -35,17 +34,16 @@ $sql = "SELECT * FROM `videos` WHERE
         $sql_adult_filter
         ORDER BY `video_view_time` DESC
         LIMIT 0, 5";
-$result = mysql_query($sql) or mysql_die($sql);
+$videos = DB::fetch($sql);
 
 echo '<vshare><video_list>';
-while ($data = mysql_fetch_array($result))
+foreach ($videos as $video)
 {
-    $video_url = VSHARE_URL . '/view/' . $data['video_id'] . '/' . $data['video_seo_name'] . '/';
-    $thumb_url = $servers[$data['video_thumb_server_id']] . '/thumb/' . $data['video_folder'] . '1_' . $data['video_id'] . '.jpg';
-    
-    echo '<video>' . '<title>' . $data['video_title'] . '</title>' . '<run_time>' . $data['video_length'] . '</run_time>' . '<url>' . $video_url . '</url>' . '<thumbnail_url>' . $thumb_url . '</thumbnail_url>' . '</video>';
+    $video_url = VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '/';
+    $thumb_url = $servers[$video['video_thumb_server_id']] . '/thumb/' . $video['video_folder'] . '1_' . $video['video_id'] . '.jpg';
+
+    echo '<video>' . '<title>' . $video['video_title'] . '</title>' . '<run_time>' . $video['video_length'] . '</run_time>' . '<url>' . $video_url . '</url>' . '<thumbnail_url>' . $thumb_url . '</thumbnail_url>' . '</video>';
 
 }
 echo '</video_list></vshare>';
-db_close();
-
+DB::close();
