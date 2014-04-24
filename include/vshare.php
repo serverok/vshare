@@ -127,3 +127,9 @@ if ($config['family_filter'] == 1)
     }
 }
 
+function dd($debug_message)
+{
+    echo '<pre>';
+    print_r($debug_message);
+    exit;
+}
