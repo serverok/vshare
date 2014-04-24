@@ -15,23 +15,18 @@
 require './include/config.php';
 
 $sql = "SELECT * FROM `pages` WHERE
-       `page_name`='" . mysql_clean($_GET['name']) . "'";
-$result = mysql_query($sql) or mysql_die($sql);
+       `page_name`='" . DB::quote($_GET['name']) . "'";
+$page_info = DB::fetch1($sql);
 
-if (mysql_num_rows($result) != 1)
-{
+if (! $page_info) {
     show_page_not_found();
 }
 
-$page_info = mysql_fetch_assoc($result);
-
-if ($page_info['page_members_only'] == 1)
-{
+if ($page_info['page_members_only'] == 1) {
     User::is_logged_in();
 }
 
-function show_page_not_found()
-{
+function show_page_not_found() {
     header("HTTP/1.0 404 Not Found");
     echo "<html><head><title>Page Not Found</title></head><body>Page Not Found</body></html>";
     exit(0);
@@ -45,4 +40,4 @@ $smarty->assign('html_keywords', $page_info['page_keywords']);
 $smarty->display('header.tpl');
 $smarty->display('show_page.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
