@@ -449,9 +449,7 @@ function insert_group_count($a)
 
     $sql = "SELECT count(*) AS `total` FROM $from
             $add1 $add2";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    return $tmp['total'];
+    return DB::getTotal($sql);
 }
 
 function insert_group_info_count($a)

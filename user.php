@@ -18,16 +18,15 @@ require 'include/language/' . LANG . '/lang_user.php';
 $user_name = $_GET['user_name'];
 
 $sql = "SELECT * FROM `users` WHERE
-       `user_name`='" . mysql_clean($user_name) . "'";
-$result = mysql_query($sql) or mysql_die($sql);
+       `user_name`='" . DB::quote($user_name) . "'";
+$user_info = DB::fetch1($sql);
 
-if (mysql_num_rows($result) != 1)
+if (! $user_info)
 {
     require '404.php';
     exit();
 }
 
-$user_info = mysql_fetch_assoc($result);
 $smarty->assign('user_info', $user_info);
 
 if ($user_info['user_birth_date'] != '0000-00-00')
@@ -39,8 +38,8 @@ if ($user_info['user_birth_date'] != '0000-00-00')
 # increase view count
 $sql = "UPDATE `users` SET
        `user_profile_viewed`=`user_profile_viewed`+1 WHERE
-       `user_name`='" . mysql_clean($user_name) . "'";
-mysql_query($sql) or mysql_die($sql);
+       `user_name`='" . DB::quote($user_name) . "'";
+DB::query($sql);
 
 # show latest user video
 $sql = "SELECT * FROM `videos` WHERE
@@ -50,17 +49,15 @@ $sql = "SELECT * FROM `videos` WHERE
        `video_active`='1'
         ORDER BY `video_id` DESC
         LIMIT 8";
-$result = mysql_query($sql) or mysql_die($sql);
-while ($new_video = mysql_fetch_assoc($result))
+$new_views_array = DB::fetch($sql);
+
+foreach ($new_views_array AS $new_video)
 {
     $new_video['video_thumb_url'] = $servers[$new_video['video_thumb_server_id']];
     $new_videos[] = $new_video;
 }
 
-@mysql_free_result($result);
-
 # show popular user video
-
 
 $sql = "SELECT * FROM `videos` WHERE
        `video_user_id`='" . (int) $user_info['user_id'] . "' AND
@@ -69,47 +66,41 @@ $sql = "SELECT * FROM `videos` WHERE
        `video_active`='1'
         ORDER BY `video_view_number` DESC
         LIMIT 8";
-$result = mysql_query($sql) or mysql_die($sql);
-while ($popular_video = mysql_fetch_assoc($result))
+$popular_video_array = DB::fetch($sql);
+
+foreach ($popular_video_array AS $popular_video)
 {
     $popular_video['video_thumb_url'] = $servers[$popular_video['video_thumb_server_id']];
     $popular_videos[] = $popular_video;
 }
 
-@mysql_free_result($result);
-
 # show user friends
-
 
 $sql = "SELECT * FROM `friends` WHERE
        `friend_user_id`='" . (int) $user_info['user_id'] . "' AND
        `friend_status`='Confirmed'
         ORDER BY `friend_invite_date` DESC
         LIMIT 8";
-$result = mysql_query($sql) or mysql_die($sql);
-$user_friends = mysql_fetch_all($result);
+$user_friends = DB::fetch($sql);
 $smarty->assign('user_friends', $user_friends);
 
 $chkuserflag = '';
 
-if (checklogin())
-{
+if (checklogin()) {
     $chkuserflag = 'guest';
 }
 
-if (isset($_SESSION['UID']) && $_SESSION['UID'] == $user_info['user_id'])
-{
+if (isset($_SESSION['UID']) && $_SESSION['UID'] == $user_info['user_id']) {
     $chkuserflag = 'self';
 }
 
-if ($config['enable_package'] == 'yes' and isset($_SESSION['UID']))
-{
+if ($config['enable_package'] == 'yes' and isset($_SESSION['UID'])) {
     $sql = "SELECT * FROM `subscriber` WHERE
            `UID`='" . (int) $user_info['user_id'] . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     $u_info = mysql_fetch_assoc($result);
     $smarty->assign('u_info', $u_info);
-    
+
     $sql = "SELECT * FROM `packages` WHERE
            `package_id`='" . (int) $u_info['pack_id'] . "'";
     $result = mysql_query($sql) or mysql_die($sql);
@@ -123,10 +114,10 @@ if (isset($_SESSION['UID']))
 {
     $sql = "SELECT * FROM `friends` WHERE
            `friend_user_id`='" . (int) $_SESSION['UID'] . "' AND
-           `friend_name`='" . mysql_clean($user_name) . "' AND
+           `friend_name`='" . DB::quote($user_name) . "' AND
            `friend_status`='Confirmed'";
     $result = mysql_query($sql) or mysql_die($sql);
-    
+
     if (mysql_num_rows($result) > 0)
     {
         $is_friend = 'yes';
@@ -135,7 +126,7 @@ if (isset($_SESSION['UID']))
     {
         $is_friend = 'no';
     }
-    
+
     $smarty->assign('is_friend', $is_friend);
 }
 
@@ -145,17 +136,13 @@ $sql = "SELECT g.*, gm.group_member_group_id FROM
         gm.group_member_user_id='" . (int) $user_info['user_id'] . "'
         ORDER BY g.group_create_time DESC
         LIMIT 8";
-$result = mysql_query($sql) or mysql_die($sql);
-$num_result = mysql_num_rows($result);
-$groups = mysql_fetch_all($result);
+$groups = DB::fetch($sql);
+$num_result = count($groups);
 $smarty->assign('groups', $groups);
 
-if (isset($_SESSION['UID']) && $_SESSION['UID'] == $user_info['user_id'])
-{
+if (isset($_SESSION['UID']) && $_SESSION['UID'] == $user_info['user_id']) {
     $allow_playlist = $allow_favorite = $allow_friend = $allow_comment = $allow_private_message = 1;
-}
-else
-{
+} else {
     $allow_playlist = $user_info['user_playlist_public'];
     $allow_favorite = $user_info['user_favourite_public'];
     $allow_friend = $user_info['user_friend_invition'];
@@ -200,13 +187,11 @@ $smarty->assign('html_title', $user_name);
 $smarty->assign('html_keywords', $user_name);
 $smarty->assign('html_description', $user_name);
 
-if (isset($profile_comments))
-{
+if (isset($profile_comments)) {
     $smarty->assign('profile_comments', $profile_comments);
 }
 
-if (isset($new_videos))
-{
+if (isset($new_videos)) {
     $smarty->assign('new_video', $new_videos);
     $smarty->assign('new_video_total', count($new_videos));
     $smarty->assign('videos', $new_videos);
@@ -217,13 +202,17 @@ if (isset($new_videos))
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 
-if ($err == '')
-{
+if ($err == '') {
     $smarty->assign('sub_menu', 'menu_user.tpl');
 }
 
 $smarty->display('header.tpl');
 
-if ($err == '') $smarty->display('user.tpl');
+if ($err == '') {
+    $smarty->display('user.tpl');
+}
+
 $smarty->display('footer.tpl');
-db_close();
+
+DB::close();
+
