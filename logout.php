@@ -16,6 +16,6 @@ require 'include/config.php';
 
 User::logout();
 
-db_close();
+DB::close();
 $redirect_url = VSHARE_URL . '/index.php';
 redirect($redirect_url);
