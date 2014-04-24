@@ -395,14 +395,11 @@ function insert_playlist_count($a)
 
 function insert_msg_count()
 {
-    global $conn;
     $sql = "SELECT count(*) AS `total` FROM `mails` WHERE
            `mail_receiver`='" . mysql_clean($_SESSION['USERNAME']) . "' AND
            `mail_read`='0' AND
            `mail_inbox_track`='2'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    return $tmp['total'] + 0;
+    return DB::getTotal($sql);
 }
 
 function insert_friends_count($a)
