@@ -1,6 +1,6 @@
 <?php
 
-class Channels
+class Channel
 {
 
     static function get()
