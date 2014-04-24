@@ -1,15 +1,5 @@
 {if $total gt "0"}
 
-<div class="section">
-
-	<div class="hd" style="overflow:visible">
-		<div class="hd-l">Tags for this Channel:</div>
-	</div>
-
-	<div style="padding:0.5em;">{$tags}</div>
-
-</div>
-
 <div class="section bg2 clearfix">
 
 	<div class="hd">

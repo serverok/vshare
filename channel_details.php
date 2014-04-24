@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'HTML/TagCloud.php';
 
 if (! is_numeric($_GET['id']) || $_GET['id'] < 1)
 {
@@ -84,39 +83,6 @@ if ($num_rows > 0)
 
     $smarty->assign('mostview', $mostview);
     $smarty->assign('total', $total);
-
-    $sql = "SELECT t.* FROM
-           `tag_video` AS tv,
-           `tags` AS t WHERE
-            tv.tag_id=t.id AND
-            t.tag_count > 0 AND
-            tv.chid LIKE '%|" . (int) $_GET['id'] . "|%' AND
-            t.active=1
-            ORDER BY t.tag_count DESC";
-    $result = mysql_query($sql) or mysql_die($sql);
-
-    if (mysql_num_rows($result) > 0)
-    {
-        $tags = array();
-        $i = 0;
-        $tagcloud = new HTML_TagCloud();
-        while ($tag = mysql_fetch_assoc($result))
-        {
-            if (! in_array($tag['tag'], $tags))
-            {
-                $tags[] = $tag['tag'];
-                $tag_url = VSHARE_URL . '/tag/' . strtolower($tag['tag']) . '/';
-                $tagcloud->addElement($tag['tag'], $tag_url, $tag['tag_count'], $tag['used_on']);
-                $i ++;
-            }
-
-            if ($i == 100)
-            {
-                break;
-            }
-        }
-        $smarty->assign('tags', $tagcloud->buildHTML());
-    }
     $smarty->assign('channel', $channel);
 }
 
