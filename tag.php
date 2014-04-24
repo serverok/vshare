@@ -18,21 +18,18 @@ require 'include/language/' . LANG . '/lang_tag.php';
 $search_string = strip_tags($_GET['search_string']);
 $search_string = trim($search_string);
 
-if ($search_string == '')
-{
+if ($search_string == '') {
     $err = $lang['search_key_empty'];
 }
 
-if (isset($_GET['sort']))
-{
+if (isset($_GET['sort'])) {
     $allowed_sort = array(
         'adddate',
         'viewnum',
         'rate'
     );
 
-    if (in_array($_GET['sort'], $allowed_sort))
-    {
+    if (in_array($_GET['sort'], $allowed_sort)) {
         $_SESSION['tag_sort_order'] = $_GET['sort'];
     }
 }
@@ -40,8 +37,8 @@ if (isset($_GET['sort']))
 $sort = isset($_SESSION['tag_sort_order']) ? $_SESSION['tag_sort_order'] : '';
 $sort_html = '';
 
-switch ($sort)
-{
+switch ($sort) {
+
     case 'viewnum':
         $sortby = "ORDER BY `video_view_number` DESC";
         $sort_html = 'Most Viewed';
@@ -56,21 +53,20 @@ switch ($sort)
         break;
 }
 
-if ($err == '')
-{
+if ($err == '') {
+
     $sql = "SELECT tv.vid FROM
            `tags` AS `t`,`tag_video` AS `tv` WHERE
-            t.tag='" . mysql_clean($search_string) . "' AND
+            t.tag='" . DB::quote($search_string) . "' AND
             t.id=tv.tag_id";
-    $result = mysql_query($sql) or mysql_die($sql);
+    $videos_array = DB::fetch($sql);
+
     $tag_videos = array();
 
-    while (list($video_id) = mysql_fetch_array($result))
-    {
-        $tag_videos[] = $video_id;
+    foreach($videos_array as $video_x) {
+        $tag_videos[] = $video_x['vid'];
     }
 
-    mysql_free_result($result);
     $total = count($tag_videos);
 
     if ($total > 0)
@@ -100,17 +96,17 @@ if ($err == '')
                `video_active`='1' AND
                `video_approve`='1'
                 $sortby";
-        $result = mysql_query($sql) or mysql_die($sql);
+        $videos = DB::fetch($sql);
 
-        while ($video = mysql_fetch_assoc($result))
+        foreach ($videos AS $video)
         {
             $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
             $video_info[] = $video;
             $video_users[] = $video['video_user_id'];
         }
 
-        $total_current_page = mysql_num_rows($result);
-        mysql_free_result($result);
+        $total_current_page = count($videos);
+
         $start_from = ($page - 1) * $config['items_per_page'];
         $start_num = $start_from + 1;
         $end_num = $start_from + $total_current_page;
@@ -122,11 +118,13 @@ if ($err == '')
 
         $sql = "SELECT `user_id`,`user_name` FROM `users`WHERE
                `user_id` IN(" . $video_users_text . ")";
-        $result = mysql_query($sql) or mysql_die($sql);
+        $result = DB::fetch($sql);
         $user_names = array();
 
-        while (list($user_id, $user_name) = mysql_fetch_array($result))
+        foreach($result as $user)
         {
+            $user_id = $user['user_id'];
+            $user_name = $user['user_name'];
             $user_names[$user_id] = $user_name;
         }
 
