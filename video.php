@@ -14,28 +14,24 @@
 
 require 'include/config.php';
 require 'include/class.cache.php';
-require 'include/class.channels.php';
 
 Cache::init();
 
 $sql_adult_filter = '';
 
-if (get_family_filter())
-{
+if (get_family_filter()) {
 	$sql_adult_filter = "AND `video_adult`='0'";
 }
 
 $page = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
 $view_type = isset($_GET['view_type']) ? $_GET['view_type'] : 'basic';
 
-if ($view_type != 'basic')
-{
+if ($view_type != 'basic') {
     $view_type = 'detailed';
 }
 
@@ -50,26 +46,24 @@ $category_all = array(
     'featured'
 );
 
-if (! in_array($category, $category_all))
-{
+if (! in_array($category, $category_all)) {
     $category = 'recent';
 }
 
 $cache_id = 'video_' . $view_type . $category . $page;
 
-if (isset($_GET['chid']))
-{
+if (isset($_GET['chid'])) {
     $cache_id .= '_channel_id' . $_GET['chid'];
     $channel_sql = "AND `video_channels` LIKE '%|" . (int) $_GET['chid'] . "|%'";
     $sql = "SELECT * FROM `channels` WHERE
            `channel_id`='" . (int) $_GET['chid'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
+    $result = DB::fetch($sql);
+    dd($result);
+
+
     $smarty->assign('channel_name', $tmp['channel_name']);
     $channel_name = $tmp['channel_name'] . ' ';
-}
-else
-{
+} else {
     $channel_sql = $channel_name = '';
 }
 
@@ -78,7 +72,7 @@ $view = Cache::load($cache_id);
 if (! $view)
 {
     $view = array();
-    
+
     $view['view_type'] = $view_type;
     $view['category'] = $category;
     if ($category == 'featured')
@@ -100,13 +94,11 @@ if (! $view)
                 $channel_sql
                 $sql_adult_filter";
     }
-    
-    $result = mysql_query($sql) or mysql_die($sql);
-    $video_info = mysql_fetch_assoc($result);
-    $view['total'] = $video_info['total'];
-    
+
+    $view['total'] = DB::getTotal($sql);
+
     $start_from = ($page - 1) * $config['num_watch_videos'];
-    
+
     if ($category == 'recent')
     {
         $view['html_title'] = 'Most Recent ' . $channel_name . 'Videos';
@@ -186,33 +178,31 @@ if (! $view)
                 ORDER BY `video_add_time` DESC
                 LIMIT $start_from, $config[num_watch_videos]";
     }
-    
-    $result = mysql_query($sql) or mysql_die($sql);
-    $video_count = mysql_num_rows($result);
-    
-    if (!$video_count && $page > 1)
-    {
+
+    $videos_all = DB::fetch($sql);
+    $video_count = count($videos_all);
+
+    if (!$video_count && $page > 1) {
         require '404.php';
         exit();
     }
-    
+
     $videos = array();
-    
-    while ($video = mysql_fetch_assoc($result))
-    {
+
+    foreach ($videos_all AS $video) {
         $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
         $videos[] = $video;
     }
-    
+
     $view['start_num'] = $start_from + 1;
     $view['end_num'] = $start_from + $video_count;
     $view['page'] = $page;
     $view['page_links'] = paginate($view['total'], $config['num_watch_videos'], '.', '', $page);
     $view['videos'] = $videos;
-    
-    $channels = channels::get_all();
+
+    $channels = Channel::get();
     $view['channels'] = $channels;
-    
+
     Cache::save($cache_id, $view);
 }
 
@@ -228,4 +218,4 @@ $smarty->assign('sub_menu', 'menu_watch.tpl');
 $smarty->display('header.tpl');
 $smarty->display('video.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

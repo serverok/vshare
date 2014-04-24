@@ -347,12 +347,9 @@ function insert_comment_info($a)
 
 function insert_comment_count($a)
 {
-    global $conn;
     $sql = "SELECT count(*) AS `total` FROM `comments` WHERE
            `comment_video_id`='" . (int) $a['vid'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    return $tmp['total'];
+    return DB::getTotal($sql);
 }
 
 function insert_video_count($a)
