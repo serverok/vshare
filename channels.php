@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.channels.php';
 require 'include/language/' . LANG . '/lang_channels.php';
 
 $sql_adult_filter = '';
@@ -23,10 +22,9 @@ if (get_family_filter())
     $sql_adult_filter = "AND `video_adult`='0'";
 }
 
-$channels = channels::get_all();
+$channels = Channels::get();
 
-if ($channels == 0)
-{
+if (! $channels) {
     $msg = $lang['channel_not_found'];
 }
 

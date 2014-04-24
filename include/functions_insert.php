@@ -285,29 +285,27 @@ function insert_row_count($a)
 
 function insert_channel_count($a)
 {
-    global $conn, $sql_adult_filter;
+    global $sql_adult_filter;
+
     $dt = date('Y-m-d');
+
     $sql_extra = ' AND `video_active`=1 AND `video_approve`=1';
-    $sql = "SELECT count(*) AS `dytotal` FROM `videos` WHERE
+    $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
            `video_channels` LIKE '%|$a[cid]|%' AND
            `video_add_date`='$dt'
             $sql_extra
             $sql_adult_filter";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    $list[0] = $tmp['dytotal'];
-    $sql = "SELECT count(*) AS `chtotal` FROM `videos` WHERE
+    $list[0] = DB::getTotal($sql);
+
+    $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
            `video_channels` LIKE '%|$a[cid]|%'
             $sql_extra
             $sql_adult_filter";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    $list[1] = $tmp['chtotal'];
-    $sql = "SELECT count(*) AS `grtotal` FROM `groups` WHERE
+    $list[1] = DB::getTotal($sql);
+
+    $sql = "SELECT count(*) AS `total` FROM `groups` WHERE
            `group_channels` LIKE '%|$a[cid]|%'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    $list[2] = $tmp['grtotal'];
+    $list[2] = DB::getTotal($sql);
     return $list;
 }
 
