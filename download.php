@@ -15,8 +15,7 @@
 require 'include/config.php';
 require 'include/class.video.php';
 
-if ($config['allow_download'] != 1)
-{
+if ($config['allow_download'] != 1) {
     echo 'Video download disabled';
     exit();
 }
@@ -28,14 +27,12 @@ $video_name = $video_info['video_name'];
 
 $file_path = VSHARE_DIR . '/video/' . $video_name;
 
-if (($video_name == '') || (! is_file($file_path)) || (! file_exists($file_path)))
-{
+if (($video_name == '') || (! is_file($file_path)) || (! file_exists($file_path))) {
     echo 'File not found.';
     exit();
 }
 
-if (ini_get('zlib.output_compression'))
-{
+if (ini_get('zlib.output_compression')) {
     ini_set('zlib.output_compression', 'Off');
 }
 

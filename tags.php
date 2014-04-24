@@ -20,27 +20,24 @@ Cache::init();
 
 $latest_tags = Cache::load('latest_tags');
 
-if (! $latest_tags)
-{
+if (! $latest_tags) {
     $sql = "SELECT * FROM `tags` WHERE
 	       `active`='1' AND
 	       `tag_count` > 0
 	        ORDER BY `used_on` DESC
 	        LIMIT 100";
-    $result = mysql_query($sql) or mysql_die($sql);
-    
-    if (mysql_num_rows($result) > 0)
-    {
+    $tags = DB::fetch($sql);
+
+    if ($tags) {
         $tags = new HTML_TagCloud();
-        while ($tag = mysql_fetch_assoc($result))
-        {
+        foreach ($tags as $tag) {
             $tag_url = VSHARE_URL . '/tag/' . strtolower($tag['tag']) . '/';
             $tags->addElement($tag['tag'], $tag_url, $tag['tag_count'], $tag['used_on']);
         }
         $latest_tags = $tags->buildHTML();
         unset($tags);
     }
-    
+
     Cache::save('latest_tags', $latest_tags);
 }
 
@@ -48,20 +45,17 @@ $smarty->assign('latest_tags', $latest_tags);
 
 $popular_tags = Cache::load('popular_tags');
 
-if (! $popular_tags)
-{
+if (! $popular_tags) {
     $sql = "SELECT * FROM `tags` WHERE
            `active`='1' AND
            `tag_count` > 0
             ORDER BY `tag_count` DESC
             LIMIT 100";
-    $result = mysql_query($sql) or mysql_die($sql);
-    
-    if (mysql_num_rows($result) > 0)
-    {
+    $polular_tags = DB::fetch($sql);
+
+    if ($polular_tags) {
         $tags = new HTML_TagCloud();
-        while ($tag = mysql_fetch_assoc($result))
-        {
+        foreach ($polular_tags as $tag) {
             $tag_url = VSHARE_URL . '/tag/' . strtolower($tag['tag']) . '/';
             $tags->addElement($tag['tag'], $tag_url, $tag['tag_count'], $tag['used_on']);
         }
@@ -76,6 +70,7 @@ $smarty->assign(array(
     'html_title' => 'Tags',
     'html_description' => 'Tags'
 ));
+
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('sub_menu', 'menu_home.tpl');
