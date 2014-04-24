@@ -8,8 +8,7 @@ function get_video_url($server_id, $folder, $name)
 
     $sql = "SELECT * FROM `servers` WHERE
            `id`=$server_id";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $server_info = mysql_fetch_assoc($result);
+    $server_info = DB::fetch1($sql);
     $secret = $server_info['server_secdownload_secret'];
 
     if ($server_info['server_type'] == 2 && $server_id != 0)

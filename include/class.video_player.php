@@ -9,14 +9,12 @@ class video_player
         global $config;
         $sql = "SELECT * FROM `videos` WHERE
                `video_id`=$video_id";
-        $result = mysql_query($sql) or mysql_die($sql);
+        $this->video_info = DB::fetch1($sql);
 
-        if (mysql_num_rows($result) == 0)
+        if (! $this->video_info)
         {
             return 'video not found';
         }
-
-        $this->video_info = mysql_fetch_assoc($result);
 
         switch ($this->video_info['video_vtype'])
         {
