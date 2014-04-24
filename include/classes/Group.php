@@ -1,14 +1,13 @@
 <?php
 
-class Groups
+class Group
 {
-    
-    static function get_group_by_id($group_id)
+    static function getGroupById($group_id)
     {
-        $sql = "SELECT * FROM `groups` WHERE 
+        $sql = "SELECT * FROM `groups` WHERE
                `group_id`='" . (int) $group_id . "'";
         $result = mysql_query($sql) or mysql_die();
-        
+
         if (mysql_num_rows($result))
         {
             return mysql_fetch_assoc($result);
@@ -17,7 +16,7 @@ class Groups
         {
             return 0;
         }
-        
+
     }
-    
+
 }

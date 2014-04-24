@@ -22,7 +22,6 @@ DB::connect($db_host, $db_user, $db_pass, $db_name);
 
 require VSHARE_DIR . '/include/smarty/libs/Smarty.class.php';
 require VSHARE_DIR . '/include/functions.php';
-require VSHARE_DIR . '/include/class.user.php';
 
 $smarty = new Smarty();
 
