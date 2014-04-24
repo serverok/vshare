@@ -57,10 +57,7 @@ if (isset($_GET['chid'])) {
     $channel_sql = "AND `video_channels` LIKE '%|" . (int) $_GET['chid'] . "|%'";
     $sql = "SELECT * FROM `channels` WHERE
            `channel_id`='" . (int) $_GET['chid'] . "'";
-    $result = DB::fetch($sql);
-    dd($result);
-
-
+    $tmp = DB::fetch1($sql);
     $smarty->assign('channel_name', $tmp['channel_name']);
     $channel_name = $tmp['channel_name'] . ' ';
 } else {
