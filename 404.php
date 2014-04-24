@@ -22,31 +22,25 @@ $sql = "SELECT * FROM `videos` WHERE
        `video_approve`='1' AND
        `video_active`='1'
        LIMIT 0,4";
-$result = mysql_query($sql) or mysql_die($sql);
+$videos = DB::fetch($sql);
 
-if (mysql_num_rows($result) == 0)
-{
+if (!$videos) {
     $sql = "SELECT * FROM `videos` WHERE
            `video_type`='public' AND
            `video_approve`='1' AND
            `video_active`='1'
            LIMIT 0,4";
-    $result = mysql_query($sql) or mysql_die($sql);
+    $videos = DB::fetch($sql);
 }
 
-if (mysql_num_rows($result) > 0)
-{
-    $video_info = array();
-    
-    while ($tmp = mysql_fetch_assoc($result))
-    {
-        $tmp['video_thumb_url'] = $servers[$tmp['video_thumb_server_id']];
-        $video_info[] = $tmp;
-    }
-    
-    $smarty->assign('video_info', $video_info);
+$video_info = array();
+
+foreach($videos as $video) {
+    $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
+    $video_info[] = $video;
 }
 
+$smarty->assign('video_info', $video_info);
 $smarty->assign('msg_404', 'We\'re sorry, the page you requested cannot be found.');
 $smarty->assign('html_title', '404 Not Found');
 $smarty->display('header.tpl');
