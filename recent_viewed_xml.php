@@ -37,13 +37,18 @@ $sql = "SELECT * FROM `videos` WHERE
 $videos = DB::fetch($sql);
 
 echo '<vshare><video_list>';
-foreach ($videos as $video)
-{
+
+foreach ($videos as $video) {
     $video_url = VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '/';
     $thumb_url = $servers[$video['video_thumb_server_id']] . '/thumb/' . $video['video_folder'] . '1_' . $video['video_id'] . '.jpg';
-
-    echo '<video>' . '<title>' . $video['video_title'] . '</title>' . '<run_time>' . $video['video_length'] . '</run_time>' . '<url>' . $video_url . '</url>' . '<thumbnail_url>' . $thumb_url . '</thumbnail_url>' . '</video>';
-
+    echo '<video>' .
+         '<title>' . $video['video_title'] . '</title>' .
+         '<run_time>' . $video['video_length'] . '</run_time>' .
+         '<url>' . $video_url . '</url>' .
+         '<thumbnail_url>' . $thumb_url . '</thumbnail_url>' .
+         '</video>';
 }
+
 echo '</video_list></vshare>';
+
 DB::close();
