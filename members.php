@@ -17,8 +17,7 @@ require 'include/config.php';
 $page = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
 $sort = (isset($_GET['sort'])) ? $_GET['sort'] : 'recent';
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
@@ -30,13 +29,11 @@ $sort_array = array(
     'subscribed'
 );
 
-if (! in_array($sort, $sort_array))
-{
+if (! in_array($sort, $sort_array)) {
     $sort = 'recent';
 }
 
-if ($sort == 'video_uploaded')
-{
+if ($sort == 'video_uploaded') {
     $sql = "SELECT u . * , count( v.video_id ) AS `total` FROM
 		   `videos` AS `v`, `users` AS `u`
             WHERE v.video_user_id=u.user_id AND
@@ -60,9 +57,7 @@ else
 {
     $sql = "SELECT count(*) AS `total` FROM `users` WHERE
 	   	   `user_account_status`='Active'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    $total = $tmp['total'];
+    $total = DB::getTotal($sql);
 }
 
 $start_from = ($page - 1) * $config['items_per_page'];
@@ -117,14 +112,13 @@ else if ($sort == 'subscribed')
 		   	LIMIT $start_from, $config[items_per_page]";
 }
 
-$result = mysql_query($sql) or mysql_die($sql);
-$results_on_this_page = mysql_num_rows($result);
+$users = DB::fetch($sql);
+$results_on_this_page = count($users);
 
 $members = array();
 $i = 0;
 
-while ($user_info = mysql_fetch_assoc($result))
-{
+foreach ($users as $user_info) {
     $members[$i] = $user_info;
     $members[$i]['photo_url'] = User::get_photo($user_info['user_photo'], $user_info['user_id']);
     $i ++;
