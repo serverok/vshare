@@ -1,6 +1,6 @@
 <?php
 
-class sitemap
+class Sitemap
 {
     public $sitemap_info = array();
     public $sitemap_xml_header = '<?xml version="1.0" encoding="UTF-8"?>';
@@ -25,8 +25,7 @@ class sitemap
         $sql = "SELECT * FROM `sitemap` ORDER BY `sitemap_id` DESC";
         $result = mysql_query($sql) or mysql_die($sql);
 
-        while ($info = mysql_fetch_assoc($result))
-        {
+        while ($info = mysql_fetch_assoc($result)) {
             $info['format_size'] = $this->formatSize($info['sitemap_size']);
             $this->sitemap_info[] = $info;
         }
@@ -58,14 +57,12 @@ class sitemap
         $sql = "SELECT * FROM `sitemap` ORDER BY `sitemap_id` DESC";
         $result = mysql_query($sql) or mysql_die($sql);
 
-        if (mysql_num_rows($result) > 0)
-        {
+        if (mysql_num_rows($result) > 0) {
             $sitemap_index_fp = fopen(VSHARE_DIR . '/sitemap/sitemap_index.xml', 'w');
             $sitemap_index = $this->sitemap_index_header;
             fwrite($sitemap_index_fp, $sitemap_index);
 
-            while ($sitemap_info = mysql_fetch_assoc($result))
-            {
+            while ($sitemap_info = mysql_fetch_assoc($result)) {
                 $sitemap = '<sitemap>';
                 fwrite($sitemap_index_fp, "\n\t\t" . $sitemap . "\n\t\t\t");
                 $loc = '<loc>' . VSHARE_URL . '/sitemap/' . $sitemap_info['sitemap_name'] . '.gz</loc>';
@@ -93,16 +90,11 @@ class sitemap
 
     public function formatSize($size)
     {
-        if ($size >= 1073741824)
-        {
+        if ($size >= 1073741824) {
             $format_size = number_format($size / 1073741824, 1) . ' GB';
-        }
-        else if ($size >= 1048576)
-        {
+        } else if ($size >= 1048576) {
             $format_size = number_format($size / 1048576, 1) . ' MB';
-        }
-        else
-        {
+        } else {
             $format_size = number_format($size / 1024, 1) . ' KB';
         }
 
@@ -117,8 +109,7 @@ class sitemap
         $file_name = $sitemap_name . '.' . $sitemap_extn;
         $desination = VSHARE_DIR . '/sitemap/' . $file_name;
 
-        while (file_exists($desination))
-        {
+        while (file_exists($desination)) {
             $i ++;
             $file_name = $sitemap_name . '_' . $i . '.' . $sitemap_extn;
             $desination = VSHARE_DIR . '/sitemap/' . $file_name;
@@ -145,16 +136,13 @@ class sitemap
         $sql = "DELETE FROM `sitemap`";
         $result = mysql_query($sql) or mysql_die($sql);
 
-        foreach ($sitemap_info as $key => $val)
-        {
-            if (file_exists(VSHARE_DIR . '/sitemap/' . $val['sitemap_name']))
-            {
+        foreach ($sitemap_info as $key => $val) {
+            if (file_exists(VSHARE_DIR . '/sitemap/' . $val['sitemap_name'])) {
                 unlink(VSHARE_DIR . '/sitemap/' . $val['sitemap_name']);
             }
         }
 
-        if (file_exists(VSHARE_DIR . '/sitemap/sitemap_index.xml.gz'))
-        {
+        if (file_exists(VSHARE_DIR . '/sitemap/sitemap_index.xml.gz')) {
             unlink(VSHARE_DIR . '/sitemap/sitemap_index.xml.gz');
         }
 

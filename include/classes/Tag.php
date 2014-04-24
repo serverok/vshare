@@ -1,6 +1,6 @@
 <?php
 
-class Tags
+class Tag
 {
     var $tags;
     var $vid;
@@ -8,7 +8,7 @@ class Tags
     var $channels;
     var $now;
 
-    function Tags($keywords, $vid, $uid, $chid)
+    function Tag($keywords, $vid, $uid, $chid)
     {
         $this->vid = $vid;
         $this->uid = $uid;
@@ -19,7 +19,7 @@ class Tags
         $kw_arr = explode(' ', $keywords);
         $keywords_unique = array_unique($kw_arr);
         $new_kw_arr = array();
-        
+
         foreach ($keywords_unique as $kw)
         {
             if (mb_strlen($kw, 'UTF-8') > 1 && mb_strlen($kw, 'UTF-8') < 20)
@@ -28,7 +28,7 @@ class Tags
                 $new_kw_arr[] = $kw;
             }
         }
-        
+
         $this->tags = $new_kw_arr;
         $this->channels = $chid;
         $this->now = time();
@@ -39,7 +39,7 @@ class Tags
         $sql = "DELETE FROM `tag_video` WHERE
                `vid`='" . (int) $this->vid . "'";
         $result = mysql_query($sql) or mysql_die($sql);
-        
+
         if ($adjust_tag_count == 1)
         {
             for ($i = 0; $i < count($this->tags); $i ++)
@@ -48,7 +48,7 @@ class Tags
                        `tag`='" . $this->tags[$i] . "'";
                 $result = mysql_query($sql);
                 $tag_info = mysql_fetch_assoc($result);
-                
+
                 if ($tag_info['tag_count'] > 0)
                 {
                     $sql = "UPDATE `tags` SET `tag_count`=`tag_count`-1 WHERE
@@ -66,11 +66,11 @@ class Tags
             $sql = "SELECT * FROM `tags` WHERE
                    `tag`='" . mysql_clean($tag) . "'";
             $result = mysql_query($sql) or mysql_die($sql);
-            
+
             if (mysql_num_rows($result) > 0)
             {
                 $tag_info = mysql_fetch_assoc($result);
-                
+
                 $sql = "UPDATE `tags` SET
                        `tag_count`=`tag_count`+1,
                        `used_on`='$this->now' WHERE
@@ -148,7 +148,7 @@ class Tags
             "%3b", // ;
             "%3d" // =
         );
-        
+
         return stripslashes(str_replace($bad, '', $tags));
     }
 

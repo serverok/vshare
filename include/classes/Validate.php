@@ -2,10 +2,10 @@
 
 require VSHARE_DIR . '/include/language/' . LANG . '/lang_class.validate.php';
 
-class validate
+class Validate
 {
 
-    function date($month, $day, $year)
+    static function date($month, $day, $year)
     {
         global $lang;
 

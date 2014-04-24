@@ -1,8 +1,7 @@
 <?php
 
-class language
+class Language
 {
-
     public static function set($lang)
     {
         language::validate($lang);
@@ -41,5 +40,4 @@ class language
         $lang = isset($_COOKIE['LANG']) ? $_COOKIE['LANG'] : '';
         language::validate($lang);
     }
-
 }

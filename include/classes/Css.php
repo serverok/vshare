@@ -1,21 +1,18 @@
 <?php
 
-class css
+class Css
 {
-
     public static function set($css)
     {
         css::validate($css);
 
         $redirect_url = '';
 
-        if (isset($_SERVER['HTTP_REFERER']))
-        {
+        if (isset($_SERVER['HTTP_REFERER'])) {
             $redirect_url = $_SERVER['HTTP_REFERER'];
         }
 
-        if (stripos($redirect_url, VSHARE_URL) === false)
-        {
+        if (stripos($redirect_url, VSHARE_URL) === false) {
             $redirect_url = VSHARE_URL . '/index.php';
         }
 
@@ -28,8 +25,7 @@ class css
             'default', 'black'
         );
 
-        if (! in_array($css, $valid_css))
-        {
+        if (! in_array($css, $valid_css)) {
             $css = 'default';
         }
         $_SESSION['CSS'] = $css;
