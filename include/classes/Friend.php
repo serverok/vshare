@@ -1,9 +1,9 @@
 <?php
 
-class Friends
+class Friend
 {
 
-    function make_friends($friend_1, $friend_2)
+    function makeFriends($friend_1, $friend_2)
     {
         $sql = "SELECT * FROM `users` WHERE
 		       `user_name`='$friend_1'";
