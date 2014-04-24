@@ -22,7 +22,7 @@ if (get_family_filter())
     $sql_adult_filter = "AND `video_adult`='0'";
 }
 
-$channels = Channels::get();
+$channels = Channel::get();
 
 if (! $channels) {
     $msg = $lang['channel_not_found'];
