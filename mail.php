@@ -24,8 +24,7 @@ $mail_folder_types = array(
     'compose'
 );
 
-if (! in_array($mail_folder, $mail_folder_types))
-{
+if (! in_array($mail_folder, $mail_folder_types)) {
     $mail_folder = 'inbox';
 }
 
@@ -34,17 +33,14 @@ $mail_subject = isset($_GET['subject']) ? $_GET['subject'] : '';
 
 $html_extra = '<script type="text/javascript" src="' . VSHARE_URL . '/js/mail.js"></script>';
 
-if ($mail_folder != 'compose')
-{
+if ($mail_folder != 'compose') {
     $html_extra .= '
     <script type="text/javascript">
     var mail = new Mail();
     mail.showbox("' . $mail_folder . '");
     </script>
     ';
-}
-else
-{
+} else {
     $html_extra .= '
     <script type="text/javascript">
     var mail = new Mail();
@@ -57,4 +53,4 @@ $smarty->assign('html_extra', $html_extra);
 $smarty->display('header.tpl');
 $smarty->display('mail.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

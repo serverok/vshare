@@ -6,8 +6,7 @@ User::is_logged_in();
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-if (! is_numeric($page) || $page < 1)
-{
+if (! is_numeric($page) || $page < 1) {
     $page = 1;
 }
 
@@ -18,35 +17,26 @@ $mail_folder_types = array(
     'outbox'
 );
 
-if (! in_array($mail_folder, $mail_folder_types))
-{
+if (! in_array($mail_folder, $mail_folder_types)) {
     $mail_folder = 'inbox';
 }
 
-if ($mail_folder == 'inbox')
-{
+if ($mail_folder == 'inbox') {
     $who = 'mail_receiver';
-}
-else if ($mail_folder == 'outbox')
-{
+} else if ($mail_folder == 'outbox') {
     $who = 'mail_sender';
 }
 
-if ($mail_folder == 'inbox')
-{
+if ($mail_folder == 'inbox') {
     $show_photo = 'mail_sender';
-}
-else if ($mail_folder == 'outbox')
-{
+} else if ($mail_folder == 'outbox') {
     $show_photo = 'mail_receiver';
 }
 
 $sql = "SELECT count(*) AS `total` FROM `mails` WHERE
         `$who`='" . mysql_clean($_SESSION['USERNAME']) . "' AND
         `mail_" . $mail_folder . "_track`='2'";
-$result = mysql_query($sql) or mysql_die($query);
-$tmp = mysql_fetch_assoc($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start_from = ($page - 1) * $config['items_per_page'];
 
@@ -56,12 +46,11 @@ $sql = "SELECT m.*,u.user_id FROM `mails` AS `m`, `users` AS `u` WHERE
         m.$show_photo=u.user_name
         ORDER BY `mail_id` DESC
         LIMIT $start_from, $config[items_per_page]";
-$result = mysql_query($sql) or mysql_die($sql);
+$mails_all = DB::fetch($sql);
 
 $mails = array();
 
-while ($mail = mysql_fetch_assoc($result))
-{
+foreach ($mails_all as $mail) {
     $mail['mail_date'] = date('M d, Y', strtotime($mail['mail_date']));
     $mails[] = $mail;
 }
@@ -99,4 +88,4 @@ $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('error.tpl');
 $smarty->display('mail_ajax.tpl');
-db_close();
+DB::close();
