@@ -2,24 +2,21 @@
 
 function insert_tags()
 {
-    global $conn;
-
     $sql = "SELECT * FROM `tags` WHERE
            `active`='1' AND
            `tag_count` > 0
             ORDER BY `used_on` DESC
             LIMIT " . get_config('home_num_tags');
-    $result = mysql_query($sql) or mysql_die($sql);
+    $tags_all = DB::fetch($sql);
 
-    if (mysql_num_rows($result) < 1)
-    {
+    if (! $tags_all) {
         return '';
     }
 
     require 'HTML/TagCloud.php';
     $tags = new HTML_TagCloud();
 
-    while ($tag = mysql_fetch_assoc($result))
+    foreach ($tags_all as $tag)
     {
         $tag_url = VSHARE_URL . '/tag/' . mb_strtolower($tag['tag']) . '/';
         $tags->addElement($tag['tag'], $tag_url, $tag['tag_count'], $tag['used_on']);
@@ -74,11 +71,9 @@ function insert_show_videos($a)
 
 function insert_id_to_name($id)
 {
-    global $config , $conn;
     $sql = "SELECT `user_name` FROM `users` WHERE
            `user_id`='" . (int) $id['un'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
+    $tmp = DB::fetch1($sql);
     return $tmp['user_name'];
 }
 
@@ -364,9 +359,7 @@ function insert_comment_count($a)
 
 function insert_video_count($a)
 {
-    global $conn;
-
-    $add = "";
+    $add = '';
 
     if ($a['type'] == 'public')
     {
@@ -382,33 +375,24 @@ function insert_video_count($a)
             $add AND
            `video_approve`='1' AND
            `video_active`='1'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    return $tmp['total'];
+    return DB::getTotal($sql);
 }
 
 function insert_favour_count($a)
 {
-    global $conn;
     $sql = "SELECT count(*) AS `total` FROM
            `videos` AS `v`,
            `favourite` AS `f` WHERE
             f.favourite_user_id='" . (int) $a['uid'] . "' AND
             f.favourite_video_id=v.video_id";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    return $tmp['total'];
+    return DB::getTotal($sql);
 }
 
 function insert_playlist_count($a)
 {
-    global $conn;
-    //    $sql = "SELECT count(*) AS total FROM playlist WHERE UID='$a[uid]'";
     $sql = "SELECT count(*) AS `total` FROM `playlists` WHERE
            `playlist_user_id`='" . (int) $a['uid'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    return $tmp['total'];
+    return DB::getTotal($sql);
 }
 
 function insert_msg_count()
@@ -425,24 +409,18 @@ function insert_msg_count()
 
 function insert_friends_count($a)
 {
-    global $conn;
     $sql = "SELECT count(*) AS `total` FROM `friends` WHERE
            `friend_user_id`='" . (int) $a['uid'] . "' AND
            `friend_status`='Confirmed'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    return $tmp['total'];
+    return DB::getTotal($sql);
 }
 
 function insert_recently_active_users($a)
 {
-    global $conn;
     $sql = "SELECT DISTINCT `user_login_user_id` FROM `user_logins`
             ORDER BY `user_login_id` DESC
             LIMIT " . get_config('num_last_users_online');
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_all($result);
-    return $tmp;
+    return DB::fetch($sql);
 }
 
 function insert_group_count($a)
@@ -867,12 +845,10 @@ function insert_format_size($v)
 
 function insert_advertise($v)
 {
-    global $conn;
     $sql = "SELECT `adv_text` FROM `adv` WHERE
            `adv_name`='" . mysql_clean($v['adv_name']) . "' AND
            `adv_status`='Active'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
+    $tmp = DB::fetch1($sql);
     echo $tmp['adv_text'];
 }
 
@@ -939,45 +915,32 @@ function insert_voter_name($voter_id)
 
 function insert_show_stats()
 {
-    global $conn;
     $stats = array();
     $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
            `video_active`='1' AND
            `video_approve`='1'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    $stats['total_video'] = $tmp['total'];
+    $stats['total_video'] = DB::getTotal($sql);
 
     $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
            `video_active`='1' AND
            `video_approve`='1' AND
            `video_type`='public'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    $stats['total_public_video'] = $tmp['total'];
+    $stats['total_public_video'] = DB::getTotal($sql);
 
     $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
            `video_active`='1' AND
            `video_approve`='1' AND
            `video_type`='private'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    $stats['total_private_video'] = $tmp['total'];
+    $stats['total_private_video'] = DB::getTotal($sql);
 
     $sql = "SELECT count(user_id) AS `total` FROM `users`";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    $stats['total_users'] = $tmp['total'];
+    $stats['total_users'] = DB::getTotal($sql);
 
     $sql = "SELECT count(*) AS `total` FROM `channels`";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    $stats['total_channel'] = $tmp['total'];
+    $stats['total_channel'] = DB::getTotal($sql);
 
     $sql = "SELECT count(*) AS `total` FROM `groups`";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    $stats['total_groups'] = $tmp['total'];
+    $stats['total_groups'] = DB::getTotal($sql);
     return $stats;
 }
 

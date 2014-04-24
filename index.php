@@ -37,14 +37,13 @@ $sql = "SELECT * FROM `poll_question` WHERE
        `end_date`>='$mydate'
         ORDER BY rand()
         LIMIT 1";
-$result = mysql_query($sql) or mysql_die($sql);
+$poll = DB::fetch1($sql);
 
-if (mysql_num_rows($result) > 0)
+if ($poll)
 {
-    $tmp = mysql_fetch_assoc($result);
-    $poll_answer = explode("|", $tmp['poll_answer']);
-    $smarty->assign('poll_id', $tmp['poll_id']);
-    $smarty->assign('poll_question', $tmp['poll_qty']);
+    $poll_answer = explode("|", $poll['poll_answer']);
+    $smarty->assign('poll_id', $poll['poll_id']);
+    $smarty->assign('poll_question', $poll['poll_qty']);
     $smarty->assign('list', $poll_answer);
 }
 
@@ -54,9 +53,9 @@ $view = Cache::load($cache_id);
 if (! $view)
 {
     $view = array();
-    
+
     # featured videos
-    
+
 
     $sql = "SELECT * FROM `videos` WHERE
            `video_type`='public' AND
@@ -65,9 +64,9 @@ if (! $view)
            `video_featured`='yes'
             $sql_adult_filter
             ORDER BY `video_add_time` DESC";
-    $result = mysql_query($sql) or mysql_die($sql);
-    
-    if (mysql_num_rows($result) < 1)
+    $videos = DB::fetch($sql);
+
+    if (! $videos)
     {
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
@@ -75,19 +74,19 @@ if (! $view)
                `video_approve`='1'
                 $sql_adult_filter
                 LIMIT 4";
-        $result = mysql_query($sql) or mysql_die($sql);
+        $videos = DB::query($sql);
     }
-    
+
     $featured_videos = array();
-    
-    while ($featured_video = mysql_fetch_assoc($result))
+
+    foreach ($videos as $featured_video)
     {
         $featured_video['video_thumb_url'] = $servers[$featured_video['video_thumb_server_id']];
         $featured_video['video_keywords_array'] = explode(' ', $featured_video['video_keywords']);
         $featured_videos[] = $featured_video;
     }
-    
-    if (mysql_num_rows($result) > 0)
+
+    if (count($featured_videos) > 0)
     {
         $smarty->assign('featured_videos', $featured_videos);
         $view['featured_video_block'] = $smarty->fetch('index_featured_videos.tpl');
@@ -96,9 +95,8 @@ if (! $view)
     {
         $view['featured_video_block'] = '';
     }
-    
+
     # recent videos
-    
 
     $sql = "SELECT * FROM `videos` WHERE
            `video_view_time`<>'0000-00-00 00:00:00' AND
@@ -108,21 +106,20 @@ if (! $view)
             $sql_adult_filter
             ORDER BY `video_view_time` DESC
             LIMIT 0, $config[recently_viewed_video]";
-    $result = mysql_query($sql) or mysql_die($sql);
-    
+    $videos = DB::fetch($sql);
+
     $recent_videos = array();
-    
-    while ($recent_video = mysql_fetch_assoc($result))
+
+    foreach ($videos as $recent_video)
     {
         $recent_video['video_thumb_url'] = $servers[$recent_video['video_thumb_server_id']];
         $recent_videos[] = $recent_video;
     }
-    
+
     $view['recent_videos'] = $recent_videos;
-    $view['recent_total'] = mysql_num_rows($result);
-    
+    $view['recent_total'] = count($recent_videos);
+
     # new videos
-    
 
     $sql = "SELECT * FROM `videos` WHERE
            `video_active`='1' AND
@@ -131,19 +128,19 @@ if (! $view)
             $sql_adult_filter
             ORDER BY `video_id` DESC
             LIMIT $config[num_new_videos]";
-    $result = mysql_query($sql) or mysql_die($sql);
-    
+    $videos = DB::fetch($sql);
+
     $new_videos = array();
-    
-    while ($new_video = mysql_fetch_assoc($result))
+
+    foreach ($videos as $new_video)
     {
         $new_video['video_thumb_url'] = $servers[$new_video['video_thumb_server_id']];
         $new_videos[] = $new_video;
     }
-    
+
     $view['home_tags'] = insert_tags();
     $view['new_videos'] = $new_videos;
-    $view['new_video_total'] = mysql_num_rows($result);
+    $view['new_video_total'] = count($new_videos);
     Cache::save($cache_id, $view);
 }
 
