@@ -24,44 +24,33 @@ if (is_numeric($vid))
 {
     $sql = "SELECT * FROM `videos` WHERE
            `video_id`='" . (int) $vid . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $num_result = mysql_num_rows($result);
-    
-    if ($num_result == 1)
+    $video_info = DB::fetch1($sql);
+
+    if ($video_info)
     {
-        $video_info = mysql_fetch_assoc($result);
         $player = new video_player();
         $smarty->assign('VSHARE_PLAYER', $player->get_player_code($vid));
         $smarty->assign('video', $video_info);
         $smarty->assign('video_type', $video_info['video_vtype']);
         $sql = "SELECT * FROM `process_queue` WHERE
                `vid`='" . (int) $vid . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) == 1)
-        {
+        $process_queue_info = DB::fetch1($sql);
+
+        if ($process_queue_info) {
             $source_video = VSHARE_DIR . '/video/' . $video_info['video_name'];
-            
-            if (file_exists($source_video))
-            {
+            if (file_exists($source_video)) {
                 $smarty->assign('reprocess', 1);
-                $process_queue_info = mysql_fetch_assoc($result);
                 $smarty->assign('reprocess_id', $process_queue_info['id']);
             }
         }
-    }
-    else
-    {
+    } else {
         $err = str_replace('[VIDEO_ID]', $_GET['id'], $lang['video_not_found']);
     }
-}
-else
-{
+} else {
     $err = $lang['video_id_empty'];
 }
 
-if (isset($_REQUEST['a']))
-{
+if (isset($_REQUEST['a'])) {
     $smarty->assign('a', $_REQUEST['a']);
 }
 
@@ -70,4 +59,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/video_details.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

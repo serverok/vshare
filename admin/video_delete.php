@@ -19,47 +19,28 @@ require '../include/class.video.php';
 
 check_admin_login();
 
-if (isset($_GET['id']) && is_numeric($_GET['id']))
-{
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $video_id = $_GET['id'];
     $sql = "SELECT * FROM `videos` WHERE
            `video_id`='" . (int) $video_id . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    
-    if (mysql_num_rows($result) == 0)
-    {
+    $video_info = DB::fetch1($sql);
+
+    if (! $video_info) {
         $err = str_replace('[VIDEO_ID]', $video_id, $lang['video_not_found']);
-    }
-    else
-    {
-        $tmp = mysql_fetch_assoc($result);
-        $video_uid = $tmp['video_user_id'];
-        $tmp = Video::delete($video_id, $video_uid);
-        
-        if ($tmp == 1)
-        {
+    } else {
+        $video_uid = $video_info['video_user_id'];
+        if (Video::delete($video_id, $video_uid)) {
             $msg = $lang['video_deleted'];
-        }
-        else
-        {
+        } else {
             $err = $tmp;
         }
-    
     }
-}
-else
-{
+} else {
     $err = $lang['video_id_empty'];
 }
-/*
-if (isset($_SERVER['HTTP_REFERER']) && strstr($_SERVER['HTTP_REFERER'], 'video_user_deleted.php?msg=' . $msg . 'err=' . $err))
-{
-    $redirect_url = $_SERVER['HTTP_REFERER'];
-    redirect($redirect_url);
-}*/
 
 $smarty->assign('msg', $msg);
 $smarty->assign('err', $err);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

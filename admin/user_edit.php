@@ -18,30 +18,27 @@ require '../include/language/' . LANG . '/lang_admin_user_edit.php';
 
 check_admin_login();
 
-if (isset($_POST['submit']))
-{
+if (isset($_POST['submit'])) {
     $sql = "UPDATE `users` SET
-           `user_email`='" . mysql_clean($_POST['email']) . "',
-           `user_first_name`='" . mysql_clean($_POST['fname']) . "',
-           `user_last_name`='" . mysql_clean($_POST['lname']) . "',
-           `user_about_me`='" . mysql_clean($_POST['aboutme']) . "',
-           `user_website`='" . mysql_clean($_POST['website']) . "',
-           `user_town`='" . mysql_clean($_POST['hometown']) . "',
-           `user_city`='" . mysql_clean($_POST['city']) . "',
-           `user_country`='" . mysql_clean($_POST['country']) . "',
-           `user_occupation`='" . mysql_clean($_POST['occupation']) . "',
-           `user_company`='" . mysql_clean($_POST['company']) . "',
-           `user_school`='" . mysql_clean($_POST['school']) . "',
-           `user_interest_hobby`='" . mysql_clean($_POST['interest_hobby']) . "',
-           `user_fav_movie_show`='" . mysql_clean($_POST['fav_movie_show']) . "',
-           `user_fav_music`='" . mysql_clean($_POST['fav_music']) . "',
-           `user_fav_book`='" . mysql_clean($_POST['fav_book']) . "',
-           `user_email_verified`= '" . mysql_clean($_POST['emailverified']) . "',
-           `user_account_status`='" . mysql_clean($_POST['account_status']) . "' WHERE
+           `user_email`='" . DB::quote($_POST['email']) . "',
+           `user_first_name`='" . DB::quote($_POST['fname']) . "',
+           `user_last_name`='" . DB::quote($_POST['lname']) . "',
+           `user_about_me`='" . DB::quote($_POST['aboutme']) . "',
+           `user_website`='" . DB::quote($_POST['website']) . "',
+           `user_town`='" . DB::quote($_POST['hometown']) . "',
+           `user_city`='" . DB::quote($_POST['city']) . "',
+           `user_country`='" . DB::quote($_POST['country']) . "',
+           `user_occupation`='" . DB::quote($_POST['occupation']) . "',
+           `user_company`='" . DB::quote($_POST['company']) . "',
+           `user_school`='" . DB::quote($_POST['school']) . "',
+           `user_interest_hobby`='" . DB::quote($_POST['interest_hobby']) . "',
+           `user_fav_movie_show`='" . DB::quote($_POST['fav_movie_show']) . "',
+           `user_fav_music`='" . DB::quote($_POST['fav_music']) . "',
+           `user_fav_book`='" . DB::quote($_POST['fav_book']) . "',
+           `user_email_verified`= '" . DB::quote($_POST['emailverified']) . "',
+           `user_account_status`='" . DB::quote($_POST['account_status']) . "' WHERE
            `user_id`='" . (int) $_GET['uid'] . "'";
-    
-    mysql_query($sql) or mysql_die($sql);
-    
+    DB::query($sql);
     set_message($lang['user_info_updated'], 'success');
     $redirect_url = VSHARE_URL . '/admin/user_view.php?user_id=' . $_GET['uid'];
     redirect($redirect_url);
@@ -49,19 +46,15 @@ if (isset($_POST['submit']))
 
 $sql = "SELECT * FROM `users` WHERE
        `user_id`='" . (int) $_GET['uid'] . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$user = mysql_fetch_assoc($result);
+$user = DB::fetch1($sql);
 
 $countries = new countries();
 $smarty->assign('country_box', $countries->country_options($user['user_country']));
 
-if ($user['user_email_verified'] == 'yes')
-{
+if ($user['user_email_verified'] == 'yes') {
     $emailverified_yes = "selected=\"selected\"";
     $emailverified_no = '';
-}
-else
-{
+} else {
     $emailverified_no = "selected=\"selected\"";
     $emailverified_yes = "";
 }
@@ -77,16 +70,11 @@ $account_status_active = '';
 $account_status_inactive = '';
 $account_status_suspended = '';
 
-if ($user['user_account_status'] == 'Active')
-{
+if ($user['user_account_status'] == 'Active') {
     $account_status_active = "selected=\"selected\"";
-}
-else if ($user['user_account_status'] == 'Inactive')
-{
+} else if ($user['user_account_status'] == 'Inactive') {
     $account_status_inactive = "selected=\"selected\"";
-}
-else if ($user['user_account_status'] == 'Suspended')
-{
+} else if ($user['user_account_status'] == 'Suspended') {
     $account_status_suspended = "selected=\"selected\"";
 }
 
@@ -103,4 +91,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/user_edit.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

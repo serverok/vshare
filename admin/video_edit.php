@@ -15,23 +15,20 @@
 require '../include/config.php';
 require '../include/class.video.php';
 require '../include/class.tags.php';
-require '../include/class.channels.php';
 require '../include/language/' . LANG . '/lang_admin_video_edit.php';
 
 check_admin_login();
 
 $video_id = isset($_GET['video_id']) ? $_GET['video_id'] : 0;
 
-if (! is_numeric($video_id))
-{
+if (! is_numeric($video_id)) {
     echo $lang['vid_invalid'];
     exit(0);
 }
 
 $num_max_channels = get_config('num_max_channels');
 
-if (isset($_POST['submit']))
-{
+if (isset($_POST['submit'])) {
     $video = new Video();
     $video->video_id = $video_id;
     $video->video_title = $_POST['video_title'];
@@ -49,52 +46,41 @@ if (isset($_POST['submit']))
     $video->video_adult = (int) $_POST['video_adult'];
     $video->is_admin = 1;
     $save = $video->video_update();
-    
-    if ($save == 1)
-    {
+
+    if ($save == 1) {
         set_message($lang['video_edit_ok'], 'success');
         $redirect_url = VSHARE_URL . '/admin/video_details.php?id=' . $video_id;
         redirect($redirect_url);
-    }
-    else
-    {
+    } else {
         $err = $save;
     }
 }
 
 $sql = "SELECT * FROM `videos` WHERE
        `video_id`='" . (int) $video_id . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$video = mysql_fetch_assoc($result);
+$video = DB::fetch1($sql);
 
 $mych = explode('|', $video['video_channels']);
-$ch = channels::get_all();
+$ch = Channel::get();
 
 $ch_checkbox = '';
 
-for ($i = 0; $i < count($ch); $i ++)
-{
-    if (in_array($ch[$i]['channel_id'], $mych))
-    {
+for ($i = 0; $i < count($ch); $i ++) {
+    if (in_array($ch[$i]['channel_id'], $mych)) {
         $checked = 'checked="checked"';
-    }
-    else
-    {
+    } else {
         $checked = '';
     }
-    
+
     $ch_checkbox .= '<input type="checkbox" name="video_channels[]" value=' . $ch[$i]['channel_id'] . ' ' . $checked . '>' . htmlspecialchars_uni($ch[$i]['channel_name']) . '</input><br />';
 }
 
 $smarty->assign('ch_checkbox', $ch_checkbox);
 
-if ($video['video_type'] == 'public')
-{
+if ($video['video_type'] == 'public') {
     $public_select = 'selected="selected"';
     $private_select = '';
-}
-else
-{
+} else {
     $private_select = 'selected="selected"';
     $public_select = '';
 }
@@ -106,13 +92,10 @@ $type_box = "
 
 $smarty->assign('type_box', $type_box);
 
-if ($video['video_featured'] == 'yes')
-{
+if ($video['video_featured'] == 'yes') {
     $featured_yes = 'selected="selected"';
     $featured_no = '';
-}
-else
-{
+} else {
     $featured_no = 'selected="selected"';
     $featured_yes = '';
 }
@@ -124,13 +107,10 @@ $featured_box = "
 
 $smarty->assign('featured_box', $featured_box);
 
-if ($video['video_active'] == 1)
-{
+if ($video['video_active'] == 1) {
     $active_yes = 'selected="selected"';
     $active_no = '';
-}
-else
-{
+} else {
     $active_no = 'selected="selected"';
     $active_yes = '';
 }
@@ -142,13 +122,10 @@ $active_box = "
 
 $smarty->assign('active_box', $active_box);
 
-if ($video['video_allow_comment'] == 'yes')
-{
+if ($video['video_allow_comment'] == 'yes') {
     $video_allow_comment_yes = 'selected="selected"';
     $video_allow_comment_no = '';
-}
-else
-{
+} else {
     $video_allow_comment_no = 'selected="selected"';
     $video_allow_comment_yes = '';
 }
@@ -160,13 +137,10 @@ $comment_box = "
 
 $smarty->assign('comment_box', $comment_box);
 
-if ($video['video_allow_rated'] == 'yes')
-{
+if ($video['video_allow_rated'] == 'yes') {
     $be_rated_yes = 'selected="selected"';
     $be_rated_no = '';
-}
-else
-{
+} else {
     $be_rated_no = 'selected="selected"';
     $be_rated_yes = '';
 }
@@ -178,13 +152,10 @@ $rate_box = "
 
 $smarty->assign('rate_box', $rate_box);
 
-if ($video['video_allow_embed'] == 'enabled')
-{
+if ($video['video_allow_embed'] == 'enabled') {
     $embed_yes = 'selected="selected"';
     $embed_no = '';
-}
-else
-{
+} else {
     $embed_no = 'selected="selected"';
     $embed_yes = '';
 }
@@ -202,4 +173,4 @@ $smarty->assign('a', $_GET['a']);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/video_edit.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

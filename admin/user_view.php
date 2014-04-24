@@ -17,21 +17,16 @@ require '../include/language/' . LANG . '/lang_admin_user_search.php';
 
 check_admin_login();
 
-if (isset($_GET['user_id']))
-{
+if (isset($_GET['user_id'])) {
     $user_id = (int) $_GET['user_id'];
-    
+
     $sql = "SELECT * FROM `users` WHERE
            `user_id`='" . $user_id . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    
-    if (mysql_num_rows($result) == 0)
-    {
+    $user_info = DB::fetch1($sql);
+
+    if (! $user_info) {
         $err = str_replace('[USER_ID]', $user_id, $lang['userid_not_found']);
-    }
-    else
-    {
-        $user_info = mysql_fetch_assoc($result);
+    } else {
         $smarty->assign('user', $user_info);
     }
 }
@@ -41,4 +36,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/user_view.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

@@ -17,8 +17,7 @@ require '../include/language/' . LANG . '/lang_admin_user_videos.php';
 
 check_admin_login();
 
-if (! is_numeric($_GET['uid']))
-{
+if (! is_numeric($_GET['uid'])) {
     echo $lang['user_id_invalid'];
     exit(0);
 }
@@ -27,31 +26,24 @@ $result_per_page = get_config('admin_listing_per_page');
 
 $sql = "SELECT `user_name` FROM `users` WHERE
        `user_id`='" . (int) $_GET['uid'] . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
+$tmp = DB::fetch1($sql);
 $smarty->assign('user_name', $tmp['user_name']);
 
 $query = " WHERE `video_user_id`='" . (int) $_GET['uid'] . "'";
 
-if (isset($_GET['sort']))
-{
+if (isset($_GET['sort'])) {
     $query .= " ORDER BY $_GET[sort]";
-}
-else
-{
+} else {
     $query .= " ORDER BY `video_id` ASC";
 }
 
 $sql = "SELECT count(*) AS `total` FROM `videos`
         $query";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_array($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
@@ -76,8 +68,7 @@ $links = $pager->getLinks();
 $sql = "SELECT * FROM `videos`
        $query
        LIMIT $start_from, $result_per_page";
-$result = mysql_query($sql) or mysql_die($sql);
-$videos = mysql_fetch_all($result);
+$videos = DB::fetch($sql);
 
 $smarty->assign('links', $links['all']);
 $smarty->assign('total', $total + 0);
@@ -88,4 +79,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/user_videos.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();
