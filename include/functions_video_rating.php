@@ -9,15 +9,11 @@ function insert_video_rating($video)
     $units = 5;
     $sql = "SELECT `video_rated_by`, `video_rate`, `video_voter_id`, `video_allow_rated` FROM `videos` WHERE
            `video_id`='" . (int) $video_id . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $video_info = mysql_fetch_assoc($result);
+    $video_info = DB::fetch1($sql);
 
-    if ($video_info['video_rated_by'] < 1)
-    {
+    if ($video_info['video_rated_by'] < 1) {
         $count = 0;
-    }
-    else
-    {
+    } else {
         $count = $video_info['video_rated_by'];
     }
 
@@ -25,22 +21,16 @@ function insert_video_rating($video)
 
     $tense = ($count <= 1) ? $lang['vote'] : $lang['votes'];
 
-    if ($config['video_rating'] == 'Once')
-    {
+    if ($config['video_rating'] == 'Once') {
         $voters_id = $video_info['video_voter_id'];
         $voter_list = explode('|', $voters_id);
 
-        if (in_array($_SESSION['UID'], $voter_list))
-        {
+        if (in_array($_SESSION['UID'], $voter_list)) {
             $is_voted = 1;
-        }
-        else
-        {
+        } else {
             $is_voted = 0;
         }
-    }
-    else
-    {
+    } else {
         $is_voted = 0;
     }
 
@@ -55,10 +45,8 @@ function insert_video_rating($video)
     $rater .= '<ul id="unit_ul' . $video_id . '" class="unit-rating" style="width:' . $rating_unitwidth * $units . 'px;">';
     $rater .= '<li class="current-rating" style="width:' . $rating_width . 'px;">Currently ' . $rating2 . '/' . $units . '</li>';
 
-    for ($ncount = 1; $ncount <= $units; $ncount ++)
-    {
-        if ($is_voted == 0 && $video_info['video_allow_rated'] == 'yes')
-        {
+    for ($ncount = 1; $ncount <= $units; $ncount ++) {
+        if ($is_voted == 0 && $video_info['video_allow_rated'] == 'yes') {
             $rater .= "<li><a href=\"javascript:video_rate($video_id,$ncount);\" title=\"$ncount out of $units\" class=\"r" . $ncount . "-unit rater\" rel=\"nofollow\">" . $ncount . "</a></li>";
         }
     }
@@ -67,8 +55,7 @@ function insert_video_rating($video)
 
     $rater .= '</ul><p';
 
-    if ($is_voted == 1)
-    {
+    if ($is_voted == 1) {
         $rater .= ' class="voted"';
     }
 

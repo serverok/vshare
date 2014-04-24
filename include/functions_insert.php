@@ -156,29 +156,19 @@ function insert_video_channel($a)
     }
 
     $sql = "SELECT $sqlx";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    if ($a['tbl'] == '')
-    {
+    $tmp = DB::fetch1($sql);
+
+    if ($a['tbl'] == '') {
         $ch_id = explode('|', $tmp['channel']);
-    }
-    else
-    {
+    } else {
         $ch_id = explode('|', $tmp['group_channels']);
     }
 
-    for ($i = 0; $i < count($ch_id); $i ++)
-    {
-        if (! empty($ch_id[$i]))
-        {
+    for ($i = 0; $i < count($ch_id); $i ++) {
+        if (! empty($ch_id[$i])) {
             $sql = "SELECT `channel_id`,`channel_name`,`channel_seo_name` FROM `channels` WHERE
                    `channel_id`='" . (int) $ch_id[$i] . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
-
-            while ($channel = mysql_fetch_assoc($result))
-            {
-                $ch_info[] = $channel;
-            }
+            $ch_info[] = DB::fetch1($sql);
         }
     }
 
@@ -600,46 +590,32 @@ function insert_member_img($a)
     $photo_type = isset($a['type']) ? $a['type'] : 0;
     $img_size = 'width=80 height=60';
 
-    if ($photo_type == 1)
-    {
+    if ($photo_type == 1) {
         $img_size = 'width="50"';
     }
 
     $sql = "SELECT `user_photo` FROM `users` WHERE
     	   `user_id`='" . (int) $user_id . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $user_info = mysql_fetch_assoc($result);
+    $user_info = DB::fetch1($sql);
 
-    if ($user_info['user_photo'] == 1)
-    {
-        if ($photo_type == 1)
-        {
+    if ($user_info['user_photo'] == 1) {
+        if ($photo_type == 1) {
             echo '<img class="preview" src="' . VSHARE_URL . '/photo/1_' . $user_id . '.jpg" alt="user image" />';
-        }
-        else
-        {
+        } else {
             echo '<img class="preview" src="' . VSHARE_URL . '/photo/' . $user_id . '.jpg" alt="user image" />';
         }
-
-    }
-    else
-    {
+    } else {
         $sql = "SELECT `video_id`, `video_folder`, `video_thumb_server_id` FROM `videos` WHERE
                `video_user_id`='" . (int) $user_id . "' AND
                `video_active`=1 AND
                `video_approve`=1
                 ORDER BY `video_id` DESC
                 LIMIT 1";
-        $result = mysql_query($sql) or mysql_die($sql);
+        $user_recent_video = DB::fetch1($sql);
 
-        if (mysql_num_rows($result) > 0)
-        {
-            $vdo_obj = mysql_fetch_assoc($result);
-
-            echo '<img class="preview" src="' . $servers[$vdo_obj['video_thumb_server_id']] . '/thumb/' . $vdo_obj['video_folder'] . '1_' . $vdo_obj['video_id'] . '.jpg"' . $img_size . ' alt="" />';
-        }
-        else
-        {
+        if ($user_recent_video) {
+            echo '<img class="preview" src="' . $servers[$user_recent_video['video_thumb_server_id']] . '/thumb/' . $user_recent_video['video_folder'] . '1_' . $user_recent_video['video_id'] . '.jpg"' . $img_size . ' alt="" />';
+        } else {
             echo '<img class="preview" src="' . IMG_CSS_URL . '/images/no_pic.gif"' . $img_size . ' alt="" />';
         }
     }
@@ -981,12 +957,8 @@ function insert_user_rate($a)
 
 function insert_video_response_count($a)
 {
-    global $conn;
-
-    $sql = "SELECT count(*) AS `count` FROM `video_responses` WHERE
+    $sql = "SELECT count(*) AS `total` FROM `video_responses` WHERE
            `video_response_to_video_id`='" . (int) $a['video_id'] . "' AND
            `video_response_active`='1'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_array($result);
-    return $tmp['count'];
+    return DB::getTotal($sql);
 }

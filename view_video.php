@@ -23,76 +23,56 @@ $video_id = $_GET['id'];
 
 Cache::init();
 
-if (! is_numeric($video_id))
-{
+if (! is_numeric($video_id)) {
     redirect(VSHARE_URL);
 }
 
 $video = new Video();
 $video_info = $video->get_video_info($video_id);
 
-if ($video_info == 0 || $video_info['video_user_id'] == 0)
-{
+if ($video_info == 0 || $video_info['video_user_id'] == 0) {
     set_message($lang['video_not_found'], 'error');
     $redirect_url = VSHARE_URL . '/';
     redirect($redirect_url);
-}
-else
-{
+} else {
     $video_info['video_thumb_url'] = $servers[$video_info['video_thumb_server_id']];
 }
 
-if ($video_info['video_adult'])
-{
-	if (get_family_filter())
-	{
+if ($video_info['video_adult']) {
+	if (get_family_filter()) {
 		$redirect_url = VSHARE_URL . '/family_filter/';
 		redirect($redirect_url);
 	}
 }
 
-
-if ($config['guest_limit'] > 36000)
-{
+if ($config['guest_limit'] > 36000) {
     $config['guest_limit'] = 0;
 }
 
-if (! isset($_SESSION['UID']) && $err == '' && $config['guest_limit'] != 0)
-{
-    if (isset($_COOKIE['video_watch_duration']))
-    {
+if (! isset($_SESSION['UID']) && $err == '' && $config['guest_limit'] != 0) {
+    if (isset($_COOKIE['video_watch_duration'])) {
         $video_watch_duration = $_COOKIE['video_watch_duration'] + $video_info['video_duration'];
-    }
-    else
-    {
+    } else {
         $video_watch_duration = $video_info['video_duration'];
     }
-
     /*
      * 43200 for 12 hours 60 * 60 * 12
      */
     setcookie('video_watch_duration', $video_watch_duration, time() + 43200);
 
-    if ($video_watch_duration > $config['guest_limit'])
-    {
+    if ($video_watch_duration > $config['guest_limit']) {
         $next = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
         $_SESSION['REDIRECT'] = $next;
         redirect(VSHARE_URL . '/signup/');
     }
 }
 
-if ($err == '')
-{
-    if ($video_info['video_type'] == 'private')
-    {
-        if (isset($_SESSION['UID']) && is_numeric($_SESSION['UID']))
-        {
-            if ($video_info['video_user_id'] == $_SESSION['UID'])
-            {
+if ($err == '') {
+    if ($video_info['video_type'] == 'private') {
+        if (isset($_SESSION['UID']) && is_numeric($_SESSION['UID'])) {
+            if ($video_info['video_user_id'] == $_SESSION['UID']) {
                 $show_video = 1;
-            }
-            else
-            {
+            } else {
                 $sql = "SELECT count(*) AS `total` FROM `friends` WHERE
                        `friend_user_id`='" . (int) $_SESSION['UID'] . "' AND
                        `friend_friend_id`='" . (int) $video_info['video_user_id'] . "' AND
@@ -100,74 +80,57 @@ if ($err == '')
                 $result = mysql_query($sql) or mysql_die($sql);
                 $tmp = mysql_fetch_assoc($result);
 
-                if ($tmp['total'])
-                {
+                if ($tmp['total']) {
                     $show_video = 1;
-                }
-                else
-                {
+                } else {
                     $msg = $lang['friends_only'];
                 }
             }
-        }
-        else
-        {
+        } else {
             $show_video = 0;
-
             $_SESSION['REDIRECT'] = VSHARE_URL . '/view/' . $video_info['video_id'] . '/' . $video_info['video_seo_name'] . '/';
-
-            if (get_config('signup_enable'))
-            {
+            if (get_config('signup_enable')) {
                 $redirect_url = $config['baseurl'] . '/signup/';
-            }
-            else
-            {
+            } else {
                 $redirect_url = $config['baseurl'] . '/login/';
             }
-
             redirect($redirect_url);
         }
-    }
-    else
-    {
+    } else {
         $show_video = 1;
     }
 }
 
-if (isset($show_video) && $show_video == 1 && $err == '')
-{
+if (isset($show_video) && $show_video == 1 && $err == '') {
 
     $sql = "UPDATE `videos` SET
            `video_view_time`='" . mysql_clean($_SERVER['REQUEST_TIME']) . "' WHERE
            `video_id`='" . (int) $video_id . "'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `videos` SET
            `video_view_number`=`video_view_number`+1 WHERE
            `video_id`='" . (int) $video_id . "'";
-    mysql_query($sql);
+    DB::query($sql);
 
-    if (isset($_SESSION['UID']))
-    {
+    if (isset($_SESSION['UID'])) {
         $sql = "UPDATE `users` SET
                `user_watched_video`=`user_watched_video`+1 WHERE
                `user_id`='" . (int) $_SESSION['UID'] . "'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
 
-        if ($_SESSION['UID'] != $video_info['video_user_id'])
-        {
+        if ($_SESSION['UID'] != $video_info['video_user_id']) {
             $sql = "UPDATE `users` SET
                    `user_video_viewed`=`user_video_viewed`+1 WHERE
                    `user_id`='" . (int) $video_info['video_user_id'] . "'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
     }
 
     $cache_id = 'view_video_' . $video_id;
     $view = Cache::load($cache_id);
 
-    if (! $view)
-    {
+    if (! $view) {
         $view = array();
         $view['video_info'] = $video_info;
 
@@ -188,37 +151,28 @@ if (isset($show_video) && $show_video == 1 && $err == '')
         $video_next = $video_this + 1;
         $video_prev = $video_this - 1;
 
-        if (! isset($related_videos[$video_next]))
-        {
+        if (! isset($related_videos[$video_next])) {
             $view['video_next'] = 0;
-        }
-        else
-        {
+        } else {
             $view['video_next'] = $related_videos["$video_next"];
         }
 
-        if (! isset($related_videos[$video_prev]))
-        {
+        if (! isset($related_videos[$video_prev])) {
             $view['video_prev'] = 0;
-        }
-        else
-        {
+        } else {
             $view['video_prev'] = $related_videos["$video_prev"];
         }
 
-        if (isset($_SESSION['UID']))
-        {
+        if (isset($_SESSION['UID'])) {
             $sql = "SELECT * FROM  `favourite` WHERE
                    `favourite_user_id`=" . (int) $_SESSION['UID'] . " AND
                    `favourite_video_id`=" . (int) $video_id;
-            $result = mysql_query($sql) or mysql_die($sql);
-            if (mysql_num_rows($result) == 1)
-            {
+            $result = DB::fetch($sql);
+            if (count($result) == 1) {
                 $smarty->assign('favourite', 1);
             }
 
-            if ($config['allow_download'] == 1)
-            {
+            if ($config['allow_download'] == 1) {
                 $sql = "SELECT `pack_id` FROM `subscriber` WHERE
 	                   `UID`='" . (int) $_SESSION['UID'] . "'";
                 $result = mysql_query($sql) or mysql_die($sql);
@@ -235,18 +189,16 @@ if (isset($show_video) && $show_video == 1 && $err == '')
         $sql = "SELECT v.* FROM `videos` AS `v`,`video_responses` AS `vr` WHERE
                 vr.video_response_video_id='" . (int) $video_id . "' AND
                 vr.video_response_to_video_id=v.video_id";
-        $result = mysql_query($sql) or mysql_die($sql);
+        $result = DB::fetch($sql);
 
-        if (mysql_num_rows($result) > 0)
-        {
+        if (count($result) > 0) {
             $owner_video_info = mysql_fetch_assoc($result);
             $view['owner_video_info'] = $owner_video_info;
         }
 
         $sql = "SELECT `user_name`,`user_website` FROM `users` WHERE
                `user_id`='" . (int) $video_info['video_user_id'] . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        $user_info = mysql_fetch_assoc($result);
+        $user_info = DB::fetch1($sql);
         $view['user_info'] = $user_info;
         Cache::save($cache_id, $view);
     }
@@ -303,4 +255,4 @@ $smarty->assign('sub_menu', 'menu_watch.tpl');
 $smarty->display('header.tpl');
 $smarty->display('view_video.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
