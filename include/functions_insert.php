@@ -830,15 +830,12 @@ function insert_adv_status($v)
 
 function insert_subscriber_info($v)
 {
-    global $conn;
     $sql = "SELECT s.pack_id, `package_name`, `used_space`, `used_bw`, `total_video`, `expired_time` FROM
            `subscriber` AS `s`,
            `packages` AS `p` WHERE
            `UID`='" . (int) $v['uid'] . "' AND
             s.pack_id=p.package_id";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    return $tmp;
+    return DB::fetch1($sql);
 }
 
 function insert_id_to_uploaddate($v)
