@@ -52,7 +52,7 @@ function write_admin_log()
            `admin_log_time`='$admin_log_time',
            `admin_log_extra`='$admin_log_extra',
            `admin_log_ip`='$admin_log_ip'";
-    $result = mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
 }
 
 function mailing($recipient, $name, $from, $subj, $body, $bcc = '')
@@ -217,12 +217,10 @@ function createThumb($srcname, $destname, $maxwidth, $maxheight)
 
 function check_field_exists($fvalue, $field, $table)
 {
-    global $conn;
     $sql = "SELECT count(*) AS `total` FROM `$table` WHERE
-           `$field`='" . mysql_clean($fvalue) . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    if ($tmp['total'] > 0)
+           `$field`='" . DB::quote($fvalue) . "'";
+    $total = DB::getTotal($sql);
+    if ($total > 0)
     {
         return 1;
     }
@@ -261,28 +259,24 @@ function timediff($my_time, $current_time = '')
 
 function add_item($table, $field, $query, $new)
 {
-    global $conn;
     $sql = "SELECT `$field` FROM `$table` WHERE $query";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
+    $tmp = DB::fetch1($sql);
     $type = explode('|', $tmp[$field]);
     $type[] = $new;
     $type = array_unique($type);
     sort($type);
     $new_type = implode('|', $type);
     $sql = "UPDATE $table SET $field='$new_type|' WHERE $query";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
 }
 
 function remove_item($table, $field, $query, $item)
 {
-    global $conn;
     $sql = "SELECT `$field` FROM `$table` WHERE $query";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
+    $tmp = DB::fetch1($sql);
     $new_type = str_replace("|$item|", '|', $tmp[$field]);
     $sql = "UPDATE `$table` SET `$field`='$new_type' WHERE $query";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
 }
 
 function format_size($size)
@@ -401,16 +395,14 @@ function cc_year($sel = '')
 
 function check_subscriber($space = 0)
 {
-    global $conn , $config;
+    global $config;
     $err = '';
     $sql = "SELECT * FROM `subscriber` WHERE
            `UID`='" . (int) $_SESSION['UID'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $subs = mysql_fetch_assoc($result);
+    $subs = DB::fetch1($sql);
     $sql = "SELECT * FROM `packages` WHERE
            `package_id`=" . $subs['pack_id'];
-    $result = mysql_query($sql) or mysql_die($sql);
-    $pack = mysql_fetch_assoc($result);
+    $pack = DB::fetch1($sql);
     if ($pack['package_videos'] != 0 && ($subs['total_video'] >= $pack['package_videos']))
     {
         $err = 'You cannot upload more than ' . $pack['package_videos'] . ' videos';
@@ -534,10 +526,10 @@ function disallow_user_names($user_name)
     $err = '';
     $user_name = mb_strtolower($user_name);
     $sql = "SELECT * FROM `disallow` WHERE
-           `disallow_username`='" . mysql_clean($user_name) . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
+           `disallow_username`='" . DB::quote($user_name) . "'";
+    $result = DB::fetch1($sql);
 
-    if (mysql_num_rows($result) > 0)
+    if ($result)
     {
         $err = 1;
     }
@@ -580,7 +572,7 @@ function mysql_clean($value, $is_magic_quote_removed = 0)
 
     if (! is_numeric($value))
     {
-        $value = mysql_real_escape_string($value);
+        $value = mysqli_real_escape_string($value);
     }
 
     return $value;
@@ -591,7 +583,7 @@ function mysql_die($msg)
     echo "<FONT face=verdana SIZE=2 COLOR=#FF0000><B>ERROR: Unable to execute query</B></FONT><BR>";
     echo "<pre>$msg</pre>";
     echo "<FONT face=arial SIZE=2 COLOR=#0000FF><B>";
-    echo mysql_error();
+    echo mysqli_error(DB::$link);
     echo "</B></FONT><BR>";
     exit(0);
 }
@@ -622,8 +614,7 @@ function get_config($config_name)
 {
     $sql = "SELECT * FROM `config` WHERE
            `config_name`='$config_name'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $config_data = mysql_fetch_assoc($result);
+    $config_data = DB::fetch1($sql);
     return $config_data['config_value'];
 }
 
@@ -632,8 +623,7 @@ function check_subscriber_duration($uid)
     global $config , $lang;
     $sql = "SELECT * FROM `subscriber` WHERE
            `UID`='" . (int) $uid . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $duration = mysql_fetch_assoc($result);
+    $duration = DB::fetch1($sql);
     $expired_time = $duration['expired_time'];
     $subscribe_time = $duration['subscribe_time'];
 
@@ -643,7 +633,7 @@ function check_subscriber_duration($uid)
         $sql = "UPDATE `subscriber` SET
                `expired_time`='$expired_time' WHERE
                `UID`='" . (int) $uid . "'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
 
     if ($subscribe_time == '0000-00-00 00:00:00')
@@ -652,7 +642,7 @@ function check_subscriber_duration($uid)
         $sql = "UPDATE `subscriber` SET
                `subscribe_time`='$subscribe_time' WHERE
                `UID`='" . (int) $uid . "'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
 
     $expired_time_in_sec = strtotime($expired_time);
@@ -678,13 +668,11 @@ function check_subscriber_space($user_id)
     }
     $sql = "SELECT * FROM `subscriber` WHERE
            `UID`='" . (int) $user_id . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $subscribe_info = mysql_fetch_assoc($result);
+    $subscribe_info = DB::fetch1($sql);
 
     $sql = "SELECT * FROM `packages` WHERE
            `package_id`='" . (int) $subscribe_info['pack_id'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $pack = mysql_fetch_assoc($result);
+    $pack = DB::fetch1($sql);
 
     if ($subscribe_info['used_space'] >= $pack['package_space'])
     {
@@ -703,13 +691,11 @@ function check_subscriber_videos($uid)
     $err = '';
     $sql = "SELECT * FROM `subscriber` WHERE
            `UID`='" . (int) $uid . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $subscribe_info = mysql_fetch_assoc($result);
+    $subscribe_info = DB::fetch1($sql);
 
     $sql = "SELECT * FROM `packages` WHERE
            `package_id`='" . (int) $subscribe_info['pack_id'] . "'";
-    $tmp_result = mysql_query($sql) or mysql_die($sql);
-    $pack = mysql_fetch_assoc($tmp_result);
+    $pack = DB::fetch1($sql);
 
     if ($pack['package_videos'] != 0 && $subscribe_info['total_video'] >= $pack['package_videos'])
     {
@@ -742,16 +728,6 @@ function find_age($dob)
     }
 
     return $age;
-}
-
-function mysql_fetch_all($result)
-{
-    $records = array();
-    while ($record = mysql_fetch_assoc($result))
-    {
-        $records[] = $record;
-    }
-    return $records;
 }
 
 function password_generator($lenght = 8)
@@ -832,8 +808,7 @@ function sec2hms($sec, $useColon = true)
 
 function db_close()
 {
-    global $conn;
-    mysql_close($conn);
+    DB::close();
 }
 
 function is_ip($ip)
@@ -899,10 +874,10 @@ function check_config_exists($config_name)
     global $config;
 
     $sql = "SELECT * FROM `config` WHERE
-		   `config_name`='" . mysql_clean($config_name) . "'";
-    $result = mysql_query($sql);
+		   `config_name`='" . DB::quote($config_name) . "'";
+    $result = DB::fetch1($sql);
 
-    if (mysql_num_rows($result) > 0)
+    if ($result)
     {
         return 1;
     }
@@ -928,7 +903,7 @@ function update_user_video_count($user_id, $action = 1)
                `user_id`='" . (int) $user_id . "'";
     }
 
-    mysql_query($sql) or mysql_die();
+    DB::query($sql);
 }
 
 function get_family_filter()
@@ -943,8 +918,7 @@ function get_family_filter()
 			{
 				$sql = "SELECT `user_adult` FROM `users` WHERE
 				       `user_id`='" . (int) $_SESSION['UID'] . "'";
-				$result = mysql_query($sql) or mysql_die($sql);
-				$tmp = mysql_fetch_assoc($result);
+				$tmp = DB::fetch1($sql);
 				$user_adult = $tmp['user_adult'];
 			}
 			else
