@@ -3,7 +3,7 @@
 class User
 {
 
-    public static function getUserByName($user_name)
+    public static function getByName($user_name)
     {
         $sql = 'SELECT * FROM `users` WHERE
                 `user_name`=\'' . DB::quote($user_name) . '\'';
