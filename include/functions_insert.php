@@ -911,39 +911,33 @@ function insert_user_rate($a)
 {
     global $config;
 
-    $sql = "SELECT count(*) AS `tot`,sum(vote) FROM `uservote` WHERE
+    $sql = "SELECT count(*) AS `total`,sum(vote) FROM `uservote` WHERE
 	       `candate_id`=" . (int) $a['user_id'] . "
 	        GROUP BY `candate_id`";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $vote_info = mysql_fetch_assoc($result);
+    $vote_info = DB::fetch1($sql);
     $list = '<div style="cursor: pointer;">';
     $rate = $vote_info['sum(vote)'];
-    $rating = $vote_info['tot'];
+    $rating = $vote_info['total'];
 
     $rate = $rate / $rating;
     $num_full_star = floor($rate);
     $count = 0;
 
-    for ($i = 0; $i < $num_full_star; $i ++)
-    {
+    for ($i = 0; $i < $num_full_star; $i ++) {
         $count ++;
         $list .= '<img src="' . IMG_CSS_URL . '/images/star.gif" onclick="user_rate(' . $_SESSION['UID'] . ',' . $a['user_id'] . ',' . $count . ');" alt="rate" />&nbsp;';
     }
 
-    if ($rate == $num_full_star)
-    {
+    if ($rate == $num_full_star) {
         $num_falf_star = 0;
-    }
-    else
-    {
+    } else {
         $num_falf_star = 1;
         $list .= '<img src="' . IMG_CSS_URL . '/images/half_star.gif" onclick="user_rate(' . $_SESSION['UID'] . ',' . $a['user_id'] . ',' . $count . ');" alt="rate" />';
     }
 
     $num_blank_star = 5 - $num_full_star - $num_falf_star;
 
-    for ($i = 0; $i < $num_blank_star; $i ++)
-    {
+    for ($i = 0; $i < $num_blank_star; $i ++) {
         $count ++;
         $list .= '<img src="' . IMG_CSS_URL . '/images/blank_star.gif" onclick="user_rate(' . $_SESSION['UID'] . ',' . $a['user_id'] . ',' . $count . ');" alt="rate" />';
     }
