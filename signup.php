@@ -13,9 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.friends.php';
-require 'include/class.mail.php';
-require 'include/class.validate.php';
 require 'include/language/' . LANG . '/lang_signup.php';
 
 $signup_dob = get_config('signup_dob');
@@ -33,15 +30,13 @@ if ($captcha_type == 'recaptcha')
 
 $signup = array();
 
-if ($signup_enable == 0)
-{
+if ($signup_enable == 0) {
     $msg = $lang['signup_disable'];
 }
 
-if (isset($_POST['submit']))
-{
-    if (get_magic_quotes_gpc())
-    {
+if (isset($_POST['submit'])) {
+
+    if (get_magic_quotes_gpc()) {
         $_POST['password'] = stripslashes($_POST['password']);
         $_POST['password_confirm'] = stripslashes($_POST['password_confirm']);
     }
@@ -54,63 +49,35 @@ if (isset($_POST['submit']))
     $_POST['security_code'] = isset($_POST['security_code']) ? $_POST['security_code'] : '';
     $_POST['security_code'] = htmlspecialchars_uni($_POST['security_code']);
 
-    if ($_POST['email'] == '')
-    {
+    if ($_POST['email'] == '') {
         $err = $lang['email_null'];
-    }
-    else if (! validate::email($_POST['email']))
-    {
+    } else if (! Validate::email($_POST['email'])) {
         $err = $lang['email_invalid'];
-    }
-    else if (check_field_exists($_POST['email'], "user_email", "users") == 1)
-    {
+    } else if (check_field_exists($_POST['email'], "user_email", "users") == 1) {
         $err = $lang['email_exist'];
-    }
-    else if ($_POST['user_name'] == '')
-    {
+    } else if ($_POST['user_name'] == '') {
         $err = $lang['user_name_null'];
-    }
-    else if (strlen($_POST['user_name']) < 4)
-    {
+    } else if (strlen($_POST['user_name']) < 4) {
         $err = $lang['user_name_short'];
-    }
-    else if ($_POST['password'] == '')
-    {
+    } else if ($_POST['password'] == '') {
         $err = $lang['password_null'];
-    }
-    else if (strlen($_POST['password']) < 4)
-    {
+    } else if (strlen($_POST['password']) < 4) {
         $err = $lang['password_short'];
-    }
-    else if ($_POST['password'] != $_POST['password_confirm'])
-    {
+    } else if ($_POST['password'] != $_POST['password_confirm']) {
         $err = $lang['password_not_match'];
-    }
-    else if (($config['enable_package'] == 'yes') and (! isset($_POST['pack_id'])))
-    {
+    } else if (($config['enable_package'] == 'yes') and (! isset($_POST['pack_id']))) {
         $err = $lang['select_package'];
-    }
-    else if (! preg_match("/^[^\s\t]+$/", $_POST['user_name']))
-    {
+    } else if (! preg_match("/^[^\s\t]+$/", $_POST['user_name'])) {
         $err = $lang['user_name_invalid'];
-    }
-    else if (check_field_exists($_POST['user_name'], 'user_name', 'users') == 1)
-    {
+    } else if (check_field_exists($_POST['user_name'], 'user_name', 'users') == 1) {
         $err = $lang['user_name_exist'];
-    }
-    else if (disallow_user_names($_POST['user_name']))
-    {
+    } else if (disallow_user_names($_POST['user_name'])) {
         $err = $lang['user_name_reserved'];
-    }
-    else
-    {
-        if ($_POST['user_name'] != htmlspecialchars_uni($_POST['user_name']))
-        {
+    } else {
+        if ($_POST['user_name'] != htmlspecialchars_uni($_POST['user_name'])) {
             $err = $lang['user_name_invalid'];
             $_POST['user_name'] = htmlspecialchars_uni($_POST['user_name']);
-        }
-        else
-        {
+        } else {
             $invalid_user_name_chars = array();
             $invalid_user_name_chars[] = '/';
             $invalid_user_name_chars[] = '\\';
@@ -130,10 +97,8 @@ if (isset($_POST['submit']))
             $invalid_user_name_chars[] = '=';
             $invalid_user_name_chars[] = '.';
 
-            for ($i = 0; $i < count($invalid_user_name_chars); $i ++)
-            {
-                if (stristr($_POST['user_name'], "$invalid_user_name_chars[$i]"))
-                {
+            for ($i = 0; $i < count($invalid_user_name_chars); $i ++) {
+                if (stristr($_POST['user_name'], "$invalid_user_name_chars[$i]")) {
                     $err = $lang['user_name_invalid'] . ' ( <span class="signup-invalid-char">' . $invalid_user_name_chars[$i] . '</span> )';
                     break;
                 }
@@ -141,151 +106,117 @@ if (isset($_POST['submit']))
         }
     }
 
-    if (($config['signup_captcha'] == '1') and ($err == ''))
-    {
-        if ($captcha_type == 'recaptcha')
-        {
-            if ($_POST['recaptcha_response_field'] == '')
-            {
+    if (($config['signup_captcha'] == '1') and ($err == '')) {
+        if ($captcha_type == 'recaptcha') {
+            if ($_POST['recaptcha_response_field'] == '') {
                 $err = $lang['captcha_null'];
-            }
-            else
-            {
+            } else {
 	            $result = $recaptcha->verify($_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
-
-	            if (! $result->isValid())
-	            {
+	            if (! $result->isValid()) {
 	                $err = $lang['captcha_invalid'];
 	            }
             }
-        }
-        else
-        {
+        } else {
             $_POST['security_code'] = htmlspecialchars_uni($_POST['security_code']);
 
-            if ($_POST['security_code'] == '')
-            {
+            if ($_POST['security_code'] == '') {
                 $err = $lang['captcha_null'];
-            }
-            else if (($_SESSION['security_code'] != $_POST['security_code']))
-            {
+            } else if (($_SESSION['security_code'] != $_POST['security_code'])) {
                 $err = $lang['captcha_invalid'];
             }
         }
     }
 
-    if ($signup_dob == 1)
-    {
+    if ($signup_dob == 1) {
         $signup['year'] = $_POST['year'];
         $signup['month'] = $_POST['month'];
         $signup['day'] = $_POST['day'];
 
         $bdate = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
-        if ($bdate == 'yyyy-mm-dd')
-        {
+        if ($bdate == 'yyyy-mm-dd') {
             $err = $lang['signup_dob_null'];
         }
 
         $validate_date = validate::date($_POST['month'], $_POST['day'], $_POST['year']);
 
-        if ($validate_date != 1)
-        {
+        if ($validate_date != 1) {
             $err = $validate_date;
-        }
-        else
-        {
-		$signup_age_min_enforce = get_config('signup_age_min_enforce');
+        } else {
+            $signup_age_min_enforce = get_config('signup_age_min_enforce');
+    		if ($signup_age_min_enforce == 1) {
+    			$age = find_age($bdate);
+    			$age_minimum = get_config('signup_age_min');
 
-		if ($signup_age_min_enforce == 1)
-		{
-			$age = find_age($bdate);
-			$age_minimum = get_config('signup_age_min');
-
-			if ($age < $age_minimum)
-			{
-				$err = str_replace('[AGE_MINIMUM]',$age_minimum,$lang['signup_enforce']);
-			}
-		}
+    			if ($age < $age_minimum)
+    			{
+    				$err = str_replace('[AGE_MINIMUM]',$age_minimum,$lang['signup_enforce']);
+    			}
+    		}
         }
     }
+
     $smarty->assign('signup', $signup);
 
-    if ($err == '')
-    {
+    if ($err == '') {
         $user_ip = User::get_ip();
         $request_password = $_POST['password'];
         $request_password = md5($request_password);
         $sql = "INSERT INTO `users` SET
-               `user_email`='" . mysql_clean($_POST['email']) . "',
-               `user_name`='" . mysql_clean($_POST['user_name']) . "',
-               `user_password`='" . mysql_clean($request_password) . "',
+               `user_email`='" . DB::quote($_POST['email']) . "',
+               `user_name`='" . DB::quote($_POST['user_name']) . "',
+               `user_password`='" . DB::quote($request_password) . "',
                `user_join_time`='" . $_SERVER['REQUEST_TIME'] . "',
                `user_last_login_time`='" . $_SERVER['REQUEST_TIME'] . "',
-               `user_ip`='" . mysql_clean($user_ip) . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        $userid = mysql_insert_id();
+               `user_ip`='" . DB::quote($user_ip) . "'";
+        $userid = DB::insertGetId($sql);
 
-        if ($userid == 0)
-        {
+        if (! $userid) {
             echo 'Unable to get last insert ID';
             exit(0);
         }
 
         $auto_friend = get_config('signup_auto_friend');
 
-        if ((strlen($auto_friend) > 1) && (check_field_exists($auto_friend, 'user_name', 'users')))
-        {
-            $friend = new Friends();
-            $friend->make_friends($auto_friend, $_POST['user_name']);
+        if ((strlen($auto_friend) > 1) && (check_field_exists($auto_friend, 'user_name', 'users'))) {
+            Friend::makeFriends($auto_friend, $_POST['user_name']);
         }
 
-        if ($signup_dob == 1)
-        {
+        if ($signup_dob == 1) {
             $sql = "UPDATE `users` SET
-                   `user_birth_date`='" . mysql_clean($bdate) . "' WHERE
+                   `user_birth_date`='" . DB::quote($bdate) . "' WHERE
                    `user_id`='" . (int) $userid . "'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         $sql = "INSERT INTO `verify` SET `UID`='" . (int) $userid . "'";
-        mysql_query($sql);
+        DB::query($sql);
 
         $sql = "INSERT INTO `subscriber` SET `UID`='" . (int) $userid . "'";
-        mysql_query($sql);
+        DB::query($sql);
 
-        if ($config['enable_package'] == 'yes')
-        {
-            //$_POST['pack_id'] = intval($_POST['pack_id']);
+        if ($config['enable_package'] == 'yes') {
             $sql = "SELECT * FROM `packages` WHERE
                    `package_id`='" . (int) $_POST['pack_id'] . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
-            $tmp = mysql_fetch_assoc($result);
+            $tmp = DB::fetch1($sql);
 
-            if ($tmp['package_trial'] == 'yes')
-            {
+            if ($tmp['package_trial'] == 'yes') {
                 $paid_member = 0;
-            }
-            else
-            {
+            } else {
                 $paid_member = 1;
             }
-        }
-        else
-        {
+        } else {
             $paid_member = 0;
         }
 
         # send activation mail
 
-
-        if (($config['signup_verify'] == '1') && ($paid_member == 0))
-        {
+        if (($config['signup_verify'] == '1') && ($paid_member == 0)) {
 
             $sql = "UPDATE `users` SET
                    `user_account_status`='Inactive',
                    `user_email_verified`='no' WHERE
                    `user_id`='" . (int) $userid . "'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
 
             $data1 = 'SIGNUP' . $userid;
 
@@ -293,19 +224,16 @@ if (isset($_POST['submit']))
             $vkey = md5($vkey);
 
             $sql = "INSERT INTO `verify_code` SET
-                   `vkey`='" . mysql_clean($vkey) . "',
-                   `data1`='" . mysql_clean($data1) . "'";
-
-            $result = mysql_query($sql) or mysql_die($sql);
-            $verify_id = mysql_insert_id();
+                   `vkey`='" . DB::quote($vkey) . "',
+                   `data1`='" . DB::quote($data1) . "'";
+            $verify_id = DB::insertGetId($sql);
 
             $password = $_POST['password'];
             $user_name = $_POST['user_name'];
 
             $sql = "SELECT * FROM `email_templates` WHERE
                    `email_id`='user_signup_mail'";
-            $result = mysql_query($sql) or mysql_die($sql);
-            $tmp = mysql_fetch_assoc($result);
+            $tmp = DB::fetch1($sql);
             $email_subject = $tmp['email_subject'];
             $email_body_tmp = $tmp['email_body'];
 
@@ -338,17 +266,13 @@ if (isset($_POST['submit']))
         }
         # send activation mail end
 
-
         # admin signup notify
 
-
-        if ($config['notify_signup'] == 1)
-        {
+        if ($config['notify_signup'] == 1) {
 
             $sql = "SELECT * FROM `email_templates` WHERE
                    `email_id`='admin_signup_notify'";
-            $result = mysql_query($sql) or mysql_die($sql);
-            $tmp = mysql_fetch_assoc($result);
+            $tmp = DB::fetch1($sql);
             $email_body = $tmp['email_body'];
             $email_subject = $tmp['email_subject'];
 
@@ -376,16 +300,13 @@ if (isset($_POST['submit']))
         # admin signup notify end
 
 
-        if ($config['enable_package'] == 'yes')
-        {
+        if ($config['enable_package'] == 'yes') {
 
             $sql = "SELECT * FROM `packages` WHERE
                    `package_id`='" . (int) $_POST['pack_id'] . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
-            $tmp = mysql_fetch_assoc($result);
+            $tmp = DB::fetch1($sql);
 
-            if ($tmp['package_trial'] == 'yes')
-            {
+            if ($tmp['package_trial'] == 'yes') {
 
                 $expired_time = date("Y-m-d H:i:s", strtotime("+" . $tmp['package_trial_period'] . " day"));
 
@@ -394,49 +315,36 @@ if (isset($_POST['submit']))
                        `subscribe_time`='" . date("Y-m-d H:i:s") . "',
                        `expired_time`='$expired_time' WHERE
                        `UID`='" . (int) $userid . "'";
+                DB::query($sql);
 
-                mysql_query($sql) or mysql_die($sql);
-
-                if ($config['signup_verify'] == '1')
-                {
+                if ($config['signup_verify'] == '1') {
                     $msg = $lang['signup_verify_email'];
-                }
-                else
-                {
+                } else {
                     User::login($_POST['user_name']);
                     $redirect_url = VSHARE_URL . '/friends/invite/?welcome=1';
-                    redirect($redirect_url);
+                    Http::redirect($redirect_url);
                 }
 
-            }
-            else
-            {
+            } else {
                 $sql = "UPDATE `subscriber` SET
                        `pack_id`='" . (int) $_POST['pack_id'] . "',
                        `subscribe_time`='" . date("Y-m-d H:i:s") . "',
                        `expired_time`='" . date("Y-m-d H:i:s") . "' WHERE
                        `UID`='" . (int) $userid . "'";
-                mysql_query($sql) or mysql_die($sql);
+                DB::query($sql);
 
                 $sql = "UPDATE `users` SET
                        `user_account_status`='Inactive' WHERE
                        `user_id`='" . (int) $userid . "'";
-                mysql_query($sql) or mysql_die($sql);
-
+                DB::query($sql);
                 $redirect_url = VSHARE_URL . '/package_options.php?package_id=' . $_POST['pack_id'] . '&user_id=' . $userid;
-                redirect($redirect_url);
+                Http::redirect($redirect_url);
             }
-
-        }
-        else
-        {
-            if ($config['signup_verify'] == '1')
-            {
+        } else {
+            if ($config['signup_verify'] == '1') {
                 $signup_verification_msg = $lang['signup_verify_email'];
                 $smarty->assign('signup_verification_msg', $signup_verification_msg);
-            }
-            else if ($config['signup_verify'] == '2')
-            {
+            } else if ($config['signup_verify'] == '2') {
                 $sql = "UPDATE `users` SET
                        `user_account_status`='Inactive' WHERE
                        `user_id`='" . (int) $userid . "'";
@@ -444,50 +352,36 @@ if (isset($_POST['submit']))
 
                 $signup_verification_msg = $lang['signup_verify_admin'];
                 $smarty->assign('signup_verification_msg', $signup_verification_msg);
-            }
-            else
-            {
+            } else {
                 User::login($_POST['user_name']);
                 $redirect_url = VSHARE_URL . '/friends/invite/?welcome=1';
-                redirect($redirect_url);
+                Http::redirect($redirect_url);
             }
         }
     }
 }
 
-if ($config['enable_package'] == 'yes')
-{
+if ($config['enable_package'] == 'yes') {
     $sql = "SELECT * FROM `packages` WHERE
            `package_status`='Active'
             ORDER BY `package_price` DESC";
-    $result = mysql_query($sql) or mysql_die($sql);
-
-    while ($package = mysql_fetch_assoc($result))
-    {
-        $packages[] = $package;
-    }
-    $smarty->assign('package', $packages);
+    $smarty->assign('package', DB::fetch($sql));
 }
 
-if ($signup_dob == 1)
-{
-
-    for ($i = 1; $i <= 12; $i ++)
-    {
+if ($signup_dob == 1) {
+    for ($i = 1; $i <= 12; $i ++) {
         $months[] = $i;
     }
 
     $smarty->assign('months', $months);
 
-    for ($i = 1; $i <= 31; $i ++)
-    {
+    for ($i = 1; $i <= 31; $i ++) {
         $days[] = $i;
     }
 
     $smarty->assign('days', $days);
 
-    for ($i = 1930; $i <= date('Y'); $i ++)
-    {
+    for ($i = 1930; $i <= date('Y'); $i ++) {
         $years[] = $i;
     }
 
@@ -498,6 +392,7 @@ $smarty->assign(array(
     'html_title' => 'Sign Up',
     'html_description' => 'Sign Up'
 ));
+
 $smarty->assign('age_minimum', get_config('signup_age_min'));
 $smarty->assign('captcha_type', $captcha_type);
 $smarty->assign('signup_dob', $signup_dob);
@@ -506,11 +401,10 @@ $smarty->assign('msg', $msg);
 $smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
 
-if ($signup_enable == 1 && $msg == '')
-{
+if ($signup_enable == 1 && $msg == '') {
     $smarty->display('signup.tpl');
 }
 
 $smarty->assign('html_extra', $smarty->fetch('signup_js.tpl'));
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
