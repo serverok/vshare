@@ -16,10 +16,7 @@ require '../include/config.php';
 
 $_SESSION['AUID'] = '';
 $_SESSION['APASSWORD'] = '';
-session_unregister('AUID');
-session_unregister('APASSWORD');
-session_destroy();
-db_close();
+DB::close();
 
 $redirect_url = VSHARE_URL . '/index.php';
-redirect($redirect_url);
+Http::redirect($redirect_url);
