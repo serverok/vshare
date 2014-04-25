@@ -21,16 +21,14 @@ $sql = "SELECT * FROM `users` WHERE
        `user_name`='" . DB::quote($user_name) . "'";
 $user_info = DB::fetch1($sql);
 
-if (! $user_info)
-{
+if (! $user_info) {
     require '404.php';
     exit();
 }
 
 $smarty->assign('user_info', $user_info);
 
-if ($user_info['user_birth_date'] != '0000-00-00')
-{
+if ($user_info['user_birth_date'] != '0000-00-00') {
     $age = find_age($user_info['user_birth_date']);
     $smarty->assign('age', $age);
 }
@@ -51,8 +49,7 @@ $sql = "SELECT * FROM `videos` WHERE
         LIMIT 8";
 $new_views_array = DB::fetch($sql);
 
-foreach ($new_views_array AS $new_video)
-{
+foreach ($new_views_array AS $new_video) {
     $new_video['video_thumb_url'] = $servers[$new_video['video_thumb_server_id']];
     $new_videos[] = $new_video;
 }
@@ -68,8 +65,7 @@ $sql = "SELECT * FROM `videos` WHERE
         LIMIT 8";
 $popular_video_array = DB::fetch($sql);
 
-foreach ($popular_video_array AS $popular_video)
-{
+foreach ($popular_video_array AS $popular_video) {
     $popular_video['video_thumb_url'] = $servers[$popular_video['video_thumb_server_id']];
     $popular_videos[] = $popular_video;
 }
@@ -116,14 +112,10 @@ if (isset($_SESSION['UID']))
            `friend_user_id`='" . (int) $_SESSION['UID'] . "' AND
            `friend_name`='" . DB::quote($user_name) . "' AND
            `friend_status`='Confirmed'";
-    $result = mysql_query($sql) or mysql_die($sql);
 
-    if (mysql_num_rows($result) > 0)
-    {
+    if (DB::fetch($sql)) {
         $is_friend = 'yes';
-    }
-    else
-    {
+    } else {
         $is_friend = 'no';
     }
 

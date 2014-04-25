@@ -24,8 +24,7 @@ Cache::init();
 
 $sql_adult_filter = '';
 
-if (get_family_filter())
-{
+if (get_family_filter()) {
 	$sql_adult_filter = "AND `video_adult`='0'";
 }
 
@@ -38,8 +37,7 @@ $sql = "SELECT * FROM `poll_question` WHERE
         LIMIT 1";
 $poll = DB::fetch1($sql);
 
-if ($poll)
-{
+if ($poll) {
     $poll_answer = explode("|", $poll['poll_answer']);
     $smarty->assign('poll_id', $poll['poll_id']);
     $smarty->assign('poll_question', $poll['poll_qty']);
@@ -49,13 +47,10 @@ if ($poll)
 $cache_id = 'home_page';
 $view = Cache::load($cache_id);
 
-if (! $view)
-{
+if (! $view) {
     $view = array();
 
     # featured videos
-
-
     $sql = "SELECT * FROM `videos` WHERE
            `video_type`='public' AND
            `video_active`='1' AND
@@ -65,8 +60,7 @@ if (! $view)
             ORDER BY `video_add_time` DESC";
     $videos = DB::fetch($sql);
 
-    if (! $videos)
-    {
+    if (! $videos) {
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
                `video_active`='1' AND
@@ -78,20 +72,16 @@ if (! $view)
 
     $featured_videos = array();
 
-    foreach ($videos as $featured_video)
-    {
+    foreach ($videos as $featured_video) {
         $featured_video['video_thumb_url'] = $servers[$featured_video['video_thumb_server_id']];
         $featured_video['video_keywords_array'] = explode(' ', $featured_video['video_keywords']);
         $featured_videos[] = $featured_video;
     }
 
-    if (count($featured_videos) > 0)
-    {
+    if (count($featured_videos) > 0) {
         $smarty->assign('featured_videos', $featured_videos);
         $view['featured_video_block'] = $smarty->fetch('index_featured_videos.tpl');
-    }
-    else
-    {
+    } else {
         $view['featured_video_block'] = '';
     }
 
@@ -109,8 +99,7 @@ if (! $view)
 
     $recent_videos = array();
 
-    foreach ($videos as $recent_video)
-    {
+    foreach ($videos as $recent_video) {
         $recent_video['video_thumb_url'] = $servers[$recent_video['video_thumb_server_id']];
         $recent_videos[] = $recent_video;
     }
@@ -131,8 +120,7 @@ if (! $view)
 
     $new_videos = array();
 
-    foreach ($videos as $new_video)
-    {
+    foreach ($videos as $new_video) {
         $new_video['video_thumb_url'] = $servers[$new_video['video_thumb_server_id']];
         $new_videos[] = $new_video;
     }
@@ -153,4 +141,4 @@ $smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
 $smarty->display('index.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
