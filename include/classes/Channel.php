@@ -30,4 +30,13 @@ class Channel
                `channel_id`=" . (int) $id;
         return DB::fetch1($sql);
     }
+
+    public static function getByName($channel_name)
+    {
+        $channel_name = trim($channel_name);
+        $sql = "SELECT * FROM `channels` WHERE
+                `channel_name`='" . DB::quote($channel_name) . "'";
+        return DB::fetch1($sql);
+    }
+
 }

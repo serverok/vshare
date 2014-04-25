@@ -18,48 +18,28 @@ require '../include/language/' . LANG . '/lang_admin_channel_search.php';
 
 check_admin_login();
 
-if (isset($_GET['action']) && $_GET['action'] == 'search')
-{
-    
-    if (isset($_GET['id']) && $_GET['id'] != null)
-    {
-        if (is_numeric($_GET['id']))
-        {
-            $sql = "SELECT * FROM `channels` WHERE
-                   `channel_id`='" . (int) $_GET['id'] . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
-            
-            if (mysql_num_rows($result) < 1)
-            {
+if (isset($_GET['action']) && $_GET['action'] == 'search') {
+
+    if (isset($_GET['id']) && $_GET['id'] != null) {
+        if (is_numeric($_GET['id'])) {
+            $channel_info = Channel::getById($_GET['id']);
+            if (! $channel_info) {
                 $err = str_replace("[CHANNEL_ID]", $_GET['id'], $lang['id_not_found']);
+            } else {
+                $channel_info = array_map("htmlspecialchars", $channel_info);
+                $smarty->assign('channel', $channel_info);
             }
-            else
-            {
-                $channel = mysql_fetch_assoc($result);
-                $channel = array_map("htmlspecialchars", $channel);
-                $smarty->assign('channel', $channel);
-            }
-        }
-        else
-        {
+        } else {
             $err = $lang['id_invalid'];
         }
-    
-    }
-    else if (isset($_GET['name']) && $_GET['name'] != null)
-    {
-        $sql = "SELECT * FROM `channels` WHERE
-               `channel_name`='" . mysql_clean(trim($_GET['name'])) . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        if (mysql_num_rows($result) < 1)
-        {
+
+    } else if (isset($_GET['name']) && $_GET['name'] != null) {
+        $channel_info = Channel::getByName($_GET['name']);
+        if (! $channel_info) {
             $err = str_replace('[CHANNEL_NAME]', $_GET['name'], $lang['name_not_found']);
-        }
-        else
-        {
-            $channel = mysql_fetch_assoc($result);
-            $channel = array_map("htmlspecialchars", $channel);
-            $smarty->assign('channel', $channel);
+        } else {
+            $channel_info = array_map("htmlspecialchars", $channel_info);
+            $smarty->assign('channel', $channel_info);
         }
     }
 }
@@ -69,4 +49,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/channel_search.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();
