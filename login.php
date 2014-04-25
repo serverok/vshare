@@ -52,7 +52,7 @@ if (isset($_POST['action_login']))
 
                     if ($package_info['package_trial'] != 'yes') {
                         $redirect_url = $config['baseurl'] . '/renew_account.php?uid=' . $user_info['user_id'];
-                        redirect($redirect_url);
+                        Http::redirect($redirect_url);
                     }
                 }
 
@@ -118,7 +118,7 @@ if (isset($_POST['action_login']))
                 $redirect_url = $config['baseurl'] . '/' . $user_info['user_name'];
             }
 
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
     }
 }
@@ -127,6 +127,7 @@ $smarty->assign(array(
     'html_title' => 'Login',
     'html_description' => 'Login'
 ));
+
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('sub_menu', 'menu_home.tpl');
