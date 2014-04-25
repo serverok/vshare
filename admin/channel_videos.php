@@ -19,26 +19,19 @@ check_admin_login();
 
 $result_per_page = get_config('admin_listing_per_page');
 
-$sql = "SELECT `channel_name` FROM `channels` WHERE
-       `channel_id`='" . (int) $_GET['chid'] . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$channel = mysql_fetch_assoc($result);
+$channel = Channel::getById($_GET['chid']);
 $smarty->assign('channel_name', $channel['channel_name']);
 
-if (isset($_GET['action']) && $_GET['action'] == 'del')
-{
+if (isset($_GET['action']) && $_GET['action'] == 'del') {
     $sql = "SELECT `video_channels` FROM `videos` WHERE
            `video_id`='" . (int) $_GET['video_id'] . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
     $ch = explode('|', $tmp['video_channels']);
     
-    if (count($ch) <= 3)
-    {
+    if (count($ch) <= 3) {
         $err = $lang['channel_only_one'];
-    }
-    else
-    {
+    } else {
         $new_type = str_replace("|$_GET[chid]|", '|', $tmp['video_channels']);
         $sql = "UPDATE `videos` SET
                `video_channels`='$new_type' WHERE
@@ -49,26 +42,20 @@ if (isset($_GET['action']) && $_GET['action'] == 'del')
 
 $query = " WHERE `video_channels` LIKE '%|$_GET[chid]|%'";
 
-if (isset($_GET['sort']))
-{
+if (isset($_GET['sort'])) {
     $query .= " ORDER BY $_GET[sort]";
-}
-else
-{
+} else {
     $query .= " ORDER BY `video_id` ASC";
 }
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
 $sql = "SELECT count(*) AS `total` FROM `videos` $query";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start_from = ($page - 1) * $result_per_page;
 
@@ -91,8 +78,7 @@ $links = $pager->getLinks();
 $sql = "SELECT * FROM `videos`
        $query
        LIMIT $start_from, $result_per_page";
-$result = mysql_query($sql) or mysql_die($sql);
-$videos = mysql_fetch_all($result);
+$videos = DB::fetch($sql);
 
 $smarty->assign('links', $links["all"]);
 $smarty->assign('grandtotal', $total);
@@ -104,4 +90,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/channel_videos.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();
