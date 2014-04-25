@@ -243,28 +243,6 @@ function timediff($my_time, $current_time = '')
     return $x;
 }
 
-function add_item($table, $field, $query, $new)
-{
-    $sql = "SELECT `$field` FROM `$table` WHERE $query";
-    $tmp = DB::fetch1($sql);
-    $type = explode('|', $tmp[$field]);
-    $type[] = $new;
-    $type = array_unique($type);
-    sort($type);
-    $new_type = implode('|', $type);
-    $sql = "UPDATE $table SET $field='$new_type|' WHERE $query";
-    DB::query($sql);
-}
-
-function remove_item($table, $field, $query, $item)
-{
-    $sql = "SELECT `$field` FROM `$table` WHERE $query";
-    $tmp = DB::fetch1($sql);
-    $new_type = str_replace("|$item|", '|', $tmp[$field]);
-    $sql = "UPDATE `$table` SET `$field`='$new_type' WHERE $query";
-    DB::query($sql);
-}
-
 function format_size($size)
 {
     if ($size['type'] == 'byte')

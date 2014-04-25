@@ -26,17 +26,17 @@ $add_list = isset($_GET['add_list']) ? $_GET['add_list'] : '';
 $add_list = trim($add_list);
 
 if ($add_list != '') {
-    add_item('users', 'user_friends_type', 'user_id=' . (int) $_SESSION['UID'], $add_list);
+    Friend::add('users', 'user_friends_type', 'user_id=' . (int) $_SESSION['UID'], $add_list);
     Http::redirect(VSHARE_URL . '/friends/');
 }
 
 if (isset($_GET['del_list'])) {
-    remove_item('users', 'user_friends_type', 'user_id=' . (int) $_SESSION['UID'], $_GET['del_list']);
+    Friend::remove('users', 'user_friends_type', 'user_id=' . (int) $_SESSION['UID'], $_GET['del_list']);
     $sql = "SELECT `friend_friend_id` FROM `friends` WHERE
            `friend_user_id`='" . (int) $_SESSION['UID'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    while ($tmp = mysql_fetch_assoc($result)) {
-        remove_item('friends', 'friend_type', 'friend_id=' . $tmp['friend_friend_id'], $_GET['del_list']);
+    $result = DB::fetch($sql);
+    foreach ($resul as $tmp) {
+        Friend::remove('friends', 'friend_type', 'friend_id=' . $tmp['friend_friend_id'], $_GET['del_list']);
     }
     Http::redirect(VSHARE_URL . '/friends/');
 }
@@ -46,29 +46,26 @@ if (isset($_POST['action_name'])) {
         while (list($k, $v) = @each($_POST['AID'])) {
             $sql = "DELETE FROM `friends` WHERE
                    `friend_id`='" . (int) $v . "'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
-        redirect(VSHARE_URL . '/friends/');
+        Http::redirect(VSHARE_URL . '/friends/');
     } else {
         $sql = "SELECT `user_friends_type` FROM `users` WHERE
                `user_id`='" . (int) $_SESSION['UID'] . "'";
-        $result = DB::fetch1($sql);
-        dd($result);
-        $friends_tmp = mysql_fetch_assoc($result);
+        $friends_tmp = DB::fetch1($sql);
         $type = explode('|', $friends_tmp['user_friends_type']);
         $cmd = explode('_', $_POST['action_name']);
 
         if ($cmd[0] == 'add' && is_numeric($cmd[1])) {
             while (list($k, $v) = @each($_POST['AID'])) {
-                add_item('friends', 'friend_type', 'friend_id=' . (int) $v, $type[$cmd[1]]);
+                Friend::add('friends', 'friend_type', 'friend_id=' . (int) $v, $type[$cmd[1]]);
             }
         } else if ($cmd[0] == 'delete' && is_numeric($cmd[1])) {
             while (list($k, $v) = @each($_POST['AID'])) {
-                remove_item('friends', 'friend_type', 'friend_id=' . (int) $v, $type[$cmd[1]]);
+                Friend::remove('friends', 'friend_type', 'friend_id=' . (int) $v, $type[$cmd[1]]);
             }
         }
-
-        redirect(VSHARE_URL . '/friends/');
+        Http::redirect(VSHARE_URL . '/friends/');
     }
 }
 
