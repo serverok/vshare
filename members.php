@@ -40,8 +40,8 @@ if ($sort == 'video_uploaded') {
             v.video_active='1' AND
             v.video_approve='1'
             GROUP BY v.video_user_id";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $total = mysql_num_rows($result);
+    $result = DB::fetch($sql);
+    $total = count($result);
 }
 else if ($sort == 'subscribed')
 {
@@ -50,8 +50,8 @@ else if ($sort == 'subscribed')
 			u.user_id=s.subscription_to_user_id AND
 			u.user_account_status='Active'
 			GROUP BY u.user_id";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $total = mysql_num_rows($result);
+    $result = DB::fetch($sql);
+    $total = count($result);
 }
 else
 {
@@ -132,6 +132,7 @@ $smarty->assign(array(
     'html_title' => $title . ' Members - page ' . $page,
     'html_description' => $title . ' Members - page ' . $page
 ));
+
 $smarty->assign('sort', $sort);
 $smarty->assign('title', $title);
 $smarty->assign('start_num', $start_num);
@@ -142,5 +143,4 @@ $smarty->assign('members', $members);
 $smarty->display('header.tpl');
 $smarty->display('members.tpl');
 $smarty->display('footer.tpl');
-db_close();
-
+DB::close();
