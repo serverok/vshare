@@ -27,7 +27,7 @@ $add_list = trim($add_list);
 
 if ($add_list != '') {
     add_item('users', 'user_friends_type', 'user_id=' . (int) $_SESSION['UID'], $add_list);
-    redirect(VSHARE_URL . '/friends/');
+    Http::redirect(VSHARE_URL . '/friends/');
 }
 
 if (isset($_GET['del_list'])) {
@@ -38,7 +38,7 @@ if (isset($_GET['del_list'])) {
     while ($tmp = mysql_fetch_assoc($result)) {
         remove_item('friends', 'friend_type', 'friend_id=' . $tmp['friend_friend_id'], $_GET['del_list']);
     }
-    redirect(VSHARE_URL . '/friends/');
+    Http::redirect(VSHARE_URL . '/friends/');
 }
 
 if (isset($_POST['action_name'])) {

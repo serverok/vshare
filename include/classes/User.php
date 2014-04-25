@@ -276,7 +276,7 @@ class User
                 $redirect_url = $config['baseurl'] . '/signup/';
             }
 
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
     }
 
