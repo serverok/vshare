@@ -697,11 +697,9 @@ function insert_timediff($var)
 
 function insert_showlist($v)
 {
-    global $conn;
     $sql = "SELECT `friend_type` FROM `friends` WHERE
            `friend_id`=" . (int) $v['id'];
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
+    $tmp = DB::fetch1($sql);
     $type = str_replace('All|', '', $tmp['friend_type']);
     $type = str_replace('All', '', $type);
     $type = str_replace('|', ', ', $type);
