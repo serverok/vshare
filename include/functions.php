@@ -792,11 +792,6 @@ function sec2hms($sec, $useColon = true)
     return $hms;
 }
 
-function db_close()
-{
-    DB::close();
-}
-
 function is_ip($ip)
 {
     $valid = TRUE;
