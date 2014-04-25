@@ -102,14 +102,12 @@ if (isset($_SESSION['vshare_message']))
 
 if (! isset($_SESSION['CSS']))
 {
-    require_once VSHARE_DIR . '/include/class.css.php';
-    css::cookie();
+    Css::cookie();
 }
 
 if (! isset($_SESSION['LANG']))
 {
-    require_once VSHARE_DIR . '/include/class.language.php';
-    language::cookie();
+    Language::cookie();
 }
 
 if (! isset($_SESSION['USERNAME']) && isset($_COOKIE['VSHARE_AL_PASSWORD']))
