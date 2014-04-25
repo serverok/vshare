@@ -19,7 +19,6 @@ if (filesize('include/config.php') < 100)
 }
 
 require 'include/config.php';
-require 'include/class.cache.php';
 
 Cache::init();
 
