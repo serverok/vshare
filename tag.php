@@ -69,17 +69,14 @@ if ($err == '') {
 
     $total = count($tag_videos);
 
-    if ($total > 0)
-    {
+    if ($total > 0) {
         $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-        if ($page < 1)
-        {
+        if ($page < 1) {
             $page = 1;
         }
 
-        if ($page > ceil($total / $config['items_per_page']))
-        {
+        if ($page > ceil($total / $config['items_per_page'])) {
             require '404.php';
             exit();
         }
@@ -98,8 +95,7 @@ if ($err == '') {
                 $sortby";
         $videos = DB::fetch($sql);
 
-        foreach ($videos AS $video)
-        {
+        foreach ($videos AS $video) {
             $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
             $video_info[] = $video;
             $video_users[] = $video['video_user_id'];
@@ -121,8 +117,7 @@ if ($err == '') {
         $result = DB::fetch($sql);
         $user_names = array();
 
-        foreach($result as $user)
-        {
+        foreach($result as $user) {
             $user_id = $user['user_id'];
             $user_name = $user['user_name'];
             $user_names[$user_id] = $user_name;
@@ -137,9 +132,7 @@ if ($err == '') {
             'video_info' => $video_info,
             'user_names' => $user_names
         ));
-    }
-    else
-    {
+    } else {
         require '404.php';
         exit();
     }
@@ -147,6 +140,7 @@ if ($err == '') {
 
 $html_title = $sort_html . ' ' . $search_string . ' Videos - page ' . $page;
 $search_string = str_replace('+', ' ', $search_string);
+
 $smarty->assign(array(
     'search_string' => $search_string,
     'html_title' => $html_title,
@@ -156,7 +150,8 @@ $smarty->assign(array(
     'msg' => $msg,
     'sub_menu' => 'menu_home.tpl'
 ));
+
 $smarty->display('header.tpl');
 $smarty->display('tag.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
