@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.cache.php';
 require 'HTML/TagCloud.php';
 
 Cache::init();
@@ -77,4 +76,4 @@ $smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
 $smarty->display('tags.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
