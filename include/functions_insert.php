@@ -494,9 +494,7 @@ function insert_group_info_count($a)
         {
             $sql = "SELECT count(*) AS `total` FROM `$a[tbl]` WHERE
     				`$a[field2]`='" . (int) $a['gid'] . "' " . $sql_extra;
-            $result = mysql_query($sql) or mysql_die($sql);
-            $tmp = mysql_fetch_assoc($result);
-            return $tmp['total'];
+            return DB::getTotal($sql);
         }
         else
         {
@@ -544,8 +542,7 @@ function insert_group_image($a)
 
     $sql = "SELECT * FROM `groups` WHERE
            `group_id`='" . (int) $a['gid'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
+    $tmp = DB::fetch1($sql);
 
     if ($tmp['group_image'] == 'owner_only')
     {
@@ -553,14 +550,13 @@ function insert_group_image($a)
     }
     else
     {
-        $sql = "SELECT `group_video_video_id` FROM " . mysql_clean($a['tbl']) . " WHERE
+        $sql = "SELECT `group_video_video_id` FROM " . DB::quote($a['tbl']) . " WHERE
                `group_video_group_id`='" . (int) $a['gid'] . "'
                 ORDER BY `AID` DESC
                 LIMIT 1";
-        $result = mysql_query($sql) or mysql_die($sql);
-        if (mysql_num_rows($result) > 0)
+        $tmp = DB::fetch1($sql);
+        if ($tmp)
         {
-            $tmp = mysql_fetch_assoc($result);
             $group_image_video_id = $tmp['group_video_video_id'];
         }
     }
@@ -569,8 +565,7 @@ function insert_group_image($a)
     {
         $sql = "SELECT video_id,video_folder,video_thumb_server_id FROM `videos` WHERE
     			`video_id`=$group_image_video_id";
-        $result = mysql_query($sql) or mysql_die($sql);
-        $tmp = mysql_fetch_assoc($result);
+        $tmp = DB::fetch1($sql);
 
         $tmp['video_thumb_url'] = $servers[$tmp['video_thumb_server_id']];
         return $tmp;

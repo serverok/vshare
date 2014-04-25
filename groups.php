@@ -135,10 +135,11 @@ $group_info = DB::fetch($sql);
 if (count($group_info) == 0 && $category == 'featured') {
     $sql = "SELECT * FROM `groups` LIMIT 4";
     $group_info = DB::fetch($sql);
+    $total = count($group_info);
 }
 
 $start_num = $start_from + 1;
-$end_num = $start_from + mysql_num_rows($result);
+$end_num = $start_from + count($group_info);
 
 $page_link = paginate($total, $config['items_per_page'], '.', '', $page);
 
