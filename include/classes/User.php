@@ -10,6 +10,13 @@ class User
         return DB::fetch1($sql);
     }
 
+    public static function getById($user_id)
+    {
+        $sql = 'SELECT * FROM `users` WHERE
+                `user_id`=' . (int) $user_id;
+        return DB::fetch1($sql);
+    }
+
     static function login($user_name, $admin_login = 0)
     {
         global $config;
