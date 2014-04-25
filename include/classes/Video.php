@@ -1,7 +1,6 @@
 <?php
 
 require_once VSHARE_DIR . '/include/language/' . LANG . '/lang_class_video.php';
-require_once VSHARE_DIR . '/include/class.xss.php';
 
 class Video
 {
