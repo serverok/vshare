@@ -454,9 +454,7 @@ function insert_group_info_count($a)
     {
         $sql = "SELECT count(*) AS `total` FROM `groups` WHERE
                `group_id`='" . (int) $a['gid'] . "' " . $sql_extra;
-        $result = mysql_query($sql) or mysql_die($sql);
-        $tmp = mysql_fetch_assoc($result);
-        return $tmp['total'];
+        return DB::getTotal($sql);
     }
     else
     {
@@ -579,7 +577,7 @@ function insert_group_image($a)
 
 function insert_member_img($a)
 {
-    global $conn , $config , $servers;
+    global $config , $servers;
 
     $user_id = $a['UID'];
     $photo_type = isset($a['type']) ? $a['type'] : 0;
@@ -624,9 +622,7 @@ function insert_check_group_mem($a)
         $sql = "SELECT count(*) AS `total` FROM `group_members` WHERE
                `group_member_group_id`='" . (int) $a['gid'] . "' AND
                `group_member_user_id`='" . (int) $_SESSION['UID'] . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        $tmp = mysql_fetch_assoc($result);
-        return $tmp['total'];
+        return DB::getTotal($sql);
     }
     else
     {
