@@ -7,14 +7,12 @@ class Friend
     {
         $sql = "SELECT * FROM `users` WHERE
 		       `user_name`='$friend_1'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        $tmp = mysql_fetch_assoc($result);
+        $tmp = DB::fetch1($sql);
         $friend_1_id = $tmp['user_id'];
 
         $sql = "SELECT * FROM `users` WHERE
 		       `user_name`='$friend_2'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        $tmp = mysql_fetch_assoc($result);
+        $tmp = DB::fetch1($sql);
         $friend_2_id = $tmp['user_id'];
 
         $sql = "INSERT INTO `friends` SET
@@ -24,7 +22,7 @@ class Friend
 		       `friend_type`='All|Friends',
 		       `friend_invite_date`='" . date("Y-m-d") . "',
 		       `friend_status`='Confirmed'";
-        $result = mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
 
         $sql = "INSERT INTO `friends` SET
 		       `friend_user_id`=$friend_1_id,
@@ -33,7 +31,7 @@ class Friend
 		       `friend_type`='All|Friends',
 		       `friend_invite_date`='" . date("Y-m-d") . "',
 		       `friend_status`='Confirmed'";
-        $result = mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
 
 }
