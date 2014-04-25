@@ -36,9 +36,7 @@ if ($page < 1)
 
 $sql = "SELECT count(*) AS `total` FROM `email_templates`
        $query";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start_from = ($page - 1) * $result_per_page;
 
@@ -61,8 +59,7 @@ $links = $pager->getLinks();
 $sql = "SELECT * FROM `email_templates`
         $query
         LIMIT $start_from, $result_per_page";
-$result = mysql_query($sql) or mysql_die($sql);
-$emails = mysql_fetch_all($result);
+$emails = DB::fetch($sql);
 
 $smarty->assign('links', $links['all']);
 $smarty->assign('total', $total);
@@ -73,4 +70,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/email_templates.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

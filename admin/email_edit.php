@@ -18,23 +18,22 @@ require '../include/language/' . LANG . '/lang_admin_email_edit.php';
 check_admin_login();
 
 $sql = "SELECT * FROM `email_templates` WHERE
-       `email_id`='" . mysql_clean($_GET['email_id']) . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$email = mysql_fetch_assoc($result);
+       `email_id`='" . DB::quote($_GET['email_id']) . "'";
+$email = DB::fetch1($sql);
 $email['email_body'] = htmlentities($email['email_body'], ENT_QUOTES, 'UTF-8');
 $smarty->assign('email', $email);
 
 if (isset($_POST['submit']))
 {
     $sql = "UPDATE `email_templates` SET
-           `email_subject`='" . mysql_clean($_REQUEST['email_subject']) . "',
-           `email_body`='" . mysql_clean($_REQUEST['email_body']) . "',
-           `comment`='" . mysql_clean($_REQUEST['comment']) . "' WHERE
-           `email_id`='" . mysql_clean($_GET['email_id']) . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
+           `email_subject`='" . DB::quote($_REQUEST['email_subject']) . "',
+           `email_body`='" . DB::quote($_REQUEST['email_body']) . "',
+           `comment`='" . DB::quote($_REQUEST['comment']) . "' WHERE
+           `email_id`='" . DB::quote($_GET['email_id']) . "'";
+    DB::query($sql);
     set_message($lang['email_updated'], 'success');
     $redirect_url = VSHARE_URL . '/admin/email_templates.php';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 $smarty->assign('editor_wysiwyg_email', get_config('editor_wysiwyg_email'));
@@ -43,4 +42,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/email_edit.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();
