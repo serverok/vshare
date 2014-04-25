@@ -136,19 +136,6 @@ function days($sel = '')
     return $day;
 }
 
-function redirect($link)
-{
-    if (! headers_sent())
-    {
-        header("Location: $link");
-    }
-    else
-    {
-        echo "<script language=Javascript>document.location.href='$link';</script>";
-    }
-    exit(0);
-}
-
 function createThumb($srcname, $destname, $maxwidth, $maxheight)
 {
     global $config;

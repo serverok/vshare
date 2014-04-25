@@ -4,7 +4,11 @@ class Http
 {
     public static function redirect($url)
     {
-        header("Location: $url");
-        exit;
+        if (! headers_sent()) {
+            header("Location: $link");
+        } else {
+            echo "<script language=Javascript>document.location.href='$link';</script>";
+        }
+        exit(0);
     }
 }
