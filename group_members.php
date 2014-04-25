@@ -23,15 +23,13 @@ if ($page < 1)
 }
 
 $sql = "SELECT * FROM `groups` WHERE
-       `group_url`='" . mysql_clean($_GET['group_url']) . "'";
-$result = mysql_query($sql) or mysql_die($sql);
+       `group_url`='" . DB::quote($_GET['group_url']) . "'";
+$group_info = DB::fetch1($sql);
 
-if (mysql_num_rows($result) < 1)
+if (! $group_info)
 {
-    redirect(VSHARE_URL);
+    Http::redirect(VSHARE_URL);
 }
-
-$group_info = mysql_fetch_assoc($result);
 
 $smarty->assign('group_info', $group_info);
 
@@ -43,23 +41,23 @@ if (isset($_SESSION['UID']) && $_SESSION['UID'] == $group_info['group_owner_id']
                `group_member_approved`='yes' WHERE
                `AID`=" . (int) $_POST['AID'] . " AND
                `group_member_group_id`='" . (int) $group_info['group_id'] . "'";
-        mysql_query($sql) or mysql_die();
+        DB::query($sql);
         $msg = str_replace('[GROUP_NAME]', $group_info['group_name'], $lang['user_approved']);
         set_message($msg, 'success');
         $redirect_url = VSHARE_URL . '/group/' . $_GET['group_url'] . '/members/' . $page;
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
-    
+
     if (isset($_POST['remove_mem']))
     {
         $sql = "DELETE FROM `group_members` WHERE
                `group_member_user_id`='" . (int) $_POST['member_id'] . "' AND
                `group_member_group_id`='" . (int) $group_info['group_id'] . "'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
         $msg = str_replace('[GROUP_NAME]', $group_info['group_name'], $lang['user_removed']);
         set_message($msg, 'success');
         $redirect_url = VSHARE_URL . '/group/' . $_GET['group_url'] . '/members/' . $page;
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 
@@ -75,9 +73,7 @@ else
 $sql = "SELECT count(*) AS `total` FROM `group_members` WHERE
        `group_member_group_id`='" . (int) $group_info['group_id'] . "'
         $query";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start_from = ($page - 1) * $config['items_per_page'];
 
@@ -86,8 +82,7 @@ $sql = "SELECT * FROM `group_members` WHERE
         $query
         ORDER BY `group_member_since` DESC
         LIMIT $start_from, $config[items_per_page]";
-$result = mysql_query($sql) or mysql_die($sql);
-$group_members = mysql_fetch_all($result);
+$group_members = DB::fetch($sql);
 
 $start_num = $start_from + 1;
 $end_num = $start_from + mysql_num_rows($result);
@@ -105,4 +100,4 @@ $smarty->assign('sub_menu', 'menu_group_members.tpl');
 $smarty->display('header.tpl');
 $smarty->display('group_members.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
