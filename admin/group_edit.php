@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.channels.php';
 require '../include/language/' . LANG . '/lang_admin_group_edit.php';
 
 check_admin_login();
@@ -21,20 +20,20 @@ check_admin_login();
 if (isset($_POST['submit']))
 {
     $_POST['keyword'] = preg_replace('/[\,\s]+/', ' ', $_POST['keyword']);
-    
+
     $sql = "UPDATE `groups` SET
-           `group_name`='" . mysql_clean($_POST['group_name']) . "',
-           `group_keyword`='" . mysql_clean($_POST['keyword']) . "',
-           `group_description`='" . mysql_clean($_POST['gdescn']) . "',
-           `group_url`='" . mysql_clean($_POST['gurl']) . "',
-           `group_type`='" . mysql_clean($_POST['type']) . "',
-           `group_featured`='" . mysql_clean($_POST['featured']) . "',
-           `group_upload`='" . mysql_clean($_POST['gupload']) . "',
-           `group_posting`='" . mysql_clean($_POST['gposting']) . "',
-           `group_image`='" . mysql_clean($_POST['gimage']) . "' WHERE
+           `group_name`='" . DB::quote($_POST['group_name']) . "',
+           `group_keyword`='" . DB::quote($_POST['keyword']) . "',
+           `group_description`='" . DB::quote($_POST['gdescn']) . "',
+           `group_url`='" . DB::quote($_POST['gurl']) . "',
+           `group_type`='" . DB::quote($_POST['type']) . "',
+           `group_featured`='" . DB::quote($_POST['featured']) . "',
+           `group_upload`='" . DB::quote($_POST['gupload']) . "',
+           `group_posting`='" . DB::quote($_POST['gposting']) . "',
+           `group_image`='" . DB::quote($_POST['gimage']) . "' WHERE
            `group_id`='" . (int) $_GET['gid'] . "'";
-    mysql_query($sql) or mysql_die($sql);
-    
+    DB::query($sql);
+
     if (! isset($_POST['channel']) || count($_POST['channel']) < 1)
     {
         $err = $lang['group_channel_null'];
@@ -44,21 +43,20 @@ if (isset($_POST['submit']))
         $sql = "UPDATE `groups` SET
                `group_channels`='0|" . implode('|', $_POST['channel']) . "|0' WHERE
                `group_id`='" . (int) $_GET['gid'] . "'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
-    
+
     if ($err == '')
     {
         set_message($lang['group_edited'], 'success');
         $redirect_url = VSHARE_URL . '/admin/group_view.php?group_id=' . $_GET['gid'];
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 
 $sql = "SELECT * FROM `groups` WHERE
        `group_id`='" . (int) $_GET['gid'] . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$group_info = mysql_fetch_assoc($result);
+$group_info = DB::fetch1($sql);
 
 $type_public = $type_private = $type_protected = '';
 
@@ -162,11 +160,11 @@ $smarty->assign('featured_box', $featured_box);
 
 $ch_checkbox = '';
 $mych = explode('|', $group_info['group_channels']);
-$ch = channels::get_all();
+$ch = Channel::get();
 
 for ($i = 0; $i < count($ch); $i ++)
 {
-    
+
     if (in_array($ch[$i]['channel_id'], $mych))
     {
         $checked = "checked=\"checked\"";
@@ -175,7 +173,7 @@ for ($i = 0; $i < count($ch); $i ++)
     {
         $checked = "";
     }
-    
+
     $ch_checkbox .= '<input type="checkbox" name="channel[]" value="' . $ch[$i]['channel_id'] . '"' . $checked . '/>' . htmlspecialchars($ch[$i]['channel_name'], ENT_QUOTES, 'UTF-8') . '<br />';
 }
 
@@ -186,4 +184,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/group_edit.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

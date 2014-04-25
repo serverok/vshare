@@ -22,17 +22,16 @@ $found = 0;
 if (! empty($_POST['group_name']))
 {
     $sql = "SELECT * FROM `groups` WHERE
-           `group_name`='" . mysql_clean($_POST['group_name']) . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    
-    if (mysql_num_rows($result) == 0)
+           `group_name`='" . DB::quote($_POST['group_name']) . "'";
+    $group_info = DB::fetch1($sql);
+
+    if (! $group_info)
     {
         $err = str_replace('[GROUP_NAME]', $_POST['group_name'], $lang['group_not_found_name']);
     }
     else
     {
         $found = 1;
-        $group_info = mysql_fetch_assoc($result);
         $group_id = $group_info['group_id'];
     }
 }
@@ -40,7 +39,7 @@ if (! empty($_POST['group_name']))
 if ($found > 0)
 {
     $redirect_url = VSHARE_URL . '/admin/group_view.php?group_id=' . $group_id;
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 $smarty->assign('err', $err);
@@ -48,4 +47,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/group_search.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

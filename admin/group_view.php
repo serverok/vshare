@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.channels.php';
 
 check_admin_login();
 
@@ -21,12 +20,11 @@ $group_id = isset($_GET['group_id']) ? $_GET['group_id'] : 0;
 
 $sql = "SELECT * FROM `groups` WHERE
        `group_id`='" . (int) $group_id . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$group_info = mysql_fetch_assoc($result);
+$group_info = DB::fetch1($sql);
 $smarty->assign('group', $group_info);
 
 $mych = explode('|', $group_info['group_channels']);
-$ch = channels::get_all();
+$ch = Channel::get();
 
 $ch_checkbox = '';
 
@@ -44,4 +42,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/group_view.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

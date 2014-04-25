@@ -501,34 +501,25 @@ function insert_group_info_count($a)
 
 function insert_topic_count($a)
 {
-    global $conn;
     $sql = "SELECT count(*) AS `total` FROM `group_topics` WHERE
            `group_topic_group_id`='" . (int) $a['GID'] . "' AND
            `group_topic_approved`='yes'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    return $tmp['total'];
+    return DB::getTotal($sql);
 }
 
 function insert__count($a)
 {
-    global $conn;
     $sql = "SELECT count(*) AS `total` FROM `group_topics` WHERE
            `group_topic_group_id`='" . (int) $a['GID'] . "' AND
            `group_topic_approved`='yes'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    return $tmp['total'];
+    return DB::getTotal($sql);
 }
 
 function insert_post_count($a)
 {
-    global $conn;
     $sql = "SELECT count(*) AS `total` FROM `group_topic_posts` WHERE
            `group_topic_post_topic_id`='" . (int) $a['TID'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    return $tmp['total'];
+    return DB::getTotal($sql);
 }
 
 function insert_group_image($a)

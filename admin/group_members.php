@@ -21,8 +21,7 @@ $result_per_page = get_config('admin_listing_per_page');
 
 $sql = "SELECT `group_name` FROM `groups` WHERE
        `group_id`='" . (int) $_GET['group_id'] . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
+$tmp = DB::fetch1($sql);
 $smarty->assign('group_name', $tmp['group_name']);
 
 $sort_allowed = array(
@@ -54,8 +53,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'del')
     {
         $sql = "SELECT `group_owner_id` FROM `groups` WHERE
                `group_id`='" . (int) $_GET['group_id'] . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        $tmp = mysql_fetch_assoc($result);
+        $tmp = DB::fetch1($sql);
         if ($tmp['group_owner_id'] == $_GET['uid'])
         {
             $err = $lang['group_owner_del'];
@@ -65,7 +63,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'del')
             $sql = "DELETE FROM `group_members` WHERE
                    `group_member_group_id`='" . (int) $_GET['group_id'] . "' AND
                    `group_member_user_id`='" . (int) $_GET['uid'] . "'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
     }
 }
@@ -82,9 +80,7 @@ $sql = "SELECT count(*) AS `total` FROM
        `users` AS u WHERE
         gm.group_member_group_id='" . (int) $_GET['group_id'] . "' AND
         gm.group_member_user_id=u.user_id";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_array($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start_from = ($page - 1) * $result_per_page;
 
@@ -111,8 +107,7 @@ $sql = "SELECT * FROM
         gm.group_member_user_id=u.user_id
         $query
         LIMIT $start_from, $result_per_page";
-$result = mysql_query($sql) or mysql_die($sql);
-$users = mysql_fetch_all($result);
+$users = DB::fetch($sql);
 
 $smarty->assign('link', $links['all']);
 $smarty->assign('grandtotal', $total);
@@ -124,4 +119,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/group_members.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

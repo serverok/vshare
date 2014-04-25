@@ -48,10 +48,10 @@
 	</tr>
 
 	{section name=i loop=$grptps}
-    
+
         {insert name=id_to_name assign=uname un=$grptps[i].group_topic_user_id}
         {insert name=post_count assign=total_post TID=$grptps[i].group_topic_id}
-        
+
         <tr bgcolor="{cycle values="#F8F8F8,#F2F2F2"}">
             <td>
                 <a href="group_posts.php?gid={$grptps[i].group_topic_group_id}&TID={$grptps[i].group_topic_id}">
@@ -83,9 +83,9 @@
         </tr>
 
 	{/section}
-    
+
 </table>
 
 <div class="margin-tb-1em">
-	$link}
+	{$link}
 </div>

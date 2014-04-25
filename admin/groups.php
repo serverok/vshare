@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.channels.php';
 
 check_admin_login();
 
@@ -37,20 +36,24 @@ if (isset($_GET['action']) && $_GET['action'] == 'del')
 {
     $sql = "DELETE FROM `groups` WHERE
            `group_id`='" . (int) $_GET['gid'] . "'";
-    mysql_query($sql) or mysql_die($sql);
-    
+    DB::query($sql);
+
     $sql = "DELETE FROM `group_videos` WHERE
            `group_video_group_id`='" . (int) $_GET['gid'] . "'";
-    mysql_query($sql) or mysql_die($sql);
-    
+    DB::query($sql);
+
     $sql = "DELETE FROM `group_topics` WHERE
            `group_topic_group_id`='" . (int) $_GET['gid'] . "'";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
+
+    $sql = "DELETE FROM `group_members` WHERE
+           `group_member_group_id`='" . (int) $_GET['gid'] . "'";
+    DB::query($sql);
 }
 
 if (($_GET['a'] == 'all') || ($_GET['a'] == 'public') || ($_GET['a'] == 'private') || ($_GET['a'] == 'protected'))
 {
-    
+
     if ($_GET['a'] != 'all')
     {
         $query = "WHERE `group_type`='$_GET[a]'";
@@ -59,9 +62,9 @@ if (($_GET['a'] == 'all') || ($_GET['a'] == 'public') || ($_GET['a'] == 'private
     {
         $query = '';
     }
-    
+
     $_GET['sort'] = isset($_GET['sort']) ? $_GET['sort'] : '';
-    
+
     if ($_GET['sort'] != '')
     {
         $sort = $_GET['sort'];
@@ -70,18 +73,16 @@ if (($_GET['a'] == 'all') || ($_GET['a'] == 'public') || ($_GET['a'] == 'private
     {
         $sort = " `group_id` DESC";
     }
-    
+
     $sql = "SELECT count(*) AS `total` FROM `groups`
             $query";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_array($result);
-    $total = $tmp['total'];
-    
+    $total = DB::getTotal($sql);
+
     $start_from = ($page - 1) * $result_per_page;
-    
+
     require 'Pager/Pager.php';
     require 'Pager/Sliding.php';
-    
+
     $params = array(
         'mode' => 'Sliding',
         'perPage' => $result_per_page,
@@ -90,18 +91,17 @@ if (($_GET['a'] == 'all') || ($_GET['a'] == 'public') || ($_GET['a'] == 'private
         'totalItems' => $total,
         'urlVar' => 'page'
     );
-    
+
     $pager = new Pager_Sliding($params);
     $data = $pager->getPageData();
     $links = $pager->getLinks();
-    
+
     $sql = "SELECT * FROM `groups`
             $query
             ORDER BY $sort
             LIMIT  $start_from, $result_per_page";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $groups = mysql_fetch_all($result);
-    
+    $groups = DB::fetch($sql);
+
     $smarty->assign('sort', $sort);
     $smarty->assign('links', $links['all']);
     $smarty->assign('total', $total);
@@ -115,4 +115,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/groups.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

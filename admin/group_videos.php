@@ -20,8 +20,7 @@ $listing_per_page = get_config('admin_listing_per_page');
 
 $sql = "SELECT `group_name` FROM `groups` WHERE
        `group_id`='" . (int) $_GET['gid'] . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
+$tmp = DB::fetch1($sql);
 $smarty->assign('group_name', $tmp['group_name']);
 
 $gid = $_GET['gid'];
@@ -46,7 +45,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'del')
     $sql = "DELETE FROM `group_videos` WHERE
            `group_video_group_id`=" . (int) $gid . " AND
            `group_video_video_id`='" . (int) $VID . "'";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
 }
 
 $query = ' WHERE gv.group_video_group_id=' . (int) $gid;
@@ -63,9 +62,7 @@ $sql = "SELECT count(*) AS `total` FROM
        `videos` AS v
         $query AND
         gv.group_video_video_id=v.video_id";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 $grandtotal = $total;
 $start_from = ($page - 1) * $listing_per_page;
 
@@ -91,13 +88,7 @@ $sql = "SELECT * FROM
         gv.group_video_video_id=v.video_id
         ORDER BY $sort
         LIMIT $start_from, $listing_per_page";
-
-$result = mysql_query($sql) or mysql_die($sql);
-
-while ($tmp_result = mysql_fetch_assoc($result))
-{
-    $videos[] = $tmp_result;
-}
+$videos = DB::fetch($sql);
 
 $smarty->assign('link', $links['all']);
 $smarty->assign('grandtotal', $grandtotal + 0);
@@ -109,4 +100,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/group_videos.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

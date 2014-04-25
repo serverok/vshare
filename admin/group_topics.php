@@ -33,8 +33,7 @@ if ($page < 1)
 
 $sql = "SELECT `group_name` FROM `groups` WHERE
        `group_id`=" . (int) $_GET['gid'];
-$result = mysql_query($sql) or mysql_die();
-$tmp = mysql_fetch_assoc($result);
+$tmp = DB::fetch1($sql);
 $group_name = $tmp['group_name'];
 
 $smarty->assign('group_name', $group_name);
@@ -43,7 +42,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'del' && is_numeric($_GET['TID'
 {
     $sql = "DELETE FROM `group_topics` WHERE
            `group_topic_id`='" . (int) $_GET['TID'] . "'";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
 }
 
 $query = " WHERE `group_topic_group_id`='" . (int) $_GET['gid'] . "'";
@@ -69,9 +68,7 @@ else
 }
 
 $sql = "SELECT count(*) AS `total` FROM `group_topics` $query";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start_from = ($page - 1) * $result_per_page;
 
@@ -94,8 +91,7 @@ $links = $pager->getLinks();
 $sql = "SELECT * FROM `group_topics`
         $query
         LIMIT $start_from, $result_per_page";
-$result = mysql_query($sql) or mysql_die($sql);
-$topics = mysql_fetch_all($result);
+$topics = DB::fetch($sql);
 
 $smarty->assign('link', $links["all"]);
 $smarty->assign('grandtotal', $total);
@@ -107,4 +103,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/group_topics.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();
