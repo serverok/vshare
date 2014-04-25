@@ -263,9 +263,7 @@ function insert_row_count($a)
         $sql = "SELECT count(*) AS `total` FROM `$a[table]` WHERE
 	           `$a[field1]`='" . (int) $a['group_id'] . "' AND
                `$a[field2]`='yes'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        $tmp = mysql_fetch_assoc($result);
-        return $tmp['total'];
+        return DB::getTotal($sql);
     }
     else
     {
