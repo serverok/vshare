@@ -33,7 +33,7 @@ if (isset($_POST['action_login']))
             $password = stripslashes($password);
         }
 
-        $user_info = User::getUserByName($user_name);
+        $user_info = User::getByName($user_name);
 
         if ($user_info['user_password'] != md5($password)) {
             $err = $lang['invalid_login'];
