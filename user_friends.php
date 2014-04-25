@@ -16,29 +16,21 @@ require 'include/config.php';
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
-$sql = "SELECT * FROM `users` WHERE
-       `user_name`='" . mysql_clean($_GET['user_name']) . "'";
-$result = mysql_query($sql) or mysql_die($sql);
+$user_info = User::getByName($_GET['user_name']);
 
-if (mysql_num_rows($result) != 1)
-{
+if (! $user_info) {
     $redirect_url = VSHARE_URL . '/index.php';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
-
-$user_info = mysql_fetch_assoc($result);
 
 $sql = "SELECT count(*) AS `total` FROM `friends` WHERE
        `friend_user_id`='" . (int) $user_info['user_id'] . "' AND
        `friend_status`='Confirmed'";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start_from = ($page - 1) * $config['items_per_page'];
 
@@ -47,9 +39,8 @@ $sql = "SELECT * FROM `friends` WHERE
        `friend_status`='Confirmed'
         ORDER BY `friend_invite_date` DESC
         LIMIT $start_from, $config[items_per_page]";
-$result = mysql_query($sql) or mysql_die($sql);
-$friends_count = mysql_num_rows($result);
-$friends = mysql_fetch_all($result);
+$friends = DB::fetch($sql);
+$friends_count = count($friends);
 
 $start_num = $start_from + 1;
 $end_num = $start_from + $friends_count;
@@ -69,4 +60,4 @@ $smarty->assign('sub_menu', 'menu_user.tpl');
 $smarty->display('header.tpl');
 $smarty->display('user_friends.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
