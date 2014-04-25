@@ -23,4 +23,11 @@ class Channel
 
         return $channels_all;
     }
+
+    public static function getById($id)
+    {
+        $sql = "SELECT * FROM `channels` WHERE
+               `channel_id`='" . (int) $_GET['id'] . "'";
+        return DB::fetch1($sql);
+    }
 }
