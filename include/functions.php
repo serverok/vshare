@@ -34,7 +34,6 @@ function write_admin_log()
         return;
     }
 
-    require_once 'class.user.php';
     $user = new User();
     $admin_log_ip = $user->get_ip();
     $admin_log_user_id = isset($_SESSION['MUID']) ? (int) $_SESSION['MUID'] : 0;
