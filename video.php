@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.cache.php';
 
 Cache::init();
 
@@ -66,14 +65,13 @@ if (isset($_GET['chid'])) {
 
 $view = Cache::load($cache_id);
 
-if (! $view)
-{
+if (! $view) {
     $view = array();
 
     $view['view_type'] = $view_type;
     $view['category'] = $category;
-    if ($category == 'featured')
-    {
+
+    if ($category == 'featured') {
         $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
                `video_type`='public' AND
                `video_featured`='yes' AND
@@ -81,9 +79,7 @@ if (! $view)
                `video_approve`='1'
                 $channel_sql
                 $sql_adult_filter";
-    }
-    else
-    {
+    } else {
         $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
                `video_type`='public' AND
                `video_active`='1' AND
@@ -96,8 +92,7 @@ if (! $view)
 
     $start_from = ($page - 1) * $config['num_watch_videos'];
 
-    if ($category == 'recent')
-    {
+    if ($category == 'recent') {
         $view['html_title'] = 'Most Recent ' . $channel_name . 'Videos';
         $view['display_order'] = 'Most Recent';
         $sql = "SELECT * FROM `videos` WHERE
@@ -108,9 +103,7 @@ if (! $view)
                 $sql_adult_filter
                 ORDER BY `video_add_time` DESC
                 LIMIT $start_from, $config[num_watch_videos]";
-    }
-    else if ($category == 'viewed')
-    {
+    } else if ($category == 'viewed') {
         $view['html_title'] = 'Most Viewed ' . $channel_name . 'Videos';
         $view['display_order'] = 'Most Viewed';
         $sql = "SELECT * FROM `videos` WHERE
@@ -121,9 +114,7 @@ if (! $view)
                 $sql_adult_filter
                 ORDER BY `video_view_number` DESC
                 LIMIT $start_from, $config[num_watch_videos]";
-    }
-    else if ($category == 'discussed')
-    {
+    } else if ($category == 'discussed') {
         $view['html_title'] = 'Most Discussed ' . $channel_name . 'Videos';
         $view['display_order'] = 'Most Discussed';
         $sql = "SELECT * FROM `videos` WHERE
@@ -134,9 +125,7 @@ if (! $view)
                 $sql_adult_filter
                 ORDER BY `video_com_num` DESC
                 LIMIT $start_from, $config[num_watch_videos]";
-    }
-    else if ($category == 'favorites')
-    {
+    } else if ($category == 'favorites') {
         $view['html_title'] = 'Top Favorites ' . $channel_name . 'Videos';
         $view['display_order'] = 'Top Favorites';
         $sql = "SELECT * FROM `videos` WHERE
@@ -147,9 +136,7 @@ if (! $view)
                 $sql_adult_filter
                 ORDER BY `video_fav_num` DESC
                 LIMIT $start_from,$config[num_watch_videos]";
-    }
-    else if ($category == 'rated')
-    {
+    } else if ($category == 'rated') {
         $view['html_title'] = 'Top Rated ' . $channel_name . 'Videos';
         $view['display_order'] = 'Top Rated';
         $sql = "SELECT * FROM `videos` WHERE
@@ -160,9 +147,7 @@ if (! $view)
                 $sql_adult_filter
                 ORDER BY (video_rate/video_rated_by) DESC, video_rated_by DESC
                 LIMIT $start_from, $config[num_watch_videos]";
-    }
-    else if ($category == 'featured')
-    {
+    } else if ($category == 'featured') {
         $view['html_title'] = 'Featured ' . $channel_name . 'Videos';
         $view['display_order'] = 'Featured';
         $sql = "SELECT * FROM `videos` WHERE
