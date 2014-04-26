@@ -24,53 +24,53 @@ if (isset($_POST['submit']))
         $sql = "UPDATE `sconfig` SET
                `svalue`='" . (int) $_POST['player_autostart'] . "' WHERE
                `soption`='player_autostart'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
         $smarty->assign('player_autostart', $_POST['player_autostart']);
     }
-    
+
     if (is_numeric($_POST['player_bufferlength']))
     {
         $sql = "UPDATE `sconfig` SET
                `svalue`='" . (int) $_POST['player_bufferlength'] . "' WHERE
                `soption`='player_bufferlength'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
         $smarty->assign('player_bufferlength', $_POST['player_bufferlength']);
     }
-    
+
     if (is_numeric($_POST['player_width']))
     {
         $sql = "UPDATE `sconfig` SET
                `svalue`='" . (int) $_POST['player_width'] . "' WHERE
                `soption`='player_width'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
         $smarty->assign('player_width', $_POST['player_width']);
     }
-    
+
     if (is_numeric($_POST['player_height']))
     {
         $sql = "UPDATE `sconfig` SET
                `svalue`='" . (int) $_POST['player_height'] . "' WHERE
                `soption`='player_height'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
         $smarty->assign('player_height', $_POST['player_height']);
     }
 
     if (isset($_POST['youtube_player']))
     {
         $sql = "UPDATE `config` SET
-               `config_value`='" . mysql_clean($_POST['youtube_player']) . "' WHERE
+               `config_value`='" . DB::quote($_POST['youtube_player']) . "' WHERE
                `config_name`='youtube_player'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
 
     if (isset($_POST['vshare_player']))
     {
         $sql = "UPDATE `config` SET
-               `config_value`='" . mysql_clean($_POST['vshare_player']) . "' WHERE
+               `config_value`='" . DB::quote($_POST['vshare_player']) . "' WHERE
                `config_name`='vshare_player'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
-    
+
     $msg = $lang['settings_updated'];
 }
 
@@ -81,4 +81,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/settings_player.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

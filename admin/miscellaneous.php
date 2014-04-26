@@ -34,9 +34,9 @@ if (isset($_POST['submit']))
     if ($err == '')
     {
         $sql = "UPDATE `sconfig` SET
-               `svalue`='" . mysql_clean($_POST['video_rating']) . "' WHERE
+               `svalue`='" . DB::quote($_POST['video_rating']) . "' WHERE
                `soption`='video_rating'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
         $smarty->assign('video_rating', $_POST['video_rating']);
 
         if (is_numeric($_POST['allow_download']))
@@ -44,7 +44,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `sconfig` SET
                    `svalue`='" . (int) $_POST['allow_download'] . "' WHERE
                    `soption`='allow_download'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
             $smarty->assign('allow_download', $_POST['allow_download']);
         }
 
@@ -53,7 +53,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . (int) $_POST['admin_listing_per_page'] . "' WHERE
                    `config_name`='admin_listing_per_page'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         if (is_numeric($_POST['process_upload']))
@@ -61,7 +61,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . (int) $_POST['process_upload'] . "' WHERE
                    `config_name`='process_upload'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         if (is_numeric($_POST['video_duration_cmd']))
@@ -69,7 +69,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . (int) $_POST['video_duration_cmd'] . "' WHERE
                    `config_name`='video_duration_cmd'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         if (is_numeric($_POST['process_notify_user']))
@@ -77,7 +77,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . (int) $_POST['process_notify_user'] . "' WHERE
                    `config_name`='process_notify_user'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         if (is_numeric($_POST['video_flv_delete']))
@@ -85,7 +85,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . (int) $_POST['video_flv_delete'] . "' WHERE
                    `config_name`='video_flv_delete'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         if (is_numeric($_POST['recommend_all']))
@@ -93,20 +93,20 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . (int) $_POST['recommend_all'] . "' WHERE
                    `config_name`='recommend_all'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         $sql = "UPDATE `config` SET
-               `config_value`='" . mysql_clean($_POST['php_path']) . "' WHERE
+               `config_value`='" . DB::quote($_POST['php_path']) . "' WHERE
                `config_name`='php_path'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
 
         if (is_numeric($_POST['video_comments_per_page']))
         {
             $sql = "UPDATE `sconfig` SET
                    `svalue`='" . (int) $_POST['video_comments_per_page'] . "' WHERE
                    `soption`='video_comments_per_page'";
-            $result = mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
             $smarty->assign('video_comments_per_page', $_POST['video_comments_per_page']);
         }
 
@@ -115,7 +115,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . (int) $_POST['video_comment_notify'] . "' WHERE
                    `config_name`='video_comment_notify'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
             $smarty->assign('video_comment_notify', $_POST['video_comment_notify']);
         }
 
@@ -124,7 +124,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `sconfig` SET
                    `svalue`='" . (int) $_POST['user_comments_per_page'] . "' WHERE
                    `soption`='user_comments_per_page'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
             $smarty->assign('user_comments_per_page', $_POST['user_comments_per_page']);
         }
 
@@ -133,7 +133,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . (int) $_POST['editor_wysiwyg_admin'] . "' WHERE
                    `config_name`='editor_wysiwyg_admin'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         if (is_numeric($_POST['editor_wysiwyg_email']))
@@ -141,7 +141,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . (int) $_POST['editor_wysiwyg_email'] . "' WHERE
                    `config_name`='editor_wysiwyg_email'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         if (is_numeric($_POST['mail_abuse_report']))
@@ -149,7 +149,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . (int) $_POST['mail_abuse_report'] . "' WHERE
                    `config_name`='mail_abuse_report'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         if (isset($_POST['flv_metadata']))
@@ -158,9 +158,9 @@ if (isset($_POST['submit']))
             if ($_POST['flv_metadata'] == 'yamdi' || $_POST['flv_metadata'] == 'flvtool' || $_POST['flv_metadata'] == 'none')
             {
                 $sql = "UPDATE `config` SET
-	                   `config_value`='" . mysql_clean($_POST['flv_metadata']) . "' WHERE
+	                   `config_value`='" . DB::quote($_POST['flv_metadata']) . "' WHERE
 	                   `config_name`='flv_metadata'";
-                mysql_query($sql) or mysql_die($sql);
+                DB::query($sql);
             }
         }
 
@@ -169,15 +169,15 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . (int) $_POST['guest_upload'] . "' WHERE
                    `config_name`='guest_upload'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         if (! empty($_POST['guest_upload_user']) && $_POST['guest_upload'] == 1)
         {
             $sql = "UPDATE `config` SET
-                   `config_value`='" . mysql_clean($_POST['guest_upload_user']) . "' WHERE
+                   `config_value`='" . DB::quote($_POST['guest_upload_user']) . "' WHERE
                    `config_name`='guest_upload_user'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         if (is_numeric($_POST['num_channel_video']))
@@ -185,7 +185,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . (int) $_POST['num_channel_video'] . "' WHERE
                    `config_name`='num_channel_video'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         if (is_numeric($_POST['num_max_channels']))
@@ -193,7 +193,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . intval($_POST['num_max_channels']) . "' WHERE
                    `config_name`='num_max_channels'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         if (is_numeric($_POST['user_daily_mail_limit']))
@@ -201,7 +201,7 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `config` SET
                    `config_value`='" . intval($_POST['user_daily_mail_limit']) . "' WHERE
                    `config_name`='user_daily_mail_limit'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
 
         $msg = $lang['settings_updated'];
@@ -230,4 +230,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/miscellaneous.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

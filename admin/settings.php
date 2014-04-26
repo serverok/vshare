@@ -20,89 +20,89 @@ check_admin_login();
 if (isset($_POST['submit']))
 {
     $sql = "UPDATE `sconfig` SET
-           `svalue`='" . mysql_clean($_POST['site_name']) . "' WHERE
+           `svalue`='" . DB::quote($_POST['site_name']) . "' WHERE
            `soption`='site_name'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `config` SET
            `config_value`='" . (int) $_POST['allow_html'] . "' WHERE
            `config_name`='allow_html'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
-           `svalue`='" . mysql_clean($_POST['meta_keywords']) . "' WHERE
+           `svalue`='" . DB::quote($_POST['meta_keywords']) . "' WHERE
            `soption`='meta_keywords'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
-           `svalue`='" . mysql_clean($_POST['meta_description']) . "' WHERE
+           `svalue`='" . DB::quote($_POST['meta_description']) . "' WHERE
            `soption`='meta_description'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
-           `svalue`='" . mysql_clean($_POST['admin_email']) . "' WHERE
+           `svalue`='" . DB::quote($_POST['admin_email']) . "' WHERE
            `soption`='admin_email'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
-           `svalue`='" . mysql_clean($_POST['items_per_page']) . "' WHERE
+           `svalue`='" . DB::quote($_POST['items_per_page']) . "' WHERE
            `soption`='items_per_page'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . (int) $_POST['rel_video_per_page'] . "' WHERE
            `soption`='rel_video_per_page'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . (int) $_POST['num_watch_videos'] . "' WHERE
            `soption`='num_watch_videos'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['enable_package'] . "' WHERE
            `soption`='enable_package'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['approve'] . "' WHERE
            `soption`='approve'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = 'UPDATE `config` SET
             `config_value`="' . $_POST['moderate_video_links'] . '" WHERE
             `config_name`="moderate_video_links"';
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['debug'] . "' WHERE
            `soption`='debug'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['notify_upload'] . "' WHERE
            `soption`='notify_upload'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['guest_limit'] . "' WHERE
            `soption`='guest_limit'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['embed_show'] . "' WHERE
            `soption`='embed_show'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . $_POST['embed_type'] . "' WHERE
            `soption`='embed_type'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $sql = "UPDATE `sconfig` SET
            `svalue`='" . (int) $_POST['cache_enable'] . "' WHERE
            `soption`='cache_enable'";
-    mysql_query($sql);
+    DB::query($sql);
 
     if ($config['enable_package'] == 'yes')
     {
@@ -118,20 +118,20 @@ if (isset($_POST['submit']))
             $sql = "UPDATE `sconfig` SET
                    `svalue`='$payment_method' WHERE
                    `soption`='payment_method'";
-            mysql_query($sql);
+            DB::query($sql);
         }
 
         if ($err == '')
         {
             $sql = "UPDATE `sconfig` SET
-                   `svalue`='" . mysql_clean($_POST['paypal_receiver_email']) . "' WHERE
+                   `svalue`='" . DB::quote($_POST['paypal_receiver_email']) . "' WHERE
                    `soption`='paypal_receiver_email'";
-            mysql_query($sql);
+            DB::query($sql);
 
             $sql = "UPDATE `sconfig` SET
-                   `svalue`='" . mysql_clean($_POST['enable_test_payment']) . "' WHERE
+                   `svalue`='" . DB::quote($_POST['enable_test_payment']) . "' WHERE
                    `soption`='enable_test_payment'";
-            mysql_query($sql);
+            DB::query($sql);
 
             if (preg_match("/CCBill/i", $payment_method))
             {
@@ -151,16 +151,16 @@ if (isset($_POST['submit']))
                     if (check_config_exists('ccbill_ac_no'))
                     {
                         $sql = "UPDATE `config` SET
-                               `config_value`='" . mysql_clean($_POST['ccbill_ac_no']) . "' WHERE
+                               `config_value`='" . DB::quote($_POST['ccbill_ac_no']) . "' WHERE
                                `config_name`='ccbill_ac_no'";
-                        mysql_query($sql);
+                        DB::query($sql);
                     }
                     else
                     {
                         $sql = "INSERT INTO `config` SET
                                `config_name`='ccbill_ac_no',
-                               `config_value`='" . mysql_clean($_POST['ccbill_ac_no']) . "'";
-                        mysql_query($sql);
+                               `config_value`='" . DB::quote($_POST['ccbill_ac_no']) . "'";
+                        DB::query($sql);
                     }
 
                     $_POST['ccbill_sub_ac_no'] = isset($_POST['ccbill_sub_ac_no']) ? $_POST['ccbill_sub_ac_no'] : '';
@@ -169,16 +169,16 @@ if (isset($_POST['submit']))
                     if (check_config_exists('ccbill_sub_ac_no'))
                     {
                         $sql = "UPDATE `config` SET
-                               `config_value`='" . mysql_clean($_POST['ccbill_sub_ac_no']) . "' WHERE
+                               `config_value`='" . DB::quote($_POST['ccbill_sub_ac_no']) . "' WHERE
                                `config_name`='ccbill_sub_ac_no'";
-                        mysql_query($sql);
+                        DB::query($sql);
                     }
                     else
                     {
                         $sql = "INSERT INTO `config` SET
                                `config_name`='ccbill_sub_ac_no',
-                               `config_value`='" . mysql_clean($_POST['ccbill_sub_ac_no']) . "'";
-                        mysql_query($sql);
+                               `config_value`='" . DB::quote($_POST['ccbill_sub_ac_no']) . "'";
+                        DB::query($sql);
                     }
 
                     $_POST['ccbill_form_name'] = isset($_POST['ccbill_form_name']) ? $_POST['ccbill_form_name'] : '';
@@ -187,16 +187,16 @@ if (isset($_POST['submit']))
                     if (check_config_exists('ccbill_form_name'))
                     {
                         $sql = "UPDATE `config` SET
-                               `config_value`='" . mysql_clean($_POST['ccbill_form_name']) . "' WHERE
+                               `config_value`='" . DB::quote($_POST['ccbill_form_name']) . "' WHERE
                                `config_name`='ccbill_form_name'";
-                        mysql_query($sql);
+                        DB::query($sql);
                     }
                     else
                     {
                         $sql = "INSERT INTO `config` SET
                                `config_name`='ccbill_form_name',
-                               `config_value`='" . mysql_clean($_POST['ccbill_form_name']) . "'";
-                        mysql_query($sql);
+                               `config_value`='" . DB::quote($_POST['ccbill_form_name']) . "'";
+                        DB::query($sql);
                     }
 
                 }
@@ -205,16 +205,16 @@ if (isset($_POST['submit']))
     }
 
     $sql = "UPDATE `sconfig` SET
-           `svalue`='" . mysql_clean($_POST['family_filter']) . "' WHERE
+           `svalue`='" . DB::quote($_POST['family_filter']) . "' WHERE
            `soption`='family_filter'";
-    mysql_query($sql);
+    DB::query($sql);
 
     $hotlink_protection = (int) $_POST['hotlink_protection'];
 
     $sql = 'UPDATE `config` SET
             `config_value`="' . $hotlink_protection . '" WHERE
             `config_name`="hotlink_protection"';
-    mysql_query($sql);
+    DB::query($sql);
 
     if ($hotlink_protection == 0)
     {
@@ -248,7 +248,7 @@ RewriteRule .* [F]
     {
         set_message($lang['settings_updated'], 'success');
         $redirect_url = VSHARE_URL . '/admin/settings.php';
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 
@@ -298,4 +298,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/settings.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();
