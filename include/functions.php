@@ -527,31 +527,6 @@ function download($source, $destination)
     return $written;
 }
 
-function mysql_clean($value, $is_magic_quote_removed = 0)
-{
-    if (get_magic_quotes_gpc() && $is_magic_quote_removed == 0)
-    {
-        $value = stripslashes($value);
-    }
-
-    if (! is_numeric($value))
-    {
-        $value = mysqli_real_escape_string($value);
-    }
-
-    return $value;
-}
-
-function mysql_die($msg)
-{
-    echo "<FONT face=verdana SIZE=2 COLOR=#FF0000><B>ERROR: Unable to execute query</B></FONT><BR>";
-    echo "<pre>$msg</pre>";
-    echo "<FONT face=arial SIZE=2 COLOR=#0000FF><B>";
-    echo mysqli_error(DB::$link);
-    echo "</B></FONT><BR>";
-    exit(0);
-}
-
 function write_log($txt, $logfile = 1, $echo = 0, $extension = 'txt')
 {
     global $config;
