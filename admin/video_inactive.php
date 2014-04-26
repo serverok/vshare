@@ -42,28 +42,20 @@ if ($todo == 'activate_all')
 {
     $sql = "SELECT `video_user_id` FROM `videos` WHERE
            `video_active`='0'";
-    $result = mysql_query($sql) or mysql_die($sql);
+    $inactive_videos = DB::fetch($sql);
 
-    if (mysql_num_rows($result) > 0)
-    {
-        while (list($video_user_id) = mysql_fetch_array($result))
-        {
-            update_user_video_count($video_user_id, 1);
-        }
+    foreach($inactive_videos as $inactive_video) {
+        update_user_video_count($inactive_video['video_user_id'], 1);
     }
 
-    $sql = "UPDATE `videos` SET
-           `video_active`='1'";
-    mysql_query($sql) or mysql_die();
+    $sql = "UPDATE `videos` SET `video_active`='1'";
+    DB::query($sql);
     $msg = $lang['activate_all_video'];
 }
 
-if (isset($_GET['sort']))
-{
+if (isset($_GET['sort'])) {
     $sort = $_GET['sort'];
-}
-else
-{
+} else {
     $sort = " `video_id` DESC";
 }
 
