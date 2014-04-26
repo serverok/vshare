@@ -29,6 +29,7 @@ $smarty->template_dir = VSHARE_DIR . '/templates';
 $smarty->compile_dir = VSHARE_DIR . '/templates_c';
 $smarty->cache_dir = VSHARE_DIR . '/templates_c/cache';
 $smarty->caching = 0;
+$smarty->error_reporting = E_ALL & ~E_NOTICE;
 
 $sql = "SELECT * FROM `sconfig`";
 $result = DB::query($sql);
