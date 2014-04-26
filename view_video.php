@@ -25,10 +25,9 @@ if (! is_numeric($video_id)) {
     redirect(VSHARE_URL);
 }
 
-$video = new Video();
-$video_info = $video->get_video_info($video_id);
+$video_info = Video::getById($video_id);
 
-if ($video_info == 0 || $video_info['video_user_id'] == 0) {
+if (! $video_info || $video_info['video_user_id'] == 0) {
     set_message($lang['video_not_found'], 'error');
     $redirect_url = VSHARE_URL . '/';
     redirect($redirect_url);
@@ -61,7 +60,7 @@ if (! isset($_SESSION['UID']) && $err == '' && $config['guest_limit'] != 0) {
     if ($video_watch_duration > $config['guest_limit']) {
         $next = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
         $_SESSION['REDIRECT'] = $next;
-        redirect(VSHARE_URL . '/signup/');
+        Http::redirect(VSHARE_URL . '/signup/');
     }
 }
 
@@ -92,7 +91,7 @@ if ($err == '') {
             } else {
                 $redirect_url = $config['baseurl'] . '/login/';
             }
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
     } else {
         $show_video = 1;
@@ -102,7 +101,7 @@ if ($err == '') {
 if (isset($show_video) && $show_video == 1 && $err == '') {
 
     $sql = "UPDATE `videos` SET
-           `video_view_time`='" . mysql_clean($_SERVER['REQUEST_TIME']) . "' WHERE
+           `video_view_time`='" . DB::quote($_SERVER['REQUEST_TIME']) . "' WHERE
            `video_id`='" . (int) $video_id . "'";
     DB::query($sql);
 
@@ -138,14 +137,31 @@ if (isset($show_video) && $show_video == 1 && $err == '') {
         $tags = explode(' ', $video_info['video_keywords']);
         $view['tags'] = $tags;
 
-        # Response Videos Start
-        $view['video_responses'] = $video->get_response_videos($video_id, '5');
-
-        # Related Videos Start
+        $view['video_responses'] = Video::getVideoResponse($video_id, 5);
 
 		$related_video_string =  trim($video_info['video_title']) . ' ' . trim($video_info['video_description']) . ' ' . trim($video_info['video_keywords']);
-        $related_videos = $video->get_related_videos($video_id, $related_video_string);
+        $related_videos = Video::getRelatedVideos($video_id, $related_video_string);
         $view['related_videos'] = $related_videos;
+
+        $video_this = '';
+
+        for ($i = 0; $i < count($related_videos); $i ++) {
+            if ($related_videos[$i]['video_id'] == $video_id) {
+                $video_this = $i;
+                break;
+            }
+        }
+
+        if ($video_this === '') {
+            $num_related_videos = count($related_videos);
+            if ($num_related_videos > 4) {
+                $video_this = (int) $num_related_videos / 2;
+                $related_videos[$video_this] = $video_info;
+            } else if ($num_related_videos > 2) {
+                $video_this = 0;
+            }
+        }
+
         $video_next = $video_this + 1;
         $video_prev = $video_this - 1;
 

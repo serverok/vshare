@@ -881,8 +881,6 @@ function insert_show_stats()
 
 function insert_user_rate($a)
 {
-    global $config;
-
     $sql = "SELECT count(*) AS `total`,sum(vote) FROM `uservote` WHERE
 	       `candate_id`=" . (int) $a['user_id'] . "
 	        GROUP BY `candate_id`";
@@ -891,8 +889,14 @@ function insert_user_rate($a)
     $rate = $vote_info['sum(vote)'];
     $rating = $vote_info['total'];
 
-    $rate = $rate / $rating;
-    $num_full_star = floor($rate);
+    if ($rating) {
+        $rate = $rate / $rating;
+        $num_full_star = floor($rate);
+    } else {
+        $rate = 0;
+        $num_full_star = 0;
+    }
+
     $count = 0;
 
     for ($i = 0; $i < $num_full_star; $i ++) {

@@ -25,11 +25,11 @@ if (! $latest_tags) {
 	       `tag_count` > 0
 	        ORDER BY `used_on` DESC
 	        LIMIT 100";
-    $tags = DB::fetch($sql);
+    $tags_all = DB::fetch($sql);
 
-    if ($tags) {
+    if ($tags_all) {
         $tags = new HTML_TagCloud();
-        foreach ($tags as $tag) {
+        foreach ($tags_all as $tag) {
             $tag_url = VSHARE_URL . '/tag/' . strtolower($tag['tag']) . '/';
             $tags->addElement($tag['tag'], $tag_url, $tag['tag_count'], $tag['used_on']);
         }

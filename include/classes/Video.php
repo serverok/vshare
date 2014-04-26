@@ -263,7 +263,7 @@ class Video
         }
     }
 
-    public function get_related_videos($video_id, $search_string)
+    public static function getRelatedVideos($video_id, $search_string)
     {
         global $config , $servers;
 
@@ -441,7 +441,7 @@ class Video
         }
     }
 
-    function get_response_videos($video_id, $limit = '')
+    public static function getVideoResponse($video_id, $limit = 5)
     {
         global $servers;
 
