@@ -34,14 +34,14 @@ if ($mail_folder == 'inbox') {
 }
 
 $sql = "SELECT count(*) AS `total` FROM `mails` WHERE
-        `$who`='" . mysql_clean($_SESSION['USERNAME']) . "' AND
+        `$who`='" . DB::quote($_SESSION['USERNAME']) . "' AND
         `mail_" . $mail_folder . "_track`='2'";
 $total = DB::getTotal($sql);
 
 $start_from = ($page - 1) * $config['items_per_page'];
 
 $sql = "SELECT m.*,u.user_id FROM `mails` AS `m`, `users` AS `u` WHERE
-        m.$who='" . mysql_clean($_SESSION['USERNAME']) . "' AND
+        m.$who='" . DB::quote($_SESSION['USERNAME']) . "' AND
         m.mail_" . $mail_folder . "_track='2' AND
         m.$show_photo=u.user_name
         ORDER BY `mail_id` DESC
@@ -56,7 +56,7 @@ foreach ($mails_all as $mail) {
 }
 
 $start_num = $start_from + 1;
-$end_num = $start_from + mysql_num_rows($result);
+$end_num = $start_from + count($mails);
 
 require 'Pager/Pager.php';
 require 'Pager/Sliding.php';
