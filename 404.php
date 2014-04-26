@@ -46,4 +46,4 @@ $smarty->assign('html_title', '404 Not Found');
 $smarty->display('header.tpl');
 $smarty->display('404.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
