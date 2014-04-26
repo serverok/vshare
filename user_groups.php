@@ -17,33 +17,24 @@ require 'include/language/' . LANG . '/lang_user_groups.php';
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
-$sql = "SELECT * FROM `users` WHERE
-       `user_name`='" . mysql_clean($_GET['user_name']) . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$num_result = mysql_num_rows($result);
+$user_info = User::getByName($_GET['user_name']);
 
-if ($num_result != 1)
-{
+if (! $user_info) {
     set_message($lang['user_not_found'], 'error');
-    $redirect_url = VSHARE_URL . '/index.php';
-    redirect($redirect_url);
+    $redirect_url = VSHARE_URL . '/';
+    Http::redirect($redirect_url);
 }
-
-$user_info = mysql_fetch_assoc($result);
 
 $sql = "SELECT count(gm.group_member_group_id) AS `total` FROM
        `groups` AS g,
        `group_members` AS gm WHERE
         gm.group_member_group_id=g.group_id AND
         gm.group_member_user_id='" . (int) $user_info['user_id'] . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_array($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start_from = ($page - 1) * $config['items_per_page'];
 
@@ -53,17 +44,16 @@ $sql = "SELECT g.*, gm.group_member_group_id FROM
         gm.group_member_user_id='" . (int) $user_info['user_id'] . "'
         ORDER BY g.group_create_time DESC
         LIMIT $start_from, $config[items_per_page]";
-$result = mysql_query($sql) or mysql_die($sql);
-$num_result = mysql_num_rows($result);
+$groups_all = DB::fetch($sql);
+$num_result = count($groups_all);
 
 $user_group_keywords_all = '';
 
 $groups = array();
 
-while ($group_row = mysql_fetch_assoc($result))
-{
-    $groups[] = $group_row;
-    $user_group_keywords_all .= $group_row['group_keyword'] . ' ';
+foreach ($groups_all as $group) {
+    $groups[] = $group;
+    $user_group_keywords_all .= $group['group_keyword'] . ' ';
 }
 
 $user_group_keywords_array = explode(' ', $user_group_keywords_all);
@@ -89,4 +79,4 @@ $smarty->assign('sub_menu', 'menu_user.tpl');
 $smarty->display('header.tpl');
 $smarty->display('user_groups.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
