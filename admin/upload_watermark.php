@@ -17,35 +17,28 @@ require '../include/language/' . LANG . '/lang_admin_upload_watermark.php';
 
 check_admin_login();
 
-if (isset($_POST['submit']))
-{
+if (isset($_POST['submit'])) {
+
     $sql = "UPDATE `sconfig` SET
-           `svalue`='" . mysql_clean($_POST['watermark_url']) . "' WHERE
+           `svalue`='" . DB::quote($_POST['watermark_url']) . "' WHERE
            `soption`='watermark_url'";
-    mysql_query($sql) or mysql_die();
-    
+    DB::query($sql);
+
     $smarty->assign('watermark_url', $_POST['watermark_url']);
-    
-    if (is_uploaded_file($_FILES['upfile']['tmp_name']))
-    {
+
+    if (is_uploaded_file($_FILES['upfile']['tmp_name'])) {
         $upfile_type = $_FILES['upfile']['type'];
-        
-        if ($upfile_type == 'image/gif')
-        {
+
+        if ($upfile_type == 'image/gif') {
             $new_file_name = VSHARE_DIR . '/templates/images/watermark.gif';
-            
-            if (move_uploaded_file($_FILES['upfile']['tmp_name'], $new_file_name))
-            {
+
+            if (move_uploaded_file($_FILES['upfile']['tmp_name'], $new_file_name)) {
                 chmod($new_file_name, 0777);
                 $msg = $lang['watermark_uploaded'];
-            }
-            else
-            {
+            } else {
                 $err = str_replace('[NEW_FILE_NAME]', $new_file_name, $lang['unable_to_move']);
             }
-        }
-        else
-        {
+        } else {
             $err = $lang['watermark_file_invalid'];
         }
     }
@@ -57,4 +50,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/upload_watermark.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();
