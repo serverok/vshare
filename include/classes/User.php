@@ -278,7 +278,7 @@ class User
             $_SESSION['REDIRECT'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
             if ($signup_enable != 1) {
-                $redirect_url = $config['baseurl'] . '/login';
+                $redirect_url = $config['baseurl'] . '/login/';
             } else {
                 $redirect_url = $config['baseurl'] . '/signup/';
             }
