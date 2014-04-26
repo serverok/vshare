@@ -3,6 +3,7 @@
 class DB
 {
     public static $link;
+    public static $result;
 
     public static function connect($db_host, $db_user, $db_pass, $db_name)
     {
@@ -15,8 +16,8 @@ class DB
 
     public static function query($sql)
     {
-        $result = self::$link->query($sql) or self::sqlDie($sql);
-        return $result;
+        self::$result = self::$link->query($sql) or self::sqlDie($sql);
+        return self::$result;
     }
 
     public static function fetch($sql)
@@ -87,6 +88,6 @@ class DB
 
     public static function freeResult()
     {
-        mysqli_free_result();
+        mysqli_free_result(self::$result);
     }
 }
