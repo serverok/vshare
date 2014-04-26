@@ -76,7 +76,7 @@ if (isset($_POST['submit'])) {
                     continue;
                 }
 
-                if (! validate::email($friend_email)) {
+                if (! Validate::email($friend_email)) {
                     $msg .= $friend_email . ' - Invalid<br />';
                     continue;
                 }
@@ -85,9 +85,8 @@ if (isset($_POST['submit'])) {
                        `friend_user_id`='" . (int) $_SESSION['UID'] . "' AND
                        `friend_name`='" . DB::quote($friend_email) . "'";
                 $friend_already = DB::fetch1($sql);
-                dd($friend_already);
 
-                if (mysql_num_rows($result) > 0) {
+                if ($friend_already) {
                     $msg .= $friend_email . ' - ' . $lang['invite_friends_duplicate'] . '<br />';
                 } else {
                     $user_mail_today ++;
@@ -100,21 +99,19 @@ if (isset($_POST['submit'])) {
                     $sql = "INSERT INTO `mail_logs` SET
                            `mail_log_user_id`='" . (int) $_SESSION['UID'] . "',
                            `mail_log_time`='" . time() . "'";
-                    mysql_query($sql) or mysql_die($sql);
+                    DB::query($sql);
 
                     $sql = "INSERT INTO `friends` SET
                            `friend_user_id`='" . (int) $_SESSION['UID'] . "',
                            `friend_name`='" . DB::quote($friend_email) . "',
                            `friend_type`='All|Friends',
                            `friend_invite_date`='" . date("Y-m-d") . "'";
-                    mysql_query($sql) or mysql_die($sql);
-                    $id = mysql_insert_id();
+                    $id = DB::insertGetId($sql);
                     $key = $_SERVER['REQUEST_TIME'] . rand(1, 99999999);
                     $sql = "INSERT INTO `verify_code` SET
                            `vkey`='" . DB::quote($key) . "',
                            `data1`='" . (int) $id . "'";
-                    $result = mysql_query($sql) or mysql_die();
-                    $id = mysql_insert_id();
+                    $id = DB::insertGetId($sql);
                     $verify_url = VSHARE_URL . '/confirm/friend/' . base64_encode($id) . '/' . $key;
                     $email_body_tmp = $email_body;
                     $email_body_tmp = str_replace('[SITE_NAME]', $config['site_name'], $email_body_tmp);
@@ -141,7 +138,7 @@ if (isset($_POST['submit'])) {
             }
             set_message($msg, 'success');
             $redirect_url = VSHARE_URL . '/friends/invite/';
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         } else {
             $user_info = User::getById($user_id);
             $reciever_email = $user_info['user_email'];
