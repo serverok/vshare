@@ -393,8 +393,7 @@ $menu_items = array(
     )
 );
 
-if ($config['family_filter'] == 1)
-{
+if ($config['family_filter'] == 1) {
     $menu_items[] = array(
         'Adult Videos',
         'videos.php?a=adult',
@@ -402,8 +401,7 @@ if ($config['family_filter'] == 1)
     );
 }
 
-if ($config['enable_package'] == 'yes')
-{
+if ($config['enable_package'] == 'yes') {
 	$menu_items[] = array(
         'Payments',
         'payments.php',
@@ -416,4 +414,4 @@ $smarty->assign('menu_items', $menu_items);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/menu.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();
