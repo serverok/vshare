@@ -44,11 +44,9 @@ if ($num_friends) {
     $sql = "SELECT count(*) AS `total` FROM
            `videos` AS v,
            `favourite` AS f WHERE
-            f.favourite_user_id in (" . mysql_clean($my_friends) . ") AND
+            f.favourite_user_id in (" . DB::quote($my_friends) . ") AND
             f.favourite_video_id=v.video_id";
-    $result = mysql_query($sql) or mysql_die();
-    $tmp_result = mysql_fetch_assoc($result);
-    $total = $tmp_result['total'];
+    $total = DB::getTotal($sql);
 
     $start_from = ($page - 1) * $config['items_per_page'];
 
@@ -56,20 +54,19 @@ if ($num_friends) {
         $sql = "SELECT * FROM
                `videos` AS v,
                `favourite` AS f WHERE
-                f.favourite_user_id in (" . mysql_clean($my_friends) . ") AND
+                f.favourite_user_id in (" . DB::quote($my_friends) . ") AND
                 f.favourite_video_id=v.video_id
                 GROUP BY f.favourite_video_id
                 ORDER BY v.video_add_time DESC
                 LIMIT $start_from, $config[items_per_page]";
-        $result = mysql_query($sql) or mysql_die();
-        $num_result = mysql_num_rows($result);
+        $friends_fav_all = DB::fetch($sql);
 
-        if ($num_result > 0) {
-            while ($friend = mysql_fetch_assoc($result)) {
-                $friend['video_thumb_url'] = $servers[$friend['video_thumb_server_id']];
-                $friend['video_keywords_array'] = preg_split('/\s+/', $friend['video_keywords']);
-                $friend_videos[] = $friend;
-                $favorite_video_id[] = $friend['video_id'];
+        if ($friends_fav_all) {
+            foreach ($friends_fav_all as $friends_fav) {
+                $friends_fav['video_thumb_url'] = $servers[$friends_fav['video_thumb_server_id']];
+                $friends_fav['video_keywords_array'] = preg_split('/\s+/', $friends_fav['video_keywords']);
+                $friend_videos[] = $friends_fav;
+                $favorite_video_id[] = $friends_fav['video_id'];
             }
         }
         $start_num = $start_from + 1;
@@ -91,9 +88,9 @@ if ($num_friends) {
                `users` AS u WHERE
                 f.favourite_video_id=" . (int) $favorite_video_id[$i] . " AND
                 f.favourite_user_id=u.user_id";
-        $result = mysql_query($sql) or mysql_die($sql);
+        $result = DB::fetch($sql);
 
-        while ($tmp = mysql_fetch_assoc($result)) {
+        foreach ($result as $tmp) {
             if (array_key_exists($tmp['favourite_video_id'], $favorited_by)) {
                 $favorited_by[$tmp['favourite_video_id']] .= ' <a href=' . VSHARE_URL . '/' . $tmp['user_name'] . '>' . $tmp['user_name'] . '</a>';
             } else {
