@@ -20,30 +20,19 @@ check_admin_login();
 $todo = isset($_GET['todo']) ? $_GET['todo'] : '';
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
-if ($todo == 'activate')
-{
-    if (is_numeric($_GET['video_id']))
-    {
-        $sql = "SELECT `video_user_id` FROM `videos` WHERE
-               `video_id`='" . (int) $_GET['video_id'] . "'";
-        $result = mysql_query($sql) or mysql_die();
-        
-        if (mysql_num_rows($result) > 0)
-        {
+if ($todo == 'activate') {
+    if (is_numeric($_GET['video_id'])) {
+        $video_info = Video::getById($_GET['video_id']);
+        if ($video_info) {
 	        $sql = "UPDATE `videos` SET
 	               `video_active`='1' WHERE
 	               `video_id`='" . (int) $_GET['video_id'] . "'";
-	        mysql_query($sql) or mysql_die();
-	        
-	        $video_info = mysql_fetch_assoc($result);
-	        
+	        DB::query($sql);
 	        update_user_video_count($video_info['video_user_id'], 1);
-	        
 	        $msg = $lang['activate_video'];
         }
     }
@@ -54,7 +43,7 @@ if ($todo == 'activate_all')
     $sql = "SELECT `video_user_id` FROM `videos` WHERE
            `video_active`='0'";
     $result = mysql_query($sql) or mysql_die($sql);
-    
+
     if (mysql_num_rows($result) > 0)
     {
         while (list($video_user_id) = mysql_fetch_array($result))
@@ -62,7 +51,7 @@ if ($todo == 'activate_all')
             update_user_video_count($video_user_id, 1);
         }
     }
-    
+
     $sql = "UPDATE `videos` SET
            `video_active`='1'";
     mysql_query($sql) or mysql_die();
@@ -82,9 +71,7 @@ $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
        `video_active`='0' AND
        `video_user_id`!='0'
         ORDER BY $sort";
-$result = mysql_query($sql) or mysql_die();
-$tmp = mysql_fetch_array($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start = ($page - 1) * $result_per_page;
 
@@ -109,13 +96,8 @@ $sql = "SELECT * FROM `videos` WHERE
        `video_user_id`!='0'
         ORDER BY $sort
         LIMIT $start, $result_per_page";
-$result = mysql_query($sql) or mysql_die();
-
-if (mysql_num_rows($result) > 0)
-{
-    $inactive_videos = mysql_fetch_all($result);
-    $smarty->assign('answers', $inactive_videos);
-}
+$inactive_videos = DB::fetch($sql);
+$smarty->assign('answers', $inactive_videos);
 
 $smarty->assign('msg', $msg);
 $smarty->assign('links', $links['all']);
@@ -123,4 +105,4 @@ $smarty->assign('total', $total);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/video_inactive.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

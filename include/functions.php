@@ -849,14 +849,11 @@ function check_config_exists($config_name)
 
 function update_user_video_count($user_id, $action = 1)
 {
-    if ($action == 1)
-    {
+    if ($action == 1) {
         $sql = "UPDATE `users` SET
                `user_videos`=`user_videos`+1 WHERE
                `user_id`='" . (int) $user_id . "'";
-    }
-    else
-    {
+    } else {
         $sql = "UPDATE `users` SET
                `user_videos`=`user_videos`-1 WHERE
                `user_id`='" . (int) $user_id . "'";
@@ -869,27 +866,20 @@ function get_family_filter()
 {
 	global $config;
 
-	if ($config['family_filter'] == 1)
-	{
-		if (!isset($_SESSION['FAMILY_FILTER']))
-		{
-			if (isset($_SESSION['UID']))
-			{
+	if ($config['family_filter'] == 1) {
+		if (!isset($_SESSION['FAMILY_FILTER'])) {
+			if (isset($_SESSION['UID'])) {
 				$sql = "SELECT `user_adult` FROM `users` WHERE
 				       `user_id`='" . (int) $_SESSION['UID'] . "'";
 				$tmp = DB::fetch1($sql);
 				$user_adult = $tmp['user_adult'];
-			}
-			else
-			{
+			} else {
 				$user_adult = 1;
 			}
 
 			$_SESSION['FAMILY_FILTER'] = $user_adult;
 		}
-
 		return $_SESSION['FAMILY_FILTER'];
 	}
-
 	return 0;
 }

@@ -468,4 +468,10 @@ class Video
 
         return $video_info;
     }
+
+    public static function getById($video_id) {
+        $sql = "SELECT * FROM `videos` WHERE
+                `video_id`=" . (int) $video_id;
+        return DB::fetch1($sql);
+    }
 }
