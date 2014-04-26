@@ -19,8 +19,7 @@ check_admin_login();
 $admin_listing_per_page = get_config('admin_listing_per_page');
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
@@ -33,20 +32,15 @@ $allow_sort = array(
 
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 
-if (! in_array($sort, $allow_sort))
-{
+if (! in_array($sort, $allow_sort)) {
     $query = " ORDER BY `admin_log_id` DESC";
-}
-else
-{
-    $query = " ORDER BY " . mysql_clean($sort);
+} else {
+    $query = " ORDER BY " . DB::quote($sort);
 }
 
 $sql = "SELECT count(*) AS `total` FROM
 	   `admin_log` $query";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start = ($page - 1) * $admin_listing_per_page;
 
@@ -68,8 +62,7 @@ $links = $pager->getLinks();
 $sql = "SELECT * FROM `admin_log`
 		$query
 		LIMIT $start, $admin_listing_per_page";
-$result = mysql_query($sql) or mysql_die($sql);
-$admin_log_info = mysql_fetch_all($result);
+$admin_log_info = DB::fetch($sql);
 
 $smarty->assign('admin_log_info', $admin_log_info);
 $smarty->assign('links', $links["all"]);
@@ -80,4 +73,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/admin_log.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();
