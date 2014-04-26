@@ -65,15 +65,13 @@ if (isset($_POST['submit'])) {
 
     if ($err == '') {
         $channel = implode('|', $_POST['chlist']);
-        $sql = "SELECT * FROM `users` WHERE
-               `user_name`='" . mysql_clean($user) . "'";
-        $result = mysql_query($sql) or mysql_die();
+        $user_info = User::getByName($user);
 
-        if (mysql_num_rows($result) > 0) {
-            $user_info = mysql_fetch_assoc($result);
-            $user_id = $user_info['user_id'];
-        } else {
+        if (! $user_info) {
             $err = $lang['user_not_found'];
+
+        } else {
+            $user_id = $user_info['user_id'];
         }
 
         if ($err == '') {
@@ -102,15 +100,15 @@ if (isset($_POST['submit'])) {
                     unlink($source);
 
                     $sql = "INSERT INTO `process_queue` SET
-                           `user`='" . mysql_clean($user) . "',
-                           `title`='" . mysql_clean($video_title) . "',
-                           `description`='" . mysql_clean($video_description) . "',
-                           `keywords`='" . mysql_clean($tags) . "',
-                           `type`='" . mysql_clean($type) . "',
-                           `channels`='" . mysql_clean($channel) . "',
-                           `file`='" . mysql_clean($file_name) . "',
+                           `user`='" . DB::quote($user) . "',
+                           `title`='" . DB::quote($video_title) . "',
+                           `description`='" . DB::quote($video_description) . "',
+                           `keywords`='" . DB::quote($tags) . "',
+                           `type`='" . DB::quote($type) . "',
+                           `channels`='" . DB::quote($channel) . "',
+                           `file`='" . DB::quote($file_name) . "',
                            `status`=2";
-                    mysql_query($sql) or mysql_die();
+                    DB::query($sql);
                     $todo = 'finished';
                 }
             }
