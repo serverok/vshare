@@ -17,8 +17,9 @@ require 'include/language/' . LANG . '/lang_user_privacy.php';
 
 User::is_logged_in();
 
-if (isset($_POST['submit']))
-{
+$user_info = User::getById($_SESSION['UID']);
+
+if (isset($_POST['submit'])) {
     $sql = "UPDATE `users` SET
 		   `user_friend_invition`=" . (int) $_POST['user_friend_invition'] . ",
 		   `user_private_message`=" . (int) $_POST['user_private_message'] . ",
@@ -27,20 +28,14 @@ if (isset($_POST['submit']))
 		   `user_playlist_public`=" . (int) $_POST['user_playlist_public'] . ",
 		   `user_subscribe_admin_mail`=" . (int) $_POST['user_subscribe_admin_mail'] . "
 		    WHERE `user_id`='" . (int) $_SESSION['UID'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    
+    DB::query($sql);
     set_message($lang['settings_updated'], 'success');
     $redirect_url = VSHARE_URL . '/' . $_SESSION['USERNAME'];
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
-
-$sql = "SELECT * FROM `users` WHERE
-       `user_id`='" . (int) $_SESSION['UID'] . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$user_info = mysql_fetch_assoc($result);
 
 $smarty->assign('user_info', $user_info);
 $smarty->display('header.tpl');
 $smarty->display('user_privacy.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
