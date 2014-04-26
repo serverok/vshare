@@ -51,13 +51,13 @@ if ($err == '')
     if ($search_type == 'user')
     {
         $sql = "SELECT `user_id` FROM `users` WHERE
-               `user_name`='" . mysql_clean($search_string) . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) > 0)
+               `user_name`='" . DB::quote($search_string) . "'";
+        $user = DB::fetch1($sql);
+
+        if ($user)
         {
             $redirect_url = VSHARE_URL . '/' . $search_string;
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
         else
         {
@@ -67,18 +67,18 @@ if ($err == '')
     else if ($search_type == 'group')
     {
         $redirect_url = VSHARE_URL . '/search_group.php?search=' . $search_string;
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
     else
     {
         $search_string = str_replace('/', ' ', $search_string);
         $search_string = preg_replace('!\s+!', '-', $search_string); ## change space chars to dashes.
         $redirect_url = VSHARE_URL . '/search/' . $search_string . '/';
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 
-db_close();
+DB::close();
 set_message($err, 'error');
 $redirect_url = VSHARE_URL . '/';
-redirect($redirect_url);
+Http::redirect($redirect_url);

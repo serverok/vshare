@@ -40,15 +40,13 @@ if ($err == '') {
         $page = 1;
     }
 
-    $search_string = mysql_clean($_GET['search']);
+    $search_string = DB::quote($_GET['search']);
 
     $sql = "SELECT count(*) AS `total` FROM `groups` WHERE (
            `group_name` LIKE '%$search_string%' OR
            `group_keyword` LIKE '%$search_string%' OR
            `group_description` LIKE '%$search_string%')";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    $total = $tmp['total'];
+    $total = DB::getTotal($sql);
 
     if ($total > 0) {
         $start_from = ($page - 1) * $config['items_per_page'];
@@ -58,11 +56,10 @@ if ($err == '') {
                `group_keyword` LIKE '%$search_string%' OR
                `group_description` LIKE '%$search_string%')
                 LIMIT $start_from, $config[items_per_page]";
-
-        $result = mysql_query($sql) or mysql_die($sql);
+        $groups = DB::fetch($sql);
         $group_keywords_all = '';
 
-        while ($group = mysql_fetch_assoc($result)) {
+        foreach ($groups as $group) {
             $group['group_keywords_array'] = explode(' ', $group['group_keyword']);
             $group_keywords_all .= $group['group_keyword'] . ' ';
             $group_info[] = $group;
@@ -73,7 +70,7 @@ if ($err == '') {
         $view['group_keywords_array_all'] = array_remove_duplicate($group_keywords_array_all);
 
         $start_num = $start_from + 1;
-        $end_num = $start_from + mysql_num_rows($result);
+        $end_num = $start_from + count($groups);
 
         $page_link = '';
         $total_page = $total / $config['items_per_page'];
