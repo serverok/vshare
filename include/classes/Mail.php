@@ -45,11 +45,8 @@ class Mail
 
         $to = $this->mail['to_name'] . ' <' . $this->mail['to_email'] . '>';
         $from =  $this->mail['from_name'] . ' <'. $this->mail['from_email'] . '>';
-        $subject = $this->mail['subject']
-
-        require_once VSHARE_DIR . '/include/class.html2text.php';
-        $html2text = new Html2Text($this->mail['body'], 80);
-        $body = $html2text->convert();
+        $subject = $this->mail['subject'];
+        $body = $this->mail['body'];
 
         $url = 'http://localhost/mail/post.php';
         $useragent = 'Fast Browser 1.0';
