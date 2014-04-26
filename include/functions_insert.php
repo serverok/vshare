@@ -381,7 +381,7 @@ function insert_playlist_count($a)
 function insert_msg_count()
 {
     $sql = "SELECT count(*) AS `total` FROM `mails` WHERE
-           `mail_receiver`='" . mysql_clean($_SESSION['USERNAME']) . "' AND
+           `mail_receiver`='" . DB::quote($_SESSION['USERNAME']) . "' AND
            `mail_read`='0' AND
            `mail_inbox_track`='2'";
     return DB::getTotal($sql);
@@ -759,7 +759,7 @@ function insert_getfield($v)
     if ($execute_query == 1)
     {
         $sql = "SELECT `$v[field]` FROM `$v[table]` WHERE
-               `$v[qfield]`='" . mysql_clean($v['qvalue']) . "' " . mysql_clean($v['order']);
+               `$v[qfield]`='" . DB::quote($v['qvalue']) . "' " . DB::quote($v['order']);
         $result = mysql_query($sql) or mysql_die($sql);
         $tmp = mysql_fetch_assoc($result);
         return $tmp[$v['field']];
@@ -790,7 +790,7 @@ function insert_format_size($v)
 function insert_advertise($v)
 {
     $sql = "SELECT `adv_text` FROM `adv` WHERE
-           `adv_name`='" . mysql_clean($v['adv_name']) . "' AND
+           `adv_name`='" . DB::quote($v['adv_name']) . "' AND
            `adv_status`='Active'";
     $tmp = DB::fetch1($sql);
     echo $tmp['adv_text'];
@@ -800,7 +800,7 @@ function insert_adv_status($v)
 {
     global $conn;
     $sql = "SELECT `adv_status` FROM `adv` WHERE
-           `adv_name`='" . mysql_clean($v['adv_name']) . "'";
+           `adv_name`='" . DB::quote($v['adv_name']) . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_assoc($result);
     return $tmp['adv_status'];
