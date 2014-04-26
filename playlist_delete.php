@@ -30,8 +30,8 @@ $playlist_id = isset($_GET['pl_id']) ? $_GET['pl_id'] : '';
 
 if ($playlist_id == '')
 {
-    db_close();
-    redirect($redirect_url);
+    DB::close();
+    Http::redirect($redirect_url);
 }
 
 if (isset($_GET['action']))
@@ -41,17 +41,15 @@ if (isset($_GET['action']))
         $sql = "SELECT * FROM `playlists` WHERE
                `playlist_id`='" . (int) $playlist_id . "' AND
                `playlist_user_id`='" . (int) $_SESSION['UID'] . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) > 0)
+        $playlist_info = DB::fetch1($sql);
+
+        if ($playlist_info)
         {
-            $playlist_info = mysql_fetch_assoc($result);
-            
             $sql = "DELETE FROM `playlists_videos` WHERE
 	               `playlists_videos_playlist_id`='" . (int) $playlist_info['playlist_id'] . "' AND
 	               `playlists_videos_video_id`='" . (int) $_GET['vid'] . "'";
-	        mysql_query($sql) or mysql_die($sql);
-	        
+	        DB::query($sql);
+
 	        set_message($lang['video_removed'], 'success');
 	        $redirect_url = VSHARE_URL . '/' . $_SESSION['USERNAME'] . '/playlist/' . $playlist_info['playlist_name'] . '/' . $page;
         }
@@ -61,23 +59,23 @@ if (isset($_GET['action']))
         $sql = "SELECT * FROM `playlists` WHERE
                `playlist_id`='" . (int) $playlist_id . "' AND
                `playlist_user_id`='" . (int) $_SESSION['UID'] . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) > 0)
+        $playlist_info = DB::fetch1($sql);
+
+        if ($playlist_info)
         {
 	        $sql = "DELETE FROM `playlists_videos` WHERE
 	               `playlists_videos_playlist_id`='" . (int) $playlist_id . "'";
-	        mysql_query($sql) or mysql_die($sql);
-	        
+	        DB::query($sql);
+
 	        $sql = "DELETE FROM `playlists` WHERE
 	               `playlist_user_id`='" . (int) $_SESSION['UID'] . "' AND
 	               `playlist_id`='" . (int) $playlist_id . "'";
-	        mysql_query($sql) or mysql_die($sql);
-	        
+	        DB::query($sql);
+
 	        set_message($lang['playlist_deleted'], 'success');
         }
     }
 }
 
-db_close();
-redirect($redirect_url);
+DB::close();
+Http::redirect($redirect_url);

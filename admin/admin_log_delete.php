@@ -16,34 +16,29 @@ require '../include/config.php';
 
 check_admin_login();
 
-if (isset($_POST['submit']))
-{
-    for ($i = 0; $i < count($_POST['delete_log']); $i ++)
-    {
+if (isset($_POST['submit'])) {
+    for ($i = 0; $i < count($_POST['delete_log']); $i ++) {
         $sql = "DELETE FROM `admin_log` WHERE
 			   `admin_log_id`='" . (int) $_POST['delete_log'][$i] . "'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
 }
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if (isset($_GET['delete_all']))
-{
+if (isset($_GET['delete_all'])) {
     $sql = "DELETE FROM `admin_log`";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
     $page = 1;
 }
 
-db_close();
+DB::close();
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 
 $redirect_url = VSHARE_URL . '/admin/admin_log.php?page=' . $page . '&sort=' . $sort;
-redirect($redirect_url);
-
+Http::redirect($redirect_url);
