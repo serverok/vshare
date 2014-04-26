@@ -13,194 +13,153 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.mail.php';
-require '../include/class.validate.php';
 require '../include/language/' . LANG . '/lang_admin_mail_users.php';
 
 check_admin_login();
 
-if (isset($_POST['submit']))
-{
-    if (get_magic_quotes_gpc())
-    {
+if (isset($_POST['submit'])) {
+
+    if (get_magic_quotes_gpc()) {
         $_POST['htmlCode'] = stripslashes($_POST['htmlCode']);
         $_POST['subj'] = stripslashes($_POST['subj']);
     }
-    
-    if ($_GET['a'] == 'user')
-    {
-        if ($_POST['UID'] == "0" || $_POST['UID'] == '')
-        {
+
+    if ($_GET['a'] == 'user') {
+        if ($_POST['UID'] == "0" || $_POST['UID'] == '') {
             $err = $lang['select_user'];
-        }
-        else if ($_POST['subj'] == '')
-        {
+        } else if ($_POST['subj'] == '') {
             $err = $lang['subject_null'];
-        }
-        else if ($_POST['htmlCode'] == '')
-        {
+        } else if ($_POST['htmlCode'] == '') {
             $err = $lang['message_null'];
-        }
-        else
-        {
-            if ($_POST['UID'] == 'All')
-            {
+        } else {
+
+            if ($_POST['UID'] == 'All') {
                 $sql = "SELECT * FROM `email_templates` WHERE
                        `email_id`='unsubscribe_admin_mail'";
-                $result = mysql_query($sql) or mysql_die($sql);
-                $email_template = mysql_fetch_assoc($result);
+                $email_template = DB::fetch1($sql);
                 $mail_footer = $email_template['email_body'];
-                
+
                 $sql = "SELECT `user_id`, `user_name`, `user_email` FROM `users` WHERE
                        `user_account_status`='Active' AND
                        `user_subscribe_admin_mail`='1'";
-                $result = mysql_query($sql) or mysql_die($sql);
-                
-                while ($tmp = mysql_fetch_assoc($result))
-                {
-                    $user_id = $tmp['user_id'];
+                $users_all = DB::fetch($sql);
+
+                foreach ($users_all as $user_info) {
+                    $user_id = $user_info['user_id'];
                     $unsubscribe_id = md5(time() . $user_id . rand());
                     $data1 = 'UNSUBSCRIBE_' . $user_id;
-                    
+
                     $sql = "INSERT INTO `verify_code` SET
                            `vkey`='" . $unsubscribe_id . "',
                            `data1`='" . $data1 . "'";
-                    mysql_query($sql) or mysql_die($sql);
-                    
-                    $unsubscribe_url = VSHARE_URL . '/' . $tmp['user_name'] . '/unsubscribe/' . $unsubscribe_id;
-                    
+                    DB::query($sql);
+
+                    $unsubscribe_url = VSHARE_URL . '/' . $user_info['user_name'] . '/unsubscribe/' . $unsubscribe_id;
+
                     $mail_footer_tmp = $mail_footer;
                     $mail_footer_tmp = str_replace('[SITE_NAME]', $config['site_name'], $mail_footer_tmp);
                     $mail_footer_tmp = str_replace('[SITE_URL]', VSHARE_URL, $mail_footer_tmp);
                     $mail_footer_tmp = str_replace('[UNSUBSCRIBE_URL]', $unsubscribe_url, $mail_footer_tmp);
-                    
+
                     $htmlCode = $_POST['htmlCode'];
                     $htmlCode .= $mail_footer_tmp;
-                    
-                    mail2user($tmp['user_email'], $config['site_name'], $config['admin_email'], $_POST['subj'], $htmlCode, $unsubscribe_url);
+
+                    mail2user($user_info['user_email'], $config['site_name'], $config['admin_email'], $_POST['subj'], $htmlCode, $unsubscribe_url);
                 }
-                
+
                 set_message($lang['mail_all_ok'], 'success');
                 $redirect_url = VSHARE_URL . '/admin/mail_users.php?a=user';
-                redirect($redirect_url);
-            
-            }
-            else
-            {
-                $sql = "SELECT `user_name`, `user_email` FROM `users` WHERE
-                       `user_id`='" . (int) $_POST['UID'] . "'";
-                $result = mysql_query($sql) or mysql_die($sql);
-                $tmp = mysql_fetch_assoc($result);
-                mail2user($tmp['user_email'], $config['site_name'], $config['admin_email'], $_POST['subj'], $_POST['htmlCode']);
-                $msg = str_replace('[USERNAME]', $tmp['user_name'], $lang['mail_user_ok']);
+                Http::redirect($redirect_url);
+
+            } else {
+
+                $user_info = User::getById($_POST['UID']);
+                mail2user($user_info['user_email'], $config['site_name'], $config['admin_email'], $_POST['subj'], $_POST['htmlCode']);
+                $msg = str_replace('[USERNAME]', $user_info['user_name'], $lang['mail_user_ok']);
                 set_message($msg, 'success');
                 $redirect_url = VSHARE_URL . '/admin/mail_users.php?a=user';
-                redirect($redirect_url);
+                Http::redirect($redirect_url);
             }
         }
-    
-    }
-    else if ($_GET['a'] == 'group')
-    {
-        
-        if (isset($_POST['GID']) && $_POST['GID'] == '0' || $_POST['GID'] == '')
-        {
+
+    } else if ($_GET['a'] == 'group') {
+
+        if (isset($_POST['GID']) && $_POST['GID'] == '0' || $_POST['GID'] == '') {
             $err = $lang['select_group'];
-        }
-        else if ($_POST['subj'] == '')
-        {
+        } else if ($_POST['subj'] == '') {
             $err = $lang['subject_null'];
-        }
-        else if ($_POST['htmlCode'] == '')
-        {
+        } else if ($_POST['htmlCode'] == '') {
             $err = $lang['message_null'];
-        }
-        else
-        {
+        } else {
             $sql = "SELECT `group_name` FROM `groups` WHERE
                    `group_id`='" . (int) $_POST['GID'] . "'";
             $result = mysql_query($sql) or mysql_die($sql);
             $tmp = mysql_fetch_assoc($result);
             $group_name = $tmp['group_name'];
-            
+
             $sql = "SELECT `group_member_user_id` FROM `group_members` WHERE
                    `group_member_group_id`='" . (int) $_POST['GID'] . "'";
             $result = mysql_query($sql) or mysql_die($sql);
-            
+
             while ($tmp = mysql_fetch_assoc($result))
             {
                 $member_ids[] = $tmp['group_member_user_id'];
             }
-            
+
             $sql = "SELECT `user_email` FROM `users` WHERE
                    `user_id` in (" . implode(', ', $member_ids) . ")";
             $result = mysql_query($sql) or mysql_die($sql);
-            
+
             while ($tmp = mysql_fetch_assoc($result))
             {
                 mail2user($tmp['user_email'], $config['site_name'], $config['admin_email'], $_POST['subj'], $_POST['htmlCode']);
             }
-            
+
             $msg = str_replace("[GROUPNAME]", $group_name, $lang['mail_group_ok']);
             set_message($msg, 'success');
             $redirect_url = VSHARE_URL . '/admin/mail_users.php?a=group';
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
-    
     }
     else
     {
-        
-        if ($_POST['email'] == '')
-        {
+        if ($_POST['email'] == '') {
             $err = $lang['email_null'];
-        }
-        else if (! validate::email($_POST['email']))
-        {
+        } else if (! validate::email($_POST['email'])) {
             $err = $lang['email_invalid'];
-        }
-        else if ($_POST['subj'] == '')
-        {
+        } else if ($_POST['subj'] == '') {
             $err = $lang['subject_null'];
-        }
-        else if ($_POST['htmlCode'] == '')
-        {
+        } else if ($_POST['htmlCode'] == '') {
             $err = $lang['message_null'];
         }
-        
-        if ($err == '')
-        {
+
+        if ($err == '') {
             mail2user($_POST['email'], $config['site_name'], $config['admin_email'], $_POST['subj'], $_POST['htmlCode']);
             $msg = str_replace("[EMAIL]", $_POST['email'], $lang['mail_ok']);
             set_message($msg, 'success');
             $redirect_url = VSHARE_URL . '/admin/mail_users.php?email=' . $email . '&uname=' . $uname;
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
     }
 }
 
-if (isset($_GET['a']) && $_GET['a'] == 'group')
-{
-    
+if (isset($_GET['a']) && $_GET['a'] == 'group') {
+
     $sql = "SELECT `group_id`, `group_name` FROM `groups` ORDER BY `group_name`";
     $result = mysql_query($sql) or mysql_die($sql);
-    
+
     $group_ops = "<option value='0'>-- Select a group --</option>";
-    
-    while ($tmp = mysql_fetch_assoc($result))
-    {
-        if (isset($_POST['GID']) && $_POST['GID'] == $tmp['group_id'])
-        {
+
+    while ($tmp = mysql_fetch_assoc($result)) {
+        if (isset($_POST['GID']) && $_POST['GID'] == $tmp['group_id']) {
             $sel = "selected";
-        }
-        else
-        {
+        } else {
             $sel = "";
         }
-        
+
         $group_ops .= "<option value='" . $tmp['group_id'] . "' $sel>" . $tmp['group_name'] . "</option>";
     }
-    
+
     $smarty->assign('group_ops', $group_ops);
 }
 
@@ -224,4 +183,4 @@ $smarty->assign('err', $err);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/mail_users.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();
