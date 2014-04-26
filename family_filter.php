@@ -16,7 +16,7 @@ require 'include/config.php';
 
 if ($config['family_filter'] == 0) {
     DB::close();
-    redirect(VSHARE_URL);
+    Http::redirect(VSHARE_URL);
 }
 
 if (! isset($_SESSION['REDIRECT']) || empty($_SESSION['REDIRECT'])) {
@@ -40,8 +40,8 @@ if ($_SESSION['FAMILY_FILTER'] == 0) {
     }
     $redirect_url = $_SESSION['REDIRECT'];
     unset($_SESSION['REDIRECT']);
-    db_close();
-    redirect($redirect_url);
+    DB::close();
+    Http::redirect($redirect_url);
 } else {
 
     if (isset($_POST['submit'])) {
@@ -56,8 +56,8 @@ if ($_SESSION['FAMILY_FILTER'] == 0) {
         $redirect_url = $_SESSION['REDIRECT'];
         unset($_SESSION['REDIRECT']);
 
-        db_close();
-        redirect($redirect_url);
+        DB::close();
+        Http::redirect($redirect_url);
     }
 }
 
