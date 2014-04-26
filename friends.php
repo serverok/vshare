@@ -13,6 +13,7 @@
  ******************************************************************************/
 
 require 'include/config.php';
+require 'include/language/' . LANG . '/lang_friends.php';
 
 User::is_logged_in();
 
@@ -22,55 +23,76 @@ if ($page < 1) {
     $page = 1;
 }
 
-$add_list = isset($_GET['add_list']) ? $_GET['add_list'] : '';
-$add_list = trim($add_list);
+if (isset($_GET['add_list'])) {
+    $add_list = trim($_GET['add_list']);
 
-if ($add_list != '') {
-    Friend::add('users', 'user_friends_type', 'user_id=' . (int) $_SESSION['UID'], $add_list);
+    if (! empty($add_list)) {
+        Friend::addList($add_list);
+        set_message($lang['list_created'], 'success');
+    }
+
     Http::redirect(VSHARE_URL . '/friends/');
 }
 
 if (isset($_GET['del_list'])) {
-    Friend::remove('users', 'user_friends_type', 'user_id=' . (int) $_SESSION['UID'], $_GET['del_list']);
-    $sql = "SELECT `friend_friend_id` FROM `friends` WHERE
-           `friend_user_id`='" . (int) $_SESSION['UID'] . "'";
-    $result = DB::fetch($sql);
-    foreach ($resul as $tmp) {
-        Friend::remove('friends', 'friend_type', 'friend_id=' . $tmp['friend_friend_id'], $_GET['del_list']);
+    $del_list = trim($_GET['del_list']);
+
+    if (! empty($del_list)) {
+        Friend::removeList($del_list);
+        set_message($lang['list_deleted'], 'success');
     }
+
     Http::redirect(VSHARE_URL . '/friends/');
 }
 
 if (isset($_POST['action_name'])) {
     if ($_POST['action_name'] == 'delete') {
-        while (list($k, $v) = @each($_POST['AID'])) {
-            $sql = "DELETE FROM `friends` WHERE
-                   `friend_id`='" . (int) $v . "'";
-            DB::query($sql);
+        if (! empty($_POST['AID'])) {
+            foreach ($_POST['AID'] as $key => $friend_id) {
+                Friend::delete($friend_id);
+            }
+
+            set_message($lang['friends_deleted'], 'success');
         }
-        Http::redirect(VSHARE_URL . '/friends/');
     } else {
         $sql = "SELECT `user_friends_type` FROM `users` WHERE
                `user_id`='" . (int) $_SESSION['UID'] . "'";
-        $friends_tmp = DB::fetch1($sql);
-        $type = explode('|', $friends_tmp['user_friends_type']);
-        $cmd = explode('_', $_POST['action_name']);
+        $user_info = DB::fetch1($sql);
+        $user_friends_types = explode('|', $user_info['user_friends_type']);
 
-        if ($cmd[0] == 'add' && is_numeric($cmd[1])) {
-            while (list($k, $v) = @each($_POST['AID'])) {
-                Friend::add('friends', 'friend_type', 'friend_id=' . (int) $v, $type[$cmd[1]]);
+        $action = explode('_', $_POST['action_name']);
+
+        if (is_numeric($action[1])) {
+            if ($action[0] == 'add' && is_numeric($action[1])) {
+                if (! empty($_POST['AID'])) {
+                    foreach ($_POST['AID'] as $key => $friend_id) {
+                        Friend::addToList($friend_id, $user_friends_types[$action[1]]);
+                    }
+
+                    set_message($lang['friends_added'], 'success');
+                }
+            } elseif ($action[0] == 'delete' && is_numeric($action[1])) {
+                if (! empty($_POST['AID'])) {
+                    foreach ($_POST['AID'] as $key => $friend_id) {
+                        Friend::removeFromList($friend_id, $user_friends_types[$action[1]]);
+                    }
+
+                    set_message($lang['friends_removed'], 'success');
+                }
             }
-        } else if ($cmd[0] == 'delete' && is_numeric($cmd[1])) {
-            while (list($k, $v) = @each($_POST['AID'])) {
-                Friend::remove('friends', 'friend_type', 'friend_id=' . (int) $v, $type[$cmd[1]]);
-            }
+
+            Http::redirect(VSHARE_URL . '/friends/?view=' . $user_friends_types[$action[1]]);
         }
-        Http::redirect(VSHARE_URL . '/friends/');
     }
+
+    Http::redirect(VSHARE_URL . '/friends/');
 }
 
-if (isset($_GET['view']) && $_GET['view'] != 'All') {
-    $query = "AND `friend_type` LIKE '%" . mysql_clean($_GET['view']) . "%'";
+$view = isset($_GET['view']) ? $_GET['view'] : 'All';
+$smarty->assign('view', $view);
+
+if ($view != 'All') {
+    $query = "AND `friend_type` LIKE '%" . DB::quote($_GET['view']) . "%'";
 } else {
     $query = '';
 }
@@ -120,7 +142,7 @@ $ftype_ops = '';
 
 for ($i = 0; $i < count($ftype); $i ++) {
     if ($ftype[$i] != '') {
-        if (isset($_GET['view']) && $_GET['view'] == $ftype[$i]) {
+        if ($view == $ftype[$i]) {
             $sel = 'selected';
         } else {
             $sel = '';

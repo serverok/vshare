@@ -38,9 +38,9 @@
                     
                     <div class="hd-r">
                         {if $smarty.request.sort ne "name"}
-                            <a href="friends.php?sort=name">Sort by Name</a> | Sort by Date Added
+                            <a href="{$base_url}/friends/?view={$view}&sort=name">Sort by Name</a> | Sort by Date Added
                         {else}
-                            Sort by Name | <a href="friends.php">Sort by Date Added</a>
+                            Sort by Name | <a href="{$base_url}/friends/?view={$view}">Sort by Date Added</a>
                         {/if}
                     </div>
                 
