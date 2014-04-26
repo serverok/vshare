@@ -2,47 +2,44 @@
 
 class Poll
 {
-    public $poll_id;
+    public static $id;
 
-    public function poll_display($poll_id)
+    public static function display($poll_id)
     {
         $sql = "SELECT * FROM `poll_question` WHERE
                `poll_id`='" . (int) $poll_id . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        $tmp = mysql_fetch_assoc($result);
+        $tmp = DB::fetch1($sql);
         $poll_answer = $tmp['poll_answer'];
         $poll_answers = explode('|', $poll_answer);
-        
+
         for ($i = 0; $i < count($poll_answers); $i ++)
         {
-            $sql = "SELECT count(*) AS `total_poll_vote` FROM `poll_results` WHERE
+            $sql = "SELECT count(*) AS `total` FROM `poll_results` WHERE
 			       `poll_result_vote_id`='" . (int) $poll_id . "' AND
-			       `poll_result_answer`='" . mysql_clean($poll_answers[$i]) . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
-            $tmp_1 = mysql_fetch_assoc($result);
-            $total_poll_votes[] = $tmp_1['total_poll_vote'];
+			       `poll_result_answer`='" . DB::quote($poll_answers[$i]) . "'";
+            $total_poll_votes[] = DB::getTotal($sql);
         }
-        
-        $poll_votes_percentage = $this->poll_votes_percentage($total_poll_votes);
-        
+
+        $poll_votes_percentage = self::votes_percentage($total_poll_votes);
+
         for ($i = 0; $i < count($poll_answers); $i ++)
         {
             $poll_info[$i]['answer'] = $poll_answers[$i];
             $poll_info[$i]['percentage'] = $poll_votes_percentage[$i];
         }
-        
+
         return $poll_info;
     }
 
-    public function poll_votes_percentage($total_poll_votes)
+    public static function votes_percentage($total_poll_votes)
     {
         $total = 0;
-        
+
         for ($i = 0; $i < count($total_poll_votes); $i ++)
         {
             $total = $total + $total_poll_votes[$i];
         }
-        
+
         for ($i = 0; $i < count($total_poll_votes); $i ++)
         {
             if ($total == 0)
@@ -53,18 +50,18 @@ class Poll
             {
                 $poll_votes_percentage[$i] = round(($total_poll_votes[$i] * 100) / $total, 2);
             }
-        
+
         }
         return $poll_votes_percentage;
     }
 
-    public function poll_delete()
+    public static function delete()
     {
         $sql = "DELETE FROM `poll_question` WHERE
-		       `poll_id`='" . (int) $this->poll_id . "'";
-        mysql_query($sql) or mysql_die($sql);
+		       `poll_id`='" . (int) self::$id . "'";
+        DB::query($sql);
         $sql = "DELETE FROM `poll_results` WHERE
-		       `poll_result_vote_id`='" . (int) $this->poll_id . "'";
-        mysql_query($sql) or mysql_die($sql);
+		       `poll_result_vote_id`='" . (int) self::$id . "'";
+        DB::query($sql);
     }
 }

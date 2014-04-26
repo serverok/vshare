@@ -22,10 +22,10 @@ $poll_id = isset($_GET['poll_id']) ? $_GET['poll_id'] : 0;
 if (isset($_POST['submit']))
 {
     $poll_id = isset($_POST['poll_id']) ? $_POST['poll_id'] : 0;
-    
+
     $poll_question = $_POST['poll_question'];
     $poll_answer_array = $_POST['edit_poll_answers'];
-    
+
     for ($i = 0; $i < count($poll_answer_array); $i ++)
     {
         if ($poll_answer_array[$i] == '')
@@ -36,36 +36,34 @@ if (isset($_POST['submit']))
     if ($err == '')
     {
         $poll_answers = implode('|', $poll_answer_array);
-        
+
         $end_day = $_POST['end_date_year'] . '-' . $_POST['end_date_month'] . '-' . $_POST['end_date_day'];
         $start_day = $_POST['start_date_year'] . '-' . $_POST['start_date_month'] . '-' . $_POST['start_date_day'];
-        
+
         if (strtotime($start_day) > strtotime($end_day))
         {
             $err = $lang['poll_date_invalid'];
         }
         else
         {
-            
+
             $sql = "UPDATE `poll_question` SET
-             `poll_qty`='" . mysql_clean($poll_question) . "',
-             `poll_answer`='" . mysql_clean($poll_answers) . "',
+             `poll_qty`='" . DB::quote($poll_question) . "',
+             `poll_answer`='" . DB::quote($poll_answers) . "',
              `start_date`='$start_day',
              `end_date`='$end_day' WHERE
              `poll_id`='" . (int) $poll_id . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
             set_message($lang['poll_updated'], 'success');
             $redirect_url = VSHARE_URL . '/admin/poll_list.php';
-            redirect($redirect_url);
-        
+            Http::redirect($redirect_url);
         }
     }
 }
 
 $sql = "SELECT * FROM `poll_question` WHERE
        `poll_id`='" . (int) $poll_id . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$poll_info = mysql_fetch_assoc($result);
+$poll_info = DB::fetch1($sql);
 
 $list = array(
     $poll_info['poll_answer']
@@ -113,4 +111,4 @@ $smarty->assign('year_end', $year_end);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/poll_edit.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

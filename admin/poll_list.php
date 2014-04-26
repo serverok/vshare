@@ -13,26 +13,23 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.poll.php';
 require '../include/language/' . LANG . '/lang_admin_poll_list.php';
 
 check_admin_login();
 
-$poll = new Poll();
-
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && is_numeric($_GET['poll_id']))
 {
-    $poll->poll_id = $_GET['poll_id'];
-    $poll->poll_delete();
+    Poll::$id = $_GET['poll_id'];
+    Poll::delete();
     $msg = $lang['poll_deleted'];
 }
 
 $sql = "SELECT * FROM `poll_question`";
-$result = mysql_query($sql) or mysql_die($sql);
+$polls = DB::fetch($sql);
 
-while ($tmp = mysql_fetch_assoc($result))
+foreach ($polls as $tmp)
 {
-    $poll_info[] = $poll->poll_display($tmp['poll_id']);
+    $poll_info[] = Poll::display($tmp['poll_id']);
     $poll_list[] = $tmp;
 }
 
@@ -43,4 +40,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/poll_list.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();
