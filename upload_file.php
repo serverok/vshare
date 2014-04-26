@@ -17,12 +17,10 @@ require 'include/settings/upload.php';
 require 'include/functions_upload.php';
 require 'include/language/' . LANG . '/lang_upload.php';
 
-if (get_config('guest_upload') != 1)
-{
+if (get_config('guest_upload') != 1) {
     User::is_logged_in();
-    
-    if ($config['enable_package'] == 'yes')
-    {
+
+    if ($config['enable_package'] == 'yes') {
         check_subscriber_space($_SESSION['UID']);
         check_subscriber_videos($_SESSION['UID']);
     }
@@ -37,19 +35,18 @@ header('Pragma: no-cache');
 
 $smarty->assign('use_upload_progress_bar', $use_upload_progress_bar);
 
-if (isset($_GET['id']))
-{
+if (isset($_GET['id'])) {
     $smarty->assign('upload_id', $_GET['id']);
 }
 
-if ($use_upload_progress_bar == 1)
-{
+if ($use_upload_progress_bar == 1) {
+
     $THIS_VERSION = '2.5';
-    
+
     require VSHARE_DIR . '/ubr/ubr_ini.php';
     require VSHARE_DIR . '/ubr/ubr_lib.php';
     require VSHARE_DIR . '/ubr/ubr_default_config.php';
-    
+
     $smarty->assign('path_to_link_script', $PATH_TO_LINK_SCRIPT);
     $smarty->assign('path_to_set_progress_script', $PATH_TO_SET_PROGRESS_SCRIPT);
     $smarty->assign('path_to_get_progress_script', $PATH_TO_GET_PROGRESS_SCRIPT);
@@ -74,43 +71,36 @@ if ($use_upload_progress_bar == 1)
     $smarty->assign('show_percent_complete', $_CONFIG['show_percent_complete']);
     $smarty->assign('show_files_uploaded', $_CONFIG['show_files_uploaded']);
     $smarty->assign('show_current_position', $_CONFIG['show_current_position']);
-    
-    if ($CGI_UPLOAD_HOOK && $_CONFIG['show_current_file'])
-    {
+
+    if ($CGI_UPLOAD_HOOK && $_CONFIG['show_current_file']) {
         $smarty->assign('show_current_file', 1);
-    }
-    else
-    {
+    } else {
         $smarty->assign('show_current_file', 0);
     }
-    
+
     $smarty->assign('show_elapsed_time', $_CONFIG['show_elapsed_time']);
     $smarty->assign('show_est_time_left', $_CONFIG['show_est_time_left']);
     $smarty->assign('show_est_speed', $_CONFIG['show_est_speed']);
-    
+
     $upload_iframe = '';
-    
-    if ($_CONFIG['embedded_upload_results'] || $_CONFIG['opera_browser'] || $_CONFIG['safari_browser'])
-    {
+
+    if ($_CONFIG['embedded_upload_results'] || $_CONFIG['opera_browser'] || $_CONFIG['safari_browser']) {
         $upload_iframe = "target=\"upload_iframe\"";
     }
-    
+
     $smarty->assign('upload_iframe', $upload_iframe);
 }
 
-if (isset($_GET['upload_id']))
-{
+if (isset($_GET['upload_id'])) {
+
     require VSHARE_DIR . '/ubr/ubr_finished_lib.php';
-    
-    if (isset($_GET['upload_id']) && preg_match("/^[a-zA-Z0-9]{32}$/", $_GET['upload_id']))
-    {
+
+    if (isset($_GET['upload_id']) && preg_match("/^[a-zA-Z0-9]{32}$/", $_GET['upload_id'])) {
         $UPLOAD_ID = $_GET['upload_id'];
-    }
-    else
-    {
+    } else {
         kak("<span class='ubrError'>ERROR</span'>: Invalid parameters passed<br>", 1, __LINE__, $PATH_TO_CSS_FILE);
     }
-    
+
     //Declare local values
     $_XML_DATA = array(); // Array of xml data read from the upload_id.redirect file
     $_CONFIG_DATA = array(); // Array of config data read from the $_XML_DATA array
@@ -118,61 +108,58 @@ if (isset($_GET['upload_id']))
     $_FILE_DATA = array(); // Array of 'FileInfo' objects read from the $_XML_DATA array
     $_FILE_DATA_TABLE = ''; // String used to store file info results nested between <tr> tags
     $_FILE_DATA_EMAIL = ''; // String used to store file info results
-    
+
 
     $xml_parser = new XML_Parser(); // XML parser
     $xml_parser->setXMLFile($TEMP_DIR, $_REQUEST['upload_id']); // Set upload_id.redirect file
     $xml_parser->setXMLFileDelete($DELETE_REDIRECT_FILE); // Delete upload_id.redirect file when finished parsing
     $xml_parser->parseFeed(); // Parse upload_id.redirect file
-    
+
 
     // Display message if the XML parser encountered an error
-    if ($xml_parser->getError())
-    {
+    if ($xml_parser->getError()) {
         kak($xml_parser->getErrorMsg(), 1, __LINE__, $PATH_TO_CSS_FILE);
     }
-    
+
     $_XML_DATA = $xml_parser->getXMLData(); // Get xml data from the xml parser
     $_CONFIG_DATA = getConfigData($_XML_DATA); // Get config data from the xml data
     $_POST_DATA = getPostData($_XML_DATA); // Get post data from the xml data
     $_FILE_DATA = getFileData($_XML_DATA); // Get file data from the xml data
-    
+
 
     $upload_dir = $_CONFIG_DATA['upload_dir'];
     $upload_file_name = $_FILE_DATA['upfile_0']->name;
     $upload_file_path = $upload_dir . $upload_file_name;
     $pos = strrpos($upload_file_name, ".");
     $upload_file_extn = strtolower(substr($upload_file_name, $pos + 1, strlen($upload_file_name) - $pos));
-    
-    if (! in_array($upload_file_extn, $file_types))
-    {
+
+    if (! in_array($upload_file_extn, $file_types)) {
         unlink($upload_file_path);
         $err = "Invalid File format - $upload_file_extn";
         write_log($err);
     }
-    
-    if ($err == '')
-    {
+
+    if ($err == '') {
         $upfile_details = "UPLOAD WITH PROGRESS BAR";
         $process_video = 1;
     }
-    
+
     $upload_id = $_POST_DATA['upload_id'];
 }
 
-if (isset($_POST['upload_final']))
-{
+if (isset($_POST['upload_final'])) {
+
     $upfile_details = "\nTemporary File Name :" . $_FILES['field_uploadfile']['tmp_name'];
     $upfile_details .= "\nFile Size :" . $_FILES['field_uploadfile']['size'];
     $upfile_details .= "\nFile Type :" . $_FILES['field_uploadfile']['type'];
     $upfile_details .= "\nFile Name :" . $_FILES['field_uploadfile']['name'];
-    
-    if (! is_uploaded_file($_FILES['field_uploadfile']['tmp_name']))
-    {
+
+    if (! is_uploaded_file($_FILES['field_uploadfile']['tmp_name'])) {
+
         $err .= nl2br($upfile_details);
         $upload_error = $_FILES['field_uploadfile']['error'];
-        switch ($_FILES['field_uploadfile']['error'])
-        {
+
+        switch ($_FILES['field_uploadfile']['error']) {
             case 0:
                 $err = $err . "<br />" . "[ERROR: $upload_error] There is no error, the file uploaded with success.";
                 break;
@@ -199,77 +186,64 @@ if (isset($_POST['upload_final']))
                 break;
         }
     }
-    
-    if ($err == '')
-    {
+
+    if ($err == '') {
+
         $upload_source_file_name = $_FILES['field_uploadfile']['name'];
         $pos = mb_strrpos($upload_source_file_name, ".", 'UTF-8');
         $upload_file_extn = mb_strtolower(mb_substr($upload_source_file_name, $pos + 1, mb_strlen($upload_source_file_name, 'UTF-8') - $pos, 'UTF-8'), 'UTF-8');
         $upfile_no_extn = basename($upload_source_file_name, ".$upload_file_extn");
         $upfile_no_extn = mb_ereg_replace("[&$#]+", " ", $upfile_no_extn);
         $upfile_no_extn = mb_ereg_replace("[ ]+", "-", $upfile_no_extn);
-        
+
         $upload_file_name = $upfile_no_extn . '.' . $upload_file_extn;
         $upload_file_path = VSHARE_DIR . '/video/' . $upload_file_name;
         $i = 0;
-        
-        while (file_exists($upload_file_path))
-        {
+
+        while (file_exists($upload_file_path)) {
             $i ++;
             $upload_file_name = $upfile_no_extn . '_' . $i . '.' . $upload_file_extn;
             $upload_file_path = VSHARE_DIR . '/video/' . $upload_file_name;
         }
-        
-        if (move_uploaded_file($_FILES['field_uploadfile']['tmp_name'], $upload_file_path))
-        {
-            if (! in_array($upload_file_extn, $file_types))
-            {
+
+        if (move_uploaded_file($_FILES['field_uploadfile']['tmp_name'], $upload_file_path)) {
+            if (! in_array($upload_file_extn, $file_types)) {
                 unlink($upload_file_path);
                 $err = "Invalid File format - $upload_file_extn";
                 write_log($err);
             }
-        }
-        else
-        {
+        } else {
             $err = 'Error in moving file, check permission of video folder';
             write_log($err);
         }
-    
-    }
-    else
-    {
+    } else {
         write_log($err);
     }
-    
-    if ($err == '')
-    {
+
+    if ($err == '') {
         $process_video = 1;
     }
-    
+
     $upload_id = $_POST['upload_id'];
 }
 
-if (isset($process_video) && $process_video == 1)
-{
+if (isset($process_video) && $process_video == 1) {
     $video_title = $_SESSION["$upload_id"]['title'];
     $video_descr = $_SESSION["$upload_id"]['description'];
     $video_keywords = $_SESSION["$upload_id"]['keywords'];
     $video_channels = $_SESSION["$upload_id"]['channels'];
     $video_privacy = $_SESSION["$upload_id"]['field_privacy'];
     $video_adult = $_SESSION["$upload_id"]['adult'];
-    
+
     $upload_file_size = filesize($upload_file_path);
     $upload_file_size = round($upload_file_size / (1024 * 1024));
-    
-    if ((get_config('guest_upload') == 1) && (! isset($_SESSION['USERNAME'])))
-    {
+
+    if ((get_config('guest_upload') == 1) && (! isset($_SESSION['USERNAME']))) {
         $user_name = get_config('guest_upload_user');
-    }
-    else
-    {
+    } else {
         $user_name = $_SESSION['USERNAME'];
     }
-    
+
     $sql = "INSERT INTO `process_queue` SET
            `file`='" . mysql_clean($upload_file_name) . "',
            `title`='" . mysql_clean($video_title) . "',
@@ -281,38 +255,32 @@ if (isset($process_video) && $process_video == 1)
            `process_queue_upload_ip`='" . User::get_ip() . "',
            `status`='2',
            `adult`='" . (int) $video_adult . "'";
-    
+
     $result = mysql_query($sql) or mysql_die($sql);
     $qid = mysql_insert_id();
-    
+
     $process_upload = get_config('process_upload');
-    
+
     write_log("Upload Finished");
-    
-    if ($process_upload == 0)
-    {
+
+    if ($process_upload == 0) {
         write_log("Batch Processing");
-    }
-    else if ($process_upload == 1)
-    {
+    } else if ($process_upload == 1) {
         write_log("Realtime Processing - process_video[$qid ,0]");
         $video_id = process_video($qid, 0);
-    }
-    else
-    {
+    } else {
         write_log("Background Processing");
         $php_path = get_config('php_path');
         $cmd_bkgnd = "$php_path -q " . VSHARE_DIR . "/convert.php $qid > /dev/null &";
         write_log("Running: $cmd_bkgnd");
         exec($cmd_bkgnd);
     }
-    
+
     $redirect_url = VSHARE_URL . '/upload/success/' . $qid . '/' . $upload_id . '/';
     redirect($redirect_url);
 }
 
-if ($use_upload_progress_bar == 1)
-{
+if ($use_upload_progress_bar == 1) {
     $html_extra = '
     <script language="javascript" type="text/javascript">
     var JQ = jQuery.noConflict();
@@ -336,4 +304,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('header.tpl');
 $smarty->display('upload_file.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
