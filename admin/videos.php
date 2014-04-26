@@ -13,39 +13,33 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.video.php';
 
 check_admin_login();
 
 $admin_listing_per_page = get_config('admin_listing_per_page');
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
-if (! isset($_GET['a']) || $_GET['a'] == '')
-{
+if (! isset($_GET['a']) || $_GET['a'] == '') {
     $_GET['a'] = 'all';
 }
 
 $view_types = array('all', 'public', 'private', 'adult', 'embedded');
 
-if (isset($_POST['video_id_arr']))
-{
+if (isset($_POST['video_id_arr'])) {
     $video_id_arr = $_POST['video_id_arr'];
     $video_id_arr = array_unique($video_id_arr);
     $video_id_arr_count = count($video_id_arr);
-    
-    for ($i = 0;$i < $video_id_arr_count;$i++)
-    {
+
+    for ($i = 0;$i < $video_id_arr_count;$i++) {
         $sql = "SELECT `video_user_id` FROM `videos` WHERE
                `video_id`='" . (int) $video_id_arr[$i] . "'";
         $result = mysql_query($sql) or mysql_die($sql);
 
-        if (mysql_num_rows($result) == 1)
-        {
+        if (mysql_num_rows($result) == 1) {
             $video_info = mysql_fetch_assoc($result);
             $video_user_id = $video_info['video_user_id'];
             unset($video_info);
@@ -57,45 +51,32 @@ if (isset($_POST['video_id_arr']))
     $msg = 'Selected Videos are Deleted.';
 }
 
-if (in_array($_GET['a'], $view_types))
-{
-    if ($_GET['a'] == 'all')
-    {
+if (in_array($_GET['a'], $view_types)) {
+    if ($_GET['a'] == 'all') {
         $query = '';
-    }
-    else if ($_GET['a'] == 'adult')
-    {
+    } else if ($_GET['a'] == 'adult') {
         $query = "WHERE `video_adult`='1'";
-    }
-    else if ($_GET['a'] == 'embedded')
-    {
+    } else if ($_GET['a'] == 'embedded') {
         $query = "WHERE `video_vtype`>'0'";
-    }
-    else
-    {
+    } else {
         $query = "WHERE `video_type`='$_GET[a]'";
     }
-    
-    if (! isset($_GET['sort']) || $_GET['sort'] == '')
-    {
+
+    if (! isset($_GET['sort']) || $_GET['sort'] == '') {
         $query .= " ORDER BY `video_id` DESC";
-    }
-    else
-    {
+    } else {
         $query .= " ORDER BY $_GET[sort]";
     }
-    
+
     $sql = "SELECT count(*) AS `total` FROM
            `videos` $query";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
-    $total = $tmp['total'];
-    
+    $total = DB::getTotal($sql);
+
     $start = ($page - 1) * $admin_listing_per_page;
-    
+
     require 'Pager/Pager.php';
     require 'Pager/Sliding.php';
-    
+
     $params = array();
     $params['mode'] = 'Sliding';
     $params['perPage'] = $admin_listing_per_page;
@@ -103,17 +84,16 @@ if (in_array($_GET['a'], $view_types))
     $params['delta'] = 2;
     $params['totalItems'] = $total;
     $params['urlVar'] = 'page';
-    
+
     $pager = new Pager_Sliding($params);
     $data = $pager->getPageData();
     $links = $pager->getLinks();
-    
+
     $sql = "SELECT * FROM `videos`
            $query
            LIMIT $start, $admin_listing_per_page";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $videos = mysql_fetch_all($result);
-    
+    $videos = DB::fetch($sql);
+
     $smarty->assign('links', $links["all"]);
     $smarty->assign('grandtotal', $total);
     $smarty->assign('total', $total + 0);
@@ -121,43 +101,36 @@ if (in_array($_GET['a'], $view_types))
     $smarty->assign('videos', $videos);
     $smarty->assign('a', $_GET['a']);
 
-}
-else if ($_GET['a'] == 'inappropriate')
-{
-    
-    if (isset($_GET['action']) && $_GET['action'] == 'del' && isset($_GET['video_id']) && is_numeric($_GET['video_id']))
-    {
+} else if ($_GET['a'] == 'inappropriate') {
+
+    if (isset($_GET['action']) && $_GET['action'] == 'del' && isset($_GET['video_id']) && is_numeric($_GET['video_id'])) {
         $sql = "DELETE FROM `inappropriate_requests` WHERE
                `inappropriate_request_video_id`=" . (int) $_GET['video_id'];
         mysql_query($sql) or mysql_die($sql);
     }
-    
-    if (isset($_GET['action']) && $_GET['action'] == 'delete')
-    {
+
+    if (isset($_GET['action']) && $_GET['action'] == 'delete') {
         $sql = "DELETE FROM `inappropriate_requests`";
         mysql_query($sql) or mysql_die($sql);
     }
-    
-    if (isset($_GET['sort']) && $_GET['sort'] != '')
-    {
+
+    if (isset($_GET['sort']) && $_GET['sort'] != '') {
         $query = " ORDER BY " . $_GET['sort'];
-    }
-    else
-    {
+    } else {
         $query = " ORDER BY `inappropriate_request_date` DESC";
     }
-    
+
     $sql = "SELECT count(inappropriate_request_video_id) AS `total` FROM `inappropriate_requests`
            $query";
     $result = mysql_query($sql) or mysql_die($sql);
     $tmp = mysql_fetch_array($result);
     $total = $tmp['total'];
-    
+
     $start_from = ($page - 1) * $admin_listing_per_page;
-    
+
     require 'Pager/Pager.php';
     require 'Pager/Sliding.php';
-    
+
     $params = array(
         'mode' => 'Sliding',
         'perPage' => $admin_listing_per_page,
@@ -166,17 +139,17 @@ else if ($_GET['a'] == 'inappropriate')
         'totalItems' => $total,
         'urlVar' => 'page'
     );
-    
+
     $pager = new Pager_Sliding($params);
     $data = $pager->getPageData();
     $links = $pager->getLinks();
-    
+
     $sql = "SELECT * FROM `inappropriate_requests`
            $query
            LIMIT $start_from, $admin_listing_per_page";
     $result = mysql_query($sql) or mysql_die();
     $videos = mysql_fetch_all($result);
-    
+
     $smarty->assign('links', $links['all']);
     $smarty->assign('grandtotal', $total);
     $smarty->assign('total', $total + 0);
@@ -189,4 +162,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/videos.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();
