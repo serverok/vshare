@@ -10,24 +10,19 @@ if ($page < 1) $page = 1;
 
 $sql = "SELECT * FROM `users` WHERE
        `user_id`='" . (int) $user_id . "'";
-$user_info = DB::fetch($sql);
+$user_info = DB::fetch1($sql);
 
 if ($user_info) {
-
     $sql = "SELECT count(*) AS `total` FROM `profile_comments` WHERE
            `profile_comment_user_id`='" . (int) $user_info['user_id'] . "'";
     $total = DB::getTotal($sql);
-
     if ($total > 0) {
         $start_from = ($page - 1) * $config['user_comments_per_page'];
-
         $sql = "SELECT * FROM `profile_comments` WHERE
                `profile_comment_user_id`='" . (int) $user_info['user_id'] . "'
                 ORDER BY `profile_comment_id` DESC
                 LIMIT $start_from, $config[user_comments_per_page]";
-        $result = mysql_query($sql) or mysql_die();
-
-        $profile_comments = mysql_fetch_all($result);
+        $profile_comments = DB::fetch($sql);
         $smarty->assign('profile_comments', $profile_comments);
 
         require_once 'Pager/Pager.php';
@@ -58,4 +53,3 @@ if ($user_info) {
 } else {
     echo 'User not found.';
 }
-

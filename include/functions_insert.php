@@ -834,20 +834,14 @@ function insert_id_to_uploaddate($v)
 
 function insert_voter_name($voter_id)
 {
-    global $config;
     $sql = "SELECT * FROM `users` WHERE
            `user_id`='" . (int) $voter_id['id'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
+    $tmp = DB::fetch1($sql);
     $name['name'] = $tmp['user_name'];
     $photo_dir = VSHARE_DIR . '/photo/' . $voter_id['id'] . '.jpg';
-
-    if ($tmp['user_photo'] == 1)
-    {
+    if ($tmp['user_photo'] == 1) {
         $photo_url = STATIC_URL . '/photo/' . $voter_id['id'] . '.jpg';
-    }
-    else
-    {
+    } else {
         $photo_url = IMG_CSS_URL . '/images/no_pic.gif';
     }
     $name['voter_photo'] = $photo_url;

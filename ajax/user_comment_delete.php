@@ -9,33 +9,27 @@ $ajax_debug = 0;
 $comment_id = isset($_POST['comment_id']) ? $_POST['comment_id'] : '';
 if ($ajax_debug) error_log("$comment_id \n",3, VSHARE_DIR . '/ajax/log.txt');
 
-if (!is_numeric($comment_id))
-{
+if (!is_numeric($comment_id)) {
 	$err =  $lang['comment_id_invalid'];
-}
-else if (!isset($_SESSION['UID']))
-{
+} else if (!isset($_SESSION['UID'])) {
 	$err = $lang['guest_user'];
 }
 
-if (!empty($err))
-{
+if (!empty($err)) {
     if ($ajax_debug) error_log("ERROR: $err \n",3, VSHARE_DIR . '/ajax/log.txt');
     return_json($err,'error');
 	exit(0);
 }
 
-$sql = "DELETE FROM `profile_comments` WHERE 
-       `profile_comment_id`=" . (int) $comment_id . " AND 
+$sql = "DELETE FROM `profile_comments` WHERE
+       `profile_comment_id`=" . (int) $comment_id . " AND
        `profile_comment_user_id`='" . (int) $_SESSION['UID'] . "'";
-mysql_query($sql) or mysql_die();
+DB::query($sql);
 
 if ($ajax_debug) error_log("SQL EXECUTED: $sql \n",3, VSHARE_DIR . '/ajax/log.txt');
 
-if (mysql_affected_rows() >= 1)
-{
+if (mysqli_affected_rows(DB::$link) >= 1) {
 	$msg = $comment_id;
 }
 
 return_json($comment_id,'success');
-
