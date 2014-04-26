@@ -70,7 +70,7 @@ if ($num_friends) {
             }
         }
         $start_num = $start_from + 1;
-        $end_num = $start_from + $num_result;
+        $end_num = $start_from + count($friend_videos);
     }
 
     $page_links = paginate($total, $config['items_per_page'], '.', '', $page);
