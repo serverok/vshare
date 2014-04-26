@@ -17,9 +17,7 @@ require 'include/language/' . LANG . '/lang_user.php';
 
 $user_name = $_GET['user_name'];
 
-$sql = "SELECT * FROM `users` WHERE
-       `user_name`='" . DB::quote($user_name) . "'";
-$user_info = DB::fetch1($sql);
+$user_info = User::getByName($user_name);
 
 if (! $user_info) {
     require '404.php';
