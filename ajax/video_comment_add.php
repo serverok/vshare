@@ -7,43 +7,34 @@ require '../include/language/' . LANG . '/lang_video_comment_add.php';
 $comments_value = isset($_POST['comments_value']) ? $_POST['comments_value'] : '';
 $video_id = isset($_POST['video_id']) ? (int) $_POST['video_id'] : '';
 
-if (get_magic_quotes_gpc())
-{
+if (get_magic_quotes_gpc()) {
 	$comments_value = stripslashes($comments_value);
 }
 
 $comments_value = Xss::clean($comments_value);
 $comments_value = nl2br($comments_value);
 
-if (! is_numeric($video_id))
-{
+if (! is_numeric($video_id)) {
     $err = $lang['vid_invalid'];
-}
-else if (! isset($_SESSION['UID']))
-{
+} else if (! isset($_SESSION['UID'])) {
     $err = $lang['guest'];
-}
-else if (empty($comments_value))
-{
+} else if (empty($comments_value)) {
     $err = $lang['comment_value_empty'];
 }
 
-if (! empty($err))
-{
+if (! empty($err)) {
     echo $err;
     exit();
 }
 
 $sql = "SELECT * FROM `words`";
-$result = mysql_query($sql) or mysql_die();
-while ($row = mysql_fetch_assoc($result))
-{
+$words_all = DB::fetch($sql);
+
+foreach ($words_all as $row) {
     $word = $row['word'];
     $replacement = $row['replacement'];
-    if (preg_match("/$word/i", $comments_value))
-    {
-        if ($replacement == '')
-        {
+    if (preg_match("/$word/i", $comments_value)) {
+        if ($replacement == '') {
             $word_length = mb_strlen($word, 'UTF-8');
             $replacement = str_repeat('*', $word_length);
         }
@@ -56,23 +47,21 @@ $sql = "INSERT INTO `comments` SET
 	   `comment_user_id`='" . (int) $_SESSION['UID'] . "',
 	   `comment_text`='" . DB::quote($comments_value,1) . "',
 	   `comment_add_time`='" . DB::quote($_SERVER['REQUEST_TIME']) . "'";
-$result = mysql_query($sql) or mysql_die();
+DB::query($sql);
 
-if (mysql_affected_rows() == 1)
-{
+if (mysqli_affected_rows(DB::$link) == 1) {
+
     $sql = "UPDATE `videos` SET
            `video_com_num`=`video_com_num`+1 WHERE
            `video_id`='" . (int) $video_id . "'";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
 
-    if (get_config('video_comment_notify') == 1)
-    {
-        require '../include/class.mail.php';
+    if (get_config('video_comment_notify') == 1) {
 
         $sql = "SELECT * FROM `email_templates` WHERE
                `email_id`='video_comment_notify'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        $mail_template = mysql_fetch_assoc($result);
+        $mail_template = DB::fetch1($sql);
+
         $email_subject = $mail_template['email_subject'];
         $email_body = $mail_template["email_body"];
         $email_subject = str_replace("[SITE_NAME]", $config['site_name'], $email_subject);
@@ -81,9 +70,7 @@ if (mysql_affected_rows() == 1)
                `videos` AS `v`, `users` AS `u` WHERE
                 v.video_id='" . (int) $video_id . "' AND
                 v.video_user_id=u.user_id";
-        $result = mysql_query($sql) or mysql_die();
-        $video_user_info = mysql_fetch_assoc($result);
-        mysql_free_result($result);
+        $video_user_info = DB::fetch1($sql);
 
         $video_url = VSHARE_URL . '/view/' . $video_id . '/' . $video_user_info['video_seo_name'] . '/';
 
