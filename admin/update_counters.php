@@ -57,10 +57,10 @@ if (isset($_GET['action'])) {
                 $num_user_videos = DB::getTotal($sql);
 
                 $sql = "UPDATE `users` SET `user_videos`='" . (int) $num_user_videos . "' WHERE
-                       `user_id`='" . (int) $user_id . "'";
+                       `user_id`='" . (int) $user_info['user_id'] . "'";
                 DB::query($sql);
 
-                echo '<p>$user_name = ' . $total . ' videos.</p>';
+                echo '<p>User ' . $user_info['user_name'] . ' have ' . $num_user_videos . ' videos.</p>';
             }
 
             echo '<meta http-equiv="refresh" content="3;url=' . VSHARE_URL . '/admin/update_counters.php?action=update_video_counts&items_per_page=' . $items_per_page . '&page=' . $page . '">';
@@ -90,13 +90,13 @@ if (isset($_GET['action'])) {
         foreach ($video_all as $video_info) {
             $sql = "SELECT COUNT(*) AS `total` FROM `comments` WHERE
                    `comment_video_id`='" . (int) $video_info['video_id'] . "'";
-            $total = DB::getTotal($sql);
+            $num_video_comments = DB::getTotal($sql);
 
             $sql = "UPDATE `videos` SET
-                   `video_com_num`='" . (int) $total . "' WHERE
-                   `video_id`='" . (int) $video_id . "'";
+                   `video_com_num`='" . (int) $num_video_comments . "' WHERE
+                   `video_id`='" . (int) $video_info['video_id'] . "'";
             DB::query($sql);
-            echo '<p>$video_id = ' . $total . ' comments.</p>';
+            echo '<p>Video with ID ' . $video_info['video_id'] . ' have ' . $num_video_comments . ' comments.</p>';
         }
 
         echo '<meta http-equiv="refresh" content="3;url=' . VSHARE_URL . '/admin/update_counters.php?action=update_video_comments_count&items_per_page=' . $items_per_page . '&page=' . $page . '">';
