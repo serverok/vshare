@@ -256,8 +256,7 @@ if (isset($process_video) && $process_video == 1) {
            `status`='2',
            `adult`='" . (int) $video_adult . "'";
 
-    $result = mysql_query($sql) or mysql_die($sql);
-    $qid = mysql_insert_id();
+    $qid = DB::insertGetId($sql);
 
     $process_upload = get_config('process_upload');
 
