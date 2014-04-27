@@ -18,33 +18,26 @@ check_admin_login();
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
-if (isset($_POST['action']))
-{
-    if ($_POST['action'] == 'Disable')
-    {
+if (isset($_POST['action'])) {
+    if ($_POST['action'] == 'Disable') {
         $active = 0;
-    }
-    else
-    {
+    } else {
         $active = 1;
     }
-    
+
     $sql = "UPDATE `tags` SET
            `active`='" . (int) $active . "' WHERE
            `id`='" . (int) $_POST['action_tag'] . "'";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
     $msg = 'Tag has been ' . $_POST['action'] . 'd.';
 }
 
 $sql = "SELECT count(*) AS `total` FROM `tags` WHERE `active`='1'";
-$result = mysql_query($sql) or mysql_die($sql);
-$total = mysql_fetch_array($result);
-$total = $total['total'];
+$total = DB::getTotal($sql);
 
 $start = ($page - 1) * $result_per_page;
 
@@ -67,8 +60,7 @@ $links = $pager->getLinks();
 $sql = "SELECT * FROM `tags` WHERE
 	   `active`='1'
         LIMIT $start, $result_per_page";
-$result = mysql_query($sql) or mysql_die($sql);
-$tags = mysql_fetch_all($result);
+$tags = DB::fetch($sql);
 
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);

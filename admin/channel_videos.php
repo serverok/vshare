@@ -25,10 +25,9 @@ $smarty->assign('channel_name', $channel['channel_name']);
 if (isset($_GET['action']) && $_GET['action'] == 'del') {
     $sql = "SELECT `video_channels` FROM `videos` WHERE
            `video_id`='" . (int) $_GET['video_id'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_assoc($result);
+    $tmp = DB::fetch1($sql);
     $ch = explode('|', $tmp['video_channels']);
-    
+
     if (count($ch) <= 3) {
         $err = $lang['channel_only_one'];
     } else {
@@ -36,7 +35,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'del') {
         $sql = "UPDATE `videos` SET
                `video_channels`='$new_type' WHERE
                `video_id`='" . (int) $_GET['video_id'] . "'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
 }
 

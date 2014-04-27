@@ -21,7 +21,7 @@ $result_per_page = get_config('admin_listing_per_page');
 if (isset($_GET['action']) && ($_GET['action'] == 'del')) {
     $sql = "DELETE FROM `channels` WHERE
            `channel_id`='" . (int) $_GET['chid'] . "'";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
 }
 
 $allowedSort = array(

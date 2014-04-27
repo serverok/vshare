@@ -13,26 +13,20 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.mail.php';
 
-if (isset($_POST['submit']))
-{
+if (isset($_POST['submit'])) {
+
     $data1 = 'ADMIN_PWD_CHANGE';
-    
+
     $sql = "SELECT * FROM `verify_code` WHERE
            `data1`='$data1'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    
-    if (mysql_num_rows($result) > 0)
-    {
-        $tmp = mysql_fetch_assoc($result);
-        $verify_vkey = $tmp['vkey'];
-        $verify_id = $tmp['id'];
-        $new_password = $tmp['data2'];
-    
-    }
-    else
-    {
+    $verify_info = DB::fetch1($sql);
+
+    if ($verify_info) {
+        $verify_vkey = $verify_info['vkey'];
+        $verify_id = $verify_info['id'];
+        $new_password = $verify_info['data2'];
+    } else {
         $new_password = password_generator(6);
         $verify_vkey = substr(time() . rand(1, 99999999), 6);
         $verify_vkey = md5($verify_vkey);
@@ -40,19 +34,17 @@ if (isset($_POST['submit']))
            `vkey`='$verify_vkey',
            `data1`='$data1',
            `data2`='" . $new_password . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        $verify_id = mysql_insert_id();
+        $verify_id = DB::insertGetId($sql);
     }
-    
+
     $verify_url = VSHARE_URL . '/admin/reset_password.php?k=' . $verify_vkey . '&i=' . $verify_id;
-    
+
     $sql = "SELECT * FROM `email_templates` WHERE
            `email_id`='password_reset_admin'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $email_info = mysql_fetch_assoc($result);
+    $email_info = DB::fetch1($sql);
     $email_subject = $email_info['email_subject'];
     $email_body = $email_info['email_body'];
-    
+
     $email_subject = str_replace('[SITE_NAME]', $config['site_name'], $email_subject);
     $email_body = str_replace('[ADMIN_NAME]', $config['admin_name'], $email_body);
     $email_body = str_replace('[PASSWORD]', $new_password, $email_body);
@@ -60,7 +52,7 @@ if (isset($_POST['submit']))
     $email_body = str_replace('[VERIFY_URL]', $verify_url, $email_body);
     $email_body = str_replace('[SITE_URL]', VSHARE_URL, $email_body);
     $email_body = str_replace('[SITE_NAME]', $config['site_name'], $email_body);
-    
+
     $mail_info = array();
     $mail_info['from_email'] = $config['admin_email'];
     $mail_info['from_name'] = $config['site_name'];
