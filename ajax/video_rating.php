@@ -6,67 +6,47 @@ require '../include/language/' . LANG . '/lang_video_rating.php';
 $video_id = $_POST['video_id'];
 $new_rate = $_POST['new_rate'];
 
-//error_log('$video_id =' . $video_id . ' $new_rate-' . $new_rate ,3,'log_rate.txt');
-
-
 $units = 5;
 $err = '';
 
-if (! is_numeric($new_rate))
-{
+if (! is_numeric($new_rate)) {
     $err = $lang['rate_numeric'];
-}
-else if ($new_rate > 5 || $new_rate < 1)
-{
+} else if ($new_rate > 5 || $new_rate < 1) {
     $err = $lang['invalid_vote'];
-}
-else if (! is_numeric($video_id))
-{
+} else if (! is_numeric($video_id)) {
     $err = $lang['id_numeric'];
-}
-else if (! isset($_SESSION['UID']))
-{
+} else if (! isset($_SESSION['UID'])) {
     $err = $lang['invalid_user'];
 }
 
-if ($err != '')
-{
+if ($err != '') {
     echo $err;
     exit();
 }
 
-$sql = "SELECT * FROM `videos` WHERE
-       `video_id`='" . (int) $video_id . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$video_row = mysql_fetch_assoc($result);
-$video_voter_id = $video_row['video_voter_id'];
-$video_rated_by = $video_row['video_rated_by'];
-$video_rate = $video_row['video_rate'];
+$video_info = Video::getById($video_id);
+
+$video_voter_id = $video_info['video_voter_id'];
+$video_rated_by = $video_info['video_rated_by'];
+$video_rate = $video_info['video_rate'];
 $video_rate_new = $new_rate + $video_rate;
 
-if ($_SESSION['UID'] == $video_row['video_user_id'])
-{
+if ($_SESSION['UID'] == $video_info['video_user_id']) {
     echo $lang['cannot_rate'];
     exit();
 }
 
-if ($video_rate_new == 0)
-{
+if ($video_rate_new == 0) {
     $video_rated_by_new = 0;
-}
-else
-{
+} else {
     $video_rated_by_new = $video_rated_by + 1;
 }
 
 $voters = explode('|', $video_voter_id);
 
-if (in_array($_SESSION['UID'], $voters))
-{
+if (in_array($_SESSION['UID'], $voters)) {
     $video_voter_id_new = $video_voter_id;
-}
-else
-{
+} else {
     $video_voter_id_new = $video_voter_id . $_SESSION['UID'] . '|';
 }
 
@@ -77,17 +57,14 @@ $sql = "UPDATE `videos` SET
        `video_rate`='" . (int) $video_rate_new . "',
        `video_voter_id`='" . DB::quote($video_voter_id_new) . "' WHERE
        `video_id`='" . (int) $video_id . "'";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $video_rated_by = $video_rated_by_new;
 $video_rate = $video_rate_new;
 
-if ($video_rated_by > 1)
-{
+if ($video_rated_by > 1) {
     $tense = $lang['votes'];
-}
-else
-{
+} else {
     $tense = $lang['vote'];
 }
 
