@@ -38,22 +38,18 @@ class Tag
     {
         $sql = "DELETE FROM `tag_video` WHERE
                `vid`='" . (int) $this->vid . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
 
-        if ($adjust_tag_count == 1)
-        {
-            for ($i = 0; $i < count($this->tags); $i ++)
-            {
+        if ($adjust_tag_count == 1) {
+            for ($i = 0; $i < count($this->tags); $i ++) {
                 $sql = "SELECT * FROM `tags` WHERE
                        `tag`='" . $this->tags[$i] . "'";
-                $result = mysql_query($sql);
-                $tag_info = mysql_fetch_assoc($result);
+                $tag_info = DB::fetch1($sql);
 
-                if ($tag_info['tag_count'] > 0)
-                {
+                if ($tag_info && $tag_info['tag_count'] > 0) {
                     $sql = "UPDATE `tags` SET `tag_count`=`tag_count`-1 WHERE
                            `tag`='" . $this->tags[$i] . "'";
-                    mysql_query($sql) or mysql_die($sql);
+                    DB::query($sql);
                 }
             }
         }
