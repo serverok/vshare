@@ -5,60 +5,43 @@ require '../include/language/' . LANG . '/lang_playlist.php';
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
-if (! isset($_SESSION['UID']))
-{
+if (! isset($_SESSION['UID'])) {
     echo $lang['must_login'];
     exit();
 }
 
-if ($action == 'create_playlist')
-{
+if ($action == 'create_playlist') {
     $playlist_name = isset($_GET['playlist_name']) ? $_GET['playlist_name'] : '';
-    
-    if ($playlist_name == '')
-    {
+
+    if ($playlist_name == '') {
         echo $lang['playlist_name_empty'];
-    }
-    else
-    {
+    } else {
         $sql = "SELECT * FROM `playlists` WHERE
                `playlist_user_id`='" . (int) $_SESSION['UID'] . "' AND
                `playlist_name`='" . DB::quote($playlist_name) . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) < 1)
-        {
+        $playlist_exists = DB::fetch($sql);
+
+        if (! $playlist_exists) {
             $sql = "INSERT INTO `playlists` SET
                    `playlist_user_id`='" . (int) $_SESSION['UID'] . "',
                    `playlist_name`='" . DB::quote($playlist_name) . "',
                    `playlist_add_date`='" . (int) time() . "'";
-            mysql_query($sql) or mysql_die($sql);
-            
-            echo mysql_insert_id();
-        }
-        else
-        {
+            echo DB::insertGetId($sql);
+        } else {
             echo $lang['playlist_duplicate'];
         }
     }
-}
-else if ($action == 'show_playlist')
-{
+} else if ($action == 'show_playlist') {
     $sql = "SELECT * FROM `playlists` WHERE
            `playlist_user_id`='" . (int) $_SESSION['UID'] . "'
             ORDER BY `playlist_id` DESC";
-    $result = mysql_query($sql) or mysql_die($sql);
-    
+    $user_playlists = DB::fetch($sql);
+
     echo '<ul id="pl_lists">';
-    
-    if (mysql_num_rows($result) > 0)
-    {
-        while ($playlist = mysql_fetch_assoc($result))
-        {
-            echo '<li><span id="' . (int) $playlist['playlist_id'] . '" rel="pl_items">' . $playlist['playlist_name'] . '</span></li>';
-        }
+    foreach ($user_playlists as $playlist) {
+        echo '<li><span id="' . (int) $playlist['playlist_id'] . '" rel="pl_items">' . $playlist['playlist_name'] . '</span></li>';
     }
-    
+
     echo '
     <li>
         <span id="create_pl">Create a new playlist...</span>
@@ -68,7 +51,7 @@ else if ($action == 'show_playlist')
         </form>
         </li>
     </ul>';
-    
+
     echo '
     <script type="text/javascript">
         $("ul#pl_lists *").click(function(){ return false; });
@@ -84,41 +67,33 @@ else if ($action == 'show_playlist')
             });
         });
     </script>';
-}
-else if ($action == 'add_playlist_video')
-{
+} else if ($action == 'add_playlist_video') {
+
     $video_id = isset($_GET['video_id']) ? $_GET['video_id'] : '';
     $playlist_id = isset($_GET['playlist_id']) ? $_GET['playlist_id'] : '';
-    
-    if ($video_id == '')
-    {
+
+    if ($video_id == '') {
         $err = $lang['playlist_vid_invalid'];
-    }
-    else if ($playlist_id == '')
-    {
+    } else if ($playlist_id == '') {
         $err = $lang['playlist_id_invalid'];
     }
-    
-    if ($err == '')
-    {
+
+    if ($err == '') {
         $sql = "SELECT * FROM `playlists` AS `p`, `playlists_videos` AS `pv` WHERE
                 p.playlist_id='" . (int) $playlist_id . "' AND
                 p.playlist_user_id='" . (int) $_SESSION['UID'] . "' AND
                 p.playlist_id=pv.playlists_videos_playlist_id AND
                 pv.playlists_videos_video_id='" . (int) $video_id . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) < 1)
-        {
+        $video_in_playlist = DB::fetch($sql);
+
+        if (! $video_in_playlist) {
             $sql = "INSERT INTO `playlists_videos` SET
                    `playlists_videos_playlist_id`='" . (int) $playlist_id . "',
                    `playlists_videos_video_id`='" . (int) $video_id . "'";
-            mysql_query($sql) or mysql_die($sql);
-            
+            DB::query($sql);
+
             echo $lang['playlist_video_added'];
-        }
-        else
-        {
+        } else {
             echo $lang['playlist_video_duplicate'];
         }
     }
