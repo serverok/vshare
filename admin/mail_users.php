@@ -93,26 +93,23 @@ if (isset($_POST['submit'])) {
         } else {
             $sql = "SELECT `group_name` FROM `groups` WHERE
                    `group_id`='" . (int) $_POST['GID'] . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
-            $tmp = mysql_fetch_assoc($result);
+            $tmp = DB::fetch1($sql);
             $group_name = $tmp['group_name'];
 
             $sql = "SELECT `group_member_user_id` FROM `group_members` WHERE
                    `group_member_group_id`='" . (int) $_POST['GID'] . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
+            $result = DB::fetch($sql);
 
-            while ($tmp = mysql_fetch_assoc($result))
-            {
+            foreach ($result as $tmp) {
                 $member_ids[] = $tmp['group_member_user_id'];
             }
 
-            $sql = "SELECT `user_email` FROM `users` WHERE
+            $sql = "SELECT * FROM `users` WHERE
                    `user_id` in (" . implode(', ', $member_ids) . ")";
-            $result = mysql_query($sql) or mysql_die($sql);
+            $users_all = DB::fetch($sql);
 
-            while ($tmp = mysql_fetch_assoc($result))
-            {
-                mail2user($tmp['user_email'], $config['site_name'], $config['admin_email'], $_POST['subj'], $_POST['htmlCode']);
+            foreach ($users_all as $user_info) {
+                mail2user($user_info['user_email'], $config['site_name'], $config['admin_email'], $_POST['subj'], $_POST['htmlCode']);
             }
 
             $msg = str_replace("[GROUPNAME]", $group_name, $lang['mail_group_ok']);
@@ -146,18 +143,18 @@ if (isset($_POST['submit'])) {
 if (isset($_GET['a']) && $_GET['a'] == 'group') {
 
     $sql = "SELECT `group_id`, `group_name` FROM `groups` ORDER BY `group_name`";
-    $result = mysql_query($sql) or mysql_die($sql);
+    $groups_all = DB::fetch($sql);
 
     $group_ops = "<option value='0'>-- Select a group --</option>";
 
-    while ($tmp = mysql_fetch_assoc($result)) {
-        if (isset($_POST['GID']) && $_POST['GID'] == $tmp['group_id']) {
+    foreach ($groups_all as $group_info) {
+        if (isset($_POST['GID']) && $_POST['GID'] == $group_info['group_id']) {
             $sel = "selected";
         } else {
             $sel = "";
         }
 
-        $group_ops .= "<option value='" . $tmp['group_id'] . "' $sel>" . $tmp['group_name'] . "</option>";
+        $group_ops .= "<option value='" . $group_info['group_id'] . "' $sel>" . $group_info['group_name'] . "</option>";
     }
 
     $smarty->assign('group_ops', $group_ops);
