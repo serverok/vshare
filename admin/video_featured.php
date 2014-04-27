@@ -18,25 +18,22 @@ check_admin_login();
 
 $result_per_page = get_config('admin_listing_per_page');
 
-if ((isset($_GET['todo'])) && ($_GET['todo'] == 'un_feature'))
-{
+if ((isset($_GET['todo'])) && ($_GET['todo'] == 'un_feature')) {
     $sql = "UPDATE `videos` SET
            `video_featured`='no' WHERE
            `video_id`='" . (int) $_GET['video_id'] . "'";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
 }
 
-if ((isset($_GET['todo'])) && ($_GET['todo'] == 'un_feature_all'))
-{
+if ((isset($_GET['todo'])) && ($_GET['todo'] == 'un_feature_all')) {
     $sql = "UPDATE `videos` SET
            `video_featured`='no'";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
 }
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
@@ -45,12 +42,9 @@ $sort_allowed = array(
     'video_id desc'
 );
 
-if ((isset($_GET['sort'])) && (in_array($_GET['sort'], $sort_allowed)))
-{
+if ((isset($_GET['sort'])) && (in_array($_GET['sort'], $sort_allowed))) {
     $sort = $_GET['sort'];
-}
-else
-{
+} else {
     $sort = "`video_id` DESC";
 }
 
@@ -60,9 +54,7 @@ $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
        `video_approve`=1 AND
        `video_featured`='yes'
         ORDER BY $sort";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_array($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start = ($page - 1) * $result_per_page;
 
@@ -89,9 +81,7 @@ $sql = "SELECT * FROM `videos` WHERE
        `video_featured`='yes'
         ORDER BY $sort
         LIMIT $start, $result_per_page";
-$result = mysql_query($sql) or mysql_die($sql);
-$num_featured = mysql_num_rows($result);
-$featured_videos = mysql_fetch_all($result);
+$featured_videos = DB::fetch($sql);
 
 $smarty->assign('links', $links['all']);
 $smarty->assign('answers', $featured_videos);
