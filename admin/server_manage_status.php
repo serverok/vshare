@@ -20,32 +20,25 @@ $server_id = isset($_GET['server_id']) ? $_GET['server_id'] : '';
 
 $sql = "SELECT * FROM `servers` WHERE
        `id`='" . (int) $server_id . "'";
-$result = mysql_query($sql) or mysql_die($sql);
+$server_info = DB::fetch1($sql);
 
-if (mysql_num_rows($result) > 0)
-{
-    $server_info = mysql_fetch_assoc($result);
-    if ($server_info['status'] == 1)
-    {
+if ($server_info) {
+    if ($server_info['status'] == 1) {
         $new_status = 0;
         $enabled_or_disabled = 'Disabled';
-    }
-    else
-    {
+    } else {
         $new_status = 1;
         $enabled_or_disabled = 'Enabled';
     }
-    
+
     $sql = "UPDATE `servers` SET
            `status`='" . (int) $new_status . "' WHERE
            `id`='" . (int) $server_id . "'";
-    mysql_query($sql) or mysql_die($sql);
-    
+    DB::query($sql);
+
     $msg = 'Server ' . $server_info['url'] . ' ' . $enabled_or_disabled;
     set_message($msg, 'success');
-}
-else
-{
+} else {
     set_message('Invalid server id', 'error');
 }
 
