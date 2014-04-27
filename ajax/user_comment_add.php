@@ -58,7 +58,7 @@ if (isset($_SESSION['USERNAME'])) {
                `profile_comment_ip`='$ip'";
 		$result = DB::query($sql);
 
-		if (mysqli_affected_rows(DB::$link) >= 1) {
+		if (DB::affectedRows() >= 1) {
             return_json($lang['comment_post'], 'success');
 		} else {
             return_json($lang['comment_post_error'], 'error');

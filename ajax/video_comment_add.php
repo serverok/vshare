@@ -49,7 +49,7 @@ $sql = "INSERT INTO `comments` SET
 	   `comment_add_time`='" . DB::quote($_SERVER['REQUEST_TIME']) . "'";
 DB::query($sql);
 
-if (mysqli_affected_rows(DB::$link) == 1) {
+if (DB::affectedRows() == 1) {
 
     $sql = "UPDATE `videos` SET
            `video_com_num`=`video_com_num`+1 WHERE

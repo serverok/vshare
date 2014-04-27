@@ -90,4 +90,9 @@ class DB
     {
         mysqli_free_result(self::$result);
     }
+
+    public static function affectedRows()
+    {
+        return mysqli_affected_rows(self::$link);
+    }
 }

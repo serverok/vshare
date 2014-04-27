@@ -7,17 +7,13 @@ require '../include/language/' . LANG . '/lang_vote_add.php';
 $answer = $_POST['value'];
 $id = $_POST['poll_id'];
 
-if (! is_numeric($id))
-{
+if (! is_numeric($id)) {
     $err = $lang['id_invalid'];
-}
-else if (! isset($_SESSION['UID']))
-{
+} else if (! isset($_SESSION['UID'])) {
     $err = $lang['guest'];
 }
 
-if (! empty($err))
-{
+if (! empty($err)) {
     return_json($err, 'error');
     exit(0);
 }
@@ -25,14 +21,12 @@ if (! empty($err))
 $today = date('Y-m-d');
 $user_ip = User::get_ip();
 
-if ($config['user_poll'] == "Once")
-{
+if ($config['user_poll'] == "Once") {
     $sql = "SELECT COUNT(*) AS `total` FROM `poll_results` WHERE
            `poll_result_vote_id`='" . (int) $id . "' AND
            `poll_result_voter_id`='" . (int) $_SESSION['UID'] . "'";
     $total = DB::getTotal($sql);
-    if ($total > 0)
-    {
+    if ($total > 0) {
         return_json($lang['already_voted'], 'error');
         exit();
     }
@@ -46,10 +40,8 @@ $sql = "INSERT INTO `poll_results` SET
        `poll_result_date`='" . DB::quote($today) . "'";
 DB::query($sql);
 
-if (mysqli_affected_rows(DB::$link) > 0)
-{
+if (DB::affectedRows() > 0) {
     $poll_info = Poll::display($id);
-
     $smarty->assign('poll_info', $poll_info);
     $fetch_view_vote = $smarty->fetch('view_vote.tpl');
     return_json($fetch_view_vote, 'success');

@@ -12,27 +12,20 @@ if (! is_numeric($video_id) || ! is_numeric($comment_id) || ! isset($_SESSION['U
     exit(0);
 }
 
-if (isset($_SESSION['UID']))
-{
-    $sql = "SELECT * FROM `videos` WHERE
-           `video_id`=" . (int) $video_id . " AND
-           `video_user_id`=" . (int) $_SESSION['UID'];
-    $result = mysql_query($sql) or mysql_die($sql);
-    
-    if (mysql_num_rows($result) == 1)
-    {
-        $sql = "DELETE FROM `comments` WHERE 
+$video_info = Video::getById($video_id);
+
+if (isset($_SESSION['UID']) && $video_info) {
+    if ($video_info['video_user_id'] == $_SESSION['UID']) {
+        $sql = "DELETE FROM `comments` WHERE
                `comment_id`=" . (int) $comment_id . " AND
                `comment_video_id`=" . (int) $video_id;
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_affected_rows() == 1)
-        {
+        DB::query($sql);
+
+        if (DB::affctedRows() == 1) {
             $sql = "UPDATE `videos` SET
 		           `video_com_num`=`video_com_num`-1 WHERE
 		           `video_id`='" . (int) $video_id . "'";
-            mysql_query($sql) or mysql_die($sql);
-            
+            DB::query($sql);
             return_json($comment_id, 'success');
         }
     }

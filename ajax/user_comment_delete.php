@@ -28,7 +28,7 @@ DB::query($sql);
 
 if ($ajax_debug) error_log("SQL EXECUTED: $sql \n",3, VSHARE_DIR . '/ajax/log.txt');
 
-if (mysqli_affected_rows(DB::$link) >= 1) {
+if (DB::affectedRows() >= 1) {
 	$msg = $comment_id;
 }
 
