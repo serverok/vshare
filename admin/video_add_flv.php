@@ -24,53 +24,29 @@ $smarty->assign('num_max_channels', $num_max_channels);
 
 if (isset($_POST['submit']))
 {
-    
-    $sql = "SELECT * FROM `users` WHERE
-           `user_name`='" . DB::quote($_POST['video_user']) . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    
-    if (mysql_num_rows($result))
-    {
-        $user_info = mysql_fetch_assoc($result);
-    }
-    else
-    {
+
+    $user_info = User::getByName($_POST['video_user']);
+
+    if (! $user_info) {
         $err = $lang['user_not_found'];
+    } else if (strlen($_POST['video_title']) < 4) {
+        $err = $lang['title_too_short'];
+    } else if (strlen($_POST['video_description']) < 4) {
+        $err = $lang['description_too_short'];
+    } else if (strlen($_POST['video_keywords']) < 4) {
+        $err = $lang['tags_too_short'];
+    } else if (! isset($_POST['channel'])) {
+        $err = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
+    } else if ((count($_POST['channel']) < 1) || (count($_POST['channel']) > $num_max_channels)) {
+        $err = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
     }
-    
-    if ($err == '')
-    {
-        if (strlen($_POST['video_title']) < 4)
-        {
-            $err = $lang['title_too_short'];
-        }
-        else if (strlen($_POST['video_description']) < 4)
-        {
-            $err = $lang['description_too_short'];
-        }
-        else if (strlen($_POST['video_keywords']) < 4)
-        {
-            $err = $lang['tags_too_short'];
-        }
-        else if (! isset($_POST['channel']))
-        {
-            $err = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
-        }
-        else if ((count($_POST['channel']) < 1) || (count($_POST['channel']) > $num_max_channels))
-        {
-            $err = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
-        }
-    }
-    
-    if ($err == '')
-    {
+    if (empty($err)) {
         $listch = implode('|', $_POST['channel']);
-        
-        if ($_POST['video_privacy'] != 'public')
-        {
+
+        if ($_POST['video_privacy'] != 'public') {
             $_POST['video_privacy'] = 'private';
         }
-        
+
         $_SESSION['video_privacy'] = $_POST['video_privacy'];
         $_SESSION['description'] = $_POST['video_description'];
         $_SESSION['title'] = $_POST['video_title'];
@@ -83,17 +59,15 @@ if (isset($_POST['submit']))
     }
 }
 
-$ch = channels::get_all();
+$ch = Channel::get();
 
 $channel_checkbox = '';
 
-for ($i = 0; $i < count($ch); $i ++)
-{
+for ($i = 0; $i < count($ch); $i ++) {
     $channel_checkbox .= '<input type="checkbox" name="channel[]" value="' . $ch[$i]['channel_id'] . '" />' . $ch[$i]['channel_name_html'] . '<br />';
 }
 
 $smarty->assign('ch_checkbox', $channel_checkbox);
-
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
