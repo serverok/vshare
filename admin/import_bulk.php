@@ -14,7 +14,6 @@
 
 require '../include/config.php';
 require '../include/class.bulk_import.php';
-require '../include/class.channels.php';
 require 'Zend/Loader.php';
 Zend_Loader::loadClass('Zend_Gdata_YouTube');
 
@@ -34,11 +33,9 @@ if (isset($_GET['keyword'])) {
 
     $start = ($page - 1) * $admin_listing_per_page;
 
-    $sql = "SELECT * FROM `users` WHERE
-			`user_name`='" . DB::quote($user_name) . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
+    $user_info = User::getByName($user_name);
 
-    if (mysql_num_rows($result) == 1) {
+    if ($user_info) {
         $yt = new Zend_Gdata_YouTube();
         $query = $yt->newVideoQuery();
         $query->setQuery($search_string);
@@ -91,7 +88,7 @@ if (isset($_GET['keyword'])) {
     }
 }
 
-$smarty->assign('channels', channels::get_all());
+$smarty->assign('channels', Channel::get());
 $smarty->assign('next', $next);
 $smarty->assign('err', $err);
 $smarty->assign('previous', $previous);

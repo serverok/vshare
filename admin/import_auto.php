@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.channels.php';
 
 check_admin_login();
 
@@ -38,15 +37,15 @@ if (isset($_POST['submit'])) {
     if ($err == '') {
         $sql = "SELECT * FROM `import_auto` WHERE
 			   `import_auto_keywords`='" . DB::quote($video_keywords) . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
+        $is_duplicate = DB::fetch1($sql);
 
-        if (mysql_num_rows($result) == 0) {
+        if (! $is_duplicate) {
             $sql = "INSERT INTO `import_auto` SET
 					`import_auto_keywords`='" . DB::quote($video_keywords) . "',
 					`import_auto_user`='" . DB::quote($user_name) . "',
 					`import_auto_channel`='" . (int) $channel_id . "',
 					`import_auto_download`='" . (int) $import_auto_download . "'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
             $msg = 'Keywords successfully added';
             set_message($msg, 'success');
             $redirect_url = VSHARE_URL . '/admin/import_auto.php';
@@ -63,15 +62,10 @@ if (isset($_POST['submit'])) {
 }
 
 $sql = "SELECT * FROM `import_auto`";
-$result = mysql_query($sql) or mysql_die($sql);
+$import_auto_info = DB::fetch($sql);
 
-if (mysql_num_rows($result) > 0) {
-    $import_auto_info = mysql_fetch_all($result);
-    $smarty->assign('import_auto_info', $import_auto_info);
-}
-
-$channels = channels::get_all();
-$smarty->assign('channel_info', $channels);
+$smarty->assign('import_auto_info', $import_auto_info);
+$smarty->assign('channel_info', Channel::get());
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

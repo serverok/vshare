@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.channels.php';
 
 check_admin_login();
 
@@ -21,11 +20,9 @@ $id = isset($_GET['id']) ? $_GET['id'] : $_POST['import_auto_id'];
 
 $sql = "SELECT * FROM `import_auto` WHERE
         `import_auto_id`='" . (int) $id . "'";
-$result = mysql_query($sql) or mysql_die($sql);
+$import_auto_info = DB::fetch1($sql);
 
-if (mysql_num_rows($result) > 0) {
-    $import_auto_info = mysql_fetch_assoc($result);
-} else {
+if (! $import_auto_info) {
     $msg = 'Keyword not found';
     set_message($msg, 'success');
     $redirect_url = VSHARE_URL . '/admin/import_auto.php';
@@ -59,7 +56,7 @@ if (isset($_POST['submit'])) {
                     `import_auto_channel`='" . (int) $channel_id . "',
                     `import_auto_download`='" . (int) $_POST['import_auto_download'] . "' WHERE
                     `import_auto_id`='" . (int) $id . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
             $msg = 'Keyword updated successfully';
             set_message($msg, 'success');
             $redirect_url = VSHARE_URL . '/admin/import_auto.php';

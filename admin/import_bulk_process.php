@@ -15,7 +15,6 @@
 require '../include/config.php';
 require '../include/class.upload_remote.php';
 require '../include/functions_seo_name.php';
-require '../include/class.tags.php';
 require '../include/class.bulk_import.php';
 require '../include/youtube.php';
 require 'Zend/Loader.php';
@@ -35,10 +34,10 @@ if (isset($_POST['submit'])) {
     $sql = "SELECT * FROM `users` AS u,`channels` AS c WHERE
             u.user_name='" . DB::quote($user_name) . "' AND
             c.channel_id='" . (int) $channel_id . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
+    $tmp = DB::fetch1($sql);
 
-    if (mysql_num_rows($result) > 0) {
-        $tmp = mysql_fetch_assoc($result);
+    if ($tmp) {
+
         $user_id = $tmp['user_id'];
         $user_video_num = 0;
 
@@ -47,8 +46,7 @@ if (isset($_POST['submit'])) {
                 $sql = "INSERT INTO `import_track` SET
 					   `import_track_unique_id`='" . DB::quote($video_id[$i]) . "' ,
 					   `import_track_site`='" . DB::quote($_POST['import_site']) . "'";
-                $result = mysql_query($sql) or mysql_die($sql);
-                $import_track_id = mysql_insert_id();
+                $import_track_id = DB::insertGetId($sql);
 
                 if ($_POST['import_site'] == 'youtube') {
                     $video_url = 'http://www.youtube.com/watch?v=' . $video_id[$i];
@@ -73,9 +71,7 @@ if (isset($_POST['submit'])) {
 		                   `video_add_date`='" . date('Y-m-d') . "',
 		                   `video_active`='1',
 		                   `video_approve`='$config[approve]'";
-
-                    $result = mysql_query($sql) or mysql_die($sql);
-                    $vid = mysql_insert_id();
+                    $vid = DB::insertGetId($sql);
 
                     $upload = new upload_remote();
                     $upload->vid = $vid;
@@ -84,13 +80,13 @@ if (isset($_POST['submit'])) {
 
                     if ($config['approve'] == 1) {
                         $current_keyword = DB::quote($video_info['video_keywords']);
-                        $tags = new Tags($video_info['video_keywords'], $vid, $user_id, "0|$channel_id|0");
+                        $tags = new Tag($video_info['video_keywords'], $vid, $user_id, "0|$channel_id|0");
                         $tags->add();
                         $video_tags = $tags->get_tags();
                         $sql = "UPDATE `videos` SET
                                `video_keywords`='" . DB::quote(implode(' ', $video_tags)) . "' WHERE
                                `video_id`='" . (int) $vid . "'";
-                        mysql_query($sql) or mysql_die($sql);
+                        DB::query($sql);
                     }
 
                     if ($_POST['import_site'] == 'youtube') {
@@ -99,7 +95,7 @@ if (isset($_POST['submit'])) {
 
                     $sql = "UPDATE `import_track` SET `import_track_video_id`=" . (int) $vid . " WHERE
                            `import_track_id`=" . (int) $import_track_id;
-                    $result = mysql_query($sql) or mysql_die($sql);
+                    $result = DB::fetch($sql);
                 } else {
                     $sql = "INSERT INTO `process_queue`SET
                            `user`='" . DB::quote($user_name) . "',
@@ -112,7 +108,7 @@ if (isset($_POST['submit'])) {
                            `status`='0',
                            `url`='" . DB::quote($video_url) . "',
                            `import_track_id`=" . (int) $import_track_id;
-                    $result = mysql_query($sql) or mysql_die($sql);
+                    DB::query($sql);
                 }
 
                 $user_video_num++;
@@ -122,7 +118,7 @@ if (isset($_POST['submit'])) {
         $sql = "UPDATE `subscriber` SET
                `total_video`=`total_video`+$user_video_num WHERE
                `UID`='" . (int) $user_id . "'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
 
     $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
