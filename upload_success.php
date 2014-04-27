@@ -150,4 +150,4 @@ if (isset($_GET['vid'])) $smarty->assign('vidid', $_GET['vid']);
 $smarty->display('header.tpl');
 $smarty->display('upload_success.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

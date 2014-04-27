@@ -14,4 +14,4 @@ $smarty->assign('exp_date', $exp_date);
 $smarty->display('header.tpl');
 $smarty->display('payment_success.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

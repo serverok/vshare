@@ -216,4 +216,4 @@ function extend_subscription($user_name, $period)
     return $return;
 }
 
-db_close();
+DB::close();

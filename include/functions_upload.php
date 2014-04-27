@@ -382,7 +382,7 @@ function process_video($vid, $debug = 1)
 
         $video_duration_cmd = get_config('video_duration_cmd');
 
-        db_close();
+        DB::close();
 
         $duration_arr = array();
         $duration_arr['src'] = $video_src;

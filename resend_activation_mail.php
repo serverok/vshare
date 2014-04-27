@@ -138,4 +138,4 @@ $smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
 $smarty->display('resend_activation_mail.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

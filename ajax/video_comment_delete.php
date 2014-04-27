@@ -38,4 +38,4 @@ if (isset($_SESSION['UID']))
     }
 }
 
-db_close();
+DB::close();

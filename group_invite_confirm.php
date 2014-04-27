@@ -30,7 +30,7 @@ if (mysql_num_rows($result) == 0)
 
 if (! isset($_GET['key']))
 {
-    db_close();
+    DB::close();
     Http::redirect(VSHARE_URL);
 }
 
@@ -43,7 +43,7 @@ $result = mysql_query($sql) or mysql_die($sql);
 
 if (mysql_num_rows($result) < 1)
 {
-    db_close();
+    DB::close();
     set_message($lang['invalid_invite_key'], 'error');
     $redirect_url = VSHARE_URL . '/group/' . $_GET['group_url'] . '/';
     Http::redirect($redirect_url);
@@ -73,7 +73,7 @@ $sql = "DELETE FROM `verify_code` WHERE
 mysql_query($sql) or mysql_die($sql);
 $smarty->assign('accept_mem', 'true');
 
-db_close();
+DB::close();
 set_message($msg, 'success');
 $redirect_url = VSHARE_URL . '/group/' . $_GET['group_url'] . '/';
 Http::redirect($redirect_url);

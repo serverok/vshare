@@ -143,4 +143,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/subscription_edit.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

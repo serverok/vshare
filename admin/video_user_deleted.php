@@ -96,4 +96,4 @@ $smarty->assign('videos', $videos);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/video_user_deleted.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

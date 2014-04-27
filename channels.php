@@ -37,4 +37,4 @@ $smarty->assign('channels', $channels);
 $smarty->display('header.tpl');
 $smarty->display('channels.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

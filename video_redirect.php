@@ -34,6 +34,6 @@ if ($video_info == 0 || $video_info['video_user_id'] == 0)
 else
 {
     $redirect_url = VSHARE_URL . '/view/' . $video_info['video_id'] . '/' . $video_info['video_seo_name'] . '/';
-    db_close();
+    DB::close();
     Http::redirect($redirect_url);
 }

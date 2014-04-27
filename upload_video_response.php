@@ -166,4 +166,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('header.tpl');
 $smarty->display('upload_video_response.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

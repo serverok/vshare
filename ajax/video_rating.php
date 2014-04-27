@@ -112,4 +112,4 @@ $new_back[] .= '<span class="thanks">' . $lang['vote_added'] . '</span></p>';
 
 $output = join("\n", $new_back);
 echo $output;
-db_close();
+DB::close();

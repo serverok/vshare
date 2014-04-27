@@ -128,4 +128,4 @@ $smarty->assign('sub_menu', 'menu_group_members.tpl');
 $smarty->display('header.tpl');
 $smarty->display('group_posts.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

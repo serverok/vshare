@@ -39,7 +39,7 @@ User::delete($user_info['user_id'], 1);
 $msg = str_replace('[USERNAME]', $user_info['user_name'], $lang['user_deleted']);
 set_message($msg, 'success');
 
-db_close();
+DB::close();
 
 $_GET['a'] = isset($_GET['a']) ? $_GET['a'] : 'All';
 

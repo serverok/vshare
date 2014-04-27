@@ -60,13 +60,13 @@ if (isset($_POST['submit']))
                `server_secdownload_secret`='" . DB::quote($server_secdownload_secret) . "' WHERE
                `id`='" . (int) $server_id . "'";
         mysql_query($sql) or mysql_die($sql);
-        db_close();
+        DB::close();
         set_message($lang['server_info_updated'], 'success');
         $redirect_url = VSHARE_URL . '/admin/server_manage.php';
         Http::redirect($redirect_url);
     }
 
-    db_close();
+    DB::close();
     set_message($err, 'error');
     $redirect_url = VSHARE_URL . '/admin/server_manage_edit.php?id=' . $server_id;
     Http::redirect($redirect_url);
@@ -91,4 +91,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/server_manage_edit.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

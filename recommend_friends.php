@@ -136,4 +136,4 @@ if (isset($report))
 $smarty->display('header.tpl');
 $smarty->display('recommend_friends.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

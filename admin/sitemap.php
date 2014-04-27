@@ -29,4 +29,4 @@ $smarty->assign('sitemap', $sitemap->getSitemapInfo());
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/sitemap.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

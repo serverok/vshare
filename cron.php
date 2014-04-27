@@ -74,4 +74,4 @@ $sql = "UPDATE `config` SET
        `config_value`='" . (int) $cron . "' WHERE
        `config_name`='cron'";
 mysql_query($sql) or mysql_die();
-db_close();
+DB::close();

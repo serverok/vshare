@@ -50,4 +50,4 @@ else
     echo $lang['favorite_exists'];
 }
 
-db_close();
+DB::close();

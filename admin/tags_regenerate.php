@@ -101,4 +101,4 @@ else
     $smarty->display('admin/footer.tpl');
 }
 
-db_close();
+DB::close();

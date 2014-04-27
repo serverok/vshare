@@ -86,4 +86,4 @@ if ($num_result == 1)
     $smarty->display('video_edit.tpl');
 }
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

@@ -98,7 +98,7 @@ if ($_GET['action'] == 'remove')
     $msg = $lang['group_membership_revoked'];
 }
 
-db_close();
+DB::close();
 set_message($msg, 'success');
 $redirect_url = VSHARE_URL . '/group/' . $group_info['group_url'] . '/';
 Http::redirect($redirect_url);

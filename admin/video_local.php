@@ -99,4 +99,4 @@ $smarty->assign(array(
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/video_local.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

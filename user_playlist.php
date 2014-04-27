@@ -144,4 +144,4 @@ $smarty->assign('sub_menu', 'menu_user.tpl');
 $smarty->display('header.tpl');
 $smarty->display('user_playlist.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

@@ -107,4 +107,4 @@ if (mysql_affected_rows() == 1)
 }
 
 echo $lang['comment_posted'];
-db_close();
+DB::close();

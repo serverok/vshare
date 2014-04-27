@@ -132,4 +132,4 @@ $smarty->assign('chinfo', $chinfo);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/import_folder_all.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

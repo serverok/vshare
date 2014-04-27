@@ -84,4 +84,4 @@ $smarty->display('header.tpl');
 $smarty->assign('user', $tmp);
 $smarty->display('user_delete.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

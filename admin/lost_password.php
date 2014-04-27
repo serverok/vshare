@@ -74,4 +74,4 @@ if (isset($_POST['submit']))
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/lost_password.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

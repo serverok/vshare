@@ -116,4 +116,4 @@ if ($mail_abuse_report == 1)
 }
 
 return_json($lang['request_sent'], 'success');
-db_close();
+DB::close();

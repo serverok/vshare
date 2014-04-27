@@ -8,4 +8,4 @@ $smarty->assign('exp_date', $exp_date);
 $smarty->display('header.tpl');
 echo '<h2>Your payment is received successfully. Payment information has been sent to your email address.</h2>';
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

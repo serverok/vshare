@@ -152,4 +152,4 @@ $smarty->assign('channels', channels::get_all());
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/import_video.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

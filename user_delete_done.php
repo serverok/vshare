@@ -46,7 +46,7 @@ if (isset($_GET['k']) && isset($_GET['i']))
             User::logout();
         }
         
-        db_close();
+        DB::close();
         set_message($lang['account_deleted'], 'success');
         $redirect_url = VSHARE_URL . '/index.php';
         Http::redirect($redirect_url);
@@ -62,4 +62,4 @@ $smarty->assign('msg', $msg);
 $smarty->assign('err', $err);
 $smarty->display('header.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

@@ -21,6 +21,6 @@ if (isset($_GET['username']))
     User::login($_GET['username'], 1);
 }
 
-db_close();
+DB::close();
 $redirect_url = VSHARE_URL . '/index.php';
 Http::redirect($redirect_url);

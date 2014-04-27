@@ -140,4 +140,4 @@ echo '
 </rss>
 ';
 
-db_close();
+DB::close();

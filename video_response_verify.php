@@ -98,4 +98,4 @@ $smarty->assign('err', $err);
 $smarty->display('header.tpl');
 $smarty->display('video_response_verify.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

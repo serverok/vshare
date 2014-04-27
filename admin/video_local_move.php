@@ -41,6 +41,6 @@ if (isset($_POST['submit']))
     }
 }
 
-db_close();
+DB::close();
 $redirect_url = VSHARE_URL . '/admin/video_local.php';
 Http::redirect($redirect_url);

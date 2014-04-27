@@ -49,6 +49,6 @@ else
     set_message('Invalid server id', 'error');
 }
 
-db_close();
+DB::close();
 $redirect_url = VSHARE_URL . '/admin/server_manage.php';
 Http::redirect($redirect_url);

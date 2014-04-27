@@ -142,4 +142,4 @@ $smarty->assign('err', $err);
 $smarty->display('header.tpl');
 $smarty->display('payment.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();
