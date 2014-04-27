@@ -16,18 +16,13 @@ require 'include/config.php';
 
 User::is_logged_in();
 
-$sql = "SELECT * FROM `users` WHERE
-       `user_name`='" . DB::quote($_SESSION['USERNAME']) . "'";
-$result = mysql_query($sql) or mysql_die($sql);
+$user_info = User::getByName($_SESSION['USERNAME']);
 
-if (mysql_num_rows($result) == 0)
-{
+if (! $user_info) {
     set_message($lang['user_not_found'], 'error');
     $redirect_url = VSHARE_URL . '/index.php';
     Http::redirect($redirect_url);
 }
-
-$user_info = mysql_fetch_assoc($result);
 
 $smarty->assign('user_info', $user_info);
 $smarty->assign('sub_menu', 'menu_user.tpl');

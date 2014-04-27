@@ -348,8 +348,7 @@ if (isset($_POST['submit'])) {
                 $sql = "UPDATE `users` SET
                        `user_account_status`='Inactive' WHERE
                        `user_id`='" . (int) $userid . "'";
-                mysql_query($sql) or mysql_die($sql);
-
+                DB::query($sql);
                 $signup_verification_msg = $lang['signup_verify_admin'];
                 $smarty->assign('signup_verification_msg', $signup_verification_msg);
             } else {

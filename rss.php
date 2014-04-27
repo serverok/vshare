@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.tags.php';
 
 $url = parse_url(VSHARE_URL);
 $rss_email = 'rss@' . $url['host'];
