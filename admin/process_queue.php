@@ -41,14 +41,12 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 
 if ((isset($_GET['action'])) && ($_GET['action'] == 'delete_all')) {
     $sql = "SELECT * FROM `process_queue`";
-    $result = mysql_query($sql) or mysql_die($sql);
+    $process_queue_all = DB::fetch($sql);
 
-    while ($tmp = mysql_fetch_assoc($result)) {
-        $video_path = VSHARE_DIR . '/video/' . $tmp['file'];
-
+    foreach ($process_queue_all as $process_queue) {
+        $video_path = VSHARE_DIR . '/video/' . $process_queue['file'];
         if (file_exists($video_path) && is_file($video_path)) {
-            $vid = $tmp['vid'];
-
+            $vid = $process_queue['vid'];
             if ($vid == 0) {
                 if (! unlink($video_path)) {
                     echo str_replace('[VIDEO_PATH]', $video_path, $lang['unable_to_delete']);
