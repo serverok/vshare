@@ -14,39 +14,28 @@
 
 require 'include/config.php';
 
-$sql = "SELECT * FROM `packages` WHERE
-       `package_id`='" . (int) $_GET['package_id'] . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$package = mysql_fetch_assoc($result);
+$package = Package::getById($_GET['package_id']);
 
 $smarty->assign('package', $package);
 
 $period_ops = '';
 
-if ($package['package_period'] == 'Year')
-{
-    for ($i = 1; $i <= 5; $i ++)
-    {
+if ($package['package_period'] == 'Year') {
+    for ($i = 1; $i <= 5; $i ++) {
         $period_ops .= '<option value="' . $i . '">' . $i . '</option>';
     }
-}
-else if ($package['package_period'] == 'Month')
-{
-    for ($i = 1; $i <= 12; $i ++)
-    {
+} else if ($package['package_period'] == 'Month') {
+    for ($i = 1; $i <= 12; $i ++) {
         $period_ops .= '<option value="' . $i . '">' . $i . '</option>';
     }
 }
 
 $smarty->assign('period_ops', $period_ops);
 
-if ($config['payment_method'] != '')
-{
+if ($config['payment_method'] != '') {
     $method = explode('|', $config['payment_method']);
     $payment_method_ops = '';
-    
-    while (list($k, $v) = each($method))
-    {
+    while (list($k, $v) = each($method)) {
         $payment_method_ops .= '<option value="' . $v . '">' . $v . '</option>';
     }
     $smarty->assign('payment_method_ops', $payment_method_ops);
