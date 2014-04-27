@@ -13,115 +13,83 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.mail.php';
-require 'include/country.class.php';
-require 'include/class.file.php';
 require 'include/language/' . LANG . '/lang_user_profile_edit.php';
 
 User::is_logged_in();
 
 $user_info = User::get_user_by_id($_SESSION['UID']);
 
-$countries = new countries();
+$countries = new Country();
 
-if (isset($_POST['submit']))
-{
+if (isset($_POST['submit'])) {
     $user_bdate = $_POST['year'] . "-" . $_POST['month'] . "-" . $_POST['day'];
-    
-    if ($_POST['user_email'] == '')
-    {
+
+    if ($_POST['user_email'] == '') {
         $err = $lang['email_null'];
-    }
-    else if (check_field_exists($_POST['user_email'], 'user_email', 'users') == 1 && $user_info['user_email'] != $_POST['user_email'])
-    {
+    } else if (check_field_exists($_POST['user_email'], 'user_email', 'users') == 1 && $user_info['user_email'] != $_POST['user_email']) {
         $err = $lang['email_exist'];
-    }
-    else if ($user_bdate != 'yyyy-mm-dd')
-    {
-        if (! checkdate($_POST['month'], $_POST['day'], $_POST['year']))
-        {
+    } else if ($user_bdate != 'yyyy-mm-dd') {
+        if (! checkdate($_POST['month'], $_POST['day'], $_POST['year'])) {
             $err = $lang['invalid_date'];
         }
     }
-    
+
     $pass_change = 0;
     #check current password
-    
 
-    if (get_magic_quotes_gpc())
-    {
+    if (get_magic_quotes_gpc()) {
         $_POST['user_password'] = stripslashes($_POST['user_password']);
         $_POST['password_confirm'] = stripslashes($_POST['password_confirm']);
         $_POST['password_new'] = stripslashes($_POST['password_new']);
     }
-    
-    if (($_POST['user_password'] != '') and ($_POST['password_new'] != '') and ($_POST['password_confirm'] != ''))
-    {
-        
-        $password_md5 = md5($_POST['user_password']);
-        
-        $sql = "SELECT * FROM `users` WHERE
-               `user_password`='$password_md5' AND
-               `user_id`='" . (int) $_SESSION['UID'] . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) == 0)
-        {
+
+    if (($_POST['user_password'] != '') and ($_POST['password_new'] != '') and ($_POST['password_confirm'] != '')) {
+        if ($user_info['user_password'] != $password_md5) {
             $err = $lang['password_invalid'];
-        }
-        else if ($_POST['password_new'] != $_POST['password_confirm'])
-        {
+        } else if ($_POST['password_new'] != $_POST['password_confirm']) {
             $err = $lang['password_match_error'];
-        }
-        else if (mb_strlen($_POST['password_new']) < 4)
-        {
+        } else if (mb_strlen($_POST['password_new']) < 4) {
             $err = $lang['password_length_error'];
         }
-        
         $pass_change = 1;
     }
-    
-    if ($err == '')
-    {
+
+    if ($err == '') {
         $sql_extra = '';
-        
+
         $gender = array(
             'Male',
             'Female'
         );
+
         $relations = array(
             'Single',
             'Taken',
             'Open'
         );
-        
-        if ($user_bdate != 'yyy-mm-dd')
-        {
+
+        if ($user_bdate != 'yyy-mm-dd') {
             $user_bdate;
         }
-        
-        if (in_array($_POST['user_gender'], $gender))
-        {
+
+        if (in_array($_POST['user_gender'], $gender)) {
             $sql_extra .= "`user_gender`='" . DB::quote($_POST['user_gender']) . "',";
         }
-        
-        if (in_array($_POST['user_relation'], $relations))
-        {
+
+        if (in_array($_POST['user_relation'], $relations)) {
             $sql_extra .= "`user_relation`='" . DB::quote($_POST['user_relation']) . "',";
         }
-        
-        if (in_array($_POST['user_country'], $countries->countries))
-        {
+
+        if (in_array($_POST['user_country'], $countries->countries)) {
             $sql_extra .= "`user_country`='" . DB::quote($_POST['user_country']) . "',";
         }
-        
-        if ($_POST['user_website'] != '')
-        {
+
+        if ($_POST['user_website'] != '') {
             $_POST['user_website'] = strip_tags($_POST['user_website']);
             $_POST['user_website'] = User::validate_url($_POST['user_website']);
             $sql_extra .= "`user_website`='" . DB::quote($_POST['user_website']) . "',";
         }
-        
+
         $user_first_name = htmlspecialchars_uni($_POST['user_first_name']);
         $user_last_name = htmlspecialchars_uni($_POST['user_last_name']);
         $user_about_me = htmlspecialchars_uni($_POST['user_about_me']);
@@ -137,7 +105,7 @@ if (isset($_POST['submit']))
         $user_fav_book = htmlspecialchars_uni($_POST['user_fav_book']);
         $user_friends_name = htmlspecialchars_uni($_POST['user_friends_name']);
         $user_style = htmlspecialchars_uni($_POST['user_style']);
-        
+
         $sql = "UPDATE `users` SET
                `user_first_name`='" . DB::quote($user_first_name) . "',
                `user_last_name`='" . DB::quote($user_last_name) . "',
@@ -157,70 +125,62 @@ if (isset($_POST['submit']))
                `user_friends_name`='" . DB::quote($user_friends_name) . "',
                `user_style`='" . DB::quote($user_style) . "' WHERE
                `user_id`='" . (int) $_SESSION['UID'] . "'";
-        
-        mysql_query($sql) or mysql_die($sql);
-        
-        if ($pass_change == 1)
-        {
+
+        DB::query($sql);
+
+        if ($pass_change == 1) {
             $password_new_md5 = md5($_POST['password_new']);
             $sql = "UPDATE `users` SET
                    `user_password`='$password_new_md5' WHERE
                    `user_id`='" . (int) $_SESSION['UID'] . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
             $_SESSION['pwd'] = $password_new_md5;
         }
-        
-        if ($user_info['user_email'] != $_POST['user_email'])
-        {
+
+        if ($user_info['user_email'] != $_POST['user_email']) {
+
             $data1 = 'EMAIL_CHANGE' . $_SESSION['UID'];
-            
+
             $sql = "SELECT * FROM `verify_code` WHERE
                    `data1`='" . DB::quote($data1) . "' AND
                    `data2`='" . DB::quote($_POST['user_email']) . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
-            
-            if (mysql_num_rows($result) > 0)
-            {
-                $verify_info = mysql_fetch_assoc($result);
+            $verify_info = DB::fetch1($sql);
+
+            if ($verify_info) {
                 $vkey = $verify_info['vkey'];
                 $verify_id = $verify_info['id'];
-            }
-            else
-            {
+            } else {
                 $vkey = $_SERVER['REQUEST_TIME'] . rand(1, 99999999);
                 $vkey = md5($vkey);
-                
                 $sql = "INSERT INTO `verify_code` SET
                        `vkey`='" . DB::quote($vkey) . "',
                        `data1`='" . DB::quote($data1) . "',
                        `data2`='" . DB::quote($_POST['user_email']) . "'";
-                $result = mysql_query($sql) or mysql_die($sql);
-                $verify_id = mysql_insert_id();
+                $verify_id = DB::insertGetId($sql);
             }
-            
+
             $verify_url = VSHARE_URL . '/verify/email/' . $_SESSION['UID'] . '/' . $verify_id . '/' . $vkey . '/';
-            
+
             $user_name = $_SESSION['USERNAME'];
-            
+
             $_SESSION['EMAIL'] = $_POST['email'];
             $name = $config['site_name'];
             $from = $config['admin_email'];
-            
+
             $sql = "SELECT * FROM `email_templates` WHERE
                    `email_id`='user_email_change'";
-            $result = mysql_query($sql) or mysql_die($sql);
-            $tmp = mysql_fetch_assoc($result);
+            $tmp = DB::fetch1($sql);
             $email_subject = $tmp['email_subject'];
             $email_body_tmp = $tmp['email_body'];
-            
+
             $email_subject = str_replace('[SITE_NAME]', $config['site_name'], $email_subject);
             $email_subject = str_replace('[SITE_URL]', VSHARE_URL, $email_subject);
-            
+
             $email_body_tmp = str_replace('[SITE_NAME]', $config['site_name'], $email_body_tmp);
             $email_body_tmp = str_replace('[SITE_URL]', VSHARE_URL, $email_body_tmp);
             $email_body_tmp = str_replace('[VERIFY_URL]', $verify_url, $email_body_tmp);
             $email_body_tmp = str_replace('[USERNAME]', $user_name, $email_body_tmp);
-            
+
             $email = array();
             $email['from_email'] = $config['admin_email'];
             $email['from_name'] = $config['site_name'];
@@ -231,11 +191,10 @@ if (isset($_POST['submit']))
             $mail = new Mail();
             $mail->send($email);
             $msg = $lang['email_changed'];
-        }
-        else
-        {
+        } else {
             $msg = $lang['profile_updated'];
         }
+
         set_message($msg, 'success');
         $redirect_url = VSHARE_URL . '/' . $user_info['user_name'];
         Http::redirect($redirect_url);
@@ -244,39 +203,29 @@ if (isset($_POST['submit']))
 
 $user_info = User::get_user_by_id($_SESSION['UID']);
 $date = explode('-', $user_info['user_birth_date']);
+
 $country = $countries->country_options($user_info['user_country']);
 
 $profile_css_folder = VSHARE_DIR . '/templates/css/profile/';
 
 $css_options = '';
 
-if (is_dir($profile_css_folder))
-{
-    if ($dh = opendir($profile_css_folder))
-    {
-        while (($file = readdir($dh)) !== false)
-        {
-            if (filetype($profile_css_folder . $file) != 'dir')
-            {
+if (is_dir($profile_css_folder)) {
+    if ($dh = opendir($profile_css_folder)) {
+        while (($file = readdir($dh)) !== false) {
+            if (filetype($profile_css_folder . $file) != 'dir') {
                 $file_extn = File::get_extension($file);
-                if ($file_extn == 'css')
-                {
+                if ($file_extn == 'css') {
                     $selected = '';
                     $file_no_extn = basename($file, ".$file_extn");
-                    
-                    if ($file_no_extn == $user_info['user_style'])
-                    {
+                    if ($file_no_extn == $user_info['user_style']) {
+                        $selected = 'selected';
+                    } else if ($file_no_extn == 'default' && $user_info['user_style'] == '') {
                         $selected = 'selected';
                     }
-                    else if ($file_no_extn == 'default' && $user_info['user_style'] == '')
-                    {
-                        $selected = 'selected';
-                    }
-                    
                     $css_options .= '<option value="' . $file_no_extn . '"' . $selected . '>' . $file_no_extn . '</option>';
                 }
             }
-        
         }
         closedir($dh);
     }
