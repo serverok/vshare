@@ -18,25 +18,17 @@ check_admin_login();
 
 $sql = "SELECT * FROM `tags` WHERE
        `active`='0'";
-$result = mysql_query($sql) or mysql_die($sql);
+$tags = DB::fetch($sql);
+$smarty->assign('tags', $tags);
 
-if (mysql_num_rows($result) > 0)
-{
-    while ($tags_info = mysql_fetch_assoc($result))
-    {
-        $tags[] = $tags_info;
-    }
-    $smarty->assign('tags', $tags);
-}
-
-if (isset($_POST['action']))
-{
+if (isset($_POST['action'])) {
     $active = 1;
     $tag_id = $_POST['action_tag'];
     $sql = "UPDATE `tags` SET
            `active`='$active' WHERE
            `id`='" . (int) $tag_id . "'";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
+
     $msg = 'Tag has been ' . $_POST['action'] . 'd.';
     set_message($msg, 'success');
     $redirect_url = VSHARE_URL . '/admin/tags_disabled.php';
