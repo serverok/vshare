@@ -13,44 +13,37 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.ftp.php';
-require 'include/class.video.php';
 require 'include/language/' . LANG . '/lang_user_delete_done.php';
 
-if (isset($_GET['k']) && isset($_GET['i']))
-{
+if (isset($_GET['k']) && isset($_GET['i'])) {
+
     $data1 = "DELETE_USER";
     $sql = "SELECT * FROM `verify_code` WHERE
            `data1`='" . DB::quote($data1) . "' AND
            `vkey`='" . DB::quote($_GET['k']) . "' AND
            `id`='" . DB::quote($_GET['i']) . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    
-    if (mysql_num_rows($result) == 1)
-    {
-        $verify_info = mysql_fetch_assoc($result);
+    $verify_info = DB::fetch($sql);
+
+    if ($verify_info) {
+
         $verify_id = $verify_info['id'];
         $verify_key = $verify_info['vkey'];
         $user_id = $verify_info['data2'];
-        
-        /* 0 - not really delete videos */
-        
-        User::delete($user_id, 0);
-        
+
+        User::delete($user_id, 0); // 0 for soft del
+
         $sql = "DELETE FROM `verify_code` WHERE
                `id`='" . (int) $_GET['i'] . "'";
-        mysql_query($sql) or mysql_die($sql);
-        
-        if (isset($_SESSION['UID']))
-        {
+        DB::query($sql);
+
+        if (isset($_SESSION['UID'])) {
             User::logout();
         }
-        
+
         DB::close();
         set_message($lang['account_deleted'], 'success');
         $redirect_url = VSHARE_URL . '/index.php';
         Http::redirect($redirect_url);
-    
     }
     else
     {
