@@ -9,7 +9,7 @@ class Ftp
     private $must_upload = 0;
     private $user_id;
     private $server_id = 0;
-    
+
     private $video_info = array();
     private $server_info = array();
 
@@ -20,71 +20,53 @@ class Ftp
 
     function select_video_server()
     {
-        if ($this->video_info['video_server_id'] != 0)
-        {
+        if ($this->video_info['video_server_id'] != 0) {
             $sql = "SELECT * FROM `servers` WHERE
                    `id`='" . (int) $this->video_info['video_server_id'] . "' AND
                    `status`='1'";
-        }
-        else if ($this->server_id != 0)
-        {
+        } else if ($this->server_id != 0) {
             $sql = "SELECT * FROM `servers` WHERE
         		   `id`='" . (int) $this->server_id . "' AND
         		   `status`=1";
-        }
-        else
-        {
+        } else {
             $sql = "SELECT * FROM `servers` WHERE
                    `server_type`!='1' AND
                    `status`='1'
                     ORDER BY `space_used` ASC
                     LIMIT 1";
         }
-        
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (! mysql_num_rows($result))
-        {
+
+        $this->server_info = DB::fetch1($sql);
+
+        if (! $this->server_info) {
             return 0;
-        }
-        else
-        {
-            $this->server_info = mysql_fetch_assoc($result);
+        } else {
             return 1;
         }
     }
 
     function select_thumb_server($server_id=0)
     {
-        if ($server_id != 0)
-        {
+        if ($server_id != 0) {
             $sql = "SELECT * FROM `servers` WHERE
                    `id`='". (int) $server_id ."' AND
                    `status`='1'";
-        }
-        else if($this->video_info['video_thumb_server_id'] == 0)
-        {
+        } else if($this->video_info['video_thumb_server_id'] == 0) {
             $sql = "SELECT * FROM `servers` WHERE
                    `server_type`='1' AND
                    `status`='1' ORDER BY `space_used` ASC
                     LIMIT 1";
-        }
-        else
-        {
+        } else {
             $sql = "SELECT * FROM `servers` WHERE
                    `id`='". (int) $this->video_info['video_thumb_server_id'] ."' AND
                    `status`='1'";
         }
-        
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (! mysql_num_rows($result))
-        {
+
+        $this->server_info = DB::fetch1($sql);
+
+        if (! $this->server_info) {
             return 0;
-        }
-        else
-        {
-            $this->server_info = mysql_fetch_assoc($result);
+        } else {
             return 1;
         }
     }
@@ -96,47 +78,37 @@ class Ftp
         $this->log('Server IP = ' . $this->server_info['ip'] . '<br>');
         $this->log('Server URL = ' . $this->server_info['url'] . '<br>');
         $this->log('Server folder = ' . $this->server_info['folder'] . '</p>');
-        
-        if (! $this->conn_id = ftp_connect($this->server_info['ip']))
-        {
+
+        if (! $this->conn_id = ftp_connect($this->server_info['ip'])) {
             $this->log('<p class="error">ERROR: ftp connection failed.</p>');
             return 0;
-        }
-        else
-        {
+        } else {
             $this->log('<p><b>FTP: connected</b></p>');
         }
-        
-        if (! ftp_login($this->conn_id, $this->server_info['user_name'], $this->server_info['password']))
-        {
+
+        if (! ftp_login($this->conn_id, $this->server_info['user_name'], $this->server_info['password'])) {
             $this->log('<p class="error"><b>ERROR:</b> FTP authentication failed. Check FTP user name and password.</p>');
             return 0;
-        }
-        else
-        {
+        } else {
             $this->log('<p>FTP: logged in.</p>');
         }
-        
-        if (! $this->ftp_cd($this->server_info['folder']))
-        {
+
+        if (! $this->ftp_cd($this->server_info['folder'])) {
             $this->log('<p>ERROR: ftp_chdir(' . $this->server_info['folder'] . ')</p>');
             return 0;
         }
-        
+
         return 1;
     }
 
     function ftp_cd($folder)
     {
         $sub_folders = explode('/', $folder);
-        
-        for ($i = 0; $i < count($sub_folders); $i ++)
-        {
+
+        for ($i = 0; $i < count($sub_folders); $i ++) {
             $folder = trim($sub_folders[$i]);
-            if ($folder != '')
-            {
-                if (! $this->chdir($folder))
-                {
+            if ($folder != '') {
+                if (! $this->chdir($folder)) {
                     return 0;
                 }
             }
@@ -147,25 +119,20 @@ class Ftp
     function chdir($folder)
     {
         $this->log('<p>ftp_chdir(' . $folder . ')</p>');
-        
-        if (! ftp_chdir($this->conn_id, $folder))
-        {
-            if (! @ftp_mkdir($this->conn_id, $folder))
-            {
+
+        if (! ftp_chdir($this->conn_id, $folder)) {
+            if (! @ftp_mkdir($this->conn_id, $folder)) {
                 $this->log('FTP ERROR: There was a problem while creating ' . $folder . '</p>');
                 return 0;
-            }
-            else
-            {
-                if (! ftp_chdir($this->conn_id, $folder))
-                {
+            } else {
+                if (! ftp_chdir($this->conn_id, $folder)) {
                     $this->log('<p>Failed changing folder: ' . $folder . '</p>');
                     $this->log('<p>Current Folder is : ' . ftp_pwd($this->conn_id) . '</p>');
                     return 0;
                 }
             }
         }
-        
+
         $this->log('<p>ftp_pwd = ' . ftp_pwd($this->conn_id) . '</p>');
         return 1;
     }
@@ -184,17 +151,14 @@ class Ftp
     {
         $this->initialize($config);
         $this->get_video_info();
-        
-        if (! $this->select_video_server($this->video_info['video_thumb_server_id']))
-        {
+
+        if (! $this->select_video_server($this->video_info['video_thumb_server_id'])) {
             $this->log('<p>Unable to select FTP server.</p>');
             return 0;
         }
-        
-        if (! $this->connect())
-        {
-            if ($this->must_upload)
-            {
+
+        if (! $this->connect()) {
+            if ($this->must_upload) {
                 $flv_path = VSHARE_DIR . '/flvideo/' . $this->video_info['video_folder'] . $this->server_info['video_flv_name'];
                 unlink($flv_path);
                 $this->log('<p>Video conversion could not continue as FTP server login failed.</p>');
@@ -203,162 +167,135 @@ class Ftp
             $this->log('<p>Failed FTP login, exiting.</p>');
             return 0;
         }
-        
+
         $this->ftp_cd($this->video_info['video_folder']);
-        
+
         $source_flv_path = VSHARE_DIR . '/flvideo/' . $this->video_info['video_folder'] . $this->video_info['video_flv_name'];
-        
-        if (! file_exists($source_flv_path))
-        {
+
+        if (! file_exists($source_flv_path)) {
             $this->log('<p class="error">File not found: ' . $source_flv_path . '</p>');
             return 0;
         }
-        
-        if (! $this->put($this->video_info['video_flv_name'], $source_flv_path))
-        {
+
+        if (! $this->put($this->video_info['video_flv_name'], $source_flv_path)) {
             $this->log('<p>ERROR: put(' . $this->video_info['video_flv_name'] . ',' . $source_flv_path . ')</p>');
             return 0;
         }
-        
+
         $this->log('<p>FLV file uploaded : ' . $source_flv_path . '</p>');
-        
-        if ($this->video_info['video_server_id'] != $this->server_info['id'])
-        {
+
+        if ($this->video_info['video_server_id'] != $this->server_info['id']) {
             $sql = "UPDATE `videos` SET
                    `video_server_id`='" . (int) $this->server_info['id'] . "' WHERE
                    `video_id`='" . (int) $this->video_info['video_id'] . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
         }
-        
-        if (get_config('video_flv_delete') == 1)
-        {
+
+        if (get_config('video_flv_delete') == 1) {
             unlink($source_flv_path);
             $this->log('<p>unlink(' . $source_flv_path . ')</p>');
-        }
-        else
-        {
+        } else {
             $this->log('<p><u>FLV NOT DELETED FROM LOCAL SERVER</u></p>');
         }
-        
+
         $this->close();
         return 1;
     }
 
     private function get_video_info()
     {
-        $sql = "SELECT * FROM `videos` WHERE
-               `video_id`='" . (int) $this->video_id . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        $this->video_info = mysql_fetch_assoc($result);
+        $this->video_info = Video::getById($this->video_id);
     }
 
     function upload_thumb($config)
     {
         $this->initialize($config);
         $this->get_video_info();
-        
-        if (! $this->select_thumb_server())
-        {
+
+        if (! $this->select_thumb_server()) {
             $this->log('<p>Unable to select FTP server.</p>');
             return 0;
         }
-        
-        if (! $this->connect())
-        {
+
+        if (! $this->connect()) {
             $this->log('<p>Failed FTP login, exiting.</p>');
             return 0;
         }
-        
-        if (! $this->ftp_cd('thumb'))
-        {
+
+        if (! $this->ftp_cd('thumb')) {
             $this->log('<p>FTP ERROR: chdir("thumb").</p>');
             return 0;
         }
-        
+
         $source_thumb_path = VSHARE_DIR . '/thumb/' . $this->video_info['video_folder'] . $this->video_id . '.jpg';
         $source_thumb_path_real = 1;
-        if (! file_exists($source_thumb_path))
-        {
+        if (! file_exists($source_thumb_path)) {
             $this->log('<p>Thumbnail image missing :' . $source_thumb_path . '</p>');
             $source_thumb_path = VSHARE_DIR . '/templates/images/no_thumbnail.gif';
             $source_thumb_path_real = 0;
         }
-        
-        if (! $this->ftp_cd($this->video_info['video_folder']))
-        {
+
+        if (! $this->ftp_cd($this->video_info['video_folder'])) {
             $this->log('<p>FTP ERROR: failed ftp_cd : <b>' . $this->video_info['video_folder'] . '</b></p>');
             return 0;
         }
-        
+
         $thumb_name = $this->video_id . '.jpg';
-        
-        if (! $this->put($thumb_name, $source_thumb_path))
-        {
+
+        if (! $this->put($thumb_name, $source_thumb_path)) {
             $this->log('<p>FTP ERROR: put(' . $thumb_name . ',' . $source_thumb_path . ')</p>');
             return 0;
         }
-        
-        if ($source_thumb_path_real == 1)
-        {
-            if (unlink($source_thumb_path))
-            {
+
+        if ($source_thumb_path_real == 1) {
+            if (unlink($source_thumb_path)) {
                 $this->log('<p>Deleting local thumb = ' . $source_thumb_path . '</p>');
-            }
-            else
-            {
+            } else {
                 $this->log('<p>ERROR: deleting file : ' . $source_thumb_path . '</p>');
             }
         }
-        
-        for ($i = 1; $i <= 3; $i ++)
-        {
+
+        for ($i = 1; $i <= 3; $i ++) {
             $thumb_name = $i . '_' . $this->video_id . '.jpg';
             $source_thumb_path = VSHARE_DIR . '/thumb/' . $this->video_info['video_folder'] . $thumb_name;
             $source_thumb_path_real = 1;
-            
-            if (! file_exists($source_thumb_path))
-            {
+
+            if (! file_exists($source_thumb_path)) {
                 $this->log('<p>Thumbnail image missing :' . $source_thumb_path . '</p>');
                 $source_thumb_path = VSHARE_DIR . '/templates/images/no_thumbnail.gif';
                 $source_thumb_path_real = 0;
             }
-            
-            if (! $this->put($thumb_name, $source_thumb_path))
-            {
+
+            if (! $this->put($thumb_name, $source_thumb_path)) {
                 $this->log('<p>FTP ERROR: put(' . $thumb_name . ',' . $source_thumb_path . ')</p>');
             }
-            
-            if ($source_thumb_path_real == 1)
-            {
-                if (unlink($source_thumb_path))
-                {
+
+            if ($source_thumb_path_real == 1) {
+                if (unlink($source_thumb_path)) {
                     $this->log('<p>Deleted local thumb = ' . $source_thumb_path . '</p>');
-                }
-                else
-                {
+                } else {
                     $this->log('<p>ERROR: deleting file : ' . $source_thumb_path . '</p>');
                 }
             }
         }
-        
+
         $sql = "UPDATE `videos` SET
         	   `video_thumb_server_id`='" . (int) $this->server_info['id'] . "' WHERE
         	   `video_id`='" . (int) $this->video_id . "'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
 
         $sql = "UPDATE `servers` SET
                `space_used`=`space_used`+4 WHERE
                `id`='" . (int) $this->server_info['id'] . "'";
-        mysql_query($sql) or mysql_die($sql);
-        
+        DB::query($sql);
+
         $this->close();
         return 1;
     }
 
     function put($file_name, $source)
     {
-        if (! @ftp_put($this->conn_id, $file_name, $source, FTP_BINARY))
-        {
+        if (! @ftp_put($this->conn_id, $file_name, $source, FTP_BINARY)) {
             return 0;
         }
         return 1;
@@ -368,24 +305,22 @@ class Ftp
     {
         $this->initialize($config);
         $this->get_video_info();
-        
-        if (! $this->select_video_server())
-        {
+
+        if (! $this->select_video_server()) {
             $this->log('<p>Unable to select FTP server.</p>');
             return 0;
         }
-        
-        if (! $this->connect())
-        {
+
+        if (! $this->connect()) {
             $this->log('<p>Failed FTP login, exiting.</p>');
             return 0;
         }
-        
-        if (! $this->ftp_cd($this->video_info['video_folder']))
-        {
+
+        if (! $this->ftp_cd($this->video_info['video_folder'])) {
             $this->log('<p>FTP ERROR: chdir("$this->video_info[video_folder]").</p>');
             return 0;
         }
+
         $file = $this->video_info['video_flv_name'];
         return $this->delete($file);
     }
@@ -394,55 +329,47 @@ class Ftp
     {
         $this->initialize($config);
         $this->get_video_info();
-        
-        if (! $this->select_thumb_server())
-        {
+
+        if (! $this->select_thumb_server()) {
             $this->log('<p>Unable to select FTP server.</p>');
             return 0;
         }
-        
-        if (! $this->connect())
-        {
+
+        if (! $this->connect()) {
             $this->log('<p>Failed FTP login, exiting.</p>');
             return 0;
         }
-        
-        if (! $this->ftp_cd('thumb'))
-        {
+
+        if (! $this->ftp_cd('thumb')) {
             $this->log('<p>FTP ERROR: chdir("thumb").</p>');
             return 0;
         }
-        
-        if (! $this->ftp_cd($this->video_info['video_folder']))
-        {
+
+        if (! $this->ftp_cd($this->video_info['video_folder'])) {
             $this->log('<p>FTP ERROR: chdir("$this->video_info[video_folder]").</p>');
             return 0;
         }
 
         $thumb_path = $this->video_id . '.jpg';
         $this->delete($thumb_path);
-        
-        for ($i = 1; $i <= 3; $i ++)
-        {
+
+        for ($i = 1; $i <= 3; $i ++) {
             $thumb_path =  $i . '_' . $this->video_id . '.jpg';
             $this->delete($thumb_path);
         }
-        
+
         $sql = "UPDATE `servers` SET
                `space_used`=`space_used`-4 WHERE
                `id`='" . (int) $this->server_info['id'] . "'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
 
     function delete($file)
     {
-        if (ftp_delete($this->conn_id, $file))
-        {
+        if (ftp_delete($this->conn_id, $file)) {
             $this->log('Successfully delete file: ' . $file . '<br />');
             return 1;
-        }
-        else
-        {
+        } else {
             $this->log('File delete failed :' . $file . '<br />');
             return 0;
         }
@@ -453,31 +380,25 @@ class Ftp
         $this->initialize($ftp_config);
         $flv_name_source = $ftp_config['flv_name_source'];
         $flv_name_new = $ftp_config['flv_name_new'];
-        
-        if (! $this->select_video_server())
-        {
+
+        if (! $this->select_video_server()) {
             $this->log('<p>Unable to select FTP server.</p>');
             return 0;
         }
-        
-        if (! $this->connect())
-        {
+
+        if (! $this->connect()) {
             $this->log('<p>Failed FTP login, exiting.</p>');
             return 0;
         }
-        
-        if (! $this->ftp_cd($ftp_config['video_folder']))
-        {
+
+        if (! $this->ftp_cd($ftp_config['video_folder'])) {
             $this->log('<p>Failed to change folder.</p>');
             return 0;
         }
-        
-        if ($this->rename("$flv_name_source", "$flv_name_new"))
-        {
+
+        if ($this->rename("$flv_name_source", "$flv_name_new")) {
             return 1;
-        }
-        else
-        {
+        } else {
             $this->log('<p>Failed to rename file.</p>');
             return 0;
         }
@@ -485,13 +406,10 @@ class Ftp
 
     function rename($old_filename, $new_filename)
     {
-        if (ftp_rename($this->conn_id, $old_filename, $new_filename))
-        {
+        if (ftp_rename($this->conn_id, $old_filename, $new_filename)) {
             $this->log('Successfully renamed file: ' . $old_filename . ' to ' . $new_filename);
             return 1;
-        }
-        else
-        {
+        } else {
             $this->log('There was a problem while renaming ' . $old_filename . ' to ' . $new_filename);
             return 0;
         }
