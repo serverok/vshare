@@ -20,13 +20,12 @@ $result_per_page = get_config('admin_listing_per_page');
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
-if (isset($_GET['sort']))
-{
+if (isset($_GET['sort'])) {
+
     $allowed_sort = array(
         'video_id desc',
         'video_id asc',
@@ -42,26 +41,19 @@ if (isset($_GET['sort']))
         'video_add_date desc',
         'video_add_date asc'
     );
-    
-    if (in_array($_GET['sort'], $allowed_sort))
-    {
+
+    if (in_array($_GET['sort'], $allowed_sort)) {
         $query = " ORDER BY " . $_GET['sort'];
-    }
-    else
-    {
+    } else {
         echo '<p>Invalid sort : ' . $_GET['sort'] . '</p>';
     }
-}
-else
-{
+} else {
     $query = " ORDER BY `video_id` DESC";
 }
 
 $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
        `video_user_id`='0'";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start = ($page - 1) * $result_per_page;
 
@@ -84,8 +76,7 @@ $sql = "SELECT * FROM `videos` WHERE
        `video_user_id`='0'
         $query
         LIMIT $start, $result_per_page";
-$result = mysql_query($sql) or mysql_die($sql);
-$videos = mysql_fetch_all($result);
+$videos = DB::fetch($sql);
 
 $smarty->assign('links', $links["all"]);
 $smarty->assign('total', $total);
