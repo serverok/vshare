@@ -19,40 +19,30 @@ check_admin_login();
 
 $result_per_page = get_config('admin_listing_per_page');
 
-if (isset($_GET['name']))
-{
+if (isset($_GET['name'])) {
     $name = $_GET['name'];
     $msg = 'Page updated (' . VSHARE_URL . '/pages/' . $name . '.html)';
 }
 
-if (isset($_GET['action']) && $_GET['action'] == 'del' && is_numeric($_GET['id']))
-{
+if (isset($_GET['action']) && $_GET['action'] == 'del' && is_numeric($_GET['id'])) {
     $sql = "DELETE FROM `pages` WHERE
            `page_id`='" . (int) $_GET['id'] . "'";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
     $msg = $lang['page_deleted'];
 }
 
 $sql = "SELECT * FROM `pages`";
-$result = mysql_query($sql) or mysql_die($sql);
-$num_result = mysql_num_rows($result);
+$pages = DB::fetch($sql);
 
-$pages = array();
-
-if ($num_result > 0)
-{
-    $pages = mysql_fetch_all($result);
-}
-else
-{
+if (! $pages) {
     $msg = $lang['page_not_found'];
 }
 
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('pages', $pages);
-$smarty->assign('total', $num_result);
+$smarty->assign('total', count($pages));
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/page.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

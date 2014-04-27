@@ -17,38 +17,32 @@ require '../include/language/' . LANG . '/lang_admin_reserve_user_name.php';
 
 check_admin_login();
 
-if (isset($_GET['action']) && $_GET['action'] == 'del' && is_numeric($_GET['id']))
-{
+if (isset($_GET['action']) && $_GET['action'] == 'del' && is_numeric($_GET['id'])) {
     $sql = "DELETE FROM `disallow` WHERE
            `disallow_id`='" . (int) $_GET['id'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
 }
 
-if (isset($_POST['action']) && $_POST['action'] == 'add')
-{
-    if ($_POST['name'] == '')
-    {
+if (isset($_POST['action']) && $_POST['action'] == 'add') {
+    if ($_POST['name'] == '') {
         $err = $lang['user_name_null'];
         $smarty->assign('err', $err);
-    }
-    else
-    {
+    } else {
         $user_name = mb_strtolower($_POST['name']);
         $user_name = trim($user_name);
         $sql = "INSERT INTO `disallow` SET
                `disallow_username`='" . mysql_clean($user_name) . "'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
         $msg = str_replace('[USERNAME]', $user_name, $lang['user_name_reserved']);
         $smarty->assign('msg', $msg);
     }
 }
 
 $sql = "SELECT * FROM `disallow`";
-$result = mysql_query($sql) or mysql_die($sql);
-$disallow = mysql_fetch_all($result);
+$disallow = DB::fetch($sql);
 
 $smarty->assign('disallow', $disallow);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/reserve_user_name.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

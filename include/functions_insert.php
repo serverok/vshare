@@ -760,8 +760,7 @@ function insert_getfield($v)
     {
         $sql = "SELECT `$v[field]` FROM `$v[table]` WHERE
                `$v[qfield]`='" . DB::quote($v['qvalue']) . "' " . DB::quote($v['order']);
-        $result = mysql_query($sql) or mysql_die($sql);
-        $tmp = mysql_fetch_assoc($result);
+        $tmp = DB::fetch1($sql);
         return $tmp[$v['field']];
     }
 }

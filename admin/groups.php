@@ -20,57 +20,44 @@ $result_per_page = get_config('admin_listing_per_page');
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
 $_GET['a'] = isset($_GET['a']) ? $_GET['a'] : 'all';
 
-if ($_GET['a'] == '')
-{
+if ($_GET['a'] == '') {
     $_GET['a'] = 'all';
 }
 
-if (isset($_GET['action']) && $_GET['action'] == 'del')
-{
+if (isset($_GET['action']) && $_GET['action'] == 'del') {
     $sql = "DELETE FROM `groups` WHERE
            `group_id`='" . (int) $_GET['gid'] . "'";
     DB::query($sql);
-
     $sql = "DELETE FROM `group_videos` WHERE
            `group_video_group_id`='" . (int) $_GET['gid'] . "'";
     DB::query($sql);
-
     $sql = "DELETE FROM `group_topics` WHERE
            `group_topic_group_id`='" . (int) $_GET['gid'] . "'";
     DB::query($sql);
-
     $sql = "DELETE FROM `group_members` WHERE
            `group_member_group_id`='" . (int) $_GET['gid'] . "'";
     DB::query($sql);
 }
 
-if (($_GET['a'] == 'all') || ($_GET['a'] == 'public') || ($_GET['a'] == 'private') || ($_GET['a'] == 'protected'))
-{
+if (($_GET['a'] == 'all') || ($_GET['a'] == 'public') || ($_GET['a'] == 'private') || ($_GET['a'] == 'protected')) {
 
-    if ($_GET['a'] != 'all')
-    {
+    if ($_GET['a'] != 'all') {
         $query = "WHERE `group_type`='$_GET[a]'";
-    }
-    else
-    {
+    } else {
         $query = '';
     }
 
     $_GET['sort'] = isset($_GET['sort']) ? $_GET['sort'] : '';
 
-    if ($_GET['sort'] != '')
-    {
+    if ($_GET['sort'] != '') {
         $sort = $_GET['sort'];
-    }
-    else
-    {
+    } else {
         $sort = " `group_id` DESC";
     }
 

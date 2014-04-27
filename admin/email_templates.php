@@ -18,19 +18,15 @@ check_admin_login();
 
 $result_per_page = get_config('admin_listing_per_page');
 
-if (isset($_GET['sort']) && $_GET['sort'] != '')
-{
+if (isset($_GET['sort']) && $_GET['sort'] != '') {
     $query = " ORDER BY $_GET[sort]";
-}
-else
-{
+} else {
     $query = " ORDER BY `email_id` ASC";
 }
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 

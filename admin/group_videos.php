@@ -25,22 +25,17 @@ $smarty->assign('group_name', $tmp['group_name']);
 
 $gid = $_GET['gid'];
 
-if (isset($_GET['sort']))
-{
+if (isset($_GET['sort'])) {
     $sort = $_GET['sort'];
-}
-else
-{
+} else {
     $sort = 'v.video_id ASC';
 }
 
-if ($sort == 'video_id asc' || $sort == 'video_id desc')
-{
+if ($sort == 'video_id asc' || $sort == 'video_id desc') {
     $sort = 'v.' . $sort;
 }
 
-if (isset($_GET['action']) && $_GET['action'] == 'del')
-{
+if (isset($_GET['action']) && $_GET['action'] == 'del') {
     $VID = $_GET['video_id'];
     $sql = "DELETE FROM `group_videos` WHERE
            `group_video_group_id`=" . (int) $gid . " AND
@@ -52,8 +47,7 @@ $query = ' WHERE gv.group_video_group_id=' . (int) $gid;
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 

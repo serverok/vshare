@@ -17,8 +17,7 @@ require '../include/config.php';
 check_admin_login();
 
 $sql = "SELECT * FROM `packages`";
-$result = mysql_query($sql) or mysql_die($sql);
-$packages = mysql_fetch_all($result);
+$packages = DB::fetch($sql);
 
 $smarty->assign('packages', $packages);
 $smarty->assign('err', $err);
@@ -26,4 +25,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/packages.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

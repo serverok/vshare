@@ -15,4 +15,4 @@
 require '../include/config.php';
 check_admin_login();
 $smarty->display('admin/main.tpl');
-db_close();
+DB::close();

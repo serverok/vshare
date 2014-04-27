@@ -23,8 +23,7 @@ $email = DB::fetch1($sql);
 $email['email_body'] = htmlentities($email['email_body'], ENT_QUOTES, 'UTF-8');
 $smarty->assign('email', $email);
 
-if (isset($_POST['submit']))
-{
+if (isset($_POST['submit'])) {
     $sql = "UPDATE `email_templates` SET
            `email_subject`='" . DB::quote($_REQUEST['email_subject']) . "',
            `email_body`='" . DB::quote($_REQUEST['email_body']) . "',

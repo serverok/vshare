@@ -17,18 +17,14 @@ require '../include/language/' . LANG . '/lang_admin_advertisement_edit.php';
 
 check_admin_login();
 
-if (isset($_POST['submit']))
-{
-    if ($_POST['advertisement_text'] == '')
-    {
+if (isset($_POST['submit'])) {
+    if ($_POST['advertisement_text'] == '') {
         $err = $lang['advt_code_empty'];
-    }
-    else
-    {
+    } else {
         $sql = "UPDATE `adv` SET
-               `adv_text`='" . mysql_clean($_POST['advertisement_text']) . "' WHERE
+               `adv_text`='" . DB::quote($_POST['advertisement_text']) . "' WHERE
                `adv_id`='" . (int) $_GET['adv_id'] . "'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
         $msg = $lang['advt_saved'];
     }
 }
@@ -37,8 +33,7 @@ $advertisement_id = isset($_GET['adv_id']) ? $_GET['adv_id'] : 0;
 
 $sql = "SELECT * FROM `adv` WHERE
        `adv_id`='" . (int) $advertisement_id . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$advertisement_info = mysql_fetch_assoc($result);
+$advertisement_info = DB::fetch1($sql);
 
 $smarty->assign('advertisement_info', $advertisement_info);
 $smarty->assign('err', $err);
@@ -46,4 +41,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/advertisement_edit.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

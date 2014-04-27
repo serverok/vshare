@@ -17,8 +17,7 @@ require '../include/language/' . LANG . '/lang_admin_poll_list.php';
 
 check_admin_login();
 
-if (isset($_GET['action']) && $_GET['action'] == 'delete' && is_numeric($_GET['poll_id']))
-{
+if (isset($_GET['action']) && $_GET['action'] == 'delete' && is_numeric($_GET['poll_id'])) {
     Poll::$id = $_GET['poll_id'];
     Poll::delete();
     $msg = $lang['poll_deleted'];
@@ -27,8 +26,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && is_numeric($_GET['p
 $sql = "SELECT * FROM `poll_question`";
 $polls = DB::fetch($sql);
 
-foreach ($polls as $tmp)
-{
+foreach ($polls as $tmp) {
     $poll_info[] = Poll::display($tmp['poll_id']);
     $poll_list[] = $tmp;
 }

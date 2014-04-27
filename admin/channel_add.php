@@ -18,48 +18,37 @@ require '../include/language/' . LANG . '/lang_admin_channel_add.php';
 
 check_admin_login();
 
-if (isset($_POST['add_channel']))
-{
-    
-    if ($_POST['channel_name'] == '')
-    {
+if (isset($_POST['add_channel'])) {
+
+    if ($_POST['channel_name'] == '') {
         $err = $lang['channel_name_null'];
-    }
-    else if ($_POST['channel_description'] == '')
-    {
+    } else if ($_POST['channel_description'] == '') {
         $err = $lang['channel_description_null'];
-    }
-    else if ($_FILES['channel_image']['name'] == '')
-    {
+    } else if ($_FILES['channel_image']['name'] == '') {
         $err = $lang['channel_image'];
     }
-    
+
     $seo_name = seo_name($_POST['channel_name']);
-    
-    if (check_field_exists($_POST['channel_name'], 'channel_name', 'channels'))
-    {
+
+    if (check_field_exists($_POST['channel_name'], 'channel_name', 'channels')) {
+        $err = $lang['channel_exists'];
+    } else if (check_field_exists($seo_name, 'channel_seo_name', 'channels')) {
         $err = $lang['channel_exists'];
     }
-    else if (check_field_exists($seo_name, 'channel_seo_name', 'channels'))
-    {
-        $err = $lang['channel_exists'];
-    }
-    
-    if ($err == '')
-    {
+
+    if ($err == '') {
         $sql = "INSERT INTO `channels` SET
-               `channel_name`='" . mysql_clean($_POST['channel_name']) . "',
-               `channel_seo_name`='" . mysql_clean($seo_name) . "',
-               `channel_description`='" . mysql_clean($_POST['channel_description']) . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
+               `channel_name`='" . DB::quote($_POST['channel_name']) . "',
+               `channel_seo_name`='" . DB::quote($seo_name) . "',
+               `channel_description`='" . DB::quote($_POST['channel_description']) . "'";
+        DB::query($sql);
         $err = upload_jpg($_FILES, 'channel_image', mysql_insert_id() . '.jpg', 120, VSHARE_DIR . '/chimg/');
     }
-    
-    if ($err == '')
-    {
+
+    if ($err == '') {
         set_message($lang['channel_added'], 'success');
         $redirect_url = VSHARE_URL . '/admin/channels.php';
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 
@@ -68,4 +57,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/channel_add.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

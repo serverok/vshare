@@ -19,25 +19,19 @@ check_admin_login();
 
 $found = 0;
 
-if (! empty($_POST['group_name']))
-{
+if (! empty($_POST['group_name'])) {
     $sql = "SELECT * FROM `groups` WHERE
            `group_name`='" . DB::quote($_POST['group_name']) . "'";
     $group_info = DB::fetch1($sql);
-
-    if (! $group_info)
-    {
+    if (! $group_info) {
         $err = str_replace('[GROUP_NAME]', $_POST['group_name'], $lang['group_not_found_name']);
-    }
-    else
-    {
+    } else {
         $found = 1;
         $group_id = $group_info['group_id'];
     }
 }
 
-if ($found > 0)
-{
+if ($found) {
     $redirect_url = VSHARE_URL . '/admin/group_view.php?group_id=' . $group_id;
     Http::redirect($redirect_url);
 }

@@ -16,24 +16,23 @@ require '../include/config.php';
 
 check_admin_login();
 
-if (isset($_POST['submit']))
-{
+if (isset($_POST['submit'])) {
     $sql = "UPDATE `pages` SET
-           `page_content`='" . mysql_clean($_POST['content']) . "',
-           `page_title`='" . mysql_clean($_POST['title']) . "',
-           `page_description`='" . mysql_clean($_POST['description']) . "',
-           `page_keywords`='" . mysql_clean($_POST['keywords']) . "',
-           `page_members_only`='" . mysql_clean($_POST['members_only']) . "' WHERE
+           `page_content`='" . DB::quote($_POST['content']) . "',
+           `page_title`='" . DB::quote($_POST['title']) . "',
+           `page_description`='" . DB::quote($_POST['description']) . "',
+           `page_keywords`='" . DB::quote($_POST['keywords']) . "',
+           `page_members_only`='" . DB::quote($_POST['members_only']) . "' WHERE
            `page_id`='" . (int) $_POST['page_id'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
     $redirect_url = VSHARE_URL . '/admin/page.php?name=' . $_POST['page_name'];
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 $sql = "SELECT * FROM `pages` WHERE
        `page_id`='" . (int) $_GET['id'] . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$page_edit = mysql_fetch_assoc($result);
+$page_edit = DB::fetch1($sql);
+
 $page_edit['page_content'] = htmlspecialchars($page_edit['page_content'], ENT_QUOTES, 'UTF-8');
 
 $smarty->assign('page_edit', $page_edit);
@@ -43,4 +42,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/page_edit.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

@@ -19,63 +19,53 @@ check_admin_login();
 
 $result_per_page = get_config('admin_listing_per_page');
 
-if (isset($_GET['action']) && $_GET['action'] == 'delete')
-{
+if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     $id = $_GET['id'];
     $sql = "SELECT * FROM `process_queue` WHERE
            `id`='" . (int) $id . "'";
-    $result = mysql_query($sql) or mysql_die();
-    $tmp = mysql_fetch_assoc($result);
+    $tmp = DB::fetch1($sql);
     $sql = "DELETE FROM `process_queue` WHERE
            `id`='" . (int) $id . "'";
-    mysql_query($sql) or mysql_die();
-    
+    DB::query($sql);
+
     $video_path = VSHARE_DIR . '/video/' . $tmp['file'];
-    
-    if (file_exists($video_path) && is_file($video_path))
-    {
+
+    if (file_exists($video_path) && is_file($video_path)) {
         $vid = $tmp['vid'];
-        if ($vid == 0)
-        {
+        if ($vid == 0) {
             unlink($video_path);
         }
     }
     $msg = $lang['process_q_deleted'];
 }
 
-if ((isset($_GET['action'])) && ($_GET['action'] == 'delete_all'))
-{
+if ((isset($_GET['action'])) && ($_GET['action'] == 'delete_all')) {
     $sql = "SELECT * FROM `process_queue`";
     $result = mysql_query($sql) or mysql_die($sql);
-    
-    while ($tmp = mysql_fetch_assoc($result))
-    {
+
+    while ($tmp = mysql_fetch_assoc($result)) {
         $video_path = VSHARE_DIR . '/video/' . $tmp['file'];
-        
-        if (file_exists($video_path) && is_file($video_path))
-        {
+
+        if (file_exists($video_path) && is_file($video_path)) {
             $vid = $tmp['vid'];
-            
-            if ($vid == 0)
-            {
-                if (! unlink($video_path))
-                {
+
+            if ($vid == 0) {
+                if (! unlink($video_path)) {
                     echo str_replace('[VIDEO_PATH]', $video_path, $lang['unable_to_delete']);
                     exit(0);
                 }
             }
         }
     }
-    
-    $sql = "DELETE  FROM  `process_queue`";
-    $result = mysql_query($sql) or mysql_die($sql);
+
+    $sql = "DELETE FROM  `process_queue`";
+    DB::query($sql);
     $msg = $lang['process_q_deleted'];
 }
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
@@ -86,9 +76,7 @@ $sql = "SELECT count(*) AS `total` FROM
        `users` AS u WHERE
         p.user=u.user_name ORDER BY
        `status` ASC";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_array($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start = ($page - 1) * $result_per_page;
 
@@ -114,8 +102,7 @@ $sql = "SELECT * FROM
         p.user=u.user_name
         ORDER BY `id` DESC
         LIMIT $start, $result_per_page";
-$result = mysql_query($sql) or mysql_die($sql);
-$process_queue_info = mysql_fetch_all($result);
+$process_queue_info = DB::fetch($sql);
 
 $smarty->assign('msg', $msg);
 $smarty->assign('page', $page);
@@ -124,4 +111,4 @@ $smarty->assign('process_queue', $process_queue_info);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/process_queue.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

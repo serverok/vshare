@@ -17,8 +17,7 @@ require '../include/language/' . LANG . '/lang_admin_group_edit.php';
 
 check_admin_login();
 
-if (isset($_POST['submit']))
-{
+if (isset($_POST['submit'])) {
     $_POST['keyword'] = preg_replace('/[\,\s]+/', ' ', $_POST['keyword']);
 
     $sql = "UPDATE `groups` SET
@@ -34,20 +33,16 @@ if (isset($_POST['submit']))
            `group_id`='" . (int) $_GET['gid'] . "'";
     DB::query($sql);
 
-    if (! isset($_POST['channel']) || count($_POST['channel']) < 1)
-    {
+    if (! isset($_POST['channel']) || count($_POST['channel']) < 1) {
         $err = $lang['group_channel_null'];
-    }
-    else
-    {
+    } else {
         $sql = "UPDATE `groups` SET
                `group_channels`='0|" . implode('|', $_POST['channel']) . "|0' WHERE
                `group_id`='" . (int) $_GET['gid'] . "'";
         DB::query($sql);
     }
 
-    if ($err == '')
-    {
+    if ($err == '') {
         set_message($lang['group_edited'], 'success');
         $redirect_url = VSHARE_URL . '/admin/group_view.php?group_id=' . $_GET['gid'];
         Http::redirect($redirect_url);
@@ -60,16 +55,11 @@ $group_info = DB::fetch1($sql);
 
 $type_public = $type_private = $type_protected = '';
 
-if ($group_info['group_type'] == 'public')
-{
+if ($group_info['group_type'] == 'public') {
     $type_public = "selected=\"selected\"";
-}
-else if ($group_info['group_type'] == 'private')
-{
+} else if ($group_info['group_type'] == 'private') {
     $type_private = "selected=\"selected\"";
-}
-else if ($group_info['group_type'] == 'protected')
-{
+} else if ($group_info['group_type'] == 'protected') {
     $type_protected = "selected=\"selected\"";
 }
 
@@ -82,16 +72,11 @@ $smarty->assign('type_box', $type_box);
 
 $gupload_immediate = $gupload_owner_approve = $gupload_owner_only = '';
 
-if ($group_info['group_upload'] == 'immediate')
-{
+if ($group_info['group_upload'] == 'immediate') {
     $gupload_immediate = "selected=\"selected\"";
-}
-else if ($group_info['group_upload'] == 'owner_approve')
-{
+} else if ($group_info['group_upload'] == 'owner_approve') {
     $gupload_owner_approve = "selected=\"selected\"";
-}
-else if ($group_info['group_upload'] == 'owner_only')
-{
+} else if ($group_info['group_upload'] == 'owner_only') {
     $gupload_owner_only = "selected=\"selected\"";
 }
 
@@ -104,16 +89,11 @@ $smarty->assign('upload_box', $upload_box);
 
 $gposting_immediate = $gposting_owner_approve = $gposting_owner_only = '';
 
-if ($group_info['group_posting'] == 'immediate')
-{
+if ($group_info['group_posting'] == 'immediate') {
     $gposting_immediate = "selected=\"selected\"";
-}
-else if ($group_info['group_posting'] == 'owner_approve')
-{
+} else if ($group_info['group_posting'] == 'owner_approve') {
     $gposting_owner_approve = "selected=\"selected\"";
-}
-else if ($group_info['group_posting'] == 'owner_only')
-{
+} else if ($group_info['group_posting'] == 'owner_only') {
     $gposting_owner_only = "selected=\"selected\"";
 }
 
@@ -126,12 +106,9 @@ $smarty->assign('posting_box', $posting_box);
 
 $gimage_immediate = $gimage_owner_only = '';
 
-if ($group_info['group_image'] == 'immediate')
-{
+if ($group_info['group_image'] == 'immediate') {
     $gimage_immediate = "selected=\"selected\"";
-}
-else if ($group_info['group_image'] == 'owner_only')
-{
+} else if ($group_info['group_image'] == 'owner_only') {
     $gimage_owner_only = "selected=\"selected\"";
 }
 
@@ -143,12 +120,9 @@ $smarty->assign('icon_box', $icon_box);
 
 $featured_yes = $featured_no = '';
 
-if ($group_info['group_featured'] == 'yes')
-{
+if ($group_info['group_featured'] == 'yes') {
     $featured_yes = "selected=\"selected\"";
-}
-else
-{
+} else {
     $featured_no = "selected=\"selected\"";
 }
 
@@ -162,18 +136,12 @@ $ch_checkbox = '';
 $mych = explode('|', $group_info['group_channels']);
 $ch = Channel::get();
 
-for ($i = 0; $i < count($ch); $i ++)
-{
-
-    if (in_array($ch[$i]['channel_id'], $mych))
-    {
+for ($i = 0; $i < count($ch); $i ++) {
+    if (in_array($ch[$i]['channel_id'], $mych)) {
         $checked = "checked=\"checked\"";
+    } else {
+        $checked = '';
     }
-    else
-    {
-        $checked = "";
-    }
-
     $ch_checkbox .= '<input type="checkbox" name="channel[]" value="' . $ch[$i]['channel_id'] . '"' . $checked . '/>' . htmlspecialchars($ch[$i]['channel_name'], ENT_QUOTES, 'UTF-8') . '<br />';
 }
 

@@ -15,50 +15,38 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_reset_password.php';
 
-if (isset($_GET['k']) && isset($_GET['i']))
-{
-    if (! is_numeric($_GET['i']))
-    {
+if (isset($_GET['k']) && isset($_GET['i'])) {
+    if (! is_numeric($_GET['i'])) {
         $err = $lang['invalid_key'];
-    }
-    else if (strlen($_GET['k']) > 40)
-    {
+    } else if (strlen($_GET['k']) > 40) {
         $err = $lang['invalid_key'];
-    }
-    else
-    {
-        
+    } else {
+
         $data1 = 'ADMIN_PWD_CHANGE';
-        
+
         $sql = "SELECT * FROM `verify_code` WHERE
                `id`='" . (int) $_GET['i'] . "' AND
                `vkey`='" . $_GET['k'] . "' AND
                `data1`='" . $data1 . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) > 0)
-        {
-            $tmp = mysql_fetch_assoc($result);
+        $verify_info = DB::fetch1($sql);
+
+        if ($verify_info) {
             $sql = "UPDATE `sconfig` SET
-                   `svalue`='" . md5($tmp['data2']) . "' WHERE
+                   `svalue`='" . md5($verify_info['data2']) . "' WHERE
                    `soption`='admin_pass'";
-            mysql_query($sql) or mysql_die($sql);
-            
+            DB::query($sql);
+
             $sql = "DELETE FROM `verify_code` WHERE
                    `id`='" . (int) $_GET['i'] . "'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
             set_message($lang['password_changed'], 'success');
             $redirect_url = VSHARE_URL . '/admin/index.php';
-            redirect($redirect_url);
-        }
-        else
-        {
+            Http::redirect($redirect_url);
+        } else {
             $err = $lang['invalid_key'];
         }
     }
-}
-else
-{
+} else {
     $err = $lang['invalid_key'];
 }
 
@@ -67,4 +55,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('header.tpl');
 $smarty->display('error.tpl');
 $smarty->display('footer.tpl');
-db_close();
+DB::close();

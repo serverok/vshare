@@ -19,10 +19,10 @@ check_admin_login();
 
 $sql = "DELETE FROM `import_auto` WHERE
         `import_auto_id`='" . (int) $_GET['id'] . "'";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $msg = 'Auto import keywords deleted.';
 set_message($msg, 'success');
 
 $redirect_url = VSHARE_URL . '/admin/import_auto.php';
-redirect($redirect_url);
+Http::redirect($redirect_url);

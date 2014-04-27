@@ -21,53 +21,39 @@ $result_per_page = get_config('admin_listing_per_page');
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
-$sql = "SELECT `channel_name` FROM `channels` WHERE
-       `channel_id`='" . (int) $_GET['chid'] . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
+$tmp = Channel::getById($_GET['chid']);
 $smarty->assign('channel_name', $tmp['channel_name']);
 
-if (isset($_GET['action']) && $_GET['action'] == 'del')
-{
+if (isset($_GET['action']) && $_GET['action'] == 'del') {
     $sql = "SELECT `group_channels` FROM `groups` WHERE
            `group_id`='" . (int) $_GET['gid'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $channel = mysql_fetch_assoc($result);
+    $channel = DB::fetch1($sql);
     $ch = explode("|", $channel['channel']);
-    
-    if (count($ch) <= 3)
-    {
+
+    if (count($ch) <= 3) {
         $err = $lang['group_channel_last'];
-    }
-    else
-    {
+    } else {
         $new_type = str_replace("|$_GET[chid]|", '|', $channel['channel']);
         $sql = "UPDATE `groups` SET `channel`='$new_type' WHERE
            `group_id`='" . (int) $_GET['gid'] . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
 }
 
 $query = " WHERE `group_channels` LIKE '%|" . (int) $_GET['chid'] . "|%'";
 
-if (isset($_GET['sort']) && $_GET['sort'] != '')
-{
+if (isset($_GET['sort']) && $_GET['sort'] != '') {
     $query .= " ORDER BY $_GET[sort]";
-}
-else
-{
+} else {
     $query .= " ORDER BY `group_id` ASC";
 }
 
 $sql = "SELECT count(*) AS `total` FROM `groups` $query";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start_from = ($page - 1) * $result_per_page;
 
@@ -89,8 +75,7 @@ $links = $pager->getLinks();
 
 $sql = "SELECT * FROM `groups` $query
         LIMIT $start_from, $result_per_page";
-$result = mysql_query($sql) or mysql_die($sql);
-$groups = mysql_fetch_all($result);
+$groups = DB::fetch($sql);
 
 $smarty->assign('link', $links["all"]);
 $smarty->assign('grandtotal', $total);
@@ -102,4 +87,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/channel_groups.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

@@ -38,28 +38,20 @@ $sort_allowed = array(
 );
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 
-if (in_array($sort, $sort_allowed))
-{
+if (in_array($sort, $sort_allowed)) {
     $query = 'ORDER BY ' . mysql_clean($sort);
-}
-else
-{
+} else {
     $query = 'ORDER BY u.user_id DESC';
 }
 
-if (isset($_GET['action']) && $_GET['action'] == 'del')
-{
-    if (is_numeric($_GET['uid']))
-    {
+if (isset($_GET['action']) && $_GET['action'] == 'del') {
+    if (is_numeric($_GET['uid'])) {
         $sql = "SELECT `group_owner_id` FROM `groups` WHERE
                `group_id`='" . (int) $_GET['group_id'] . "'";
         $tmp = DB::fetch1($sql);
-        if ($tmp['group_owner_id'] == $_GET['uid'])
-        {
+        if ($tmp['group_owner_id'] == $_GET['uid']) {
             $err = $lang['group_owner_del'];
-        }
-        else
-        {
+        } else {
             $sql = "DELETE FROM `group_members` WHERE
                    `group_member_group_id`='" . (int) $_GET['group_id'] . "' AND
                    `group_member_user_id`='" . (int) $_GET['uid'] . "'";
@@ -70,8 +62,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'del')
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 

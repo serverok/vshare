@@ -19,34 +19,26 @@ check_admin_login();
 
 $poll_id = isset($_GET['poll_id']) ? $_GET['poll_id'] : 0;
 
-if (isset($_POST['submit']))
-{
+if (isset($_POST['submit'])) {
     $poll_id = isset($_POST['poll_id']) ? $_POST['poll_id'] : 0;
 
     $poll_question = $_POST['poll_question'];
     $poll_answer_array = $_POST['edit_poll_answers'];
 
-    for ($i = 0; $i < count($poll_answer_array); $i ++)
-    {
-        if ($poll_answer_array[$i] == '')
-        {
+    for ($i = 0; $i < count($poll_answer_array); $i ++) {
+        if ($poll_answer_array[$i] == '') {
             $err = $lang['poll_answer_empty'];
         }
     }
-    if ($err == '')
-    {
-        $poll_answers = implode('|', $poll_answer_array);
 
+    if ($err == '') {
+        $poll_answers = implode('|', $poll_answer_array);
         $end_day = $_POST['end_date_year'] . '-' . $_POST['end_date_month'] . '-' . $_POST['end_date_day'];
         $start_day = $_POST['start_date_year'] . '-' . $_POST['start_date_month'] . '-' . $_POST['start_date_day'];
 
-        if (strtotime($start_day) > strtotime($end_day))
-        {
+        if (strtotime($start_day) > strtotime($end_day)) {
             $err = $lang['poll_date_invalid'];
-        }
-        else
-        {
-
+        } else {
             $sql = "UPDATE `poll_question` SET
              `poll_qty`='" . DB::quote($poll_question) . "',
              `poll_answer`='" . DB::quote($poll_answers) . "',

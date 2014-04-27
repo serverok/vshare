@@ -18,8 +18,7 @@ check_admin_login();
 
 $sql = "SELECT * FROM `packages` WHERE
        `package_id`='" . (int) $_GET['package_id'] . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$package_info = mysql_fetch_assoc($result);
+$package_info = DB::fetch1($sql);
 
 $smarty->assign('package', $package_info);
 $smarty->assign('err', $err);
@@ -27,4 +26,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/package_view.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

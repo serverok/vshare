@@ -28,10 +28,8 @@ $ch = Channel::get();
 
 $ch_checkbox = '';
 
-for ($i = 0; $i < count($ch); $i ++)
-{
-    if (in_array($ch[$i]['channel_id'], $mych))
-    {
+for ($i = 0; $i < count($ch); $i ++) {
+    if (in_array($ch[$i]['channel_id'], $mych)) {
         $ch_checkbox .= htmlspecialchars($ch[$i]['channel_name'], ENT_QUOTES, 'UTF-8') . '<br />';
     }
 }

@@ -17,43 +17,33 @@ require '../include/language/' . LANG . '/lang_admin_package_add.php';
 
 check_admin_login();
 
-if (isset($_POST['add_package']))
-{
-    if ($_POST['pack_name'] == '')
-    {
+if (isset($_POST['add_package'])) {
+    if ($_POST['pack_name'] == '') {
         $err = $lang['package_name_empty'];
-    }
-    else if ($_POST['pack_desc'] == '')
-    {
+    } else if ($_POST['pack_desc'] == '') {
         $err = $lang['package_description_empty'];
-    }
-    else if ($_POST['space'] == '')
-    {
+    } else if ($_POST['space'] == '') {
         $err = $lang['package_space_empty'];
-    }
-    else if ($_POST['price'] == '')
-    {
+    } else if ($_POST['price'] == '') {
         $err = $lang['package_price_empty'];
     }
-    
-    if ($err == '')
-    {
+
+    if ($err == '') {
         $sql = "INSERT INTO `packages` SET
-               `package_name`='" . mysql_clean($_POST['pack_name']) . "',
-               `package_description`='" . mysql_clean($_POST['pack_desc']) . "',
-               `package_space`='" . mysql_clean($_POST['space']) . "',
-               `package_price`='" . mysql_clean($_POST['price']) . "',
-               `package_videos`='" . mysql_clean($_POST['video_limit']) . "',
-               `package_period`='" . mysql_clean($_POST['period']) . "',
-               `package_status`='" . mysql_clean($_POST['status']) . "'";
-        mysql_query($sql) or mysql_die($sql);
+               `package_name`='" . DB::quote($_POST['pack_name']) . "',
+               `package_description`='" . DB::quote($_POST['pack_desc']) . "',
+               `package_space`='" . DB::quote($_POST['space']) . "',
+               `package_price`='" . DB::quote($_POST['price']) . "',
+               `package_videos`='" . DB::quote($_POST['video_limit']) . "',
+               `package_period`='" . DB::quote($_POST['period']) . "',
+               `package_status`='" . DB::quote($_POST['status']) . "'";
+        DB::query($sql);
     }
-    
-    if ($err == '')
-    {
+
+    if ($err == '') {
         set_message($lang['package_added'], 'success');
         $redirect_url = VSHARE_URL . '/admin/packages.php';
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 
@@ -72,4 +62,4 @@ $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/package_add.tpl');
 $smarty->display('admin/footer.tpl');
-db_close();
+DB::close();

@@ -18,16 +18,14 @@ check_admin_login();
 
 $result_per_page = get_config('admin_listing_per_page');
 
-if (! is_numeric($_GET['gid']))
-{
+if (! is_numeric($_GET['gid'])) {
     echo 'gid empty';
     exit(0);
 }
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
@@ -38,8 +36,7 @@ $group_name = $tmp['group_name'];
 
 $smarty->assign('group_name', $group_name);
 
-if (isset($_GET['action']) && $_GET['action'] == 'del' && is_numeric($_GET['TID']))
-{
+if (isset($_GET['action']) && $_GET['action'] == 'del' && is_numeric($_GET['TID'])) {
     $sql = "DELETE FROM `group_topics` WHERE
            `group_topic_id`='" . (int) $_GET['TID'] . "'";
     DB::query($sql);
@@ -58,12 +55,9 @@ $sort_allowed = array(
 
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 
-if (in_array($sort, $sort_allowed))
-{
+if (in_array($sort, $sort_allowed)) {
     $query .= " ORDER BY " . mysql_clean($sort);
-}
-else
-{
+} else {
     $query .= " ORDER BY `group_topic_id` DESC";
 }
 

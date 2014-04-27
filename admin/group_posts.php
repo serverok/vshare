@@ -25,14 +25,10 @@ $sql = "SELECT `group_name` FROM `groups` WHERE
 $tmp = DB::fetch1($sql);
 $smarty->assign('group_name', $tmp['group_name']);
 
-if (isset($_POST['update']))
-{
-    if ($_POST['title'] == '')
-    {
+if (isset($_POST['update'])) {
+    if ($_POST['title'] == '') {
         $err = $lang['title_null'];
-    }
-    else
-    {
+    } else {
         $sql = "UPDATE `group_topics` SET
                `group_topic_title`='" . DB::quote($_POST['title']) . "',
                `group_topic_approved`='" . DB::quote($_POST['approved']) . "' WHERE
@@ -43,14 +39,10 @@ if (isset($_POST['update']))
     }
 }
 
-if (isset($_POST['pupdate']))
-{
-    if ($_POST['post'] == '')
-    {
+if (isset($_POST['pupdate'])) {
+    if ($_POST['post'] == '') {
         $err = $lang['post_null'];
-    }
-    else
-    {
+    } else {
         $sql = "UPDATE `group_topic_posts` SET
                `group_topic_post_description`='" . DB::quote($_POST['post']) . "' WHERE
                `group_topic_post_id`=" . (int) $_GET['PID'];
@@ -60,8 +52,7 @@ if (isset($_POST['pupdate']))
     }
 }
 
-if ((isset($_GET['action']) && $_GET['action'] == 'pdel') && (isset($_GET['PID']) && $_GET['PID'] != ''))
-{
+if ((isset($_GET['action']) && $_GET['action'] == 'pdel') && (isset($_GET['PID']) && $_GET['PID'] != '')) {
     $sql = "DELETE FROM `group_topic_posts` WHERE
            `group_topic_post_id`='" . (int) $_GET['PID'] . "'";
     DB::query($sql);
@@ -73,8 +64,7 @@ $sql = "SELECT * FROM `group_topics` WHERE
        `group_topic_id`='" . (int) $TID . "'";
 $topic = DB::fetch1($sql);
 
-if ($topic['group_topic_video_id'] != 0)
-{
+if ($topic['group_topic_video_id'] != 0) {
     $sql = "SELECT video_folder,video_thumb_server_id FROM `videos` WHERE
 			`video_id`=" . $topic['group_topic_video_id'];
     $tmp = DB::fetch1($sql);
@@ -91,10 +81,8 @@ $group_posts = DB::fetch($sql);
 
 $posts = array();
 
-foreach ($group_posts as $tmp)
-{
-    if ($tmp['group_topic_post_video_id'] != 0)
-    {
+foreach ($group_posts as $tmp) {
+    if ($tmp['group_topic_post_video_id'] != 0) {
         $sql = "SELECT video_folder,video_thumb_server_id FROM `videos` WHERE
 				`video_id`=" . $tmp['group_topic_post_video_id'];
         $tmp_1 = DB::fetch1($sql);
@@ -107,7 +95,6 @@ foreach ($group_posts as $tmp)
 
 $smarty->assign('post', $posts);
 $smarty->assign('total_post', count($posts));
-
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

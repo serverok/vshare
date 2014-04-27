@@ -34,8 +34,7 @@ $smarty->error_reporting = E_ALL & ~E_NOTICE;
 $sql = "SELECT * FROM `sconfig`";
 $result = DB::query($sql);
 
-while ($tmp = mysqli_fetch_assoc($result))
-{
+while ($tmp = mysqli_fetch_assoc($result)) {
     $field = $tmp['soption'];
     $config[$field] = $tmp['svalue'];
 }
@@ -48,10 +47,8 @@ $result = DB::query($sql);
 
 $servers[0] = VSHARE_URL;
 
-if (mysqli_num_rows($result) > 0)
-{
-    while ($tmp = mysqli_fetch_assoc($result))
-    {
+if (mysqli_num_rows($result) > 0) {
+    while ($tmp = mysqli_fetch_assoc($result)) {
         $tmp_server_id = $tmp['id'];
         $servers[$tmp_server_id] = $tmp['url'];
     }
@@ -66,13 +63,11 @@ $smarty->assign(array(
     'img_css_url' => IMG_CSS_URL
 ));
 
-if ($config['approve'] == 1)
-{
+if ($config['approve'] == 1) {
     $active = "and `active`='1'";
 }
 
-if (! isset($language))
-{
+if (! isset($language)) {
     $language = 'en';
 }
 
@@ -83,10 +78,8 @@ $result_per_page = 20;
 $msg = '';
 $err = '';
 
-if (isset($_SESSION['vshare_message']))
-{
-    switch ($_SESSION['vshare_message_type'])
-    {
+if (isset($_SESSION['vshare_message'])) {
+    switch ($_SESSION['vshare_message_type']) {
         case 'success':
             $msg = $_SESSION['vshare_message'];
             break;
@@ -101,26 +94,21 @@ if (isset($_SESSION['vshare_message']))
     unset($_SESSION['vshare_message_type']);
 }
 
-if (! isset($_SESSION['CSS']))
-{
+if (! isset($_SESSION['CSS'])) {
     Css::cookie();
 }
 
-if (! isset($_SESSION['LANG']))
-{
+if (! isset($_SESSION['LANG'])) {
     Language::cookie();
 }
 
-if (! isset($_SESSION['USERNAME']) && isset($_COOKIE['VSHARE_AL_PASSWORD']))
-{
+if (! isset($_SESSION['USERNAME']) && isset($_COOKIE['VSHARE_AL_PASSWORD'])) {
     User::login_auto();
 }
 define('LANG', $_SESSION['LANG']);
 
-if ($config['family_filter'] == 1)
-{
-    if (! isset($_SESSION['FAMILY_FILTER']))
-    {
+if ($config['family_filter'] == 1) {
+    if (! isset($_SESSION['FAMILY_FILTER'])) {
         $_SESSION['FAMILY_FILTER'] = 1;
     }
 }

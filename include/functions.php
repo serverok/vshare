@@ -18,7 +18,7 @@ function check_admin_login()
     {
         set_message('You are not logged in.', 'error');
         $redirect_url = $config['baseurl'] . '/admin/index.php';
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 
     write_admin_log();
@@ -52,20 +52,6 @@ function write_admin_log()
            `admin_log_extra`='$admin_log_extra',
            `admin_log_ip`='$admin_log_ip'";
     DB::query($sql);
-}
-
-function mailing($recipient, $name, $from, $subj, $body, $bcc = '')
-{
-    $headers = '';
-    $subj = nl2br($subj);
-    $body = nl2br($body);
-    if ($bcc != '')
-    {
-        $headers = 'Bcc: ' . $bcc . "\n";
-    }
-    $headers .= 'From: ' . $from . "\n";
-    $headers .= "Content-Type: text/html\n";
-    mail("$recipient", "$subj", "$body", "$headers");
 }
 
 function years($sel = '')
