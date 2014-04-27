@@ -19,8 +19,7 @@ check_admin_login();
 $admin_listing_per_page = get_config('admin_listing_per_page');
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
@@ -39,12 +38,9 @@ $allowed_sort = array(
 
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 
-if (in_array($sort, $allowed_sort))
-{
+if (in_array($sort, $allowed_sort)) {
     $query = ' ORDER BY ' . $sort;
-}
-else
-{
+} else {
     $query = " ORDER BY `video_id` DESC";
 }
 
@@ -53,15 +49,12 @@ $sql = "SELECT * FROM `servers` WHERE
         `status`=1
         ORDER BY `space_used` ASC
         LIMIT 1";
-$result = mysql_query($sql) or mysql_die($sql);
-$servers = mysql_fetch_all($result);
+$servers = DB::fetch($sql);
 
 $sql = "SELECT count(`video_id`) AS `total` FROM `videos` WHERE
        `video_vtype`='0' AND
        `video_server_id`='0'";
-$result = mysql_query($sql) or mysql_die($sql);
-$tmp = mysql_fetch_assoc($result);
-$total = $tmp['total'];
+$total = DB::getTotal($sql);
 
 $start = ($page - 1) * $admin_listing_per_page;
 
@@ -85,9 +78,7 @@ $sql = "SELECT * FROM `videos` WHERE
        `video_server_id`='0'
         $query
         LIMIT $start, $admin_listing_per_page";
-$result = mysql_query($sql) or mysql_die($sql);
-$videos = mysql_fetch_all($result);
-mysql_free_result($result);
+$videos = DB::fetch($sql);
 
 $smarty->assign(array(
     'links' => $links["all"],
@@ -96,6 +87,7 @@ $smarty->assign(array(
     'videos' => $videos,
     'servers' => $servers
 ));
+
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/video_local.tpl');
 $smarty->display('admin/footer.tpl');
