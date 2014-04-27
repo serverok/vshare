@@ -15,46 +15,40 @@
 require 'include/config.php';
 require 'include/language/' . LANG . '/lang_reset_password.php';
 
-if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i']))
-{
-    if (! is_numeric($_GET['i']))
-    {
+if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i'])) {
+
+    if (! is_numeric($_GET['i'])) {
+        $err = $lang['vcode_invalid'];
+    } else if (! is_numeric($_GET['u'])) {
         $err = $lang['vcode_invalid'];
     }
-    else if (! is_numeric($_GET['u']))
-    {
-        $err = $lang['vcode_invalid'];
-    }
-    
-    if ($err == '')
-    {
+
+    if ($err == '') {
+
         $data1 = 'PWD_RESET' . $_GET['u'];
-        
+
         $sql = "SELECT * FROM `verify_code` WHERE
                `id`='" . (int) $_GET['i'] . "' AND
                `vkey`='" . DB::quote($_GET['k']) . "' AND
                `data1`='" . DB::quote($data1) . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) > 0)
-        {
-            $verify_code_info = mysql_fetch_assoc($result);
+        $verify_info = DB::fetch1($sql);
+
+        if ($verify_info) {
             $password = $verify_code_info['data2'];
-            
+
             $sql = "UPDATE `users` SET
                    `user_password`='" . md5($password) . "' WHERE
                    `user_id`='" . (int) $_GET['u'] . "'";
-            mysql_query($sql) or mysql_die($sql);
-            
+            DB::query($sql);
+
             $sql = "DELETE FROM `verify_code` WHERE
                    `id`='" . (int) $_GET['i'] . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
+
             set_message($lang['password_changed'], 'success');
             $redirect_url = VSHARE_URL . '/login/';
             Http::redirect($redirect_url);
-        }
-        else
-        {
+        } else {
             $err = $lang['vcode_invalid'];
         }
     }
