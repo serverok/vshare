@@ -13,8 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.mail.php';
-require 'include/class.validate.php';
 require 'include/language/' . LANG . '/lang_resend_activation_mail.php';
 
 if (! isset($_SESSION['INACTIVE_USER']))
@@ -26,27 +24,23 @@ if (! isset($_SESSION['INACTIVE_USER']))
 
 if (isset($_POST['submit']))
 {
-    
+
     if ($_POST['email'] == '')
     {
         $err = $lang['email_null'];
     }
-    else if (! validate::email($_POST['email']))
+    else if (! Validate::email($_POST['email']))
     {
         $err = $lang['email_invalid'];
     }
-    
+
     if ($err == '')
     {
-        $sql = "SELECT * FROM `users` WHERE
-               `user_name`='" . DB::quote($_SESSION['INACTIVE_USER']) . "' AND
-               `user_account_status`='Inactive'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) > 0)
+        $user_info = User::getByName($_SESSION['INACTIVE_USER']);
+
+        if ($user_info)
         {
-            $user_info = mysql_fetch_assoc($result);
-            
+
             if ($user_info['user_email'] != $_POST['email'])
             {
                 if (! check_field_exists($_POST['email'], 'user_email', 'users'))
@@ -54,7 +48,7 @@ if (isset($_POST['submit']))
                     $sql = "UPDATE `users` SET
                            `user_email`='" . DB::quote($_POST['email']) . "' WHERE
                            `user_name`='" . DB::quote($_SESSION['INACTIVE_USER']) . "'";
-                    mysql_query($sql) or mysql_die($sql);
+                    DB::query($sql);
                     $user_info['user_email'] = $_POST['email'];
                 }
                 else
@@ -62,18 +56,17 @@ if (isset($_POST['submit']))
                     $err = $lang['email_exist'];
                 }
             }
-            
+
             if ($err == '')
             {
                 $data1 = 'SIGNUP' . $user_info['user_id'];
-                
+
                 $sql = "SELECT * FROM `verify_code` WHERE
                        `data1`='" . DB::quote($data1) . "'";
-                $result = mysql_query($sql) or mysql_die($sql);
-                
-                if (mysql_num_rows($result) > 0)
+                $verify_info = DB::fetch1($sql);
+
+                if ($verify_info)
                 {
-                    $verify_info = mysql_fetch_assoc($result);
                     $vkey = $verify_info['vkey'];
                     $verify_id = $verify_info['id'];
                 }
@@ -81,32 +74,30 @@ if (isset($_POST['submit']))
                 {
                     $vkey = $_SERVER['REQUEST_TIME'] . rand(1, 99999999);
                     $vkey = md5($vkey);
-                    
+
                     $sql = "INSERT INTO `verify_code` SET
                            `vkey`='" . DB::quote($vkey) . "',
                            `data1`='" . DB::quote($data1) . "'";
-                    
-                    $result = mysql_query($sql) or mysql_die($sql);
-                    $verify_id = mysql_insert_id();
+                   $verify_id = DB::insertGetId($sql);
                 }
-                
+
                 $verify_url = VSHARE_URL . '/verify/user/' . $user_info['user_id'] . '/' . $verify_id . '/' . $vkey . '/';
-                
+
                 $sql = "SELECT * FROM `email_templates` WHERE
                        `email_id`='resend_activation'";
-                $result = mysql_query($sql) or mysql_die($sql);
-                $tmp = mysql_fetch_assoc($result);
+                $tmp = DB::fetch1($sql);
+
                 $email_subject = $tmp['email_subject'];
                 $email_body_tmp = $tmp['email_body'];
-                
+
                 $email_subject = str_replace('[SITE_NAME]', $config['site_name'], $email_subject);
                 $email_subject = str_replace('[SITE_URL]', VSHARE_URL, $email_subject);
-                
+
                 $email_body_tmp = str_replace('[SITE_NAME]', $config['site_name'], $email_body_tmp);
                 $email_body_tmp = str_replace('[SITE_URL]', VSHARE_URL, $email_body_tmp);
                 $email_body_tmp = str_replace('[VERIFY_URL]', $verify_url, $email_body_tmp);
                 $email_body_tmp = str_replace('[USERNAME]', $user_info['user_name'], $email_body_tmp);
-                
+
                 $mail_detailes = array();
                 $mail_detailes['from_email'] = $config['admin_email'];
                 $mail_detailes['from_name'] = $config['site_name'];
@@ -126,12 +117,9 @@ if (isset($_POST['submit']))
     }
 }
 
-$sql = "SELECT `user_email` FROM `users` WHERE
-       `user_name`='" . DB::quote($_SESSION['INACTIVE_USER']) . "'";
-$result = mysql_query($sql) or mysql_die($sql);
-$user_info = mysql_fetch_assoc($result);
-$smarty->assign('user_email', $user_info['user_email']);
+$user_info = User::getByName($_SESSION['INACTIVE_USER']);
 
+$smarty->assign('user_email', $user_info['user_email']);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('sub_menu', 'menu_home.tpl');
