@@ -17,56 +17,40 @@ require '../include/language/' . LANG . '/lang_admin_video_search.php';
 
 check_admin_login();
 
-if (isset($_GET['search']))
-{
-    if (isset($_GET['id']) && $_GET['id'] != '')
-    {
-        if (is_numeric($_GET['id']))
-        {
+if (isset($_GET['search'])) {
+
+    if (isset($_GET['id']) && $_GET['id'] != '') {
+        if (is_numeric($_GET['id'])) {
             $redirect_url = VSHARE_URL . '/admin/video_details.php?id=' . $_GET['id'];
             Http::redirect($redirect_url);
-        }
-        else
-        {
+        } else {
             $err = $lang['invalid_id'];
         }
-    }
-    else if ((isset($_GET['video_flv_name'])) && ($_GET['video_flv_name'] != ''))
-    {
+    } else if ((isset($_GET['video_flv_name'])) && ($_GET['video_flv_name'] != '')) {
         $sql = "SELECT * FROM `videos` WHERE
                `video_flv_name`='" . DB::quote($_GET['video_flv_name']) . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) > 0)
-        {
-            $video_info = mysql_fetch_assoc($result);
+        $video_info = DB::fetch1($sql);
+
+        if ($video_info) {
             $redirect_url = VSHARE_URL . '/admin/video_details.php?id=' . $video_info['video_id'];
             Http::redirect($redirect_url);
-        }
-        else
-        {
+        } else {
             $err = $lang['video_search_not_found'];
         }
-    }
-    else if ((isset($_GET['video_name'])) && ($_GET['video_name'] != ''))
-    {
+    } else if ((isset($_GET['video_name'])) && ($_GET['video_name'] != '')) {
         $sql = "SELECT * FROM `videos` WHERE
                `video_name`='" . DB::quote($_GET['video_name']) . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) > 0)
-        {
+        $video_info = DB::fetch1($sql);
+
+        if ($video_info) {
             $video_info = mysql_fetch_assoc($result);
             $redirect_url = VSHARE_URL . '/admin/video_details.php?id=' . $video_info['video_id'];
             Http::redirect($redirect_url);
-        }
-        else
-        {
+        } else {
             $err = $lang['video_search_not_found'];
         }
-    }
-    else if ((isset($_GET['video_title']) && $_GET['video_title'] != '') || (isset($_GET['video_description']) && $_GET['video_description'] != ''))
-    {
+    } else if ((isset($_GET['video_title']) && $_GET['video_title'] != '') || (isset($_GET['video_description']) && $_GET['video_description'] != '')) {
+
         $allowed_sort = array(
             'video_id asc',
             'video_id desc',
@@ -81,52 +65,43 @@ if (isset($_GET['search']))
             'video_add_date asc',
             'video_add_date desc'
         );
+
         $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
-        
-        if (in_array($sort, $allowed_sort))
-        {
+
+        if (in_array($sort, $allowed_sort)) {
             $sql_sort = ' ORDER BY ' . $sort;
-        }
-        else
-        {
+        } else {
             $sql_sort = ' ORDER BY `video_id` DESC';
         }
-        
-        if ($_GET['video_title'] != '')
-        {
+
+        if ($_GET['video_title'] != '') {
+
             $search_query = 'video_title=' . $_GET['video_title'];
             $smarty->assign('search_query', $search_query);
             $smarty->assign('search_string', $_GET['video_title']);
-            
+
             $sql = "SELECT * FROM `videos` WHERE
                    `video_title` LIKE '%" . DB::quote($_GET['video_title']) . "%'
                     $sql_sort";
-        }
-        else if ($_GET['video_description'] != '')
-        {
+        } else if ($_GET['video_description'] != '') {
             $search_query = 'video_description=' . $_GET['video_description'];
             $smarty->assign('search_query', $search_query);
             $smarty->assign('search_string', $_GET['video_description']);
-            
+
             $sql = "SELECT * FROM `videos` WHERE
                    `video_description` LIKE '%" . DB::quote($_GET['video_description']) . "%'
                     $sql_sort";
         }
-        $result = mysql_query($sql) or mysql_die($sql);
-        
-        if (mysql_num_rows($result) > 0)
-        {
-            $video_info = mysql_fetch_all($result);
-            $smarty->assign('total', mysql_num_rows($result));
-            $smarty->assign('video_info', $video_info);
-        }
-        else
-        {
+
+        $search_result_videos = DB::fetch($sql);
+
+        if ($search_result_videos) {
+            $smarty->assign('total', count($search_result_videos));
+            $smarty->assign('video_info', $search_result_videos);
+        } else {
             $err = $lang['video_search_not_found'];
         }
-    }
-    else
-    {
+    } else {
         $err = $lang['search_fields_empty'];
     }
 }
