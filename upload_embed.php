@@ -35,7 +35,7 @@ else
 {
     $user_name = get_config('guest_upload_user');
     $sql = "SELECT * FROM `users` WHERE
-           `user_name`='" . mysql_clean($user_name) . "'";
+           `user_name`='" . DB::quote($user_name) . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     $user_info = mysql_fetch_assoc($result);
     $user_id = $user_info['user_id'];
@@ -101,14 +101,14 @@ if (isset($_POST['action_upload']))
                 
                 $sql = "INSERT INTO `videos` SET
 		               `video_user_id`='" . (int) $user_id . "',
-		               `video_title`='" . mysql_clean($video_info['video_title']) . "',
-		               `video_description`='" . mysql_clean($video_info['video_description']) . "',
-		               `video_keywords`='" . mysql_clean($video_info['video_keywords']) . "',
-		               `video_seo_name`='" . mysql_clean($seo_name) . "',
-		               `video_channels`='0|" . mysql_clean($channel_id) . "|0',
-		               `video_type`='" . mysql_clean($type) . "',
+		               `video_title`='" . DB::quote($video_info['video_title']) . "',
+		               `video_description`='" . DB::quote($video_info['video_description']) . "',
+		               `video_keywords`='" . DB::quote($video_info['video_keywords']) . "',
+		               `video_seo_name`='" . DB::quote($seo_name) . "',
+		               `video_channels`='0|" . DB::quote($channel_id) . "|0',
+		               `video_type`='" . DB::quote($type) . "',
 		               `video_duration`='" . (int) $video_info['video_duration'] . "',
-		               `video_length`='" . mysql_clean($video_length) . "',
+		               `video_length`='" . DB::quote($video_length) . "',
 		               `video_add_time`='" . $_SERVER['REQUEST_TIME'] . "',
 		               `video_add_date`='" . date('Y-m-d') . "',
 		               `video_active`='1',
@@ -117,8 +117,8 @@ if (isset($_POST['action_upload']))
                 $video_id = mysql_insert_id();
                 
                 $sql = "INSERT INTO `import_track` SET
-                       `import_track_unique_id`='" . mysql_clean($video_id) . "' ,
-                       `import_track_site`='" . mysql_clean($import_site) . "'";
+                       `import_track_unique_id`='" . DB::quote($video_id) . "' ,
+                       `import_track_site`='" . DB::quote($import_site) . "'";
                 mysql_query($sql) or mysql_die($sql);
                 
                 require 'include/class.upload_remote.php';
@@ -129,7 +129,7 @@ if (isset($_POST['action_upload']))
                 
                 if ($type == 'public' && $config['approve'] == 1)
                 {
-                    $current_keyword = mysql_clean($upload_video_keywords);
+                    $current_keyword = DB::quote($upload_video_keywords);
                     $tags = new Tags($current_keyword, $video_id, $_SESSION['UID'], "0|$channels|0");
                     $tags->add();
                 }

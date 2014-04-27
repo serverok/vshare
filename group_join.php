@@ -75,7 +75,7 @@ if ($_GET['action'] == 'join')
                `group_member_group_id`='" . (int) $group_info['group_id'] . "',
                `group_member_user_id`='" . (int) $_SESSION['UID'] . "',
                `group_member_since`='" . date("Y-m-d H:i:s") . "',
-               `group_member_approved`='" . mysql_clean($approved) . "'";
+               `group_member_approved`='" . DB::quote($approved) . "'";
         mysql_query($sql) or mysql_die($sql);
         
         if ($group_info['group_type'] == 'protected')

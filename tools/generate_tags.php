@@ -49,7 +49,7 @@ while ($video_info = mysql_fetch_assoc($result))
     $video_keywords_new = implode(' ', $video_tags);
     
     echo $sql = "UPDATE `videos` SET 
-                  `video_keywords`='" . mysql_clean($video_keywords_new) . "' WHERE 
+                  `video_keywords`='" . DB::quote($video_keywords_new) . "' WHERE 
                   `video_id`='" . (int) $video_id . "'";
     var_dump($video_keywords);
     echo "<p>$sql</p><br>";

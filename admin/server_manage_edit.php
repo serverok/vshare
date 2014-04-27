@@ -51,13 +51,13 @@ if (isset($_POST['submit']))
     if ($err == '')
     {
         $sql = "UPDATE `servers` SET
-               `ip`='" . mysql_clean($_POST['server_ip']) . "',
-               `url`='" . mysql_clean($_POST['server_url']) . "',
-               `user_name`='" . mysql_clean($_POST['user_name']) . "',
-               `password`='" . mysql_clean($_POST['password']) . "',
-               `folder`='" . mysql_clean($_POST['folder']) . "',
+               `ip`='" . DB::quote($_POST['server_ip']) . "',
+               `url`='" . DB::quote($_POST['server_url']) . "',
+               `user_name`='" . DB::quote($_POST['user_name']) . "',
+               `password`='" . DB::quote($_POST['password']) . "',
+               `folder`='" . DB::quote($_POST['folder']) . "',
                `server_type`='" . (int) $_POST['server_type'] . "',
-               `server_secdownload_secret`='" . mysql_clean($server_secdownload_secret) . "' WHERE
+               `server_secdownload_secret`='" . DB::quote($server_secdownload_secret) . "' WHERE
                `id`='" . (int) $server_id . "'";
         mysql_query($sql) or mysql_die($sql);
         db_close();

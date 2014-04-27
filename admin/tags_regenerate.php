@@ -69,7 +69,7 @@ if (isset($_GET['tags_regenerate']))
             $video_keywords_new = implode(' ', $video_tags);
 
             $sql = "UPDATE `videos` SET
-                   `video_keywords`='" . mysql_clean($video_keywords_new) . "' WHERE
+                   `video_keywords`='" . DB::quote($video_keywords_new) . "' WHERE
                    `video_id`='" . (int) $video_id . "'";
             mysql_query($sql) or mysql_die($sql);
 

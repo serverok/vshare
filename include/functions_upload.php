@@ -275,20 +275,20 @@ function process_video($vid, $debug = 1)
 
             $sql = "INSERT INTO `videos` SET
                    `video_user_id`='" . (int) $download_info['user_id'] . "',
-                   `video_seo_name`='" . mysql_clean($seo_name) . "',
-                   `video_title`='" . mysql_clean($download_info['title']) . "',
-                   `video_description`='" . mysql_clean($download_info['description']) . "',
-                   `video_keywords`='" . mysql_clean($download_info['keywords']) . "',
-                   `video_channels`='0|" . mysql_clean($download_info['channels']) . "|0',
-                   `video_name`='" . mysql_clean($video_file_name) . "',
-                   `video_flv_name`='" . mysql_clean($rand_flv_name) . "',
-                   `video_add_time`='" . mysql_clean($_SERVER['REQUEST_TIME']) . "',
+                   `video_seo_name`='" . DB::quote($seo_name) . "',
+                   `video_title`='" . DB::quote($download_info['title']) . "',
+                   `video_description`='" . DB::quote($download_info['description']) . "',
+                   `video_keywords`='" . DB::quote($download_info['keywords']) . "',
+                   `video_channels`='0|" . DB::quote($download_info['channels']) . "|0',
+                   `video_name`='" . DB::quote($video_file_name) . "',
+                   `video_flv_name`='" . DB::quote($rand_flv_name) . "',
+                   `video_add_time`='" . DB::quote($_SERVER['REQUEST_TIME']) . "',
                    `video_add_date`='" . date("Y-m-d") . "',
-                   `video_type`='" . mysql_clean($download_info['type']) . "',
+                   `video_type`='" . DB::quote($download_info['type']) . "',
                    `video_active`='0',
                    `video_approve`='" . $config['approve'] . "',
                    `video_adult`='" . (int) $download_info['adult'] . "',
-                   `video_folder`='" . mysql_clean($video_folder) . "'";
+                   `video_folder`='" . DB::quote($video_folder) . "'";
 
             $result = mysql_query($sql) or mysql_die($sql);
             $convert_vid = mysql_insert_id();
@@ -320,7 +320,7 @@ function process_video($vid, $debug = 1)
                 $video_tags = $tags->get_tags();
                 $video_keywords = implode(' ', $video_tags);
 
-                $sql = "UPDATE `videos` SET `video_keywords`='" . mysql_clean($video_keywords) . "' WHERE
+                $sql = "UPDATE `videos` SET `video_keywords`='" . DB::quote($video_keywords) . "' WHERE
 						`video_id`='" . (int) $convert_vid . "'";
                 mysql_query($sql) or mysql_die($sql);
 
@@ -555,7 +555,7 @@ function process_video($vid, $debug = 1)
                 $flv_size = round($flv_size, 2);
 
                 $sql = "UPDATE `videos` SET
-                       `video_flv_name`='" . mysql_clean($rand_flv_name) . "',
+                       `video_flv_name`='" . DB::quote($rand_flv_name) . "',
                        `video_space`=$flv_size,
                        `video_duration`='$duration',
                        `video_length`='$duration_hms' WHERE

@@ -102,24 +102,24 @@ if (isset($_POST['submit']))
         
         if (in_array($_POST['user_gender'], $gender))
         {
-            $sql_extra .= "`user_gender`='" . mysql_clean($_POST['user_gender']) . "',";
+            $sql_extra .= "`user_gender`='" . DB::quote($_POST['user_gender']) . "',";
         }
         
         if (in_array($_POST['user_relation'], $relations))
         {
-            $sql_extra .= "`user_relation`='" . mysql_clean($_POST['user_relation']) . "',";
+            $sql_extra .= "`user_relation`='" . DB::quote($_POST['user_relation']) . "',";
         }
         
         if (in_array($_POST['user_country'], $countries->countries))
         {
-            $sql_extra .= "`user_country`='" . mysql_clean($_POST['user_country']) . "',";
+            $sql_extra .= "`user_country`='" . DB::quote($_POST['user_country']) . "',";
         }
         
         if ($_POST['user_website'] != '')
         {
             $_POST['user_website'] = strip_tags($_POST['user_website']);
             $_POST['user_website'] = User::validate_url($_POST['user_website']);
-            $sql_extra .= "`user_website`='" . mysql_clean($_POST['user_website']) . "',";
+            $sql_extra .= "`user_website`='" . DB::quote($_POST['user_website']) . "',";
         }
         
         $user_first_name = htmlspecialchars_uni($_POST['user_first_name']);
@@ -139,23 +139,23 @@ if (isset($_POST['submit']))
         $user_style = htmlspecialchars_uni($_POST['user_style']);
         
         $sql = "UPDATE `users` SET
-               `user_first_name`='" . mysql_clean($user_first_name) . "',
-               `user_last_name`='" . mysql_clean($user_last_name) . "',
-               `user_birth_date`='" . mysql_clean($user_bdate) . "',
+               `user_first_name`='" . DB::quote($user_first_name) . "',
+               `user_last_name`='" . DB::quote($user_last_name) . "',
+               `user_birth_date`='" . DB::quote($user_bdate) . "',
                 $sql_extra
-               `user_about_me`='" . mysql_clean($user_about_me) . "',
-               `user_town`='" . mysql_clean($user_town) . "',
-               `user_city`='" . mysql_clean($user_city) . "',
-               `user_zip`='" . mysql_clean($user_zip) . "',
-               `user_occupation`='" . mysql_clean($user_occupation) . "',
-               `user_company`='" . mysql_clean($user_company) . "',
-               `user_school`='" . mysql_clean($user_school) . "',
-               `user_interest_hobby`='" . mysql_clean($user_interest_hobby) . "',
-               `user_fav_movie_show`='" . mysql_clean($user_fav_movie_show) . "',
-               `user_fav_music`='" . mysql_clean($user_fav_music) . "',
-               `user_fav_book`='" . mysql_clean($user_fav_book) . "',
-               `user_friends_name`='" . mysql_clean($user_friends_name) . "',
-               `user_style`='" . mysql_clean($user_style) . "' WHERE
+               `user_about_me`='" . DB::quote($user_about_me) . "',
+               `user_town`='" . DB::quote($user_town) . "',
+               `user_city`='" . DB::quote($user_city) . "',
+               `user_zip`='" . DB::quote($user_zip) . "',
+               `user_occupation`='" . DB::quote($user_occupation) . "',
+               `user_company`='" . DB::quote($user_company) . "',
+               `user_school`='" . DB::quote($user_school) . "',
+               `user_interest_hobby`='" . DB::quote($user_interest_hobby) . "',
+               `user_fav_movie_show`='" . DB::quote($user_fav_movie_show) . "',
+               `user_fav_music`='" . DB::quote($user_fav_music) . "',
+               `user_fav_book`='" . DB::quote($user_fav_book) . "',
+               `user_friends_name`='" . DB::quote($user_friends_name) . "',
+               `user_style`='" . DB::quote($user_style) . "' WHERE
                `user_id`='" . (int) $_SESSION['UID'] . "'";
         
         mysql_query($sql) or mysql_die($sql);
@@ -175,8 +175,8 @@ if (isset($_POST['submit']))
             $data1 = 'EMAIL_CHANGE' . $_SESSION['UID'];
             
             $sql = "SELECT * FROM `verify_code` WHERE
-                   `data1`='" . mysql_clean($data1) . "' AND
-                   `data2`='" . mysql_clean($_POST['user_email']) . "'";
+                   `data1`='" . DB::quote($data1) . "' AND
+                   `data2`='" . DB::quote($_POST['user_email']) . "'";
             $result = mysql_query($sql) or mysql_die($sql);
             
             if (mysql_num_rows($result) > 0)
@@ -191,9 +191,9 @@ if (isset($_POST['submit']))
                 $vkey = md5($vkey);
                 
                 $sql = "INSERT INTO `verify_code` SET
-                       `vkey`='" . mysql_clean($vkey) . "',
-                       `data1`='" . mysql_clean($data1) . "',
-                       `data2`='" . mysql_clean($_POST['user_email']) . "'";
+                       `vkey`='" . DB::quote($vkey) . "',
+                       `data1`='" . DB::quote($data1) . "',
+                       `data2`='" . DB::quote($_POST['user_email']) . "'";
                 $result = mysql_query($sql) or mysql_die($sql);
                 $verify_id = mysql_insert_id();
             }

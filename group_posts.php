@@ -45,7 +45,7 @@ if (isset($_POST['add_topic']) && isset($_SESSION['UID']))
                `group_topic_post_topic_id`='" . (int) $_GET['topic_id'] . "',
                `group_topic_post_user_id`='" . (int) $_SESSION['UID'] . "',
                `group_topic_post_date`='" . $_SERVER['REQUEST_TIME'] . "',
-               `group_topic_post_description`='" . mysql_clean($topic_title) . "',
+               `group_topic_post_description`='" . DB::quote($topic_title) . "',
                `group_topic_post_video_id`='" . (int) $_POST['topic_video'] . "'";
         mysql_query($sql) or mysql_die($sql);
     }
@@ -56,7 +56,7 @@ if (isset($_POST['add_topic']) && isset($_SESSION['UID']))
 }
 
 $sql = "SELECT * FROM `groups` WHERE
-       `group_url`='" . mysql_clean($group_url) . "'";
+       `group_url`='" . DB::quote($group_url) . "'";
 $result = mysql_query($sql) or mysql_die($sql);
 $group_info = mysql_fetch_assoc($result);
 $group_id = $group_info['group_id'];

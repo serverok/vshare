@@ -75,7 +75,7 @@ unset($voters);
 $sql = "UPDATE `videos` SET
        `video_rated_by`='" . (int) $video_rated_by_new . "',
        `video_rate`='" . (int) $video_rate_new . "',
-       `video_voter_id`='" . mysql_clean($video_voter_id_new) . "' WHERE
+       `video_voter_id`='" . DB::quote($video_voter_id_new) . "' WHERE
        `video_id`='" . (int) $video_id . "'";
 mysql_query($sql) or mysql_die($sql);
 

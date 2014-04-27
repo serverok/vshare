@@ -37,13 +37,13 @@ if (isset($_POST['submit'])) {
 
     if ($err == '') {
         $sql = "SELECT * FROM `import_auto` WHERE
-			   `import_auto_keywords`='" . mysql_clean($video_keywords) . "'";
+			   `import_auto_keywords`='" . DB::quote($video_keywords) . "'";
         $result = mysql_query($sql) or mysql_die($sql);
 
         if (mysql_num_rows($result) == 0) {
             $sql = "INSERT INTO `import_auto` SET
-					`import_auto_keywords`='" . mysql_clean($video_keywords) . "',
-					`import_auto_user`='" . mysql_clean($user_name) . "',
+					`import_auto_keywords`='" . DB::quote($video_keywords) . "',
+					`import_auto_user`='" . DB::quote($user_name) . "',
 					`import_auto_channel`='" . (int) $channel_id . "',
 					`import_auto_download`='" . (int) $import_auto_download . "'";
             mysql_query($sql) or mysql_die($sql);

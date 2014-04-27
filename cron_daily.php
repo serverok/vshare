@@ -57,8 +57,8 @@ while ($import_auto_info = mysql_fetch_assoc($result))
             if (! BulkImport::checkImported($videos[$i], 'youtube'))
             {
                 $sql = "INSERT INTO `import_track` SET
-					   `import_track_unique_id`='" . mysql_clean($videos[$i]) . "' ,
-					   `import_track_site`='" . mysql_clean('youtube') . "'";
+					   `import_track_unique_id`='" . DB::quote($videos[$i]) . "' ,
+					   `import_track_site`='" . DB::quote('youtube') . "'";
                 mysql_query($sql) or mysql_die();
                 
                 $video_url = 'http://www.youtube.com/watch?v=' . $videos[$i];
@@ -80,12 +80,12 @@ while ($import_auto_info = mysql_fetch_assoc($result))
                     
                     $sql = "INSERT INTO `videos` SET
 		                   `video_user_id`='" . (int) $user_info['user_id'] . "',
-		                   `video_title`='" . mysql_clean($video_info['video_title']) . "',
-		                   `video_description`='" . mysql_clean($video_info['video_description']) . "',
-		                   `video_keywords`='" . mysql_clean($video_info['video_keywords']) . "',
-		                   `video_seo_name`='" . mysql_clean($seo_name) . "',
-		                   `video_channels`='0|" . mysql_clean($channel_id) . "|0',
-		                   `video_type`='" . mysql_clean('public') . "',
+		                   `video_title`='" . DB::quote($video_info['video_title']) . "',
+		                   `video_description`='" . DB::quote($video_info['video_description']) . "',
+		                   `video_keywords`='" . DB::quote($video_info['video_keywords']) . "',
+		                   `video_seo_name`='" . DB::quote($seo_name) . "',
+		                   `video_channels`='0|" . DB::quote($channel_id) . "|0',
+		                   `video_type`='" . DB::quote('public') . "',
 		                   `video_duration`=1,
 		                   `video_length`='01:00',
 		                   `video_add_time`='" . $_SERVER['REQUEST_TIME'] . "',
@@ -103,7 +103,7 @@ while ($import_auto_info = mysql_fetch_assoc($result))
                     
                     if ($type == 'public' && $config['approve'] == 1)
                     {
-                        $current_keyword = mysql_clean($video_info['video_keywords']);
+                        $current_keyword = DB::quote($video_info['video_keywords']);
                         $tags = new Tags($video_info['video_keywords'], $vid, $user_info['user_id'], "0|$channel_id|0");
                         $tags->add();
                     }
@@ -114,14 +114,14 @@ while ($import_auto_info = mysql_fetch_assoc($result))
                 else if ($import_auto_info['import_auto_download'] == 1)
                 {
                     $sql = "INSERT INTO `process_queue`SET
-			               `user`='" . mysql_clean($user_info['user_name']) . "',
-			               `title`='" . mysql_clean($video_info['video_title']) . "',
-			               `description`='" . mysql_clean($video_info['video_description']) . "',
-			               `keywords`='" . mysql_clean($video_info['video_keywords']) . "',
+			               `user`='" . DB::quote($user_info['user_name']) . "',
+			               `title`='" . DB::quote($video_info['video_title']) . "',
+			               `description`='" . DB::quote($video_info['video_description']) . "',
+			               `keywords`='" . DB::quote($video_info['video_keywords']) . "',
 			               `type`='public',
-			               `channels`='0|" . mysql_clean($channel_id) . "|0',
+			               `channels`='0|" . DB::quote($channel_id) . "|0',
 			               `status`='0',
-			               `url`='" . mysql_clean($video_url) . "'";
+			               `url`='" . DB::quote($video_url) . "'";
                     mysql_query($sql) or mysql_die();
                 }
             }

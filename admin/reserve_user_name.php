@@ -31,7 +31,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'add') {
         $user_name = mb_strtolower($_POST['name']);
         $user_name = trim($user_name);
         $sql = "INSERT INTO `disallow` SET
-               `disallow_username`='" . mysql_clean($user_name) . "'";
+               `disallow_username`='" . DB::quote($user_name) . "'";
         DB::query($sql);
         $msg = str_replace('[USERNAME]', $user_name, $lang['user_name_reserved']);
         $smarty->assign('msg', $msg);

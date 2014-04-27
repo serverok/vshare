@@ -64,7 +64,7 @@ class Tag
         foreach ($this->tags as $tag)
         {
             $sql = "SELECT * FROM `tags` WHERE
-                   `tag`='" . mysql_clean($tag) . "'";
+                   `tag`='" . DB::quote($tag) . "'";
             $result = mysql_query($sql) or mysql_die($sql);
 
             if (mysql_num_rows($result) > 0)
@@ -74,7 +74,7 @@ class Tag
                 $sql = "UPDATE `tags` SET
                        `tag_count`=`tag_count`+1,
                        `used_on`='$this->now' WHERE
-                       `tag`='" . mysql_clean($tag) . "'";
+                       `tag`='" . DB::quote($tag) . "'";
                 $tmp = mysql_query($sql) or mysql_die($sql);
                 $sql = "INSERT INTO `tag_video` SET
                        `tag_id`='$tag_info[id]',

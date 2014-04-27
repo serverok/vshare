@@ -26,7 +26,7 @@ if (isset($_POST['submit']))
 {
     
     $sql = "SELECT * FROM `users` WHERE
-           `user_name`='" . mysql_clean($_POST['video_user']) . "'";
+           `user_name`='" . DB::quote($_POST['video_user']) . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     
     if (mysql_num_rows($result))

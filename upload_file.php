@@ -245,13 +245,13 @@ if (isset($process_video) && $process_video == 1) {
     }
 
     $sql = "INSERT INTO `process_queue` SET
-           `file`='" . mysql_clean($upload_file_name) . "',
-           `title`='" . mysql_clean($video_title) . "',
-           `description`='" . mysql_clean($video_descr) . "',
-           `keywords`='" . mysql_clean($video_keywords) . "',
-           `channels`='" . mysql_clean($video_channels) . "',
-           `type`='" . mysql_clean($video_privacy) . "',
-           `user`='" . mysql_clean($user_name) . "',
+           `file`='" . DB::quote($upload_file_name) . "',
+           `title`='" . DB::quote($video_title) . "',
+           `description`='" . DB::quote($video_descr) . "',
+           `keywords`='" . DB::quote($video_keywords) . "',
+           `channels`='" . DB::quote($video_channels) . "',
+           `type`='" . DB::quote($video_privacy) . "',
+           `user`='" . DB::quote($user_name) . "',
            `process_queue_upload_ip`='" . User::get_ip() . "',
            `status`='2',
            `adult`='" . (int) $video_adult . "'";

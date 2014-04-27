@@ -38,7 +38,7 @@ while ($video_info = mysql_fetch_assoc($result))
     {
         $flvdoname = $vid . '.flv';
         $sql = "UPDATE video SET 
-               `flvdoname`='" . mysql_clean($flvdoname) . "' WHERE
+               `flvdoname`='" . DB::quote($flvdoname) . "' WHERE
                `VID`='" . (int) $vid . "'";
         mysql_query($sql) or mysql_die($sql);
         echo "<p>Correcting video: " . $flvdoname . "</p>";

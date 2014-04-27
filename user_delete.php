@@ -26,7 +26,7 @@ if (isset($_SESSION['UID']))
         $data1 = 'DELETE_USER';
         $data2 = $_SESSION['UID'];
         $sql = "SELECT * FROM `verify_code` WHERE
-               `data1`='" . mysql_clean($data1) . "' AND
+               `data1`='" . DB::quote($data1) . "' AND
                `data2`='" . (int) $data2 . "'";
         $result = mysql_query($sql) or mysql_die($sql);
         
@@ -41,8 +41,8 @@ if (isset($_SESSION['UID']))
             $verify_key = time();
             $verify_key = md5($verify_key);
             $sql = "INSERT INTO `verify_code` SET
-                   `vkey`='" . mysql_clean($verify_key) . "',
-                   `data1`='" . mysql_clean($data1) . "',
+                   `vkey`='" . DB::quote($verify_key) . "',
+                   `data1`='" . DB::quote($data1) . "',
                    `data2`='" . (int) $data2 . "'";
             $result = mysql_query($sql) or mysql_die($sql);
             $verify_id = mysql_insert_id();

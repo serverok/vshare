@@ -34,7 +34,7 @@ if (isset($_GET['search']))
     else if ((isset($_GET['video_flv_name'])) && ($_GET['video_flv_name'] != ''))
     {
         $sql = "SELECT * FROM `videos` WHERE
-               `video_flv_name`='" . mysql_clean($_GET['video_flv_name']) . "'";
+               `video_flv_name`='" . DB::quote($_GET['video_flv_name']) . "'";
         $result = mysql_query($sql) or mysql_die($sql);
         
         if (mysql_num_rows($result) > 0)
@@ -51,7 +51,7 @@ if (isset($_GET['search']))
     else if ((isset($_GET['video_name'])) && ($_GET['video_name'] != ''))
     {
         $sql = "SELECT * FROM `videos` WHERE
-               `video_name`='" . mysql_clean($_GET['video_name']) . "'";
+               `video_name`='" . DB::quote($_GET['video_name']) . "'";
         $result = mysql_query($sql) or mysql_die($sql);
         
         if (mysql_num_rows($result) > 0)
@@ -99,7 +99,7 @@ if (isset($_GET['search']))
             $smarty->assign('search_string', $_GET['video_title']);
             
             $sql = "SELECT * FROM `videos` WHERE
-                   `video_title` LIKE '%" . mysql_clean($_GET['video_title']) . "%'
+                   `video_title` LIKE '%" . DB::quote($_GET['video_title']) . "%'
                     $sql_sort";
         }
         else if ($_GET['video_description'] != '')
@@ -109,7 +109,7 @@ if (isset($_GET['search']))
             $smarty->assign('search_string', $_GET['video_description']);
             
             $sql = "SELECT * FROM `videos` WHERE
-                   `video_description` LIKE '%" . mysql_clean($_GET['video_description']) . "%'
+                   `video_description` LIKE '%" . DB::quote($_GET['video_description']) . "%'
                     $sql_sort";
         }
         $result = mysql_query($sql) or mysql_die($sql);

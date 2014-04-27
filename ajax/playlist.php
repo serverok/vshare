@@ -23,14 +23,14 @@ if ($action == 'create_playlist')
     {
         $sql = "SELECT * FROM `playlists` WHERE
                `playlist_user_id`='" . (int) $_SESSION['UID'] . "' AND
-               `playlist_name`='" . mysql_clean($playlist_name) . "'";
+               `playlist_name`='" . DB::quote($playlist_name) . "'";
         $result = mysql_query($sql) or mysql_die($sql);
         
         if (mysql_num_rows($result) < 1)
         {
             $sql = "INSERT INTO `playlists` SET
                    `playlist_user_id`='" . (int) $_SESSION['UID'] . "',
-                   `playlist_name`='" . mysql_clean($playlist_name) . "',
+                   `playlist_name`='" . DB::quote($playlist_name) . "',
                    `playlist_add_date`='" . (int) time() . "'";
             mysql_query($sql) or mysql_die($sql);
             

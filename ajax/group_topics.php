@@ -66,7 +66,7 @@ if (isset($_POST['add_topic']))
                    `group_topic_group_id`='" . (int) $group_id . "',
                    `group_topic_user_id`='" . (int) $_SESSION['UID'] . "',
                    `group_topic_add_time`='" . date("Y-m-d H:i:s") . "',
-                   `group_topic_title`='" . mysql_clean($topic_title) . "',
+                   `group_topic_title`='" . DB::quote($topic_title) . "',
                    `group_topic_video_id`='$topic_video',
                    `group_topic_approved`='$approved'";
             

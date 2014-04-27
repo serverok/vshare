@@ -61,8 +61,8 @@ if (isset($_POST['submit']))
     $vkey = md5($vkey);
     
     $sql = "INSERT INTO `verify_code` SET
-           `vkey`='" . mysql_clean($vkey) . "',
-           `data1`='" . mysql_clean($data1) . "',
+           `vkey`='" . DB::quote($vkey) . "',
+           `data1`='" . DB::quote($data1) . "',
            `data2`='" . (int) $data2 . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     $verify_id = mysql_insert_id();

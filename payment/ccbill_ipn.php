@@ -141,7 +141,7 @@ if (empty($_POST['reasonForDeclineCode']))
     $sql = "UPDATE `subscriber` SET
            `pack_id`='" . (int) $package_id . "',
            `subscribe_time`='" . date("Y-m-d H:i:s") . "',
-           `expired_time`='" . mysql_clean($expired_time) . "' WHERE
+           `expired_time`='" . DB::quote($expired_time) . "' WHERE
            `UID`='" . (int) $user_id . "'";
     mysql_query($sql);
     

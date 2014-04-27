@@ -125,7 +125,7 @@ if ($video_processed == 1)
             $guest_upload_user = get_config('guest_upload_user');
             
             $sql = "SELECT `user_id` FROM `users` WHERE
-	               `user_name`='" . mysql_clean($guest_upload_user) . "'";
+	               `user_name`='" . DB::quote($guest_upload_user) . "'";
 	        $result = mysql_query($sql) or mysql_die($sql);
 	        $user_info = mysql_fetch_assoc($result);
 	        

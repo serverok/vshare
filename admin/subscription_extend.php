@@ -124,7 +124,7 @@ $smarty->display('admin/footer.tpl');
 function extend_subscription($user_name, $period)
 {
     global $conn;
-    $sql_user_name = mysql_clean($user_name);
+    $sql_user_name = DB::quote($user_name);
     $sql = "SELECT `user_id` FROM `users` WHERE
            `user_name`='$sql_user_name'";
     $result = mysql_query($sql) or mysql_die($sql);

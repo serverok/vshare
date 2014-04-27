@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
 
     if ($err == '') {
         $sql = "SELECT * FROM `users` WHERE
-               `user_name`='" . mysql_clean($user) . "'";
+               `user_name`='" . DB::quote($user) . "'";
         $result = mysql_query($sql) or mysql_die();
 
         if (mysql_num_rows($result) > 0) {
@@ -78,13 +78,13 @@ if (isset($_POST['submit'])) {
             unlink($source);
 
             $sql = "INSERT INTO `process_queue` SET
-                   `user`='" . mysql_clean($user) . "',
-                   `title`='" . mysql_clean($video_title) . "',
-                   `description`='" . mysql_clean($video_description) . "',
-                   `keywords`='" . mysql_clean($_POST['video_keywords']) . "',
-                   `type`='" . mysql_clean($type) . "',
-                   `channels`='" . mysql_clean($channel) . "',
-                   `file`='" . mysql_clean($file_name) . "',
+                   `user`='" . DB::quote($user) . "',
+                   `title`='" . DB::quote($video_title) . "',
+                   `description`='" . DB::quote($video_description) . "',
+                   `keywords`='" . DB::quote($_POST['video_keywords']) . "',
+                   `type`='" . DB::quote($type) . "',
+                   `channels`='" . DB::quote($channel) . "',
+                   `file`='" . DB::quote($file_name) . "',
                    `status`='2'";
             DB::query($sql);
             $msg = $lang['video_process'];

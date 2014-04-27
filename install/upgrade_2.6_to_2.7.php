@@ -44,7 +44,7 @@ while ($channel = mysql_fetch_assoc($result))
 {
     $seo_name = seo_name($channel['channel_name']);
     $sql = "UPDATE `channels` SET
-           `channel_seo_name`='" . mysql_clean($seo_name) . "' WHERE
+           `channel_seo_name`='" . DB::quote($seo_name) . "' WHERE
            `channel_id`='" . $channel['channel_id'] . "'";
     mysql_query($sql) or mysql_die($sql);
     write_log($sql, 'vshare_upgrade', 0,'txt');

@@ -54,8 +54,8 @@ while ($row = mysql_fetch_assoc($result))
 $sql = "INSERT INTO `comments` SET
 	   `comment_video_id`='" . (int) $video_id . "',
 	   `comment_user_id`='" . (int) $_SESSION['UID'] . "',
-	   `comment_text`='" . mysql_clean($comments_value,1) . "',
-	   `comment_add_time`='" . mysql_clean($_SERVER['REQUEST_TIME']) . "'";
+	   `comment_text`='" . DB::quote($comments_value,1) . "',
+	   `comment_add_time`='" . DB::quote($_SERVER['REQUEST_TIME']) . "'";
 $result = mysql_query($sql) or mysql_die();
 
 if (mysql_affected_rows() == 1)

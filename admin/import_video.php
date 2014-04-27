@@ -33,7 +33,7 @@ if (isset($_POST['submit']))
     
 
     $sql = "SELECT * FROM `users` WHERE
-           `user_name`='" . mysql_clean($_POST['video_user']) . "'";
+           `user_name`='" . DB::quote($_POST['video_user']) . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     
     if (mysql_num_rows($result) == 1)
@@ -130,15 +130,15 @@ if (isset($_POST['submit']))
     if ($err == '')
     {
         $sql = "INSERT INTO `process_queue`SET
-               `user`='" . mysql_clean($_POST['video_user']) . "',
-               `title`='" . mysql_clean($video_title) . "',
-               `description`='" . mysql_clean($video_description) . "',
-               `keywords`='" . mysql_clean($video_keywords) . "',
+               `user`='" . DB::quote($_POST['video_user']) . "',
+               `title`='" . DB::quote($video_title) . "',
+               `description`='" . DB::quote($video_description) . "',
+               `keywords`='" . DB::quote($video_keywords) . "',
                `process_queue_upload_ip`='" . User::get_ip() . "',
-               `type`='" . mysql_clean($_POST['video_privacy']) . "',
+               `type`='" . DB::quote($_POST['video_privacy']) . "',
                `channels`='$listch',
                `status`=0,
-               `url`='" . mysql_clean($video_url) . "'";
+               `url`='" . DB::quote($video_url) . "'";
         $result = mysql_query($sql) or mysql_die($sql);
         $msg = $lang['video_process'];
         $smarty->assign('finished', 1);

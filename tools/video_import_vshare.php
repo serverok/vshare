@@ -84,9 +84,9 @@ if (file_exists($video_src_path)) {
 
 	$sql = "INSERT INTO `process_queue` SET
            `file`='$file_name',
-           `title`='" . mysql_clean($video_title) . "',
-           `description`='" . mysql_clean($video_description) . "',
-           `keywords`='" . mysql_clean($video_keywords) ."',
+           `title`='" . DB::quote($video_title) . "',
+           `description`='" . DB::quote($video_description) . "',
+           `keywords`='" . DB::quote($video_keywords) ."',
            `channels`='$channel',
            `type`='public',
            `user`='$username',

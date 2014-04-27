@@ -45,10 +45,10 @@ $smarty->assign('totalprice', $totalprice);
 if (isset($_POST['submit']))
 {
     $sql = "UPDATE `users` SET
-           `user_first_name`='" . mysql_clean($_POST['user_first_name']) . "',
-           `user_last_name`='" . mysql_clean($_POST['user_last_name']) . "',
-           `user_city`='" . mysql_clean($_POST['user_city']) . "',
-           `user_country`='" . mysql_clean($_POST['user_country']) . "' WHERE
+           `user_first_name`='" . DB::quote($_POST['user_first_name']) . "',
+           `user_last_name`='" . DB::quote($_POST['user_last_name']) . "',
+           `user_city`='" . DB::quote($_POST['user_city']) . "',
+           `user_country`='" . DB::quote($_POST['user_country']) . "' WHERE
            `user_id`='" . (int) $_POST['user_id'] . "'";
     mysql_query($sql) or mysql_die($sql);
     

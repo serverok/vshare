@@ -17,7 +17,7 @@ require 'include/config.php';
 User::is_logged_in();
 
 $sql = "SELECT * FROM `users` WHERE
-       `user_name`='" . mysql_clean($_SESSION['USERNAME']) . "'";
+       `user_name`='" . DB::quote($_SESSION['USERNAME']) . "'";
 $result = mysql_query($sql) or mysql_die($sql);
 
 if (mysql_num_rows($result) == 0)

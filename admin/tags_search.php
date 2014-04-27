@@ -19,7 +19,7 @@ check_admin_login();
 
 if (isset($_POST['submit']))
 {
-    $search_tag = mysql_clean($_POST['search_tag']);
+    $search_tag = DB::quote($_POST['search_tag']);
     $sql = "SELECT * FROM `tags` WHERE
            `tag` like '%$search_tag%'";
     $result = mysql_query($sql) or mysql_die($sql);

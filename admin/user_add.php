@@ -52,9 +52,9 @@ if (isset($_POST['submit']))
         $request_password = md5($request_password);
         
         $sql = "INSERT INTO `users` SET
-               `user_email`='" . mysql_clean($_POST['user_email']) . "',
-               `user_name`='" . mysql_clean($_POST['user_name']) . "',
-               `user_password`='" . mysql_clean($request_password) . "',
+               `user_email`='" . DB::quote($_POST['user_email']) . "',
+               `user_name`='" . DB::quote($_POST['user_name']) . "',
+               `user_password`='" . DB::quote($request_password) . "',
                `user_join_time`='" . $_SERVER['REQUEST_TIME'] . "',
                `user_last_login_time`='" . $_SERVER['REQUEST_TIME'] . "',
                `user_email_verified`='yes'";

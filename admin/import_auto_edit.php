@@ -54,11 +54,11 @@ if (isset($_POST['submit'])) {
 
         if ($err == '') {
             $sql = "UPDATE `import_auto` SET
-				   `import_auto_keywords`='" . mysql_clean($video_keywords) . "',
-        		   `import_auto_user`='" . mysql_clean($user_name) . "',
-        		   `import_auto_channel`='" . (int) $channel_id . "',
-        		   `import_auto_download`='" . (int) $_POST['import_auto_download'] . "' WHERE
-        		   `import_auto_id`='" . (int) $id . "'";
+                    `import_auto_keywords`='" . DB::quote($video_keywords) . "',
+                    `import_auto_user`='" . DB::quote($user_name) . "',
+                    `import_auto_channel`='" . (int) $channel_id . "',
+                    `import_auto_download`='" . (int) $_POST['import_auto_download'] . "' WHERE
+                    `import_auto_id`='" . (int) $id . "'";
             $result = mysql_query($sql) or mysql_die($sql);
             $msg = 'Keyword updated successfully';
             set_message($msg, 'success');

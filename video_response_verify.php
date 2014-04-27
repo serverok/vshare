@@ -34,8 +34,8 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i']))
         $data1 = 'VIDEO_RESPONSE' . $_GET['u'];
         $sql = "SELECT * FROM `verify_code` WHERE
                `id`=" . (int) $_GET['i'] . " AND
-               `vkey`='" . mysql_clean($_GET['k']) . "' AND
-               `data1`='" . mysql_clean($data1) . "'";
+               `vkey`='" . DB::quote($_GET['k']) . "' AND
+               `data1`='" . DB::quote($data1) . "'";
         $result = mysql_query($sql) or mysql_die($sql);
         
         if (mysql_num_rows($result) == 0)
@@ -65,8 +65,8 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i']))
                 
                 $sql = "DELETE FROM `verify_code` WHERE
                        `id`='" . (int) $_GET['i'] . "' AND
-                       `vkey`='" . mysql_clean($_GET['k']) . "' AND
-                       `data1`='" . mysql_clean($data1) . "'";
+                       `vkey`='" . DB::quote($_GET['k']) . "' AND
+                       `data1`='" . DB::quote($data1) . "'";
                 mysql_query($sql) or mysql_die($sql);
                 
                 set_message($lang['video_response_activated'], 'success');
@@ -77,8 +77,8 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i']))
             {
                 $sql = "DELETE FROM `verify_code` WHERE
                        `id`='" . (int) $_GET['i'] . "' AND
-                       `vkey`='" . mysql_clean($_GET['k']) . "' AND
-                       `data1`='" . mysql_clean($data1) . "'";
+                       `vkey`='" . DB::quote($_GET['k']) . "' AND
+                       `data1`='" . DB::quote($data1) . "'";
                 mysql_query($sql) or mysql_die($sql);
                 
                 $sql = "DELETE FROM `video_responses` WHERE

@@ -29,7 +29,7 @@ if (isset($_POST['activate']))
     if ($err == '')
     {
         $sql = "SELECT * FROM `users` WHERE
-               `user_name`='" . mysql_clean($_POST['user_name']) . "'";
+               `user_name`='" . DB::quote($_POST['user_name']) . "'";
         $result = mysql_query($sql) or mysql_die($sql);
         
         if (mysql_num_rows($result) == 1)
@@ -41,7 +41,7 @@ if (isset($_POST['activate']))
             $result = mysql_query($sql) or mysql_die($sql);
             
             $sql = "SELECT * FROM `videos` WHERE
-                   `video_id`='" . mysql_clean($_POST['video_id']) . "'";
+                   `video_id`='" . DB::quote($_POST['video_id']) . "'";
             $result = mysql_query($sql) or mysql_die($sql);
             $video_info = mysql_fetch_assoc($result);
             $flv_size = $video_info['video_space'];

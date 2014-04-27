@@ -6,8 +6,8 @@ class BulkImport
     public static function checkImported($import_track_unique_id, $import_track_site)
     {
         $sql = "SELECT * FROM `import_track` WHERE
-               `import_track_unique_id`='" . mysql_clean($import_track_unique_id) ."' AND
-               `import_track_site`='" . mysql_clean($import_track_site) ."'";
+               `import_track_unique_id`='" . DB::quote($import_track_unique_id) ."' AND
+               `import_track_site`='" . DB::quote($import_track_site) ."'";
         $result = mysql_query($sql);
         return mysql_num_rows($result);
     }

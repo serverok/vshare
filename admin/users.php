@@ -29,13 +29,13 @@ if ($page < 1) {
 }
 
 if ($_GET['a'] != 'All') {
-    $query = "WHERE `user_account_status`='" . mysql_clean($_GET['a']) . "'";
+    $query = "WHERE `user_account_status`='" . DB::quote($_GET['a']) . "'";
 } else {
     $query = '';
 }
 
 if (! empty($_GET['sort'])) {
-    $query .= " ORDER BY " . mysql_clean($_GET['sort']);
+    $query .= " ORDER BY " . DB::quote($_GET['sort']);
 } else {
     $query .= " ORDER BY `user_id` DESC";
 }

@@ -24,7 +24,7 @@ if (isset($_GET['id']) && (is_numeric($_GET['key'])))
     
     $sql = "SELECT * FROM `verify_code` WHERE
            `id`='" . (int) $id . "' AND
-           `vkey`='" . mysql_clean($key) . "'";
+           `vkey`='" . DB::quote($key) . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     
     if (mysql_num_rows($result) == 1)
@@ -54,7 +54,7 @@ if (isset($_GET['id']) && (is_numeric($_GET['key'])))
         {
             $sql = "UPDATE `friends` SET
                    `friend_friend_id`='" . (int) $_SESSION['UID'] . "',
-                   `friend_name`='" . mysql_clean($_SESSION['USERNAME']) . "' WHERE
+                   `friend_name`='" . DB::quote($_SESSION['USERNAME']) . "' WHERE
                    `friend_id`='" . (int) $fid . "'";
             mysql_query($sql) or mysql_die($sql);
         }
@@ -119,7 +119,7 @@ if (isset($_POST['friend_accept']) && $_POST['friend_accept'] != '')
             
             $sql = "UPDATE `friends` SET
                    `friend_friend_id`='" . (int) $_SESSION['UID'] . "',
-                   `friend_name`='" . mysql_clean($_SESSION['USERNAME']) . "',
+                   `friend_name`='" . DB::quote($_SESSION['USERNAME']) . "',
                    `friend_status`='Confirmed' WHERE
                    `friend_id`='" . (int) $fid . "'";
             mysql_query($sql) or mysql_die($sql);
@@ -127,7 +127,7 @@ if (isset($_POST['friend_accept']) && $_POST['friend_accept'] != '')
             $sql = "INSERT INTO `friends` SET
                    `friend_user_id`='" . (int) $_SESSION['UID'] . "',
                    `friend_friend_id`='" . (int) $friend_id . "',
-                   `friend_name`='" . mysql_clean($friend_user_name) . "',
+                   `friend_name`='" . DB::quote($friend_user_name) . "',
                    `friend_type`='All|Friends',
                    `friend_invite_date`='" . date("Y-m-d") . "',
                    `friend_status`='Confirmed'";

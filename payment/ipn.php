@@ -202,7 +202,7 @@ else
                 $sql = "UPDATE subscriber SET
                        `pack_id`='$pack_id',
                        `subscribe_time`='" . date("Y-m-d H:i:s") . "',
-                       `expired_time`='" . mysql_clean($expired_time) . "' WHERE
+                       `expired_time`='" . DB::quote($expired_time) . "' WHERE
                        `UID`='" . (int) $userid . "'";
                 mysql_query($sql);
                 $sql_log .= "<p>$sql</p>";

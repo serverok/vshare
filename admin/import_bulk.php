@@ -35,7 +35,7 @@ if (isset($_GET['keyword'])) {
     $start = ($page - 1) * $admin_listing_per_page;
 
     $sql = "SELECT * FROM `users` WHERE
-			`user_name`='" . mysql_clean($user_name) . "'";
+			`user_name`='" . DB::quote($user_name) . "'";
     $result = mysql_query($sql) or mysql_die($sql);
 
     if (mysql_num_rows($result) == 1) {

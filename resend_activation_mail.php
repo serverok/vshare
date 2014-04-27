@@ -39,7 +39,7 @@ if (isset($_POST['submit']))
     if ($err == '')
     {
         $sql = "SELECT * FROM `users` WHERE
-               `user_name`='" . mysql_clean($_SESSION['INACTIVE_USER']) . "' AND
+               `user_name`='" . DB::quote($_SESSION['INACTIVE_USER']) . "' AND
                `user_account_status`='Inactive'";
         $result = mysql_query($sql) or mysql_die($sql);
         
@@ -52,8 +52,8 @@ if (isset($_POST['submit']))
                 if (! check_field_exists($_POST['email'], 'user_email', 'users'))
                 {
                     $sql = "UPDATE `users` SET
-                           `user_email`='" . mysql_clean($_POST['email']) . "' WHERE
-                           `user_name`='" . mysql_clean($_SESSION['INACTIVE_USER']) . "'";
+                           `user_email`='" . DB::quote($_POST['email']) . "' WHERE
+                           `user_name`='" . DB::quote($_SESSION['INACTIVE_USER']) . "'";
                     mysql_query($sql) or mysql_die($sql);
                     $user_info['user_email'] = $_POST['email'];
                 }
@@ -68,7 +68,7 @@ if (isset($_POST['submit']))
                 $data1 = 'SIGNUP' . $user_info['user_id'];
                 
                 $sql = "SELECT * FROM `verify_code` WHERE
-                       `data1`='" . mysql_clean($data1) . "'";
+                       `data1`='" . DB::quote($data1) . "'";
                 $result = mysql_query($sql) or mysql_die($sql);
                 
                 if (mysql_num_rows($result) > 0)
@@ -83,8 +83,8 @@ if (isset($_POST['submit']))
                     $vkey = md5($vkey);
                     
                     $sql = "INSERT INTO `verify_code` SET
-                           `vkey`='" . mysql_clean($vkey) . "',
-                           `data1`='" . mysql_clean($data1) . "'";
+                           `vkey`='" . DB::quote($vkey) . "',
+                           `data1`='" . DB::quote($data1) . "'";
                     
                     $result = mysql_query($sql) or mysql_die($sql);
                     $verify_id = mysql_insert_id();
@@ -127,7 +127,7 @@ if (isset($_POST['submit']))
 }
 
 $sql = "SELECT `user_email` FROM `users` WHERE
-       `user_name`='" . mysql_clean($_SESSION['INACTIVE_USER']) . "'";
+       `user_name`='" . DB::quote($_SESSION['INACTIVE_USER']) . "'";
 $result = mysql_query($sql) or mysql_die($sql);
 $user_info = mysql_fetch_assoc($result);
 $smarty->assign('user_email', $user_info['user_email']);

@@ -56,7 +56,7 @@ $sort_allowed = array(
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 
 if (in_array($sort, $sort_allowed)) {
-    $query .= " ORDER BY " . mysql_clean($sort);
+    $query .= " ORDER BY " . DB::quote($sort);
 } else {
     $query .= " ORDER BY `group_topic_id` DESC";
 }

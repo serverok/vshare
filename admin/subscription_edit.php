@@ -37,7 +37,7 @@ if (isset($_POST['edit']))
     else
     {
         $sql = "SELECT * FROM `users` WHERE
-               `user_name`='" . mysql_clean($user_name) . "'";
+               `user_name`='" . DB::quote($user_name) . "'";
         $result = mysql_query($sql) or mysql_die($sql);
         $num_result = mysql_num_rows($result);
         
@@ -118,7 +118,7 @@ if (isset($_POST['edit']))
 else if (isset($_POST['save_subscription']))
 {
     $new_expired_time = $_POST['expire_year'] . '-' . $_POST['expire_month'] . '-' . $_POST['expire_date'] . ' 00:00:00';
-    $sql_pack_name = mysql_clean($_POST['package']);
+    $sql_pack_name = DB::quote($_POST['package']);
     $sql = "SELECT `package_id` FROM `packages` WHERE
            `package_name`='$sql_pack_name'";
     $result = mysql_query($sql) or mysql_die($sql);

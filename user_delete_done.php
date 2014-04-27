@@ -21,9 +21,9 @@ if (isset($_GET['k']) && isset($_GET['i']))
 {
     $data1 = "DELETE_USER";
     $sql = "SELECT * FROM `verify_code` WHERE
-           `data1`='" . mysql_clean($data1) . "' AND
-           `vkey`='" . mysql_clean($_GET['k']) . "' AND
-           `id`='" . mysql_clean($_GET['i']) . "'";
+           `data1`='" . DB::quote($data1) . "' AND
+           `vkey`='" . DB::quote($_GET['k']) . "' AND
+           `id`='" . DB::quote($_GET['i']) . "'";
     $result = mysql_query($sql) or mysql_die($sql);
     
     if (mysql_num_rows($result) == 1)

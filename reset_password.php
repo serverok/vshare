@@ -32,8 +32,8 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i']))
         
         $sql = "SELECT * FROM `verify_code` WHERE
                `id`='" . (int) $_GET['i'] . "' AND
-               `vkey`='" . mysql_clean($_GET['k']) . "' AND
-               `data1`='" . mysql_clean($data1) . "'";
+               `vkey`='" . DB::quote($_GET['k']) . "' AND
+               `data1`='" . DB::quote($data1) . "'";
         $result = mysql_query($sql) or mysql_die($sql);
         
         if (mysql_num_rows($result) > 0)

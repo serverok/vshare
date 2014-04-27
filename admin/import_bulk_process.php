@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
     $channel_id = isset($_POST['channel_id']) ? (int) $_POST['channel_id'] : 0;
 
     $sql = "SELECT * FROM `users` AS u,`channels` AS c WHERE
-            u.user_name='" . mysql_clean($user_name) . "' AND
+            u.user_name='" . DB::quote($user_name) . "' AND
             c.channel_id='" . (int) $channel_id . "'";
     $result = mysql_query($sql) or mysql_die($sql);
 
@@ -45,8 +45,8 @@ if (isset($_POST['submit'])) {
         for ($i = 0; $i < count($video_id); $i ++) {
             if (! BulkImport::checkImported($video_id[$i], $_POST['import_site']) && in_array($_POST['import_site'], $imported_sites)) {
                 $sql = "INSERT INTO `import_track` SET
-					   `import_track_unique_id`='" . mysql_clean($video_id[$i]) . "' ,
-					   `import_track_site`='" . mysql_clean($_POST['import_site']) . "'";
+					   `import_track_unique_id`='" . DB::quote($video_id[$i]) . "' ,
+					   `import_track_site`='" . DB::quote($_POST['import_site']) . "'";
                 $result = mysql_query($sql) or mysql_die($sql);
                 $import_track_id = mysql_insert_id();
 
@@ -61,14 +61,14 @@ if (isset($_POST['submit'])) {
 
                     $sql = "INSERT INTO `videos` SET
 		                   `video_user_id`='" . (int) $user_id . "',
-		                   `video_title`='" . mysql_clean($video_info['video_title']) . "',
-		                   `video_description`='" . mysql_clean($video_info['video_description']) . "',
-		                   `video_keywords`='" . mysql_clean($video_info['video_keywords']) . "',
-		                   `video_seo_name`='" . mysql_clean($seo_name) . "',
-		                   `video_channels`='0|" . mysql_clean($channel_id) . "|0',
-		                   `video_type`='" . mysql_clean('public') . "',
+		                   `video_title`='" . DB::quote($video_info['video_title']) . "',
+		                   `video_description`='" . DB::quote($video_info['video_description']) . "',
+		                   `video_keywords`='" . DB::quote($video_info['video_keywords']) . "',
+		                   `video_seo_name`='" . DB::quote($seo_name) . "',
+		                   `video_channels`='0|" . DB::quote($channel_id) . "|0',
+		                   `video_type`='" . DB::quote('public') . "',
 		                   `video_duration`='" . (int) $video_info['video_duration'] . "',
-		                   `video_length`='" . mysql_clean($video_length) . "',
+		                   `video_length`='" . DB::quote($video_length) . "',
 		                   `video_add_time`='" . $_SERVER['REQUEST_TIME'] . "',
 		                   `video_add_date`='" . date('Y-m-d') . "',
 		                   `video_active`='1',
@@ -83,12 +83,12 @@ if (isset($_POST['submit'])) {
                     $upload->debug = 1;
 
                     if ($config['approve'] == 1) {
-                        $current_keyword = mysql_clean($video_info['video_keywords']);
+                        $current_keyword = DB::quote($video_info['video_keywords']);
                         $tags = new Tags($video_info['video_keywords'], $vid, $user_id, "0|$channel_id|0");
                         $tags->add();
                         $video_tags = $tags->get_tags();
                         $sql = "UPDATE `videos` SET
-                               `video_keywords`='" . mysql_clean(implode(' ', $video_tags)) . "' WHERE
+                               `video_keywords`='" . DB::quote(implode(' ', $video_tags)) . "' WHERE
                                `video_id`='" . (int) $vid . "'";
                         mysql_query($sql) or mysql_die($sql);
                     }
@@ -102,15 +102,15 @@ if (isset($_POST['submit'])) {
                     $result = mysql_query($sql) or mysql_die($sql);
                 } else {
                     $sql = "INSERT INTO `process_queue`SET
-                           `user`='" . mysql_clean($user_name) . "',
-                           `title`='" . mysql_clean($video_info['video_title']) . "',
-                           `description`='" . mysql_clean($video_info['video_description']) . "',
-                           `keywords`='" . mysql_clean($video_info['video_keywords']) . "',
+                           `user`='" . DB::quote($user_name) . "',
+                           `title`='" . DB::quote($video_info['video_title']) . "',
+                           `description`='" . DB::quote($video_info['video_description']) . "',
+                           `keywords`='" . DB::quote($video_info['video_keywords']) . "',
                            `process_queue_upload_ip`='" . User::get_ip() . "',
                            `type`='public',
-                           `channels`='0|" . mysql_clean($channel_id) . "|0',
+                           `channels`='0|" . DB::quote($channel_id) . "|0',
                            `status`='0',
-                           `url`='" . mysql_clean($video_url) . "',
+                           `url`='" . DB::quote($video_url) . "',
                            `import_track_id`=" . (int) $import_track_id;
                     $result = mysql_query($sql) or mysql_die($sql);
                 }
