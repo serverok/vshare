@@ -26,7 +26,7 @@ if ($uer_info == 0)
 {
     set_message($lang['group_security_error'], 'error');
     $redirect_url = VSHARE_URL . '/index.php';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 $group_info = Groups::get_group_by_id($group_id);
@@ -35,7 +35,7 @@ if ($group_info == 0)
 {
     set_message($lang['group_security_error'], 'error');
     $redirect_url = VSHARE_URL . '/index.php';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 $_GET['action'] = isset($_GET['action']) ? $_GET['action'] : '';
@@ -101,4 +101,4 @@ if ($_GET['action'] == 'remove')
 db_close();
 set_message($msg, 'success');
 $redirect_url = VSHARE_URL . '/group/' . $group_info['group_url'] . '/';
-redirect($redirect_url);
+Http::redirect($redirect_url);

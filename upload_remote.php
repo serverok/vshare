@@ -80,7 +80,7 @@ if (isset($_SESSION["$upload_id"]['field_privacy'])) {
 
 if ($err == 1) {
     $redirect_url = VSHARE_URL . '/upload.php';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 if (isset($_POST['submit'])) {

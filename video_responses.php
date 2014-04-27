@@ -21,7 +21,7 @@ $video_id = isset($_GET['video_id']) ? $_GET['video_id'] : '';
 
 if (! is_numeric($video_id))
 {
-    redirect(VSHARE_URL);
+    Http::redirect(VSHARE_URL);
 }
 
 Cache::init();
@@ -47,7 +47,7 @@ if (isset($_POST['remove_video']))
         set_message($lang['video_removed'], 'success');
         
         $redirect_url = VSHARE_URL . '/response/' . $video_id . '/videos/' . $page;
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 

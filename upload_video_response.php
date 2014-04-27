@@ -30,7 +30,7 @@ $result = mysql_query($sql) or mysql_die($sql);
 
 if (mysql_num_rows($result) == 0)
 {
-    redirect(VSHARE_URL . '/index.php');
+    Http::redirect(VSHARE_URL . '/index.php');
 }
 
 $video_info = mysql_fetch_assoc($result);

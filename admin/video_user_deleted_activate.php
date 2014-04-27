@@ -60,7 +60,7 @@ if (isset($_POST['activate']))
             $msg = str_replace('[USERNAME]', $user_info['user_name'], $lang['video_activated']);
             set_message($msg, 'success');
             $redirect_url = VSHARE_URL . '/admin/video_user_deleted.php';
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
         else
         {

@@ -277,7 +277,7 @@ if (isset($process_video) && $process_video == 1) {
     }
 
     $redirect_url = VSHARE_URL . '/upload/success/' . $qid . '/' . $upload_id . '/';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 if ($use_upload_progress_bar == 1) {

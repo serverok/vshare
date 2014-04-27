@@ -37,7 +37,7 @@ class Sitemap
     {
         $this->deleteSitemap();
         $redirect_url = VSHARE_URL . '/admin/sitemap_generate.php';
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 
     public function insert_sitemap($url_count, $sitemap_name)

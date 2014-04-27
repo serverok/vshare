@@ -40,7 +40,7 @@ if (isset($_POST['action']))
     $msg = 'Tag has been ' . $_POST['action'] . 'd.';
     set_message($msg, 'success');
     $redirect_url = VSHARE_URL . '/admin/tags_disabled.php';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 $smarty->assign('err', $err);

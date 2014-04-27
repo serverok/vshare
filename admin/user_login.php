@@ -23,4 +23,4 @@ if (isset($_GET['username']))
 
 db_close();
 $redirect_url = VSHARE_URL . '/index.php';
-redirect($redirect_url);
+Http::redirect($redirect_url);

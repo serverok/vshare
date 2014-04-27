@@ -17,14 +17,14 @@ require 'include/country.class.php';
 
 if (! is_numeric($_POST['package_id']) && ! is_numeric($_POST['user_id']))
 {
-    redirect(VSHARE_URL);
+    Http::redirect(VSHARE_URL);
 }
 
 $user_info = User::get_user_by_id($_POST['user_id']);
 
 if (! $user_info)
 {
-    redirect(VSHARE_URL);
+    Http::redirect(VSHARE_URL);
 }
 
 $smarty->assign('user_info', $user_info);
@@ -109,7 +109,7 @@ if (isset($_POST['submit']))
         
         $paypal_link = "https://$url/cgi-bin/webscr/?cmd=_xclick" . "&business=$business" . "&item_number=1&item_name=$item_name" . "&amount=$theprice&on0=0&custom=$uniqueid" . "&currency_code=$config[paypal_currency]" . "&return=$return" . "&cancel_return=$cancel" . "&notify_url=$notify" . "&first_name=$first_name" . "&last_name=$last_name" . "&city=$city";
         
-        redirect($paypal_link);
+        Http::redirect($paypal_link);
     }
     else if ($_POST['method'] == 'CCBill')
     {
@@ -134,7 +134,7 @@ if (isset($_POST['submit']))
         $ccbill_form_name = get_config('ccbill_form_name');
         
         $ccbill_link = 'https://bill.ccbill.com/jpost/signup.cgi?clientAccnum=' . $ccbill_ac_no . '&clientSubacc=' . $ccbill_sub_ac_no . '&formName=' . $ccbill_form_name . '&customer_fname=' . $first_name . '&customer_lname=' . $last_name . '&city=' . $city . '&country=' . $country . '&accountingAmount=' . $theprice . '&vshare_payment_id=' . $payment_id . '&productDesc=' . $product_desc;
-        redirect($ccbill_link);
+        Http::redirect($ccbill_link);
     }
 }
 

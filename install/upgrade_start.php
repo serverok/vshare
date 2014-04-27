@@ -83,4 +83,4 @@ switch ($config['version'])
         break;
 }
 
-redirect($redirect_url);
+Http::redirect($redirect_url);

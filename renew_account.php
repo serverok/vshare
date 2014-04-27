@@ -30,7 +30,7 @@ if ($config['enable_package'] == 'yes')
         else
         {
             $redirect_url = VSHARE_URL . '/package_options.php?package_id=' . (int) $package_id . '&user_id=' . $_GET['uid'];
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
     }
     

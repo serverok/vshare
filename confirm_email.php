@@ -55,7 +55,7 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i']))
                     mysql_query($sql) or mysql_die($sql);
                     set_message($msg, 'success');
                     $redirect_url = VSHARE_URL . '/index.php';
-                    redirect($redirect_url);
+                    Http::redirect($redirect_url);
                 }
                 else
                 {

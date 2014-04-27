@@ -25,13 +25,13 @@ $result = mysql_query($sql) or mysql_die($sql);
 
 if (mysql_num_rows($result) == 0)
 {
-    redirect(VSHARE_URL);
+    Http::redirect(VSHARE_URL);
 }
 
 if (! isset($_GET['key']))
 {
     db_close();
-    redirect(VSHARE_URL);
+    Http::redirect(VSHARE_URL);
 }
 
 $sql = "SELECT * FROM
@@ -46,7 +46,7 @@ if (mysql_num_rows($result) < 1)
     db_close();
     set_message($lang['invalid_invite_key'], 'error');
     $redirect_url = VSHARE_URL . '/group/' . $_GET['group_url'] . '/';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 $tmp = mysql_fetch_assoc($result);
@@ -76,4 +76,4 @@ $smarty->assign('accept_mem', 'true');
 db_close();
 set_message($msg, 'success');
 $redirect_url = VSHARE_URL . '/group/' . $_GET['group_url'] . '/';
-redirect($redirect_url);
+Http::redirect($redirect_url);

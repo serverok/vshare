@@ -51,7 +51,7 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i']))
             $result = mysql_query($sql) or mysql_die($sql);
             set_message($lang['password_changed'], 'success');
             $redirect_url = VSHARE_URL . '/login/';
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
         else
         {

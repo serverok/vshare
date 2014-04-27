@@ -238,7 +238,7 @@ if (isset($_POST['submit']))
         }
         set_message($msg, 'success');
         $redirect_url = VSHARE_URL . '/' . $user_info['user_name'];
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 

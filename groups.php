@@ -26,7 +26,7 @@ if (isset($_GET['chid']) && is_numeric($_GET['chid'])) {
         $category = $_GET['category'];
     } else {
         $redirect_url = VSHARE_URL . '/groups/featured/1';
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 

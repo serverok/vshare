@@ -86,7 +86,7 @@ if (isset($_GET['tags_regenerate']))
         set_message('Tags created successfully');
 
         $redirect_url = VSHARE_URL . '/admin/tags_regenerate.php';
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 else

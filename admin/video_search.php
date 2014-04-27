@@ -24,7 +24,7 @@ if (isset($_GET['search']))
         if (is_numeric($_GET['id']))
         {
             $redirect_url = VSHARE_URL . '/admin/video_details.php?id=' . $_GET['id'];
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
         else
         {
@@ -41,7 +41,7 @@ if (isset($_GET['search']))
         {
             $video_info = mysql_fetch_assoc($result);
             $redirect_url = VSHARE_URL . '/admin/video_details.php?id=' . $video_info['video_id'];
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
         else
         {
@@ -58,7 +58,7 @@ if (isset($_GET['search']))
         {
             $video_info = mysql_fetch_assoc($result);
             $redirect_url = VSHARE_URL . '/admin/video_details.php?id=' . $video_info['video_id'];
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
         else
         {

@@ -150,7 +150,7 @@ else
     $_SESSION['vshare_message'] = $sitemap->createSitemapIndex();
     $redirect_url = VSHARE_URL . '/admin/sitemap.php';
     $_SESSION['vshare_message_type'] = 'success';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 echo '</table>';

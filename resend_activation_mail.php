@@ -20,7 +20,7 @@ require 'include/language/' . LANG . '/lang_resend_activation_mail.php';
 if (! isset($_SESSION['INACTIVE_USER']))
 {
     $redirect_url = VSHARE_URL . '/login';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
     exit(0);
 }
 

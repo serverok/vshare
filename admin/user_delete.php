@@ -31,7 +31,7 @@ if ($user_info == 0)
 {
     set_message('user not found', 'error');
     $redirect_url = VSHARE_URL . '/admin/users.php';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 User::delete($user_info['user_id'], 1);
@@ -58,4 +58,4 @@ if ($page < 1)
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 
 $redirect_url = VSHARE_URL . '/admin/users.php?a=' . $_GET['a'] . '&sort=' . $sort . '&page=' . $page;
-redirect($redirect_url);
+Http::redirect($redirect_url);

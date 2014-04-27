@@ -19,7 +19,7 @@ $group_url = htmlspecialchars_uni($group_url);
 
 if (check_field_exists($group_url, 'group_url', 'groups') == 0)
 {
-    redirect(VSHARE_URL);
+    Http::redirect(VSHARE_URL);
 }
 
 $smarty->assign('group_url', $group_url);
@@ -29,7 +29,7 @@ $topic_id = isset($_GET['topic_id']) ? (int) $_GET['topic_id'] : 0;
 if (($topic_id < 1) || (! check_field_exists($topic_id, 'group_topic_id', 'group_topics')))
 {
     $redirect_url = VSHARE_URL . '/group/' . $group_url . '/';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 $smarty->assign('group_topic_id', $topic_id);
@@ -51,7 +51,7 @@ if (isset($_POST['add_topic']) && isset($_SESSION['UID']))
     }
     
     $redirect_url = VSHARE_URL . '/group/' . $group_url . '/topic/' . (int) $_GET['topic_id'];
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 
 }
 

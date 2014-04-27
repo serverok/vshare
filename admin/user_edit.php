@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
     DB::query($sql);
     set_message($lang['user_info_updated'], 'success');
     $redirect_url = VSHARE_URL . '/admin/user_view.php?user_id=' . $_GET['uid'];
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 $sql = "SELECT * FROM `users` WHERE

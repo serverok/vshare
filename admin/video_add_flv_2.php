@@ -80,7 +80,7 @@ if ($err != '')
 {
     set_message($err, 'error');
     $redirect_url = VSHARE_URL . '/admin/video_add_flv.php';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 if (isset($_POST['submit']))

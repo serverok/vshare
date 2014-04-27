@@ -63,13 +63,13 @@ if (isset($_POST['submit']))
         db_close();
         set_message($lang['server_info_updated'], 'success');
         $redirect_url = VSHARE_URL . '/admin/server_manage.php';
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 
     db_close();
     set_message($err, 'error');
     $redirect_url = VSHARE_URL . '/admin/server_manage_edit.php?id=' . $server_id;
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 $server_id = isset($_GET['id']) ? $_GET['id'] : 0;

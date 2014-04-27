@@ -41,7 +41,7 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i']))
         if (mysql_num_rows($result) == 0)
         {
             set_message($lang['invalid_vcode'], 'error');
-            redirect(VSHARE_URL . '/index.php');
+            Http::redirect(VSHARE_URL . '/index.php');
         }
         
         $vinfo = mysql_fetch_assoc($result);
@@ -71,7 +71,7 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i']))
                 
                 set_message($lang['video_response_activated'], 'success');
                 $redirect_url = VSHARE_URL . '/response/' . $vinfo['data2'] . '/videos/1';
-                redirect($redirect_url);
+                Http::redirect($redirect_url);
             }
             else if ($_POST['action'] == 'Reject this video')
             {
@@ -88,7 +88,7 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i']))
                 
                 set_message($lang['video_response_rejected'], 'success');
                 $redirect_url = VSHARE_URL . '/response/' . $vinfo['data2'] . '/videos/1';
-                redirect($redirect_url);
+                Http::redirect($redirect_url);
             }
        }
     }

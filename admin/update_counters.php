@@ -74,7 +74,7 @@ if (isset($_GET['action']))
             set_message('Video Counts Updated Successfully');
             
             $redirect_url = VSHARE_URL . '/admin/update_counters.php';
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
     }
     else if ($_GET['action'] == 'update_video_comments_count')
@@ -92,7 +92,7 @@ if (isset($_GET['action']))
             set_message('Video Comments Count Updated Successfully');
             
             $redirect_url = VSHARE_URL . '/admin/update_counters.php';
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
         
         echo '<strong>Video Comments Count Updating...</strong>';

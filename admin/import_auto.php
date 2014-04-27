@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
             $msg = 'Keywords successfully added';
             set_message($msg, 'success');
             $redirect_url = VSHARE_URL . '/admin/import_auto.php';
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         } else {
             $err = 'Keywords Already Added.';
         }

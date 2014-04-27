@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
     if ($save == 1) {
         set_message($lang['video_edit_ok'], 'success');
         $redirect_url = VSHARE_URL . '/admin/video_details.php?id=' . $video_id;
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     } else {
         $err = $save;
     }

@@ -47,7 +47,7 @@ if (isset($_GET['id']) && (is_numeric($_GET['key'])))
             
             set_message('You cannot invite yourself as a friend', 'error');
             $redirect_url = VSHARE_URL . '/friends.php';
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
         
         if (empty($invite_for))
@@ -64,7 +64,7 @@ if (isset($_GET['id']) && (is_numeric($_GET['key'])))
             {
                 set_message($lang['invitation_is_not_for_you'], 'error');
                 $redirect_url = VSHARE_URL . '/friend_accept.php';
-                redirect($redirect_url);
+                Http::redirect($redirect_url);
             }
         }
         
@@ -138,7 +138,7 @@ if (isset($_POST['friend_accept']) && $_POST['friend_accept'] != '')
             mysql_query($sql) or mysql_die($sql);
             set_message($lang['friend_added'], 'success');
             $redirect_url = VSHARE_URL . '/index.php';
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         }
     
     }
@@ -163,7 +163,7 @@ if (isset($_POST['friend_deny']) && $_POST['friend_deny'] != '')
     mysql_query($sql) or mysql_die($sql);
     set_message($lang['friend_deny'], 'success');
     $redirect_url = VSHARE_URL . '/index.php';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 $smarty->assign('err', $err);

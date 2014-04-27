@@ -91,7 +91,7 @@ if (isset($_POST['submit']))
         
         set_message($lang['user_add_success'], 'success');
         $redirect_url = VSHARE_URL . '/admin/user_view.php?user_id=' . $user_id;
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 

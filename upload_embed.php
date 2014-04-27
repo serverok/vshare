@@ -143,7 +143,7 @@ if (isset($_POST['action_upload']))
 		                   `UID`='" . (int) $user_id . "'";
                     mysql_query($sql) or mysql_die($sql);
                     $redirect_url = VSHARE_URL . '/upload/success/' . $video_id . '/remote/';
-                    redirect($redirect_url);
+                    Http::redirect($redirect_url);
                 }
             }
         }

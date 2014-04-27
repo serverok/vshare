@@ -79,7 +79,7 @@ if (isset($_POST['submit']))
         $_SESSION['user_id'] = $user_info['user_id'];
         $_SESSION['adult'] = 0;
         $redirect_url = VSHARE_URL . '/admin/video_add_flv_2.php';
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 

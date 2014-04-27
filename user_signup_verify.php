@@ -57,7 +57,7 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i']))
             
             User::login($tmp['user_name']);
             $redirect_url = VSHARE_URL . '/friends/invite/?welcome=1';
-            redirect($redirect_url);
+            Http::redirect($redirect_url);
         
         }
         else

@@ -78,7 +78,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     $redirect_url = $config['baseurl'] . '/admin/payments.php';
 
     if ($payment_id == 0) {
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 
     $sql = "DELETE FROM `payments` WHERE `payment_id`='$payment_id'";

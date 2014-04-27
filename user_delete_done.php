@@ -49,7 +49,7 @@ if (isset($_GET['k']) && isset($_GET['i']))
         db_close();
         set_message($lang['account_deleted'], 'success');
         $redirect_url = VSHARE_URL . '/index.php';
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     
     }
     else

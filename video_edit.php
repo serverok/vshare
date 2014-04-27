@@ -43,7 +43,7 @@ if (isset($_POST['submit']))
     {
         set_message($lang['video_info_update'], 'success');
         $redirect_url = VSHARE_URL . '/view/' . $video_id . '/' . $video->video_info['video_seo_name'] . '/';
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
     else
     {

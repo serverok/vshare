@@ -22,7 +22,7 @@ $video_id = $_GET['id'];
 Cache::init();
 
 if (! is_numeric($video_id)) {
-    redirect(VSHARE_URL);
+    Http::redirect(VSHARE_URL);
 }
 
 $video_info = Video::getById($video_id);
@@ -30,7 +30,7 @@ $video_info = Video::getById($video_id);
 if (! $video_info || $video_info['video_user_id'] == 0) {
     set_message($lang['video_not_found'], 'error');
     $redirect_url = VSHARE_URL . '/';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 } else {
     $video_info['video_thumb_url'] = $servers[$video_info['video_thumb_server_id']];
 }
@@ -38,7 +38,7 @@ if (! $video_info || $video_info['video_user_id'] == 0) {
 if ($video_info['video_adult']) {
 	if (get_family_filter()) {
 		$redirect_url = VSHARE_URL . '/family_filter/';
-		redirect($redirect_url);
+		Http::redirect($redirect_url);
 	}
 }
 

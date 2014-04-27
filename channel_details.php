@@ -17,7 +17,7 @@ require 'include/config.php';
 if (! is_numeric($_GET['id']) || $_GET['id'] < 1)
 {
     $redirect_url = VSHARE_URL . '/index.php';
-    redirect($redirect_url);
+    Http::redirect($redirect_url);
 }
 
 $channel = Channel::getById($_GET['id']);

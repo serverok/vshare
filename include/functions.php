@@ -579,7 +579,7 @@ function check_subscriber_duration($uid)
         $msg = str_replace('[EXPIRED_TIME]', $expired_time, $lang['subscriber_expired']);
         set_message($msg, 'success');
         $redirect_url = VSHARE_URL . '/renew_account.php?uid=' . $uid;
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 
@@ -606,7 +606,7 @@ function check_subscriber_space($user_id)
         $msg = str_replace('[SPACE_USED]', $space_used, $msg);
         set_message($msg, 'success');
         $redirect_url = VSHARE_URL . '/renew_account.php?uid=' . $user_id;
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 
@@ -629,7 +629,7 @@ function check_subscriber_videos($uid)
         $msg = str_replace('[TOTAL_VIDEOS]', $total_videos, $msg);
         set_message($msg, 'success');
         $redirect_url = VSHARE_URL . '/renew_account.php?uid=' . $uid;
-        redirect($redirect_url);
+        Http::redirect($redirect_url);
     }
 }
 
