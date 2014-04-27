@@ -61,40 +61,36 @@ class Tag
 
     function add()
     {
-        foreach ($this->tags as $tag)
-        {
+        foreach ($this->tags as $tag) {
+
             $sql = "SELECT * FROM `tags` WHERE
                    `tag`='" . DB::quote($tag) . "'";
-            $result = mysql_query($sql) or mysql_die($sql);
+            $tag_info = DB::fetch1($sql);
 
-            if (mysql_num_rows($result) > 0)
-            {
-                $tag_info = mysql_fetch_assoc($result);
-
+            if ($tag_info) {
                 $sql = "UPDATE `tags` SET
                        `tag_count`=`tag_count`+1,
                        `used_on`='$this->now' WHERE
                        `tag`='" . DB::quote($tag) . "'";
-                $tmp = mysql_query($sql) or mysql_die($sql);
+                DB::query($sql);
+
                 $sql = "INSERT INTO `tag_video` SET
                        `tag_id`='$tag_info[id]',
                        `vid`='$this->vid',
                        `chid`='$this->channels'";
-                $tmp = mysql_query($sql) or mysql_die($sql);
-            }
-            else
-            {
+                DB::query($sql);
+            } else {
                 $sql = "INSERT INTO `tags` SET
                        `tag`='$tag',
                        `tag_count`='1',
                        `used_on`='$this->now'";
-                $tmp = mysql_query($sql) or mysql_die($sql);
-                $tags_id = mysql_insert_id();
+                $tags_id = DB::insertGetId($sql);
+
                 $sql = "INSERT INTO `tag_video` SET
                        `tag_id`=$tags_id,
                        `vid`=$this->vid,
                        `chid`='$this->channels'";
-                $tmp = mysql_query($sql) or mysql_die($sql);
+                DB::query($sql);
             }
         }
     }
