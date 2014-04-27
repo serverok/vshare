@@ -18,77 +18,55 @@ require '../include/language/' . LANG . '/lang_admin_video_rename_flv.php';
 
 check_admin_login();
 
-if (! is_numeric($_GET['id']))
-{
+if (! is_numeric($_GET['id'])) {
     $err = $lang['video_id_numeric'];
-}
-else
-{
-    $sql = "SELECT * FROM `videos` WHERE
-           `video_id`='" . (int) $_GET['id'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $video_info = mysql_fetch_assoc($result);
+} else {
+    $video_info = Video::getById($_GET['id']);
     $flv_video = $video_info['video_flv_name'];
-    
+
     $pos = strrpos($flv_video, '.');
     $file_extn = strtolower(substr($flv_video, $pos + 1, strlen($flv_video) - $pos));
-    
+
     $rand1 = $_SERVER['REQUEST_TIME'];
     $rand2 = mt_rand();
     $rand_name = $rand1 . $rand2;
     $rand_name = md5($rand_name);
-    
-    if ($file_extn == 'mp4')
-    {
+
+    if ($file_extn == 'mp4') {
         $file_extn = '.mp4';
-    }
-    else
-    {
+    } else {
         $file_extn = '.flv';
     }
-    
+
     $new_flv_video = $rand_name . $file_extn;
-    
-    while (check_field_exists($new_flv_video, 'video_flv_name', 'videos') == 1)
-    {
+
+    while (check_field_exists($new_flv_video, 'video_flv_name', 'videos') == 1) {
         $rand1 = time();
         $rand2 = mt_rand();
         $rand_name = $rand1 . $rand2;
         $rand_name = md5($rand_name);
         $new_flv_video = $rand_name . $file_extn;
     }
-    
+
     $old_flv_path = VSHARE_DIR . '/flvideo/' . $video_info['video_folder'] . $flv_video;
     $new_flv_path = VSHARE_DIR . '/flvideo/' . $video_info['video_folder'] . $new_flv_video;
-    
-    if ($video_info['video_server_id'] == 0)
-    {
-        if (strlen($flv_video) > 4)
-        {
-            if (file_exists($old_flv_path))
-            {
-                if (rename($old_flv_path, $new_flv_path))
-                {
+
+    if ($video_info['video_server_id'] == 0) {
+        if (strlen($flv_video) > 4) {
+            if (file_exists($old_flv_path)) {
+                if (rename($old_flv_path, $new_flv_path)) {
                     update_video($new_flv_video, $_GET['id'], $flv_video);
                     $msg = $lang['rename_ok'];
-                }
-                else
-                {
+                } else {
                     $err = $lang['rename_failed'];
                 }
-            }
-            else
-            {
+            } else {
                 $err = $lang['file_not_found'];
             }
-        }
-        else
-        {
+        } else {
             $err = str_replace('[FILENAME]', $flv_video, $lang['file_name_short']);
         }
-    }
-    else
-    {
+    } else {
         $ftp_config = array();
         $ftp_config['video_id'] = $_GET['id'];
         $ftp_config['server_id'] = $video_info['video_server_id'];
@@ -97,11 +75,10 @@ else
         $ftp_config['flv_name_source'] = $flv_video;
         $ftp_config['flv_name_new'] = $new_flv_video;
         $ftp_config['video_folder'] = $video_info['video_folder'];
-        
+
         $ftp = new Ftp();
-        
-        if ($ftp->video_rename($ftp_config))
-        {
+
+        if ($ftp->video_rename($ftp_config)) {
             update_video($new_flv_video, $_GET['id'], $flv_video);
             $msg = $lang['rename_ok'];
         }
@@ -111,15 +88,14 @@ else
 function update_video($new_flv_video, $id, $flv_video)
 {
     global $lang , $smarty;
-    
+
     $sql = "UPDATE `videos` SET
            `video_flv_name`='$new_flv_video' WHERE
            `video_id`='" . (int) $id . "'";
-    mysql_query($sql) or mysql_die($sql);
-    $sql = "SELECT * FROM `videos` WHERE
-           `video_id`='" . (int) $id . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $video_info = mysql_fetch_assoc($result);
+    DB::query($sql);
+
+    $video_info = Video::getById($id);
+
     $smarty->assign('old_name', $flv_video);
     $smarty->assign('video_info', $video_info);
     $smarty->assign('new_flv_name', $new_flv_video);
