@@ -47,8 +47,7 @@ if (isset($_POST['action_login']))
                            `packages` AS `p` WHERE
                             subs.UID=" . (int) $user_info['user_id'] . " AND
                             subs.pack_id=p.package_id";
-                    $result = mysql_query($sql) or mysql_die($sql);
-                    $package_info = mysql_fetch_assoc($result);
+                    $package_info = DB::fetch1($sql);
 
                     if ($package_info['package_trial'] != 'yes') {
                         $redirect_url = $config['baseurl'] . '/renew_account.php?uid=' . $user_info['user_id'];
@@ -75,31 +74,28 @@ if (isset($_POST['action_login']))
             if ($config['enable_package'] == 'yes') {
                 $sql = "SELECT * FROM `subscriber` WHERE
                        `UID`=" . (int) $user_info['user_id'];
-                $result = mysql_query($sql) or mysql_die($sql);
+                $subscription = DB::fetch1($sql);
 
-                if (mysql_num_rows($result) < 1) {
+                if (! $subscription) {
                     $sql = "INSERT INTO `subscriber` SET
                            `UID`=" . (int) $user_info['user_id'];
-                    mysql_query($sql) or mysql_die($sql);
+                    DB::query($sql);
                     $sql = "SELECT * FROM `subscriber` WHERE
                            `UID`=" . (int) $user_info['user_id'];
-                    $result = mysql_query($sql) or mysql_die($sql);
+                    $subscription = DB::fetch1($sql);
                 }
-
-                $subscription = mysql_fetch_assoc($result);
 
                 if ($subscription['pack_id'] == 0) {
                     $sql = "SELECT * FROM `packages` WHERE
                            `package_trial`='yes'";
-                    $result = mysql_query($sql) or mysql_die($sql);
-                    $package_row = mysql_fetch_assoc($result);
+                    $package_row = DB::fetch1($sql);
                     $expired_time = date("Y-m-d H:i:s", strtotime("+" . $package_row['package_trial_period'] . " day"));
                     $sql = "UPDATE `subscriber` SET
                            `pack_id`='" . (int) $package_row['package_id'] . "',
                            `subscribe_time`='" . date("Y-m-d H:i:s") . "',
                            `expired_time`='$expired_time' WHERE
                            `UID`=" . (int) $user_info['user_id'];
-                    mysql_query($sql) or mysql_die($sql);
+                    DB::query($sql);
                 } else {
                     check_subscriber_duration($user_info['user_id']);
                 }
