@@ -35,19 +35,11 @@ if (isset($_POST['video_id_arr'])) {
     $video_id_arr_count = count($video_id_arr);
 
     for ($i = 0;$i < $video_id_arr_count;$i++) {
-        $sql = "SELECT `video_user_id` FROM `videos` WHERE
-               `video_id`='" . (int) $video_id_arr[$i] . "'";
-        $result = mysql_query($sql) or mysql_die($sql);
-
-        if (mysql_num_rows($result) == 1) {
-            $video_info = mysql_fetch_assoc($result);
-            $video_user_id = $video_info['video_user_id'];
-            unset($video_info);
-
-            Video::delete($video_id_arr[$i], $video_user_id);
+        $video_info = Video::getById($video_id_arr[$i]);
+        if ($video_info) {
+            Video::delete($video_info['video_id'], $video_info['video_user_id']);
         }
     }
-
     $msg = 'Selected Videos are Deleted.';
 }
 
@@ -106,12 +98,12 @@ if (in_array($_GET['a'], $view_types)) {
     if (isset($_GET['action']) && $_GET['action'] == 'del' && isset($_GET['video_id']) && is_numeric($_GET['video_id'])) {
         $sql = "DELETE FROM `inappropriate_requests` WHERE
                `inappropriate_request_video_id`=" . (int) $_GET['video_id'];
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
 
     if (isset($_GET['action']) && $_GET['action'] == 'delete') {
         $sql = "DELETE FROM `inappropriate_requests`";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
 
     if (isset($_GET['sort']) && $_GET['sort'] != '') {
@@ -122,9 +114,7 @@ if (in_array($_GET['a'], $view_types)) {
 
     $sql = "SELECT count(inappropriate_request_video_id) AS `total` FROM `inappropriate_requests`
            $query";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $tmp = mysql_fetch_array($result);
-    $total = $tmp['total'];
+    $total = DB::getTotal($sql);
 
     $start_from = ($page - 1) * $admin_listing_per_page;
 
@@ -147,8 +137,7 @@ if (in_array($_GET['a'], $view_types)) {
     $sql = "SELECT * FROM `inappropriate_requests`
            $query
            LIMIT $start_from, $admin_listing_per_page";
-    $result = mysql_query($sql) or mysql_die();
-    $videos = mysql_fetch_all($result);
+    $videos = DB::fetch($sql);
 
     $smarty->assign('links', $links['all']);
     $smarty->assign('grandtotal', $total);
