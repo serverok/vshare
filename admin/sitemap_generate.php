@@ -26,8 +26,7 @@ $last_video_id = isset($_GET['last_video_id']) ? $_GET['last_video_id'] : 0;
 $sql_where = '';
 $items_per_page = 200;
 
-if (! empty($last_video_id))
-{
+if (! empty($last_video_id)) {
     $sql_where = 'AND `video_id`>' . $last_video_id;
 }
 
@@ -52,25 +51,18 @@ echo '<h1>Creating Sitemap : ' . $sitemap_name . '</h1>
                 </td>
             </tr>';
 
-if ($create == 1)
-{
-    if (empty($last_video_id))
-    {
+if ($create == 1) {
+    if (empty($last_video_id)) {
         $sitemap->deleteSitemap();
     }
-
     $sitemap_name = $sitemap->createNewSitemapName();
     $fp = fopen(VSHARE_DIR . '/sitemap/' . $sitemap_name, 'w');
     fwrite($fp, $sitemap->sitemap_xml_header . $sitemap->sitemap_urlset_open);
     $create = 0;
-}
-else
-{
-    if (empty($sitemap_name))
-    {
+} else {
+    if (empty($sitemap_name)) {
         $sitemap_name = $sitemap->createNewSitemapName();
     }
-
     $fp = fopen(VSHARE_DIR . '/sitemap/' . $sitemap_name, 'a');
 }
 
@@ -80,14 +72,13 @@ $sql = "SELECT * FROM `videos` WHERE
         $sql_where
         ORDER BY `video_id` DESC
         LIMIT $start, $items_per_page";
-$result = mysql_query($sql) or mysql_die($sql);
+$videos_all = DB::fetch($sql);
 
-if (mysql_num_rows($result) > 0)
-{
+if ($videos_all) {
+
     $sitemap_size = filesize(VSHARE_DIR . '/sitemap/' . $sitemap_name);
 
-    if ($sitemap_size > $sitemap->sitemap_size_limit)
-    {
+    if ($sitemap_size > $sitemap->sitemap_size_limit) {
         fwrite($fp, $sitemap->sitemap_urlset_close);
         $sitemap->insert_sitemap($video_count, $sitemap_name);
         $sitemap->xml_to_gz($sitemap_name);
@@ -96,12 +87,11 @@ if (mysql_num_rows($result) > 0)
         fwrite($fp, $sitemap->sitemap_xml_header . $sitemap->sitemap_urlset_open);
         $video_count = 0;
     }
-    while ($video_info = mysql_fetch_assoc($result))
-    {
+
+    foreach ($videos_all as $video_info) {
         $video_count ++;
         $tr_class = 'class="tablerow1"';
-        if ($video_count % 2 == 0)
-        {
+        if ($video_count % 2 == 0) {
             $tr_class = 'class="tablerow2"';
         }
 
@@ -127,8 +117,7 @@ if (mysql_num_rows($result) > 0)
             </video:video>
         </url>';
 
-        if ($video_count >= $sitemap->sitemap_url_limit)
-        {
+        if ($video_count >= $sitemap->sitemap_url_limit) {
             $last_video_id = $video_info['video_id'];
             $sitemap_xml .= $sitemap->sitemap_urlset_close;
             $sitemap->insert_sitemap($video_count, $sitemap_name);
@@ -141,9 +130,7 @@ if (mysql_num_rows($result) > 0)
     }
 
     fwrite($fp, $sitemap_xml);
-}
-else
-{
+} else {
     fwrite($fp, $sitemap->sitemap_urlset_close);
     $sitemap->insert_sitemap($video_count, $sitemap_name);
     $sitemap->xml_to_gz($sitemap_name);
