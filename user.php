@@ -91,14 +91,12 @@ if (isset($_SESSION['UID']) && $_SESSION['UID'] == $user_info['user_id']) {
 if ($config['enable_package'] == 'yes' and isset($_SESSION['UID'])) {
     $sql = "SELECT * FROM `subscriber` WHERE
            `UID`='" . (int) $user_info['user_id'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $u_info = mysql_fetch_assoc($result);
+    $u_info = DB::fetch1($sql);
     $smarty->assign('u_info', $u_info);
 
     $sql = "SELECT * FROM `packages` WHERE
            `package_id`='" . (int) $u_info['pack_id'] . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $pack = mysql_fetch_assoc($result);
+    $pack = DB::fetch($sql);
     $smarty->assign('pack', $pack);
 }
 
