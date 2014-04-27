@@ -24,8 +24,7 @@ $video_id = isset($_GET['video_id']) ? (int) $_GET['video_id'] : 0;
 $num_max_channels = get_config('num_max_channels');
 $smarty->assign('num_max_channels', $num_max_channels);
 
-if (isset($_POST['submit']))
-{
+if (isset($_POST['submit'])) {
     $video_id = $_POST['video_id'];
     $video = new Video();
     $video->video_id = $video_id;
@@ -38,52 +37,35 @@ if (isset($_POST['submit']))
     $video->video_allow_rated = $_POST['video_allow_rated'];
     $video->video_allow_embed = $_POST['video_allow_embed'];
     $save = $video->video_update();
-    
-    if ($save == 1)
-    {
+
+    if ($save == 1) {
         set_message($lang['video_info_update'], 'success');
         $redirect_url = VSHARE_URL . '/view/' . $video_id . '/' . $video->video_info['video_seo_name'] . '/';
         Http::redirect($redirect_url);
-    }
-    else
-    {
+    } else {
         $err = $save;
     }
 }
 
-$sql = "SELECT * FROM `videos` WHERE
-       `video_id`='" . (int) $video_id . "' AND
-       `video_user_id`='" . (int) $_SESSION['UID'] . "' AND
-       `video_active`='1' AND
-       `video_approve`=1";
-$result = mysql_query($sql) or mysql_die($sql);
-$num_result = mysql_num_rows($result);
+$video_info = Video::getById($video_id);
 
-if ($num_result == 0)
-{
-    $err = $lang['video_owner'];
-}
-else
-{
-    $video_info = mysql_fetch_assoc($result);
+if ($video_info['video_user_id'] == $_SESSION['UID']) {
     $video_info['video_description'] = str_replace(array('<p>', '</p>'), '', $video_info['video_description']);
+    $is_video_owner = 1;
+} else {
+    $err = $lang['video_owner'];
+    $is_video_owner = 0;
 }
 
 $chid = explode('|', $video_info['video_channels']);
 
-$channels_all = channels::get_all();
-
-$smarty->assign('channels_all', $channels_all);
+$smarty->assign('channels_all', Channel::get());
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('chid', $chid);
 $smarty->assign('video_info', $video_info);
 $smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
-
-if ($num_result == 1)
-{
-    $smarty->display('video_edit.tpl');
-}
+if ($is_video_owner) $smarty->display('video_edit.tpl');
 $smarty->display('footer.tpl');
 DB::close();
