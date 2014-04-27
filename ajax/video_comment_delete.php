@@ -21,7 +21,7 @@ if (isset($_SESSION['UID']) && $video_info) {
                `comment_video_id`=" . (int) $video_id;
         DB::query($sql);
 
-        if (DB::affctedRows() == 1) {
+        if (DB::affectedRows() == 1) {
             $sql = "UPDATE `videos` SET
 		           `video_com_num`=`video_com_num`-1 WHERE
 		           `video_id`='" . (int) $video_id . "'";
