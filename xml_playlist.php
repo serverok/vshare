@@ -20,25 +20,18 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 
 $sql = "SELECT * FROM `videos` WHERE
        `video_id`='" . (int) $id . "'";
-$result = mysql_query($sql) or mysql_die($sql);
+$video_info = DB::fetch1($sql);
 
-if (mysql_num_rows($result) > 0)
-{
-    $video_info = mysql_fetch_assoc($result);
-    
-    if ($video_info['video_server_id'] > 0)
-    {
+if ($video_info) {
+
+    if ($video_info['video_server_id'] > 0) {
         $url = get_video_url($video_info['video_server_id'], $video_info['video_folder'], $video_info['video_flv_name']);
-    }
-    else if ($video_info['video_vtype'] == '7')
-    {
+    } else if ($video_info['video_vtype'] == '7') {
         $url = $video_info['video_youtube_url'];
-    }
-    else
-    {
+    } else {
         $url = VSHARE_URL . '/flvideo/' . $video_info['video_folder'] . $video_info['video_flv_name'];
     }
-    
+
     header('content-type:text/xml;charset=utf-8');
     echo '<playlist version="1" xmlns="http://xspf.org/ns/0/">';
     echo '<tracklist>';

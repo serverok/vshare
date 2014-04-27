@@ -74,10 +74,9 @@ if ($err == '') {
                        `friend_user_id`='" . (int) $_SESSION['UID'] . "' AND
                        `friend_friend_id`='" . (int) $video_info['video_user_id'] . "' AND
                        `friend_status`='Confirmed'";
-                $result = mysql_query($sql) or mysql_die($sql);
-                $tmp = mysql_fetch_assoc($result);
+                $is_friend = DB::getTotal($sql);
 
-                if ($tmp['total']) {
+                if ($is_friend) {
                     $show_video = 1;
                 } else {
                     $msg = $lang['friends_only'];
@@ -181,21 +180,19 @@ if (isset($show_video) && $show_video == 1 && $err == '') {
             $sql = "SELECT * FROM  `favourite` WHERE
                    `favourite_user_id`=" . (int) $_SESSION['UID'] . " AND
                    `favourite_video_id`=" . (int) $video_id;
-            $result = DB::fetch($sql);
-            if (count($result) == 1) {
+            $is_favourite = DB::fetch1($sql);
+            if ($is_favourite) {
                 $smarty->assign('favourite', 1);
             }
 
             if ($config['allow_download'] == 1) {
                 $sql = "SELECT `pack_id` FROM `subscriber` WHERE
 	                   `UID`='" . (int) $_SESSION['UID'] . "'";
-                $result = mysql_query($sql) or mysql_die($sql);
-                $subscriber_info = mysql_fetch_assoc($result);
+                $subscriber_info = DB::fetch1($sql);
 
                 $sql = "SELECT `package_allow_download` FROM `packages` WHERE
 	                   `package_id`='" . (int) $subscriber_info['pack_id'] . "'";
-                $result = mysql_query($sql) or mysql_die($sql);
-                $package_info = mysql_fetch_assoc($result);
+                $package_info = DB::fetch1($sql);
                 $view['package_allow_video_download'] = $package_info['package_allow_download'];
             }
         }
