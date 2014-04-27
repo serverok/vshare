@@ -24,15 +24,14 @@ $sql = "SELECT * FROM `videos` WHERE
 	   `video_user_id`=0
 	    ORDER BY `video_id` ASC
 	    LIMIT $num_videos_per_refresh";
-$result = mysql_query($sql) or mysql_die($sql);
+$deleted_videos_all = DB::fetch($sql);
 
-if (mysql_num_rows($result) > 0)
-{
-    while ($video = mysql_fetch_assoc($result))
-    {
-        Video::delete($video['video_id'], $video['video_user_id'], 1);
+if ($deleted_videos_all) {
+
+    foreach ($deleted_videos_all as $deleted_video) {
+        Video::delete($deleted_video['video_id'], $deleted_video['video_user_id'], 1);
     }
-    
+
     echo "<script language=\"JavaScript\">
          <!--
          var randomnumber = Math.random() * 1000000;
@@ -40,8 +39,6 @@ if (mysql_num_rows($result) > 0)
          setTimeout('window.location.href = \"?x=' + randomnumber + '\"',2000);
          -->
          </script>";
-}
-else
-{
+} else {
     echo "All Files Deleted.";
 }
