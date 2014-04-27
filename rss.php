@@ -20,8 +20,7 @@ $rss_email = 'rss@' . $url['host'];
 
 $type = isset($_GET['type']) ? $_GET['type'] : 1;
 
-if ($type == 'new')
-{
+if ($type == 'new') {
     $sql = "SELECT videos.*, users.user_id, users.user_name FROM
              `videos` AS `videos`,
              `users` AS `users` WHERE
@@ -33,9 +32,7 @@ if ($type == 'new')
               LIMIT 20";
     $feed_title = '[20 Newest videos on ' . $config['site_name'] . ']';
     $url = VSHARE_URL . '/rss/new/';
-}
-else if ($type == 'views')
-{
+} else if ($type == 'views') {
     $sql = "SELECT videos.*,users.user_id,users.user_name FROM
              `videos` AS `videos`,
              `users` AS `users` WHERE
@@ -47,9 +44,7 @@ else if ($type == 'views')
               LIMIT 20";
     $feed_title = "[20 Most Viewed videos on " . $config['site_name'] . "]";
     $url = VSHARE_URL . '/rss/views/';
-}
-else if ($type == 'comments')
-{
+} else if ($type == 'comments') {
     $sql = "SELECT videos.*,users.user_id,users.user_name FROM
              `videos` AS `videos`,
              `users` AS `users` WHERE
@@ -61,9 +56,7 @@ else if ($type == 'comments')
               LIMIT 20";
     $feed_title = '[20 Most Commented videos on ' . $config['site_name'] . ']';
     $url = VSHARE_URL . '/rss/comments/';
-}
-else
-{
+} else {
     $sql = "SELECT videos.*,users.user_id,users.user_name FROM
              `videos` AS `videos`,
              `users` AS `users` WHERE
@@ -94,18 +87,18 @@ echo '<link>' . $url . '</link>';
 echo '</image>';
 echo '<atom:link href="' . $url . '" rel="self" type="application/rss+xml" />';
 
-$result = mysql_query($sql) or mysql_die($sql);
+$videos_all = DB::fetch($sql);
 
-while ($video_info = mysql_fetch_assoc($result))
-{
+foreach ($videos_all as $video_info) {
+
     $photo = $servers[$video_info['video_thumb_server_id']] . '/thumb/' . $video_info['video_folder'] . '1_' . $video_info['video_id'] . '.jpg';
-    
+
     $video = VSHARE_URL . '/view/' . $video_info['video_id'] . '/' . $video_info['video_seo_name'] . '/';
     $description = $video_info['video_description'];
     $description = str_replace('&amp', '', htmlspecialchars(stripslashes($description), ENT_QUOTES, 'UTF-8'));
     $photo = htmlspecialchars(stripslashes($photo), ENT_QUOTES, 'UTF-8');
     $video_title = htmlspecialchars(stripslashes($video_info['video_title']), ENT_QUOTES, 'UTF-8');
-    
+
     echo '<item>';
     echo '<title>' . $video_title . '</title>';
     echo '<link>' . $video . '</link>';
@@ -114,19 +107,18 @@ while ($video_info = mysql_fetch_assoc($result))
     echo '<![CDATA[';
     echo '<a href=' . $video . ' target=_blank><img src="' . $photo . '" border="0" width="174" height="130" vspace="4" hspace="4"></a><p>' . $description . '</p>' . '<p>Added by: <a href="' . VSHARE_URL . '/' . $video_info['user_name'] . '">' . $video_info['user_name'] . '</a>';
     echo '<br />Tags: ';
-    
+
     $tag = new Tags($video_info['video_keywords'], $video_info['video_id'], '', "0||0");
     $tags = $tag->get_tags();
     unset($tag);
-    
+
     $i = 0;
-    foreach ($tags as $my_tag)
-    {
+    foreach ($tags as $my_tag) {
         if ($i > 0) echo ', ';
         $i ++;
         echo '<a href="' . VSHARE_URL . '/tag/' . $my_tag . '/">' . $my_tag . '</a>';
     }
-    
+
     echo '<br />Date: ' . $video_info['video_add_date'] . '<br />';
     echo '<br /></p><hr />';
     echo '    ]]>';
