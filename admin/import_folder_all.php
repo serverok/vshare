@@ -14,7 +14,6 @@
 
 require '../include/config.php';
 require '../include/settings/upload.php';
-require '../include/class.channels.php';
 require '../include/language/' . LANG . '/lang_admin_import_folder_all.php';
 
 check_admin_login();
@@ -122,13 +121,11 @@ if (empty($videos)) {
     $todo = 'folder_empty';
 }
 
-$chinfo = Channel::get();
-
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('num_max_channels', $num_max_channels);
 $smarty->assign('todo', $todo);
-$smarty->assign('chinfo', $chinfo);
+$smarty->assign('chinfo', Channel::get());
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/import_folder_all.tpl');
 $smarty->display('admin/footer.tpl');

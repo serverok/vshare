@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.channels.php';
 require '../include/settings/upload.php';
 require '../include/language/' . LANG . '/lang_admin_video_add_flv.php';
 

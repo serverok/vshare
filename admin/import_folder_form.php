@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.channels.php';
 require '../include/language/' . LANG . '/lang_admin_import_folder_form.php';
 
 check_admin_login();
@@ -105,7 +104,7 @@ if (isset($_GET['video'])) {
 }
 
 $channel_checkbox = '';
-$ch = channels::get_all();
+$ch = Channel::get();
 
 for ($i = 0; $i < count($ch); $i ++) {
     $channel_checkbox .= '<input type="checkbox" name="channel[]" value="' . $ch[$i]['channel_id'] . '" />' . htmlspecialchars($ch[$i]['channel_name'], ENT_QUOTES, 'UTF-8') . '<br />';

@@ -13,9 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.video.php';
-require 'include/class.tags.php';
-require 'include/class.channels.php';
 require 'include/language/' . LANG . '/lang_video_edit.php';
 
 User::is_logged_in();
