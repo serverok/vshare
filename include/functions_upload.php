@@ -22,67 +22,53 @@ function download_video($vid)
     $sql = "UPDATE `process_queue` SET
 	       `status`='1' WHERE
 	       `id`='" . (int) $vid . "'";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
 
     $sql = "SELECT * FROM `process_queue` WHERE
 	       `id`='" . (int) $vid . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $video_info = mysql_fetch_assoc($result);
+    $video_info =  DB::fetch1($sql);
     $video_url = $video_info['url'];
     echo "<P>video url : $video_url</p>";
 
     $video_filename = VSHARE_DIR . '/video/' . $video_info['file'];
     echo "<P>Video Downloaded to : $video_filename</p>";
 
-    if (file_exists($video_filename) && is_file($video_filename))
-    {
+    if (file_exists($video_filename) && is_file($video_filename)) {
         unlink($video_filename);
         echo "<p>Deleted File: $video_filename</p>";
     }
 
     write_log($video_url);
 
-    if (strstr($video_url, 'youtube.com'))
-    {
+    if (strstr($video_url, 'youtube.com')) {
         $file_extn = 'flv';
         $rename_file = 1;
         $video_url = get_youtube_flv_url($video_url);
         echo "<p>Youtube FLV location: $video_url</p>";
-    }
-    else if (strstr($video_url, 'googlevideo'))
-    {
+    } else if (strstr($video_url, 'googlevideo')) {
         $file_extn = 'flv';
         $rename_file = 1;
-    }
-    else if (strstr($video_url, 'dailymotion.com'))
-    {
+    } else if (strstr($video_url, 'dailymotion.com')) {
         $file_extn = 'flv';
         $rename_file = 1;
-    }
-    else
-    {
+    } else {
         require VSHARE_DIR . '/include/settings/upload.php';
 
         $file_name = basename($video_url);
         $pos = strrpos($file_name, '.');
         $file_extn = strtolower(substr($file_name, $pos + 1, strlen($file_name) - $pos));
 
-        if (! in_array($file_extn, $file_types))
-        {
+        if (! in_array($file_extn, $file_types)) {
             $allowed_types = implode(',', $file_types);
             write_log('Unsupported video type: ' . $file_extn);
             $err = 1;
         }
     }
 
-    if ($err == 0)
-    {
-        if ($rename_file == 1)
-        {
+    if ($err == 0) {
+        if ($rename_file == 1) {
             $file_no_extn = md5(rand());
-        }
-        else
-        {
+        } else {
             $file_name = basename($video_url);
             $pos = strrpos($file_name, '.');
             $file_extn = strtolower(substr($file_name, $pos + 1, strlen($file_name) - $pos));
@@ -96,8 +82,7 @@ function download_video($vid)
 
         $i = 0;
 
-        while (file_exists($desination))
-        {
+        while (file_exists($desination)) {
             $i ++;
             $file_name = $file_no_extn . '_' . $i . '.' . $file_extn;
             $desination = VSHARE_DIR . '/video/' . $file_name;
@@ -113,40 +98,32 @@ function download_video($vid)
         write_log('File Size: ' . $file_size);
         echo '<b>Download Finished<br />File Name: ' . $desination . '<br />File Size: ' . $file_size . '</b>';
 
-        if ($file_size == 0)
-        {
+        if ($file_size == 0) {
             write_log('ERROR: unable to connect');
             echo 'ERROR: unable to connect<br />';
             $err = 1;
-        }
-        else if ($file_size == 1)
-        {
+        } else if ($file_size == 1) {
             write_log('ERROR: unable to write to ' . $desination . ' make sure folder have 777 permission');
             echo 'ERROR: unable to write to ' . $desination . ' make sure folder have 777 permission<br />';
             $err = 1;
-        }
-        else if ($file_size < 40960)
-        {
+        } else if ($file_size < 40960) {
             write_log('ERROR: video size is small (' . $file_size . '),it should me more than 40 kb');
             echo 'ERROR: video size is small (' . $file_size . '),it should me more than 40 kb<br />';
             $err = 1;
         }
 
-        if ($err == 0)
-        {
+        if ($err == 0) {
             $sql = "UPDATE `process_queue` SET
 				   `status`='2',
 				   `file`='$file_name' WHERE
 				   `id`='$vid'";
-            mysql_query($sql) or mysql_die($sql);
-        }
-        else
-        {
+        } else {
             $sql = "UPDATE `process_queue` SET
 			       `status`=3 WHERE
 			       `id`='$vid'";
-            mysql_query($sql) or mysql_die($sql);
         }
+
+        DB::query($sql);
     }
 }
 
@@ -171,23 +148,19 @@ function process_video($vid, $debug = 1)
            `users` AS `users` WHERE
 			process_queue.id=$vid AND
 			process_queue.user=users.user_name";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $download_info = mysql_fetch_assoc($result);
+    $download_info = DB::fetch1($sql);
     $video_file_name = $download_info['file'];
     $re_process_vid = $download_info['vid'];
     $convert_vid = $download_info['id'];
 
     $status = $download_info['status'];
 
-    if ($status == 2)
-    {
+    if ($status == 2) {
         $sql = "UPDATE `process_queue` SET
 		       `status`='4' WHERE
 		       `id`='$vid'";
-        mysql_query($sql) or mysql_die($sql);
-    }
-    else
-    {
+        DB::query($sql);
+    } else {
         $log_text = '<h2>STOP: can only process when status = 2. Current status is: ' . $status . '</h2>';
         write_log($log_text, $log_file_name, $debug, 'html');
         exit();
@@ -198,14 +171,11 @@ function process_video($vid, $debug = 1)
     $log_text = '<p>File: ' . $video_src . '</p>';
     write_log($log_text, $log_file_name, $debug, 'html');
 
-    if (! file_exists($video_src))
-    {
+    if (! file_exists($video_src)) {
         $log_text = '<h2>ERROR: file not found - ' . $video_src . '</h2>';
         write_log($log_text, $log_file_name, $debug, 'html');
         $err = 1;
-    }
-    else
-    {
+    } else {
         $pos = strrpos($video_file_name, '.');
         $file_extn = strtolower(substr($video_file_name, $pos + 1, strlen($video_file_name) - $pos));
 
@@ -216,14 +186,12 @@ function process_video($vid, $debug = 1)
         $seo_name_org = $seo_name;
         $i = 1;
 
-        while (check_field_exists($seo_name, 'video_seo_name', 'videos'))
-        {
+        while (check_field_exists($seo_name, 'video_seo_name', 'videos')) {
             $seo_name = $seo_name_org . '-' . $i;
             $i ++;
         }
 
-        if ($re_process_vid == 0)
-        {
+        if ($re_process_vid == 0) {
 
             $log_text = '<p>$re_process_vid = ' . $re_process_vid . '</p>';
             write_log($log_text, $log_file_name, $debug, 'html');
@@ -232,19 +200,15 @@ function process_video($vid, $debug = 1)
             $rand2 = mt_rand();
             $rand_name = $rand1 . $rand2;
 
-            if ($video_output_format == 'mp4')
-            {
+            if ($video_output_format == 'mp4') {
                 $outExtn = '.mp4';
-            }
-            else
-            {
+            } else {
                 $outExtn = '.flv';
             }
 
             $rand_flv_name = $rand_name . $outExtn;
 
-            while (check_field_exists($rand_flv_name, 'video_flv_name', 'videos') == 1)
-            {
+            while (check_field_exists($rand_flv_name, 'video_flv_name', 'videos') == 1) {
                 $rand1 = time();
                 $rand2 = mt_rand();
                 $rand_name = $rand1 . $rand2;
@@ -260,15 +224,12 @@ function process_video($vid, $debug = 1)
             $video_folder = trim($video_folder);
             $video_folder .= '/';
 
-            if (! is_dir(VSHARE_DIR . '/flvideo/' . $video_folder))
-            {
+            if (! is_dir(VSHARE_DIR . '/flvideo/' . $video_folder)){
                 mkdir(VSHARE_DIR . '/flvideo/' . $video_folder);
             }
 
-            if ($config['approve'] == 1 && get_config('moderate_video_links') == 1)
-            {
-                if (preg_match('{\b(?:http://)?(www\.)?([^\s]+)*(\.[a-z]{2,3})\b}mi', $download_info['description']))
-                {
+            if ($config['approve'] == 1 && get_config('moderate_video_links') == 1) {
+                if (preg_match('{\b(?:http://)?(www\.)?([^\s]+)*(\.[a-z]{2,3})\b}mi', $download_info['description'])) {
                     $config['approve'] = 0;
                 }
             }
@@ -290,14 +251,12 @@ function process_video($vid, $debug = 1)
                    `video_adult`='" . (int) $download_info['adult'] . "',
                    `video_folder`='" . DB::quote($video_folder) . "'";
 
-            $result = mysql_query($sql) or mysql_die($sql);
-            $convert_vid = mysql_insert_id();
+            $convert_vid = DB::insertGetId($sql);
 
-            if (! empty($download_info['import_track_id']))
-            {
+            if (! empty($download_info['import_track_id'])) {
                 $sql = "UPDATE `import_track` SET `import_track_video_id`=" . (int) $convert_vid . " WHERE
                        `import_track_id`=" . (int) $download_info['import_track_id'];
-                $result = mysql_query($sql) or mysql_die($sql);
+                $result = DB::fetch($sql);
             }
 
             $log_text = '<hr /><p>sql</p><p>' . $sql . '</p>';
@@ -306,24 +265,20 @@ function process_video($vid, $debug = 1)
             $sql = "UPDATE `process_queue` SET
                    `vid`='$convert_vid' WHERE
                    `id`='$vid'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
 
             $log_text = "<hr /><p>$sql</p><hr />";
             write_log($log_text, $log_file_name, $debug, 'html');
 
-            if (($download_info['type'] == 'public') && ($config['approve'] == 1))
-            {
-                require VSHARE_DIR . '/include/class.tags.php';
-                $tags = new Tags($download_info['keywords'], $convert_vid, $download_info['user_id'], "0|{$download_info['channels']}|0");
+            if (($download_info['type'] == 'public') && ($config['approve'] == 1)) {
+                $tags = new Tag($download_info['keywords'], $convert_vid, $download_info['user_id'], "0|{$download_info['channels']}|0");
                 $tags->add();
-
                 $video_tags = $tags->get_tags();
                 $video_keywords = implode(' ', $video_tags);
-
-                $sql = "UPDATE `videos` SET `video_keywords`='" . DB::quote($video_keywords) . "' WHERE
+                $sql = "UPDATE `videos` SET
+                        `video_keywords`='" . DB::quote($video_keywords) . "' WHERE
 						`video_id`='" . (int) $convert_vid . "'";
-                mysql_query($sql) or mysql_die($sql);
-
+                DB::query($sql);
                 unset($tags);
             }
         }
@@ -332,27 +287,25 @@ function process_video($vid, $debug = 1)
             $sql = "UPDATE `videos` SET
 				   `video_active`='0' WHERE
 				   `video_id`='$re_process_vid'";
-            $result = mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
+
             $convert_vid = $re_process_vid;
 
             $sql = "SELECT * FROM `videos` WHERE
 			       `video_id`=$convert_vid";
-            $result = mysql_query($sql) or mysql_die($sql);
-            $video_info = mysql_fetch_assoc($result);
+            $video_info = DB::fetch1($sql);
+
             $rand_flv_name = $video_info['video_flv_name'];
             $video_folder = $video_info['video_folder'];
             $re_convert = 1;
-            mysql_free_result($result);
+            DB::freeResult();
 
             $rand_flv_name_old = $rand_flv_name;
             $rand_flv_name_arr = explode('.', $rand_flv_name);
 
-            if ($video_output_format == 'mp4')
-            {
+            if ($video_output_format == 'mp4') {
                 $outExtn = '.mp4';
-            }
-            else
-            {
+            } else {
                 $outExtn = '.flv';
             }
 
@@ -388,18 +341,13 @@ function process_video($vid, $debug = 1)
         $duration_arr['src'] = $video_src;
         $duration_arr['debug'] = $debug;
 
-        if ($video_duration_cmd == 0)
-        {
+        if ($video_duration_cmd == 0) {
             $duration = video_duration::find_video_duration_mplayer($duration_arr);
             $find_duration_with = 'mplayer';
-        }
-        else if ($video_duration_cmd == 1)
-        {
+        } else if ($video_duration_cmd == 1) {
             $duration = video_duration::find_video_duration_ffmpeg($duration_arr);
             $find_duration_with = 'ffmpeg';
-        }
-        else
-        {
+        } else {
             $duration = video_duration::find_video_duration_ffmpeg_php($duration_arr);
             $find_duration_with = 'ffmpeg-php';
         }
@@ -414,8 +362,7 @@ function process_video($vid, $debug = 1)
 
         $bit_rate_max = 500;
 
-        if ($bit_rate > $bit_rate_max)
-        {
+        if ($bit_rate > $bit_rate_max) {
             // $bit_rate = 500;
         }
 
@@ -439,8 +386,7 @@ function process_video($vid, $debug = 1)
 
         require VSHARE_DIR . '/include/class.video_thumb.php';
 
-        if (! is_dir(VSHARE_DIR . '/thumb/' . $video_folder))
-        {
+        if (! is_dir(VSHARE_DIR . '/thumb/' . $video_folder)) {
             mkdir(VSHARE_DIR . '/thumb/' . $video_folder);
         }
 
@@ -451,18 +397,13 @@ function process_video($vid, $debug = 1)
         $t_info['video_folder'] = $video_folder;
         $t_info['debug'] = $debug;
 
-        if ($video_duration_cmd == 0)
-        {
+        if ($video_duration_cmd == 0) {
             $tmp = video_thumb::create_thumb_mplayer($t_info);
             $create_thumb_with = 'mplayer';
-        }
-        else if ($video_duration_cmd == 1)
-        {
+        } else if ($video_duration_cmd == 1) {
             $tmp = video_thumb::create_thumb_ffmpeg($t_info);
             $create_thumb_with = 'ffmpeg';
-        }
-        else
-        {
+        } else {
             $tmp = video_thumb::create_thumb_ffmpeg_php($t_info);
             $create_thumb_with = 'ffmpeg-php';
         }
@@ -470,28 +411,21 @@ function process_video($vid, $debug = 1)
         $log_text = "<p>Create Thumbnail with $create_thumb_with - END</p>";
         write_log($log_text, $log_file_name, $debug, 'html');
 
-        if ($file_extn == 'flv')
-        {
+        if ($file_extn == 'flv') {
             $log_text = "<h2>MOVING UPLOADED FLV: $video_src => $video_flv</h2>";
             write_log($log_text, $log_file_name, $debug, 'html');
 
-            if (! copy($video_src, $video_flv))
-            {
+            if (! copy($video_src, $video_flv)) {
                 $log_text = 'ERROR: moving uploaded file failed';
                 write_log($log_text, $log_file_name, $debug, 'html');
             }
-        }
-        else
-        {
+        } else {
             require VSHARE_DIR . '/include/settings/video_conversion.php';
             $cmd_convert_v = 'convert_' . $file_extn;
 
-            if ($video_output_format == 'mp4')
-            {
+            if ($video_output_format == 'mp4') {
                 $cmd_convert = $cmd_mp4;
-            }
-            else
-            {
+            } else {
                 $cmd_convert = ${$cmd_convert_v};
             }
 
@@ -504,8 +438,7 @@ function process_video($vid, $debug = 1)
 
             $return_data_all = '';
 
-            for ($i = 0; $i < count($exec_result); $i ++)
-            {
+            for ($i = 0; $i < count($exec_result); $i ++) {
                 $return_data = $exec_result[$i];
                 $return_data = trim($return_data);
                 $return_data = $return_data . "\n";
@@ -519,38 +452,27 @@ function process_video($vid, $debug = 1)
             write_log($log_text, $log_file_name, $debug, 'html');
         }
 
-        $conn = mysql_connect($db_host, $db_user, $db_pass) or die('Can\'t connect : ' . mysql_error());
-        mysql_select_db($db_name, $conn) or die('Can\'t select database : ' . mysql_error());
-        mysql_set_charset('utf8', $conn);
+        DB::connect($db_host, $db_user, $db_pass, $db_name);
 
         /*
          * insert flv metadata
          */
-        if ($video_output_format == 'flv')
-        {
+        if ($video_output_format == 'flv') {
             flv_metadata($rand_flv_name, $video_folder, $log_file_name, $debug);
-        }
-        else if ($video_output_format == 'mp4')
-        {
+        } else if ($video_output_format == 'mp4') {
             mp4_metadata($rand_flv_name, $video_folder, $log_file_name, $debug);
         }
 
-        if (! file_exists($video_flv))
-        {
+        if (! file_exists($video_flv)) {
             $err = 1;
-        }
-        else
-        {
+        } else {
             $flv_size = filesize($video_flv);
 
-            if ($flv_size < 1024)
-            {
+            if ($flv_size < 1024) {
                 $log_text = "<p>Convert Error or converted video is less than 1 kb in size, try upload a big video. If that do not work, verify convert command works on the server.</p>";
                 write_log($log_text, $log_file_name, $debug, 'html');
                 $err = 1;
-            }
-            else
-            {
+            } else {
                 $flv_size = $flv_size / (1024 * 1024);
                 $flv_size = round($flv_size, 2);
 
@@ -560,14 +482,11 @@ function process_video($vid, $debug = 1)
                        `video_duration`='$duration',
                        `video_length`='$duration_hms' WHERE
                        `video_id`=$convert_vid";
-                mysql_query($sql) or mysql_die($sql);
+                DB::query($sql);
 
-                if ($re_process_vid > 0 && $rand_flv_name != $rand_flv_name_old)
-                {
+                if ($re_process_vid > 0 && $rand_flv_name != $rand_flv_name_old) {
                     $video_flv_old = VSHARE_DIR . '/flvideo/' . $video_folder . $rand_flv_name_old;
-
-                    if (file_exists($video_flv_old))
-                    {
+                    if (file_exists($video_flv_old)) {
                         unlink($video_flv_old);
                         $log_text = "<p>Old output file($video_flv_old) found and deleted.</p>";
                         write_log($log_text, $log_file_name, $debug, 'html');
@@ -579,40 +498,29 @@ function process_video($vid, $debug = 1)
     }
 
     // upload to remote server
-
-
-    if ($err == 0)
-    {
+    if ($err == 0) {
         //check if video need to upload to rempte server
-
-
         $must_upload_to_remote = 0;
         $re_convert_server_id = 0;
         $upload_to_ftp = 1;
 
-        if ($re_process_vid > 0)
-        {
+        if ($re_process_vid > 0) {
             $re_convert_server_id = $video_info['video_server_id'];
             $must_upload_to_remote = 1;
             $log_text = '<p>video already processed, so it must go to same server. (video_server_id = ' . $re_convert_server_id . ')</p>';
             write_log($log_text, $log_file_name, 1, 'html');
-
-            if ($re_convert_server_id == 0)
-            {
+            if ($re_convert_server_id == 0) {
                 $upload_to_ftp = 0;
             }
         }
 
         global $servers;
 
-        if (count($servers) < 2)
-        {
+        if (count($servers) < 2) {
             $upload_to_ftp = 0;
         }
 
-        if ($upload_to_ftp)
-        {
-            require 'class.ftp.php';
+        if ($upload_to_ftp) {
             $ftp_config = array();
             $ftp_config['video_id'] = $convert_vid;
             $ftp_config['must_upload'] = $must_upload_to_remote;
@@ -622,10 +530,8 @@ function process_video($vid, $debug = 1)
             $ftp->upload_video($ftp_config);
             $ftp->upload_thumb($ftp_config);
 
-            if ($re_process_vid > 0 && $rand_flv_name != $rand_flv_name_old)
-            {
-                if ($ftp->delete_video($ftp_config))
-                {
+            if ($re_process_vid > 0 && $rand_flv_name != $rand_flv_name_old) {
+                if ($ftp->delete_video($ftp_config)) {
                     $log_text = "<p>Old output file found and deleted (video_server_id = " . $video_info['video_server_id'] . ").</p>";
                     write_log($log_text, $log_file_name, $debug, 'html');
                 }
@@ -635,45 +541,39 @@ function process_video($vid, $debug = 1)
 
     // if no error update database
 
-
-    if ($err == 0)
-    {
+    if ($err == 0) {
         $sql = "UPDATE `process_queue` SET
 		       `status`='5' WHERE
 		       `id`=$vid";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
 
-        if ($re_process_vid == 0)
-        {
+        if ($re_process_vid == 0) {
             $sql = "UPDATE `subscriber` SET
                    `used_space`=`used_space`+$flv_size,
 				   `total_video`=`total_video`+1 WHERE
 				   `UID`='" . (int) $download_info['user_id'] . "'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
 
             // upload notify
 
-
             $video_url = VSHARE_URL . '/view/' . $convert_vid . '/' . $seo_name . '/';
 
-            if ($config['notify_upload'] == 1)
-            {
+            if ($config['notify_upload'] == 1) {
                 $ch_id = str_replace('|', ',', $download_info['channels']);
                 $channels_name = '';
                 $sql = "SELECT * FROM `channels` WHERE
                        `channel_id` IN ($ch_id)";
-                $result = mysql_query($sql);
+                $channels_all = DB::query($sql);
 
-                while ($channel = mysql_fetch_assoc($result))
-                {
+                foreach ($channels_all as $channel) {
                     $channels_name .= $channel['channel_name'];
                     $channels_name .= '&nbsp;';
                 }
 
                 $sql = "SELECT * FROM `email_templates` WHERE
 				       `email_id`='upload_notify_admin'";
-                $result = mysql_query($sql) or mysql_die($sql);
-                $email_info = mysql_fetch_assoc($result);
+                $email_info = DB::fetch1($sql);
+
                 $email_subject = $email_info['email_subject'];
                 $email_body = $email_info['email_body'];
 
@@ -703,12 +603,12 @@ function process_video($vid, $debug = 1)
 
             $process_notify_user = get_config('process_notify_user');
 
-            if ($process_notify_user == 1)
-            {
+            if ($process_notify_user == 1) {
+
                 $sql = "SELECT * FROM `email_templates` WHERE
 				       `email_id`='upload_notify_user'";
-                $result = mysql_query($sql) or mysql_die($sql);
-                $tmp = mysql_fetch_assoc($result);
+                $tmp = DB::fetch1($sql);
+
                 $email_subject = $tmp['email_subject'];
                 $email_body_tmp = $tmp['email_body'];
 
@@ -740,7 +640,7 @@ function process_video($vid, $debug = 1)
         $sql = "UPDATE `videos` SET
 			   `video_active`='1' WHERE
 			   `video_id`='$convert_vid'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
 
         $log_text = '<p>' . $sql . '</p>';
         write_log($log_text, $log_file_name, $debug, 'html');
@@ -749,13 +649,12 @@ function process_video($vid, $debug = 1)
         write_log($log_text, $log_file_name, $debug, 'html');
 
         return $convert_vid;
-    }
-    else
-    {
+    } else {
         $sql = "UPDATE `process_queue` SET
 		       `status`='6' WHERE
 		       `id`='$vid'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
+
         $log_text = '<p>' . $sql . '</p>';
         write_log($log_text, $log_file_name, $debug, 'html');
         $log_text = '<p><b>ERROR: failed video conversion.</b></p>';
