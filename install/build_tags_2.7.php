@@ -3,7 +3,6 @@
 $html_title = 'Rebuilding Video Tags';
 
 require '../include/config.php';
-require '../include/class.tags.php';
 require './inc/functions_upgrade.php';
 require './tpl/header.php';
 
@@ -11,7 +10,7 @@ require './tpl/header.php';
 echo '<h1>' . $html_title . '</h1>';
 
 $sql = "DROP TABLE IF EXISTS `tags`, `tag_video`";
-mysql_query($sql) or die ('Unable to execute query' . $sql);
+DB::query($sql);
 
 $sql = "
 CREATE TABLE IF NOT EXISTS `tags` (
@@ -24,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
   UNIQUE KEY `tag` (`tag`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
-mysql_query($sql) or die ('Unable to execute query' . $sql);
+DB::query($sql);
 
 $sql = "
 CREATE TABLE IF NOT EXISTS `tag_video` (
@@ -35,14 +34,13 @@ CREATE TABLE IF NOT EXISTS `tag_video` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
-mysql_query($sql) or die ('Unable to execute query' . $sql);
-
+DB::query($sql);
 
 $sql = "SELECT * FROM `videos` WHERE `video_type`='public'";
-$result = mysql_query($sql) or die($sql);
+$videos_all = DB::fetch($sql);
 
-while ($video_info = mysql_fetch_assoc($result))
-{
+foreach ($videos_all as $video_info) {
+
     $video_id = $video_info['video_id'];
     $video_keywords = $video_info['video_keywords'];
     $video_channels = $video_info['video_channels'];
@@ -52,35 +50,35 @@ while ($video_info = mysql_fetch_assoc($result))
     $tags = new Tags($video_keywords, $video_id, $video_user_id, $video_channels);
     $tags->settime($video_add_time);
     $tags->add();
-    
+
     $video_tags = $tags->get_tags();
     $video_keywords_new = implode(' ', $video_tags);
     unset($tags);
-    
-    $sql = "UPDATE `videos` SET 
-           `video_keywords`='" . DB::quote($video_keywords_new) . "' WHERE 
+
+    $sql = "UPDATE `videos` SET
+           `video_keywords`='" . DB::quote($video_keywords_new) . "' WHERE
            `video_id`='" . (int) $video_id . "'";
-    mysql_query($sql) or die($sql);
+    DB::query($sql);
     echo "<p>video id =  $video_id Tag = $video_keywords_new</p>";
 }
 
 $sql = "SELECT `group_id`,`group_keyword` FROM `groups`";
-$result = mysql_query($sql) or mysql_die($sql);
+$group_all = DB::fetch($sql);
 
 echo '<h1>Rebuilding Group Tags</h1>';
 
-while ( $group_info = mysql_fetch_assoc($result) )
-{
+foreach ($group_all as $group_info) {
+
     $keywords = str_replace(' ', ',', $group_info['group_keyword']);
     $keywords = ereg_replace("[,]+", " ", $keywords);
     $keywords = ereg_replace("[ ]+", " ", $keywords);
     $keywords = trim($keywords);
     $keywords = Tags::clean_tags($keywords);
-        
+
     $sql = "UPDATE `groups` SET
            `group_keyword`='$keywords' WHERE
            `group_id`='" . (int) $group_info['group_id'] . "'";
-    mysql_query($sql) or mysql_die($sql);
+    DB::query($sql);
     echo "<p>$sql</p>";
 }
 
