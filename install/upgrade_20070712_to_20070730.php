@@ -7,7 +7,7 @@
  *   LISENSE: http://buyscripts.in/vshare-license.html
  *   WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
+ *   This program is a commercial software and any kind of using it must agree
  *   to vShare license.
  *
  ******************************************************************************/
@@ -17,8 +17,7 @@ require './inc/functions_upgrade.php';
 $html_title = 'VSHARE UPGRADE';
 require './tpl/header.php';
 
-if ($config['version'] != '20070712')
-{
+if ($config['version'] != '20070712') {
     die('<p>This upgrade script can only upgrade if you are using version: 20070712</p>');
 }
 
@@ -27,20 +26,17 @@ if ($config['version'] != '20070712')
 write_log('#### UPGRADE 20070712 to 20070730 STARTED ####', 'vshare_upgrade', 0,'txt');
 
 $sql = "SELECT * FROM video";
-$result = mysql_query($sql) or mysql_die();
+$videos_all = DB::fetch($sql);
 
-while ($video_info = mysql_fetch_assoc($result))
-{
+foreach ($videos_all as $video_info) {
     $vid = $video_info['VID'];
     $flvdoname = $video_info['flvdoname'];
-    
-    if (strlen($flvdoname) < 4)
-    {
+    if (strlen($flvdoname) < 4) {
         $flvdoname = $vid . '.flv';
-        $sql = "UPDATE video SET 
+        $sql = "UPDATE video SET
                `flvdoname`='" . DB::quote($flvdoname) . "' WHERE
                `VID`='" . (int) $vid . "'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
         echo "<p>Correcting video: " . $flvdoname . "</p>";
     }
 }
@@ -56,13 +52,13 @@ $sql = "CREATE TABLE `profile_comments` (
       KEY `uid` (`uid`)
     );";
 
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "INSERT INTO `emailinfo` (`email_id`, `email_subject`, `email_path`, `comment`) VALUES ('recommend_friends', '\$username sent you a video!', 'emails/recommend_friends.tpl', 'share videos with others');";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "UPDATE `sconfig` SET `svalue` = '20070730' WHERE `soption` = 'version'";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 write_log('#### UPGRADE 20070712 to 20070730 FINISHED ####', 'vshare_upgrade', 0,'txt');
 

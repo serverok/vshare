@@ -7,7 +7,7 @@
  *   LISENSE: http://buyscripts.in/vshare-license.html
  *   WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
+ *   This program is a commercial software and any kind of using it must agree
  *   to vShare license.
  *
  ******************************************************************************/
@@ -17,8 +17,7 @@ require '../include/config.php';
 require './inc/functions_upgrade.php';
 require './tpl/header.php';
 
-if ($config['version'] != '20070730')
-{
+if ($config['version'] != '20070730') {
     die('<p>This upgrade script can only upgrade if you are using version: 20070730</p>');
 }
 
@@ -27,13 +26,13 @@ if ($config['version'] != '20070730')
 write_log('#### UPGRADE 20070730 to 2.4 STARTED ####', 'vshare_upgrade', 0,'txt');
 
 $sql = "INSERT INTO `sconfig` ( `soption` , `svalue` )  VALUES ( 'embed_show', '1')";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "INSERT INTO `sconfig` ( `soption` , `svalue` )  VALUES ( 'embed_type', '1')";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "INSERT INTO `sconfig` ( `soption` , `svalue` )  VALUES ( 'allow_download', '0')";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "CREATE TABLE `verify_code` (
 `id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
@@ -43,7 +42,7 @@ $sql = "CREATE TABLE `verify_code` (
 PRIMARY KEY ( `id` )
 );";
 
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "CREATE TABLE `config` (
   `config_name` varchar(255) NOT NULL,
@@ -51,28 +50,28 @@ $sql = "CREATE TABLE `config` (
   PRIMARY KEY  (`config_name`)
 );";
 
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "INSERT INTO `config` ( `config_name` , `config_value` ) VALUES ( 'cron', '1');";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "INSERT INTO `config` ( `config_name` , `config_value` ) VALUES ( 'admin_listing_per_page', '20');";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "INSERT INTO `config` ( `config_name` , `config_value` ) VALUES ( 'php_path', '/usr/bin/php');";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "INSERT INTO `config` ( `config_name` , `config_value` ) VALUES ( 'home_num_tags', '20');";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "INSERT INTO `config` ( `config_name` , `config_value` ) VALUES ('process_upload', '1');";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "INSERT INTO `config` ( `config_name` , `config_value` ) VALUES ('process_notify_user', '1');";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "INSERT INTO `config` ( `config_name` , `config_value` ) VALUES ('num_last_users_online', '5');";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "CREATE TABLE `process_queue` (
   `id` int(11) NOT NULL auto_increment,
@@ -90,10 +89,10 @@ $sql = "CREATE TABLE `process_queue` (
   PRIMARY KEY  (`id`)
 );";
 
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 $sql = "UPDATE `sconfig` SET `svalue` = '2.4' WHERE `soption` = 'version'";
-mysql_query($sql) or mysql_die($sql);
+DB::query($sql);
 
 write_log('#### UPGRADE 20070730 to 2.4 FINISHED ####', 'vshare_upgrade', 0,'txt');
 
