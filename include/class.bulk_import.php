@@ -8,8 +8,8 @@ class BulkImport
         $sql = "SELECT * FROM `import_track` WHERE
                `import_track_unique_id`='" . DB::quote($import_track_unique_id) ."' AND
                `import_track_site`='" . DB::quote($import_track_site) ."'";
-        $result = mysql_query($sql);
-        return mysql_num_rows($result);
+        $import_track = DB::fetch1($sql);
+        return count($import_track);
     }
 
     public static function getYoutubeVideoInfo($video_id)

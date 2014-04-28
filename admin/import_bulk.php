@@ -76,7 +76,7 @@ if (isset($_GET['keyword'])) {
             'urlVar' => 'page'
         );
 
-        $pager = & new Pager_Sliding($params);
+        $pager = new Pager_Sliding($params);
         $data = $pager->getPageData();
         $links = $pager->getLinks();
 

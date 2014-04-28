@@ -15,7 +15,6 @@
 require '../include/config.php';
 require '../include/class.video_thumb.php';
 require '../include/class.video_duration.php';
-require '../include/class.ftp.php';
 require '../include/language/' . LANG . '/lang_admin_video_thumb.php';
 
 check_admin_login();

@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
     $name_old = $_POST['page_name'];
     $name = trim($name_old);
     $name = strtolower($name);
-    $name = ereg_replace('[^a-z0-9]', "-", $name);
+    $name = preg_replace('/[^a-z0-9]/', "-", $name);
 
     if ($name_old != $name) {
         $err = $lang['invalid_page_name'];

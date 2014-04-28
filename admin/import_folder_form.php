@@ -44,13 +44,10 @@ if (isset($_POST['submit'])) {
     $channel = implode('|', $_POST['channel']);
 
     if ($err == '') {
-        $sql = "SELECT * FROM `users` WHERE
-               `user_name`='" . DB::quote($user) . "'";
-        $result = mysql_query($sql) or mysql_die();
+        $user_info = User::getByName($user);
 
-        if (mysql_num_rows($result) > 0) {
-            $user_info = mysql_fetch_object($result);
-            $user_id = $user_info->user_id;
+        if ($user_info) {
+            $user_id = $user_info['user_id'];
         } else {
             $err = $lang['user_not_found'];
         }

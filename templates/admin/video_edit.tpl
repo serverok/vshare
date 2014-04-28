@@ -1,4 +1,4 @@
-<form action="video_edit.php?video_id={$video.video_id}" method="post">
+<form action="video_edit.php?a={$a}&video_id={$video.video_id}" method="post">
 
     <h1>Edit Video</h1>
 
@@ -8,21 +8,21 @@
     </div>
 
     {if $video.video_vtype eq "2"}
-    
+
         <div>
             <label for="video_embed_code"> URL: </label>
             <input name="video_embed_code" id="video_embed_code" value="{$video.video_embed_code}" size="40" />
         </div>
 
     {elseif $video.video_vtype eq "6"}
-    
+
         <div>
             <label for="video_embed_code">Embed:</label>{$video.video_vtype}
             <textarea name="video_embed_code" id="video_embed_code" rows="3" cols="40">{$video.video_embed_code}</textarea>
         </div>
-        
+
     {/if}
-       
+
     <div>
         <label for="video_title">Title:</label>
         <input name="video_title" id="video_title" value="{$video.video_title}" size="40" />
@@ -79,7 +79,7 @@
         <label for="video_allow_embed">Can be embedded ?:</label>
         <select name="video_allow_embed" id="video_allow_embed">{$embed_box}:</select>
     </div>
-    
+
     {if $family_filter eq "1"}
 	    <div>
 	        <label for="video_adult">Adult Video ?:</label>

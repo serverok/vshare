@@ -180,7 +180,7 @@ if (isset($_POST['submit'])) {
         $msg = $lang['settings_updated'];
     }
 }
-
+$smarty->assign('video_comment_notify', get_config('video_comment_notify'));
 $smarty->assign('user_daily_mail_limit', get_config('user_daily_mail_limit'));
 $smarty->assign('flv_metadata', get_config('flv_metadata'));
 $smarty->assign('video_duration_cmd', get_config('video_duration_cmd'));

@@ -14,17 +14,12 @@
 
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_video_delete.php';
-require '../include/class.ftp.php';
-require '../include/class.video.php';
 
 check_admin_login();
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $video_id = $_GET['id'];
-    $sql = "SELECT * FROM `videos` WHERE
-           `video_id`='" . (int) $video_id . "'";
-    $video_info = DB::fetch1($sql);
-
+    $video_info = Video::getById($video_id);
     if (! $video_info) {
         $err = str_replace('[VIDEO_ID]', $video_id, $lang['video_not_found']);
     } else {

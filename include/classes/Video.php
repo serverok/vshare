@@ -1,6 +1,6 @@
 <?php
 
-require_once VSHARE_DIR . '/include/language/' . LANG . '/lang_class_video.php';
+
 
 class Video
 {
@@ -29,6 +29,7 @@ class Video
     public function video_update()
     {
         global $lang;
+        require_once VSHARE_DIR . '/include/language/' . LANG . '/lang_class_video.php';
 
         $tags_delete = 0;
         $tags_add = 0;

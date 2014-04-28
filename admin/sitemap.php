@@ -13,11 +13,10 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.sitemap.php';
 
 check_admin_login();
 
-$sitemap = new sitemap();
+$sitemap = new Sitemap();
 
 if (isset($_POST['generate_sitemap']))
 {

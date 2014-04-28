@@ -13,8 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.video.php';
-require '../include/class.tags.php';
 require '../include/language/' . LANG . '/lang_admin_video_edit.php';
 
 check_admin_login();
@@ -56,9 +54,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$sql = "SELECT * FROM `videos` WHERE
-       `video_id`='" . (int) $video_id . "'";
-$video = DB::fetch1($sql);
+$video = Video::getById($video_id);
 
 $mych = explode('|', $video['video_channels']);
 $ch = Channel::get();

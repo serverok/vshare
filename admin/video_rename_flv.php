@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.ftp.php';
 require '../include/language/' . LANG . '/lang_admin_video_rename_flv.php';
 
 check_admin_login();
