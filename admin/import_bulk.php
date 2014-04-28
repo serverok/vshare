@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.bulk_import.php';
 require 'Zend/Loader.php';
 Zend_Loader::loadClass('Zend_Gdata_YouTube');
 

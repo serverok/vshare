@@ -14,7 +14,6 @@
 
 require 'include/config.php';
 require 'include/functions_seo_name.php';
-require 'include/class.tags.php';
 require 'include/language/' . LANG . '/lang_upload_remote.php';
 
 $guest_upload = get_config('guest_upload');
@@ -96,7 +95,6 @@ if (isset($_POST['submit'])) {
         $video_length = '01:00';
 
         if (preg_match("/youtube/i", $url)) {
-            require 'include/class.bulk_import.php';
 
             $youtube_video_id = BulkImport::getYoutubeVideoId($url);
 
@@ -150,7 +148,6 @@ if (isset($_POST['submit'])) {
         }
 
         # CREATE THUMBNAILS
-
 
         if (preg_match("/youtube/i", $url)) {
             $err = $upload_remote->youtube();

@@ -86,7 +86,6 @@ if (isset($_POST['submit'])) {
         $video_length = '01:00';
 
         if (preg_match("/youtube/i", $embed_code)) {
-            require '../include/class.bulk_import.php';
 
             $youtube_video_id = BulkImport::getYoutubeVideoId($embed_code);
 
