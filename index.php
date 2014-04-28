@@ -134,6 +134,8 @@ if (! $view) {
     Cache::save($cache_id, $view);
 }
 
+$smarty->assign('html_keywords', '');
+$smarty->assign('html_description', '');
 $smarty->assign('view', $view);
 $smarty->assign('html_extra', $smarty->fetch('index_js.tpl'));
 $smarty->assign('num_last_users_online', get_config('num_last_users_online'));

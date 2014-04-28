@@ -19,7 +19,7 @@ $smarty->template_dir = VSHARE_DIR . '/templates';
 $smarty->compile_dir = VSHARE_DIR . '/templates_c';
 $smarty->cache_dir = VSHARE_DIR . '/templates_c/cache';
 $smarty->caching = 0;
-$smarty->error_reporting = E_ALL;
+$smarty->error_reporting = E_ALL & ~E_NOTICE;
 
 function vshare_autoload ($my_class_name) {
         include(__DIR__ . '/classes/' . $my_class_name . ".php");
