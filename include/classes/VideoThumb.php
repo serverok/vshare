@@ -10,10 +10,10 @@ video_thumb_cmd
 
 */
 
-class video_thumb
+class VideoThumb
 {
 
-    function create_thumb_ffmpeg($t_info)
+    public static function createThumbFfmpeg($t_info)
     {
 
         global $config;
@@ -119,7 +119,7 @@ class video_thumb
         }
     }
 
-    function create_thumb_mplayer($t_info)
+    public static function createThumbMplayer($t_info)
     {
         global $config;
 
@@ -215,7 +215,7 @@ class video_thumb
         rmdir($output_folder);
     }
 
-    function create_thumb_ffmpeg_php($t_info)
+    function createThumbFfmpegPhp($t_info)
     {
         global $config;
 
@@ -249,7 +249,7 @@ class video_thumb
         }
     }
 
-    function create_thumb($srcname, $destname, $maxwidth, $maxheight)
+    function createThumb($srcname, $destname, $maxwidth, $maxheight)
     {
         global $config;
         $oldimg = $srcname; //$config['basepath']."/photo/".$srcname;
