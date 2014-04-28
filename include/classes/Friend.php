@@ -2,8 +2,7 @@
 
 class Friend
 {
-
-    function makeFriends($friend_1, $friend_2)
+    public static function makeFriends($friend_1, $friend_2)
     {
         $sql = "SELECT * FROM `users` WHERE
 		       `user_name`='$friend_1'";

@@ -134,7 +134,6 @@ function process_video($vid, $debug = 1)
 
     $log_file_name = 'convert_log_' . $vid;
     require VSHARE_DIR . '/include/functions_seo_name.php';
-    require VSHARE_DIR . '/include/class.mail.php';
     require VSHARE_DIR . '/include/settings/video_format.php';
 
     $err = 0;
