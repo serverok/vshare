@@ -24,10 +24,7 @@ if ($guest_upload == 0) {
     $user_id = $_SESSION['UID'];
 } else {
     $user_name = get_config('guest_upload_user');
-    $sql = "SELECT * FROM `users` WHERE
-           `user_name`='" . DB::quote($user_name) . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $user_info = mysql_fetch_assoc($result);
+    $user_info = User::getByName($user_name);
     $user_id = $user_info['user_id'];
 }
 
@@ -138,8 +135,7 @@ if (isset($_POST['submit'])) {
                    `video_active`='1',
                    `video_approve`='$config[approve]'";
 
-        $result = mysql_query($sql) or mysql_die($sql);
-        $video_id = mysql_insert_id();
+        $video_id = DB::insertGetId($sql);
 
         require 'include/class.upload_remote.php';
         $upload_remote = new upload_remote();
@@ -149,7 +145,7 @@ if (isset($_POST['submit'])) {
 
         if ($type == 'public' && $config['approve'] == 1) {
             $current_keyword = DB::quote($upload_video_keywords);
-            $tags = new Tags($current_keyword, $video_id, $_SESSION['UID'], "0|$channels|0");
+            $tags = new Tag($current_keyword, $video_id, $_SESSION['UID'], "0|$channels|0");
             $tags->add();
         }
 
@@ -170,7 +166,7 @@ if (isset($_POST['submit'])) {
             $sql = "UPDATE `subscriber` SET
                        `total_video`=`total_video`+1 WHERE
                        `UID`='" . (int) $user_id . "'";
-            mysql_query($sql) or mysql_die($sql);
+            DB::query($sql);
             $redirect_url = VSHARE_URL . '/upload/success/' . $video_id . '/remote/';
             Http::redirect($redirect_url);
         }
