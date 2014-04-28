@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/country.class.php';
 require '../include/language/' . LANG . '/lang_admin_user_edit.php';
 
 check_admin_login();
@@ -48,7 +47,7 @@ $sql = "SELECT * FROM `users` WHERE
        `user_id`='" . (int) $_GET['uid'] . "'";
 $user = DB::fetch1($sql);
 
-$countries = new countries();
+$countries = new Country();
 $smarty->assign('country_box', $countries->country_options($user['user_country']));
 
 if ($user['user_email_verified'] == 'yes') {
