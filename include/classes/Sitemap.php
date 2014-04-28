@@ -23,9 +23,9 @@ class Sitemap
     public function getSitemapInfo()
     {
         $sql = "SELECT * FROM `sitemap` ORDER BY `sitemap_id` DESC";
-        $result = mysql_query($sql) or mysql_die($sql);
+        $sitemap_all = DB::fetch($sql);
 
-        while ($info = mysql_fetch_assoc($result)) {
+        foreach ($sitemap_all as $info) {
             $info['format_size'] = $this->formatSize($info['sitemap_size']);
             $this->sitemap_info[] = $info;
         }
@@ -49,20 +49,20 @@ class Sitemap
                `sitemap_create_date`='" . time() . "',
                `sitemap_url_count`='" . (int) $url_count . "',
                `sitemap_name`='$sitemap_name'";
-        mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
     }
 
     public function createSitemapIndex()
     {
         $sql = "SELECT * FROM `sitemap` ORDER BY `sitemap_id` DESC";
-        $result = mysql_query($sql) or mysql_die($sql);
+        $sitemap_all = DB::fetch($sql);
 
-        if (mysql_num_rows($result) > 0) {
+        if ($sitemap_all) {
             $sitemap_index_fp = fopen(VSHARE_DIR . '/sitemap/sitemap_index.xml', 'w');
             $sitemap_index = $this->sitemap_index_header;
             fwrite($sitemap_index_fp, $sitemap_index);
 
-            while ($sitemap_info = mysql_fetch_assoc($result)) {
+            foreach ($sitemap_all as $sitemap_info) {
                 $sitemap = '<sitemap>';
                 fwrite($sitemap_index_fp, "\n\t\t" . $sitemap . "\n\t\t\t");
                 $loc = '<loc>' . VSHARE_URL . '/sitemap/' . $sitemap_info['sitemap_name'] . '.gz</loc>';
@@ -134,7 +134,7 @@ class Sitemap
         $sitemap_info = $this->getSitemapInfo();
 
         $sql = "DELETE FROM `sitemap`";
-        $result = mysql_query($sql) or mysql_die($sql);
+        DB::query($sql);
 
         foreach ($sitemap_info as $key => $val) {
             if (file_exists(VSHARE_DIR . '/sitemap/' . $val['sitemap_name'])) {
