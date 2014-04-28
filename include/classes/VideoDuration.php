@@ -1,9 +1,8 @@
 <?php
 
-class video_duration
+class VideoDuration
 {
-
-    function find_video_duration_ffmpeg($duration_arr)
+    public static function findVideoDurationFfmpeg($duration_arr)
     {
         global $config;
         $video = $duration_arr['src'];
@@ -12,29 +11,25 @@ class video_duration
         @exec("$cmd 2>&1", $output);
         $output_all = implode("\n", $output);
 
-        if ($debug)
-        {
+        if ($debug) {
             echo "<p>$cmd</p>";
             echo "<pre>";
             print_r($output_all);
             echo "</pre>";
         }
 
-        if (@preg_match('/Duration: ([0-9][0-9]:[0-9][0-9]:[0-9\.]+), .*/', $output_all, $regs))
-        {
+        if (@preg_match('/Duration: ([0-9][0-9]:[0-9][0-9]:[0-9\.]+), .*/', $output_all, $regs)) {
             $sec = $regs[1];
             $duration_array = explode(":", $sec);
             $sec = ($duration_array[0] * 3600) + ($duration_array[1] * 60) + $duration_array[2];
             $sec = (int) $sec;
-        }
-        else
-        {
+        } else {
             $sec = 0;
         }
         return $sec;
     }
 
-    function find_video_duration_mplayer($duration_arr)
+    public static function findVideoDurationMplayer($duration_arr)
     {
         global $config;
         $video = $duration_arr['src'];
@@ -43,26 +38,22 @@ class video_duration
         @exec("$cmd 2>&1", $output);
         $output_all = implode("\n", $output);
 
-        if ($debug)
-        {
+        if ($debug) {
             echo "<p>$cmd</p>";
             echo "<pre>";
             print_r($output_all);
             echo "</pre>";
         }
 
-        if (@preg_match('/ID_LENGTH=([0-9\.]+)/', $output_all, $regs))
-        {
+        if (@preg_match('/ID_LENGTH=([0-9\.]+)/', $output_all, $regs)) {
             $sec = (int) $regs[1];
-        }
-        else
-        {
+        } else {
             $sec = 0;
         }
         return $sec;
     }
 
-    function find_video_duration_ffmpeg_php($duration_arr)
+    public static function findVideoDurationFfmpegPhp($duration_arr)
     {
         $video = $duration_arr['src'];
         $output = new ffmpeg_movie($video);
