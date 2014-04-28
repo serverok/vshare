@@ -14,8 +14,6 @@
 
 require 'include/config.php';
 require 'include/functions_seo_name.php';
-require 'include/class.channels.php';
-require 'include/class.tags.php';
 require 'include/class.bulk_import.php';
 require 'Zend/Loader.php';
 Zend_Loader::loadClass('Zend_Gdata_YouTube');
@@ -26,79 +24,59 @@ $sitemap->generateDaily();
 
 $guest_upload = get_config('guest_upload');
 
-if ($guest_upload == 0)
-{
+if ($guest_upload == 0) {
     User::is_logged_in();
     $user_id = $_SESSION['UID'];
-}
-else
-{
+} else {
     $user_name = get_config('guest_upload_user');
-    $sql = "SELECT * FROM `users` WHERE
-           `user_name`='" . DB::quote($user_name) . "'";
-    $result = mysql_query($sql) or mysql_die($sql);
-    $user_info = mysql_fetch_assoc($result);
+    $user_info = User::getByName($user_name);
     $user_id = $user_info['user_id'];
 }
 
-if (isset($_POST['action_upload']))
-{
-    if (empty($_POST['url']))
-    {
+if (isset($_POST['action_upload'])) {
+    if (empty($_POST['url'])) {
         $err = 'You must enter Youtube video url.';
-    }
-    else if (! check_field_exists($_POST['channel'], 'channel_id', 'channels'))
-    {
+    } else if (! check_field_exists($_POST['channel'], 'channel_id', 'channels')) {
         $err = 'Invalid Channel id.';
     }
-    
-    if ($err == '')
-    {
+
+    if ($err == '') {
+
         $url = $_POST['url'];
         $channel_id = $_POST['channel'];
-        
-        if (isset($_POST['field_privacy']))
-        {
-            if ($_POST['field_privacy'] == 'public')
-            {
+
+        if (isset($_POST['field_privacy'])) {
+            if ($_POST['field_privacy'] == 'public') {
                 $type = 'public';
-            }
-            else
-            {
+            } else {
                 $type = 'private';
             }
-        }
-        else
-        {
+        } else {
             $type = 'public';
         }
-        
+
         $import_site = 'youtube';
-        
-        if (preg_match("/youtube/i", $url))
-        {
-            if (preg_match('/&feature=/i', $url))
-            {
+
+        if (preg_match("/youtube/i", $url)) {
+            if (preg_match('/&feature=/i', $url)) {
                 $yt_url = explode('&feature=', $url);
                 $url = $yt_url[0];
             }
-            
+
             $pattern = '/v=([^&]+)/';
             preg_match($pattern, $url, $matches);
             $video_id = $matches[1];
-            
-            if (BulkImport::checkImported($video_id, $import_site))
-            {
+
+            if (BulkImport::checkImported($video_id, $import_site)) {
                 $err = 'Video already exists. Enter another video url.';
             }
-            
-            if ($err == '')
-            {
+
+            if ($err == '') {
                 $video_info = BulkImport::getYoutubeVideoInfo($video_id);
-                
+
                 $seo_name = seo_name($video_info['video_title']);
                 $video_length = sec2hms($video_info['video_duration']);
-                
+
                 $sql = "INSERT INTO `videos` SET
 		               `video_user_id`='" . (int) $user_id . "',
 		               `video_title`='" . DB::quote($video_info['video_title']) . "',
@@ -113,49 +91,43 @@ if (isset($_POST['action_upload']))
 		               `video_add_date`='" . date('Y-m-d') . "',
 		               `video_active`='1',
 		               `video_approve`='$config[approve]'";
-                $result = mysql_query($sql) or mysql_die($sql);
-                $video_id = mysql_insert_id();
-                
+                $video_id = DB::insertGetId($sql);
+
                 $sql = "INSERT INTO `import_track` SET
                        `import_track_unique_id`='" . DB::quote($video_id) . "' ,
                        `import_track_site`='" . DB::quote($import_site) . "'";
-                mysql_query($sql) or mysql_die($sql);
-                
+                DB::query($sql);
+
                 require 'include/class.upload_remote.php';
                 $upload_remote = new upload_remote();
                 $upload_remote->vid = $video_id;
                 $upload_remote->url = $url;
                 $upload_remote->debug = 1;
-                
-                if ($type == 'public' && $config['approve'] == 1)
-                {
+
+                if ($type == 'public' && $config['approve'] == 1) {
                     $current_keyword = DB::quote($upload_video_keywords);
                     $tags = new Tags($current_keyword, $video_id, $_SESSION['UID'], "0|$channels|0");
                     $tags->add();
                 }
-                
+
                 $err = $upload_remote->youtube();
-                
-                if ($err == '')
-                {
+
+                if ($err == '') {
                     $sql = "UPDATE `subscriber` SET
 		                   `total_video`=`total_video`+1 WHERE
 		                   `UID`='" . (int) $user_id . "'";
-                    mysql_query($sql) or mysql_die($sql);
+                    DB::query($sql);
                     $redirect_url = VSHARE_URL . '/upload/success/' . $video_id . '/remote/';
                     Http::redirect($redirect_url);
                 }
             }
-        }
-        else
-        {
+        } else {
             $err = 'Link specified is not supported';
         }
     }
 }
 
-$channels = channels::get_all();
-$smarty->assign('channel_info', $channels);
+$smarty->assign('channel_info', Channel::get());
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('header.tpl');
