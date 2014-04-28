@@ -1,7 +1,6 @@
 <?php
 
 require '../include/config.php';
-require '../include/class.xss.php';
 require '../include/language/' . LANG . '/lang_video_comment_add.php';
 
 $comments_value = isset($_POST['comments_value']) ? $_POST['comments_value'] : '';
