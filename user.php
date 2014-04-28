@@ -46,6 +46,7 @@ $sql = "SELECT * FROM `videos` WHERE
         ORDER BY `video_id` DESC
         LIMIT 8";
 $new_views_array = DB::fetch($sql);
+$new_videos = array();
 
 foreach ($new_views_array AS $new_video) {
     $new_video['video_thumb_url'] = $servers[$new_video['video_thumb_server_id']];
@@ -62,6 +63,7 @@ $sql = "SELECT * FROM `videos` WHERE
         ORDER BY `video_view_number` DESC
         LIMIT 8";
 $popular_video_array = DB::fetch($sql);
+$popular_videos = array();
 
 foreach ($popular_video_array AS $popular_video) {
     $popular_video['video_thumb_url'] = $servers[$popular_video['video_thumb_server_id']];
@@ -102,6 +104,8 @@ if ($config['enable_package'] == 'yes' and isset($_SESSION['UID'])) {
 
 $photo_url = User::get_photo($user_info['user_photo'], $user_info['user_id']);
 
+$is_friend = 'no';
+
 if (isset($_SESSION['UID']))
 {
     $sql = "SELECT * FROM `friends` WHERE
@@ -109,14 +113,12 @@ if (isset($_SESSION['UID']))
            `friend_name`='" . DB::quote($user_name) . "' AND
            `friend_status`='Confirmed'";
 
-    if (DB::fetch($sql)) {
+    if (DB::fetch1($sql)) {
         $is_friend = 'yes';
-    } else {
-        $is_friend = 'no';
     }
-
-    $smarty->assign('is_friend', $is_friend);
 }
+
+$smarty->assign('is_friend', $is_friend);
 
 $sql = "SELECT g.*, gm.group_member_group_id FROM
        `groups` AS g,`group_members` AS gm WHERE
@@ -174,18 +176,11 @@ $smarty->assign('chkuserflag', $chkuserflag);
 $smarty->assign('html_title', $user_name);
 $smarty->assign('html_keywords', $user_name);
 $smarty->assign('html_description', $user_name);
-
-if (isset($profile_comments)) {
-    $smarty->assign('profile_comments', $profile_comments);
-}
-
-if (isset($new_videos)) {
-    $smarty->assign('new_video', $new_videos);
-    $smarty->assign('new_video_total', count($new_videos));
-    $smarty->assign('videos', $new_videos);
-    $smarty->assign('popular', $popular_videos);
-    $smarty->assign('popular_total', count($popular_videos));
-}
+$smarty->assign('new_video', $new_videos);
+$smarty->assign('new_video_total', count($new_videos));
+$smarty->assign('videos', $new_videos);
+$smarty->assign('popular', $popular_videos);
+$smarty->assign('popular_total', count($popular_videos));
 
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);

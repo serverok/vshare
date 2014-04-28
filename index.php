@@ -42,6 +42,9 @@ if ($poll) {
     $smarty->assign('poll_id', $poll['poll_id']);
     $smarty->assign('poll_question', $poll['poll_qty']);
     $smarty->assign('list', $poll_answer);
+
+    $pollingpanel = 'Enable';
+    $smarty->assign('pollinganel', $pollingpanel);
 }
 
 $cache_id = 'home_page';

@@ -133,6 +133,8 @@ $smarty->assign(array(
     'html_description' => $title . ' Members - page ' . $page
 ));
 
+$smarty->assign('err', $err);
+$smarty->assign('msg', $msg);
 $smarty->assign('sort', $sort);
 $smarty->assign('title', $title);
 $smarty->assign('start_num', $start_num);

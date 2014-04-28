@@ -22,7 +22,7 @@ if (isset($_GET['k']) && isset($_GET['i'])) {
            `data1`='" . DB::quote($data1) . "' AND
            `vkey`='" . DB::quote($_GET['k']) . "' AND
            `id`='" . DB::quote($_GET['i']) . "'";
-    $verify_info = DB::fetch($sql);
+    $verify_info = DB::fetch1($sql);
 
     if ($verify_info) {
 

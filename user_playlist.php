@@ -130,6 +130,18 @@ if ($playlists)
     }
 }
 
+$allow_playlist = $user_info['user_playlist_public'];
+$allow_favorite = $user_info['user_favourite_public'];
+
+if (isset($_SESSION['UID'])) {
+    if ($_SESSION['UID'] == $user_info['user_id']) {
+        $allow_playlist = $allow_favorite = 1;
+    }
+}
+
+$smarty->assign('allow_playlist', $allow_playlist);
+$smarty->assign('allow_favorite', $allow_favorite);
+
 $html_title = "$html_playlist_name $user_info[user_name]'s playlists - page $page";
 $smarty->assign(array(
     'html_title' => $html_title,

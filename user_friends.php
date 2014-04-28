@@ -47,6 +47,17 @@ $end_num = $start_from + $friends_count;
 
 $page_links = paginate($total, $config['items_per_page'], ".", "", $page);
 
+$allow_playlist = $user_info['user_playlist_public'];
+$allow_favorite = $user_info['user_favourite_public'];
+
+if (isset($_SESSION['UID'])) {
+    if ($_SESSION['UID'] == $user_info['user_id']) {
+        $allow_playlist = $allow_favorite = 1;
+    }
+}
+
+$smarty->assign('allow_playlist', $allow_playlist);
+$smarty->assign('allow_favorite', $allow_favorite);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('page', $page);

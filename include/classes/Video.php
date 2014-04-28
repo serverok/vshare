@@ -101,13 +101,13 @@ class Video
         }
 
         if ($tags_delete == 1) {
-            $tags = new Tags($this->video_info['video_keywords'], $this->video_id, $this->video_info['video_user_id'], $channel_list_formatted);
+            $tags = new Tag($this->video_info['video_keywords'], $this->video_id, $this->video_info['video_user_id'], $channel_list_formatted);
             $tags->delete();
             unset($tags);
         }
 
         if ($tags_add == 1) {
-            $tags = new Tags($this->video_keywords, $this->video_id, $this->video_info['video_user_id'], $channel_list_formatted);
+            $tags = new Tag($this->video_keywords, $this->video_id, $this->video_info['video_user_id'], $channel_list_formatted);
             $tags->add();
             $video_tags = $tags->get_tags();
             $this->video_keywords = implode(' ', $video_tags);
@@ -355,8 +355,7 @@ class Video
                 $ftp->close();
             }
 
-            require_once VSHARE_DIR . '/include/class.tags.php';
-            $tags = new Tags($current_keyword, $video_id, '', '');
+            $tags = new Tag($current_keyword, $video_id, '', '');
             $tags->delete($delete);
             unset($tags);
 

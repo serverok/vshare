@@ -34,6 +34,8 @@ if ($signup_enable == 0) {
     $msg = $lang['signup_disable'];
 }
 
+$signup_verification_msg = '';
+
 if (isset($_POST['submit'])) {
 
     if (get_magic_quotes_gpc()) {
@@ -154,8 +156,6 @@ if (isset($_POST['submit'])) {
     		}
         }
     }
-
-    $smarty->assign('signup', $signup);
 
     if ($err == '') {
         $user_ip = User::get_ip();
@@ -343,14 +343,12 @@ if (isset($_POST['submit'])) {
         } else {
             if ($config['signup_verify'] == '1') {
                 $signup_verification_msg = $lang['signup_verify_email'];
-                $smarty->assign('signup_verification_msg', $signup_verification_msg);
             } else if ($config['signup_verify'] == '2') {
                 $sql = "UPDATE `users` SET
                        `user_account_status`='Inactive' WHERE
                        `user_id`='" . (int) $userid . "'";
                 DB::query($sql);
                 $signup_verification_msg = $lang['signup_verify_admin'];
-                $smarty->assign('signup_verification_msg', $signup_verification_msg);
             } else {
                 User::login($_POST['user_name']);
                 $redirect_url = VSHARE_URL . '/friends/invite/?welcome=1';
@@ -358,6 +356,14 @@ if (isset($_POST['submit'])) {
             }
         }
     }
+} else {
+    $signup = array(
+        'user_name' => '',
+        'email' => '',
+        'month' => '',
+        'day' => '',
+        'year' => '',
+    );
 }
 
 if ($config['enable_package'] == 'yes') {
@@ -392,6 +398,8 @@ $smarty->assign(array(
     'html_description' => 'Sign Up'
 ));
 
+$smarty->assign('signup', $signup);
+$smarty->assign('signup_verification_msg', $signup_verification_msg);
 $smarty->assign('age_minimum', get_config('signup_age_min'));
 $smarty->assign('captcha_type', $captcha_type);
 $smarty->assign('signup_dob', $signup_dob);

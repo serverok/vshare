@@ -15,10 +15,12 @@
 require 'include/config.php';
 require 'include/language/' . LANG . '/lang_login.php';
 
+$inactive_user = 0;
+$user_name = '';
+
 if (isset($_POST['action_login']))
 {
     $user_name = htmlspecialchars_uni($_POST['user_name']);
-    $smarty->assign('user_name', $user_name);
     $password = $_POST['user_password'];
 
     if ($user_name == '') {
@@ -57,10 +59,10 @@ if (isset($_POST['action_login']))
 
                 if ($config['signup_verify'] == '2') {
                     $err = $lang['inactive_user_admin'];
-                    $smarty->assign('inactive_user', '0');
+                    $inactive_user = 0;
                 } else {
                     $err = $lang['inactive_user'];
-                    $smarty->assign('inactive_user', '1');
+                    $inactive_user = 1;
                 }
 
                 $_SESSION['INACTIVE_USER'] = $user_info['user_name'];
@@ -123,7 +125,8 @@ $smarty->assign(array(
     'html_title' => 'Login',
     'html_description' => 'Login'
 ));
-
+$smarty->assign('inactive_user', $inactive_user);
+$smarty->assign('user_name', $user_name);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('sub_menu', 'menu_home.tpl');

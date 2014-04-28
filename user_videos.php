@@ -108,7 +108,7 @@ if ($show_video) {
             ORDER BY `video_id` DESC
             LIMIT $start_from, $config[items_per_page]";
     $user_videos_all = DB::fetch($sql);
-
+    $videos = array();
     $video_keywords_all = '';
 
     foreach ($user_videos_all as $user_video) {
@@ -121,13 +121,10 @@ if ($show_video) {
     $view = array();
     $video_keywords_array_all = explode(' ', $video_keywords_all);
     $view['video_keywords_array_all'] = array_remove_duplicate($video_keywords_array_all);
-
-    if (isset($videos)) {
-        $view['videos'] = $videos;
-    }
+    $view['videos'] = $videos;
 
     $start_num = $start_from + 1;
-    $end_num = $start_from + mysql_num_rows($result);
+    $end_num = $start_from + count($videos);
     $smarty->assign('start_num', $start_num);
     $smarty->assign('end_num', $end_num);
 
@@ -144,6 +141,17 @@ $smarty->assign(array(
     'html_keywords' => $html_title
 ));
 
+$allow_playlist = $user_info['user_playlist_public'];
+$allow_favorite = $user_info['user_favourite_public'];
+
+if (isset($_SESSION['UID'])) {
+    if ($_SESSION['UID'] == $user_info['user_id']) {
+        $allow_playlist = $allow_favorite = 1;
+    }
+}
+
+$smarty->assign('allow_playlist', $allow_playlist);
+$smarty->assign('allow_favorite', $allow_favorite);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('page', $page);

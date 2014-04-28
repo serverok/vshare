@@ -144,7 +144,7 @@ function insert_time_to_date($a)
 
 function insert_video_channel($a)
 {
-    global $conn;
+    $a['tbl'] = isset($a['tbl']) ? $a['tbl'] : '';
 
     if ($a['tbl'] == '')
     {
@@ -343,6 +343,7 @@ function insert_comment_count($a)
 function insert_video_count($a)
 {
     $add = '';
+    $a['type'] = isset($a['type']) ? $a['type'] : 'public';
 
     if ($a['type'] == 'public')
     {
@@ -405,7 +406,9 @@ function insert_recently_active_users($a)
 
 function insert_group_count($a)
 {
-    global $conn;
+    $a['chid'] = isset($a['chid']) ? $a['chid'] : '';
+    $a['uid'] = isset($a['uid']) ? $a['uid'] : '';
+    $a['type'] = isset($a['type']) ? $a['type'] : 'public';
 
     if ($a['chid'] != '')
     {
@@ -436,8 +439,7 @@ function insert_group_count($a)
 
 function insert_group_info_count($a)
 {
-    global $conn;
-    $sql_extra == '';
+    $sql_extra = '';
     $execute_query = 1;
 
     if (isset($a['query']))
@@ -839,7 +841,7 @@ function insert_voter_name($voter_id)
     $name['name'] = $tmp['user_name'];
     $photo_dir = VSHARE_DIR . '/photo/' . $voter_id['id'] . '.jpg';
     if ($tmp['user_photo'] == 1) {
-        $photo_url = STATIC_URL . '/photo/' . $voter_id['id'] . '.jpg';
+        $photo_url = VSHARE_URL . '/photo/' . $voter_id['id'] . '.jpg';
     } else {
         $photo_url = IMG_CSS_URL . '/images/no_pic.gif';
     }

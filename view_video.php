@@ -167,14 +167,16 @@ if (isset($show_video) && $show_video == 1 && $err == '') {
         if (! isset($related_videos[$video_next])) {
             $view['video_next'] = 0;
         } else {
-            $view['video_next'] = $related_videos["$video_next"];
+            $view['video_next'] = $related_videos[$video_next];
         }
 
         if (! isset($related_videos[$video_prev])) {
             $view['video_prev'] = 0;
         } else {
-            $view['video_prev'] = $related_videos["$video_prev"];
+            $view['video_prev'] = $related_videos[$video_prev];
         }
+
+        $package_allow_video_download = 0;
 
         if (isset($_SESSION['UID'])) {
             $sql = "SELECT * FROM  `favourite` WHERE
@@ -193,19 +195,17 @@ if (isset($show_video) && $show_video == 1 && $err == '') {
                 $sql = "SELECT `package_allow_download` FROM `packages` WHERE
 	                   `package_id`='" . (int) $subscriber_info['pack_id'] . "'";
                 $package_info = DB::fetch1($sql);
-                $view['package_allow_video_download'] = $package_info['package_allow_download'];
+                $package_allow_video_download = $package_info['package_allow_download'];
             }
         }
+
+        $view['package_allow_video_download'] = $package_allow_video_download;
 
         $sql = "SELECT v.* FROM `videos` AS `v`,`video_responses` AS `vr` WHERE
                 vr.video_response_video_id='" . (int) $video_id . "' AND
                 vr.video_response_to_video_id=v.video_id";
-        $result = DB::fetch($sql);
-
-        if (count($result) > 0) {
-            $owner_video_info = mysql_fetch_assoc($result);
-            $view['owner_video_info'] = $owner_video_info;
-        }
+        $owner_video_info = DB::fetch1($sql);
+        $view['owner_video_info'] = $owner_video_info;
 
         $sql = "SELECT `user_name`,`user_website` FROM `users` WHERE
                `user_id`='" . (int) $video_info['video_user_id'] . "'";

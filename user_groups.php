@@ -66,6 +66,17 @@ $start_num = $start_from + 1;
 $end_num = $start_from + $num_result;
 $page_links = paginate($total, $config['items_per_page'], '.', '', $page);
 
+$allow_playlist = $user_info['user_playlist_public'];
+$allow_favorite = $user_info['user_favourite_public'];
+
+if (isset($_SESSION['UID'])) {
+    if ($_SESSION['UID'] == $user_info['user_id']) {
+        $allow_playlist = $allow_favorite = 1;
+    }
+}
+
+$smarty->assign('allow_playlist', $allow_playlist);
+$smarty->assign('allow_favorite', $allow_favorite);
 $smarty->assign('start_num', $start_num);
 $smarty->assign('end_num', $end_num);
 $smarty->assign('page_links', $page_links);

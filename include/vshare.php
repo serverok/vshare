@@ -12,6 +12,15 @@ define('VSHARE_DIR', $config['basedir']);
 define('VSHARE_URL', $config['baseurl']);
 $config['TMB_DIR'] = VSHARE_DIR . '/thumb';
 
+require VSHARE_DIR . '/include/smarty/libs/Smarty.class.php';
+
+$smarty = new Smarty();
+$smarty->template_dir = VSHARE_DIR . '/templates';
+$smarty->compile_dir = VSHARE_DIR . '/templates_c';
+$smarty->cache_dir = VSHARE_DIR . '/templates_c/cache';
+$smarty->caching = 0;
+$smarty->error_reporting = E_ALL;
+
 function vshare_autoload ($my_class_name) {
         include(__DIR__ . '/classes/' . $my_class_name . ".php");
 }
@@ -20,16 +29,7 @@ spl_autoload_register("vshare_autoload");
 
 DB::connect($db_host, $db_user, $db_pass, $db_name);
 
-require VSHARE_DIR . '/include/smarty/libs/Smarty.class.php';
 require VSHARE_DIR . '/include/functions.php';
-
-$smarty = new Smarty();
-
-$smarty->template_dir = VSHARE_DIR . '/templates';
-$smarty->compile_dir = VSHARE_DIR . '/templates_c';
-$smarty->cache_dir = VSHARE_DIR . '/templates_c/cache';
-$smarty->caching = 0;
-$smarty->error_reporting = E_ALL & ~E_NOTICE;
 
 $sql = "SELECT * FROM `sconfig`";
 $result = DB::query($sql);
@@ -60,7 +60,13 @@ $smarty->assign(array(
     'servers' => $servers,
     'base_url' => VSHARE_URL,
     'base_dir' => VSHARE_DIR,
-    'img_css_url' => IMG_CSS_URL
+    'img_css_url' => IMG_CSS_URL,
+    'html_head_extra' => '',
+    'html_extra' => '',
+    'html_title' => '',
+    'sub_menu' => '',
+    'err' => '',
+    'msg' => '',
 ));
 
 if ($config['approve'] == 1) {

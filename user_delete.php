@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.mail.php';
 
 $mail_send = 0;
 
