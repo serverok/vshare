@@ -326,11 +326,6 @@ function process_video($vid, $debug = 1)
         $log_text = 'Find video duration - START';
         write_log($log_text, $log_file_name, $debug, 'html');
 
-        require VSHARE_DIR . '/include/class.video_duration.php';
-        require VSHARE_DIR . '/include/class.video_bitrate.php';
-        require VSHARE_DIR . '/include/functions_flv.php';
-        require VSHARE_DIR . '/include/functions_mp4.php';
-
         $video_duration_cmd = get_config('video_duration_cmd');
 
         DB::close();
@@ -340,17 +335,17 @@ function process_video($vid, $debug = 1)
         $duration_arr['debug'] = $debug;
 
         if ($video_duration_cmd == 0) {
-            $duration = video_duration::find_video_duration_mplayer($duration_arr);
+            $duration = VideoDuration::findVideoDurationMplayer($duration_arr);
             $find_duration_with = 'mplayer';
         } else if ($video_duration_cmd == 1) {
-            $duration = video_duration::find_video_duration_ffmpeg($duration_arr);
+            $duration = VideoDuration::findVideoDurationFfmpeg($duration_arr);
             $find_duration_with = 'ffmpeg';
         } else {
-            $duration = video_duration::find_video_duration_ffmpeg_php($duration_arr);
+            $duration = VideoDuration::findVideoDurationFfmpegPhp($duration_arr);
             $find_duration_with = 'ffmpeg-php';
         }
 
-        $bit_rate = (int) video_bitrate::findVideoBitrateFfmpeg($duration_arr);
+        $bit_rate = (int) VideoBitrate::findVideoBitrateFfmpeg($duration_arr);
 
         unset($duration_arr);
 
@@ -456,9 +451,9 @@ function process_video($vid, $debug = 1)
          * insert flv metadata
          */
         if ($video_output_format == 'flv') {
-            flv_metadata($rand_flv_name, $video_folder, $log_file_name, $debug);
+            Media::flvMetadata($rand_flv_name, $video_folder, $log_file_name, $debug);
         } else if ($video_output_format == 'mp4') {
-            mp4_metadata($rand_flv_name, $video_folder, $log_file_name, $debug);
+            Media::mp4Metadata($rand_flv_name, $video_folder, $log_file_name, $debug);
         }
 
         if (! file_exists($video_flv)) {
