@@ -930,3 +930,8 @@ function insert_video_response_count($a)
            `video_response_active`='1'";
     return DB::getTotal($sql);
 }
+
+function insert_video_rating($a)
+{
+    return VideoRating::showRate($a['id']);
+}

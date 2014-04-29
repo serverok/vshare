@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/functions_video_rating.php';
 require 'include/language/' . LANG . '/lang_view_video.php';
 
 $video_id = $_GET['id'];
