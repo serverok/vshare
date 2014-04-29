@@ -150,7 +150,7 @@ class Ftp
     function upload_video($config)
     {
         $this->initialize($config);
-        $this->get_video_info();
+        $this->video_info = Video::getById($this->video_id);
 
         if (! $this->select_video_server($this->video_info['video_thumb_server_id'])) {
             $this->log('<p>Unable to select FTP server.</p>');
@@ -202,15 +202,10 @@ class Ftp
         return 1;
     }
 
-    private function get_video_info()
-    {
-        $this->video_info = Video::getById($this->video_id);
-    }
-
     function upload_thumb($config)
     {
         $this->initialize($config);
-        $this->get_video_info();
+        $this->video_info = Video::getById($this->video_id);
 
         if (! $this->select_thumb_server()) {
             $this->log('<p>Unable to select FTP server.</p>');
@@ -304,7 +299,7 @@ class Ftp
     function delete_video($config)
     {
         $this->initialize($config);
-        $this->get_video_info();
+        $this->video_info = Video::getById($this->video_id);
 
         if (! $this->select_video_server()) {
             $this->log('<p>Unable to select FTP server.</p>');
@@ -328,7 +323,7 @@ class Ftp
     function delete_thumb($config)
     {
         $this->initialize($config);
-        $this->get_video_info();
+        $this->video_info = Video::getById($this->video_id);
 
         if (! $this->select_thumb_server()) {
             $this->log('<p>Unable to select FTP server.</p>');

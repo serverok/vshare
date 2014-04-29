@@ -44,7 +44,7 @@ class Video
         $channel_list_formatted = implode('|', $this->video_channels);
         $channel_list_formatted = '0|' . $channel_list_formatted . '|0';
 
-        $this->video_info = $this->get_video_info($this->video_id);
+        $this->video_info = Video::getById($this->video_id);
 
         if ($this->is_admin == 0) {
             if ($_SESSION['UID'] != $this->video_info['video_user_id']) {
@@ -146,19 +146,6 @@ class Video
         DB::query($sql);
 
         return 1;
-    }
-
-    public function get_video_info($video_id)
-    {
-        $sql = "SELECT * FROM `videos` WHERE
-               `video_id`='" . (int) $video_id . "'";
-        $video_info = DB::fetch1($sql);
-
-        if ($video_info) {
-            return $video_info;
-        } else {
-            return 0;
-        }
     }
 
     public function validate_video_info()

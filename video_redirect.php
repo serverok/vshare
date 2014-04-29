@@ -23,7 +23,7 @@ if (! is_numeric($video_id))
     Http::redirect(VSHARE_URL);
 }
 
-$video_info = Video::get_video_info($video_id);
+$video_info = Video::getById($video_id);
 
 if ($video_info == 0 || $video_info['video_user_id'] == 0)
 {

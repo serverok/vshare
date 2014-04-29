@@ -55,7 +55,7 @@ if (! $view) {
 
     $view = array();
 
-    $video_info = Video::get_video_info($video_id);
+    $video_info = Video::getById($video_id);
     $video_info['video_thumb_url'] = $servers[$video_info['video_thumb_server_id']];
     $view['video_info'] = $video_info;
 

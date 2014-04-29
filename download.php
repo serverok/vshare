@@ -22,7 +22,7 @@ if ($config['allow_download'] != 1) {
 
 User::is_logged_in();
 
-$video_info = Video::get_video_info($_GET['video_id']);
+$video_info = Video::getById($_GET['video_id']);
 $video_name = $video_info['video_name'];
 
 $file_path = VSHARE_DIR . '/video/' . $video_name;
