@@ -1,6 +1,6 @@
 <?php
 
-class video_player
+class VideoPlayer
 {
     var $video_info;
 

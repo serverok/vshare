@@ -1,6 +1,6 @@
 <?php
 
-class upload_remote
+class UploadRemote
 {
     var $vid;
     var $url;
