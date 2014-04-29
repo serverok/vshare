@@ -1,7 +1,6 @@
 <?php
 
 require '../include/config.php';
-require '../include/functions_ajax.php';
 require '../include/language/' . LANG . '/lang_user_comment_add.php';
 
 $comments = isset($_POST['comment_value']) ? $_POST['comment_value'] : '';
@@ -17,7 +16,7 @@ if (!is_numeric($profile_id)) {
 }
 
 if (!empty($err)) {
-    return_json($err, 'error');
+    Ajax::returnJson($err, 'error');
 	exit();
 }
 
@@ -59,13 +58,13 @@ if (isset($_SESSION['USERNAME'])) {
 		$result = DB::query($sql);
 
 		if (DB::affectedRows() >= 1) {
-            return_json($lang['comment_post'], 'success');
+            Ajax::returnJson($lang['comment_post'], 'success');
 		} else {
-            return_json($lang['comment_post_error'], 'error');
+            Ajax::returnJson($lang['comment_post_error'], 'error');
 		}
 	} else {
-        return_json($lang['comment_post_error'], 'error');
+        Ajax::returnJson($lang['comment_post_error'], 'error');
 	}
 } else {
-    return_json($lang['guest'], 'error');
+    Ajax::returnJson($lang['guest'], 'error');
 }

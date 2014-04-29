@@ -1,7 +1,6 @@
 <?php
 
 require '../include/config.php';
-require '../include/functions_ajax.php';
 require '../include/language/' . LANG . '/lang_vote_add.php';
 
 $answer = $_POST['value'];
@@ -14,7 +13,7 @@ if (! is_numeric($id)) {
 }
 
 if (! empty($err)) {
-    return_json($err, 'error');
+    Ajax::returnJson($err, 'error');
     exit(0);
 }
 
@@ -27,7 +26,7 @@ if ($config['user_poll'] == "Once") {
            `poll_result_voter_id`='" . (int) $_SESSION['UID'] . "'";
     $total = DB::getTotal($sql);
     if ($total > 0) {
-        return_json($lang['already_voted'], 'error');
+        Ajax::returnJson($lang['already_voted'], 'error');
         exit();
     }
 }
@@ -44,7 +43,7 @@ if (DB::affectedRows() > 0) {
     $poll_info = Poll::display($id);
     $smarty->assign('poll_info', $poll_info);
     $fetch_view_vote = $smarty->fetch('view_vote.tpl');
-    return_json($fetch_view_vote, 'success');
+    Ajax::returnJson($fetch_view_vote, 'success');
 }
 
 DB::close();

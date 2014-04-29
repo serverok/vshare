@@ -1,7 +1,6 @@
 <?php
 
 require '../include/config.php';
-require '../include/functions_ajax.php';
 require '../include/language/' . LANG . '/lang_user_rate.php';
 
 $voter = isset($_POST['voter']) ? $_POST['voter'] : '';
@@ -10,7 +9,7 @@ $rate = isset($_POST['rate']) ? $_POST['rate'] : '';
 
 if (! is_numeric($voter) || ! is_numeric($candidate) || ! is_numeric($rate)) {
     if ($config['debug']) error_log("Hacking attempt \n", 3, VSHARE_DIR . '/templates_c/log_ajax_user_rate.txt');
-    return_json('Hacking attempt', 'error');
+    Ajax::returnJson('Hacking attempt', 'error');
     exit(0);
 }
 
@@ -26,8 +25,8 @@ if (! $user_already_voted) {
            `vote`='" . (int) $rate . "'";
     DB::query($sql);
     if ($config['debug']) error_log("$lang[rated] \n", 3, VSHARE_DIR . '/templates_c/log_ajax_user_rate.txt');
-    return_json($lang['rated'], 'success');
+    Ajax::returnJson($lang['rated'], 'success');
 } else {
     if ($config['debug']) error_log("$lang[already_rated] \n", 3, VSHARE_DIR . '/templates_c/log_ajax_user_rate.txt');
-    return_json($lang['already_rated'], 'success');
+    Ajax::returnJson($lang['already_rated'], 'success');
 }

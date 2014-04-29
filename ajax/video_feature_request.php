@@ -1,7 +1,6 @@
 <?php
 
 require '../include/config.php';
-require '../include/functions_ajax.php';
 require '../include/language/' . LANG . '/lang_video_feature_request.php';
 
 $videoId = isset($_POST['vid']) ? $_POST['vid'] : '';
@@ -14,7 +13,7 @@ if (! is_numeric($videoId)) {
 
 if ($err != '') {
     if ($config['debug']) error_log("$err \n", 3, VSHARE_DIR . '/templates_c/ajax_video_feature_log.txt');
-    return_json($err, 'error');
+    Ajax::returnJson($err, 'error');
     exit();
 }
 
@@ -37,5 +36,5 @@ if ($already_requested) {
 DB::query($sql);
 
 if ($config['debug']) error_log("$err \n", 3, VSHARE_DIR . '/templates_c/ajax_video_feature_log.txt');
-return_json($lang['feature_request_ok'], 'success');
+Ajax::returnJson($lang['feature_request_ok'], 'success');
 DB::close();

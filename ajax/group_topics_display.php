@@ -1,7 +1,6 @@
 <?php
 
 require '../include/config.php';
-require '../include/functions_ajax.php';
 
 $group_id = isset($_GET['group_id']) ? (int) $_GET['group_id'] : '';
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -14,7 +13,7 @@ if ($page == 0 || !is_numeric($page)) {
 if ($group_id == '') {
 	$err = 'There is no groups';
 	if ($ajax_debug) error_log("$err \n",3, VSHARE_DIR . '/ajax/log.txt');
-	return_json($err,'error');
+	Ajax::returnJson($err,'error');
 	exit;
 }
 
@@ -84,11 +83,11 @@ if ($group_info) {
 			$smarty->assign('group_id',$group_id);
 
 			$fetch_group_topics = $smarty->fetch('group_topics.tpl');
-			return_json($fetch_group_topics,'success');
+			Ajax::returnJson($fetch_group_topics,'success');
 	}
 } else  {
 	$err = 'There is no groups';
 	if ($ajax_debug) error_log("$err \n",3, VSHARE_DIR . '/ajax/log.txt');
-	return_json($err,'error');
+	Ajax::returnJson($err,'error');
 	exit;
 }

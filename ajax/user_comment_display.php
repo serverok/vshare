@@ -1,7 +1,6 @@
 <?php
 
 require '../include/config.php';
-require '../include/functions_ajax.php';
 
 $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : 0;
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;

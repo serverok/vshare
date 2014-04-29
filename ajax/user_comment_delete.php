@@ -1,7 +1,6 @@
 <?php
 
 require '../include/config.php';
-require '../include/functions_ajax.php';
 require '../include/language/' . LANG . '/lang_user_comment_delete.php';
 
 $ajax_debug = 0;
@@ -17,7 +16,7 @@ if (!is_numeric($comment_id)) {
 
 if (!empty($err)) {
     if ($ajax_debug) error_log("ERROR: $err \n",3, VSHARE_DIR . '/ajax/log.txt');
-    return_json($err,'error');
+    Ajax::returnJson($err,'error');
 	exit(0);
 }
 
@@ -32,4 +31,4 @@ if (DB::affectedRows() >= 1) {
 	$msg = $comment_id;
 }
 
-return_json($comment_id,'success');
+Ajax::returnJson($comment_id,'success');

@@ -1,13 +1,12 @@
 <?php
 
 require '../include/config.php';
-require '../include/functions_ajax.php';
 require '../include/language/' . LANG . '/lang_user_rate.php';
 
 $candidate_id = isset($_POST['candidate']) ? $_POST['candidate'] : 0;
 
 if (! is_numeric($candidate_id)) {
-    return_json('Hacking attempt', 'error');
+    Ajax::returnJson('Hacking attempt', 'error');
     exit(0);
 }
 
@@ -41,8 +40,8 @@ if ($rate > 0) {
 }
 
 if ($rate > 0) {
-    return_json($list, 'success');
+    Ajax::returnJson($list, 'success');
 } else {
     if ($config['debug']) error_log(__FILE__ . " $err \n", 3, VSHARE_DIR . '/templates_c/ajax_log.txt');
-    return_json($lang['not_yet_rated'], 'error');
+    Ajax::returnJson($lang['not_yet_rated'], 'error');
 }

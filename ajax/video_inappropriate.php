@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/functions_ajax.php';
 require '../include/language/' . LANG . '/lang_video_inappropriate.php';
 
 $video_id = isset($_POST['vid']) ? $_POST['vid'] : '';
@@ -45,7 +44,7 @@ else if (strlen($comment) < 10)
 
 if ($err != '')
 {
-    return_json($err, 'error');
+    Ajax::returnJson($err, 'error');
     exit();
 }
 
@@ -109,5 +108,5 @@ if ($mail_abuse_report) {
     $mail->send($msg);
 }
 
-return_json($lang['request_sent'], 'success');
+Ajax::returnJson($lang['request_sent'], 'success');
 DB::close();
