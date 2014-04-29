@@ -7,19 +7,27 @@
  */
 class HTMLPurifier_AttrDef_CSS_TextDecoration extends HTMLPurifier_AttrDef
 {
-    
-    public function validate($string, $config, $context) {
-        
+
+    /**
+     * @param string $string
+     * @param HTMLPurifier_Config $config
+     * @param HTMLPurifier_Context $context
+     * @return bool|string
+     */
+    public function validate($string, $config, $context)
+    {
         static $allowed_values = array(
             'line-through' => true,
             'overline' => true,
             'underline' => true,
         );
-        
+
         $string = strtolower($this->parseCDATA($string));
-        
-        if ($string === 'none') return $string;
-        
+
+        if ($string === 'none') {
+            return $string;
+        }
+
         $parts = explode(' ', $string);
         $final = '';
         foreach ($parts as $part) {
@@ -28,10 +36,11 @@ class HTMLPurifier_AttrDef_CSS_TextDecoration extends HTMLPurifier_AttrDef
             }
         }
         $final = rtrim($final);
-        if ($final === '') return false;
+        if ($final === '') {
+            return false;
+        }
         return $final;
-        
     }
-    
 }
 
+// vim: et sw=4 sts=4
