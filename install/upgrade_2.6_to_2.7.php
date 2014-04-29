@@ -14,7 +14,6 @@
 
 $html_title = 'VSHARE UPGRADE';
 require '../include/config.php';
-require '../include/functions_seo_name.php';
 require './inc/class.sql_import.php';
 require './inc/functions_upgrade.php';
 require './tpl/header.php';
@@ -40,7 +39,7 @@ $channels_all = DB::fetch($sql);
 write_log($sql, 'vshare_upgrade', 0,'txt');
 
 foreach ($channels_all as $channel) {
-    $seo_name = seo_name($channel['channel_name']);
+    $seo_name = Url::seoName($channel['channel_name']);
     $sql = "UPDATE `channels` SET
            `channel_seo_name`='" . DB::quote($seo_name) . "' WHERE
            `channel_id`='" . $channel['channel_id'] . "'";

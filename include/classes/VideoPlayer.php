@@ -52,8 +52,7 @@ class VideoPlayer
         $video_id = $this->video_info['video_id'];
         $video_folder = $this->video_info['video_folder'];
 
-        require VSHARE_DIR . '/include/functions_file.php';
-        $file = get_video_url($this->video_info['video_server_id'], $this->video_info['video_folder'], $this->video_info['video_flv_name']);
+        $file = File::getVideoUrl($this->video_info['video_server_id'], $this->video_info['video_folder'], $this->video_info['video_flv_name']);
         $video_thumb_url = $servers[$this->video_info['video_thumb_server_id']];
         $vshare_player = get_config('vshare_player');
 

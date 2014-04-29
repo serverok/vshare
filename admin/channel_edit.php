@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/functions_seo_name.php';
 require '../include/language/' . LANG . '/lang_admin_channel_edit.php';
 
 check_admin_login();
@@ -29,7 +28,7 @@ if (isset($_POST['edit_channel'])) {
     }
 
     $_POST['name'] = trim($_POST['name']);
-    $seo_name = seo_name($_POST['name']);
+    $seo_name = Url::seoName($_POST['name']);
 
     $sql = "SELECT * FROM `channels` WHERE
             `channel_seo_name`='" . $seo_name . "' AND

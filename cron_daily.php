@@ -17,8 +17,6 @@ $current_folder = dirname(__FILE__);
 chdir("$current_folder");
 
 require $current_folder . '/include/config.php';
-require $current_folder . '/include/class.upload_remote.php';
-require $current_folder . '/include/functions_seo_name.php';
 require $current_folder . '/include/youtube.php';
 require 'Zend/Loader.php';
 Zend_Loader::loadClass('Zend_Gdata_YouTube');
@@ -63,7 +61,7 @@ foreach ($auto_import_all as $import_auto_info) {
 
                 if ($import_auto_info['import_auto_download'] == 0) {
 
-                    $seo_name = seo_name($video_info['video_title']);
+                    $seo_name = Url::seoName($video_info['video_title']);
 
                     $sql = "INSERT INTO `videos` SET
 		                   `video_user_id`='" . (int) $user_info['user_id'] . "',
@@ -82,7 +80,7 @@ foreach ($auto_import_all as $import_auto_info) {
 
                     $vid = DB::insertGetId($sql);
 
-                    $upload = new upload_remote();
+                    $upload = new UploadRemote();
                     $upload->vid = $vid;
                     $upload->url = $video_url;
                     $upload->debug = 1;

@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/functions_seo_name.php';
 require 'include/language/' . LANG . '/lang_group_new.php';
 
 User::is_logged_in();
@@ -32,7 +31,7 @@ if (isset($_POST['submit'])) {
 
     $short_name = strip_tags($_POST['short_name']);
     $short_name = trim($short_name);
-    $short_name = seo_name($short_name);
+    $short_name = Url::seoName($short_name);
 
     $smarty->assign('group_name', $group_name);
     $smarty->assign('tags', $tags);

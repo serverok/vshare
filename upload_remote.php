@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/functions_seo_name.php';
 require 'include/language/' . LANG . '/lang_upload_remote.php';
 
 $guest_upload = get_config('guest_upload');
@@ -89,7 +88,7 @@ if (isset($_POST['submit'])) {
 
     if ($err == '' && preg_match("/youtube/i", $url) || preg_match("/revver/i", $url) || preg_match("/metacafe/i", $url)) {
         # TO CREATE SEO NAME
-        $seo_name = seo_name($upload_video_title);
+        $seo_name = Url::seoName($upload_video_title);
 
         $video_duration = '1';
         $video_length = '01:00';

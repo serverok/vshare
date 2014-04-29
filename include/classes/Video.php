@@ -54,8 +54,7 @@ class Video
         }
 
         if ($this->video_info['video_title'] != $this->video_title) {
-            require VSHARE_DIR . '/include/functions_seo_name.php';
-            $seo_name = seo_name($this->video_title);
+            $seo_name = Url::seoName($this->video_title);
             $seo_name_org = $seo_name;
             $i = 1;
 

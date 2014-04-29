@@ -22,7 +22,6 @@ Put all flv files from clipshare flvideos folder to templates_c/import folder.
 */
 
 require("../include/config.php");
-require("../include/functions_seo_name.php");
 require("../include/class.tags.php");
 
 

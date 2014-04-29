@@ -133,7 +133,6 @@ function process_video($vid, $debug = 1)
     global $config , $db_host , $db_user , $db_pass , $db_name;
 
     $log_file_name = 'convert_log_' . $vid;
-    require VSHARE_DIR . '/include/functions_seo_name.php';
     require VSHARE_DIR . '/include/settings/video_format.php';
 
     $err = 0;
@@ -181,7 +180,7 @@ function process_video($vid, $debug = 1)
         $log_text = '<p>$file_extn = ' . $file_extn . '</p>';
         write_log($log_text, $log_file_name, $debug, 'html');
 
-        $seo_name = seo_name($download_info['title']);
+        $seo_name = Url::seoName($download_info['title']);
         $seo_name_org = $seo_name;
         $i = 1;
 

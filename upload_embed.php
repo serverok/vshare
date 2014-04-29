@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/functions_seo_name.php';
 require 'Zend/Loader.php';
 Zend_Loader::loadClass('Zend_Gdata_YouTube');
 
@@ -73,7 +72,7 @@ if (isset($_POST['action_upload'])) {
             if ($err == '') {
                 $video_info = BulkImport::getYoutubeVideoInfo($video_id);
 
-                $seo_name = seo_name($video_info['video_title']);
+                $seo_name = Url::seoName($video_info['video_title']);
                 $video_length = sec2hms($video_info['video_duration']);
 
                 $sql = "INSERT INTO `videos` SET

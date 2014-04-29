@@ -14,7 +14,6 @@
 
 $html_title = 'VSHARE UPGRADE';
 require '../include/config.php';
-require '../include/functions_seo_name.php';
 require './inc/class.sql_import.php';
 require './tpl/header.php';
 
@@ -29,7 +28,7 @@ $videos_all = DB::fetch($sql);
 
 foreach ($videos_all as $tmp) {
 
-    $seo_name = seo_name($tmp['title']);
+    $seo_name = Url::seoName($tmp['title']);
     $duration = $tmp['duration'];
     $duration_hms = sec2hms($duration);
     $seo_name_org = $seo_name;

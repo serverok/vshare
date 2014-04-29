@@ -14,7 +14,6 @@
 
 require 'include/config.php';
 require 'include/functions_video_rating.php';
-require 'include/class.video_player.php';
 require 'include/language/' . LANG . '/lang_view_video.php';
 
 $video_id = $_GET['id'];
@@ -130,7 +129,7 @@ if (isset($show_video) && $show_video == 1 && $err == '') {
         $view = array();
         $view['video_info'] = $video_info;
 
-        $player = new video_player();
+        $player = new VideoPlayer();
         $view['VSHARE_PLAYER'] = $player->get_player_code($video_id);
 
         $tags = explode(' ', $video_info['video_keywords']);

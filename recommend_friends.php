@@ -13,8 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.mail.php';
-require 'include/class.validate.php';
 require 'include/language/' . LANG . '/lang_recommend_friends.php';
 
 $recommend_all = get_config('recommend_all');

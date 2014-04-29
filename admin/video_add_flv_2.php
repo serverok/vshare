@@ -13,8 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/functions_seo_name.php';
-require '../include/class.video_thumb.php';
 require '../include/language/' . LANG . '/lang_admin_video_add_flv_2.php';
 
 check_admin_login();
@@ -104,7 +102,7 @@ if (isset($_POST['submit'])) {
                `video_title`='" . DB::quote($video_title) . "',
                `video_description`='" . DB::quote($video_description) . "',
                `video_keywords`='" . DB::quote($upload_video_keywords) . "',
-               `video_seo_name`='" . seo_name($video_title) . "',
+               `video_seo_name`='" . Url::seoName($video_title) . "',
                `video_embed_code`='" . DB::quote($embed_code) . "',
                `video_channels`='0|$video_channels|0',
                `video_type`='$video_type',
@@ -149,7 +147,7 @@ if (isset($_POST['submit'])) {
             $fd = VSHARE_DIR . '/thumb/' . $video_id . '.jpg';
             $maxwidth = $config['img_max_width'];
             $maxheight = $config['img_max_height'];
-            video_thumb::create_thumb($_FILES['embedded_code_image_local']['tmp_name'][0], $fd, $maxwidth, $maxheight);
+            VideoThumb::createThumb($_FILES['embedded_code_image_local']['tmp_name'][0], $fd, $maxwidth, $maxheight);
 
             //$limit = count($_FILES['embedded_code_image_local']['name']);
             $j = 0;
@@ -157,7 +155,7 @@ if (isset($_POST['submit'])) {
                 $j ++;
                 if (! empty($_FILES['embedded_code_image_local']['name'][$i]) && ($_FILES['embedded_code_image_local']['type'][$i] == "image/jpeg")) {
                     $fd = VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg';
-                    video_thumb::create_thumb($_FILES['embedded_code_image_local']['tmp_name'][$i], $fd, $maxwidth, $maxheight);
+                    VideoThumb::createThumb($_FILES['embedded_code_image_local']['tmp_name'][$i], $fd, $maxwidth, $maxheight);
                 } else {
                     copy(VSHARE_DIR . '/templates/images/no_thumbnail.gif', VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg');
                 }

@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/functions_seo_name.php';
 require '../include/language/' . LANG . '/lang_admin_channel_search.php';
 
 check_admin_login();

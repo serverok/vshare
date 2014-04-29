@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/functions_seo_name.php';
 require '../include/language/' . LANG . '/lang_admin_channel_add.php';
 
 check_admin_login();
@@ -28,7 +27,7 @@ if (isset($_POST['add_channel'])) {
         $err = $lang['channel_image'];
     }
 
-    $seo_name = seo_name($_POST['channel_name']);
+    $seo_name = Url::seoName($_POST['channel_name']);
 
     if (check_field_exists($_POST['channel_name'], 'channel_name', 'channels')) {
         $err = $lang['channel_exists'];
