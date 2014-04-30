@@ -21,13 +21,11 @@ require $current_folder . '/include/youtube.php';
 
 $sql = "SELECT * FROM `process_queue` WHERE
        `status`='0'";
-$downloads = DB::fetch($sql);
-$num_downloads = count($downloads);
+$download = DB::fetch1($sql);
 
 $sql = "SELECT * FROM `process_queue` WHERE
        `status`='2'";
-$process = DB::fetch($sql);
-$num_process = count($process);
+$process = DB::fetch1($sql);
 
 $cron = get_config('cron');
 
@@ -37,26 +35,22 @@ if ($cron == 1) {
 
     $cron = 0;
 
-    if ($num_downloads > 0) {
-        $video_info = mysql_fetch_assoc($downloads);
-        $video_id = $video_info['id'];
+    if ($download) {
+        $video_id = $download['id'];
         Upload::downloadVideo($video_id);
-    } else if ($num_process > 0) {
-        $video_info = mysql_fetch_assoc($process);
-        $video_id = $video_info['id'];
+    } else if ($process) {
+        $video_id = $process['id'];
         Upload::processVideo($video_id);
     }
 } else {
 
     $cron = 1;
 
-    if ($num_process > 0) {
-        $video_info = mysql_fetch_assoc($process);
-        $video_id = $video_info['id'];
+    if ($process) {
+        $video_id = $process['id'];
         Upload::processVideo($video_id);
-    } else if ($num_downloads > 0) {
-        $video_info = mysql_fetch_assoc($downloads);
-        $video_id = $video_info['id'];
+    } else if ($download) {
+        $video_id = $download['id'];
         Upload::downloadVideo($video_id);
     }
 }
