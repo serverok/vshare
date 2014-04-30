@@ -252,15 +252,6 @@ function check_subscriber($space = 0)
     }
 }
 
-function checklogin()
-{
-    if (isset($_SESSION['UID'])) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 function paginate($total, $result_per_page, $page_url, $page_id, $current_page)
 {
     $pagination_output = '';
