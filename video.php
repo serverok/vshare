@@ -179,7 +179,7 @@ if (! $view) {
     $view['start_num'] = $start_from + 1;
     $view['end_num'] = $start_from + $video_count;
     $view['page'] = $page;
-    $view['page_links'] = paginate($view['total'], $config['num_watch_videos'], '.', '', $page);
+    $view['page_links'] = Paginate::getLinks($view['total'], $config['num_watch_videos'], '.', '', $page);
     $view['videos'] = $videos;
 
     $channels = Channel::get();

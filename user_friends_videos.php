@@ -45,7 +45,7 @@ if ($friends_all) {
 
     $start_from = ($page - 1) * $config['items_per_page'];
 
-    $page_links = paginate($total, $config['items_per_page'], '.', '', $page);
+    $page_links = Paginate::getLinks($total, $config['items_per_page'], '.', '', $page);
 
     $sql = "SELECT * FROM `videos` WHERE
            `video_user_id` IN (" . DB::quote($my_friends) . ")

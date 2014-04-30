@@ -148,7 +148,7 @@ $video_keywords_array = array_remove_duplicate($video_keywords_array);
 $start_num = $start_from + 1;
 $end_num = $start_from + $fav_videos_count;
 
-$page_links = paginate($total, $config['items_per_page'], '.', '', $page);
+$page_links = Paginate::getLinks($total, $config['items_per_page'], '.', '', $page);
 
 $smarty->assign('favorite_video_keywords_array', $video_keywords_array);
 $smarty->assign('err', $err);

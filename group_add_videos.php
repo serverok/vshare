@@ -149,7 +149,7 @@ else
 $start_num = $start_from + 1;
 $end_num = $start_from + $num_result;
 
-$page_links = paginate($total, $config['items_per_page'], '.', '', $page);
+$page_links = Paginate::getLinks($total, $config['items_per_page'], '.', '', $page);
 
 $smarty->assign('page', $page);
 $smarty->assign('start_num', $start_num);

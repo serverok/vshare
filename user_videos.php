@@ -128,7 +128,7 @@ if ($show_video) {
     $smarty->assign('start_num', $start_num);
     $smarty->assign('end_num', $end_num);
 
-    $page_links = paginate($total, $config['items_per_page'], '.', '', $page);
+    $page_links = Paginate::getLinks($total, $config['items_per_page'], '.', '', $page);
     $smarty->assign('page_links', $page_links);
     $smarty->assign('view', $view);
 }

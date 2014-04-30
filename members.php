@@ -126,7 +126,7 @@ foreach ($users as $user_info) {
 
 $start_num = $start_from + 1;
 $end_num = $start_from + $results_on_this_page;
-$page_links = paginate($total, $config['items_per_page'], '.', '', $page);
+$page_links = Paginate::getLinks($total, $config['items_per_page'], '.', '', $page);
 
 $smarty->assign(array(
     'html_title' => $title . ' Members - page ' . $page,

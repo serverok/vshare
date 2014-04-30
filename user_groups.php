@@ -64,7 +64,7 @@ $smarty->assign('view', $view);
 
 $start_num = $start_from + 1;
 $end_num = $start_from + $num_result;
-$page_links = paginate($total, $config['items_per_page'], '.', '', $page);
+$page_links = Paginate::getLinks($total, $config['items_per_page'], '.', '', $page);
 
 $allow_playlist = $user_info['user_playlist_public'];
 $allow_favorite = $user_info['user_favourite_public'];
