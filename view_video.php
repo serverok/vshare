@@ -129,7 +129,7 @@ if (isset($show_video) && $show_video == 1 && $err == '') {
         $view['video_info'] = $video_info;
 
         $player = new VideoPlayer();
-        $view['VSHARE_PLAYER'] = $player->get_player_code($video_id);
+        $view['VSHARE_PLAYER'] = $player->getPlayerCode($video_id);
 
         $tags = explode(' ', $video_info['video_keywords']);
         $view['tags'] = $tags;

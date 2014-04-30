@@ -4,7 +4,7 @@ class VideoPlayer
 {
     var $video_info;
 
-    function get_player_code($video_id)
+    function getPlayerCode($video_id)
     {
         global $config;
         $sql = "SELECT * FROM `videos` WHERE

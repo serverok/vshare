@@ -22,14 +22,12 @@ $vid = (int) $_GET['id'];
 
 if (is_numeric($vid))
 {
-    $sql = "SELECT * FROM `videos` WHERE
-           `video_id`='" . (int) $vid . "'";
-    $video_info = DB::fetch1($sql);
+    $video_info = Video::getById($vid);
 
     if ($video_info)
     {
         $player = new video_player();
-        $smarty->assign('VSHARE_PLAYER', $player->get_player_code($vid));
+        $smarty->assign('VSHARE_PLAYER', $player->getPlayerCode($vid));
         $smarty->assign('video', $video_info);
         $smarty->assign('video_type', $video_info['video_vtype']);
         $sql = "SELECT * FROM `process_queue` WHERE

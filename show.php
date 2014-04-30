@@ -28,7 +28,7 @@ if (! $video_info || $video_info['video_active'] != 1 || $video_info['video_appr
 } else {
     $video_video_flv_name = $video_info['video_flv_name'];
     $player = new VideoPlayer();
-    $vshare_player = $player->get_player_code($video_id);
+    $vshare_player = $player->getPlayerCode($video_id);
 }
 
 $smarty->assign('err', $err);
