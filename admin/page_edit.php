@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_POST['submit'])) {
     $sql = "UPDATE `pages` SET

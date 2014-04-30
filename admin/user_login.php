@@ -14,13 +14,12 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
-if (isset($_GET['username']))
-{
+if (isset($_GET['username'])) {
     User::login($_GET['username'], 1);
 }
 
 DB::close();
-$redirect_url = VSHARE_URL . '/index.php';
+$redirect_url = VSHARE_URL . '/';
 Http::redirect($redirect_url);

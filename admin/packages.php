@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 $sql = "SELECT * FROM `packages`";
 $packages = DB::fetch($sql);

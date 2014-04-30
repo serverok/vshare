@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 $sql = "SELECT * FROM `packages` WHERE
        `package_id`='" . (int) $_GET['package_id'] . "'";

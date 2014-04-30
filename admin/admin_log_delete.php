@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_POST['submit'])) {
     for ($i = 0; $i < count($_POST['delete_log']); $i ++) {

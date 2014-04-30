@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_user_search.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_GET['user_id'])) {
     $user_id = (int) $_GET['user_id'];

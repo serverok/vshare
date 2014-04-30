@@ -13,6 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-check_admin_login();
+Admin::auth();
 $smarty->display('admin/main.tpl');
 DB::close();

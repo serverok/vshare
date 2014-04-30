@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 $result_per_page = 50;
 

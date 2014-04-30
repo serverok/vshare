@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_video_add_flv_2.php';
 
-check_admin_login();
+Admin::auth();
 
 $success = 0;
 

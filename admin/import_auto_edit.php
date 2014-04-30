@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 $id = isset($_GET['id']) ? $_GET['id'] : $_POST['import_auto_id'];
 

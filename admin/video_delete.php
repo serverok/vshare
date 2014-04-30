@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_video_delete.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $video_id = $_GET['id'];

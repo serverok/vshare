@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_package_edit.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_POST['submit'])) {
     $package_trail_period = isset($_POST['package_trial_period']) ? $_POST['package_trial_period'] : '';

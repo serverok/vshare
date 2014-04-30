@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_poll_edit.php';
 
-check_admin_login();
+Admin::auth();
 
 $poll_id = isset($_GET['poll_id']) ? $_GET['poll_id'] : 0;
 

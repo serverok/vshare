@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 $advertisement_id = isset($_GET['adv_id']) ? $_GET['adv_id'] : 0;
 

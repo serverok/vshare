@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 $group_id = isset($_GET['group_id']) ? $_GET['group_id'] : 0;
 

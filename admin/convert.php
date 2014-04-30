@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_convert.php';
 
-check_admin_login();
+Admin::auth();
 
 $qid = $_GET['id'];
 

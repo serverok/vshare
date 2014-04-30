@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_poll_list.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && is_numeric($_GET['poll_id'])) {
     Poll::$id = $_GET['poll_id'];

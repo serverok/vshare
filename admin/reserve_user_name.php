@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_reserve_user_name.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_GET['action']) && $_GET['action'] == 'del' && is_numeric($_GET['id'])) {
     $sql = "DELETE FROM `disallow` WHERE

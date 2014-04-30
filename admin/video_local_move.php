@@ -13,24 +13,22 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.ftp.php';
 
-check_admin_login();
+Admin::auth();
 
 $err = 0;
 
-if (isset($_POST['submit']))
-{
+if (isset($_POST['submit'])) {
+
     $videos = $_POST['local_videos'];
     $server_id = (int) $_POST['server'];
-    
+
     $ftp_config = array();
     $ftp_config['must_upload'] = 0;
     $ftp_config['debug'] = $debug;
     $ftp = new Ftp();
-    
-    for ($i = 0; $i < count($videos); $i ++)
-    {
+
+    for ($i = 0; $i < count($videos); $i ++) {
         $ftp_config['server_id'] = $server_id;
         $ftp_config['video_id'] = (int) $videos[$i];
         $ftp_config['log_file_name'] = 'move_video_' . $ftp_config['video_id'];

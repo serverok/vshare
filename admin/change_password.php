@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_change_password.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_POST['submit'])) {
     if ($_POST['admin_name'] == '') {

@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 $server_id = isset($_GET['server_id']) ? $_GET['server_id'] : '';
 

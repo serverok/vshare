@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_bad_words.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_GET['action']) && $_GET['action'] == 'del') {
     $sql = "DELETE FROM `words` WHERE

@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_poll.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_POST['submit'])) {
     $date_end = $_POST['end_date_year'] . '-' . $_POST['end_date_month'] . '-' . $_POST['end_date_day'];

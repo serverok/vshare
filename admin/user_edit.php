@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_user_edit.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_POST['submit'])) {
     $sql = "UPDATE `users` SET

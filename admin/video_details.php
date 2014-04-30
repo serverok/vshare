@@ -16,16 +16,15 @@ require '../include/config.php';
 require '../include/class.video_player.php';
 require '../include/language/' . LANG . '/lang_admin_video_details.php';
 
-check_admin_login();
+Admin::auth();
 
 $vid = (int) $_GET['id'];
 
-if (is_numeric($vid))
-{
+if (is_numeric($vid)) {
+
     $video_info = Video::getById($vid);
 
-    if ($video_info)
-    {
+    if ($video_info) {
         $player = new video_player();
         $smarty->assign('VSHARE_PLAYER', $player->getPlayerCode($vid));
         $smarty->assign('video', $video_info);

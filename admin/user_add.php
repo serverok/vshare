@@ -17,7 +17,7 @@ require '../include/class.validate.php';
 require '../include/class.friends.php';
 require '../include/language/' . LANG . '/lang_admin_user_add.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_POST['submit'])) {
     if (strlen($_POST['user_name']) < 4) {

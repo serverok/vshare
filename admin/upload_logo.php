@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_upload_logo.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_POST['submit'])) {
     if (is_uploaded_file($_FILES['logo']['tmp_name'])) {

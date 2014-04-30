@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 $sql = "SELECT * FROM `servers` ORDER BY `id` ASC";
 $servers = DB::fetch($sql);

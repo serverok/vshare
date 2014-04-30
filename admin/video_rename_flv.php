@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_video_rename_flv.php';
 
-check_admin_login();
+Admin::auth();
 
 if (! is_numeric($_GET['id'])) {
     $err = $lang['video_id_numeric'];

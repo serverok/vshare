@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_group_edit.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_POST['submit'])) {
     $_POST['keyword'] = preg_replace('/[\,\s]+/', ' ', $_POST['keyword']);

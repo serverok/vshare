@@ -16,7 +16,7 @@ require '../include/config.php';
 require 'Zend/Loader.php';
 Zend_Loader::loadClass('Zend_Gdata_YouTube');
 
-check_admin_login();
+Admin::auth();
 
 $next = 0;
 $previous = 0;

@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_user_videos.php';
 
-check_admin_login();
+Admin::auth();
 
 if (! is_numeric($_GET['uid'])) {
     echo $lang['user_id_invalid'];
@@ -24,9 +24,7 @@ if (! is_numeric($_GET['uid'])) {
 
 $result_per_page = Config::get('admin_listing_per_page');
 
-$sql = "SELECT `user_name` FROM `users` WHERE
-       `user_id`='" . (int) $_GET['uid'] . "'";
-$tmp = DB::fetch1($sql);
+$tmp = User::getById($_GET['uid']);
 $smarty->assign('user_name', $tmp['user_name']);
 
 $query = " WHERE `video_user_id`='" . (int) $_GET['uid'] . "'";

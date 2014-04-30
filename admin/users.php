@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 $admin_listing_per_page = Config::get('admin_listing_per_page');
 

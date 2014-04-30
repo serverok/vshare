@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_video_inactive.php';
 
-check_admin_login();
+Admin::auth();
 
 $todo = isset($_GET['todo']) ? $_GET['todo'] : '';
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;

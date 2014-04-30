@@ -16,13 +16,12 @@ require '../include/config.php';
 require '../include/settings/upload.php';
 require '../include/language/' . LANG . '/lang_admin_video_add_flv.php';
 
-check_admin_login();
+Admin::auth();
 
 $num_max_channels = Config::get('num_max_channels');
 $smarty->assign('num_max_channels', $num_max_channels);
 
-if (isset($_POST['submit']))
-{
+if (isset($_POST['submit'])) {
 
     $user_info = User::getByName($_POST['video_user']);
 

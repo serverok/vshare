@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_email_edit.php';
 
-check_admin_login();
+Admin::auth();
 
 $sql = "SELECT * FROM `email_templates` WHERE
        `email_id`='" . DB::quote($_GET['email_id']) . "'";

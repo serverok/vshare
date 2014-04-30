@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_video_user_deleted_activate.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_POST['activate'])) {
 

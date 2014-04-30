@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id_desc';
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;

@@ -14,7 +14,7 @@
 
 include '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 $menu_heading = array(
     array(

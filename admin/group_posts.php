@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_group_posts.php';
 
-check_admin_login();
+Admin::auth();
 
 $TID = $_GET['TID'];
 $gid = $_GET['gid'];

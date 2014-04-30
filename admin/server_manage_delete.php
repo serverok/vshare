@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_server_manage_delete.php';
 
-check_admin_login();
+Admin::auth();
 
 $serverId = isset($_GET['id']) ? $_GET['id'] : 0;
 

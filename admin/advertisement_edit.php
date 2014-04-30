@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_advertisement_edit.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_POST['submit'])) {
     if ($_POST['advertisement_text'] == '') {

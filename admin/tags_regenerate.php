@@ -2,21 +2,18 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 $result_per_page = 50;
 
-if (isset($_GET['tags_regenerate']))
-{
+if (isset($_GET['tags_regenerate'])) {
     $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-    if ($page < 1)
-    {
+    if ($page < 1) {
         $page = 1;
     }
 
-    if ($page == 1)
-    {
+    if ($page == 1) {
         $sql = "DROP TABLE IF EXISTS `tags_backup`, `tag_video_backup`";
         DB::query($sql);
 
@@ -56,8 +53,7 @@ if (isset($_GET['tags_regenerate']))
             LIMIT $start, $items_per_page";
     $videos_all = DB::fetch($sql);
 
-    if ($videos_all)
-    {
+    if ($videos_all) {
         foreach ($videos_all as $video_info) {
             $tags = new Tag($video_info['video_keywords'], $video_info['video_id'], $video_info['video_user_id'], $video_info['video_channels']);
             $tags->settime($video_info['video_add_time']);

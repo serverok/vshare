@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_video_edit.php';
 
-check_admin_login();
+Admin::auth();
 
 $video_id = isset($_GET['video_id']) ? $_GET['video_id'] : 0;
 

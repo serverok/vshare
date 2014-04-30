@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 
-check_admin_login();
+Admin::auth();
 
 $sql = "DELETE FROM `import_auto` WHERE
         `import_auto_id`='" . (int) $_GET['id'] . "'";

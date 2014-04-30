@@ -14,21 +14,17 @@
 
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_user_delete.php';
-require '../include/class.ftp.php';
-require '../include/class.video.php';
 
-check_admin_login();
+Admin::auth();
 
-if (! is_numeric($_GET['uid']))
-{
+if (! is_numeric($_GET['uid'])) {
     echo $lang['userid_numeric'];
     exit(0);
 }
 
 $user_info = User::get_user_by_id($_GET['uid']);
 
-if ($user_info == 0)
-{
+if (! $user_info) {
     set_message('user not found', 'error');
     $redirect_url = VSHARE_URL . '/admin/users.php';
     Http::redirect($redirect_url);
@@ -43,15 +39,13 @@ DB::close();
 
 $_GET['a'] = isset($_GET['a']) ? $_GET['a'] : 'All';
 
-if ($_GET['a'] == '')
-{
+if ($_GET['a'] == '') {
     $_GET['a'] = 'All';
 }
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 

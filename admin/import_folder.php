@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/settings/upload.php';
 
-check_admin_login();
+Admin::auth();
 
 $import_folder = VSHARE_DIR . '/templates_c/import';
 

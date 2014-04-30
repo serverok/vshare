@@ -15,7 +15,7 @@
 require '../include/config.php';
 require '../include/language/' . LANG . '/lang_admin_settings.php';
 
-check_admin_login();
+Admin::auth();
 
 if (isset($_POST['submit']))
 {
