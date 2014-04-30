@@ -97,31 +97,6 @@ function check_field_exists($fvalue, $field, $table)
     }
 }
 
-/*function timediff($my_time, $current_time = '')
-{
-    $time1 = strtotime($my_time);
-
-    if ($current_time == '') {
-        $time2 = $_SERVER['REQUEST_TIME'];
-    } else {
-        $time2 = strtotime($current_time);
-    }
-
-    $diff = $time2 - $time1;
-    $second = $diff % 60;
-    $minutes = ($diff / 60) % 60;
-    $hours = ($diff / 3600) % 24;
-    $days = ($diff / (3600 * 24)) % 30;
-    $x = array();
-    $x['days'] = $days;
-    $x['hours'] = $hours;
-    $x['minutes'] = $minutes;
-    $x['seconds'] = $second;
-
-    return $x;
-}
-*/
-
 function format_size($size)
 {
     if ($size['type'] == 'byte') {
