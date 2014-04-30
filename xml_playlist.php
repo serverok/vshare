@@ -15,20 +15,13 @@
 require 'include/config.php';
 
 $count_real_video_views = 1;
-$id = isset($_GET['id']) ? $_GET['id'] : '';
-
-$sql = "SELECT * FROM `videos` WHERE
-       `video_id`='" . (int) $id . "'";
-$video_info = DB::fetch1($sql);
+$video_id = isset($_GET['id']) ? $_GET['id'] : 0;
+$video_info = Video::getById($video_id);
 
 if ($video_info) {
 
-    if ($video_info['video_server_id'] > 0) {
+    if ($video_info['video_vtype'] == 0) {
         $url = File::getVideoUrl($video_info['video_server_id'], $video_info['video_folder'], $video_info['video_flv_name']);
-    } else if ($video_info['video_vtype'] == '7') {
-        $url = $video_info['video_youtube_url'];
-    } else {
-        $url = VSHARE_URL . '/flvideo/' . $video_info['video_folder'] . $video_info['video_flv_name'];
     }
 
     header('content-type:text/xml;charset=utf-8');

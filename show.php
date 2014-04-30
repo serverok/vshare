@@ -13,28 +13,22 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.video_player.php';
 
 if (! is_numeric($_GET['id'])) {
     echo "id must be numeric";
     exit(0);
 }
 
-$vid = $_GET['id'];
+$video_id = isset($_GET['id']) ? $_GET['id'] : 0;
 
-$sql = "SELECT * FROM `videos` WHERE
-       `video_active`='1' AND
-       `video_approve`='1' AND
-       `video_id`='" . (int) $vid . "'";
-$video_info = DB::fetch1($sql);
+$video_info = Video::getById($video_id);
 
-if ($video_info) {
-    $video_id = $vid;
-    $video_video_flv_name = $video_info['video_flv_name'];
-    $player = new video_player();
-    $vshare_player = $player->get_player_code($video_id);
-} else {
+if (! $video_info || $video_info['video_active'] != 1 || $video_info['video_approve'] != 1) {
     $err = 1;
+} else {
+    $video_video_flv_name = $video_info['video_flv_name'];
+    $player = new VideoPlayer();
+    $vshare_player = $player->get_player_code($video_id);
 }
 
 $smarty->assign('err', $err);
