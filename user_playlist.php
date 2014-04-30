@@ -20,43 +20,36 @@ $user_name = trim($user_name);
 
 $page = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
 
-if ($page < 1)
-{
+if ($page < 1) {
     $page = 1;
 }
 
-$sql = "SELECT * FROM `users` WHERE
-       `user_name`='" . DB::quote($user_name) . "'";
-$user_info = DB::fetch1($sql);
+$user_info = User::getByName($user_name);
 
-if (! $user_info)
-{
+if (! $user_info) {
     Http::redirect(VSHARE_URL);
 }
 
-if (isset($_POST['create_playlist']))
-{
+if (isset($_POST['create_playlist'])) {
+
     User::is_logged_in();
 
     $playlist_name = trim($_POST['playlist_name']);
 
-    if (! empty($playlist_name))
-    {
+    if (! empty($playlist_name)) {
+
        $sql = "SELECT * FROM `playlists` WHERE
               `playlist_user_id`='" . (int) $_SESSION['UID'] . "' AND
               `playlist_name`='" . DB::quote($playlist_name) . "'";
        $playlist = DB::fetch1($sql);
 
-       if (! $playlist)
-       {
+       if (! $playlist) {
            $sql = "INSERT INTO `playlists` SET
                   `playlist_user_id`='" . (int) $_SESSION['UID'] . "',
                   `playlist_name`='" . DB::quote($playlist_name) . "',
                   `playlist_add_date`='" . (int) time() . "'";
            DB::query($sql);
-       }
-       else
-       {
+       } else {
            $err = $lang['playlist_duplicate'];
        }
 
@@ -71,8 +64,8 @@ $sql = "SELECT * FROM `playlists` WHERE
         ORDER BY `playlist_id` ASC";
 $playlists = DB::fetch($sql);
 
-if ($playlists)
-{
+if ($playlists) {
+
     $smarty->assign('playlists', $playlists);
 
     $_GET['playlist_id'] = isset($_GET['playlist_id']) ? trim($_GET['playlist_id']) : $playlists[0]['playlist_name'];
@@ -82,8 +75,8 @@ if ($playlists)
            `playlist_name`='" . DB::quote($_GET['playlist_id']) . "'";
     $playlist_info = DB::fetch1($sql);
 
-    if ($playlist_info)
-    {
+    if ($playlist_info) {
+
         $smarty->assign('playlist_info', $playlist_info);
         $html_playlist_name = $playlist_info['playlist_name'] . ' - ';
 
@@ -110,8 +103,7 @@ if ($playlists)
         $video_keywords_all = '';
         $video_info = array();
 
-        foreach ($videos as $video)
-        {
+        foreach ($videos as $video) {
             $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
             $video['video_keywords_array'] = preg_split('[ ]', $video['video_keywords']);
             $video_keywords_all .= $video['video_keywords'] . ' ';
@@ -143,11 +135,10 @@ $smarty->assign('allow_playlist', $allow_playlist);
 $smarty->assign('allow_favorite', $allow_favorite);
 
 $html_title = "$html_playlist_name $user_info[user_name]'s playlists - page $page";
-$smarty->assign(array(
-    'html_title' => $html_title,
-    'html_description' => $html_title,
-    'html_keywords' => $html_title
-));
+
+$smarty->assign('html_title', $html_title);
+$smarty->assign('html_description', '');
+$smarty->assign('html_keywords', '');
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('page', $page);
