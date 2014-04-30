@@ -13,7 +13,7 @@ class Channel
             return false;
         }
 
-        $channels_all = [];
+        $channels_all = array();
 
         foreach ($channels as $channel) {
                 $channel['channel_name_html'] = htmlspecialchars($channel['channel_name'], ENT_QUOTES, 'UTF-8');
