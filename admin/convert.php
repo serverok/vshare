@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/functions_upload.php';
 require '../include/language/' . LANG . '/lang_admin_convert.php';
 
 check_admin_login();
@@ -34,6 +33,6 @@ if ($re_convert == 1) {
     DB::query($sql);
 }
 
-$video_id = process_video($qid, 1);
+$video_id = Upload::processVideo($qid, 1);
 DB::close();
 echo "<p><a href=\"javascript:history.go(-1)\">Back</a></p>";

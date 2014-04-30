@@ -266,7 +266,7 @@ if (isset($process_video) && $process_video == 1) {
         write_log("Batch Processing");
     } else if ($process_upload == 1) {
         write_log("Realtime Processing - process_video[$qid ,0]");
-        $video_id = process_video($qid, 0);
+        $video_id = Upload::processVideo($qid, 0);
     } else {
         write_log("Background Processing");
         $php_path = get_config('php_path');

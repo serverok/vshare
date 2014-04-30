@@ -17,6 +17,6 @@ require './include/functions_upload.php';
 
 $qid = $_SERVER['argv'][1];
 write_log("Starting Background video conversion - $qid");
-$video_id = process_video($qid, 0);
+$video_id = Upload::processVideo($qid, 0);
 write_log("End of Background video conversion - $qid");
 DB::close();
