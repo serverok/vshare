@@ -177,9 +177,28 @@ if (isset($_POST['submit'])) {
             DB::query($sql);
         }
 
+        if (isset($_POST['dailymotion_api_key']))
+        {
+            $sql = "UPDATE `config` SET
+                   `config_value`='" . DB::quote($_POST['dailymotion_api_key']) . "' WHERE
+                   `config_name`='dailymotion_api_key'";
+            DB::query($sql);
+        }
+
+        if (isset($_POST['dailymotion_api_secret']))
+        {
+            $sql = "UPDATE `config` SET
+                   `config_value`='" . DB::quote($_POST['dailymotion_api_secret']) . "' WHERE
+                   `config_name`='dailymotion_api_secret'";
+            DB::query($sql);
+        }
+
         $msg = $lang['settings_updated'];
     }
 }
+
+$smarty->assign('dailymotion_api_key', get_config('dailymotion_api_key'));
+$smarty->assign('dailymotion_api_secret', get_config('dailymotion_api_secret'));
 $smarty->assign('video_comment_notify', get_config('video_comment_notify'));
 $smarty->assign('user_daily_mail_limit', get_config('user_daily_mail_limit'));
 $smarty->assign('flv_metadata', get_config('flv_metadata'));

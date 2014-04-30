@@ -39,6 +39,9 @@ class VideoPlayer
             case 6:
                 return $this->embedded_code();
                 break;
+            case 7:
+                return $this->dailymotion();
+                break;
             default:
                 break;
         }
@@ -85,6 +88,20 @@ class VideoPlayer
         <embed src="http://www.youtube.com/v/' . $this->video_info['video_name'] . '&autoplay=' . $config['player_autostart'] . '&hl=en&fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true"
         width="' . $config['player_width'] . '" height="' . $config['player_height'] . '"></embed>
         </object>';
+        return $vshare_player;
+    }
+
+    function dailymotion()
+    {
+        global $config;
+
+        $vshare_player = '
+        <object width="' . $config['player_width'] . '" height="' . $config['player_height'] . '">
+        <param name="movie" value="http://www.dailymotion.com/swf/video/' . $this->video_info['video_name'] . '?width=&theme=none&foreground=%23F7FFFD&highlight=%23FFC300&background=%23171D1B&autoPlay=1&start=&animatedTitle=&iframe=0&additionalInfos=0&hideInfos=0"></param>
+        <param name="allowFullScreen" value="true"></param>
+        <param name="allowScriptAccess" value="always"></param>
+        <embed type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/' . $this->video_info['video_name'] . '?width=&theme=none&foreground=%23F7FFFD&highlight=%23FFC300&background=%23171D1B&autoPlay=' . $config['player_autostart'] . '&start=&animatedTitle=&iframe=0&additionalInfos=0&hideInfos=0" width="' . $config['player_width'] . '" height="' . $config['player_height'] . '" allowfullscreen="true" allowscriptaccess="always">
+        </embed></object>';
         return $vshare_player;
     }
 

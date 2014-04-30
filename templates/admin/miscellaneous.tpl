@@ -151,6 +151,16 @@
         <input type="text" name="user_daily_mail_limit" id="user_daily_mail_limit" value="{$user_daily_mail_limit}" />
     </div>
 
+    <div>
+        <label for="dailymotion_api_key">Dailymotion Api Key:</label>
+        <input type="text" name="dailymotion_api_key" id="dailymotion_api_key" value="{$dailymotion_api_key}" /></label>
+    </div>
+
+    <div>
+        <label for="dailymotion_api_secret">Dailymotion Api Secret:</label>
+        <input type="text" name="dailymotion_api_secret" id="dailymotion_api_secret" value="{$dailymotion_api_secret}" /></label>
+    </div>
+
     <div class="submit">
         <input type="submit" name="submit" value="Update" />
     </div>

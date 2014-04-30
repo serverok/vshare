@@ -125,6 +125,8 @@ INSERT INTO `config` (`config_name` ,`config_value`) VALUES('user_daily_mail_lim
 INSERT INTO `config` (`config_name` ,`config_value`) VALUES('video_comment_notify', '0');
 INSERT INTO `config` (`config_name` ,`config_value`) VALUES('moderate_video_links', '1');
 INSERT INTO `config` (`config_name` ,`config_value`) VALUES('hotlink_protection', '0');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('dailymotion_api_key', '');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('dailymotion_api_secret', '');
 
 
 -- Table structure for table `contact`

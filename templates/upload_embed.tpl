@@ -3,14 +3,14 @@
     <div class="hd">
         Video Upload
     </div>
-    
+
     <form id="upload" name="theForm" action="{$base_url}/upload/embed/" method="post">
-    
+
         <div>
-            <label>Youtube Video URL:</label>
+            <label>Youtube/Dailymotion Video URL:</label>
             <input size="53" name="url" value="{$smarty.post.url}" />
         </div>
-        
+
         <div>
             <label>Video Channel:</label>
             <div class="indent">
@@ -21,7 +21,7 @@
                 </select>
             </div>
         </div>
-        
+
 	<!--
 
         <div>
