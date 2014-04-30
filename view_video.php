@@ -34,7 +34,7 @@ if (! $video_info || $video_info['video_user_id'] == 0) {
 }
 
 if ($video_info['video_adult']) {
-	if (get_family_filter()) {
+	if (getFamilyFilter()) {
 		$redirect_url = VSHARE_URL . '/family_filter/';
 		Http::redirect($redirect_url);
 	}

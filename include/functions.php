@@ -440,7 +440,7 @@ function array_remove_duplicate($source_array)
     return $array_new;
 }
 
-function get_family_filter()
+function getFamilyFilter()
 {
 	global $config;
 

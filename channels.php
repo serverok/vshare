@@ -17,8 +17,7 @@ require 'include/language/' . LANG . '/lang_channels.php';
 
 $sql_adult_filter = '';
 
-if (get_family_filter())
-{
+if (getFamilyFilter()) {
     $sql_adult_filter = "AND `video_adult`='0'";
 }
 
