@@ -7,7 +7,7 @@ class Xss
         if (is_array($string)) {
             die('Xss::clean only clean strings. Do not pass array');
         }
-        if (get_config('allow_html')) {
+        if (Config::get('allow_html')) {
             require VSHARE_DIR . '/include/htmlpurifier/HTMLPurifier.auto.php';
             $config = HTMLPurifier_Config::createDefault();
             $config->set('HTML.DefinitionID', 'User Comment Filter');

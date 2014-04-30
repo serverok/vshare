@@ -58,7 +58,7 @@ if (isset($_GET['userid']) || isset($_GET['user_name']) || isset($_GET['user_ip'
                `user_ip`='" . DB::quote($_GET['user_ip']) . "'";
         $total = DB::getTotal($sql);
 
-        $admin_listing_per_page = get_config('admin_listing_per_page');
+        $admin_listing_per_page = Config::get('admin_listing_per_page');
         $start_from = ($page - 1) * $admin_listing_per_page;
 
         require 'Pager/Pager.php';

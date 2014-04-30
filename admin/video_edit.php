@@ -24,7 +24,7 @@ if (! is_numeric($video_id)) {
     exit(0);
 }
 
-$num_max_channels = get_config('num_max_channels');
+$num_max_channels = Config::get('num_max_channels');
 
 if (isset($_POST['submit'])) {
     $video = new Video();

@@ -197,26 +197,26 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$smarty->assign('dailymotion_api_key', get_config('dailymotion_api_key'));
-$smarty->assign('dailymotion_api_secret', get_config('dailymotion_api_secret'));
-$smarty->assign('video_comment_notify', get_config('video_comment_notify'));
-$smarty->assign('user_daily_mail_limit', get_config('user_daily_mail_limit'));
-$smarty->assign('flv_metadata', get_config('flv_metadata'));
-$smarty->assign('video_duration_cmd', get_config('video_duration_cmd'));
-$smarty->assign('num_channel_video', get_config('num_channel_video'));
-$smarty->assign('guest_upload', get_config('guest_upload'));
-$smarty->assign('guest_upload_user', get_config('guest_upload_user'));
-$smarty->assign('video_flv_delete', get_config('video_flv_delete'));
-$smarty->assign('enable_flvtool', get_config('enable_flvtool'));
-$smarty->assign('mail_abuse_report', get_config('mail_abuse_report'));
-$smarty->assign('recommend_all', get_config('recommend_all'));
-$smarty->assign('php_path', get_config('php_path'));
-$smarty->assign('item_per_page', get_config('admin_listing_per_page'));
-$smarty->assign('process_upload', get_config('process_upload'));
-$smarty->assign('process_notify_user', get_config('process_notify_user'));
-$smarty->assign('editor_wysiwyg_admin', get_config('editor_wysiwyg_admin'));
-$smarty->assign('editor_wysiwyg_email', get_config('editor_wysiwyg_email'));
-$smarty->assign('num_max_channels', get_config('num_max_channels'));
+$smarty->assign('dailymotion_api_key', Config::get('dailymotion_api_key'));
+$smarty->assign('dailymotion_api_secret', Config::get('dailymotion_api_secret'));
+$smarty->assign('video_comment_notify', Config::get('video_comment_notify'));
+$smarty->assign('user_daily_mail_limit', Config::get('user_daily_mail_limit'));
+$smarty->assign('flv_metadata', Config::get('flv_metadata'));
+$smarty->assign('video_duration_cmd', Config::get('video_duration_cmd'));
+$smarty->assign('num_channel_video', Config::get('num_channel_video'));
+$smarty->assign('guest_upload', Config::get('guest_upload'));
+$smarty->assign('guest_upload_user', Config::get('guest_upload_user'));
+$smarty->assign('video_flv_delete', Config::get('video_flv_delete'));
+$smarty->assign('enable_flvtool', Config::get('enable_flvtool'));
+$smarty->assign('mail_abuse_report', Config::get('mail_abuse_report'));
+$smarty->assign('recommend_all', Config::get('recommend_all'));
+$smarty->assign('php_path', Config::get('php_path'));
+$smarty->assign('item_per_page', Config::get('admin_listing_per_page'));
+$smarty->assign('process_upload', Config::get('process_upload'));
+$smarty->assign('process_notify_user', Config::get('process_notify_user'));
+$smarty->assign('editor_wysiwyg_admin', Config::get('editor_wysiwyg_admin'));
+$smarty->assign('editor_wysiwyg_email', Config::get('editor_wysiwyg_email'));
+$smarty->assign('num_max_channels', Config::get('num_max_channels'));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

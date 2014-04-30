@@ -15,7 +15,7 @@
 require 'include/config.php';
 require 'include/language/' . LANG . '/lang_upload.php';
 
-if (get_config('guest_upload') != 1) {
+if (Config::get('guest_upload') != 1) {
     User::is_logged_in();
     if ($config['enable_package'] == 'yes') {
         check_subscriber_space($_SESSION['UID']);
@@ -23,7 +23,7 @@ if (get_config('guest_upload') != 1) {
     }
 }
 
-$num_max_channels = get_config('num_max_channels');
+$num_max_channels = Config::get('num_max_channels');
 $smarty->assign('num_max_channels', $num_max_channels);
 
 if (isset($_POST['action_upload'])) {

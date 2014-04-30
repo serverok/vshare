@@ -74,8 +74,8 @@ if (isset($_POST['submit']))
     $msg = $lang['settings_updated'];
 }
 
-$smarty->assign('vshare_player', get_config('vshare_player'));
-$smarty->assign('youtube_player', get_config('youtube_player'));
+$smarty->assign('vshare_player', Config::get('vshare_player'));
+$smarty->assign('youtube_player', Config::get('youtube_player'));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

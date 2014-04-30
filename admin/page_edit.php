@@ -36,7 +36,7 @@ $page_edit = DB::fetch1($sql);
 $page_edit['page_content'] = htmlspecialchars($page_edit['page_content'], ENT_QUOTES, 'UTF-8');
 
 $smarty->assign('page_edit', $page_edit);
-$smarty->assign('editor_wysiwyg_admin', get_config('editor_wysiwyg_admin'));
+$smarty->assign('editor_wysiwyg_admin', Config::get('editor_wysiwyg_admin'));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

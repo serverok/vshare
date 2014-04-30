@@ -10,8 +10,8 @@ class DailymotionVideo extends Dailymotion
 
     private function getKey()
     {
-        $this->apiKey = get_config('dailymotion_api_key');
-        $this->apiSecret = get_config('dailymotion_api_secret');
+        $this->apiKey = Config::get('dailymotion_api_key');
+        $this->apiSecret = Config::get('dailymotion_api_secret');
 
         if (empty($this->apiKey) || empty($this->apiSecret))
         {

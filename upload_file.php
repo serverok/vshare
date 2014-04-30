@@ -17,7 +17,7 @@ require 'include/settings/upload.php';
 require 'include/functions_upload.php';
 require 'include/language/' . LANG . '/lang_upload.php';
 
-if (get_config('guest_upload') != 1) {
+if (Config::get('guest_upload') != 1) {
     User::is_logged_in();
 
     if ($config['enable_package'] == 'yes') {
@@ -238,8 +238,8 @@ if (isset($process_video) && $process_video == 1) {
     $upload_file_size = filesize($upload_file_path);
     $upload_file_size = round($upload_file_size / (1024 * 1024));
 
-    if ((get_config('guest_upload') == 1) && (! isset($_SESSION['USERNAME']))) {
-        $user_name = get_config('guest_upload_user');
+    if ((Config::get('guest_upload') == 1) && (! isset($_SESSION['USERNAME']))) {
+        $user_name = Config::get('guest_upload_user');
     } else {
         $user_name = $_SESSION['USERNAME'];
     }
@@ -258,7 +258,7 @@ if (isset($process_video) && $process_video == 1) {
 
     $qid = DB::insertGetId($sql);
 
-    $process_upload = get_config('process_upload');
+    $process_upload = Config::get('process_upload');
 
     write_log("Upload Finished");
 
@@ -269,7 +269,7 @@ if (isset($process_video) && $process_video == 1) {
         $video_id = Upload::processVideo($qid, 0);
     } else {
         write_log("Background Processing");
-        $php_path = get_config('php_path');
+        $php_path = Config::get('php_path');
         $cmd_bkgnd = "$php_path -q " . VSHARE_DIR . "/convert.php $qid > /dev/null &";
         write_log("Running: $cmd_bkgnd");
         exec($cmd_bkgnd);

@@ -68,8 +68,8 @@ if (isset($_POST['submit']))
     $msg = $lang['settings_updated'];
 }
 
-$smarty->assign('home_num_tags', get_config('home_num_tags'));
-$smarty->assign('num_last_users_online', get_config('num_last_users_online'));
+$smarty->assign('home_num_tags', Config::get('home_num_tags'));
+$smarty->assign('num_last_users_online', Config::get('num_last_users_online'));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

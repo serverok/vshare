@@ -55,7 +55,7 @@ if (DB::affectedRows() == 1) {
            `video_id`='" . (int) $video_id . "'";
     DB::query($sql);
 
-    if (get_config('video_comment_notify') == 1) {
+    if (Config::get('video_comment_notify') == 1) {
 
         $sql = "SELECT * FROM `email_templates` WHERE
                `email_id`='video_comment_notify'";

@@ -53,7 +53,7 @@ if (is_numeric($_GET['id'])) {
         $t_info['video_folder'] = $video_info['video_folder'];
         $t_info['debug'] = $config['debug'];
 
-        $video_duration_cmd = get_config('video_duration_cmd');
+        $video_duration_cmd = Config::get('video_duration_cmd');
 
         if ($video_duration_cmd == 0) {
             $duration = video_duration::find_video_duration_mplayer($t_info);

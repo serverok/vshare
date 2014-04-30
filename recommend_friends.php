@@ -15,7 +15,7 @@
 require 'include/config.php';
 require 'include/language/' . LANG . '/lang_recommend_friends.php';
 
-$recommend_all = get_config('recommend_all');
+$recommend_all = Config::get('recommend_all');
 
 if ($recommend_all == 0) {
     User::is_logged_in();

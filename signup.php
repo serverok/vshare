@@ -15,9 +15,9 @@
 require 'include/config.php';
 require 'include/language/' . LANG . '/lang_signup.php';
 
-$signup_dob = get_config('signup_dob');
-$signup_enable = get_config('signup_enable');
-$captcha_type = get_config('captcha_type');
+$signup_dob = Config::get('signup_dob');
+$signup_enable = Config::get('signup_enable');
+$captcha_type = Config::get('captcha_type');
 
 if ($captcha_type == 'recaptcha')
 {
@@ -139,19 +139,18 @@ if (isset($_POST['submit'])) {
             $err = $lang['signup_dob_null'];
         }
 
-        $validate_date = validate::date($_POST['month'], $_POST['day'], $_POST['year']);
+        $validate_date = Validate::date($_POST['month'], $_POST['day'], $_POST['year']);
 
         if ($validate_date != 1) {
             $err = $validate_date;
         } else {
-            $signup_age_min_enforce = get_config('signup_age_min_enforce');
-    		if ($signup_age_min_enforce == 1) {
-    			$age = find_age($bdate);
-    			$age_minimum = get_config('signup_age_min');
+            $signup_age_min_enforce = Config::get('signup_age_min_enforce');
+            if ($signup_age_min_enforce == 1) {
+                $age = find_age($bdate);
+                $age_minimum = Config::get('signup_age_min');
 
-    			if ($age < $age_minimum)
-    			{
-    				$err = str_replace('[AGE_MINIMUM]',$age_minimum,$lang['signup_enforce']);
+                if ($age < $age_minimum) {
+                    $err = str_replace('[AGE_MINIMUM]',$age_minimum,$lang['signup_enforce']);
     			}
     		}
         }
@@ -175,7 +174,7 @@ if (isset($_POST['submit'])) {
             exit(0);
         }
 
-        $auto_friend = get_config('signup_auto_friend');
+        $auto_friend = Config::get('signup_auto_friend');
 
         if ((strlen($auto_friend) > 1) && (check_field_exists($auto_friend, 'user_name', 'users'))) {
             Friend::makeFriends($auto_friend, $_POST['user_name']);
@@ -393,14 +392,11 @@ if ($signup_dob == 1) {
     $smarty->assign('years', $years);
 }
 
-$smarty->assign(array(
-    'html_title' => 'Sign Up',
-    'html_description' => 'Sign Up'
-));
-
+$smarty->assign('html_title', 'Sign Up');
+$smarty->assign('html_description', 'Sign Up');
 $smarty->assign('signup', $signup);
 $smarty->assign('signup_verification_msg', $signup_verification_msg);
-$smarty->assign('age_minimum', get_config('signup_age_min'));
+$smarty->assign('age_minimum', Config::get('signup_age_min'));
 $smarty->assign('captcha_type', $captcha_type);
 $smarty->assign('signup_dob', $signup_dob);
 $smarty->assign('err', $err);

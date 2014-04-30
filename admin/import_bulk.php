@@ -26,7 +26,7 @@ if (isset($_GET['keyword'])) {
     $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
     $user_name = isset($_GET['user_name']) ? $_GET['user_name'] : '';
     $channel_id = isset($_GET['channel']) ? (int) $_GET['channel'] : 0;
-    $admin_listing_per_page = get_config('admin_listing_per_page');
+    $admin_listing_per_page = Config::get('admin_listing_per_page');
 
     if ($page <= 0) $page = 1;
 

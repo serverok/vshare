@@ -83,7 +83,7 @@ if ($err == '') {
         } else {
             $show_video = 0;
             $_SESSION['REDIRECT'] = VSHARE_URL . '/view/' . $video_info['video_id'] . '/' . $video_info['video_seo_name'] . '/';
-            if (get_config('signup_enable')) {
+            if (Config::get('signup_enable')) {
                 $redirect_url = $config['baseurl'] . '/signup/';
             } else {
                 $redirect_url = $config['baseurl'] . '/login/';

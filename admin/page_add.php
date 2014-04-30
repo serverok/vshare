@@ -65,7 +65,7 @@ if (isset($_POST['submit'])) {
     $smarty->assign('name', $name);
 }
 
-$smarty->assign('editor_wysiwyg_admin', get_config('editor_wysiwyg_admin'));
+$smarty->assign('editor_wysiwyg_admin', Config::get('editor_wysiwyg_admin'));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

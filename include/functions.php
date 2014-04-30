@@ -359,14 +359,6 @@ function write_log($txt, $logfile = 1, $echo = 0, $extension = 'txt')
 
 }
 
-function get_config($config_name)
-{
-    $sql = "SELECT * FROM `config` WHERE
-           `config_name`='$config_name'";
-    $config_data = DB::fetch1($sql);
-    return $config_data['config_value'];
-}
-
 function check_subscriber_duration($uid)
 {
     global $config , $lang;

@@ -22,7 +22,7 @@ if (! is_numeric($_GET['uid'])) {
     exit(0);
 }
 
-$result_per_page = get_config('admin_listing_per_page');
+$result_per_page = Config::get('admin_listing_per_page');
 
 $sql = "SELECT `user_name` FROM `users` WHERE
        `user_id`='" . (int) $_GET['uid'] . "'";

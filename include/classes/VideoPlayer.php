@@ -57,7 +57,7 @@ class VideoPlayer
 
         $file = File::getVideoUrl($this->video_info['video_server_id'], $this->video_info['video_folder'], $this->video_info['video_flv_name']);
         $video_thumb_url = $servers[$this->video_info['video_thumb_server_id']];
-        $vshare_player = get_config('vshare_player');
+        $vshare_player = Config::get('vshare_player');
 
         require VSHARE_DIR . '/include/player.inc';
         return $vshare_player;
@@ -66,7 +66,7 @@ class VideoPlayer
     function youtube()
     {
         global $config,$servers;
-        $youtube_player = get_config('youtube_player');
+        $youtube_player = Config::get('youtube_player');
 
         if ($youtube_player == 'vshare')
         {
@@ -74,7 +74,7 @@ class VideoPlayer
             $file = 'http://www.youtube.com/v/' . $this->video_info['video_name'];
             $video_id = $this->video_info['video_id'];
             $video_thumb_url = $servers[$this->video_info['video_thumb_server_id']];
-            $vshare_player = get_config('vshare_player');
+            $vshare_player = Config::get('vshare_player');
 
 	        require VSHARE_DIR . '/include/player.inc';
 	        return $vshare_player;

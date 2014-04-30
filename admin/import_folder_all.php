@@ -19,7 +19,7 @@ require '../include/language/' . LANG . '/lang_admin_import_folder_all.php';
 check_admin_login();
 
 $import_folder = VSHARE_DIR . '/templates_c/import';
-$num_max_channels = get_config('num_max_channels');
+$num_max_channels = Config::get('num_max_channels');
 
 $videos = array();
 

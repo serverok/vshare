@@ -67,7 +67,7 @@ if (isset($_POST['submit'])) {
             DB::query($sql);
         }
 
-        $auto_friend = get_config('signup_auto_friend');
+        $auto_friend = Config::get('signup_auto_friend');
 
         if ((strlen($auto_friend) > 1) && (check_field_exists($auto_friend, 'user_name', 'users'))) {
             $friend = new Friends();

@@ -16,7 +16,7 @@ require '../include/config.php';
 
 check_admin_login();
 
-$admin_listing_per_page = get_config('admin_listing_per_page');
+$admin_listing_per_page = Config::get('admin_listing_per_page');
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
 if ($page < 1) {

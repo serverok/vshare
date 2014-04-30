@@ -26,7 +26,7 @@ $sql = "SELECT * FROM `process_queue` WHERE
        `status`='2'";
 $process = DB::fetch1($sql);
 
-$cron = get_config('cron');
+$cron = Config::get('cron');
 
 echo 'cronjob started<br />';
 

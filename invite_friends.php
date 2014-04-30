@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
     } else if (($recipients == '') && ($_POST['UID'] == '')) {
         $err = $lang['invite_friends_email'];
     } else {
-        $user_daily_mail_limit = get_config('user_daily_mail_limit');
+        $user_daily_mail_limit = Config::get('user_daily_mail_limit');
 
         $sql = "SELECT count(*) AS `total` FROM `mail_logs` WHERE
                `mail_log_user_id`='" . (int) $_SESSION['UID'] . "'";

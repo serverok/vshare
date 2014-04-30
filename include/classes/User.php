@@ -43,7 +43,7 @@ class User
             $_SESSION['EMAILVERIFIED'] = $user_info['user_email_verified'];
             $_SESSION['pwd'] = $token;
 
-            if (get_config('hotlink_protection') == 2) {
+            if (Config::get('hotlink_protection') == 2) {
                 setcookie('vShareAllow', 'yes', time() + 60 * 60 * 24 * 100, '/');
             }
 
@@ -252,7 +252,7 @@ class User
     {
         global $config;
         $loged_in = 0;
-        $signup_enable = get_config('signup_enable');
+        $signup_enable = Config::get('signup_enable');
 
         if (isset($_SESSION['UID']) and isset($_SESSION['pwd'])) {
 
@@ -405,7 +405,7 @@ class User
 			$tmp = DB::fetch1($sql);
 			$friend_user_name = $tmp['user_name'];
 
-			$signup_auto_friend = get_config('signup_auto_friend');
+			$signup_auto_friend = Config::get('signup_auto_friend');
 			$friends = new Friends();
 
 			if ($friend_user_name != $signup_auto_friend && !$friends->already_friends($user_id,$friend_id)) {

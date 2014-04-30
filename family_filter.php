@@ -61,7 +61,7 @@ if ($_SESSION['FAMILY_FILTER'] == 0) {
     }
 }
 
-$smarty->assign('age_minimum', get_config('signup_age_min'));
+$smarty->assign('age_minimum', Config::get('signup_age_min'));
 $smarty->display('header.tpl');
 $smarty->display('family_filter.tpl');
 $smarty->display('footer.tpl');

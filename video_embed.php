@@ -26,7 +26,7 @@ $video_info = Video::getById($video_id);
 $video_thumb_url = $servers[$video_info['video_thumb_server_id']];
 $logo = IMG_CSS_URL . '/images/watermark.gif';
 $image = $video_thumb_url . '/thumb/' . $video_info['video_folder'] . '/' . $video_id . '.jpg';
-$vshare_player = get_config('vshare_player');
+$vshare_player = Config::get('vshare_player');
 
 if ($vshare_player == 'StrobeMediaPlayback') {
     $file_url = 'src=' . VSHARE_URL . '/flvideo/' . $video_info['video_folder'] . $video_info['video_flv_name'];

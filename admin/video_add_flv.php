@@ -18,7 +18,7 @@ require '../include/language/' . LANG . '/lang_admin_video_add_flv.php';
 
 check_admin_login();
 
-$num_max_channels = get_config('num_max_channels');
+$num_max_channels = Config::get('num_max_channels');
 $smarty->assign('num_max_channels', $num_max_channels);
 
 if (isset($_POST['submit']))

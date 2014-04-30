@@ -17,7 +17,7 @@ require '../include/language/' . LANG . '/lang_admin_import_folder_form.php';
 
 check_admin_login();
 
-$num_max_channels = get_config('num_max_channels');
+$num_max_channels = Config::get('num_max_channels');
 
 $todo = '';
 

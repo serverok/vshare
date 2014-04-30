@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
     Http::redirect($redirect_url);
 }
 
-$smarty->assign('editor_wysiwyg_email', get_config('editor_wysiwyg_email'));
+$smarty->assign('editor_wysiwyg_email', Config::get('editor_wysiwyg_email'));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

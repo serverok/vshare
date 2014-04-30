@@ -66,7 +66,7 @@ if ($already_reported) {
 
 DB::query($sql);
 
-$mail_abuse_report = get_config('mail_abuse_report');
+$mail_abuse_report = Config::get('mail_abuse_report');
 
 if ($mail_abuse_report) {
 

@@ -16,7 +16,7 @@ require '../include/config.php';
 
 check_admin_login();
 
-$result_per_page = get_config('admin_listing_per_page');
+$result_per_page = Config::get('admin_listing_per_page');
 
 if (! is_numeric($_GET['gid'])) {
     echo 'gid empty';

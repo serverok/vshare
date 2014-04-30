@@ -6,7 +6,7 @@ class Media
     {
         global $config;
 
-        $flv_metadata = get_config('flv_metadata');
+        $flv_metadata = Config::get('flv_metadata');
 
         if ($flv_metadata != 'none')
         {

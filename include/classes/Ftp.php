@@ -191,7 +191,7 @@ class Ftp
             DB::query($sql);
         }
 
-        if (get_config('video_flv_delete') == 1) {
+        if (Config::get('video_flv_delete') == 1) {
             unlink($source_flv_path);
             $this->log('<p>unlink(' . $source_flv_path . ')</p>');
         } else {

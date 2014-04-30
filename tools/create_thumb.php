@@ -4,7 +4,7 @@ ini_set("max_execution_time", "30000");
 
 require '../include/config.php';
 
-$video_duration_cmd = get_config('video_duration_cmd');
+$video_duration_cmd = Config::get('video_duration_cmd');
 $t_info = array();
 $debug =0;
 

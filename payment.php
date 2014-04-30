@@ -116,9 +116,9 @@ if (isset($_POST['submit'])) {
         $city = urlencode($_POST['user_city']);
         $country = $_POST['user_country'];
 
-        $ccbill_ac_no = get_config('ccbill_ac_no');
-        $ccbill_sub_ac_no = get_config('ccbill_sub_ac_no');
-        $ccbill_form_name = get_config('ccbill_form_name');
+        $ccbill_ac_no = Config::get('ccbill_ac_no');
+        $ccbill_sub_ac_no = Config::get('ccbill_sub_ac_no');
+        $ccbill_form_name = Config::get('ccbill_form_name');
 
         $ccbill_link = 'https://bill.ccbill.com/jpost/signup.cgi?clientAccnum=' . $ccbill_ac_no . '&clientSubacc=' . $ccbill_sub_ac_no . '&formName=' . $ccbill_form_name . '&customer_fname=' . $first_name . '&customer_lname=' . $last_name . '&city=' . $city . '&country=' . $country . '&accountingAmount=' . $theprice . '&vshare_payment_id=' . $payment_id . '&productDesc=' . $product_desc;
         Http::redirect($ccbill_link);

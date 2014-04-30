@@ -15,7 +15,7 @@
 require 'include/config.php';
 require 'include/language/' . LANG . '/lang_upload_success.php';
 
-$guest_upload = get_config('guest_upload');
+$guest_upload = Config::get('guest_upload');
 
 if ($guest_upload == 0) {
     User::is_logged_in();
@@ -93,7 +93,7 @@ if ($video_processed == 1) {
         if (isset($_SESSION['UID'])) {
 	        update_user_video_count($_SESSION['UID'], 1);
         } else if ($guest_upload == 1) {
-            $guest_upload_user = get_config('guest_upload_user');
+            $guest_upload_user = Config::get('guest_upload_user');
 	        $user_info = User::getByName($guest_upload_user);
 	        update_user_video_count($user_info['user_id'], 1);
         }

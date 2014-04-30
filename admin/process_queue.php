@@ -17,7 +17,7 @@ require '../include/language/' . LANG . '/lang_admin_process_queue.php';
 
 check_admin_login();
 
-$result_per_page = get_config('admin_listing_per_page');
+$result_per_page = Config::get('admin_listing_per_page');
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     $id = $_GET['id'];
@@ -67,7 +67,7 @@ if ($page < 1) {
     $page = 1;
 }
 
-$result_per_page = get_config('admin_listing_per_page');
+$result_per_page = Config::get('admin_listing_per_page');
 
 $sql = "SELECT count(*) AS `total` FROM
        `process_queue` AS p,

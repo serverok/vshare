@@ -74,7 +74,7 @@ if (isset($_POST['send']) && $allow_invite == 1)
     }
     else
     {
-        $user_daily_mail_limit = get_config('user_daily_mail_limit');
+        $user_daily_mail_limit = Config::get('user_daily_mail_limit');
 
         $sql = "SELECT count(*) AS `total` FROM `mail_logs` WHERE
                `mail_log_user_id`='" . (int) $_SESSION['UID'] . "'";

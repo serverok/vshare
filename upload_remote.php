@@ -15,13 +15,13 @@
 require 'include/config.php';
 require 'include/language/' . LANG . '/lang_upload_remote.php';
 
-$guest_upload = get_config('guest_upload');
+$guest_upload = Config::get('guest_upload');
 
 if ($guest_upload == 0) {
     User::is_logged_in();
     $user_id = $_SESSION['UID'];
 } else {
-    $user_name = get_config('guest_upload_user');
+    $user_name = Config::get('guest_upload_user');
     $user_info = User::getByName($user_name);
     $user_id = $user_info['user_id'];
 }
@@ -107,7 +107,7 @@ if (isset($_POST['submit'])) {
             }
         }
 
-        if ($config['approve'] == 1 && get_config('moderate_video_links') == 1) {
+        if ($config['approve'] == 1 && Config::get('moderate_video_links') == 1) {
             if (preg_match('{\b(?:http://)?(www\.)?([^\s]+)*(\.[a-z]{2,3})\b}mi', $upload_video_descr)) {
                 $config['approve'] = 0;
             }

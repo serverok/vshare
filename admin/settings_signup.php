@@ -126,12 +126,12 @@ if (isset($_POST['submit']))
     }
 }
 
-$smarty->assign('signup_age_min', get_config('signup_age_min'));
-$smarty->assign('signup_age_min_enforce', get_config('signup_age_min_enforce'));
-$smarty->assign('signup_enable', get_config('signup_enable'));
-$smarty->assign('signup_auto_friend', get_config('signup_auto_friend'));
-$smarty->assign('signup_dob', get_config('signup_dob'));
-$smarty->assign('captcha_type', get_config('captcha_type'));
+$smarty->assign('signup_age_min', Config::get('signup_age_min'));
+$smarty->assign('signup_age_min_enforce', Config::get('signup_age_min_enforce'));
+$smarty->assign('signup_enable', Config::get('signup_enable'));
+$smarty->assign('signup_auto_friend', Config::get('signup_auto_friend'));
+$smarty->assign('signup_dob', Config::get('signup_dob'));
+$smarty->assign('captcha_type', Config::get('captcha_type'));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

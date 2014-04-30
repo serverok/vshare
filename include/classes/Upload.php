@@ -214,7 +214,7 @@ class Upload
                     mkdir(VSHARE_DIR . '/flvideo/' . $video_folder);
                 }
 
-                if ($config['approve'] == 1 && get_config('moderate_video_links') == 1) {
+                if ($config['approve'] == 1 && Config::get('moderate_video_links') == 1) {
                     if (preg_match('{\b(?:http://)?(www\.)?([^\s]+)*(\.[a-z]{2,3})\b}mi', $download_info['description'])) {
                         $config['approve'] = 0;
                     }
@@ -314,7 +314,7 @@ class Upload
             $log_text = 'Find video duration - START';
             write_log($log_text, $log_file_name, $debug, 'html');
 
-            $video_duration_cmd = get_config('video_duration_cmd');
+            $video_duration_cmd = Config::get('video_duration_cmd');
 
             DB::close();
 
@@ -579,7 +579,7 @@ class Upload
                     $mail->send($msg);
                 }
 
-                $process_notify_user = get_config('process_notify_user');
+                $process_notify_user = Config::get('process_notify_user');
 
                 if ($process_notify_user == 1) {
 

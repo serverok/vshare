@@ -18,7 +18,7 @@ require 'include/language/' . LANG . '/lang_video_edit.php';
 User::is_logged_in();
 
 $video_id = isset($_GET['video_id']) ? (int) $_GET['video_id'] : 0;
-$num_max_channels = get_config('num_max_channels');
+$num_max_channels = Config::get('num_max_channels');
 $smarty->assign('num_max_channels', $num_max_channels);
 
 if (isset($_POST['submit'])) {

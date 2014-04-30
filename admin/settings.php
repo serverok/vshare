@@ -148,7 +148,7 @@ if (isset($_POST['submit']))
                     $_POST['ccbill_ac_no'] = isset($_POST['ccbill_ac_no']) ? $_POST['ccbill_ac_no'] : '';
                     $_POST['ccbill_ac_no'] = trim($_POST['ccbill_ac_no']);
 
-                    if (Config::isSet('ccbill_ac_no'))
+                    if (Config::exists('ccbill_ac_no'))
                     {
                         $sql = "UPDATE `config` SET
                                `config_value`='" . DB::quote($_POST['ccbill_ac_no']) . "' WHERE
@@ -163,10 +163,12 @@ if (isset($_POST['submit']))
                         DB::query($sql);
                     }
 
+                    dd('ok');
+
                     $_POST['ccbill_sub_ac_no'] = isset($_POST['ccbill_sub_ac_no']) ? $_POST['ccbill_sub_ac_no'] : '';
                     $_POST['ccbill_sub_ac_no'] = trim($_POST['ccbill_sub_ac_no']);
 
-                    if (Config::isSet('ccbill_sub_ac_no'))
+                    if (Config::exists('ccbill_sub_ac_no'))
                     {
                         $sql = "UPDATE `config` SET
                                `config_value`='" . DB::quote($_POST['ccbill_sub_ac_no']) . "' WHERE
@@ -184,7 +186,7 @@ if (isset($_POST['submit']))
                     $_POST['ccbill_form_name'] = isset($_POST['ccbill_form_name']) ? $_POST['ccbill_form_name'] : '';
                     $_POST['ccbill_form_name'] = trim($_POST['ccbill_form_name']);
 
-                    if (Config::isSet('ccbill_form_name'))
+                    if (Config::exists('ccbill_form_name'))
                     {
                         $sql = "UPDATE `config` SET
                                `config_value`='" . DB::quote($_POST['ccbill_form_name']) . "' WHERE
@@ -285,13 +287,13 @@ if ($config['payment_method'] != '')
 
 $payment_method_ops = '<input type="checkbox" name="method[]" value="Paypal" ' . $paypal_enabled . ' /> Paypal <input type="checkbox" name="method[]" value="CCBill" ' . $ccbill_enabled . ' /> CCBill<br />';
 
-$smarty->assign('ccbill_ac_no', get_config('ccbill_ac_no'));
-$smarty->assign('ccbill_sub_ac_no', get_config('ccbill_sub_ac_no'));
-$smarty->assign('ccbill_form_name', get_config('ccbill_form_name'));
-$smarty->assign('moderate_video_links', get_config('moderate_video_links'));
-$smarty->assign('hotlink_protection', get_config('hotlink_protection'));
+$smarty->assign('ccbill_ac_no', Config::get('ccbill_ac_no'));
+$smarty->assign('ccbill_sub_ac_no', Config::get('ccbill_sub_ac_no'));
+$smarty->assign('ccbill_form_name', Config::get('ccbill_form_name'));
+$smarty->assign('moderate_video_links', Config::get('moderate_video_links'));
+$smarty->assign('hotlink_protection', Config::get('hotlink_protection'));
 
-$smarty->assign('allow_html', get_config('allow_html'));
+$smarty->assign('allow_html', Config::get('allow_html'));
 $smarty->assign('payment_method_ops', $payment_method_ops);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);

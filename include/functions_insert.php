@@ -6,7 +6,7 @@ function insert_tags()
            `active`='1' AND
            `tag_count` > 0
             ORDER BY `used_on` DESC
-            LIMIT " . get_config('home_num_tags');
+            LIMIT " . Config::get('home_num_tags');
     $tags_all = DB::fetch($sql);
 
     if (! $tags_all) {
@@ -364,7 +364,7 @@ function insert_recently_active_users($a)
 {
     $sql = "SELECT DISTINCT `user_login_user_id` FROM `user_logins`
             ORDER BY `user_login_id` DESC
-            LIMIT " . get_config('num_last_users_online');
+            LIMIT " . Config::get('num_last_users_online');
     return DB::fetch($sql);
 }
 

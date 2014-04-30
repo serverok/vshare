@@ -17,7 +17,7 @@ require '../include/language/' . LANG . '/lang_admin_channel_videos.php';
 
 check_admin_login();
 
-$result_per_page = get_config('admin_listing_per_page');
+$result_per_page = Config::get('admin_listing_per_page');
 
 $channel = Channel::getById($_GET['chid']);
 $smarty->assign('channel_name', $channel['channel_name']);

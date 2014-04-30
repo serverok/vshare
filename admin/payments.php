@@ -18,7 +18,7 @@ check_admin_login();
 
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id_desc';
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
-$admin_listing_per_page = get_config('admin_listing_per_page');
+$admin_listing_per_page = Config::get('admin_listing_per_page');
 
 if ($page < 1) {
     $page = 1;

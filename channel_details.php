@@ -24,7 +24,7 @@ $channel = Channel::getById($_GET['id']);
 
 if ($channel) {
 
-    $num_channel_videos = get_config('num_channel_video');
+    $num_channel_videos = Config::get('num_channel_video');
 
     $sql = "SELECT count(video_id) AS `total`, `video_user_id` FROM `videos` WHERE
            `video_channels` LIKE '%|" . (int) $_GET['id'] . "|%' AND

@@ -17,7 +17,7 @@ require '../include/language/' . LANG . '/lang_admin_groupmembers.php';
 
 check_admin_login();
 
-$result_per_page = get_config('admin_listing_per_page');
+$result_per_page = Config::get('admin_listing_per_page');
 
 $sql = "SELECT `group_name` FROM `groups` WHERE
        `group_id`='" . (int) $_GET['group_id'] . "'";
