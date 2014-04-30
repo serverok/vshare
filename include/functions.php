@@ -97,7 +97,7 @@ function check_field_exists($fvalue, $field, $table)
     }
 }
 
-function timediff($my_time, $current_time = '')
+/*function timediff($my_time, $current_time = '')
 {
     $time1 = strtotime($my_time);
 
@@ -120,6 +120,7 @@ function timediff($my_time, $current_time = '')
 
     return $x;
 }
+*/
 
 function format_size($size)
 {
@@ -336,25 +337,6 @@ function check_subscriber_videos($uid)
         $redirect_url = VSHARE_URL . '/renew_account.php?uid=' . $uid;
         Http::redirect($redirect_url);
     }
-}
-
-function find_age($dob)
-{
-    list($birth_year, $birth_month, $birth_day) = explode('-', $dob);
-    $datestamp = date('d.m.Y');
-    $t_arr = explode('.', $datestamp);
-    $current_day = $t_arr[0];
-    $current_month = $t_arr[1];
-    $current_year = $t_arr[2];
-    $year_dif = $current_year - $birth_year;
-
-    if (($birth_month > $current_month) || ($birth_month == $current_month && $current_day < $birth_day)) {
-        $age = $year_dif - 1;
-    } else {
-        $age = $year_dif;
-    }
-
-    return $age;
 }
 
 function password_generator($lenght = 8)

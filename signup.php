@@ -146,7 +146,7 @@ if (isset($_POST['submit'])) {
         } else {
             $signup_age_min_enforce = Config::get('signup_age_min_enforce');
             if ($signup_age_min_enforce == 1) {
-                $age = find_age($bdate);
+                $age = User::findAge($bdate);
                 $age_minimum = Config::get('signup_age_min');
 
                 if ($age < $age_minimum) {

@@ -440,4 +440,22 @@ class User
         DB::query($sql);
     }
 
+    public static function findAge($dob)
+    {
+        list($birth_year, $birth_month, $birth_day) = explode('-', $dob);
+        $datestamp = date('d.m.Y');
+        $t_arr = explode('.', $datestamp);
+        $current_day = $t_arr[0];
+        $current_month = $t_arr[1];
+        $current_year = $t_arr[2];
+        $year_dif = $current_year - $birth_year;
+
+        if (($birth_month > $current_month) || ($birth_month == $current_month && $current_day < $birth_day)) {
+            $age = $year_dif - 1;
+        } else {
+            $age = $year_dif;
+        }
+
+        return $age;
+    }
 }

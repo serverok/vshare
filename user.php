@@ -27,7 +27,7 @@ if (! $user_info) {
 $smarty->assign('user_info', $user_info);
 
 if ($user_info['user_birth_date'] != '0000-00-00') {
-    $age = find_age($user_info['user_birth_date']);
+    $age = User::findAge($user_info['user_birth_date']);
     $smarty->assign('age', $age);
 }
 
