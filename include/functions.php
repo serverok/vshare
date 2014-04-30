@@ -252,35 +252,6 @@ function check_subscriber($space = 0)
     }
 }
 
-
-
-function download($source, $destination)
-{
-    $written = null;
-    $source = str_replace(' ', '%20', html_entity_decode($source));
-    $read = fopen("$source", "r");
-
-    if (! $read) {
-        $err = 0;
-        return $err;
-    }
-
-    $write = fopen($destination, "wb");
-
-    if (! $write) {
-        $err = 1;
-        return $err;
-    }
-
-    while (! feof($read)) {
-        $written += fwrite($write, fread($read, 1024));
-    }
-
-    fclose($read);
-    fclose($write);
-    return $written;
-}
-
 function write_log($txt, $logfile = 1, $echo = 0, $extension = 'txt')
 {
     global $config;

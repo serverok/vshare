@@ -59,7 +59,7 @@ class DailymotionVideo extends Dailymotion
         $destinationThumb_2 = VSHARE_DIR . '/thumb/2_' . $this->vshareVideoId . '.jpg';
         $destinationThumb_3 = VSHARE_DIR . '/thumb/3_' . $this->vshareVideoId . '.jpg';
 
-        $thumbFileSize = download($this->videoResult['thumbnail_url'],$destinationThumb);
+        $thumbFileSize = Http::download($this->videoResult['thumbnail_url'],$destinationThumb);
 
         if ($thumbFileSize < 2)
         {
@@ -67,14 +67,14 @@ class DailymotionVideo extends Dailymotion
         }
 
         $spriteDestinationThumb = VSHARE_DIR . '/templates_c/sprite_' . $this->vshareVideoId . '.jpg';
-        $thumb_1_FileSize = download($sourceThumb,$destinationThumb_1);
+        $thumb_1_FileSize = Http::download($sourceThumb,$destinationThumb_1);
 
         if ($thumb_1_FileSize < 2)
         {
             copy($noThumb,$destinationThumb_1);
         }
 
-        $spriteDestinationThumbFileSize = download($spriteSourceThumb,$spriteDestinationThumb);
+        $spriteDestinationThumbFileSize = Http::download($spriteSourceThumb,$spriteDestinationThumb);
 
         if ($spriteDestinationThumbFileSize < 2)
         {

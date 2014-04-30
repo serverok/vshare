@@ -80,7 +80,7 @@ class Upload
             echo "<p>Downloading Video : $video_url</p>";
             echo "<p>Destination : $desination</p>";
 
-            $file_size = download($video_url, $desination);
+            $file_size = Http::download($video_url, $desination);
 
             write_log('Download Finished');
             write_log('File Name: ' . $desination);

@@ -31,12 +31,12 @@ class UploadRemote
             for ($i = 1; $i <= 3; $i ++) {
                 $source = 'http://img.youtube.com/vi/' . $video_id . '/' . $i . '.jpg';
                 $desination = VSHARE_DIR . '/thumb/' . $i . '_' . $videojpg;
-                $this->upload = download($source, $desination);
+                $this->upload = Http::download($source, $desination);
             }
             #Create Main Image
             $source = 'http://img.youtube.com/vi/' . $video_id . '/0.jpg';
             $desination = VSHARE_DIR . '/thumb/' . $vid . '.jpg';
-            $this->upload = download($source, $desination);
+            $this->upload = Http::download($source, $desination);
         }
 
         $youtube_xml = $this->get_youtube_duration('http://www.youtube.com/api2_rest?method=youtube.videos.get_details&dev_id=rG48P7iz0eo&video_id=' . $this->video_id);
@@ -79,14 +79,14 @@ class UploadRemote
             for ($i = 1; $i <= 3; $i ++) {
                 $source = "http://frame.revver.com/frame/120x190/" . $video_id . ".jpg";
                 $desination = VSHARE_DIR . "/thumb/" . $i . "_" . $videojpg;
-                $this->upload = download($source, $desination);
+                $this->upload = Http::download($source, $desination);
                 if ($this->debug) {
                     echo "<p>$source,$desination</p>";
                 }
             }
             $source = "http://frame.revver.com/frame/120x190/" . $video_id . ".jpg";
             $desination = VSHARE_DIR . "/thumb/" . $vid . ".jpg";
-            $this->upload = download($source, $desination);
+            $this->upload = Http::download($source, $desination);
         }
 
         if ($this->upload <= 0) {
@@ -123,11 +123,11 @@ class UploadRemote
             for ($i = 1; $i <= 3; $i ++) {
                 $source = 'http://www.metacafe.com/thumb/' . $jpg_id . '.jpg';
                 $desination = VSHARE_DIR . '/thumb/' . $i . '_' . $videojpg;
-                $this->upload = download($source, $desination);
+                $this->upload = Http::download($source, $desination);
             }
             $source = 'http://www.metacafe.com/thumb/' . $jpg_id . '.jpg';
             $desination = VSHARE_DIR . '/thumb/' . $vid . '.jpg';
-            $this->upload = download($source, $desination);
+            $this->upload = Http::download($source, $desination);
         }
 
         if ($this->upload <= 0) {

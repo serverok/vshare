@@ -127,7 +127,7 @@ if (isset($_POST['submit'])) {
             $embedded_image = $_POST['embedded_code_image'];
             $destination = VSHARE_DIR . '/thumb/' . $video_id . '.jpg';
             $source = $embedded_image[0];
-            download($source, $destination);
+            Http::download($source, $destination);
 
             $j = 0;
 
@@ -137,7 +137,7 @@ if (isset($_POST['submit'])) {
                     $destination = VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg';
                     echo '<br />';
                     $source = $embedded_image[$i];
-                    download($source, $destination);
+                    Http::download($source, $destination);
                 } else {
                     $destination = VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg';
                     copy(VSHARE_DIR . '/templates/images/no_thumbnail.gif', $destination);
