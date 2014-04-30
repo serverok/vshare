@@ -6,16 +6,13 @@ function check_admin_login()
 {
     global $config;
     $admin_loged_in = 0;
-    if (isset($_SESSION['AUID']) && isset($_SESSION['APASSWORD']))
-    {
-        if (($_SESSION['AUID'] == $config['admin_name']) && ($_SESSION['APASSWORD'] == $config['admin_pass']))
-        {
+    if (isset($_SESSION['AUID']) && isset($_SESSION['APASSWORD'])) {
+        if (($_SESSION['AUID'] == $config['admin_name']) && ($_SESSION['APASSWORD'] == $config['admin_pass'])) {
             $admin_loged_in = 1;
         }
     }
 
-    if ($admin_loged_in == 0)
-    {
+    if ($admin_loged_in == 0) {
         set_message('You are not logged in.', 'error');
         $redirect_url = $config['baseurl'] . '/admin/index.php';
         Http::redirect($redirect_url);
@@ -28,9 +25,7 @@ function write_admin_log()
 {
     $file_name_array = explode('/', $_SERVER['SCRIPT_FILENAME']);
     $admin_log_script = $file_name_array[count($file_name_array)-1];
-
-    if ($admin_log_script == 'admin_log.php' || $admin_log_script == 'menu.php' || $admin_log_script == 'main.php')
-    {
+    if ($admin_log_script == 'admin_log.php' || $admin_log_script == 'menu.php' || $admin_log_script == 'main.php') {
         return;
     }
 
@@ -40,8 +35,7 @@ function write_admin_log()
     $admin_log_time = time();
     $admin_log_extra = '';
 
-    if (isset($_SERVER['QUERY_STRING']))
-    {
+    if (isset($_SERVER['QUERY_STRING'])) {
         $admin_log_extra = $_SERVER['QUERY_STRING'];
     }
 
@@ -59,14 +53,10 @@ function years($sel = '')
     $year = '';
     $init = date('Y');
 
-    for ($i = 1900; $i <= $init; $i ++)
-    {
-        if ($i == $sel)
-        {
+    for ($i = 1900; $i <= $init; $i ++) {
+        if ($i == $sel) {
             $year .= '<option value="' . $i . '" selected="selected">' . $i . '</option>';
-        }
-        else
-        {
+        } else {
             $year .= '<option value="' . $i . '">' . $i . '</option>';
         }
     }
@@ -90,14 +80,11 @@ function months($sel = '')
         'December'
     );
     $month = '';
-    for ($i = 1; $i <= 12; $i ++)
-    {
-        if ($i == $sel)
-        {
+
+    for ($i = 1; $i <= 12; $i ++) {
+        if ($i == $sel) {
             $month .= '<option value="' . $i . '" selected="selected">' . $i . '</option>';
-        }
-        else
-        {
+        } else {
             $month .= '<option value="' . $i . '">' . $i . '</option>';
         }
     }
@@ -107,14 +94,10 @@ function months($sel = '')
 function days($sel = '')
 {
     $day = '';
-    for ($i = 1; $i <= 31; $i ++)
-    {
-        if ($i == $sel)
-        {
+    for ($i = 1; $i <= 31; $i ++) {
+        if ($i == $sel) {
             $day .= '<option value="' . $i . '" selected="selected">' . $i . '</option>';
-        }
-        else
-        {
+        } else {
             $day .= '<option value="' . $i . '">' . $i . '</option>';
         }
     }
@@ -135,49 +118,39 @@ function createThumb($srcname, $destname, $maxwidth, $maxheight)
 
     $shrinkage = 1;
 
-    if ($imagewidth > $maxwidth)
-    {
+    if ($imagewidth > $maxwidth) {
         $shrinkage = $maxwidth / $imagewidth;
     }
 
-    if ($shrinkage != 1)
-    {
+    if ($shrinkage != 1) {
         $dest_height = $shrinkage * $imageheight;
         $dest_width = $maxwidth;
-    }
-    else
-    {
+    } else {
         $dest_height = $imageheight;
         $dest_width = $imagewidth;
     }
 
-    if ($dest_height > $maxheight)
-    {
+    if ($dest_height > $maxheight) {
         $shrinkage = $maxheight / $dest_height;
         $dest_width = $shrinkage * $dest_width;
         $dest_height = $maxheight;
     }
 
-    if ($imagetype == 2)
-    {
+    if ($imagetype == 2) {
         $src_img = imagecreatefromjpeg($oldimg);
         $dst_img = imageCreateTrueColor($dest_width, $dest_height);
         ImageCopyResampled($dst_img, $src_img, 0, 0, 0, 0, $dest_width, $dest_height, $imagewidth, $imageheight);
         imagejpeg($dst_img, $newimg, 100);
         imagedestroy($src_img);
         imagedestroy($dst_img);
-    }
-    else if ($imagetype == 3)
-    {
+    } else if ($imagetype == 3) {
         $src_img = imagecreatefrompng($oldimg);
         $dst_img = imageCreateTrueColor($dest_width, $dest_height);
         ImageCopyResampled($dst_img, $src_img, 0, 0, 0, 0, $dest_width, $dest_height, $imagewidth, $imageheight);
         imagepng($dst_img, $newimg, 100);
         imagedestroy($src_img);
         imagedestroy($dst_img);
-    }
-    else
-    {
+    } else {
         $src_img = imagecreatefromgif($oldimg);
         $dst_img = imageCreateTrueColor($dest_width, $dest_height);
         ImageCopyResampled($dst_img, $src_img, 0, 0, 0, 0, $dest_width, $dest_height, $imagewidth, $imageheight);
@@ -192,12 +165,9 @@ function check_field_exists($fvalue, $field, $table)
     $sql = "SELECT count(*) AS `total` FROM `$table` WHERE
            `$field`='" . DB::quote($fvalue) . "'";
     $total = DB::getTotal($sql);
-    if ($total > 0)
-    {
+    if ($total > 0) {
         return 1;
-    }
-    else
-    {
+    } else {
         return 0;
     }
 }
@@ -206,12 +176,9 @@ function timediff($my_time, $current_time = '')
 {
     $time1 = strtotime($my_time);
 
-    if ($current_time == '')
-    {
+    if ($current_time == '') {
         $time2 = $_SERVER['REQUEST_TIME'];
-    }
-    else
-    {
+    } else {
         $time2 = strtotime($current_time);
     }
 
@@ -231,18 +198,12 @@ function timediff($my_time, $current_time = '')
 
 function format_size($size)
 {
-    if ($size['type'] == 'byte')
-    {
+    if ($size['type'] == 'byte') {
 
-    }
-    else
-    {
-        if ($size < 1024)
-        {
+    } else {
+        if ($size < 1024) {
             $output = round($size, 2) . ' MB';
-        }
-        else
-        {
+        } else {
             $output = round($size / 1024, 2) . ' GB';
         }
     }
@@ -252,44 +213,33 @@ function format_size($size)
 function upload_jpg($FILE, $var_name, $file_name, $img_width = 128, $dir = "upload/", $rename = '')
 {
 
-    if ($FILE[$var_name]['name'])
-    {
+    if ($FILE[$var_name]['name']) {
         $file_url = $dir . uniqid("") . tmp;
         $ext = strrchr($FILE[$var_name]['name'], '.');
         move_uploaded_file($FILE[$var_name]['tmp_name'], $file_url);
 
-        if ($FILE[$var_name]['error'] > 0)
-        {
+        if ($FILE[$var_name]['error'] > 0) {
             $err = 'Error occurs while uploading file';
-        }
-        else if (strtolower($ext) == '.jpg')
-        {
+        } else if (strtolower($ext) == '.jpg') {
             $img = @imagecreatefromjpeg($file_url);
             $size = @getimagesize($file_url);
             $width = $size[0];
             $height = $size[1];
 
-            if ($width > $img_width)
-            {
+            if ($width > $img_width) {
                 $percentage = $img_width / $width;
                 $width *= $percentage;
                 $height *= $percentage;
-
                 $img_r = @imagecreatetruecolor($width, $height);
                 @imagecopyresampled($img_r, $img, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-            }
-            else
-            {
+            } else {
                 $img_r = $img;
             }
-
             $pic_name = $dir . $file_name;
             @ImageJpeg($img_r, $pic_name, 100);
             //                       rename("$pic_name", "$dir"."$rename");
             @unlink($file_url);
-        }
-        else
-        {
+        } else {
             @unlink($file_url);
             $err = 'File must be as .jpg format';
         }
@@ -302,23 +252,16 @@ function cc_month($sel = '')
 {
     $month = '';
 
-    for ($i = 1; $i <= 12; $i ++)
-    {
-        if ($i <= 9)
-        {
+    for ($i = 1; $i <= 12; $i ++) {
+        if ($i <= 9) {
             $j = '0' . $i;
-        }
-        else
-        {
+        } else {
             $j = $i;
         }
 
-        if ($i == $sel)
-        {
+        if ($i == $sel) {
             $month .= "<option value='$i' selected>$j</option>";
-        }
-        else
-        {
+        } else {
             $month .= "<option value='$i'>$j</option>";
         }
     }
@@ -329,14 +272,10 @@ function cc_year($sel = '')
 {
     $year = '';
 
-    for ($i = 2004; $i <= 2020; $i ++)
-    {
-        if ($i == $sel)
-        {
+    for ($i = 2004; $i <= 2020; $i ++) {
+        if ($i == $sel) {
             $year .= "<option value='$i' selected>$i</option>";
-        }
-        else
-        {
+        } else {
             $year .= "<option value='$i'>$i</option>";
         }
     }
@@ -353,19 +292,16 @@ function check_subscriber($space = 0)
     $sql = "SELECT * FROM `packages` WHERE
            `package_id`=" . $subs['pack_id'];
     $pack = DB::fetch1($sql);
-    if ($pack['package_videos'] != 0 && ($subs['total_video'] >= $pack['package_videos']))
-    {
+
+    if ($pack['package_videos'] != 0 && ($subs['total_video'] >= $pack['package_videos'])) {
         $err = 'You cannot upload more than ' . $pack['package_videos'] . ' videos';
         $type = 'limit';
-    }
-    else if ($subs['used_space'] + $space >= $pack['package_space'])
-    {
+    } else if ($subs['used_space'] + $space >= $pack['package_space']) {
         $err = 'You cannot upload more than ' . format_size($pack['package_space']) . ' space';
         $type = 'space';
     }
 
-    if ($err != '')
-    {
+    if ($err != '') {
         $uid = $_SESSION['UID'];
         header('Location: ' . VSHARE_URL . '/renew_account.php?uid=' . $uid . '&err=' . $err);
         exit();
@@ -380,12 +316,9 @@ function fx_replace($key, $value, $new_value)
 
 function checklogin()
 {
-    if (isset($_SESSION['UID']))
-    {
+    if (isset($_SESSION['UID'])) {
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -398,72 +331,52 @@ function paginate($total, $result_per_page, $page_url, $page_id, $current_page)
     $offset = 4;
     $span = ($offset * 2) + 1;
 
-    if ($numPages > 1)
-    {
-        if ($current_page > 1)
-        {
+    if ($numPages > 1) {
+        if ($current_page > 1) {
             $prevPage = $current_page - 1;
             $pagination_output .= "<a class='pagination_prev' href='$page_url/$prevPage'>&lt;</a> &nbsp; ";
         }
 
-        if ($current_page > $offset)
-        {
+        if ($current_page > $offset) {
             $pagination_output .= "<a class='pagination' href='$page_url/1'>1</A> ... ";
         }
 
-        if ($numPages > $span)
-        {
-            if ($current_page <= $offset)
-            {
+        if ($numPages > $span) {
+            if ($current_page <= $offset) {
                 $start = 1;
-            }
-            else if ($current_page >= ($numPages - $offset))
-            {
+            } else if ($current_page >= ($numPages - $offset)) {
                 $start = $numPages - $span;
-            }
-            else
-            {
+            } else {
                 $start = $current_page - $offset;
             }
-        }
-        else
-        {
+        } else {
             $start = 1;
             $span = $numPages;
         }
 
         $limit = $span + (($start != 1) ? $start : 0);
 
-        for ($i = $start; $i <= $limit; $i ++)
-        {
-            if ($i != $current_page)
-            {
+        for ($i = $start; $i <= $limit; $i ++) {
+            if ($i != $current_page) {
                 $pagination_output .= "<a class='pagination' href='$page_url/$i'>";
-            }
-            else
-            {
+            } else {
                 $pagination_output .= "<span class='pagination_active'>";
             }
 
             $pagination_output .= $i;
 
-            if ($i != $current_page)
-            {
+            if ($i != $current_page) {
                 $pagination_output .= "</a>";
-            }
-            else
-            {
+            } else {
                 $pagination_output .= "</span>";
             }
         }
 
-        if ($current_page < ($numPages - $offset))
-        {
+        if ($current_page < ($numPages - $offset)) {
             $pagination_output .= " ... <a class='pagination' href='$page_url/$numPages'>$numPages</a>";
         }
 
-        if ($current_page != $numPages)
-        {
+        if ($current_page != $numPages) {
             $nextPage = $current_page + 1;
             $pagination_output .= " &nbsp; <a class='pagination_next' href='$page_url/$nextPage'>&gt;</a>";
         }
@@ -479,8 +392,7 @@ function disallow_user_names($user_name)
            `disallow_username`='" . DB::quote($user_name) . "'";
     $result = DB::fetch1($sql);
 
-    if ($result)
-    {
+    if ($result) {
         $err = 1;
     }
 
@@ -492,22 +404,23 @@ function download($source, $destination)
     $written = null;
     $source = str_replace(' ', '%20', html_entity_decode($source));
     $read = fopen("$source", "r");
-    if (! $read)
-    {
+
+    if (! $read) {
         $err = 0;
         return $err;
     }
+
     $write = fopen($destination, "wb");
-    if (! $write)
-    {
+
+    if (! $write) {
         $err = 1;
         return $err;
     }
 
-    while (! feof($read))
-    :
+    while (! feof($read)) {
         $written += fwrite($write, fread($read, 1024));
-    endwhile;
+    }
+
     fclose($read);
     fclose($write);
     return $written;
@@ -517,19 +430,16 @@ function write_log($txt, $logfile = 1, $echo = 0, $extension = 'txt')
 {
     global $config;
 
-    if ($logfile == 1)
-    {
+    if ($logfile == 1) {
         $log_file = VSHARE_DIR . '/templates_c/debug.txt';
-    }
-    else
-    {
+    } else {
         $log_file = VSHARE_DIR . '/templates_c/' . $logfile . '.' . $extension;
     }
+
     $now = date("Y-m-d G:i:s");
     error_log("$now $txt\n\r", 3, $log_file);
 
-    if ($echo == 1)
-    {
+    if ($echo == 1) {
         echo $txt;
     }
 
@@ -552,8 +462,7 @@ function check_subscriber_duration($uid)
     $expired_time = $duration['expired_time'];
     $subscribe_time = $duration['subscribe_time'];
 
-    if ($expired_time == '0000-00-00 00:00:00')
-    {
+    if ($expired_time == '0000-00-00 00:00:00') {
         $expired_time = date("Y-m-d h:i:s");
         $sql = "UPDATE `subscriber` SET
                `expired_time`='$expired_time' WHERE
@@ -561,8 +470,7 @@ function check_subscriber_duration($uid)
         DB::query($sql);
     }
 
-    if ($subscribe_time == '0000-00-00 00:00:00')
-    {
+    if ($subscribe_time == '0000-00-00 00:00:00') {
         $subscribe_time = date("Y-m-d h:i:s");
         $sql = "UPDATE `subscriber` SET
                `subscribe_time`='$subscribe_time' WHERE
@@ -573,8 +481,7 @@ function check_subscriber_duration($uid)
     $expired_time_in_sec = strtotime($expired_time);
     $current_time = $_SERVER['REQUEST_TIME'];
 
-    if ($expired_time_in_sec < $current_time)
-    {
+    if ($expired_time_in_sec < $current_time) {
         $expired_time = date("j F Y", strtotime($expired_time));
         $msg = str_replace('[EXPIRED_TIME]', $expired_time, $lang['subscriber_expired']);
         set_message($msg, 'success');
@@ -587,10 +494,11 @@ function check_subscriber_space($user_id)
 {
     global $config , $lang;
     $err = '';
-    if (empty($user_id))
-    {
+
+    if (empty($user_id)) {
         $user_id = 0;
     }
+
     $sql = "SELECT * FROM `subscriber` WHERE
            `UID`='" . (int) $user_id . "'";
     $subscribe_info = DB::fetch1($sql);
@@ -599,8 +507,7 @@ function check_subscriber_space($user_id)
            `package_id`='" . (int) $subscribe_info['pack_id'] . "'";
     $pack = DB::fetch1($sql);
 
-    if ($subscribe_info['used_space'] >= $pack['package_space'])
-    {
+    if ($subscribe_info['used_space'] >= $pack['package_space']) {
         $msg = $lang['subscriber_space'];
         $space_used = format_size($subscribe_info['used_space']);
         $msg = str_replace('[SPACE_USED]', $space_used, $msg);
@@ -622,8 +529,7 @@ function check_subscriber_videos($uid)
            `package_id`='" . (int) $subscribe_info['pack_id'] . "'";
     $pack = DB::fetch1($sql);
 
-    if ($pack['package_videos'] != 0 && $subscribe_info['total_video'] >= $pack['package_videos'])
-    {
+    if ($pack['package_videos'] != 0 && $subscribe_info['total_video'] >= $pack['package_videos']) {
         $msg = $lang['subscriber_video'];
         $total_videos = $subscribe_info['total_video'];
         $msg = str_replace('[TOTAL_VIDEOS]', $total_videos, $msg);
@@ -643,12 +549,9 @@ function find_age($dob)
     $current_year = $t_arr[2];
     $year_dif = $current_year - $birth_year;
 
-    if (($birth_month > $current_month) || ($birth_month == $current_month && $current_day < $birth_day))
-    {
+    if (($birth_month > $current_month) || ($birth_month == $current_month && $current_day < $birth_day)) {
         $age = $year_dif - 1;
-    }
-    else
-    {
+    } else {
         $age = $year_dif;
     }
 
@@ -660,12 +563,10 @@ function password_generator($lenght = 8)
 
     $password = array();
 
-    for ($i = 0; $i <= $lenght; $i ++)
-    {
+    for ($i = 0; $i <= $lenght; $i ++) {
         $password[$i] = chr(rand(97, 122));
 
-        switch ($password[$i])
-        {
+        switch ($password[$i]) {
             case 'a':
                 $password[$i] = 4;
                 break;
@@ -688,8 +589,7 @@ function password_generator($lenght = 8)
 
         $third = $i / 3;
 
-        if (is_int($third))
-        {
+        if (is_int($third)) {
             $password[$i] = strtoupper($password[$i]);
         }
     }
@@ -701,28 +601,21 @@ function sec2hms($sec, $useColon = true)
     $hms = '';
     $hours = intval(intval($sec) / 3600);
 
-    if ($hours > 0)
-    {
+    if ($hours > 0) {
         $hms .= str_pad($hours, 2, '0', STR_PAD_LEFT) . ':';
     }
 
     $minutes = intval(($sec / 60) % 60);
 
-    if ($minutes > 0)
-    {
+    if ($minutes > 0) {
         $hms .= str_pad($minutes, 2, '0', STR_PAD_LEFT) . ':';
-    }
-    else
-    {
+    } else {
         $hms .= '00:';
     }
 
-    if ($sec > 59)
-    {
+    if ($sec > 59) {
         $seconds = intval($sec % 60);
-    }
-    else
-    {
+    } else {
         $sec_tmp = round($sec, 2);
         $seconds = $sec_tmp;
     }
@@ -737,15 +630,12 @@ function is_ip($ip)
 
     $ip = explode('.', $ip);
 
-    if (count($ip) != 4)
-    {
+    if (count($ip) != 4) {
         return FALSE;
     }
 
-    foreach ($ip as $block)
-    {
-        if (! is_numeric($block) || $block > 255 || $block < 1)
-        {
+    foreach ($ip as $block) {
+        if (! is_numeric($block) || $block > 255 || $block < 1) {
             $valid = FALSE;
         }
     }
@@ -782,8 +672,7 @@ function array_remove_duplicate($source_array)
     $source_array = array_unique($source_array);
     $array_new = array();
 
-    foreach ($source_array as $key)
-    {
+    foreach ($source_array as $key) {
         $array_new[] = $key;
     }
     return $array_new;
@@ -797,12 +686,9 @@ function check_config_exists($config_name)
 		   `config_name`='" . DB::quote($config_name) . "'";
     $result = DB::fetch1($sql);
 
-    if ($result)
-    {
+    if ($result) {
         return 1;
-    }
-    else
-    {
+    } else {
         return 0;
     }
 
