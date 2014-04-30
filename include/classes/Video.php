@@ -126,7 +126,7 @@ class Video
             }
 
             if ($this->video_info['video_active'] != $this->video_active) {
-                update_user_video_count($this->video_info['video_user_id'], $this->video_active);
+                User::updateVideoCount($this->video_info['video_user_id'], $this->video_active);
             }
         }
 
@@ -366,7 +366,7 @@ class Video
                        `video_id`='" . (int) $video_id . "'";
                 DB::query($sql);
 
-                update_user_video_count($video_uid, 0);
+                User::updateVideoCount($video_uid, 0);
             }
 
             $sql = "UPDATE `groups` SET

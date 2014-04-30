@@ -426,4 +426,18 @@ class User
         }
     }
 
+    public static function updateVideoCount($user_id, $action = 1)
+    {
+        if ($action) {
+            $sql = "UPDATE `users` SET
+                   `user_videos`=`user_videos`+1 WHERE
+                   `user_id`='" . (int) $user_id . "'";
+        } else {
+            $sql = "UPDATE `users` SET
+                   `user_videos`=`user_videos`-1 WHERE
+                   `user_id`='" . (int) $user_id . "'";
+        }
+        DB::query($sql);
+    }
+
 }

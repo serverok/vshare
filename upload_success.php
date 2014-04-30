@@ -91,11 +91,11 @@ if ($video_processed == 1) {
 
     if ($video_info['video_active'] == 1 && $video_info['video_approve'] == 1) {
         if (isset($_SESSION['UID'])) {
-	        update_user_video_count($_SESSION['UID'], 1);
+	        User::updateVideoCount($_SESSION['UID'], 1);
         } else if ($guest_upload == 1) {
             $guest_upload_user = Config::get('guest_upload_user');
 	        $user_info = User::getByName($guest_upload_user);
-	        update_user_video_count($user_info['user_id'], 1);
+	        User::updateVideoCount($user_info['user_id'], 1);
         }
     }
 }

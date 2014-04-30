@@ -32,7 +32,7 @@ if ($todo == 'activate') {
 	               `video_active`='1' WHERE
 	               `video_id`='" . (int) $_GET['video_id'] . "'";
 	        DB::query($sql);
-	        update_user_video_count($video_info['video_user_id'], 1);
+	        User::updateVideoCount($video_info['video_user_id'], 1);
 	        $msg = $lang['activate_video'];
         }
     }
@@ -45,7 +45,7 @@ if ($todo == 'activate_all')
     $inactive_videos = DB::fetch($sql);
 
     foreach($inactive_videos as $inactive_video) {
-        update_user_video_count($inactive_video['video_user_id'], 1);
+        User::updateVideoCount($inactive_video['video_user_id'], 1);
     }
 
     $sql = "UPDATE `videos` SET `video_active`='1'";

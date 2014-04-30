@@ -46,7 +46,7 @@ if (isset($_POST['activate'])) {
                    `UID`='" . (int) $user_info['user_id'] . "'";
             DB::query($sql);
 
-            update_user_video_count($user_info['user_id'], 1);
+            User::updateVideoCount($user_info['user_id'], 1);
 
             $tags = new Tag($video_info['video_keywords'], $_POST['video_id'], $video_info['video_user_id'], $video_info['video_channels']);
             $tags->add();

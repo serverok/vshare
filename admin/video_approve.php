@@ -50,7 +50,7 @@ if (isset($_GET['action']) && $_GET["action"] == 'approve') {
         DB::query($sql);
     }
 
-    update_user_video_count($tmp['video_user_id'], 1);
+    User::updateVideoCount($tmp['video_user_id'], 1);
 }
 
 if (isset($_GET['action']) && $_GET['action'] == 'approve_all') {
@@ -59,7 +59,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'approve_all') {
     $approved_video_users = DB::fetch($sql);
 
     foreach ($approved_video_users as $video_user) {
-        update_user_video_count($video_user['video_user_id'], 1);
+        User::updateVideoCount($video_user['video_user_id'], 1);
     }
 
     $sql = "UPDATE `videos` SET `video_approve`='1'";

@@ -496,22 +496,6 @@ function array_remove_duplicate($source_array)
     return $array_new;
 }
 
-
-function update_user_video_count($user_id, $action = 1)
-{
-    if ($action == 1) {
-        $sql = "UPDATE `users` SET
-               `user_videos`=`user_videos`+1 WHERE
-               `user_id`='" . (int) $user_id . "'";
-    } else {
-        $sql = "UPDATE `users` SET
-               `user_videos`=`user_videos`-1 WHERE
-               `user_id`='" . (int) $user_id . "'";
-    }
-
-    DB::query($sql);
-}
-
 function get_family_filter()
 {
 	global $config;
