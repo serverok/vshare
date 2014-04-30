@@ -17,7 +17,6 @@ $current_folder = dirname(__FILE__);
 chdir("$current_folder");
 
 require $current_folder . '/include/config.php';
-require $current_folder . '/include/youtube.php';
 
 $sql = "SELECT * FROM `process_queue` WHERE
        `status`='0'";

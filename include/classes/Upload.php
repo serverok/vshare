@@ -32,7 +32,7 @@ class Upload
         if (strstr($video_url, 'youtube.com')) {
             $file_extn = 'flv';
             $rename_file = 1;
-            $video_url = get_youtube_flv_url($video_url);
+            $video_url = Youtube::getFlvUrl($video_url);
             echo "<p>Youtube FLV location: $video_url</p>";
         } else if (strstr($video_url, 'googlevideo')) {
             $file_extn = 'flv';
@@ -363,9 +363,6 @@ class Upload
             write_log($log_text, $log_file_name, $debug, 'html');
 
             # Create thumnail with mplayer/ffmpeg/ffmpeg-php
-
-
-            require VSHARE_DIR . '/include/class.video_thumb.php';
 
             if (! is_dir(VSHARE_DIR . '/thumb/' . $video_folder)) {
                 mkdir(VSHARE_DIR . '/thumb/' . $video_folder);

@@ -14,7 +14,6 @@
 
 require '../include/config.php';
 require '../include/settings/upload.php';
-require '../include/youtube.php';
 require '../include/language/' . LANG . '/lang_admin_import_video.php';
 
 check_admin_login();
