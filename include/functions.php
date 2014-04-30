@@ -252,12 +252,6 @@ function check_subscriber($space = 0)
     }
 }
 
-function fx_replace($key, $value, $new_value)
-{
-    $re_value = str_replace($key, $new_value, $value);
-    return $re_value;
-}
-
 function checklogin()
 {
     if (isset($_SESSION['UID'])) {
