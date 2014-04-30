@@ -33,36 +33,28 @@ $cron = get_config('cron');
 
 echo 'cronjob started<br />';
 
-if ($cron == 1)
-{
+if ($cron == 1) {
 
     $cron = 0;
 
-    if ($num_downloads > 0)
-    {
+    if ($num_downloads > 0) {
         $video_info = mysql_fetch_assoc($downloads);
         $video_id = $video_info['id'];
         Upload::downloadVideo($video_id);
-    }
-    else if ($num_process > 0)
-    {
+    } else if ($num_process > 0) {
         $video_info = mysql_fetch_assoc($process);
         $video_id = $video_info['id'];
         Upload::processVideo($video_id);
     }
-}
-else
-{
+} else {
+
     $cron = 1;
 
-    if ($num_process > 0)
-    {
+    if ($num_process > 0) {
         $video_info = mysql_fetch_assoc($process);
         $video_id = $video_info['id'];
         Upload::processVideo($video_id);
-    }
-    else if ($num_downloads > 0)
-    {
+    } else if ($num_downloads > 0) {
         $video_info = mysql_fetch_assoc($downloads);
         $video_id = $video_info['id'];
         Upload::downloadVideo($video_id);
