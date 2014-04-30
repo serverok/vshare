@@ -14,7 +14,7 @@ if (is_dir($dir)) {
                     DB::query($sql);
 					$location_avatar = VSHARE_DIR . '/photo/1_' . $user_id . '.jpg';
 					$source_file = VSHARE_DIR . '/photo/' . $user_id . '.jpg';
-                    createThumb($source_file, $location_avatar, 50, 40);
+                    Image::createThumb($source_file, $location_avatar, 50, 40);
 					echo '<p>' . $sql . '</p>';
                 }
             }

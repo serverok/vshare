@@ -89,8 +89,8 @@ if (is_dir($dir)) {
                         $current_file = $dir . $file;
                         $file_tmp_name = $dir . $user_id . '_tmp.jpg';
                         rename($current_file, $file_tmp_name);
-                        createThumb($file_tmp_name, $location_photo, $config['img_max_width'], $config['img_max_height']);
-                        createThumb($file_tmp_name, $location_avatar, 50, 40);
+                        Image::createThumb($file_tmp_name, $location_photo, $config['img_max_width'], $config['img_max_height']);
+                        Image::createThumb($file_tmp_name, $location_avatar, 50, 40);
                         unlink($file_tmp_name);
                     }
                 }
