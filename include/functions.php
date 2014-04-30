@@ -313,21 +313,6 @@ function paginate($total, $result_per_page, $page_url, $page_id, $current_page)
     return $pagination_output;
 }
 
-function disallow_user_names($user_name)
-{
-    $err = '';
-    $user_name = mb_strtolower($user_name);
-    $sql = "SELECT * FROM `disallow` WHERE
-           `disallow_username`='" . DB::quote($user_name) . "'";
-    $result = DB::fetch1($sql);
-
-    if ($result) {
-        $err = 1;
-    }
-
-    return $err;
-}
-
 function download($source, $destination)
 {
     $written = null;

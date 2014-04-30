@@ -73,7 +73,7 @@ if (isset($_POST['submit'])) {
         $err = $lang['user_name_invalid'];
     } else if (check_field_exists($_POST['user_name'], 'user_name', 'users') == 1) {
         $err = $lang['user_name_exist'];
-    } else if (disallow_user_names($_POST['user_name'])) {
+    } else if (User::isReserved($_POST['user_name'])) {
         $err = $lang['user_name_reserved'];
     } else {
         if ($_POST['user_name'] != htmlspecialchars_uni($_POST['user_name'])) {

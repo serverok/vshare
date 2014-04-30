@@ -22,7 +22,7 @@ check_admin_login();
 if (isset($_POST['submit'])) {
     if (strlen($_POST['user_name']) < 4) {
         $err = $lang['user_name_short'];
-    } else if (disallow_user_names($_POST['user_name'])) {
+    } else if (User::isReserved($_POST['user_name'])) {
         $err = $lang['user_name_reserved'];
     } else if (check_field_exists($_POST['user_name'], 'user_name', 'users') == 1) {
         $err = $lang['user_name_exist'];

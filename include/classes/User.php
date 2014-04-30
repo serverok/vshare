@@ -131,8 +131,6 @@ class User
 
     static function get_photo($user_photo = 0, $user_id)
     {
-        global $config;
-
         if ($user_photo == 0) {
             $photo_url = IMG_CSS_URL . '/images/no_pic.gif';
             return $photo_url;
@@ -415,4 +413,17 @@ class User
 			}
 		}
 	}
+
+    public static function isReserved($user_name)
+    {
+        $user_name = mb_strtolower($user_name);
+        $sql = "SELECT * FROM `disallow` WHERE
+                `disallow_username`='" . DB::quote($user_name) . "'";
+        if (DB::fetch1($sql)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }
