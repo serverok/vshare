@@ -405,25 +405,6 @@ function sec2hms($sec, $useColon = true)
     return $hms;
 }
 
-function is_ip($ip)
-{
-    $valid = TRUE;
-
-    $ip = explode('.', $ip);
-
-    if (count($ip) != 4) {
-        return FALSE;
-    }
-
-    foreach ($ip as $block) {
-        if (! is_numeric($block) || $block > 255 || $block < 1) {
-            $valid = FALSE;
-        }
-    }
-
-    return $valid;
-}
-
 function set_message($message, $message_type)
 {
     $_SESSION['vshare_message'] = $message;
