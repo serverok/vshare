@@ -592,21 +592,6 @@ function array_remove_duplicate($source_array)
     return $array_new;
 }
 
-function check_config_exists($config_name)
-{
-    global $config;
-
-    $sql = "SELECT * FROM `config` WHERE
-		   `config_name`='" . DB::quote($config_name) . "'";
-    $result = DB::fetch1($sql);
-
-    if ($result) {
-        return 1;
-    } else {
-        return 0;
-    }
-
-}
 
 function update_user_video_count($user_id, $action = 1)
 {

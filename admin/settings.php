@@ -148,7 +148,7 @@ if (isset($_POST['submit']))
                     $_POST['ccbill_ac_no'] = isset($_POST['ccbill_ac_no']) ? $_POST['ccbill_ac_no'] : '';
                     $_POST['ccbill_ac_no'] = trim($_POST['ccbill_ac_no']);
 
-                    if (check_config_exists('ccbill_ac_no'))
+                    if (Config::isSet('ccbill_ac_no'))
                     {
                         $sql = "UPDATE `config` SET
                                `config_value`='" . DB::quote($_POST['ccbill_ac_no']) . "' WHERE
@@ -166,7 +166,7 @@ if (isset($_POST['submit']))
                     $_POST['ccbill_sub_ac_no'] = isset($_POST['ccbill_sub_ac_no']) ? $_POST['ccbill_sub_ac_no'] : '';
                     $_POST['ccbill_sub_ac_no'] = trim($_POST['ccbill_sub_ac_no']);
 
-                    if (check_config_exists('ccbill_sub_ac_no'))
+                    if (Config::isSet('ccbill_sub_ac_no'))
                     {
                         $sql = "UPDATE `config` SET
                                `config_value`='" . DB::quote($_POST['ccbill_sub_ac_no']) . "' WHERE
@@ -184,7 +184,7 @@ if (isset($_POST['submit']))
                     $_POST['ccbill_form_name'] = isset($_POST['ccbill_form_name']) ? $_POST['ccbill_form_name'] : '';
                     $_POST['ccbill_form_name'] = trim($_POST['ccbill_form_name']);
 
-                    if (check_config_exists('ccbill_form_name'))
+                    if (Config::isSet('ccbill_form_name'))
                     {
                         $sql = "UPDATE `config` SET
                                `config_value`='" . DB::quote($_POST['ccbill_form_name']) . "' WHERE
