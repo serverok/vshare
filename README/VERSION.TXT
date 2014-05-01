@@ -4,3 +4,5 @@ ZendFramework   1.7.6            27-Feb-2009            http://framework.zend.co
 Pager	        2.4.8	         21-Apr-2009            http://pear.php.net/package/Pager/
 Smarty		    3.1.18		     07-Apr-2014		    http://www.smarty.net/download
 HTML Purifier   4.6.0            29-Apr-2014            http://htmlpurifier.org
+jQuery          1.11.0           02-May-2014            http://jquery.com/download/
+Bootstrap       3.1.1            02-May-2014            http://getbootstrap.com/getting-started/#download
