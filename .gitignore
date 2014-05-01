@@ -5,6 +5,7 @@ thumb/*
 flvideo/*
 video/*
 include/htmlpurifier/HTMLPurifier/DefinitionCache/Serializer/HTML/*
+include/qt_faststart/qt-faststart
 .settings/*
 .cache/*
 .project
