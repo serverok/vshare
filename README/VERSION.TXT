@@ -1,4 +1,4 @@
-vShare          2.8.1            02-Jun-2011            http://buyscripts.in/youtube_clone.html
+vShare          2.9              20-May-2014            http://buyscripts.in/youtube_clone.html
 TinyMCE		    3.4.2		     30-Apr-2011		    http://tinymce.moxiecode.com
 ZendFramework   1.7.6            27-Feb-2009            http://framework.zend.com
 Pager	        2.4.8	         21-Apr-2009            http://pear.php.net/package/Pager/

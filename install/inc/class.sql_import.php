@@ -14,106 +14,83 @@ class Sql2Db
 
     function import()
     {
-        
+
         $comment = array();
         $comment[] = '#';
         $comment[] = '-- ';
-        
+
         $query = '';
         $queries = 0;
         $querylines = 0;
         $inparents = false;
         $linenumber = 1;
         $totalqueries = 0;
-        
-        if (! $file = @fopen($this->sql_file_name, 'rt'))
-        {
+
+        if (! $file = @fopen($this->sql_file_name, 'rt')) {
             echo ("<p>Can't open file " . $this->sql_file_name . "</p>");
             exit();
         }
-        
+
         $end_of_file = 1;
-        
-        while ($end_of_file)
-        {
-            
+
+        while ($end_of_file) {
+
             $dumpline = '';
-            
-            while (! feof($file) && substr($dumpline, - 1) != "\n")
-            {
+
+            while (! feof($file) && substr($dumpline, - 1) != "\n") {
                 $dumpline .= fgets($file, 16384);
             }
-            
-            if ($dumpline === '')
-            {
+
+            if ($dumpline === '') {
                 break;
             }
-            
+
             $dumpline = str_replace("\r\n", "\n", $dumpline);
             $dumpline = str_replace("\r", "\n", $dumpline);
-            
-            if ($this->debug)
-            {
+
+            if ($this->debug) {
                 echo ("<p>Line $linenumber: $dumpline</p>");
             }
-            
-            if (! $inparents)
-            {
+
+            if (! $inparents) {
+
                 $skipline = false;
-                
-                foreach ($comment as $comment_value)
-                {
-                    if (! $inparents && (trim($dumpline) == '' || strpos($dumpline, $comment_value) === 0))
-                    {
+
+                foreach ($comment as $comment_value) {
+                    if (! $inparents && (trim($dumpline) == '' || strpos($dumpline, $comment_value) === 0)) {
                         $skipline = true;
                         break;
                     }
                 }
-                
-                if ($skipline)
-                {
+
+                if ($skipline) {
                     $linenumber ++;
                     continue;
                 }
             }
-            
+
             $dumpline_deslashed = str_replace("\\\\", "", $dumpline);
-            
+
             $parents = substr_count($dumpline_deslashed, "'") - substr_count($dumpline_deslashed, "\\'");
-            
-            if ($parents % 2 != 0)
-            {
+
+            if ($parents % 2 != 0) {
                 $inparents = ! $inparents;
             }
-            
+
             $query .= $dumpline;
-            
-            if (! $inparents)
-            {
+
+            if (! $inparents) {
                 $querylines ++;
             }
-            
-            if (preg_match("/;$/", trim($dumpline)) && ! $inparents)
-            {
+
+            if (preg_match("/;$/", trim($dumpline)) && ! $inparents) {
                 $query = trim($query);
-                
-                if ($this->debug)
-                {
+
+                if ($this->debug) {
                     echo '<textarea cols="100">' . $query . '</textarea><br />';
                 }
-                
                 write_log($query, $this->debug_filename, 0, 'txt');
-                
-                if (! mysql_query($query))
-                {
-                    echo '<hr />';
-                    echo '<p class="error">Error at the line ' . $linenumber . ': ' . trim($dumpline) . '</p>';
-                    echo '<p>Query: ' . trim(nl2br(htmlentities($query))) . '</p>';
-                    echo '<p>MySQL: ' . mysql_error() . '</p>';
-                    echo '<hr />';
-                    exit();
-                }
-                
+                DB::query($query);
                 $totalqueries ++;
                 $queries ++;
                 $query = '';

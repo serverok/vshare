@@ -11,6 +11,7 @@
  * to vShare license.
  *
  ******************************************************************************/
+session_start();
 
 $html_title = 'VSHARE INSTALLATION';
 
@@ -18,78 +19,67 @@ $error = '';
 
 if (isset($_POST['connect_info']))
 {
-    
+
     $site_url = $_POST['site_url'];
-    
-    if (strlen($site_url) < 12)
-    {
+
+    if (strlen($site_url) < 12) {
         $error .= '<li>Site url invalid.</li>';
     }
-    
+
     $ffmpeg_path = $_POST['ffmpeg_path'];
-    
-    if (! file_exists($ffmpeg_path))
-    {
+
+    if (! file_exists($ffmpeg_path)) {
         $error .= '<li>ffmpeg not found : ' . $ffmpeg_path . '</li>';
     }
-    
+
     $mplayer_path = $_POST['mplayer_path'];
-    
-    if (! file_exists($mplayer_path))
-    {
+
+    if (! file_exists($mplayer_path)) {
         $error .= '<li>mplayer not found : ' . $mplayer_path . '</li>';
     }
-    
+
     $mencoder_path = $_POST['mencoder_path'];
-    
-    if (! file_exists($mencoder_path))
-    {
+
+    if (! file_exists($mencoder_path)) {
         $error .= '<li>mencoder not found : ' . $mencoder_path . '</li>';
     }
-    
+
     $flvtool_path = $_POST['flvtool_path'];
-    
-    if (! file_exists($flvtool_path))
-    {
+
+    if (! file_exists($flvtool_path)) {
         $error .= '<li>flvtool2 not found : ' . $flvtool_path . '</li>';
     }
-    
+
     $db_server = $_POST['db_server'];
     $db_name = $_POST['db_name'];
     $db_user = $_POST['db_user'];
     $db_pass = $_POST['db_pass'];
     $folder = $_POST['folder'];
-    
-    if (! is_dir($folder))
-    {
+
+    if (! is_dir($folder)) {
         $error .= '<li>folder not found : ' . $folder . '</li>';
     }
-    
-    $link = @mysql_connect($db_server, $db_user, $db_pass);
-    
-    if (! $link)
-    {
-        $error .= '<li>Failed to connect to database server. ' . mysql_error() . '</li>';
+
+    $link = @mysqli_connect($db_server, $db_user, $db_pass, $db_name);
+
+    if (! $link) {
+        $error .= '<li>Failed to connect to database server.</li>';
+    } else {
+        $_SESSION['VSHARE_INSTALL']['DB_NAME'] = $db_name;
+        $_SESSION['VSHARE_INSTALL']['DB_USER'] = $db_user;
+        $_SESSION['VSHARE_INSTALL']['DB_PASSWORD'] = $db_pass;
+        $_SESSION['VSHARE_INSTALL']['DB_HOST'] = $db_server;
     }
-    else
-    {
-        $suc = mysql_select_db($db_name, $link);
-        
-        if (! $suc)
-        {
-            $error .= '<li>Succesfuly connected to database server, but failed to open the database (' . $db_name . '). Please check the data and try again. ' . mysql_error() . '</li>';
-        }
-    }
-    
+
     if ($error == '')
     {
         $fp = fopen('../include/config.php', 'w');
         fputs($fp, '<?php');
-        
+
         $vshare_config = <<<EOT
 
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-    
+
 session_start();
 
 \$db_host     = '$db_server';
@@ -111,12 +101,12 @@ include(\$config['basedir'] . '/include/vshare.php');
 
 
 EOT;
-        
+
         fputs($fp, $vshare_config);
         fclose($fp);
-        
+
         require './tpl/header.php';
-        
+
         ?>
 
 <p class="config-created">Configuration file created
@@ -139,19 +129,19 @@ EOT;
 	type="hidden" name="action" value="create_tables"></form>
 
 <?php
-        
+
         require 'tpl/footer.php';
         exit(0);
     }
 }
 else
 {
-    
+
     $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     $site_url = str_replace('/install/install_collect_info.php', '', $url);
-    
+
     $ffmpeg_path = '';
-    
+
     if (file_exists('/usr/bin/ffmpeg'))
     {
         $ffmpeg_path = '/usr/bin/ffmpeg';
@@ -160,9 +150,9 @@ else
     {
         $ffmpeg_path = '/usr/local/bin/ffmpeg';
     }
-    
+
     $mplayer_path = '';
-    
+
     if (file_exists('/usr/bin/mplayer'))
     {
         $mplayer_path = '/usr/bin/mplayer';
@@ -171,9 +161,9 @@ else
     {
         $mplayer_path = '/usr/local/bin/mplayer';
     }
-    
+
     $mencoder_path = '';
-    
+
     if (file_exists('/usr/bin/mencoder'))
     {
         $mencoder_path = '/usr/bin/mencoder';
@@ -182,9 +172,9 @@ else
     {
         $mencoder_path = '/usr/local/bin/mencoder';
     }
-    
+
     $flvtool_path = '';
-    
+
     if (file_exists('/usr/bin/flvtool2'))
     {
         $flvtool_path = '/usr/bin/flvtool2';
@@ -193,7 +183,7 @@ else
     {
         $flvtool_path = '/usr/local/bin/flvtool2';
     }
-    
+
     $db_name = $db_user = $db_pass = '';
     $db_server = 'localhost';
 }

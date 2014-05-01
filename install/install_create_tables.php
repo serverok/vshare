@@ -12,24 +12,23 @@
  *
  ******************************************************************************/
 
+session_start();
+
+require 'inc/functions.php';
+require '../include/classes/DB.php';
+
 $html_title = 'VSHARE INSTALLATION';
 
-require '../include/config.php';
 require 'tpl/header.php';
 
 $tables = array();
 
-$q = mysql_query('SHOW TABLES');
+DB::connect($_SESSION['VSHARE_INSTALL']['DB_HOST'],$_SESSION['VSHARE_INSTALL']['DB_USER'],$_SESSION['VSHARE_INSTALL']['DB_PASSWORD'], $_SESSION['VSHARE_INSTALL']['DB_NAME']);
 
-while ($r = @mysql_fetch_array($q))
-{
-    $tables[] = $r[0];
-}
+$tables = DB::fetch('SHOW TABLES');
 
-@mysql_free_result($q);
+if (! empty($tables)) {
 
-if (in_array('videos', $tables))
-{
     echo "<p>Your database already have tables needed for vshare. If you are upgrading, use the upgrade script instead.</p>";
     echo "<p class=\"table-already-exists\">If you are doing fresh install, make sure the database is empty.</p>";
 
@@ -43,9 +42,8 @@ if (in_array('videos', $tables))
     <input type=\"hidden\" name=\"action\" value=\"create_tables\" />
     </form>";
 
-}
-else
-{
+} else {
+
     require 'inc/class.sql_import.php';
     $sql_import = new Sql2Db('sql/vshare.sql');
     $sql_import->debug_filename = 'install';
