@@ -2,7 +2,19 @@
 
 class VideoDuration
 {
-    public static function findVideoDurationFfmpeg($duration_arr)
+
+    public static function find($video_data)
+    {
+        if ($video_data['tool'] == 'mplayer') {
+            $duration = self::_findWithMplayer($video_data);
+        } else if ($video_data['tool'] == 'ffmpeg') {
+            $duration = self::_findWithFfmpeg($video_data);
+        } else {
+            $duration = self::_findWithFfmpegPhp($video_data);
+        }
+    }
+
+    private static function _findWithFfmpeg($duration_arr)
     {
         global $config;
         $video = $duration_arr['src'];
@@ -29,7 +41,7 @@ class VideoDuration
         return $sec;
     }
 
-    public static function findVideoDurationMplayer($duration_arr)
+    private static function _findWithMplayer($duration_arr)
     {
         global $config;
         $video = $duration_arr['src'];
@@ -53,7 +65,7 @@ class VideoDuration
         return $sec;
     }
 
-    public static function findVideoDurationFfmpegPhp($duration_arr)
+    private static function _findWithFfmpegPhp($duration_arr)
     {
         $video = $duration_arr['src'];
         $output = new ffmpeg_movie($video);

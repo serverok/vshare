@@ -12,22 +12,20 @@ video_thumb_cmd
 
 class VideoThumb
 {
-    public static function make($data)
+    public static function make($video_data)
     {
-        $make_with = Config::get('tool_video_convert');
-
-        if ($make_with == 0) {
-            $tmp = self::createThumbMplayer($data);
-        } else if ($make_with == 1) {
-            $tmp = self::createThumbFfmpeg($data);
+        if ($video_data['tool'] == 0) {
+            $tmp = self::_createWithMplayer($video_data);
+        } else if ($video_data['tool'] == 1) {
+            $tmp = self::_createWithFfmpeg($video_data);
         } else {
-            $tmp = self::createThumbFfmpegPhp($data);
+            $tmp = self::_createWithFfmpegPhp($video_data);
         }
 
         return $tmp;
     }
 
-    public static function createThumbFfmpeg($t_info)
+    private static function _createWithFfmpeg($t_info)
     {
 
         global $config;
@@ -133,7 +131,7 @@ class VideoThumb
         }
     }
 
-    public static function createThumbMplayer($t_info)
+    private static function _createWithMplayer($t_info)
     {
         global $config;
 
@@ -229,7 +227,7 @@ class VideoThumb
         rmdir($output_folder);
     }
 
-    function createThumbFfmpegPhp($t_info)
+    private static function _createWithFfmpegPhp($t_info)
     {
         global $config;
 
@@ -263,6 +261,7 @@ class VideoThumb
         }
     }
 
+    /*
     // duplicate (remote later)
     public static function createVideoThumb($video_id)
     {
@@ -315,25 +314,13 @@ class VideoThumb
             $t_info['debug'] = $config['debug'];
 
             $find_with = Config::get('tool_video_convert');
+            $t_info['tool'] = $find_with;
 
-            if ($find_with == 'mplayer') {
-                $duration = VideoDuration::findVideoDurationMplayer($t_info);
-            } else if ($find_with == 'ffmpeg') {
-                $duration = VideoDuration::findVideoDurationFfmpeg($t_info);
-            } else {
-                $duration = VideoDuration::findVideoDurationFfmpegPhp($t_info);
-            }
+            $duration = VideoDuration::find($t_info);
 
             $t_info['duration'] = $duration;
 
-            if ($find_with == 'mplayer') {
-                $tmp = self::create_thumb_mplayer($t_info);
-                $find_with = ;
-            } else if ($find_with == 'ffmpeg') {
-                $tmp = self::create_thumb_ffmpeg($t_info);
-            } else {
-                $tmp = self::create_thumb_ffmpeg_php($t_info);
-            }
+            $tmp = self::make($t_info);
 
             if ($video_info['video_thumb_server_id'] > 0) {
                 if ($config['debug']) {
@@ -352,5 +339,5 @@ class VideoThumb
         } else {
             echo '<p>Video not found</p>';
         }
-    }
+    }*/
 }

@@ -321,14 +321,9 @@ class Upload
             $duration_arr = array();
             $duration_arr['src'] = $video_src;
             $duration_arr['debug'] = $debug;
+            $duration_arr['tool'] = $tool_video_convert;
 
-            if ($tool_video_convert == 'mplayer') {
-                $duration = VideoDuration::findVideoDurationMplayer($duration_arr);
-            } else if ($tool_video_convert == 'ffmpeg') {
-                $duration = VideoDuration::findVideoDurationFfmpeg($duration_arr);
-            } else {
-                $duration = VideoDuration::findVideoDurationFfmpegPhp($duration_arr);
-            }
+            $duration = VideoDuration::find($duration_arr);
 
             $bit_rate = (int) VideoBitrate::findVideoBitrateFfmpeg($duration_arr);
 
@@ -371,11 +366,11 @@ class Upload
             $t_info['duration'] = $duration;
             $t_info['video_folder'] = $video_folder;
             $t_info['debug'] = $debug;
-            $create_thumb_with  = $tool_video_convert;
+            $t_info['tool'] = $tool_video_convert;
 
             $tmp = VideoThumb::make($t_info);
 
-            $log_text = "<p>Create Thumbnail with $create_thumb_with - END</p>";
+            $log_text = "<p>Create Thumbnail with $tool_video_convert - END</p>";
             write_log($log_text, $log_file_name, $debug, 'html');
 
             if ($file_extn == 'flv') {

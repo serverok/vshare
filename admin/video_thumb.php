@@ -53,14 +53,9 @@ if (is_numeric($_GET['id'])) {
 
         $tool_video_convert = Config::get('tool_video_convert');
         $find_with  = $tool_video_convert;
+        $t_info['tool'] = $tool_video_convert;
 
-        if ($tool_video_convert == 'mplayer') {
-            $duration = VideoDuration::findVideoDurationMplayer($t_info);
-        } else if ($tool_video_convert == 'ffmpeg') {
-            $duration = VideoDuration::findVideoDurationFfmpeg($t_info);
-        } else {
-            $duration = VideoDuration::findVideoDurationFfmpegPhp($t_info);
-        }
+        $duration = VideoDuration::find($t_info);
 
         $t_info['duration'] = $duration;
 
