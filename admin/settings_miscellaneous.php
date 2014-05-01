@@ -161,6 +161,6 @@ $smarty->assign('num_max_channels', Config::get('num_max_channels'));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
-$smarty->display('admin/miscellaneous.tpl');
+$smarty->display('admin/settings_miscellaneous.tpl');
 $smarty->display('admin/footer.tpl');
 DB::close();

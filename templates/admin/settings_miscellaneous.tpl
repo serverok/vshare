@@ -22,20 +22,6 @@
         <input type="text" name="num_channel_video" id="num_channel_video" size="2" value="{$num_channel_video}" />
     </div>
 
-
-    <div>
-        <label for="guest_upload">Allow Guest Uploads:</label>
-        <select name="guest_upload" id="guest_upload">
-            <option value="0" {if $guest_upload =='0'}selected="selected"{/if}>No</option>
-            <option value="1" {if $guest_upload =='1'}selected="selected"{/if}>Yes</option>
-        </select>
-    </div>
-
-    <div>
-        <label for="guest_upload_user" >Guest Upload Added to:</label>
-        <input type="text" name="guest_upload_user" id="guest_upload_user" value="{$guest_upload_user}" />
-    </div>
-
     <div>
         <label for="php_path">PHP Path:</label>
         <input type="text" name="php_path" id="php_path" value="{$php_path}" />
