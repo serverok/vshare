@@ -277,9 +277,7 @@ class Upload
 
                 $convert_vid = $re_process_vid;
 
-                $sql = "SELECT * FROM `videos` WHERE
-    			       `video_id`=$convert_vid";
-                $video_info = DB::fetch1($sql);
+                $video_info = Video::getById($convert_vid);
 
                 $rand_flv_name = $video_info['video_flv_name'];
                 $video_folder = $video_info['video_folder'];
