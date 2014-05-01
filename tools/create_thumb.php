@@ -1,12 +1,8 @@
 <?php
 
-ini_set("max_execution_time", "30000");
+ini_set('max_execution_time', '30000');
 
 require '../include/config.php';
-
-$video_duration_cmd = Config::get('video_duration_cmd');
-$t_info = array();
-$debug =0;
 
 $sql = "SELECT * FROM `videos` WHERE
        `video_vtype`='0' AND

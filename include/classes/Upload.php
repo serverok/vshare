@@ -314,7 +314,7 @@ class Upload
             $log_text = 'Find video duration - START';
             write_log($log_text, $log_file_name, $debug, 'html');
 
-            $video_duration_cmd = Config::get('video_duration_cmd');
+            $tool_video_convert = Config::get('tool_video_convert');
 
             DB::close();
 
@@ -322,15 +322,12 @@ class Upload
             $duration_arr['src'] = $video_src;
             $duration_arr['debug'] = $debug;
 
-            if ($video_duration_cmd == 0) {
+            if ($tool_video_convert == 'mplayer') {
                 $duration = VideoDuration::findVideoDurationMplayer($duration_arr);
-                $find_duration_with = 'mplayer';
-            } else if ($video_duration_cmd == 1) {
+            } else if ($tool_video_convert == 'ffmpeg') {
                 $duration = VideoDuration::findVideoDurationFfmpeg($duration_arr);
-                $find_duration_with = 'ffmpeg';
             } else {
                 $duration = VideoDuration::findVideoDurationFfmpegPhp($duration_arr);
-                $find_duration_with = 'ffmpeg-php';
             }
 
             $bit_rate = (int) VideoBitrate::findVideoBitrateFfmpeg($duration_arr);
@@ -350,7 +347,7 @@ class Upload
             $log_text = "<p>Source Video bitrate: $bit_rate</p>";
             write_log($log_text, $log_file_name, $debug, 'html');
 
-            $log_text = "<p>Duration ($find_duration_with): $duration</p>";
+            $log_text = "<p>Duration ($tool_video_convert): $duration</p>";
             write_log($log_text, $log_file_name, $debug, 'html');
 
             $duration_hms = sec2hms($duration); //covert to 00:00:00 i.e. hrs:min:sec
@@ -374,8 +371,7 @@ class Upload
             $t_info['duration'] = $duration;
             $t_info['video_folder'] = $video_folder;
             $t_info['debug'] = $debug;
-            $t_info['make_with'] = $video_duration_cmd;
-            $create_thumb_with  = $video_duration_cmd;
+            $create_thumb_with  = $tool_video_convert;
 
             $tmp = VideoThumb::make($t_info);
 

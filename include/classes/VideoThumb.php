@@ -14,9 +14,11 @@ class VideoThumb
 {
     public static function make($data)
     {
-        if ($data['make_with'] == 0) {
+        $make_with = Config::get('tool_video_convert');
+
+        if ($make_with == 0) {
             $tmp = self::createThumbMplayer($data);
-        } else if ($data['make_with'] == 1) {
+        } else if ($make_with == 1) {
             $tmp = self::createThumbFfmpeg($data);
         } else {
             $tmp = self::createThumbFfmpegPhp($data);
@@ -312,30 +314,25 @@ class VideoThumb
             $t_info['video_folder'] = $video_info['video_folder'];
             $t_info['debug'] = $config['debug'];
 
-            $video_duration_cmd = Config::get('video_duration_cmd');
+            $find_with = Config::get('tool_video_convert');
 
-            if ($video_duration_cmd == 0) {
+            if ($find_with == 'mplayer') {
                 $duration = VideoDuration::findVideoDurationMplayer($t_info);
-                $find_with = 'mplayer';
-            } else if ($video_duration_cmd == 1) {
+            } else if ($find_with == 'ffmpeg') {
                 $duration = VideoDuration::findVideoDurationFfmpeg($t_info);
-                $find_with = 'ffmpeg';
             } else {
                 $duration = VideoDuration::findVideoDurationFfmpegPhp($t_info);
-                $find_with = 'ffmpeg-php';
             }
 
             $t_info['duration'] = $duration;
 
-            if ($video_duration_cmd == 0) {
+            if ($find_with == 'mplayer') {
                 $tmp = self::create_thumb_mplayer($t_info);
-                $find_with = 'mplayer';
-            } else if ($video_duration_cmd == 1) {
+                $find_with = ;
+            } else if ($find_with == 'ffmpeg') {
                 $tmp = self::create_thumb_ffmpeg($t_info);
-                $find_with = 'ffmpeg';
             } else {
                 $tmp = self::create_thumb_ffmpeg_php($t_info);
-                $find_with = 'ffmpeg-php';
             }
 
             if ($video_info['video_thumb_server_id'] > 0) {

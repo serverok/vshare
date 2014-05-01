@@ -103,7 +103,7 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('num_last_users_onli
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('recommend_all', '0');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_dob', '0');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_enable', '1');
-INSERT INTO `config` (`config_name`, `config_value`) VALUES('video_duration_cmd', '0');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('tool_video_convert', 'ffmpeg');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('editor_wysiwyg_admin', '1');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('editor_wysiwyg_email', '1');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('mail_abuse_report', '1');

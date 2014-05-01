@@ -51,23 +51,18 @@ if (is_numeric($_GET['id'])) {
         $t_info['video_folder'] = $video_info['video_folder'];
         $t_info['debug'] = $config['debug'];
 
-        $video_duration_cmd = Config::get('video_duration_cmd');
-        $t_info['make_with'] = $video_duration_cmd;
-        $find_with  = $video_duration_cmd;
+        $tool_video_convert = Config::get('tool_video_convert');
+        $find_with  = $tool_video_convert;
 
-        if ($video_duration_cmd == 0) {
+        if ($tool_video_convert == 'mplayer') {
             $duration = VideoDuration::findVideoDurationMplayer($t_info);
-            $find_with = 'mplayer';
-        } else if ($video_duration_cmd == 1) {
+        } else if ($tool_video_convert == 'ffmpeg') {
             $duration = VideoDuration::findVideoDurationFfmpeg($t_info);
-            $find_with = 'ffmpeg';
         } else {
             $duration = VideoDuration::findVideoDurationFfmpegPhp($t_info);
-            $find_with = 'ffmpeg-php';
         }
 
         $t_info['duration'] = $duration;
-
 
         $tmp = VideoThumb::make($t_info);
 
