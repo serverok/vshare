@@ -6,4 +6,4 @@
  * mp4
  */
 
-$video_output_format = 'flv';
+$video_output_format = 'mp4';
