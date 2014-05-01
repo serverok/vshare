@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.video_player.php';
 require '../include/language/' . LANG . '/lang_admin_video_details.php';
 
 Admin::auth();
@@ -25,7 +24,7 @@ if (is_numeric($vid)) {
     $video_info = Video::getById($vid);
 
     if ($video_info) {
-        $player = new video_player();
+        $player = new VideoPlayer();
         $smarty->assign('VSHARE_PLAYER', $player->getPlayerCode($vid));
         $smarty->assign('video', $video_info);
         $smarty->assign('video_type', $video_info['video_vtype']);
