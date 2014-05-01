@@ -376,13 +376,13 @@ class Upload
             $t_info['debug'] = $debug;
 
             if ($video_duration_cmd == 0) {
-                $tmp = video_thumb::create_thumb_mplayer($t_info);
+                $tmp = VideoThumb::create_thumb_mplayer($t_info);
                 $create_thumb_with = 'mplayer';
             } else if ($video_duration_cmd == 1) {
-                $tmp = video_thumb::create_thumb_ffmpeg($t_info);
+                $tmp = VideoThumb::create_thumb_ffmpeg($t_info);
                 $create_thumb_with = 'ffmpeg';
             } else {
-                $tmp = video_thumb::create_thumb_ffmpeg_php($t_info);
+                $tmp = VideoThumb::create_thumb_ffmpeg_php($t_info);
                 $create_thumb_with = 'ffmpeg-php';
             }
 

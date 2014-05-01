@@ -193,7 +193,7 @@ class VideoThumb
                 $source_image = VSHARE_DIR . "/templates/images/no_thumbnail.gif";
             }
 
-            video_thumb::create_thumb($source_image, $fd, $maxwidth, $maxheight);
+            self::create_thumb($source_image, $fd, $maxwidth, $maxheight);
 
             $fc ++;
 
@@ -238,7 +238,7 @@ class VideoThumb
                 $ff = VSHARE_DIR . '/thumb/' . $t_info['video_folder'] . '/' . $t_info['vid'] . '.jpg';
                 imagejpeg($gd_image, $ff);
                 $fd = VSHARE_DIR . '/thumb/' . $t_info['video_folder'] . '/' . $fc . '_' . $t_info['vid'] . '.jpg';
-                video_thumb::create_thumb($ff, $fd, $config['img_max_width'], $config['img_max_height']);
+                self::create_thumb($ff, $fd, $config['img_max_width'], $config['img_max_height']);
                 $fc ++;
             }
             $try ++;
@@ -316,13 +316,13 @@ class VideoThumb
             $t_info['duration'] = $duration;
 
             if ($video_duration_cmd == 0) {
-                $tmp = video_thumb::create_thumb_mplayer($t_info);
+                $tmp = self::create_thumb_mplayer($t_info);
                 $find_with = 'mplayer';
             } else if ($video_duration_cmd == 1) {
-                $tmp = video_thumb::create_thumb_ffmpeg($t_info);
+                $tmp = self::create_thumb_ffmpeg($t_info);
                 $find_with = 'ffmpeg';
             } else {
-                $tmp = video_thumb::create_thumb_ffmpeg_php($t_info);
+                $tmp = self::create_thumb_ffmpeg_php($t_info);
                 $find_with = 'ffmpeg-php';
             }
 

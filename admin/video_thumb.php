@@ -69,13 +69,13 @@ if (is_numeric($_GET['id'])) {
         $t_info['duration'] = $duration;
 
         if ($video_duration_cmd == 0) {
-            $tmp = video_thumb::create_thumb_mplayer($t_info);
+            $tmp = VideoThumb::create_thumb_mplayer($t_info);
             $find_with = 'mplayer';
         } else if ($video_duration_cmd == 1) {
-            $tmp = video_thumb::create_thumb_ffmpeg($t_info);
+            $tmp = VideoThumb::create_thumb_ffmpeg($t_info);
             $find_with = 'ffmpeg';
         } else {
-            $tmp = video_thumb::create_thumb_ffmpeg_php($t_info);
+            $tmp = VideoThumb::create_thumb_ffmpeg_php($t_info);
             $find_with = 'ffmpeg-php';
         }
 
