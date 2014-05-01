@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>vShare Admin</title>
 <link href="{$img_css_url}/css/admin.css" rel="stylesheet" type="text/css" />
-<script language="JavaScript" type="text/javascript" src="{$base_url}/js/jquery-1.3.2.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="{$base_url}/js/jquery-1.11.0.min.js"></script>
 {$html_head}
 </head>
 <body>
