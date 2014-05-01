@@ -14,6 +14,10 @@ class VideoThumb
 {
     public static function make($video_data)
     {
+        if (! isset($video_data['duration'])) {
+            $video_data['duration'] = VideoDuration::find($video_data);
+        }
+
         if ($video_data['tool'] == 0) {
             $tmp = self::_createWithMplayer($video_data);
         } else if ($video_data['tool'] == 1) {

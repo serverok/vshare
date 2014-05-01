@@ -55,10 +55,6 @@ if (is_numeric($_GET['id'])) {
         $find_with  = $tool_video_convert;
         $t_info['tool'] = $tool_video_convert;
 
-        $duration = VideoDuration::find($t_info);
-
-        $t_info['duration'] = $duration;
-
         $tmp = VideoThumb::make($t_info);
 
         if ($video_info['video_thumb_server_id'] > 0) {
