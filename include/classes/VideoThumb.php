@@ -317,7 +317,7 @@ class VideoThumb
             $t_info['video_folder'] = $video_info['video_folder'];
             $t_info['debug'] = $config['debug'];
 
-            $find_with = Config::get('tool_video_convert');
+            $find_with = Config::get('tool_video_thumb');
             $t_info['tool'] = $find_with;
 
             $duration = VideoDuration::find($t_info);

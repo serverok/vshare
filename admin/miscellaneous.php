@@ -55,10 +55,10 @@ if (isset($_POST['submit'])) {
             DB::query($sql);
         }
 
-        if (in_array($_POST['tool_video_convert'], array('ffmpeg', 'ffmpeg-php', 'mplayer'))) {
+        if (in_array($_POST['tool_video_thumb'], array('ffmpeg', 'ffmpeg-php', 'mplayer'))) {
             $sql = "UPDATE `config` SET
-                   `config_value`='" . $_POST['tool_video_convert'] . "' WHERE
-                   `config_name`='tool_video_convert'";
+                   `config_value`='" . $_POST['tool_video_thumb'] . "' WHERE
+                   `config_name`='tool_video_thumb'";
             DB::query($sql);
         }
 
@@ -202,7 +202,7 @@ $smarty->assign('dailymotion_api_secret', Config::get('dailymotion_api_secret'))
 $smarty->assign('video_comment_notify', Config::get('video_comment_notify'));
 $smarty->assign('user_daily_mail_limit', Config::get('user_daily_mail_limit'));
 $smarty->assign('flv_metadata', Config::get('flv_metadata'));
-$smarty->assign('tool_video_convert', Config::get('tool_video_convert'));
+$smarty->assign('tool_video_thumb', Config::get('tool_video_thumb'));
 $smarty->assign('num_channel_video', Config::get('num_channel_video'));
 $smarty->assign('guest_upload', Config::get('guest_upload'));
 $smarty->assign('guest_upload_user', Config::get('guest_upload_user'));

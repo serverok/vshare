@@ -32,11 +32,11 @@
     </div>
 
     <div>
-        <label for="tool_video_convert">Video Convert Tool:</label>
-        <select name="tool_video_convert" id="tool_video_convert">
-            <option value="mplayer" {if $tool_video_convert =='mplayer'}selected="selected"{/if}>mplayer</option>
-            <option value="ffmpeg" {if $tool_video_convert =='ffmpeg'}selected="selected"{/if}>ffmpeg</option>
-            <option value="ffmpeg-php" {if $tool_video_convert =='ffmpeg-php'}selected="selected"{/if}>ffmpeg-php</option>
+        <label for="tool_video_thumb">Make Video Thumbnail with:</label>
+        <select name="tool_video_thumb" id="tool_video_thumb">
+            <option value="mplayer" {if $tool_video_thumb =='mplayer'}selected="selected"{/if}>mplayer</option>
+            <option value="ffmpeg" {if $tool_video_thumb =='ffmpeg'}selected="selected"{/if}>ffmpeg</option>
+            <option value="ffmpeg-php" {if $tool_video_thumb =='ffmpeg-php'}selected="selected"{/if}>ffmpeg-php</option>
         </select>
     </div>
 

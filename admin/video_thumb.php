@@ -45,17 +45,16 @@ if (is_numeric($_GET['id'])) {
             write_log($log_text, $log_file_name, $config['debug'], 'html');
         }
 
-        $t_info = array();
-        $t_info['src'] = $video_src;
-        $t_info['vid'] = (int) $_GET['id'];
-        $t_info['video_folder'] = $video_info['video_folder'];
-        $t_info['debug'] = $config['debug'];
+        $thumb_data = array();
+        $thumb_data['src'] = $video_src;
+        $thumb_data['vid'] = (int) $_GET['id'];
+        $thumb_data['video_folder'] = $video_info['video_folder'];
+        $thumb_data['debug'] = $config['debug'];
 
-        $tool_video_convert = Config::get('tool_video_convert');
-        $find_with  = $tool_video_convert;
-        $t_info['tool'] = $tool_video_convert;
+        $tool_video_thumb = Config::get('tool_video_thumb');
+        $thumb_data['tool'] = $tool_video_thumb;
 
-        $tmp = VideoThumb::make($t_info);
+        $tmp = VideoThumb::make($thumb_data);
 
         if ($video_info['video_thumb_server_id'] > 0) {
             if ($config['debug']) {
@@ -71,7 +70,7 @@ if (is_numeric($_GET['id'])) {
             $ftp->upload_thumb($ftp_config);
         }
 
-        $msg = str_replace('[FIND_WIDTH]', $find_with, $lang['thumb_created']);
+        $msg = str_replace('[FIND_WIDTH]', $tool_video_thumb, $lang['thumb_created']);
         $smarty->assign('video_folder', $video_info['video_folder']);
         $video_thumb_url = $servers[$video_info['video_thumb_server_id']];
         $smarty->assign('video_thumb_url', $video_thumb_url);

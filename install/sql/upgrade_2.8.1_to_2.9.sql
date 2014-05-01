@@ -5,7 +5,7 @@ INSERT INTO `email_templates` (`email_id`, `email_subject`, `email_body`, `comme
 INSERT INTO `config` (`config_name`, `config_value`) VALUES ('dailymotion_api_key', '');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES ('dailymotion_api_secret', '');
 DELETE FROM `config` WHERE `config_name`='video_duration_cmd';
-INSERT INTO `config` (`config_name`, `config_value`) VALUES ('tool_video_convert', 'ffmpeg');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES ('tool_video_thumb', 'ffmpeg');
 
 
 UPDATE `sconfig` SET `svalue` = '2.9' WHERE `soption` = 'version';

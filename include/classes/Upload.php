@@ -312,14 +312,14 @@ class Upload
             $log_text = 'Find video duration - START';
             write_log($log_text, $log_file_name, $debug, 'html');
 
-            $tool_video_convert = Config::get('tool_video_convert');
+            $tool_video_thumb = Config::get('tool_video_thumb');
 
             DB::close();
 
             $duration_arr = array();
             $duration_arr['src'] = $video_src;
             $duration_arr['debug'] = $debug;
-            $duration_arr['tool'] = $tool_video_convert;
+            $duration_arr['tool'] = $tool_video_thumb;
 
             $duration = VideoDuration::find($duration_arr);
 
@@ -340,7 +340,7 @@ class Upload
             $log_text = "<p>Source Video bitrate: $bit_rate</p>";
             write_log($log_text, $log_file_name, $debug, 'html');
 
-            $log_text = "<p>Duration ($tool_video_convert): $duration</p>";
+            $log_text = "<p>Duration ($tool_video_thumb): $duration</p>";
             write_log($log_text, $log_file_name, $debug, 'html');
 
             $duration_hms = sec2hms($duration); //covert to 00:00:00 i.e. hrs:min:sec
@@ -364,11 +364,11 @@ class Upload
             $t_info['duration'] = $duration;
             $t_info['video_folder'] = $video_folder;
             $t_info['debug'] = $debug;
-            $t_info['tool'] = $tool_video_convert;
+            $t_info['tool'] = $tool_video_thumb;
 
             $tmp = VideoThumb::make($t_info);
 
-            $log_text = "<p>Create Thumbnail with $tool_video_convert - END</p>";
+            $log_text = "<p>Create Thumbnail with $tool_video_thumb - END</p>";
             write_log($log_text, $log_file_name, $debug, 'html');
 
             if ($file_extn == 'flv') {
