@@ -12,6 +12,18 @@ video_thumb_cmd
 
 class VideoThumb
 {
+    public static function make($data)
+    {
+        if ($data['make_with'] == 0) {
+            $tmp = self::createThumbMplayer($data);
+        } else if ($data['make_with'] == 1) {
+            $tmp = self::createThumbFfmpeg($data);
+        } else {
+            $tmp = self::createThumbFfmpegPhp($data);
+        }
+
+        return $tmp;
+    }
 
     public static function createThumbFfmpeg($t_info)
     {

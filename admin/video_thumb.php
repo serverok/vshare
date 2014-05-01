@@ -52,6 +52,8 @@ if (is_numeric($_GET['id'])) {
         $t_info['debug'] = $config['debug'];
 
         $video_duration_cmd = Config::get('video_duration_cmd');
+        $t_info['make_with'] = $video_duration_cmd;
+        $find_with  = $video_duration_cmd;
 
         if ($video_duration_cmd == 0) {
             $duration = VideoDuration::findVideoDurationMplayer($t_info);
@@ -66,16 +68,8 @@ if (is_numeric($_GET['id'])) {
 
         $t_info['duration'] = $duration;
 
-        if ($video_duration_cmd == 0) {
-            $tmp = VideoThumb::create_thumb_mplayer($t_info);
-            $find_with = 'mplayer';
-        } else if ($video_duration_cmd == 1) {
-            $tmp = VideoThumb::create_thumb_ffmpeg($t_info);
-            $find_with = 'ffmpeg';
-        } else {
-            $tmp = VideoThumb::create_thumb_ffmpeg_php($t_info);
-            $find_with = 'ffmpeg-php';
-        }
+
+        $tmp = VideoThumb::make($t_info);
 
         if ($video_info['video_thumb_server_id'] > 0) {
             if ($config['debug']) {

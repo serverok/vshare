@@ -374,17 +374,10 @@ class Upload
             $t_info['duration'] = $duration;
             $t_info['video_folder'] = $video_folder;
             $t_info['debug'] = $debug;
+            $t_info['make_with'] = $video_duration_cmd;
+            $create_thumb_with  = $video_duration_cmd;
 
-            if ($video_duration_cmd == 0) {
-                $tmp = VideoThumb::create_thumb_mplayer($t_info);
-                $create_thumb_with = 'mplayer';
-            } else if ($video_duration_cmd == 1) {
-                $tmp = VideoThumb::create_thumb_ffmpeg($t_info);
-                $create_thumb_with = 'ffmpeg';
-            } else {
-                $tmp = VideoThumb::create_thumb_ffmpeg_php($t_info);
-                $create_thumb_with = 'ffmpeg-php';
-            }
+            $tmp = VideoThumb::make($t_info);
 
             $log_text = "<p>Create Thumbnail with $create_thumb_with - END</p>";
             write_log($log_text, $log_file_name, $debug, 'html');
