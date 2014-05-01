@@ -12,6 +12,7 @@ class VideoDuration
         } else {
             $duration = self::_findWithFfmpegPhp($video_data);
         }
+        return $duration;
     }
 
     private static function _findWithFfmpeg($duration_arr)
@@ -35,6 +36,7 @@ class VideoDuration
             $duration_array = explode(":", $sec);
             $sec = ($duration_array[0] * 3600) + ($duration_array[1] * 60) + $duration_array[2];
             $sec = (int) $sec;
+            if ($debug) echo "<p>Duration found = $sec seconds.</p>";
         } else {
             $sec = 0;
         }
