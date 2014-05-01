@@ -63,6 +63,7 @@ if (! $view) {
             ORDER BY `video_add_time` DESC";
     $videos = DB::fetch($sql);
 
+
     if (! $videos) {
         $sql = "SELECT * FROM `videos` WHERE
                `video_type`='public' AND
@@ -70,7 +71,7 @@ if (! $view) {
                `video_approve`='1'
                 $sql_adult_filter
                 LIMIT 4";
-        $videos = DB::query($sql);
+        $videos = DB::fetch($sql);
     }
 
     $featured_videos = array();
