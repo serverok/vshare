@@ -13,8 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.video_thumb.php';
-require '../include/class.video_duration.php';
 require '../include/language/' . LANG . '/lang_admin_video_thumb.php';
 
 Admin::auth();
@@ -56,13 +54,13 @@ if (is_numeric($_GET['id'])) {
         $video_duration_cmd = Config::get('video_duration_cmd');
 
         if ($video_duration_cmd == 0) {
-            $duration = video_duration::find_video_duration_mplayer($t_info);
+            $duration = VideoDuration::findVideoDurationMplayer($t_info);
             $find_with = 'mplayer';
         } else if ($video_duration_cmd == 1) {
-            $duration = video_duration::find_video_duration_ffmpeg($t_info);
+            $duration = VideoDuration::findVideoDurationFfmpeg($t_info);
             $find_with = 'ffmpeg';
         } else {
-            $duration = video_duration::find_video_duration_ffmpeg_php($t_info);
+            $duration = VideoDuration::findVideoDurationFfmpegPhp($t_info);
             $find_with = 'ffmpeg-php';
         }
 
