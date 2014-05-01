@@ -14,7 +14,6 @@
 
 require 'include/config.php';
 require 'include/settings/upload.php';
-require 'include/functions_upload.php';
 require 'include/language/' . LANG . '/lang_upload.php';
 
 if (Config::get('guest_upload') != 1) {

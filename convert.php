@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require './include/config.php';
-require './include/functions_upload.php';
 
 $qid = $_SERVER['argv'][1];
 write_log("Starting Background video conversion - $qid");

@@ -14,7 +14,6 @@
 
 require 'include/config.php';
 require 'include/settings/upload.php';
-require 'include/functions_upload.php';
 require 'include/language/' . LANG . '/lang_video_response.php';
 
 User::is_logged_in();
