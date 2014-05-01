@@ -32,7 +32,7 @@
     </div>
 
     <div>
-        <label for="tool_video_thumb">Make Video Thumbnail with:</label>
+        <label for="tool_video_thumb">Make Video Thumbnails with:</label>
         <select name="tool_video_thumb" id="tool_video_thumb">
             <option value="mplayer" {if $tool_video_thumb =='mplayer'}selected="selected"{/if}>mplayer</option>
             <option value="ffmpeg" {if $tool_video_thumb =='ffmpeg'}selected="selected"{/if}>ffmpeg</option>
