@@ -193,7 +193,7 @@ class VideoThumb
                 $source_image = VSHARE_DIR . "/templates/images/no_thumbnail.gif";
             }
 
-            self::create_thumb($source_image, $fd, $maxwidth, $maxheight);
+            Image::createThumb($source_image, $fd, $maxwidth, $maxheight);
 
             $fc ++;
 
@@ -238,7 +238,7 @@ class VideoThumb
                 $ff = VSHARE_DIR . '/thumb/' . $t_info['video_folder'] . '/' . $t_info['vid'] . '.jpg';
                 imagejpeg($gd_image, $ff);
                 $fd = VSHARE_DIR . '/thumb/' . $t_info['video_folder'] . '/' . $fc . '_' . $t_info['vid'] . '.jpg';
-                self::create_thumb($ff, $fd, $config['img_max_width'], $config['img_max_height']);
+                Image::createThumb($ff, $fd, $config['img_max_width'], $config['img_max_height']);
                 $fc ++;
             }
             $try ++;
