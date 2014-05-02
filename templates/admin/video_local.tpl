@@ -53,47 +53,47 @@
 				<td width="10%">
 					<b>ID</b>
 					<a href="video_local.php?sort=video_id+asc&page={$page}">
-						<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+						<span class="glyphicon glyphicon-arrow-up"></span>
 					</a>
 					<a href="video_local.php?sort=video_id+desc&page={$page}">
-						<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+						<span class="glyphicon glyphicon-arrow-down"></span>
 					</a>
 				</td>
 
 				<td>
 					<b>Title</b>
 					<a href="video_local.php?sort=video_title+asc&page={$page}">
-						<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+						<span class="glyphicon glyphicon-arrow-up"></span>
 					</a>
 					<a href="video_local.php?sort=video_title+desc&page={$page}">
-						<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+						<span class="glyphicon glyphicon-arrow-down"></span>
 					</a>
 				</td>
 				<td width="10%">
 					<b>Type</b>
 					<a href="video_local.php?sort=video_type+asc&page={$page}">
-						<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+						<span class="glyphicon glyphicon-arrow-up"></span>
 					</a>
 					<a href="video_local.php?sort=video_type+desc&page={$page}">
-						<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+						<span class="glyphicon glyphicon-arrow-down"></span>
 					</a>
 				</td>
 				<td width="15%">
 					<b>Duration</b>
 					<a href="video_local.php?sort=video_duration+asc&page={$page}">
-						<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+						<span class="glyphicon glyphicon-arrow-up"></span>
 					</a>
 					<a href="video_local.php?sort=video_duration+desc&page={$page}">
-						<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+						<span class="glyphicon glyphicon-arrow-down"></span>
 					</a>
 				</td>
 				<td width="10%">
 					<b>Date</b>
 					<a href="video_local.php?sort=video_add_date+asc&page={$page}">
-						<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+						<span class="glyphicon glyphicon-arrow-up"></span>
 					</a>
 					<a href="video_local.php?sort=video_add_date+desc&page={$page}">
-						<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+						<span class="glyphicon glyphicon-arrow-down"></span>
 					</a>
 				</td>
 			</tr>

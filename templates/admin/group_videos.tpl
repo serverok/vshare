@@ -12,56 +12,56 @@
         <td>
             <b>ID</b>
             <a href="group_videos.php?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_id+asc">
-            	<img src="{$img_css_url}/images/up.gif" alt="" />
+                <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
             <a href="group_videos.php?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_id+desc">
-            	<img src="{$img_css_url}/images/down.gif" alt=""  />
+                <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
 
         <td>
             <b>Title</b>
             <a href="group_videos.php?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_title+asc">
-            	<img src="{$img_css_url}/images/up.gif" alt=""  />
+                <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
             <a href="group_videos.php?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_title+desc">
-            	<img src="{$img_css_url}/images/down.gif" alt=""  />
+                <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
         <td>
             <b>Type</b>
             <a href="group_videos.php?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_type+asc">
-            	<img src="{$img_css_url}/images/up.gif" alt=""  />
+                <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
             <a href="group_videos.php?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_type+desc">
-            	<img src="{$img_css_url}/images/down.gif" alt=""  />
+                <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
         <td>
             <b>Duration</b>
             <a href="group_videos.php?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_duration+asc">
-            	<img src="{$img_css_url}/images/up.gif" alt=""  />
+                <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
             <a href="group_videos.php?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_duration+desc">
-            	<img src="{$img_css_url}/images/down.gif" alt=""  />
+                <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
         <td>
             <b>Featured</b>
             <a href="group_videos.php?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_featured+asc">
-            	<img src="{$img_css_url}/images/up.gif" alt=""  />
+                <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
             <a href="group_videos.php?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_featured+desc">
-            	<img src="{$img_css_url}/images/down.gif" alt=""  />
+                <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
         <td>
             <b>Date</b>
             <a href="group_videos.php?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_add_date+asc">
-            	<img src="{$img_css_url}/images/up.gif" alt=""  />
+                <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
             <a href="group_videos.php?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_add_date+desc">
-            	<img src="{$img_css_url}/images/down.gif" alt=""  />
+                <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
         <td align="center">
@@ -71,33 +71,33 @@
 
     {section name=aa loop=$videos}
     <tr bgcolor="{cycle values="#F8F8F8,#F2F2F2"}">
-    	<td>
-			{$videos[aa].video_id}
-		</td>
+        <td>
+            {$videos[aa].video_id}
+        </td>
         <td>
             <a href="video_details.php?id={$videos[aa].video_id}">
-            	{$videos[aa].video_title}
+                {$videos[aa].video_title}
             </a>
         </td>
         <td align="center">
-        	{$videos[aa].video_type}
+            {$videos[aa].video_type}
         </td>
         <td align="center">
-        	{$videos[aa].video_length}
+            {$videos[aa].video_length}
         </td>
         <td align="center">
-        	{$videos[aa].video_featured}
+            {$videos[aa].video_featured}
         </td>
         <td align="center">
-        	{$videos[aa].video_add_date|date_format}
+            {$videos[aa].video_add_date|date_format}
         </td>
         <td align="center">
-        	<a href="video_edit.php?action=edit&video_id={$videos[aa].video_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
-        		Edit
-        	</a> |
-        	<a href="group_videos.php?gid={$smarty.request.gid}&action=del&video_id={$videos[aa].video_id}" onclick="Javascript:return confirm('Are you sure you want to remove the video from this group?');">
-        		Remove
-        	</a>
+            <a href="video_edit.php?action=edit&video_id={$videos[aa].video_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
+                Edit
+            </a> |
+            <a href="group_videos.php?gid={$smarty.request.gid}&action=del&video_id={$videos[aa].video_id}" onclick="Javascript:return confirm('Are you sure you want to remove the video from this group?');">
+                Remove
+            </a>
         </td>
     </tr>
     {/section}

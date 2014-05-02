@@ -8,10 +8,10 @@
             <td align="center">
                 <b>ID</b>
                 <a href="?sort=feature_request_video_id+asc">
-                    <img src="{$img_css_url}/images/up.gif" border="0" alt="sort" />
+                    <span class="glyphicon glyphicon-arrow-up"></span>
                 </a>
                 <a href="?sort=feature_request_video_id+desc">
-                    <img src="{$img_css_url}/images/down.gif" border="0" alt="sort" />
+                    <span class="glyphicon glyphicon-arrow-down"></span>
                 </a>
             </td>
             <td align="center">
@@ -20,10 +20,10 @@
             <td align="center">
                 <b>Total Request</b>
                 <a href="?sort=feature_request_count+asc">
-                    <img src="{$img_css_url}/images/up.gif" border="0" alt="sort" />
+                    <span class="glyphicon glyphicon-arrow-up"></span>
                 </a>
                 <a href="?sort=feature_request_count+desc">
-                    <img src="{$img_css_url}/images/down.gif" border="0" alt="sort" />
+                    <span class="glyphicon glyphicon-arrow-down"></span>
                 </a>
             </td>
             <td align="center">
@@ -31,10 +31,10 @@
                     Last Reqeust Date
                 </b>
                 <a href="?sort=feature_request_date+asc">
-                    <img src="{$img_css_url}/images/up.gif" border="0" alt="sort" />
+                    <span class="glyphicon glyphicon-arrow-up"></span>
                 </a>
                 <a href="?sort=feature_request_date+desc">
-                    <img src="{$img_css_url}/images/down.gif" border="0" alt="sort" />
+                    <span class="glyphicon glyphicon-arrow-down"></span>
                 </a>
             </td>
             <td align="center">

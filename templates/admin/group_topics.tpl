@@ -12,10 +12,10 @@
 		<td>
 			<b>Topics</b>
 			<a href="?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&page={$page}&sort=group_topic_title+asc">
-				<img src="{$img_css_url}/images/up.gif" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&page={$page}&sort=group_topic_title+desc">
-				<img src="{$img_css_url}/images/down.gif" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 		<td>
@@ -27,19 +27,19 @@
 		<td>
 			<b>Created On</b>
 			<a href="?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&page={$page}&sort=group_topic_add_time+asc">
-				<img src="{$img_css_url}/images/up.gif" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&page={$page}&sort=group_topic_add_time+desc">
-				<img src="{$img_css_url}/images/down.gif" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 		<td>
 			<b>Approved</b>
 			<a href="?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&page={$page}&sort=group_topic_approved+asc">
-				<img src="{$img_css_url}/images/up.gif" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&page={$page}&sort=group_topic_approved+desc">
-				<img src="{$img_css_url}/images/down.gif" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 		<td align="center">

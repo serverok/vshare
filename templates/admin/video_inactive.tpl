@@ -8,10 +8,10 @@
             <td align="center">
                 <b>ID</b>
                 <a href="?sort=video_id+asc&a={$smarty.request.a}">
-                    <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+                    <span class="glyphicon glyphicon-arrow-up"></span>
                 </a>
                 <a href="?sort=video_id+desc&a={$smarty.request.a}">
-                    <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+                    <span class="glyphicon glyphicon-arrow-down"></span>
                 </a>
             </td>
             <td>

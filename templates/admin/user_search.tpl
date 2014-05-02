@@ -32,37 +32,37 @@
         <td>
             <b>ID</b>
             <a href="user_search.php?user_ip={$smarty.get.user_ip}&sort=user_id+asc&page={$page}">
-                <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
             <a href="user_search.php?user_ip={$smarty.get.user_ip}&sort=user_id+desc&page={$page}">
-                <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
         <td>
             <b>Name</b>
             <a href="user_search.php?user_ip={$smarty.get.user_ip}&sort=user_name+asc&page={$page}">
-                <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
             <a href="user_search.php?user_ip={$smarty.get.user_ip}&sort=user_name+desc&page={$page}">
-                <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
         <td>
             <b>Country</b>
             <a href="user_search.php?user_ip={$smarty.get.user_ip}&sort=user_country+asc&page={$page}">
-                <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
             <a href="user_search.php?user_ip={$smarty.get.user_ip}&sort=user_country+desc&page={$page}">
-                <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
         <td>
             <b>Last Login</b>
             <a href="user_search.php?user_ip={$smarty.get.user_ip}&sort=user_last_login_time+asc&page={$page}">
-                <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
             <a href="user_search.php?user_ip={$smarty.get.user_ip}&sort=user_last_login_time+desc&page={$page}">
-                <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
         <td>
@@ -76,10 +76,10 @@
         <td>
             <b>Status</b>
             <a href="user_search.php?user_ip={$smarty.get.user_ip}&sort=user_account_status+asc&page={$page}">
-                <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
             <a href="user_search.php?user_ip={$smarty.get.user_ip}&sort=user_account_status+desc&page={$page}">
-                <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
         <td align="center">

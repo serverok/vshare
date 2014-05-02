@@ -10,17 +10,17 @@
         <td>
             <b>ID</b>
             <a href="?chid={$smarty.request.chid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=group_id+asc">
-            <img src="{$img_css_url}/images/up.gif" border="0" alt="" /></a>
+            <span class="glyphicon glyphicon-arrow-up"></span></a>
             <a href="?chid={$smarty.request.chid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=group_id+desc">
-            <img src="{$img_css_url}/images/down.gif" border="0" alt="" /></a>
+            <span class="glyphicon glyphicon-arrow-down"></span></a>
         </td>
         <td>
             <b>Name</b>
             <a href="?chid={$smarty.request.chid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=group_name+asc">
-            <img src="{$img_css_url}/images/up.gif" border="0" alt="" /></a>
+            <span class="glyphicon glyphicon-arrow-up"></span></a>
 
             <a href="?chid={$smarty.request.chid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=group_name+desc">
-            <img src="{$img_css_url}/images/down.gif" border="0" alt="" /></a>
+            <span class="glyphicon glyphicon-arrow-down"></span></a>
         </td>
         <td>
             <b>Owner</b>
@@ -37,18 +37,18 @@
         <td align="center">
             <b>Type</b>
             <a href="?chid={$smarty.request.chid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=group_type+asc">
-            <img src="{$img_css_url}/images/up.gif" border="0" alt="" /></a>
+            <span class="glyphicon glyphicon-arrow-up"></span></a>
 
             <a href="?chid={$smarty.request.chid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=group_type+desc">
-            <img src="{$img_css_url}/images/down.gif" border="0" alt="" /></a>
+            <span class="glyphicon glyphicon-arrow-down"></span></a>
         </td>
         <td align="center">
             <b>Featured</b>
             <a href="?chid={$smarty.request.chid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=group_featured+asc">
-            <img src="{$img_css_url}/images/up.gif" border="0" alt="" /></a>
+            <span class="glyphicon glyphicon-arrow-up"></span></a>
 
             <a href="?chid={$smarty.request.chid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=group_featured+desc">
-            <img src="{$img_css_url}/images/down.gif" border="0" alt="" /></a>
+            <span class="glyphicon glyphicon-arrow-down"></span></a>
         </td>
         <td align="center">
             <b>Action</b>

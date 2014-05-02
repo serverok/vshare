@@ -7,20 +7,20 @@
        <td width="7%">
            <b>ID</b>
            <a href="payments.php?sort=id_asc&page={$smarty.get.page}">
-               <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+               <span class="glyphicon glyphicon-arrow-up"></span>
            </a>
            <a href="payments.php?sort=id_desc&page={$smarty.get.page}">
-               <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+               <span class="glyphicon glyphicon-arrow-down"></span>
            </a>
        </td>
        
        <td width="20%">
            <b>User</b>
            <a href="payments.php?sort=user_asc&page={$smarty.get.page}">
-               <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+               <span class="glyphicon glyphicon-arrow-up"></span>
            </a>
            <a href="payments.php?sort=user_desc&page={$smarty.get.page}">
-               <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+               <span class="glyphicon glyphicon-arrow-down"></span>
            </a>
        </td>
        

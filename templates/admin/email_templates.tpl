@@ -6,19 +6,19 @@
         <td width="60">
             <b>Email ID</b>
             <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=email_id+asc&page={$page}">
-                <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
             <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=email_id+desc&page={$page}">
-                <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
         <td>
             <b>Email Subject</b>
             <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=email_subject+asc&page={$page}">
-                <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
             <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=email_subject+desc&page={$page}">
-                <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+                <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
         <td>

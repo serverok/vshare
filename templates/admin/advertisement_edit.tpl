@@ -5,7 +5,7 @@
     <h5>Edit Code:</h5>
     <textarea name="advertisement_text" rows="15" cols="80">{$advertisement_info.adv_text}</textarea>
     <div class="margin-tb-1em">
-        <input type="submit" name="submit" value="Update" />
+        <input type="submit" name="submit" value="Update" class="btn btn-primary" />
     </div>
 </form>
 

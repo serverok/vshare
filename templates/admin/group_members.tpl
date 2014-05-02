@@ -12,37 +12,37 @@
 		<td>
 			<b>ID</b>
 			<a href="?group_id={$smarty.request.group_id}&a={$smarty.request.a}&status={$smarty.request.status}&sort=user_id+asc">
-				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?group_id={$smarty.request.group_id}&a={$smarty.request.a}&status={$smarty.request.status}&sort=user_id+desc">
-				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 		<td>
 			<b>Name</b>
 			<a href="?group_id={$smarty.request.group_id}&a={$smarty.request.a}&status={$smarty.request.status}&sort=user_name+asc">
-				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?group_id={$smarty.request.group_id}&a={$smarty.request.a}&status={$smarty.request.status}&sort=user_name+desc">
-				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 		<td>
 			<b>Country</b>
 			<a href="?group_id={$smarty.request.group_id}&a={$smarty.request.a}&status={$smarty.request.status}&sort=user_country+asc">
-				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?group_id={$smarty.request.group_id}&a={$smarty.request.a}&status={$smarty.request.status}&sort=user_country+desc">
-				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 		<td>
 			<b>Last Login</b>
 			<a href="?group_id={$smarty.request.group_id}&a={$smarty.request.a}&status={$smarty.request.status}&sort=user_last_login_time+asc">
-				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?group_id={$smarty.request.group_id}&a={$smarty.request.a}&status={$smarty.request.status}&sort=user_last_login_time+desc">
-				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 		<td>
@@ -51,10 +51,10 @@
 		<td>
 			<b>Status</b>
 			<a href="?group_id={$smarty.request.group_id}&a={$smarty.request.a}&status={$smarty.request.status}&sort=user_account_status+asc">
-				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?group_id={$smarty.request.group_id}&a={$smarty.request.a}&status={$smarty.request.status}&sort=user_account_status+desc">
-				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 		<td align="center">

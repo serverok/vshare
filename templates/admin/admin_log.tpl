@@ -9,19 +9,19 @@
 	    <td align="center" width="15%">
 	        <b>USER IP</b>
 		<a href="admin_log.php?sort=admin_log_ip+asc&page={$page}">
-			<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+			<span class="glyphicon glyphicon-arrow-up"></span>
 	        </a>
 	        <a href="admin_log.php?sort=admin_log_ip+desc&page={$page}">
-	            <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+	            <span class="glyphicon glyphicon-arrow-down"></span>
 	        </a>
 	    </td>
 	    <td align="center" width="20%">
 	        <b>TIME</b>
 	        <a href="admin_log.php?sort=admin_log_time+asc&page={$page}">
-			<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+			<span class="glyphicon glyphicon-arrow-up"></span>
 	        </a>
 	        <a href="admin_log.php?sort=admin_log_time+desc&page={$page}">
-	            <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+	            <span class="glyphicon glyphicon-arrow-down"></span>
 	        </a>
 	    </td>
 	    <td align="center">

@@ -5,64 +5,64 @@
     <tr class="tabletitle">
 
         <td>
-    		<b>ID</b>
-    		<a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_id+asc&page={$page}">
-    			<img src="{$img_css_url}/images/up.gif" alt="" />
-    		</a>
-    		<a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_id+desc&page={$page}">
-    			<img src="{$img_css_url}/images/down.gif" alt="" />
-    		</a>
-    	</td>
+            <b>ID</b>
+            <a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_id+asc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+            </a>
+            <a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_id+desc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </a>
+        </td>
 
         <td>
-    		<b>Name</b>
-    		<a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_name+asc&page={$page}">
-    			<img src="{$img_css_url}/images/up.gif" alt="" />
-    		</a>
-    		<a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_name+desc&page={$page}">
-    			<img src="{$img_css_url}/images/down.gif" alt="" />
-    		</a>
-    	</td>
+            <b>Name</b>
+            <a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_name+asc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+            </a>
+            <a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_name+desc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </a>
+        </td>
 
         <td>
-    		<b>Owner</b>
-    	</td>
+            <b>Owner</b>
+        </td>
 
         <td>
-    		<b>Video</b>
-    	</td>
+            <b>Video</b>
+        </td>
 
         <td>
-    		<b>Member</b>
-    	</td>
+            <b>Member</b>
+        </td>
 
         <td>
-    		<b>Topics</b>
-    	</td>
+            <b>Topics</b>
+        </td>
 
         <td align="center">
-    		<b>Type</b>
-    		<a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_type+asc&page={$page}">
-    			<img src="{$img_css_url}/images/up.gif" alt="" />
-    		</a>
-    		<a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_type+desc&page={$page}">
-    			<img src="{$img_css_url}/images/down.gif" alt="" />
-    		</a>
-    	</td>
+            <b>Type</b>
+            <a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_type+asc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+            </a>
+            <a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_type+desc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </a>
+        </td>
 
         <td align="center">
-    		<b>Featured</b>
-    		<a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_featured+asc&page={$page}">
-    			<img src="{$img_css_url}/images/up.gif" alt="" />
-    		</a>
-    		<a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_featured+desc&page={$page}">
-    			<img src="{$img_css_url}/images/down.gif" alt="" />
-    		</a>
-    	</td>
+            <b>Featured</b>
+            <a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_featured+asc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+            </a>
+            <a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_featured+desc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </a>
+        </td>
 
-    	<td align="center">
-    		<b>Action</b>
-    	</td>
+        <td align="center">
+            <b>Action</b>
+        </td>
 
     </tr>
 

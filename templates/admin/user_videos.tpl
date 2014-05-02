@@ -8,56 +8,56 @@
 		<td>
 			<b>ID</b>
 			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_id+asc">
-				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_id+desc">
-				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 
 		<td>
 			<b>Title</b>
 			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_title+asc">
-				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_title+desc">
-				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 		<td>
 			<b>Type</b>
 			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_type+asc">
-				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_type+desc">
-				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 		<td>
 			<b>Duration</b>
 			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_duration+asc">
-				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_duration+desc">
-				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 		<td>
 			<b>Featured</b>
 			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_featured+asc">
-				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_featured+desc">
-				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 		<td>
 			<b>Date</b>
 			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_add_date+asc">
-				<img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-up"></span>
 			</a>
 			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_add_date+desc">
-				<img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
 		<td align="center">

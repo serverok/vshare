@@ -14,10 +14,10 @@
             <td width="20%">
                 <b>Sort Order</b>
                 <a href="channel_sort.php?sort=asc&page={$page}">
-                    <img src="{$img_css_url}/images/up.gif" border="0" alt="" />
+                    <span class="glyphicon glyphicon-arrow-up"></span>
                 </a>
                 <a href="channel_sort.php?sort=desc&page={$page}">
-                    <img src="{$img_css_url}/images/down.gif" border="0" alt="" />
+                    <span class="glyphicon glyphicon-arrow-down"></span>
                 </a>
             </td>
         </tr>
