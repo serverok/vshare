@@ -13,4 +13,7 @@
 </head>
 <body>
 
+<div class="container">
+
 {include file="error.tpl"}
+{include file="admin/menu_main.tpl"}
