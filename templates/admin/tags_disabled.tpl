@@ -2,7 +2,7 @@
 
 {include file='admin/tags_menu.tpl'}
 
-<table cellspacing="1" cellpadding="3" width="40%">
+<table class="table table-striped">
 
     <tr class="tabletitle">
         <td>
@@ -22,7 +22,7 @@
             <td>
                 <form method="post" action="">
                     <input type="hidden" name="action_tag" value="{$tags[i].id}" />
-                    <input type="submit" name="action" value="Enable" class="btn btn-primary" />
+                    <input type="submit" name="action" value="Enable" class="btn btn-success" />
                 </form>
             </td>
         </tr>

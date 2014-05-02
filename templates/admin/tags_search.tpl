@@ -1,18 +1,21 @@
 <h1>Search Tags</h1>
 
 {include file='admin/tags_menu.tpl'}
+
 <form method="post" action="">
-    <div style="padding-left:4em;">
+    <div>
         <b>Tag:</b>
         <input type="text" name="search_tag" />
         <input type="submit" name="submit" value="Search" class="btn btn-primary" />
     </div>
 </form>
 
+<div style="margin-bottom: 2em"></div>
+
 {if $tag ne ''}
 
-    <table cellspacing="1" cellpadding="3" width="40%" border="0">
-        <tr class="tabletitle">
+    <table class="table table-striped">
+        <tr>
             <td align="center">
                 <b>ID</b>
             </td>
@@ -26,7 +29,7 @@
 
         {section name=i loop=$tag}
 
-        <tr class="{cycle values="tablerow1,tablerow2"}">
+        <tr>
             <td>
                 {$tag[i].id}
             </td>
