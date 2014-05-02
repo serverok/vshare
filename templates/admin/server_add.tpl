@@ -37,7 +37,7 @@
             <option value="3" {if $smarty.post.server_type == "3"}selected="selected"{/if}>ngx_http_secure_link_module</option>
         </select>
         <a href="http://labs.buyscripts.in/projects/vshare/wiki/Add_Server" target="_blank">
-            <img src="{$img_css_url}/images/help.png" alt="help" />
+            <span class="glyphicon glyphicon-question-sign"></span>
         </a>
     </div>
 

@@ -43,7 +43,7 @@
             THUMBNAIL SERVER
         {/if}
         <a href="http://labs.buyscripts.in/projects/vshare/wiki/Video_Server_Type" target="_blank">
-            <img src="{$img_css_url}/images/help.png" alt="help" />
+            <span class="glyphicon glyphicon-question-sign"></span>
         </a>
     </div>
 
