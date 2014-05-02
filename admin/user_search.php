@@ -55,34 +55,21 @@ if (isset($_GET['userid']) || isset($_GET['user_name']) || isset($_GET['user_ip'
         }
 
         $sql = "SELECT count(*) AS `total` FROM `users` WHERE
-               `user_ip`='" . DB::quote($_GET['user_ip']) . "'";
+               `user_ip` LIKE '%" . DB::quote($_GET['user_ip']) . "%'";
         $total = DB::getTotal($sql);
 
         $admin_listing_per_page = Config::get('admin_listing_per_page');
         $start_from = ($page - 1) * $admin_listing_per_page;
 
-        require 'Pager/Pager.php';
-        require 'Pager/Sliding.php';
-
-        $params = array();
-        $params['mode'] = 'Sliding';
-        $params['perPage'] = $admin_listing_per_page;
-        $params['linkClass'] = 'pager';
-        $params['delta'] = 2;
-        $params['totalItems'] = $total;
-        $params['urlVar'] = 'page';
-
-        $pager = new Pager_Sliding($params);
-        $data = $pager->getPageData();
-        $links = $pager->getLinks();
+        $links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
         $sql = "SELECT * FROM `users` WHERE
-               `user_ip`='" . DB::quote($_GET['user_ip']) . "'
+               `user_ip` LIKE '%" . DB::quote($_GET['user_ip']) . "%'
                 $query
                 LIMIT $start_from, $admin_listing_per_page";
         $users = DB::fetch($sql);
 
-        $smarty->assign('links', $links['all']);
+        $smarty->assign('links', $links);
         $smarty->assign('total', $total + 0);
         $smarty->assign('page', $page + 0);
         $smarty->assign('users', $users);

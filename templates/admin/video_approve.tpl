@@ -2,11 +2,11 @@
 
 {if $total > 0}
 
-<table cellspacing="1" cellpadding="3" width="100%" border="0">
+<table class="table table-striped table-hover">
 
-	<tr class="tabletitle">
+	<tr>
 
-		<td>
+		<td width="90">
 			<b>ID</b>
 			<a href="?sort=video_id+asc">
 				<span class="glyphicon glyphicon-arrow-up"></span>
@@ -26,7 +26,7 @@
 			</a>
 		</td>
 
-		<td>
+		<td width="90">
 			<b>Type</b>
 			<a href="?sort=video_type+asc">
 				<span class="glyphicon glyphicon-arrow-up"></span>
@@ -36,7 +36,7 @@
 			</a>
 		</td>
 
-		<td>
+		<td width="120">
 			<b>Duration</b>
 			<a href="?sort=video_duration+asc">
 				<span class="glyphicon glyphicon-arrow-up"></span>
@@ -46,7 +46,7 @@
 			</a>
 		</td>
 
-		<td>
+		<td width="120">
 			<b>Featured</b>
 			<a href="?sort=video_featured+asc">
 				<span class="glyphicon glyphicon-arrow-up"></span>
@@ -56,7 +56,7 @@
 			</a>
 		</td>
 
-		<td>
+		<td width="90">
 			<b>Date</b>
 			<a href="?sort=video_add_date+asc">
 				<span class="glyphicon glyphicon-arrow-up"></span>
@@ -94,7 +94,9 @@
 			{$videos[i].video_add_date|date_format}
 		</td>
 		<td align="center">
-			<a href="?action=approve&video_id={$videos[i].video_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">Approve</a>
+			<a href="?action=approve&video_id={$videos[i].video_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
+                <span class="glyphicon glyphicon-ok"></span>
+            </a>
 		</td>
 	</tr>
 
@@ -102,12 +104,11 @@
 
 </table>
 
-<div>
-    {$links}
-</div>
-
-<div>
-    <a href="?action=approve_all">Approve All</a>
+<div class="row">
+    <div class="col-md-10">{$links}</div>
+    <div class="col-md-2">
+        <a href="?action=approve_all" class="btn btn-primary">Approve All</a>
+    </div>
 </div>
 
 {else}

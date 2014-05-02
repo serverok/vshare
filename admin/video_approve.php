@@ -16,7 +16,7 @@ require '../include/config.php';
 
 Admin::auth();
 
-$result_per_page = Config::get('admin_listing_per_page');
+$admin_listing_per_page = Config::get('admin_listing_per_page');
 
 if (isset($_GET['sort']) && ! empty($_GET['sort'])) {
     $query = "WHERE `video_approve`=0 ORDER BY $_GET[sort]";
@@ -77,30 +77,16 @@ if ($page < 1) {
     $page = 1;
 }
 
-$start_from = ($page - 1) * $result_per_page;
+$start_from = ($page - 1) * $admin_listing_per_page;
 
-require 'Pager/Pager.php';
-require 'Pager/Sliding.php';
-
-$params = array(
-    'mode' => 'Sliding',
-    'perPage' => $result_per_page,
-    'linkClass' => 'pager',
-    'delta' => 2,
-    'totalItems' => $total,
-    'urlVar' => 'page'
-);
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM `videos`
        $query
-       LIMIT $start_from, $result_per_page";
+       LIMIT $start_from, $admin_listing_per_page";
 $videos = DB::fetch($sql);
 
-$smarty->assign('links', $links['all']);
+$smarty->assign('links', $links);
 $smarty->assign('total', $total);
 $smarty->assign('page', $page);
 $smarty->assign('videos', $videos);
