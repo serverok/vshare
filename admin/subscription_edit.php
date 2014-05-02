@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_subscription_edit.php';
+require '../include/language/' . LANG . '/admin/subscription_edit.php';
 
 Admin::auth();
 

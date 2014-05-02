@@ -5,19 +5,19 @@
     <tr>
         <td width="60">
             <b>Email ID</b>
-            <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=email_id+asc&page={$page}">
+            <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=email_id+asc">
                 <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
-            <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=email_id+desc&page={$page}">
+            <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=email_id+desc">
                 <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
         <td>
             <b>Email Subject</b>
-            <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=email_subject+asc&page={$page}">
+            <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=email_subject+asc">
                 <span class="glyphicon glyphicon-arrow-up"></span>
             </a>
-            <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=email_subject+desc&page={$page}">
+            <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=email_subject+desc">
                 <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
@@ -29,23 +29,19 @@
         </td>
     </tr>
 
-    {section name=aa loop=$emails}
+    {foreach from=$email_templates_all item=email_template}
 
-        <tr class="{cycle values="tablerow1,tablerow2"}">
-            <td>{$emails[aa].email_id}</td>
-            <td>{$emails[aa].email_subject}</td>
-            <td>{$emails[aa].comment}</td>
+        <tr>
+            <td>{$email_template.email_id}</td>
+            <td>{$email_template.email_subject}</td>
+            <td>{$email_template.comment}</td>
             <td align="center">
-                <a href="email_edit.php?action=edit&email_id={$emails[aa].email_id}">
+                <a href="email_edit.php?action=edit&email_id={$email_template.email_id}">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
             </td>
         </tr>
 
-    {/section}
+    {/foreach}
 
 </table>
-
-<div class="margin-tb-1em">
-    {$links}
-</div>

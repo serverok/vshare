@@ -2,53 +2,43 @@
 
 <p>Total: {$total}</p>
 
-<table cellspacing="1" cellpadding="3" width="100%">
+<table class="table table-striped table-hover">
 
-    <tr class="tabletitle">
-        <td>
-            <b>Video</b>
-        </td>
-        <td>
-            <b>User Name</b>
-        </td>
-        <td>
-            <b>Comments</b>
-        </td>
-        <td align="center">
-            <b>Action</b>
-        </td>
+    <tr>
+        <td><b>Video</b></td>
+        <td><b>User Name</b></td>
+        <td><b>Comments</b></td>
+        <td align="center"><b>Action</b></td>
     </tr>
 
-    {section name=i loop=$comments}
-        <tr class="{cycle values='tablerow1,tablerow2'}">
+    {foreach from=$comments item=comment}
+        <tr>
             <td>
-                <a href="video_details.php?id={$comments[i].comment_video_id}">
-                    {$comments[i].comment_video_id}
+                <a href="video_details.php?id={$comment.comment_video_id}">
+                    {$comment.comment_video_id}
                 </a>
             </td>
             <td>
-                <a href="user_view.php?user_id={$comments[i].comment_user_id}">
-                    {$comments[i].user_name}
+                <a href="user_view.php?user_id={$comment.comment_user_id}">
+                    {$comment.user_name}
                 </a>
             </td>
             <td>
-                {$comments[i].comment_text}
+                {$comment.comment_text}
             </td>
             <td align="center">
-                <a href='comment_edit.php?action=edit&id={$comments[i].comment_id}&page={$page}'>
+                <a href='comment_edit.php?action=edit&id={$comment.comment_id}&page={$page}'>
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
-                <a href='comment.php?action=del&id={$comments[i].comment_id}&page={$page}' onclick='Javascript:return confirm("Are you sure you want to delete?");'>
+                <a href='comment.php?action=del&id={$comment.comment_id}&page={$page}' onclick='Javascript:return confirm("Are you sure you want to delete?");'>
                     <span class="glyphicon glyphicon-remove-circle"></span>
                 </a>
             </td>
         </tr>
-    {/section}
+    {/foreach}
 
 </table>
 
-{if $links ne ""}
-    <div class="margin-top-1em">
-        {$links}
-    </div>
-{/if}
+<div>
+    {$links}
+</div>

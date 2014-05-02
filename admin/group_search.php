@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_group_search.php';
+require '../include/language/' . LANG . '/admin/group_search.php';
 
 Admin::auth();
 

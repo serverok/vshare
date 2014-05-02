@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_tags_search.php';
+require '../include/language/' . LANG . '/admin/tags_search.php';
 
 Admin::auth();
 

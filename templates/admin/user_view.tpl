@@ -1,195 +1,189 @@
-{if $user.user_id ne ""}
+<h1>User: {$user.user_name}</h1>
 
-<div id="user-view">
+<table class="table table-striped table-hover">
 
-    <h1>User: {$user.user_name}</h1>
+<tr>
+<td>User ID </td>
+<td>{$user.user_id}</td>
+</tr>
 
-        <div>
-            <div class="float_l">User ID </div>
-            <div>{$user.user_id}</div>
-        </div>
+<tr>
+<td>User Name </td>
+<td>{$user.user_name}</td>
+</tr>
 
-        <div>
-            <div class="float_l">User Name </div>
-            <div>{$user.user_name}</div>
-        </div>
+<tr>
+<td> Email Address </td>
+<td>{$user.user_email}</td>
+</tr>
 
-        <div>
-            <div class="float_l"> Email Address </div>
-            <div>{$user.user_email}</div>
-        </div>
+{if $user.user_first_name ne ""}
+<tr>
+<td>Full Name</td>
+<td>{$user.user_first_name} {$user.user_last_name}</td>
+</tr>
+{/if}
 
-        {if $user.user_first_name ne ""}
-        <div>
-            <div class="float_l">Full Name</div>
-            <div>{$user.user_first_name} {$user.user_last_name}</div>
-        </div>
-        {/if}
+{if $user.user_city ne ""}
+<tr>
+<td>City</td>
+<td>{$user.user_city}</td>
+</tr>
+{/if}
 
-        {if $user.user_city ne ""}
-        <div>
-            <div class="float_l">City</div>
-            <div>{$user.user_city}</div>
-        </div>
-        {/if}
+{if $user.user_country ne ""}
+<tr>
+<td>Country</td>
+<td>{$user.user_country}</td>
+</tr>
+{/if}
 
-        {if $user.user_country ne ""}
-        <div>
-            <div class="float_l">Country</div>
-            <div>{$user.user_country}</div>
-        </div>
-        {/if}
+{insert name=subscriber_info assign=pack uid=$user.user_id}
 
-        {insert name=subscriber_info assign=pack uid=$user.user_id}
-        {if $pack.pack_name ne ""}
-        <div>
-            <div class="float_l">Subscribed Package</div>
-            <div>
-                <a href="{$base_url}/admin/packages.php?a=Search&pack_id={$pack.pack_id}&page=">
-                    {$pack.pack_name}
-                </a>
-            </div>
-        </div>
-        {/if}
+{if $pack.pack_name ne ""}
+<tr>
+<td>Subscribed Package</td>
+<td><a href="{$base_url}/admin/packages.php?a=Search&pack_id={$pack.pack_id}&page=">{$pack.pack_name}</a></td>
+</tr>
+{/if}
 
-        {if $pack.used_space ne ""}
-        <div>
-            <div class="float_l">Used Space</div>
-            <div>{insert name=format_size size=$pack.used_space}</div>
-        </div>
-        {/if}
+{if $pack.used_space ne ""}
+<tr>
+<td>Used Space</td>
+<td>{insert name=format_size size=$pack.used_space}</td>
+</tr>
+{/if}
 
-        {if $pack.used_bw ne ""}
-        <div>
-            <div class="float_l">Used Bandwidth</div>
-            <div>{insert name=format_size size=$pack.used_bw}</div>
-        </div>
-        {/if}
+{if $pack.used_bw ne ""}
+<tr>
+<td>Used Bandwidth</td>
+<td>{insert name=format_size size=$pack.used_bw}</td>
+</tr>
+{/if}
 
-        {if $pack.total_video ne ""}
-        <div>
-            <div class="float_l">Total Uploaded Video</div>
-            <div>{$pack.total_video}</div>
-        </div>
-        {/if}
+{if $pack.total_video ne ""}
+<tr>
+<td>Total Uploaded Video</td>
+<td>{$pack.total_video}</td>
+</tr>
+{/if}
 
-        {if $pack.expired_time|date_format ne ""}
-        <div>
-            <div class="float_l"> Expired Date</div>
-            <div>{$pack.expired_time|date_format}</div>
-        </div>
-        {/if}
+{if $pack.expired_time|date_format ne ""}
+<tr>
+<td> Expired Date</td>
+<td>{$pack.expired_time|date_format}</td>
+</tr>
+{/if}
 
-        <hr />
-    {/if}
+<hr />
 
-    {if $user.user_website ne ""}
-    <div>
-      <div class="float_l">Website</div>
-      <div>{$user.user_website}</div>
-    </div>
-    {/if}
+{if $user.user_website ne ""}
+<tr>
+<td>Website</td>
+<td>{$user.user_website}</td>
+</tr>
+{/if}
 
-    {if $user.user_occupation ne ""}
-    <div>
-        <div class="float_l">Occupation</div>
-        <div>{$user.user_occupation}</div>
-    </div>
-    {/if}
+{if $user.user_occupation ne ""}
+<tr>
+<td>Occupation</td>
+<td>{$user.user_occupation}</td>
+</tr>
+{/if}
 
-    {if $user.user_company ne ""}
-    <div>
-        <div class="float_l">Company Name</div>
-        <div>{$user.user_company}</div>
-    </div>
-    {/if}
+{if $user.user_company ne ""}
+<tr>
+<td>Company Name</td>
+<td>{$user.user_company}</td>
+</tr>
+{/if}
 
-    {if $user.user_school ne ""}
-    <div>
-        <div class="float_l">School</div>
-        <div>{$user.user_school}</div>
-    </div>
-    {/if}
+{if $user.user_school ne ""}
+<tr>
+<td>School</td>
+<td>{$user.user_school}</td>
+</tr>
+{/if}
 
-    {if $user.user_interest_hobby ne ""}
-    <div>
-        <div class="float_l">Interest/Hobby</div>
-        <div>{$user.user_interest_hobby}</div>
-    </div>
-    {/if}
+{if $user.user_interest_hobby ne ""}
+<tr>
+<td>Interest/Hobby</td>
+<td>{$user.user_interest_hobby}</td>
+</tr>
+{/if}
 
-    {if $user_info.user_fav_movie_show ne ""}
-    <div>
-        <div class="float_l">Favorite Movie</div>
-        <div>{$user.user_fav_movie_show}</div>
-    </div>
-    {/if}
+{if $user_info.user_fav_movie_show ne ""}
+<tr>
+<td>Favorite Movie</td>
+<td>{$user.user_fav_movie_show}</td>
+</tr>
+{/if}
 
-    {if $user.user_fav_book ne ""}
-    <div>
-        <div class="float_l">Favorite Book</div>
-        <div>{$user.user_fav_book}</div>
-    </div>
-    {/if}
+{if $user.user_fav_book ne ""}
+<tr>
+<td>Favorite Book</td>
+<td>{$user.user_fav_book}</td>
+</tr>
+{/if}
 
-    {if $user.user_fav_music ne ""}
-    <div>
-        <div class="float_l"> Favorite Music</div>
-        <div>{$user.user_fav_music}</div>
-    </div>       
-    {/if}
+{if $user.user_fav_music ne ""}
+<tr>
+<td> Favorite Music</td>
+<td>{$user.user_fav_music}</td>
+</tr>
+{/if}
 
-    {if $user.user_about_me ne ""}
-    <div>
-        <div class="float_l"> About Me</div>
-        <div>{$user.user_about_me}</div>
-    </div>
-    <hr />
-    {/if}
+{if $user.user_about_me ne ""}
+<tr>
+<td> About Me</td>
+<td>{$user.user_about_me}</td>
+</tr>
+<hr />
+{/if}
 
-    <div>
-        <div class="float_l">Video Viewed</div>
-        <div>{$user.user_video_viewed}</div>
-    </div>
+<tr>
+<td>Video Viewed</td>
+<td>{$user.user_video_viewed}</td>
+</tr>
 
-    <div>
-        <div class="float_l">Profile Viewed</div>
-        <div>{$user.user_profile_viewed}</div>
-    </div>
+<tr>
+<td>Profile Viewed</td>
+<td>{$user.user_profile_viewed}</td>
+</tr>
 
-    <div>
-        <div class="float_l">Watched Video</div>
-        <div>{$user.user_watched_video}</div>
-    </div>
+<tr>
+<td>Watched Video</td>
+<td>{$user.user_watched_video}</td>
+</tr>
 
-    <div>
-        <div class="float_l">Join Date</div>
-        <div>{$user.user_join_time|date_format}</div>
-    </div>
+<tr>
+<td>Join Date</td>
+<td>{$user.user_join_time|date_format}</td>
+</tr>
 
-    <div >
-        <div class="float_l">Last Login</div>
-        <div>{$user.user_last_login_time|date_format}</div>
-    </div>
+<div >
+<td>Last Login</td>
+<td>{$user.user_last_login_time|date_format}</td>
+</tr>
 
-    <div>
-        <div class="float_l">Email Verified</div>
-        <div>{$user.user_email_verified}</div>
-    </div>
+<tr>
+<td>Email Verified</td>
+<td>{$user.user_email_verified}</td>
+</tr>
 
-    <div>
-      <div class="float_l">Account Status</div>
-      <div>{$user.user_account_status}</div>
-    </div>
+<tr>
+<td>Account Status</td>
+<td>{$user.user_account_status}</td>
+</tr>
 
-    <hr />  
+</table>
 
-    <div align="center" style="background-color:#FFF5D9;border:1px solid #FED973;padding:2px">
-        <a href="user_edit.php?action=edit&uid={$user.user_id}&page={$smarty.request.page}">Edit</a> &nbsp;
-        <a href="user_videos.php?uid={$user.user_id}">Videos</a> &nbsp;
-        <a href="user_delete.php?uid={$user.user_id}" onclick='Javascript:return confirm("Are you sure you want to delete?");'>Delete</a>&nbsp;
-        <a href="mail_users.php?email={$user.user_email}&uname={$user.user_name}">Send Mail</a>&nbsp;
-        <a href="user_login.php?username={$user.user_name}" target="_blank">Login</a>
-    </div>
+<hr />
 
+<div class="btn-group">
+    <a href="user_edit.php?action=edit&uid={$user.user_id}&page={$smarty.request.page}" class="btn btn-primary">Edit</a>
+    <a href="user_videos.php?uid={$user.user_id}" class="btn btn-primary">Videos</a>
+    <a href="user_delete.php?uid={$user.user_id}" class="btn btn-danger" onclick='Javascript:return confirm("Are you sure you want to delete?");'>Delete</a>
+    <a href="mail_users.php?email={$user.user_email}&uname={$user.user_name}" class="btn btn-primary">Send Mail</a>
+    <a href="user_login.php?username={$user.user_name}"  class="btn btn-primary" target="_blank">Login</a>
 </div>

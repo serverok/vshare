@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_user_delete.php';
+require '../include/language/' . LANG . '/admin/user_delete.php';
 
 Admin::auth();
 

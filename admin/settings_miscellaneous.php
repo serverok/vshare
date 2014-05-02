@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_miscellaneous.php';
+require '../include/language/' . LANG . '/admin/miscellaneous.php';
 
 Admin::auth();
 

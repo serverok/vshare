@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_video_thumb.php';
+require '../include/language/' . LANG . '/admin/video_thumb.php';
 
 Admin::auth();
 

@@ -141,7 +141,7 @@ class Paginate
         $all_get_params = '';
 
         foreach ($_GET as $item => $value) {
-            if ($item == 'page' || empty($value)) continue;
+            if ($item == 'page' || $item == 'action' || empty($value)) continue;
             if (empty($all_get_params)) {
                 $all_get_params .= '?' . $item . '=' . urlencode($value);
             } else {

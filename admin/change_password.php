@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_change_password.php';
+require '../include/language/' . LANG . '/admin/change_password.php';
 
 Admin::auth();
 

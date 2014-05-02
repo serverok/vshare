@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 require '../include/settings/upload.php';
-require '../include/language/' . LANG . '/lang_admin_import_video.php';
+require '../include/language/' . LANG . '/admin/import_video.php';
 
 Admin::auth();
 

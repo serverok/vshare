@@ -13,11 +13,11 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_channel_videos.php';
+require '../include/language/' . LANG . '/admin/channel_videos.php';
 
 Admin::auth();
 
-$result_per_page = Config::get('admin_listing_per_page');
+$admin_listing_per_page = Config::get('admin_listing_per_page');
 
 $channel = Channel::getById($_GET['chid']);
 $smarty->assign('channel_name', $channel['channel_name']);
@@ -56,34 +56,20 @@ if ($page < 1) {
 $sql = "SELECT count(*) AS `total` FROM `videos` $query";
 $total = DB::getTotal($sql);
 
-$start_from = ($page - 1) * $result_per_page;
+$start_from = ($page - 1) * $admin_listing_per_page;
 
-require 'Pager/Pager.php';
-require 'Pager/Sliding.php';
-
-$params = array(
-    'mode' => 'Sliding',
-    'perPage' => $result_per_page,
-    'linkClass' => 'pager',
-    'delta' => 2,
-    'totalItems' => $total,
-    'urlVar' => 'page'
-);
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM `videos`
        $query
-       LIMIT $start_from, $result_per_page";
-$videos = DB::fetch($sql);
+       LIMIT $start_from, $admin_listing_per_page";
+$channel_videos_all = DB::fetch($sql);
 
-$smarty->assign('links', $links["all"]);
+$smarty->assign('links', $links);
 $smarty->assign('grandtotal', $total);
 $smarty->assign('total', $total);
 $smarty->assign('page', $page);
-$smarty->assign('videos', $videos);
+$smarty->assign('channel_videos_all', $channel_videos_all);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

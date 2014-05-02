@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_upload_logo.php';
+require '../include/language/' . LANG . '/admin/upload_logo.php';
 
 Admin::auth();
 

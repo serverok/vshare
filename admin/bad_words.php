@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_bad_words.php';
+require '../include/language/' . LANG . '/admin/admin/bad_words.php';
 
 Admin::auth();
 

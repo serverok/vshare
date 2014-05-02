@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_poll_list.php';
+require '../include/language/' . LANG . '/admin/poll_list.php';
 
 Admin::auth();
 

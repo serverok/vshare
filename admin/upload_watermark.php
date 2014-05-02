@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_upload_watermark.php';
+require '../include/language/' . LANG . '/admin/upload_watermark.php';
 
 Admin::auth();
 

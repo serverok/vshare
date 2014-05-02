@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_reset_password.php';
+require '../include/language/' . LANG . '/admin/reset_password.php';
 
 if (isset($_GET['k']) && isset($_GET['i'])) {
     if (! is_numeric($_GET['i'])) {

@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_process_status_edit.php';
+require '../include/language/' . LANG . '/admin/process_status_edit.php';
 
 Admin::auth();
 

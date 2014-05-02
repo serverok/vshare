@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_reserve_user_name.php';
+require '../include/language/' . LANG . '/admin/reserve_user_name.php';
 
 Admin::auth();
 

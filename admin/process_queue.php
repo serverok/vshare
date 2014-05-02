@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_process_queue.php';
+require '../include/language/' . LANG . '/admin/process_queue.php';
 
 Admin::auth();
 

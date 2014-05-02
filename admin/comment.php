@@ -16,7 +16,7 @@ include '../include/config.php';
 
 Admin::auth();
 
-$result_per_page = Config::get('admin_listing_per_page');
+$admin_listing_per_page = Config::get('admin_listing_per_page');
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
@@ -35,33 +35,19 @@ if (isset($_GET['action']) && $_GET['action'] == 'del') {
 $sql = "SELECT count(*) AS `total` FROM `comments`";
 $total = DB::getTotal($sql);
 
-$start_from = ($page - 1) * $result_per_page;
+$start_from = ($page - 1) * $admin_listing_per_page;
 
-require 'Pager/Pager.php';
-require 'Pager/Sliding.php';
-
-$params = array(
-    'mode' => 'Sliding',
-    'perPage' => $result_per_page,
-    'linkClass' => 'pager',
-    'delta' => 2,
-    'totalItems' => $total,
-    'urlVar' => 'page'
-);
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM
        `comments` AS c,
        `users` AS u WHERE
         c.comment_user_id=u.user_id
         ORDER BY c.comment_id DESC
-        LIMIT $start_from, $result_per_page";
+        LIMIT $start_from, $admin_listing_per_page";
 $comments = DB::fetch($sql);
 
-$smarty->assign('links', $links['all']);
+$smarty->assign('links', $links);
 $smarty->assign('page', $page);
 $smarty->assign('total', $total);
 $smarty->assign('comments', $comments);

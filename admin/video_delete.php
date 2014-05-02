@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_video_delete.php';
+require '../include/language/' . LANG . '/admin/video_delete.php';
 
 Admin::auth();
 

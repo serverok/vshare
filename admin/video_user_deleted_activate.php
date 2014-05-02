@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_video_user_deleted_activate.php';
+require '../include/language/' . LANG . '/admin/video_user_deleted_activate.php';
 
 Admin::auth();
 

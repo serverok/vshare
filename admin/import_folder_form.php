@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_import_folder_form.php';
+require '../include/language/' . LANG . '/admin/import_folder_form.php';
 
 Admin::auth();
 

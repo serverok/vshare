@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_channel_groups.php';
+require '../include/language/' . LANG . '/admin/channel_groups.php';
 
 Admin::auth();
 

@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 require '../include/settings/upload.php';
-require '../include/language/' . LANG . '/lang_admin_video_add_flv.php';
+require '../include/language/' . LANG . '/admin/video_add_flv.php';
 
 Admin::auth();
 

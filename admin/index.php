@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_index.php';
+require '../include/language/' . LANG . '/admin/index.php';
 
 if (isset($_SESSION['AUID']) && isset($_SESSION['APASSWORD'])) {
     if (($_SESSION['AUID'] == $config['admin_name']) && ($_SESSION['APASSWORD'] == $config['admin_pass'])) {

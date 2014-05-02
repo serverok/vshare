@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_video_add_flv_2.php';
+require '../include/language/' . LANG . '/admin/video_add_flv_2.php';
 
 Admin::auth();
 

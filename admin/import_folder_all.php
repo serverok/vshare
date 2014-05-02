@@ -14,7 +14,7 @@
 
 require '../include/config.php';
 require '../include/settings/upload.php';
-require '../include/language/' . LANG . '/lang_admin_import_folder_all.php';
+require '../include/language/' . LANG . '/admin/import_folder_all.php';
 
 Admin::auth();
 

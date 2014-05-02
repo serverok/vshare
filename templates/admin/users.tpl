@@ -70,7 +70,7 @@
 	</tr>
 
 	{section name=aa loop=$users}
-		<tr class="{cycle values="tablerow1,tablerow2"}">
+		<tr>
 			<td>
 				{$users[aa].user_id}
 			</td>

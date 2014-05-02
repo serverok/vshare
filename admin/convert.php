@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_convert.php';
+require '../include/language/' . LANG . '/admin/convert.php';
 
 Admin::auth();
 
