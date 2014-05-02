@@ -50,4 +50,4 @@
 
 {$links}
 
-<p><a href="{$base_url}/admin/admin_log_delete.php">Delete Old Logs</a></p>
+<p><a href="{$base_url}/admin/admin_log_delete.php" class="btn btn-primary">Delete Old Logs</a></p>

@@ -1,6 +1,6 @@
 <h1>Advertisements</h1>
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
     <tr>
         <td width="100">
             <b>ID</b>
@@ -28,31 +28,25 @@
         </td>
     </tr>
 
-    {section name=aa loop=$adv}
+    {foreach from=$advertisements_all item=advertisement}
 
-    <tr class="{cycle values="tablerow1,tablerow2"}">
+    <tr>
         <td>
-            {$adv[aa].adv_id}
+            {$advertisement.adv_id}
         </td>
         <td>
-            {$adv[aa].adv_name}
+            {$advertisement.adv_name}
         </td>
         <td>
-            <a href="advertisement_status.php?adv_id={$adv[aa].adv_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">{$adv[aa].adv_status}</a>
+            <a href="advertisement_status.php?adv_id={$advertisement.adv_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">{$advertisement.adv_status}</a>
         </td>
         <td align="center">
-            <a href="advertisement_edit.php?adv_id={$adv[aa].adv_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
+            <a href="advertisement_edit.php?adv_id={$advertisement.adv_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
                 <span class="glyphicon glyphicon-edit"></span>
             </a>
         </td>
     </tr>
 
-    {/section}
+    {/foreach}
 
 </table>
-
-{if $links ne ""}
-    <div style="margin-top:2em;">
-        {$links}
-    </div>
-{/if}

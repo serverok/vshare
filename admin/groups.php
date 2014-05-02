@@ -16,7 +16,7 @@ require '../include/config.php';
 
 Admin::auth();
 
-$result_per_page = Config::get('admin_listing_per_page');
+$admin_listing_per_page = Config::get('admin_listing_per_page');
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
@@ -65,32 +65,18 @@ if (($_GET['a'] == 'all') || ($_GET['a'] == 'public') || ($_GET['a'] == 'private
             $query";
     $total = DB::getTotal($sql);
 
-    $start_from = ($page - 1) * $result_per_page;
+    $start_from = ($page - 1) * $admin_listing_per_page;
 
-    require 'Pager/Pager.php';
-    require 'Pager/Sliding.php';
-
-    $params = array(
-        'mode' => 'Sliding',
-        'perPage' => $result_per_page,
-        'linkClass' => 'pager',
-        'delta' => 2,
-        'totalItems' => $total,
-        'urlVar' => 'page'
-    );
-
-    $pager = new Pager_Sliding($params);
-    $data = $pager->getPageData();
-    $links = $pager->getLinks();
+    $links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
     $sql = "SELECT * FROM `groups`
             $query
             ORDER BY $sort
-            LIMIT  $start_from, $result_per_page";
+            LIMIT  $start_from, $admin_listing_per_page";
     $groups = DB::fetch($sql);
 
     $smarty->assign('sort', $sort);
-    $smarty->assign('links', $links['all']);
+    $smarty->assign('links', $links);
     $smarty->assign('total', $total);
     $smarty->assign('page', $page);
     $smarty->assign('groups', $groups);

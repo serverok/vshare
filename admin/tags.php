@@ -39,33 +39,20 @@ if (isset($_POST['action'])) {
 $sql = "SELECT count(*) AS `total` FROM `tags` WHERE `active`='1'";
 $total = DB::getTotal($sql);
 
-$start = ($page - 1) * $result_per_page;
+$admin_listing_per_page = Config::get('admin_listing_per_page');
+$start = ($page - 1) * $admin_listing_per_page;
 
-require 'Pager/Pager.php';
-require 'Pager/Sliding.php';
-
-$params = array(
-    'mode' => 'Sliding',
-    'perPage' => $result_per_page,
-    'linkClass' => 'pager',
-    'delta' => 2,
-    'totalItems' => $total,
-    'urlVar' => 'page'
-);
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM `tags` WHERE
 	   `active`='1'
-        LIMIT $start, $result_per_page";
+        LIMIT $start, $admin_listing_per_page";
 $tags = DB::fetch($sql);
 
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('tags', $tags);
-$smarty->assign('links', $links["all"]);
+$smarty->assign('links', $links);
 $smarty->assign('total', $total + 0);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/tags.tpl');

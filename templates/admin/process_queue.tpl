@@ -52,11 +52,11 @@
 
         <td>
             <a href="{$base_url}/templates_c/convert_log_{$process_queue[i].id}.html" target="_blank">
-                <img src="{$img_css_url}/images/page_go.png" title="View Convert Log" alt="Log" />
-            </a>
+                <span class="glyphicon glyphicon-file"></span>
+            </a> &nbsp;
             <a href="process_status_edit.php?id={$process_queue[i].id}&page={$page}">
-                <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
-            </a>
+                <span class="glyphicon glyphicon-edit"></span>
+            </a> &nbsp;
             <a href="process_queue.php?action=delete&id={$process_queue[i].id}" onclick="return confirm('Are you sure you want to remove ?');">
                 <span class="glyphicon glyphicon-remove-circle"></span>
             </a>

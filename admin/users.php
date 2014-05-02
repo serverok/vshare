@@ -46,27 +46,14 @@ $total = DB::getTotal($sql);
 
 $start_from = ($page - 1) * $admin_listing_per_page;
 
-require 'Pager/Pager.php';
-require 'Pager/Sliding.php';
-
-$params = array();
-$params['mode'] = 'Sliding';
-$params['perPage'] = $admin_listing_per_page;
-$params['linkClass'] = 'pager';
-$params['delta'] = 2;
-$params['totalItems'] = $total;
-$params['urlVar'] = 'page';
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM `users`
         $query
         LIMIT $start_from, $admin_listing_per_page";
 $users = DB::fetch($sql);
 
-$smarty->assign('links', $links['all']);
+$smarty->assign('links', $links);
 $smarty->assign('total', $total + 0);
 $smarty->assign('page', $page + 0);
 $smarty->assign('users', $users);

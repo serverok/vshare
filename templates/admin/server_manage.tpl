@@ -1,6 +1,6 @@
 <h1>Manage Server</h1>
 
-<table cellspacing="1" cellpadding="3" width="100%">
+<table class="table table-striped table-hover">
 
     <tr class="tabletitle">
         <td>
@@ -34,7 +34,7 @@
 
     {section name=i loop=$server_info}
 
-        <tr class="{cycle values="tablerow1,tablerow2"}">
+        <tr>
             <td align="left">
                 {$server_info[i].id}
             </td>
@@ -75,8 +75,8 @@
             </td>
             <td>
                 <a href="{$base_url}/admin/server_manage_edit.php?id={$server_info[i].id}">
-                    <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
-                </a>
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a> &nbsp;
                 <a href="{$base_url}/admin/server_manage_delete.php?id={$server_info[i].id}" onclick="return confirm('Are you sure you want to remove ?');">
                     <span class="glyphicon glyphicon-remove-circle"></span>
                 </a>

@@ -17,7 +17,7 @@ require '../include/language/' . LANG . '/lang_admin_process_queue.php';
 
 Admin::auth();
 
-$result_per_page = Config::get('admin_listing_per_page');
+$admin_listing_per_page = Config::get('admin_listing_per_page');
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     $id = $_GET['id'];
@@ -67,8 +67,6 @@ if ($page < 1) {
     $page = 1;
 }
 
-$result_per_page = Config::get('admin_listing_per_page');
-
 $sql = "SELECT count(*) AS `total` FROM
        `process_queue` AS p,
        `users` AS u WHERE
@@ -76,35 +74,21 @@ $sql = "SELECT count(*) AS `total` FROM
        `status` ASC";
 $total = DB::getTotal($sql);
 
-$start = ($page - 1) * $result_per_page;
+$start = ($page - 1) * $admin_listing_per_page;
 
-require 'Pager/Pager.php';
-require 'Pager/Sliding.php';
-
-$params = array(
-    'mode' => 'Sliding',
-    'perPage' => $result_per_page,
-    'linkClass' => 'pager',
-    'delta' => 2,
-    'totalItems' => $total,
-    'urlVar' => 'page'
-);
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM
        `process_queue` AS p,
        `users` AS u WHERE
         p.user=u.user_name
         ORDER BY `id` DESC
-        LIMIT $start, $result_per_page";
+        LIMIT $start, $admin_listing_per_page";
 $process_queue_info = DB::fetch($sql);
 
 $smarty->assign('msg', $msg);
 $smarty->assign('page', $page);
-$smarty->assign('links', $links['all']);
+$smarty->assign('links', $links);
 $smarty->assign('process_queue', $process_queue_info);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/process_queue.tpl');

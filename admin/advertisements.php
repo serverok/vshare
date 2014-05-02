@@ -16,8 +16,6 @@ require '../include/config.php';
 
 Admin::auth();
 
-$result_per_page = Config::get('admin_listing_per_page');
-
 $query = '';
 
 if (isset($_GET['sort'])) {
@@ -27,47 +25,15 @@ if (isset($_GET['sort'])) {
         'adv_name asc',
         'adv_name desc'
     );
-
     if (in_array($_GET['sort'], $allowedSort)) {
         $query .= ' ORDER BY ' . DB::quote($_GET['sort']);
     }
 }
 
-$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$sql = "SELECT * FROM `adv` $query";
+$advertisements_all = DB::fetch($sql);
 
-if ($page < 1) {
-    $page = 1;
-}
-
-$sql = "SELECT count(*) AS `total` FROM `adv`";
-$total = DB::getTotal($sql);
-
-$start_from = ($page - 1) * $result_per_page;
-
-require 'Pager/Pager.php';
-require 'Pager/Sliding.php';
-
-$params = array(
-    'mode' => 'Sliding',
-    'perPage' => $result_per_page,
-    'linkClass' => 'pager',
-    'delta' => 2,
-    'totalItems' => $total,
-    'urlVar' => 'page'
-);
-
-$pager = new pager_sliding($params);
-$data = $pager->getpagedata();
-$link = $pager->getLinks();
-
-$sql = "SELECT * FROM `adv` $query
-       LIMIT $start_from, $result_per_page";
-$adv = DB::fetch($sql);
-
-$smarty->assign('links', $link['all']);
-$smarty->assign('total', $total + 0);
-$smarty->assign('page', $page + 0);
-$smarty->assign('adv', $adv);
+$smarty->assign('advertisements_all', $advertisements_all);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

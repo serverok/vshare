@@ -1,8 +1,8 @@
 <h1>Email Templates</h1>
 
-<table cellspacing="1" cellpadding="3" width="100%" border="0">
+<table class="table table-striped">
 
-    <tr class="tabletitle">
+    <tr>
         <td width="60">
             <b>Email ID</b>
             <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=email_id+asc&page={$page}">
@@ -37,7 +37,7 @@
             <td>{$emails[aa].comment}</td>
             <td align="center">
                 <a href="email_edit.php?action=edit&email_id={$emails[aa].email_id}">
-                    <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
+                    <span class="glyphicon glyphicon-edit"></span>
                 </a>
             </td>
         </tr>

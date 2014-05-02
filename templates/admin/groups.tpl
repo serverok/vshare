@@ -72,7 +72,7 @@
         {insert name=group_info_count assign=gtpscount tbl=group_topics gid=$groups[aa].group_id field1=group_topic_approved field2=group_topic_group_id}
         {insert name=id_to_name assign=uname un=$groups[aa].group_owner_id}
 
-        <tr bgcolor="{cycle values="#F8F8F8,#F2F2F2"}">
+        <tr>
             <td >
                 {$groups[aa].group_id}
             </td>
@@ -132,6 +132,6 @@
 
 </table>
 
-<div class="margin-tb-1em">
+<div>
     {$links}
 </div>
