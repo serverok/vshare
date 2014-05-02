@@ -3,12 +3,12 @@
 <h1>Edit Poll</h1>
 
 <form method="post" action="poll_edit.php" onSubmit="return validate_poll_edit_form();">
-    
+
     <input type="hidden" name="poll_id" value="{$poll_id}" />
 
     <div>
         <label>Starting date :</label>
-        
+
         <select name="start_date_day">
 			{$days_start}
 			<option value="{$smarty.post.start_date_day}">{$smarty.post.start_date_day}</option>
@@ -53,34 +53,34 @@
         <input type="radio" name="edit_poll" id="poll_begining" value="beginning" />At Beginning
         <input type="radio" checked="checked" name="edit_poll" id="poll_after" value="after" />After
     </div>
-    
+
     <div class="indent">
         <select style="width: 90px;font-size: 12px;" id="poll_select">
             {section name=i loop=$list}
 				<option value={$j++}>{$list[i]}</option>
             {/section}
         </select>
-        
+
         <input type="button" value="Go" onclick="add_poll_ans();" />
     </div>
-    
+
     <div class="indent">
-       
+
         <div id="begining_text"></div>
-        
+
         {section name=i loop=$list}
             <input type="text" name="edit_poll_answers[]" size="20" id="txtPollAnsQty" value="{$list[i]}" />
             <div id="{$k++}"></div>
         {/section}
-        
+
         <div id="ending_text"></div>
-        
+
         <p>If you change poll answer, current vote for the answer will be lost.</p>
-        
+
     </div>
-    
+
     <div class="submit">
-        <input type="submit" name="submit" value="Update" />
+        <input type="submit" name="submit" value="Update" class="btn btn-primary" />
     </div>
 
 </form>

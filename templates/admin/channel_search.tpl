@@ -1,25 +1,25 @@
 <h1>Channel Search</h1>
 
 <form action="" method="get">
-    
+
     <div>
         <input type="hidden" name="action" value="search">
         <label>Channel ID:</label>
         <input type="text" name="id" />
     </div>
-    
+
     <div>
         <label>Channel Name:</label>
         <input type="text" name="name" />
     </div>
-    
+
     <div class="submit">
-        <input type="submit" name="search" value="Search" />
+        <input type="submit" name="search" value="Search" class="btn btn-primary" />
     </div>
-    
+
 </form>
 
-<div style="clear:both"></div>
+<div style="clear:both; margin-bottom: 2em"></div>
 
 {if $channel.channel_id ne ""}
 
@@ -29,8 +29,8 @@
 
     <div class="margin-tb-1em">
         <img src="{$base_url}/chimg/{$channel.channel_id}.jpg" width="120" height="90" alt="channel" />
-    </div> 
-        
+    </div>
+
     <div>
         <b>Channel ID: </b>
         {$channel.channel_id}
@@ -55,13 +55,13 @@
         <b>Total Groups: </b>
         {$count[2]}
     </div>
-        
-    <div class="margin-tb-1em;">
-        <a href="channel_edit.php?action=edit&chid={$channel.channel_id}&page={$smarty.request.page}">
+
+    <div style="margin-top: 2em">
+        <a href="channel_edit.php?action=edit&chid={$channel.channel_id}&page={$smarty.request.page}" class="btn btn-primary">
             Edit Channel
         </a>
     </div>
 
-</div> 
+</div>
 
 {/if}

@@ -6,12 +6,12 @@
         <b>Q: </b>
         {$pollArray[i].poll_qty}
         ( <a href="poll_edit.php?poll_id={$pollArray[i].poll_id}">
-            <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
+            <span class="glyphicon glyphicon-edit"></span>
         </a> <a href="poll_list.php?action=delete&poll_id={$pollArray[i].poll_id}" onclick="return confirm('Click OK to delete poll')">
             <span class="glyphicon glyphicon-remove-circle"></span>
         </a>)
     </p>
-    
+
     <table border="1" width="300">
         {section name=j loop=$poll_info[i]}
         <tr>

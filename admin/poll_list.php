@@ -26,6 +26,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && is_numeric($_GET['p
 $sql = "SELECT * FROM `poll_question`";
 $polls = DB::fetch($sql);
 
+$poll_list = array();
+$poll_info = array();
+
 foreach ($polls as $tmp) {
     $poll_info[] = Poll::display($tmp['poll_id']);
     $poll_list[] = $tmp;
