@@ -17,14 +17,14 @@ require '../include/language/' . LANG . '/admin/video_inactive.php';
 
 Admin::auth();
 
-$todo = isset($_GET['todo']) ? $_GET['todo'] : '';
+$action = isset($_GET['action']) ? $_GET['action'] : '';
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
 if ($page < 1) {
     $page = 1;
 }
 
-if ($todo == 'activate') {
+if ($action == 'activate') {
     if (is_numeric($_GET['video_id'])) {
         $video_info = Video::getById($_GET['video_id']);
         if ($video_info) {
@@ -38,13 +38,13 @@ if ($todo == 'activate') {
     }
 }
 
-if ($todo == 'activate_all')
+if ($action == 'activate_all')
 {
     $sql = "SELECT `video_user_id` FROM `videos` WHERE
            `video_active`='0'";
-    $inactive_videos = DB::fetch($sql);
+    $videos_inactive_all = DB::fetch($sql);
 
-    foreach($inactive_videos as $inactive_video) {
+    foreach($videos_inactive_all as $inactive_video) {
         User::updateVideoCount($inactive_video['video_user_id'], 1);
     }
 
@@ -65,34 +65,21 @@ $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
         ORDER BY $sort";
 $total = DB::getTotal($sql);
 
-$start = ($page - 1) * $result_per_page;
+$admin_listing_per_page = Config::get('admin_listing_per_page');
+$start = ($page - 1) * $admin_listing_per_page;
 
-require 'Pager/Pager.php';
-require 'Pager/Sliding.php';
-
-$params = array(
-    'mode' => 'Sliding',
-    'perPage' => $result_per_page,
-    'linkClass' => 'pager',
-    'delta' => 2,
-    'totalItems' => $total,
-    'urlVar' => 'page'
-);
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM `videos` WHERE
        `video_active`='0' AND
        `video_user_id`!='0'
         ORDER BY $sort
-        LIMIT $start, $result_per_page";
-$inactive_videos = DB::fetch($sql);
-$smarty->assign('answers', $inactive_videos);
+        LIMIT $start, $admin_listing_per_page";
+$videos_inactive_all = DB::fetch($sql);
 
+$smarty->assign('videos_inactive_all', $videos_inactive_all);
 $smarty->assign('msg', $msg);
-$smarty->assign('links', $links['all']);
+$smarty->assign('links', $links);
 $smarty->assign('total', $total);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/video_inactive.tpl');
