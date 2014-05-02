@@ -4,7 +4,7 @@
 
     <table class="table table-striped">
 
-        <tr class="tabletitle">
+        <tr>
             <td align="center">
             <b>ID</b>
                 <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=inappropriate_request_video_id+asc&page={$page}">
@@ -43,7 +43,7 @@
         {section name=aa loop=$videos}
 
             {insert name=getfield assign=title field='video_title' table='videos' qfield='video_id' qvalue=$videos[aa].inappropriate_request_video_id}
-            <tr class="{cycle values="tablerow1,tablerow2"}">
+            <tr>
                 <td align="center">
                     {$videos[aa].inappropriate_request_video_id}
                 </td>
@@ -58,7 +58,7 @@
                 </td>
                 <td align="center">
                     <a href="videos.php?a={$smarty.request.a}&action=del&video_id={$videos[aa].inappropriate_request_video_id}&page={$page}&sort={$smarty.request.sort}" onclick='Javascript:return confirm("Are you sure you want to delete?");'>
-                        <span class="glyphicon glyphicon-remove-circle"></span>
+                        <span class="glyphicon glyphicon-trash"></span>
                     </a>
                 </td>
             </tr>
@@ -67,13 +67,15 @@
 
     </table>
 
-    <div class="margin-tb-1em">
-        {$links}
+<div class="row">
+    <div class="col-md-10">{$links}</div>
+    <div class="col-md-2">
+        <a href="videos.php?a={$smarty.request.a}&page={$page}&action=delete" onclick='Javascript:return confirm("Are you sure you want to delete?");' class="btn btn-warning">
+            Delete All Requests
+        </a>
     </div>
+</div>
 
-    <div class="margin-tb-1em">
-        <a href="videos.php?a={$smarty.request.a}&page={$page}&action=delete" onclick='Javascript:return confirm("Are you sure you want to delete?");'>Delete All Requests</a>
-    </div>
 
 {else}
 

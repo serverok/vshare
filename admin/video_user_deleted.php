@@ -16,7 +16,7 @@ require '../include/config.php';
 
 Admin::auth();
 
-$result_per_page = Config::get('admin_listing_per_page');
+$admin_listing_per_page = Config::get('admin_listing_per_page');
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
@@ -55,30 +55,17 @@ $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
        `video_user_id`='0'";
 $total = DB::getTotal($sql);
 
-$start = ($page - 1) * $result_per_page;
+$start = ($page - 1) * $admin_listing_per_page;
 
-require 'Pager/Pager.php';
-require 'Pager/Sliding.php';
-
-$params = array();
-$params['mode'] = 'Sliding';
-$params['perPage'] = $result_per_page;
-$params['linkClass'] = 'pager';
-$params['delta'] = 2;
-$params['totalItems'] = $total;
-$params['urlVar'] = 'page';
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM `videos` WHERE
        `video_user_id`='0'
         $query
-        LIMIT $start, $result_per_page";
+        LIMIT $start, $admin_listing_per_page";
 $videos = DB::fetch($sql);
 
-$smarty->assign('links', $links["all"]);
+$smarty->assign('links', $links);
 $smarty->assign('total', $total);
 $smarty->assign('page', $page);
 $smarty->assign('msg', $msg);

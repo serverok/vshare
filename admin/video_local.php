@@ -58,33 +58,20 @@ $total = DB::getTotal($sql);
 
 $start = ($page - 1) * $admin_listing_per_page;
 
-require 'Pager/Pager.php';
-require 'Pager/Sliding.php';
-
-$params = array();
-$params['mode'] = 'Sliding';
-$params['perPage'] = $admin_listing_per_page;
-$params['linkClass'] = 'pager';
-$params['delta'] = 2;
-$params['totalItems'] = $total;
-$params['urlVar'] = 'page';
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM `videos` WHERE
        `video_vtype`='0' AND
        `video_server_id`='0'
         $query
         LIMIT $start, $admin_listing_per_page";
-$videos = DB::fetch($sql);
+$videos_local_all = DB::fetch($sql);
 
 $smarty->assign(array(
-    'links' => $links["all"],
+    'links' => $links,
     'total' => $total + 0,
     'page' => $page + 0,
-    'videos' => $videos,
+    'videos_local_all' => $videos_local_all,
     'servers' => $servers
 ));
 
