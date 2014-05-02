@@ -96,7 +96,7 @@
 			<td align="center">
 				<a href="video_user_deleted_activate.php?id={$videos[aa].video_id}">Activate</a>
 				<a href="video_delete.php?id={$videos[aa].video_id}" onclick='Javascript:return confirm("Are you sure want to delete?");'>
-                    <img src="{$img_css_url}/images/del.gif" title="Delete" alt="Delete" />
+                    <span class="glyphicon glyphicon-remove-circle"></span>
                 </a>
 			</td>
 		</tr>

@@ -58,7 +58,7 @@
                 <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
             </a>
             <a href="process_queue.php?action=delete&id={$process_queue[i].id}" onclick="return confirm('Are you sure you want to remove ?');">
-                <img src="{$img_css_url}/images/del.gif" title="Delete" alt="Delete" />
+                <span class="glyphicon glyphicon-remove-circle"></span>
             </a>
         </td>
 

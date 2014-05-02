@@ -57,7 +57,7 @@
                     <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
                 </a>
                 <a href='page.php?action=del&id={$pages[i].page_id}' onclick='Javascript:return confirm("Are you sure want to delete?");'>
-                    <img src="{$img_css_url}/images/del.gif" title="Delete" alt="Delete" />
+                    <span class="glyphicon glyphicon-remove-circle"></span>
                 </a>
             </td>
         </tr>

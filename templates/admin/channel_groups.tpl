@@ -97,7 +97,7 @@
                     <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
                 </a>
                 <a href="?chid={$smarty.request.chid}&action=del&gid={$groups[aa].group_id}&page={$smarty.request.page}&sort={$smarty.request.sort}" onclick="Javascript:return confirm('Are you sure you want to remove the group from this channel?');">
-                     <img src="{$img_css_url}/images/del.gif" title="Remove" alt="Remove" />
+                     <span class="glyphicon glyphicon-remove-circle"></span>
                 </a>
             </td>
         </tr>

@@ -24,7 +24,7 @@
 		</td>
 		<td align="center">
 			<a href="bad_words.php?action=del&id={$badwords[i].word_id}" onClick='Javascript:return confirm("Are you sure you want to delete?");'>
-                <img src="{$img_css_url}/images/del.gif" border="0" title="Delete" alt="Delete" />
+                <span class="glyphicon glyphicon-remove-circle"></span>
             </a>
 		</td>
 	</tr>

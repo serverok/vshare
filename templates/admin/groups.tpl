@@ -124,7 +124,7 @@
                     <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
                 </a>
                 <a href="groups.php?a={$smarty.request.a}&action=del&gid={$groups[aa].group_id}&page={$smarty.request.page}&sort={$smarty.request.sort}" onclick="Javascript:return confirm('Are you sure you want to delete?');">
-                    <img src="{$img_css_url}/images/del.gif" title="Delete" alt="Delete" />
+                    <span class="glyphicon glyphicon-remove-circle"></span>
                 </a>
             </td>
         </tr>

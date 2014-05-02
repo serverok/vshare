@@ -58,7 +58,7 @@
                 </td>
                 <td align="center">
                     <a href="videos.php?a={$smarty.request.a}&action=del&video_id={$videos[aa].inappropriate_request_video_id}&page={$page}&sort={$smarty.request.sort}" onclick='Javascript:return confirm("Are you sure you want to delete?");'>
-                        <img src="{$img_css_url}/images/del.gif" title="Delete Request" alt="Delete" />
+                        <span class="glyphicon glyphicon-remove-circle"></span>
                     </a>
                 </td>
             </tr>

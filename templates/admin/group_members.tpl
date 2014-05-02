@@ -97,7 +97,7 @@
                     <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
                 </a>
                 <a href="?group_id={$smarty.request.group_id}&a={$smarty.request.a}&action=del&uid={$users[aa].user_id}&page={$smarty.request.page}&sort={$smarty.request.sort}" onclick='Javascript:return confirm("Are you sure you want to remove the member from this group?");'>
-                    <img src="{$img_css_url}/images/del.gif" title="Remove" alt="Remove" />
+                    <span class="glyphicon glyphicon-remove-circle"></span>
                 </a>
                 <a href="mail_users.php?email={$users[aa].user_email}&uname={$users[aa].user_name}">
                     Mail

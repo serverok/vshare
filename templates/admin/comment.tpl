@@ -36,10 +36,10 @@
             </td>
             <td align="center">
                 <a href='comment_edit.php?action=edit&id={$comments[i].comment_id}&page={$page}'>
-                    <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" border="0" style="vertical-align: middle;" />
+                    <span class="glyphicon glyphicon-edit"></span>
                 </a>
                 <a href='comment.php?action=del&id={$comments[i].comment_id}&page={$page}' onclick='Javascript:return confirm("Are you sure you want to delete?");'>
-                    <img src="{$img_css_url}/images/del.gif" title="Delete" alt="Delete" border="0" style="vertical-align: middle;" />
+                    <span class="glyphicon glyphicon-remove-circle"></span>
                 </a>
             </td>
         </tr>

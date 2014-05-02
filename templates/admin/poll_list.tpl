@@ -8,7 +8,7 @@
         ( <a href="poll_edit.php?poll_id={$pollArray[i].poll_id}">
             <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
         </a> <a href="poll_list.php?action=delete&poll_id={$pollArray[i].poll_id}" onclick="return confirm('Click OK to delete poll')">
-            <img src="{$img_css_url}/images/del.gif" title="Delete" alt="Delete" />
+            <span class="glyphicon glyphicon-remove-circle"></span>
         </a>)
     </p>
     
