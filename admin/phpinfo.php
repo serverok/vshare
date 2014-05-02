@@ -16,4 +16,14 @@ require '../include/config.php';
 
 Admin::auth();
 
+ob_start();
 phpinfo();
+$phpinfo_txt = ob_get_contents();
+ob_end_clean();
+
+$smarty->assign('err', $err);
+$smarty->assign('msg', $msg);
+$smarty->display('admin/header.tpl');
+echo $phpinfo_txt;
+$smarty->display('admin/footer.tpl');
+DB::close();

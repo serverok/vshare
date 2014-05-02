@@ -1,9 +1,8 @@
 <h1>Payments</h1>
 
-<table cellspacing="1" cellpadding="3"  width="100%" border="0">
+<table class="table table-striped">
 
-   <tr class="tabletitle">
-   
+   <tr>
        <td width="7%">
            <b>ID</b>
            <a href="payments.php?sort=id_asc&page={$smarty.get.page}">
@@ -13,7 +12,7 @@
                <span class="glyphicon glyphicon-arrow-down"></span>
            </a>
        </td>
-       
+
        <td width="20%">
            <b>User</b>
            <a href="payments.php?sort=user_asc&page={$smarty.get.page}">
@@ -23,57 +22,57 @@
                <span class="glyphicon glyphicon-arrow-down"></span>
            </a>
        </td>
-       
+
        <td width="10%">
            <b >Package</b>
        </td>
-       
+
        <td  width="10%">
            <b >Period</b>
        </td>
-       
+
        <td  width="10%">
            <b>Amount</b>
        </td>
-       
+
        <td width="20%">
            <b>Payment completed</b>
        </td>
-       
+
        <td>
            <b>Action</b>
        </td>
-       
+
    </tr>
-   
+
    {section name=i loop=$payment_info}
-   
+
    <tr class="{cycle values='tablerow1,tablerow2'}">
-   
+
        <td>
            {$payment_info[i].payment_id}
        </td>
-   
+
        <td>
            <a href="user_view.php?user_id={$payment_info[i].payment_user_id}&page={$smarty.request.page}">
                {$payment_info[i].user_name}
            </a>
        </td>
-   
+
        <td>
            <a href="package_view.php?package_id={$payment_info[i].payment_package_id}">
                {$payment_info[i].package_name}
            </a>
        </td>
-   
+
        <td>
            {$payment_info[i].total_period}&nbsp;{$payment_info[i].package_period}(s)
        </td>
-   
+
        <td>
            ${$payment_info[i].payment_amount}
        </td>
-   
+
        <td>
            {if $payment_info[i].payment_completed eq 0}
            No
@@ -81,7 +80,7 @@
            Yes
            {/if}
        </td>
-   
+
        <td>
            <div style="display:block;">
                <form action="subscription_edit.php" method="POST" style="display: inline;">
@@ -94,11 +93,11 @@
                </a>
            </div>
        </td>
-   
+
    </tr>
-   
+
    {/section}
-       
+
 </table>
 
 {if $page_links ne ''}
