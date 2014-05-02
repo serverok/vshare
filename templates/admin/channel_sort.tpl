@@ -2,7 +2,7 @@
 
 <form method="post" action="channel_sort.php">
 
-    <table cellspacing="1" cellpadding="3" width="80%">
+    <table class="table table-striped">
 
         <tr class="tabletitle">
             <td width="10%">
@@ -40,11 +40,11 @@
         {/section}
 
     </table>
-    
-    <div class="margin-tb-1em">
-        <input type="submit" name="submit" value="Update Sort Order" />
+
+    <div>
+        <input type="submit" name="submit" value="Update Sort Order" class="btn btn-primary" />
     </div>
-    
+
     <div>
         {$link}
     </div>

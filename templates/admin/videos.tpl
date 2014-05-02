@@ -2,7 +2,7 @@
 
 {if $smarty.request.a eq "inappropriate"}
 
-    <table cellspacing="1" cellpadding="3" width="100%" border="0">
+    <table class="table table-striped">
 
         <tr class="tabletitle">
             <td align="center">
@@ -41,7 +41,7 @@
         </tr>
 
         {section name=aa loop=$videos}
-        
+
             {insert name=getfield assign=title field='video_title' table='videos' qfield='video_id' qvalue=$videos[aa].inappropriate_request_video_id}
             <tr class="{cycle values="tablerow1,tablerow2"}">
                 <td align="center">
@@ -66,22 +66,22 @@
         {/section}
 
     </table>
-    
+
     <div class="margin-tb-1em">
         {$links}
     </div>
-    
+
     <div class="margin-tb-1em">
         <a href="videos.php?a={$smarty.request.a}&page={$page}&action=delete" onclick='Javascript:return confirm("Are you sure you want to delete?");'>Delete All Requests</a>
     </div>
-    
+
 {else}
 
     {if $a eq "embedded"}
     <form method="post" action="" onsubmit="javascript:return confirm('Are you sure you want to delete?');">
     {/if}
 
-    <table cellspacing="1" cellpadding="3"  width="100%" border="0">
+    <table class="table table-striped">
         <tr class="tabletitle">
         {if $a eq "embedded"}
             <td><input type="checkbox" id="check_all" /></td>
@@ -156,7 +156,7 @@
         </tr>
 
         {section name=aa loop=$videos}
-        
+
             <tr class="{cycle values="tablerow1,tablerow2"}">
             {if $a eq "embedded"}
                 <td><input type="checkbox" name="video_id_arr[]" value="{$videos[aa].video_id}" rel="video_ids" /></td>
@@ -170,7 +170,7 @@
                 <td align="center">{$videos[aa].video_add_date|date_format}</td>
                 <td align="center">
                     <a href="video_edit.php?a={$a}&action=edit&video_id={$videos[aa].video_id}&page={$page}&sort={$smarty.request.sort}">
-                        <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
+                        <span class="glyphicon glyphicon-edit"></span>
                     </a>
                 </td>
             </tr>
@@ -178,7 +178,7 @@
         {/section}
 
     </table>
-    
+
     {if $links ne ""}
     <div class="margin-tb-1em">
         {$links}

@@ -58,9 +58,12 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Videos <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="videos.php">All Videos</a></li>
+                    <li><a href="video_approve.php">Approve Videos</a></li>
                     <li><a href="videos.php?a=public">Public Videos</a></li>
                     <li><a href="videos.php?a=private">Private Videos</a></li>
-                    <li><a href="video_approve.php">Approve Videos</a></li>
+                    {if $family_filter}
+                    <li><a href="videos.php?a=adult">Adult Videos</a></li>
+                    {/if}
                     <li><a href="video_inactive.php">Inactive Videos</a></li>
                     <li><a href="video_featured.php">Featured Videos</a></li>
                     <li><a href="video_feature_requests.php">Feature Requests</a></li>
@@ -112,11 +115,14 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
                 <ul class="dropdown-menu">
+                    {if $enable_package eq "yes"}
+                    <li><a href="payments.php">Payments</a></li>
                     <li><a href="packages.php">Packages</a></li>
                     <li><a href="package_add.php">Add New Package</a></li>
                     <li><a href="subscription_extend.php">Extend Subscription</a></li>
                     <li><a href="subscription_edit.php">Edit Subscription</a></li>
                     <li class="divider"></li>
+                    {/if}
                     <li><a href="sitemap.php">Site Map</a></li>
                     <li><a href="update_counters.php">Update Counters</a></li>
                     <li><a href="tags_regenerate.php">Regenerate Tags</a></li>

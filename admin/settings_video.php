@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_settings_player.php';
+require '../include/language/' . LANG . '/admin/settings.php';
 
 Admin::auth();
 
@@ -70,6 +70,7 @@ if (isset($_POST['submit']))
         DB::query($sql);
     }
 
+    $msg = $lang['settings_updated'];
 }
 
 $smarty->assign('process_upload', Config::get('process_upload'));

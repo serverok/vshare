@@ -15,5 +15,12 @@
 
 <div class="container">
 
-{include file="error.tpl"}
 {include file="admin/menu_main.tpl"}
+
+{if $err ne ""}
+    <div class="alert alert-danger">{$err}</div>
+{/if}
+
+{if $msg ne ""}
+    <div class="alert alert-success">{$msg}</div>
+{/if}

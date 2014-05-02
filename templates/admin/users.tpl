@@ -2,7 +2,7 @@
 
 {if $total > 0}
 
-<table cellspacing="1" cellpadding="3"  width="100%" border="0">
+<table class="table table-striped">
 
 	<tr class="tabletitle">
 		<td>
@@ -105,13 +105,20 @@
 			</td>
 			<td align="center">
 				<a href="user_edit.php?action=edit&uid={$users[aa].user_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
-                    <img src="{$img_css_url}/images/edit.gif" title="Edit User" alt="Edit User" />
-                </a> |
-                <a href="user_delete.php?uid={$users[aa].user_id}&a={$smarty.get.a}&page={$smarty.get.page}&sort={$smarty.get.sort}" onclick="Javascript:return confirm('Are you sure you want to delete?');">
-                    <img src="{$img_css_url}/images/del.gif" title="Delete User" alt="Delete User" />
-                </a> |
-				<a href="mail_users.php?email={$users[aa].user_email}&uname={$users[aa].user_name}">Mail</a> |
-				<a href="user_login.php?username={$users[aa].user_name}" target="_blank">Login</a>
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+                &nbsp;
+                <a href="user_delete.php?uid={$users[aa].user_id}&a={$smarty.get.a}&page={$smarty.get.page}&sort={$smarty.get.sort}" onclick="javascript:return confirm('Are you sure you want to delete?');">
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                </a>
+                &nbsp;
+				<a href="mail_users.php?email={$users[aa].user_email}&uname={$users[aa].user_name}">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                </a>
+                &nbsp;
+				<a href="user_login.php?username={$users[aa].user_name}" target="_blank">
+                    <span class="glyphicon glyphicon-log-in"></span>
+                </a>
 			</td>
 		</tr>
 	{/section}
@@ -119,7 +126,7 @@
 </table>
 
 {if $links ne ""}
-    <div class="margin-tb-1em">
+    <div>
         {$links}
     </div>
 {/if}

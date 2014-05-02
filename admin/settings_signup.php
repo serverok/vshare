@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_settings_signup.php';
+require '../include/language/' . LANG . '/admin/settings_signup.php';
 
 Admin::auth();
 

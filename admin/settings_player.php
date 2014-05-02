@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/language/' . LANG . '/lang_admin_settings_player.php';
+require '../include/language/' . LANG . '/admin/settings_player.php';
 
 Admin::auth();
 
