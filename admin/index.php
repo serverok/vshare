@@ -17,7 +17,7 @@ require '../include/language/' . LANG . '/lang_admin_index.php';
 
 if (isset($_SESSION['AUID']) && isset($_SESSION['APASSWORD'])) {
     if (($_SESSION['AUID'] == $config['admin_name']) && ($_SESSION['APASSWORD'] == $config['admin_pass'])) {
-        $redirect_url = VSHARE_URL . '/admin/main.php';
+        $redirect_url = VSHARE_URL . '/admin/home.php';
         Http::redirect($redirect_url);
     }
 }
@@ -25,20 +25,20 @@ if (isset($_SESSION['AUID']) && isset($_SESSION['APASSWORD'])) {
 if (isset($_POST['submit'])) {
     $user_password = $_POST['password'];
     $user_name = $_POST['user_name'];
-    
+
     if (get_magic_quotes_gpc()) {
         $user_password = stripslashes($user_password);
         $user_name = stripslashes($user_name);
     }
-    
+
     $user_password_md5 = md5($user_password);
-    
+
     if ($user_name == '' || $user_password == '') {
         $err = $lang['login_empty'];
     } else if (($user_name == $config['admin_name']) && ($user_password_md5 == $config['admin_pass'])) {
         $_SESSION['AUID'] = $config['admin_name'];
         $_SESSION['APASSWORD'] = $config['admin_pass'];
-        $redirect_url = VSHARE_URL . '/admin/main.php';
+        $redirect_url = VSHARE_URL . '/admin/home.php';
         Http::redirect($redirect_url);
     } else {
         $err = $lang['login_invalid'];

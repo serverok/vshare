@@ -69,8 +69,6 @@ replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/index.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/logout.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/lost_password.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/mail_users.php
-replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/main.php
-replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/menu.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/miscellaneous.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/packages.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/package_add.php

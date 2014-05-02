@@ -6,7 +6,7 @@ function write_admin_log()
 {
     $file_name_array = explode('/', $_SERVER['SCRIPT_FILENAME']);
     $admin_log_script = $file_name_array[count($file_name_array)-1];
-    if ($admin_log_script == 'admin_log.php' || $admin_log_script == 'menu.php' || $admin_log_script == 'main.php') {
+    if ($admin_log_script == 'admin_log.php') {
         return;
     }
 
