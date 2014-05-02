@@ -41,12 +41,15 @@
 
     </table>
 
-    <div>
-        <input type="submit" name="submit" value="Update Sort Order" class="btn btn-primary" />
-    </div>
+    <div class="row">
+        <div class="col-md-10">
+            {$link}
+        </div>
 
-    <div>
-        {$link}
+        <div class="col-md-2">
+            <input type="submit" name="submit" value="Update Sort Order" class="btn btn-primary" />
+        </div>
+
     </div>
 
 </form>

@@ -17,7 +17,7 @@ require '../include/language/' . LANG . '/admin/video_feature_requests.php';
 
 Admin::auth();
 
-$result_per_page = Config::get('admin_listing_per_page');
+$admin_listing_per_page = Config::get('admin_listing_per_page');
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
@@ -74,32 +74,18 @@ $sql = "SELECT count(fr.feature_request_video_id) AS `total` FROM
         $query";
 $total = DB::getTotal($sql);
 
-$start_from = ($page - 1) * $result_per_page;
+$start_from = ($page - 1) * $admin_listing_per_page;
 
-require 'Pager/Pager.php';
-require 'Pager/Sliding.php';
-
-$params = array(
-    'mode' => 'Sliding',
-    'perPage' => $result_per_page,
-    'linkClass' => 'pager',
-    'delta' => 2,
-    'totalItems' => $total,
-    'urlVar' => 'page'
-);
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM
        `feature_requests` fr,
        `videos` v
         $query  $sort
-        LIMIT $start_from, $result_per_page";
+        LIMIT $start_from, $admin_listing_per_page";
 $videos = DB::fetch($sql);
 
-$smarty->assign('links', $links['all']);
+$smarty->assign('links', $links);
 $smarty->assign('total', $total);
 $smarty->assign('page', $page + 0);
 $smarty->assign('videos', $videos);
