@@ -1,10 +1,10 @@
 <h1>{ucwords($smarty.request.a)} Groups ({$total})</h1>
 
-<table cellspacing="1" cellpadding="3" width="100%">
+<table class="table table-striped">
 
-    <tr class="tabletitle">
+    <tr>
 
-        <td>
+        <td width="80">
             <b>ID</b>
             <a href="groups.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=group_id+asc&page={$page}">
                 <span class="glyphicon glyphicon-arrow-up"></span>
@@ -121,8 +121,8 @@
             </td>
             <td align="center">
                 <a href="group_edit.php?action=edit&gid={$groups[aa].group_id}&page={$smarty.request.page}&sort={$smarty.request.sort}&a={$smarty.request.a}">
-                    <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
-                </a>
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a> &nbsp;
                 <a href="groups.php?a={$smarty.request.a}&action=del&gid={$groups[aa].group_id}&page={$smarty.request.page}&sort={$smarty.request.sort}" onclick="Javascript:return confirm('Are you sure you want to delete?');">
                     <span class="glyphicon glyphicon-remove-circle"></span>
                 </a>

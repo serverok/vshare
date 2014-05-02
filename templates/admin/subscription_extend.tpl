@@ -15,7 +15,7 @@
         <label for="username">User Name:</label>
         <input type="text" name="username" id="username" value="{$smarty.request.username}" size="23" />
     </div>
-    
+
     <div>
 		<label for="duration">Duration:</label>
 		<input type="text" name="duration" id="duration" size="4" value="{$smarty.request.duration}" />
@@ -26,9 +26,9 @@
 			<option value="years" {if $smarty.request.duration_type eq "years"}selected="selected"{/if}>Years</option>
 		</select>
     </div>
-    
+
     <div class="submit">
-        <input type="submit" name="submit" value="Submit" />
+        <input type="submit" name="submit" value="Submit" class="btn btn-primary" />
     </div>
-    
+
 </form>

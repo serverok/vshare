@@ -22,7 +22,7 @@
             <td>
                 <form method="post" action="">
                     <input type="hidden" name="action_tag" value="{$tags[i].id}" />
-                    <input type="submit" name="action" value="Enable" />
+                    <input type="submit" name="action" value="Enable" class="btn btn-primary" />
                 </form>
             </td>
         </tr>

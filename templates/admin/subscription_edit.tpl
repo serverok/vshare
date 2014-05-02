@@ -18,7 +18,7 @@
         <input type="hidden" name="uid" value="{$uid}" />
         <input type="hidden" name="username" value="{$username}" />
     </div>
-    
+
     <div>
         <label for="package">Package:</label>
         <select name="package" id="package">
@@ -27,7 +27,7 @@
             {/foreach}
 		</select>
     </div>
-    
+
     <div>
         <label>Expire Date:</label>
         <select name="expire_date">
@@ -48,19 +48,19 @@
             {/foreach}
 		</select>
     </div>
-    
+
     <div>
         <label for="used_space">Space Used (MB):</label>
-        <input type="text" name="used_space" id="used_space" value="{$used_space}" /> 
+        <input type="text" name="used_space" id="used_space" value="{$used_space}" />
     </div>
-    
+
     <div>
         <label for="total_video">Total Videos:</label>
         <input type="text" name="total_video" id="total_video" value="{$total_video}" />
     </div>
-    
+
 	<div class="submit">
-        <input type="submit" name="save_subscription" value="Save" />
+        <input type="submit" name="save_subscription" value="Save" class="btn btn-primary" />
 	</div>
 
 </form>

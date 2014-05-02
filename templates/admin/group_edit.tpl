@@ -62,7 +62,7 @@
 	</div>
 
 	<div class="submit">
-		<input type="submit" name="submit" value="Update" />
+		<input type="submit" name="submit" value="Update" class="btn btn-primary" />
 	</div>
 
 </form>

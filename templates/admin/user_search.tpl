@@ -6,19 +6,19 @@
     <div>
         <label>User ID:</label>
         <input type="text" name="userid" size="20" />
-        <input type="submit" name="search" value="Search" />
+        <input type="submit" name="search" value="Search" class="btn btn-primary" />
     </div>
 
     <div>
         <label>User Name:</label>
         <input type="text" name="user_name" size="20" />
-        <input type="submit" name="search" value="Search" />
+        <input type="submit" name="search" value="Search" class="btn btn-primary" />
     </div>
 
     <div>
         <label>User IP:</label>
         <input type="text" name="user_ip" size="20" />
-        <input type="submit" name="search" value="Search" />
+        <input type="submit" name="search" value="Search" class="btn btn-primary" />
     </div>
 </form>
 

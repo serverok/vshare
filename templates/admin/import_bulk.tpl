@@ -1,7 +1,7 @@
 <script language="JavaScript" type="text/javascript" src="{$base_url}/js/admin_bulk_import.js"></script>
 <script language="JavaScript" type="text/javascript" src="{$base_url}/js/jquery.validate.min.js"></script>
 <link href="{$img_css_url}/css/admin_import_bulk.css" rel="stylesheet" type="text/css" />
- 
+
 <h1>Bulk Import</h1>
 
 {if $videos eq ''}
@@ -31,9 +31,9 @@
     </div>
 
     <div class="submit">
-        <input type="submit" name="submit" value="Search" />
+        <input type="submit" name="submit" value="Search" class="btn btn-primary" />
     </div>
-    
+
 </form>
 
 {literal}
@@ -55,7 +55,7 @@
     {section name=i loop=$videos}
 
         <div class="video-entry{if $videos[i].imported eq "1"} imported{/if}">
-        
+
             <div class="check-box">
                 {if $videos[i].imported eq "0"}
                 <input type="checkbox" name="video_id[]" value="{$videos[i].video_id}" />
@@ -63,13 +63,13 @@
                     <img src="{$base_url}/templates/images/tick.png" alt="imported" />
                 {/if}
             </div>
-                
+
             <div class="thumbnail">
                 <img src="{$videos[i].thumb_url}" alt="{$videos[i].video_title}" />
                 <img src="http://i.ytimg.com/vi/{$videos[i].video_id}/3.jpg" alt="{$videos[i].video_title}" />
         	</div>
-            
-            <div class="video-details">	
+
+            <div class="video-details">
             	<h2>{$videos[i].video_title}</h2>
             	<p>{$videos[i].video_description}</p>
             	<p>Duration: {$videos[i].video_duration}</p>
@@ -77,9 +77,9 @@
             		<p class="imported">Already Imported.</p>
             	{/if}
         	</div>
-        	
+
     	</div>
-    	
+
     {/section}
 
     <input type="hidden" name="import_site" value="youtube" />
@@ -87,13 +87,13 @@
     <input type="hidden" name="keyword" value="{$smarty.get.keyword}" />
     <input type="hidden" name="user_name" value="{$user_name}" />
     <input type="hidden" name="channel_id" value="{$channel_id}" />
-    
+
     <div style="float:left;clear:both;">
         <input type="checkbox" name="select_all" id="select_all" /> Select All
     </div>
-    
+
     <div style="clear:both"></div>
-    
+
     <div>
         <select name="import_method">
             <option value="embed">Embed (NO space, bandwidth needed)</option>
@@ -104,8 +104,8 @@
 </form>
 
 {/if}
-    
-{if $links ne ''} 
+
+{if $links ne ''}
     {$links}
 {/if}
 

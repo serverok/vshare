@@ -16,15 +16,15 @@
 
     <div>
         <label>Channel Image:</label>
-        <img src="{$base_url}/chimg/{$channel.channel_id}.jpg" alt="" />   
+        <img src="{$base_url}/chimg/{$channel.channel_id}.jpg" alt="" />
     </div>
 
     <div class="indent">
         <input type="file" name="picture" size="30" />
     </div>
-    
+
     <div class="submit">
-        <input type="submit" name="edit_channel" value="Update" />
+        <input type="submit" name="edit_channel" value="Update" class="btn btn-primary" />
     </div>
 
 </form>

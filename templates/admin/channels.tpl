@@ -1,10 +1,10 @@
 <h1>Channels ({$total})</h1>
 
-<table cellspacing="1" cellpadding="3" width="100%">
+<table class="table table-striped">
 
-    <tr class="tabletitle">
-    
-        <td width="60">
+    <tr>
+
+        <td width="80">
             <b>ID</b>
             <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=channel_id+asc&page={$page}">
                 <span class="glyphicon glyphicon-arrow-up"></span>
@@ -37,7 +37,7 @@
     </tr>
 
     {section name=aa loop=$channels}
-    
+
         {insert name=channel_count assign=count cid=$channels[aa].channel_id}
 
         <tr class="{cycle values="tablerow1,tablerow2"}">
@@ -48,8 +48,8 @@
             <td align="center">{if $count[2] ne "0"}<a href="channel_groups.php?chid={$channels[aa].channel_id}">{$count[2]}</a>{else}0{/if}</td>
             <td align="center">
             <a href="channel_edit.php?action=edit&chid={$channels[aa].channel_id}&page={$page}&sort={$smarty.request.sort}">
-                <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
-            </a>
+                <span class="glyphicon glyphicon-edit"></span>
+            </a> &nbsp;
             <a href="?a={$smarty.request.a}&action=del&chid={$channels[aa].channel_id}&page={$page}&sort={$smarty.request.sort}" onclick="Javascript:return confirm('Are you sure you want to delete?');">
                 <span class="glyphicon glyphicon-remove-circle"></span>
             </a>
@@ -57,9 +57,9 @@
         </tr>
 
     {/section}
-    
+
 </table>
 
-<div class="margin-tb-1em">
+<div>
     {$links}
 </div>

@@ -71,7 +71,7 @@
 	</tr>
 
 	{section name=i loop=$videos}
-	
+
 	<tr class="{cycle values="tablerow1,tablerow2"}">
 		<td>
 			{$videos[i].video_id}
@@ -97,16 +97,16 @@
 			<a href="?action=approve&video_id={$videos[i].video_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">Approve</a>
 		</td>
 	</tr>
-	
+
 	{/section}
 
 </table>
-    
-<div class="margin-tb-1em">
+
+<div>
     {$links}
 </div>
 
-<div class="margin-tb-1em">
+<div>
     <a href="?action=approve_all">Approve All</a>
 </div>
 

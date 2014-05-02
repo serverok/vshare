@@ -13,13 +13,13 @@
     <div>
         <img src="{$img_css_url}/images/logo.jpg?{$vshare_rand}" alt="" />
     </div>
-    
+
     <div>
         <input type="file" name="logo" size="30" />
     </div>
 
     <div>
-        <input type='submit' name='submit' value='Upload' />
+        <input type="submit" name="submit" value="Upload" class="btn btn-primary" />
     </div>
-    
+
 </form>

@@ -6,20 +6,20 @@
         <label>Comment id:</label>
         {$comid}
     </div>
-    
+
     <div>
         <label>vid:</label>
         <input type="hidden" name="vid" value="{$vid}" />
         {$vid}
     </div>
-    
+
     <div>
         <label>Comment:</label>
         <textarea name="comments" rows="3" cols="50">{$comments}</textarea>
     </div>
-    
+
     <div class="submit">
-        <input type="submit" name="submit" value="Update" />
+        <input type="submit" name="submit" value="Update" class="btn btn-primary" />
     </div>
-    
+
 </form>

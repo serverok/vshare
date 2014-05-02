@@ -9,42 +9,42 @@
 {/if}
 
     {if $smarty.request.a eq "user"}
-    
+
     <div>
         <label>Email To:</label>
         ALL USERS
         <input type="hidden" name="UID" value="All" />
     </div>
-    
+
     {elseif $smarty.request.a eq "group"}
-    
+
     <div>
         <label>Email To:</label>
         <select name="GID">
             {$group_ops}
         </select>
     </div>
-    
+
     {else}
-    
+
     <div>
         <label>To:</label>
         <input type="text" name="email" size="30" value="{$smarty.request.email}" />
     </div>
-    
+
     {/if}
 
     <div>
         <label for="subj">Subject:</label>
         <input type="text" name="subj" id="subj" size="60" value="{$smarty.request.subj}" /><br />
     </div>
-    
+
     <div>
         <textarea name="htmlCode" cols="100" rows="22">{$smarty.request.htmlCode}</textarea>
     </div>
-    
+
     <div>
-        <input type="submit" name="submit" value="Send Email" />
+        <input type="submit" name="submit" value="Send Email" class="btn btn-primary" />
     </div>
 
 </form>

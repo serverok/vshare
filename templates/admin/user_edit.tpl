@@ -1,7 +1,7 @@
 <form action="user_edit.php?a={$smarty.request.a}action=edit&uid={$user.user_id}&page={$smarty.request.page}&sort={$smarty.request.sort}" method="post">
 
     <h1>Edit User</h1>
-    
+
     <div>
         <label>User ID:</label>
         {$user.user_id}
@@ -89,7 +89,7 @@
     </div>
 
     <div class="submit">
-        <input type="submit" name="submit" value="Update" />
+        <input type="submit" name="submit" value="Update" class="btn btn-primary" />
     </div>
 
 </form>

@@ -30,7 +30,7 @@
 
                     <div id="media_embed">
                     <p>
-                        Embed Code:<br /> 
+                        Embed Code:<br />
                         <textarea name="embed_code" cols="40" rows="4"></textarea>
                     </p>
                     </div>
@@ -70,7 +70,7 @@
                 var tabView = new YAHOO.widget.TabView('image_form');
             </script>
 
-            <input type="submit" name="submit" value="Upload" />
+            <input type="submit" name="submit" value="Upload" class="btn btn-primary" />
 
         </form>
 

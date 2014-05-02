@@ -1,4 +1,4 @@
-<h1>Site Maps</h1>
+<h1>Site Map</h1>
 
 {if $sitemap|@count ne '0'}
 
@@ -24,7 +24,7 @@
 {/if}
 
 <form method="POST" action="">
-	<input type="submit" name="generate_sitemap" value="Generate Sitemap">
+	<input type="submit" name="generate_sitemap" value="Generate Sitemap"  class="btn btn-primary" />
 </form>
 
 <h2>Sitemap URL</h2>
@@ -33,6 +33,6 @@
 {$base_url}/sitemap/sitemap_index.xml.gz
 </textarea>
 
-<h2>Sitemap Help </h2>
+<h2>Sitemap Help</h2>
 
-<p><a href="http://www.google.com/support/webmasters/bin/answer.py?answer=183669" target="_blank">http://www.google.com/support/webmasters/bin/answer.py?answer=183669</a></p>
+<p><a href="https://support.google.com/webmasters/answer/183669" target="_blank">https://support.google.com/webmasters/answer/183669</a></p>

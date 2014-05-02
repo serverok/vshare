@@ -10,6 +10,6 @@
         <input type="text" name=items_per_page id="items_per_page" value="{$result_per_page}" />
     </div>
     <div class="submit">
-        <input type="submit" name="tags_regenerate" value="Generate" />
+        <input type="submit" name="tags_regenerate" value="Generate" class="btn btn-primary" />
     </div>
 </form>

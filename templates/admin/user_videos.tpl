@@ -2,9 +2,9 @@
 
 {if $total > 0}
 
-<table cellspacing="1" cellpadding="3" width="100%" border="0">
+<table class="table table-striped">
 
-	<tr class="tabletitle">
+	<tr>
 		<td>
 			<b>ID</b>
 			<a href="?uid={$smarty.request.uid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_id+asc">
@@ -87,7 +87,7 @@
 		</td>
 		<td align="center">
 			<a href="video_edit.php?action=edit&video_id={$videos[aa].video_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
-				<img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
+				<span class="glyphicon glyphicon-edit"></span>
 			</a>
 			<a href="video_delete.php?id={$videos[aa].video_id}" onclick='Javascript:return confirm("Are you sure you want to delete?");'>
 				<span class="glyphicon glyphicon-remove-circle"></span>
@@ -98,12 +98,12 @@
 
 </table>
 
-<div class="margin-tb-1em">
+<div>
     {$links}
 </div>
 
 {else}
 
 <h5>There is no video uploaded by user {$user_name}</h5>
-    
+
 {/if}
