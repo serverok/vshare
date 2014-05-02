@@ -17,7 +17,7 @@ require '../include/language/' . LANG . '/admin/groupmembers.php';
 
 Admin::auth();
 
-$result_per_page = Config::get('admin_listing_per_page');
+$admin_listing_per_page = Config::get('admin_listing_per_page');
 
 $sql = "SELECT `group_name` FROM `groups` WHERE
        `group_id`='" . (int) $_GET['group_id'] . "'";
@@ -73,23 +73,9 @@ $sql = "SELECT count(*) AS `total` FROM
         gm.group_member_user_id=u.user_id";
 $total = DB::getTotal($sql);
 
-$start_from = ($page - 1) * $result_per_page;
+$start_from = ($page - 1) * $admin_listing_per_page;
 
-require_once 'Pager/Pager.php';
-require_once 'Pager/Sliding.php';
-
-$params = array(
-    'mode' => 'Sliding',
-    'perPage' => $result_per_page,
-    'linkClass' => 'pager',
-    'delta' => 2,
-    'totalItems' => $total,
-    'urlVar' => 'page'
-);
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM
        `group_members` AS gm,
@@ -100,7 +86,7 @@ $sql = "SELECT * FROM
         LIMIT $start_from, $result_per_page";
 $users = DB::fetch($sql);
 
-$smarty->assign('link', $links['all']);
+$smarty->assign('link', $links);
 $smarty->assign('grandtotal', $total);
 $smarty->assign('total', $total);
 $smarty->assign('page', $page);

@@ -63,25 +63,11 @@ if (isset($_GET['keyword'])) {
             $previous = $page - 1;
         }
 
-        require 'Pager/Pager.php';
-        require 'Pager/Sliding.php';
-
-        $params = array(
-            'mode' => 'Sliding',
-            'perPage' => $admin_listing_per_page,
-            'linkClass' => 'pager',
-            'delta' => 2,
-            'totalItems' => $total,
-            'urlVar' => 'page'
-        );
-
-        $pager = new Pager_Sliding($params);
-        $data = $pager->getPageData();
-        $links = $pager->getLinks();
+        $links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
         $smarty->assign('user_name', $user_name);
         $smarty->assign('channel_id', $channel_id);
-        $smarty->assign('links', $links['all']);
+        $smarty->assign('links', $links);
     } else {
         $err = 'User not found - ' . $_GET['user_name'];
     }

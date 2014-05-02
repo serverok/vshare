@@ -105,8 +105,11 @@
 
 {/if}
 
-{if $links ne ''}
-    {$links}
-{/if}
+
+<div class="row">
+    <div class="col-md-12">
+        {$links}
+    </div>
+</div>
 
 {/if}

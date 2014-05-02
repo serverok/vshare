@@ -42,20 +42,7 @@ if ($total) {
 
     $start_from = ($page - 1) * $admin_listing_per_page;
 
-    require 'Pager/Pager.php';
-    require 'Pager/Sliding.php';
-
-    $params = array();
-    $params['mode'] = 'Sliding';
-    $params['perPage'] = $admin_listing_per_page;
-    $params['linkClass'] = 'pager';
-    $params['delta'] = 2;
-    $params['totalItems'] = $total;
-    $params['urlVar'] = 'page';
-
-    $pager = new Pager_Sliding($params);
-    $data = $pager->getPageData();
-    $links = $pager->getLinks();
+    $links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
     $sql = "SELECT * FROM `payments` AS p,`users` AS u,`packages` AS pa WHERE
 			u.user_id=p.payment_user_id AND p.payment_package_id=pa.package_id ORDER BY $order_by LIMIT $start_from, $admin_listing_per_page";
@@ -70,7 +57,7 @@ if ($total) {
     }
 
     $smarty->assign('payment_info', $payment_info);
-    $smarty->assign('page_links', $links['all']);
+    $smarty->assign('page_links', $links);
 }
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {

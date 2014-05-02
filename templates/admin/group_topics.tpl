@@ -6,9 +6,9 @@
     </p>
 {/if}
 
-<table cellspacing="1" cellpadding="3" width="100%">
+<table class="table table-striped table-hover">
 
-	<tr class="tabletitle">
+	<tr>
 		<td>
 			<b>Topics</b>
 			<a href="?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&page={$page}&sort=group_topic_title+asc">
@@ -52,7 +52,7 @@
         {insert name=id_to_name assign=uname un=$grptps[i].group_topic_user_id}
         {insert name=post_count assign=total_post TID=$grptps[i].group_topic_id}
 
-        <tr bgcolor="{cycle values="#F8F8F8,#F2F2F2"}">
+        <tr>
             <td>
                 <a href="group_posts.php?gid={$grptps[i].group_topic_group_id}&TID={$grptps[i].group_topic_id}">
                     {$grptps[i].group_topic_title|truncate:40}
@@ -74,8 +74,8 @@
             </td>
             <td align="center">
                 <a href="group_posts.php?gid={$smarty.request.gid}&action=edit&TID={$grptps[i].group_topic_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
-                    <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
-                </a>
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a> &nbsp;
                 <a href="?gid={$smarty.request.gid}&action=del&TID={$grptps[i].group_topic_id}" onclick='Javascript:return confirm("Are you sure you want to delete?");'>
                     <span class="glyphicon glyphicon-remove-circle"></span>
                 </a>
@@ -86,6 +86,6 @@
 
 </table>
 
-<div class="margin-tb-1em">
+<div>
 	{$link}
 </div>

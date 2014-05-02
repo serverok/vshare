@@ -6,9 +6,9 @@
     </p>
 {/if}
 
-<table cellspacing="1" cellpadding="3" width="100%">
+<table class="table table-striped table-hover">
 
-    <tr class="tabletitle">
+    <tr>
         <td>
             <b>ID</b>
             <a href="group_videos.php?gid={$smarty.request.gid}&a={$smarty.request.a}&status={$smarty.request.status}&sort=video_id+asc">
@@ -70,7 +70,7 @@
     </tr>
 
     {section name=aa loop=$videos}
-    <tr bgcolor="{cycle values="#F8F8F8,#F2F2F2"}">
+    <tr>
         <td>
             {$videos[aa].video_id}
         </td>
@@ -93,10 +93,10 @@
         </td>
         <td align="center">
             <a href="video_edit.php?action=edit&video_id={$videos[aa].video_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
-                Edit
-            </a> |
+                <span class="glyphicon glyphicon-edit"></span>
+            </a> &nbsp;
             <a href="group_videos.php?gid={$smarty.request.gid}&action=del&video_id={$videos[aa].video_id}" onclick="Javascript:return confirm('Are you sure you want to remove the video from this group?');">
-                Remove
+                <span class="glyphicon glyphicon-remove-circle"></span>
             </a>
         </td>
     </tr>
@@ -104,8 +104,6 @@
 
 </table>
 
-{if $link ne ""}
-    <div class="margin-tb-1em">
-        {$link}
-    </div>
-{/if}
+<div>
+    {$link}
+</div>

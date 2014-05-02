@@ -88,8 +88,8 @@
                    <input type="hidden" value="{$payment_info[i].user_name}" name="username">
                    <input type=image src="{$img_css_url}/images/edit.gif" border="0">
                </form>
-               <a href="payments.php?action=delete&id={$payment_info[i].payment_id}">
-                   <img src="{$img_css_url}/images/del.gif" border="0" onclick="return confirm('Are you sure you want to remove?');">
+               <a href="payments.php?action=delete&id={$payment_info[i].payment_id}" onclick="return confirm('Are you sure you want to remove?');">
+                   <span class="glyphicon glyphicon-remove-circle"></span>
                </a>
            </div>
        </td>
@@ -100,8 +100,6 @@
 
 </table>
 
-{if $page_links ne ''}
-   <div class="margin-tb-1em">
-       {$page_links}
-   </div>
-{/if}
+<div>
+   {$page_links}
+</div>

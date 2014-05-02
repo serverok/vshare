@@ -16,7 +16,7 @@ require '../include/config.php';
 
 Admin::auth();
 
-$listing_per_page = Config::get('admin_listing_per_page');
+$admin_listing_per_page = Config::get('admin_listing_per_page');
 
 $sql = "SELECT `group_name` FROM `groups` WHERE
        `group_id`='" . (int) $_GET['gid'] . "'";
@@ -58,22 +58,9 @@ $sql = "SELECT count(*) AS `total` FROM
         gv.group_video_video_id=v.video_id";
 $total = DB::getTotal($sql);
 $grandtotal = $total;
-$start_from = ($page - 1) * $listing_per_page;
+$start_from = ($page - 1) * $admin_listing_per_page;
 
-require 'Pager/Pager.php';
-require 'Pager/Sliding.php';
-
-$params = array();
-$params['mode'] = 'Sliding';
-$params['perPage'] = $listing_per_page;
-$params['linkClass'] = 'pager';
-$params['delta'] = 2;
-$params['totalItems'] = $total;
-$params['urlVar'] = 'page';
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM
        `group_videos` AS gv,
@@ -81,10 +68,10 @@ $sql = "SELECT * FROM
         $query AND
         gv.group_video_video_id=v.video_id
         ORDER BY $sort
-        LIMIT $start_from, $listing_per_page";
+        LIMIT $start_from, $admin_listing_per_page";
 $videos = DB::fetch($sql);
 
-$smarty->assign('link', $links['all']);
+$smarty->assign('link', $links);
 $smarty->assign('grandtotal', $grandtotal + 0);
 $smarty->assign('total', $total + 0);
 $smarty->assign('page', $page + 0);

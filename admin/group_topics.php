@@ -16,7 +16,7 @@ require '../include/config.php';
 
 Admin::auth();
 
-$result_per_page = Config::get('admin_listing_per_page');
+$admin_listing_per_page = Config::get('admin_listing_per_page');
 
 if (! is_numeric($_GET['gid'])) {
     echo 'gid empty';
@@ -64,30 +64,16 @@ if (in_array($sort, $sort_allowed)) {
 $sql = "SELECT count(*) AS `total` FROM `group_topics` $query";
 $total = DB::getTotal($sql);
 
-$start_from = ($page - 1) * $result_per_page;
+$start_from = ($page - 1) * $admin_listing_per_page;
 
-require_once 'Pager/Pager.php';
-require_once 'Pager/Sliding.php';
-
-$params = array(
-    'mode' => 'Sliding',
-    'perPage' => $result_per_page,
-    'linkClass' => 'pager',
-    'delta' => 2,
-    'totalItems' => $total,
-    'urlVar' => 'page'
-);
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM `group_topics`
         $query
-        LIMIT $start_from, $result_per_page";
+        LIMIT $start_from, $admin_listing_per_page";
 $topics = DB::fetch($sql);
 
-$smarty->assign('link', $links["all"]);
+$smarty->assign('link', $links);
 $smarty->assign('grandtotal', $total);
 $smarty->assign('total', $total + 0);
 $smarty->assign('page', $page + 0);
