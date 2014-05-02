@@ -1,5 +1,3 @@
-{include file="admin/settings_menu.tpl"}
-
 <h1>Site Settings</h1>
 
 <form method="post" action="settings.php">

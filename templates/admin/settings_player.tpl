@@ -1,5 +1,3 @@
-{include file="admin/settings_menu.tpl"}
-
 <h1>Player Settings</h1>
 
 <form method="post" action="">
@@ -26,7 +24,7 @@
         <label for="player_height">Player Height:</label>
         <input type="text" name="player_height" id="player_height" value="{$player_height}" size="5" />
     </div>
-    
+
     <div>
         <label for="vshare_player">Video player:</label>
         <select name="vshare_player" id="vshare_player">
@@ -42,7 +40,7 @@
             <option value="vshare" {if $youtube_player =='vshare'}selected="selected"{/if}>vShare Player</option>
         </select>
     </div>
-    
+
     <div class="submit">
         <input type="submit" name="submit" value="Update" />
     </div>

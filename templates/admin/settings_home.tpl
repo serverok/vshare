@@ -1,5 +1,3 @@
-{include file="admin/settings_menu.tpl"}
-
 <h1>Home Page Settings</h1>
 
 <form method="post" action="" id="settings-home">

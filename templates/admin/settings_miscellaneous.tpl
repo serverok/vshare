@@ -1,5 +1,3 @@
-{include file="admin/settings_menu.tpl"}
-
 <h1>Miscellaneous Settings</h1>
 
 <form method="post" action="">
