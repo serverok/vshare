@@ -1,20 +1,22 @@
 <h1>Add New User</h1>
 
 <form method="POST" action="">
-    
+
     <div>
         <label for="user_name">Username:</label>
         <input type="text" name="user_name" id="user_name" value="{$smarty.post.user_name}" />
     </div>
+
     <div>
         <label for="user_email">Email:</label>
         <input type="text" name="user_email" id="user_email" value="{$smarty.post.user_email}" />
     </div>
+
     <div>
         <label for="user_password">Password:</label>
         <input type="text" name="user_password" id="user_password" />
     </div>
-    
+
     {if $enable_package eq "yes"}
         <div>
             <label for="user_package_id">Package:</label>
@@ -34,10 +36,9 @@
             </select>
         </div>
     {/if}
-    
+
     <div>
-        <label for="user_password">&nbsp;</label>
-        <input type="submit" name="submit" value="Add User" />
+        <input type="submit" name="submit" value="Add User" class="btn btn-primary" />
     </div>
-    
+
 </form>

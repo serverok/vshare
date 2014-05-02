@@ -1,8 +1,6 @@
 <h1>Site Statistics</h1>
 
-<div class="menubar">Statistics</div>
-
-<table cellspacing="2" cellpadding="3" width="90%">
+<table class="table table-bordered table-striped">
 
 <tr class="tablerow1">
 	<td><b>Number of Videos:</b></td>
@@ -36,16 +34,16 @@
 
 </table>
 
-<br />
-
-<h1>Version Information</h1>
-
-<p>You are using vShare version: {$vshare_version} (DB Version: {$version})</p>
+<h2>Version Information</h2>
 
 {if $vshare_status eq "old"}
-<p><font size="2" color="#ff0000"><b>
-You are using old version of vShare<br />
+<div class="alert alert-danger">
+You are using old version of vShare ({$vshare_version})<br />
 You must upgrade to vShare {$latest_version}<br />
 More information on vShare {$latest_version} available at <a href="http://buyscripts.in/vshare-release.html" target="_blank">http://buyscripts.in/vshare-release.html</a>
-</b></font></p>
+</div>
+{else}
+<div class="alert alert-success">
+You are using vShare version: {$vshare_version} (DB Version: {$version})
+</div>
 {/if}

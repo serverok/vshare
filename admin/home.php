@@ -74,14 +74,14 @@ $errno = 0;
 if ($check_version_now == 1) {
     $errstr = '';
     $version_info = '';
-    
+
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, 'http://buyscripts.in/vshare/version.txt');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
     $version_info = curl_exec($ch);
     curl_close($ch);
-    
+
     $fp = fopen($version_file, 'w');
     fwrite($fp, $version_info);
     fclose($fp);

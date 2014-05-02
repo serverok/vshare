@@ -13,8 +13,6 @@
  ******************************************************************************/
 
 require '../include/config.php';
-require '../include/class.validate.php';
-require '../include/class.friends.php';
 require '../include/language/' . LANG . '/lang_admin_user_add.php';
 
 Admin::auth();

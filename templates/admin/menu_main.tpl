@@ -104,11 +104,11 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Process <b class="caret"></b></a>
                 <ul class="dropdown-menu">
+                    <li><a href="process_queue.php">Process Queue</a></li>
                     <li><a href="import_video.php">Import Video</a></li>
                     <li><a href="import_folder.php">Import Folder</a></li>
                     <li><a href="import_bulk.php">Bulk Import</a></li>
                     <li><a href="video_add_flv.php">Add FLV/Embed</a></li>
-                    <li><a href="process_queue.php">Process Queue</a></li>
                 </ul>
             </li>
 
