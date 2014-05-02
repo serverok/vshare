@@ -1,9 +1,9 @@
 <h1>Featured Videos ({$total})</h1>
 
-{if $answers ne ""}
+{if !empty($video_featured_all)}
 
-<table cellspacing="1" cellpadding="3"  width="100%" border="0">
-	<tr class="tabletitle">
+<table class="table table-striped table-hover">
+	<tr>
 		<td>
 			<b>
 				ID
@@ -27,47 +27,42 @@
 		</td>
 	</tr>
 
-	{section name=i loop=$answers}
-	
-		<tr class="{cycle values="tablerow1,tablerow2"}">
+	{foreach from=$video_featured_all item=video_featured}
+
+		<tr>
 			<td>
-				{$answers[i].video_id}
+				{$video_featured.video_id}
 			</td>
 			<td>
-				<a href="video_details.php?id={$answers[i].video_id}">
-					{$answers[i].video_title}
+				<a href="video_details.php?id={$video_featured.video_id}">
+					{$video_featured.video_title}
 				</a>
 			</td>
 			<td align="center">
-				<a href="video_featured.php?video_id={$answers[i].video_id}&page={$smarty.request.page}&todo=un_feature" onclick="Javascript:return confirm('Are you sure you want to remove?');">
+				<a href="video_featured.php?video_id={$video_featured.video_id}&page={$smarty.request.page}&todo=un_feature" onclick="Javascript:return confirm('Are you sure you want to remove?');">
 					Remove
 				</a>
 			</td>
 		</tr>
-		
-	{/section}
+
+	{/foreach}
 
 </table>
 
-{if $links ne ""}
-<div class="margin-tb-1em">
-    {$links}
+<div class="row">
+    <div class="col-md-10">{$links}</div>
+    <div class="col-md-2">
+        <a href="video_featured.php?todo=un_feature_all" onclick="Javascript:return confirm('Are you sure you want to remove all featured videos?');" class="btn btn-warning">
+            Remove All Featured
+        </a>
+    </div>
 </div>
-{/if}
-
-{if $total ne "0"}
-<div style="padding-top:12px;">
-    <a href="video_featured.php?todo=un_feature_all" onclick="Javascript:return confirm('Are you sure you want to remove all featured videos?');">
-        Remove All Featured
-    </a>
-</div>
-{/if}
 
 {else}
 
-<p>
+<div class="alert alert-warning">
     No video is featured. To feature a video, go to video edit page, and click
     on the "Feature a video" link at the bottom of the page.
-</p>
+</div>
 
 {/if}

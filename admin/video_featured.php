@@ -16,7 +16,7 @@ require '../include/config.php';
 
 Admin::auth();
 
-$result_per_page = Config::get('admin_listing_per_page');
+$admin_listing_per_page = Config::get('admin_listing_per_page');
 
 if ((isset($_GET['todo'])) && ($_GET['todo'] == 'un_feature')) {
     $sql = "UPDATE `videos` SET
@@ -56,23 +56,9 @@ $sql = "SELECT count(*) AS `total` FROM `videos` WHERE
         ORDER BY $sort";
 $total = DB::getTotal($sql);
 
-$start = ($page - 1) * $result_per_page;
+$start = ($page - 1) * $admin_listing_per_page;
 
-require 'Pager/Pager.php';
-require 'Pager/Sliding.php';
-
-$params = array(
-    'mode' => 'Sliding',
-    'perPage' => $result_per_page,
-    'linkClass' => 'pager',
-    'delta' => 2,
-    'totalItems' => $total,
-    'urlVar' => 'page'
-);
-
-$pager = new Pager_Sliding($params);
-$data = $pager->getPageData();
-$links = $pager->getLinks();
+$links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
 
 $sql = "SELECT * FROM `videos` WHERE
        `video_type`='public' AND
@@ -80,11 +66,11 @@ $sql = "SELECT * FROM `videos` WHERE
        `video_approve`=1 AND
        `video_featured`='yes'
         ORDER BY $sort
-        LIMIT $start, $result_per_page";
+        LIMIT $start, $admin_listing_per_page";
 $featured_videos = DB::fetch($sql);
 
-$smarty->assign('links', $links['all']);
-$smarty->assign('answers', $featured_videos);
+$smarty->assign('links', $links);
+$smarty->assign('video_featured_all', $featured_videos);
 $smarty->assign('total', $total);
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/video_featured.tpl');
