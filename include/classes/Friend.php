@@ -4,14 +4,10 @@ class Friend
 {
     public static function makeFriends($friend_1, $friend_2)
     {
-        $sql = "SELECT * FROM `users` WHERE
-		       `user_name`='$friend_1'";
-        $tmp = DB::fetch1($sql);
+        $tmp = User::getByName($friend_1);
         $friend_1_id = $tmp['user_id'];
 
-        $sql = "SELECT * FROM `users` WHERE
-		       `user_name`='$friend_2'";
-        $tmp = DB::fetch1($sql);
+        $tmp = User::getByName($friend_2);
         $friend_2_id = $tmp['user_id'];
 
         $sql = "INSERT INTO `friends` SET
@@ -35,9 +31,7 @@ class Friend
 
     public static function addList($new)
     {
-        $sql = "SELECT `user_friends_type` FROM `users` WHERE
-                `user_id`='" . (int) $_SESSION['UID'] . "'";
-        $user_info = DB::fetch1($sql);
+        $user_info = User::getById($_SESSION['UID']);
         $user_friends_types = explode('|', $user_info['user_friends_type']);
         $user_friends_types[] = $new;
         $user_friends_types = array_unique($user_friends_types);
@@ -53,9 +47,7 @@ class Friend
 
     public static function removeList($list)
     {
-        $sql = "SELECT `user_friends_type` FROM `users` WHERE
-                `user_id`='" . (int) $_SESSION['UID'] . "'";
-        $user_info = DB::fetch1($sql);
+        $user_info = User::getById($_SESSION['UID']);
         $user_friends_types_new = str_replace('|' . $list . '|', '|', $user_info['user_friends_type']);
 
         $sql = "UPDATE `users` SET
