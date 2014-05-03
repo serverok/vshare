@@ -18,7 +18,7 @@
         <td>
             <b>File Location</b>
         </td>
-        <td>
+        <td width="90px">
             <b>Action</b>
         </td>
     </tr>
@@ -68,10 +68,9 @@
 
 </table>
 
-{if $links ne ""}
-    <div>{$links}</div>
-{/if}
-
-<div>
-    <a href="?action=delete_all" class="btn btn-primary">Clear Process Queue</a>
+<div class="row">
+    <div class="col-md-9">{$links}</div>
+    <div class="col-md-3"><a href="?action=delete_all" class="btn btn-primary btn-lg">Clear Process Queue</a></div>
 </div>
+
+
