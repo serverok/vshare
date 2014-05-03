@@ -1,38 +1,52 @@
+<div class="page-header">
+    <h1>Bulk Import</h1>
+</div>
+
 <script language="JavaScript" type="text/javascript" src="{$base_url}/js/admin_bulk_import.js"></script>
 <script language="JavaScript" type="text/javascript" src="{$base_url}/js/jquery.validate.min.js"></script>
 <link href="{$img_css_url}/css/admin_import_bulk.css" rel="stylesheet" type="text/css" />
-
-<h1>Bulk Import</h1>
 
 {if $videos eq ''}
 
 <p>Import videos from Youtube based on keyword.</p>
 
-<form action="" method="get" id="bulk-import-search" name="bulk-import-search">
+<form action="" method="get" class="form-horizontal" role="form">
 
-    <div>
-        <label for="keyword">Keyword:</label>
-        <input name="keyword" id="keyword" value="{$smarty.get.keyword}" />
+    <fieldset>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="keyword">Keyword:</label>
+        <div class="col-sm-5">
+            <input class="form-control" name="keyword" id="keyword" value="{$smarty.get.keyword}" />
+        </div>
     </div>
 
-    <div>
-        <label for="user_name">Video added to:</label>
-        <input name="user_name" id="user_name" value="{$smarty.get.user_name}" />
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="user_name">Video added to:</label>
+        <div class="col-sm-5">
+            <input class="form-control" name="user_name" id="user_name" value="{$smarty.get.user_name}" />
+        </div>
     </div>
 
-    <div>
-        <label for="channel" >Channel:</label>
-        <select name="channel">
-            <option value="">-----------SELECT-----------</option>
-            {section name=i loop=$channels}
-                <option value="{$channels[i].channel_id}"{if $channels[i].channel_id eq $smarty.get.channel}selected="selected"{/if}>{$channels[i].channel_name_html}</option>
-            {/section}
-        </select>
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="channel" >Channel:</label>
+        <div class="col-sm-5">
+            <select class="form-control" name="channel">
+                <option value="">-----------SELECT-----------</option>
+                {section name=i loop=$channels}
+                    <option value="{$channels[i].channel_id}"{if $channels[i].channel_id eq $smarty.get.channel}selected="selected"{/if}>{$channels[i].channel_name_html}</option>
+                {/section}
+            </select>
+        </div>
     </div>
 
-    <div class="submit">
-        <input type="submit" name="submit" value="Search" class="btn btn-primary" />
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-5">
+            <button type="submit" name="submit" class="btn btn-default btn-lg">Search</button>
+        </div>
     </div>
+
+    </fieldset>
 
 </form>
 

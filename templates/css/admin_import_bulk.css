@@ -33,45 +33,6 @@
 
 /* import_bulk.tpl */
 
-form#bulk-import-search  div
-{
-    float:left;
-    margin-bottom:1em;
-    clear: both;
-}
-
-form#bulk-import-search  div input[type="checkbox",type="submit"]
-{
-clear:both;
-margin-left: 200px;
-}
-
-form#bulk-import-search  div label.error {
-    clear:right;
-    display:none;
-    margin-left: 200px;
-    border: 1px solid #f00;
-    padding:0.5em;
-    padding-left:1em;
-    width:180px;
-    background:#FFCC99 url(../images/red-error.png) no-repeat scroll 5px 4px;
-    text-indent:1.5em;
-}
-
-form#bulk-import-search  div  div.indent {
-    margin-top:-1em;
-}
-
-form#bulk-import-search  div  div.indent p {
-    margin:0;
-    margin-bottom: 0.5em;
-}
-
-#bulk-import-search > div {
-    margin-bottom:1em;
-    width:500px;
-}
-
 div.video-details h2 {
     color:#3366ff;
     font-size:10pt;
