@@ -17,7 +17,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-6">
-            <button type="submit" name="edit" class="btn btn-primary">Edit</button>
+            <button type="submit" name="edit" class="btn btn-default btn-lg">Edit</button>
         </div>
     </div>
 
@@ -73,7 +73,7 @@
     </div>
 
 	<div class="submit">
-        <input type="submit" name="save_subscription" value="Save" class="btn btn-primary" />
+        <input type="submit" name="save_subscription" value="Save" class="btn btn-default btn-lg" />
 	</div>
 
 </form>

@@ -6,7 +6,7 @@
     <div>
         <b>Tag:</b>
         <input type="text" name="search_tag" />
-        <input type="submit" name="submit" value="Search" class="btn btn-primary" />
+        <input type="submit" name="submit" value="Search" class="btn btn-default btn-lg" />
     </div>
 </form>
 
@@ -40,9 +40,9 @@
                 <form method="post" action="">
                     <input type="hidden" name="action_tag" value="{$tag[i].id}" />
                     {if $tag[i].active eq 1}
-                        <input type="submit" name="action" value="Disable" class="btn btn-primary" />
+                        <input type="submit" name="action" value="Disable" class="btn btn-default btn-lg" />
                     {else if $tag[i].active eq 0}
-                        <input type="submit" name="action" value="Activate" class="btn btn-primary" />
+                        <input type="submit" name="action" value="Activate" class="btn btn-default btn-lg" />
                     {/if}
                 </form>
             </td>

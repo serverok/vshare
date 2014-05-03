@@ -70,7 +70,7 @@
 
 <div class="row">
     <div class="col-md-9">{$links}</div>
-    <div class="col-md-3"><a href="?action=delete_all" class="btn btn-primary btn-lg">Clear Process Queue</a></div>
+    <div class="col-md-3"><a href="?action=delete_all" class="btn btn-default btn-lg">Clear Process Queue</a></div>
 </div>
 
 

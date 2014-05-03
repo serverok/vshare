@@ -24,7 +24,7 @@
     </div>
 
     <div class="submit">
-        <input type="submit" name="edit_channel" value="Update" class="btn btn-primary" />
+        <input type="submit" name="edit_channel" value="Update" class="btn btn-default btn-lg" />
     </div>
 
 </form>

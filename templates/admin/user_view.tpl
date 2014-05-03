@@ -181,9 +181,9 @@
 <hr />
 
 <div class="btn-group">
-    <a href="user_edit.php?action=edit&uid={$user.user_id}&page={$smarty.request.page}" class="btn btn-primary">Edit</a>
-    <a href="user_videos.php?uid={$user.user_id}" class="btn btn-primary">Videos</a>
-    <a href="user_delete.php?uid={$user.user_id}" class="btn btn-danger" onclick='Javascript:return confirm("Are you sure you want to delete?");'>Delete</a>
-    <a href="mail_users.php?email={$user.user_email}&uname={$user.user_name}" class="btn btn-primary">Send Mail</a>
-    <a href="user_login.php?username={$user.user_name}"  class="btn btn-primary" target="_blank">Login</a>
+    <a href="user_edit.php?action=edit&uid={$user.user_id}&page={$smarty.request.page}" class="btn btn-default btn-lg">Edit</a>
+    <a href="user_videos.php?uid={$user.user_id}" class="btn btn-default btn-lg">Videos</a>
+    <a href="user_delete.php?uid={$user.user_id}" class="btn btn-danger btn-lg" onclick='Javascript:return confirm("Are you sure you want to delete?");'>Delete</a>
+    <a href="mail_users.php?email={$user.user_email}&uname={$user.user_name}" class="btn btn-default btn-lg">Send Mail</a>
+    <a href="user_login.php?username={$user.user_name}"  class="btn btn-default btn-lg" target="_blank">Login</a>
 </div>

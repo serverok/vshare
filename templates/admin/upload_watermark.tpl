@@ -32,7 +32,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-5">
-                    <input type="submit" name="submit" value="Update Watermark" class="btn btn-primary" />
+                    <input type="submit" name="submit" value="Update Watermark" class="btn btn-default btn-lg" />
                 </div>
             </div>
 

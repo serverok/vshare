@@ -21,7 +21,7 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" name="submit" value="Upload" class="btn btn-primary" />
+                <input type="submit" name="submit" value="Upload" class="btn btn-default btn-lg" />
             </div>
 
             </fieldset>

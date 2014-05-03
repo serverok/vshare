@@ -102,14 +102,14 @@
 
 <div class="btn-group">
     {if $video_type eq "0"}
-    <a href="video_rename_flv.php?id={$video.video_id}" class="btn btn-primary">Rename Video</a>
-    <a href="video_thumb.php?id={$video.video_id}" class="btn btn-primary">Create Thumb</a>
+    <a href="video_rename_flv.php?id={$video.video_id}" class="btn btn-default btn-lg">Rename Video</a>
+    <a href="video_thumb.php?id={$video.video_id}" class="btn btn-default btn-lg">Create Thumb</a>
     {if $reprocess eq "1"}
-    <a href="./convert.php?id={$reprocess_id}&reconvert=1" class="btn btn-primary">Convert Again</a>
+    <a href="./convert.php?id={$reprocess_id}&reconvert=1" class="btn btn-default btn-lg">Convert Again</a>
     {/if}
     {/if}
-    <a href="video_edit.php?video_id={$video.video_id}&a={$a}&page={$smarty.request.page}" class="btn btn-primary">Edit</a>
-    <a href="video_delete.php?id={$video.video_id}" onclick="Javascript:return confirm('Are you sure you want to delete?');" class="btn btn-danger">Delete</a>
+    <a href="video_edit.php?video_id={$video.video_id}&a={$a}&page={$smarty.request.page}" class="btn btn-default btn-lg">Edit</a>
+    <a href="video_delete.php?id={$video.video_id}" onclick="Javascript:return confirm('Are you sure you want to delete?');" class="btn btn-danger btn-lg">Delete</a>
 </div>
 
 {/if}

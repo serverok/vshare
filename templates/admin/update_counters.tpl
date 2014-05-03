@@ -10,7 +10,7 @@
     </div>
 
     <div class="submit">
-        <input type="submit" name="submit" value="Update Video Counts" class="btn btn-primary" />
+        <input type="submit" name="submit" value="Update Video Counts" class="btn btn-default btn-lg" />
     </div>
 
 </form>
@@ -27,7 +27,7 @@
     </div>
 
     <div class="submit">
-        <input type="submit" name="submit" value="Update Video Comment Counts" class="btn btn-primary" />
+        <input type="submit" name="submit" value="Update Video Comment Counts" class="btn btn-default btn-lg" />
     </div>
 
 </form>

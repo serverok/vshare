@@ -44,7 +44,7 @@
     </div>
 
     <div>
-        <input type="submit" name="submit" value="Send Email" class="btn btn-primary" />
+        <input type="submit" name="submit" value="Send Email" class="btn btn-default btn-lg" />
     </div>
 
 </form>

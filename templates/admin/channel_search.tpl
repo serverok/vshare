@@ -14,7 +14,7 @@
     </div>
 
     <div class="submit">
-        <input type="submit" name="search" value="Search" class="btn btn-primary" />
+        <input type="submit" name="search" value="Search" class="btn btn-default btn-lg" />
     </div>
 
 </form>
@@ -57,7 +57,7 @@
     </div>
 
     <div style="margin-top: 2em">
-        <a href="channel_edit.php?action=edit&chid={$channel.channel_id}&page={$smarty.request.page}" class="btn btn-primary">
+        <a href="channel_edit.php?action=edit&chid={$channel.channel_id}&page={$smarty.request.page}" class="btn btn-default btn-lg">
             Edit Channel
         </a>
     </div>

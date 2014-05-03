@@ -107,7 +107,7 @@
 <div class="row">
     <div class="col-md-10">{$links}</div>
     <div class="col-md-2">
-        <a href="?action=approve_all" class="btn btn-primary">Approve All</a>
+        <a href="?action=approve_all" class="btn btn-default btn-lg">Approve All</a>
     </div>
 </div>
 

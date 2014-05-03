@@ -39,7 +39,7 @@
     </div>
 
     <div class="submit">
-        <input type="submit" name="add_package" value="Add Package" class="btn btn-primary" />
+        <input type="submit" name="add_package" value="Add Package" class="btn btn-default btn-lg" />
     </div>
 
 </form>

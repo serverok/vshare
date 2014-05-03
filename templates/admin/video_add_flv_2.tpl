@@ -70,7 +70,7 @@
                 var tabView = new YAHOO.widget.TabView('image_form');
             </script>
 
-            <input type="submit" name="submit" value="Upload" class="btn btn-primary" />
+            <input type="submit" name="submit" value="Upload" class="btn btn-default btn-lg" />
 
         </form>
 

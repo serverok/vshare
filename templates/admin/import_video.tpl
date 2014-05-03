@@ -52,7 +52,7 @@
     </div>
 
     <div class="submit">
-        <input type="submit" name="submit" value="Download Video" class="btn btn-primary" />
+        <input type="submit" name="submit" value="Download Video" class="btn btn-default btn-lg" />
     </div>
 
 </form>
@@ -69,7 +69,7 @@ $(function(){
 
 <br />
 <center>
-    <a href="import_video.php" class="btn btn-primary">Import Another Video</a>
+    <a href="import_video.php" class="btn btn-default btn-lg">Import Another Video</a>
 </center>
 
 {/if}

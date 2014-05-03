@@ -49,7 +49,11 @@
 	{/section}
 </table>
 
+<div class="row">
+    <div class="col-md-10">{$links}</div>
+    <div class="col-md-2"><a href="{$base_url}/admin/admin_log_delete.php" class="btn btn-default btn-lg">Delete Old Logs</a></div>
+</div>
 
-{$links}
 
-<p><a href="{$base_url}/admin/admin_log_delete.php" class="btn btn-primary">Delete Old Logs</a></p>
+
+

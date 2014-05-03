@@ -38,7 +38,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-5">
-            <button type="submit" name="submit" class="btn btn-primary btn-lg">Change Password</button>
+            <button type="submit" name="submit" class="btn btn-default btn-lg">Change Password</button>
         </div>
     </div>
 

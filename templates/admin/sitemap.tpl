@@ -24,7 +24,7 @@
 {/if}
 
 <form method="POST" action="">
-	<input type="submit" name="generate_sitemap" value="Generate Sitemap"  class="btn btn-primary" />
+	<input type="submit" name="generate_sitemap" value="Generate Sitemap"  class="btn btn-default btn-lg" />
 </form>
 
 <h2>Sitemap URL</h2>

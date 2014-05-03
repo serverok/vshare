@@ -93,7 +93,7 @@
     {/if}
 
     <div class="submit">
-        <input type="submit" name="submit" value="Save" class="btn btn-primary" />
+        <input type="submit" name="submit" value="Save" class="btn btn-default btn-lg" />
     </div>
 
 </form>

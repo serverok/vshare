@@ -46,7 +46,7 @@
     </div>
 
     <div class="submit">
-        <input type="submit" value="Add Flv Url" name="submit" id="submit" class="btn btn-primary" />
+        <input type="submit" value="Add Flv Url" name="submit" id="submit" class="btn btn-default btn-lg" />
     </div>
 
 </form>

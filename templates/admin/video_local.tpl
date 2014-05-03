@@ -116,9 +116,9 @@ function validate()
 </table>
 
 <div class="row">
-    <div class="col-md-9">{$links}</div>
-    <div class="col-md-3">
-        <select name="server">
+    <div class="col-md-8">{$links}</div>
+    <div class="col-md-4">
+        <select class="form-control" name="server">
             <option value=''> - - Select Server - - - -</option>
             {section name=i loop=$servers}
             <option value="{$servers[i].id}">
@@ -131,7 +131,7 @@ function validate()
             </option>
             {/section}
         </select>
-        <input type="submit" name="submit" value="Move" onclick="return validate();" class="btn btn-primary" />
+        <input type="submit" name="submit" value="Move" onclick="return validate();" class="btn btn-default btn-lg" />
     </div>
 </div>
 
