@@ -1,25 +1,41 @@
-<h1>Search Users</h1>
+<div class="page-header">
+    <h1>Search Users</h1>
+</div>
 
-<form action="" method="get">
+<form action="" method="get" class="form-horizontal" role="form">
     <input type="hidden" name="a" value="Search" />
 
-    <div>
-        <label>User ID:</label>
-        <input type="text" name="userid" size="20" />
-        <input type="submit" name="search" value="Search" class="btn btn-primary" />
+    <fieldset>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="user_id">User ID:</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="text" name="user_id" />
+        </div>
     </div>
 
-    <div>
-        <label>User Name:</label>
-        <input type="text" name="user_name" size="20" />
-        <input type="submit" name="search" value="Search" class="btn btn-primary" />
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="user_name">User Name:</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="text" name="user_name" />
+        </div>
     </div>
 
-    <div>
-        <label>User IP:</label>
-        <input type="text" name="user_ip" size="20" />
-        <input type="submit" name="search" value="Search" class="btn btn-primary" />
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="user_ip">User IP:</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="text" name="user_ip" />
+        </div>
     </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-5">
+            <button type="submit" name="submit" class="btn btn-primary btn-lg">Search</button>
+        </div>
+    </div>
+
+    </fieldset>
+
 </form>
 
 {if $smarty.get.user_ip ne ""}
@@ -88,7 +104,7 @@
     </tr>
 
     {section name=aa loop=$users}
-        <tr class="{cycle values="tablerow1,tablerow2"}">
+        <tr>
             <td>
                 {$users[aa].user_id}
             </td>
@@ -148,10 +164,8 @@
 
 </table>
 
-{if $links ne ""}
-    <div class="margin-tb-1em">
-        {$links}
-    </div>
-{/if}
+<div>
+    {$links}
+</div>
 
 {/if}

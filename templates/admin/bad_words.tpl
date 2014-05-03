@@ -1,27 +1,19 @@
-<h1>Bad Words</h1>
+<div class="page-header">
+    <h1>Bad Words</h1>
+</div>
 
-<table cellspacing="1" cellpadding="3" width="100%">
+<table class="table table-striped table-hover">
 
-	<tr class="tabletitle">
-		<td>
-			<b>ID</b>
-		</td>
-		<td>
-			<b>BAD WORDS</b>
-		</td>
-		<td align="center">
-			<b>ACTION</b>
-		</td>
+	<tr>
+		<td><b>ID</b></td>
+		<td><b>BAD WORDS</b></td>
+		<td align="center"><b>ACTION</b></td>
 	</tr>
 
 	{section name=i loop=$badwords}
-	<tr class="{cycle values="tablerow1,tablerow2"}">
-		<td>
-			{$badwords[i].word_id}
-		</td>
-		<td>
-			{$badwords[i].word}
-		</td>
+	<tr>
+		<td>{$badwords[i].word_id}</td>
+		<td>{$badwords[i].word}</td>
 		<td align="center">
 			<a href="bad_words.php?action=del&id={$badwords[i].word_id}" onClick='Javascript:return confirm("Are you sure you want to delete?");'>
                 <span class="glyphicon glyphicon-remove-circle"></span>
@@ -34,17 +26,15 @@
 
 <hr />
 
-<form method="post" action="">
+<form method="post" action="" class="form-inline" role="form">
 
     <input type="hidden" name="action" value="add" />
 
-    <div>
-        <label for="word">Add a Bad Word:</label>
-        <input type="text" size="30" name="word" id="word" />
+    <div class="form-group">
+        <label class="sr-only" for="word">Add a Bad Word:</label>
+        <input class="form-control" type="text" name="word" id="word" placeholder="Enter bad word" />
     </div>
 
-    <div class="submit">
-        <input type="submit" name="submit" id="submit" value="Submit" />
-    </div>
-    
+    <button type="submit" name="submit" class="btn btn-default">Add</button>
+
 </form>
