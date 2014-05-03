@@ -1,4 +1,6 @@
-<h1>Admin Log</h1>
+<div class="page-header">
+    <h1>Admin Log</h1>
+</div>
 
 <table class="table table-striped">
 

@@ -1,4 +1,6 @@
-<h1>Advertisements</h1>
+<div class="page-header">
+    <h1>Advertisements</h1>
+</div>
 
 <table class="table table-striped table-hover">
     <tr>

@@ -19,6 +19,16 @@ Admin::auth();
 
 if (isset($_POST['submit']))
 {
+
+    if ($_POST['guest_upload'] == 1) {
+        if ($_POST['guest_upload_user'] == '') {
+            $err = $lang['guest_user_name_empty'];
+        } else if (! check_field_exists($_POST['guest_upload_user'], 'user_name', 'users')) {
+            $err = $lang['user_name_invalid'];
+        }
+    }
+
+
     if (is_numeric($_POST['process_upload'])) {
         $sql = "UPDATE `config` SET
                `config_value`='" . (int) $_POST['process_upload'] . "' WHERE
