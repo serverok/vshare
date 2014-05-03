@@ -1,24 +1,34 @@
-<h1>Add Channel</h1>
+<div class="page-header">
+    <h1>Add Channel</h1>
+</div>
 
-<form action="" method="post" enctype="multipart/form-data">
+<form action="" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
 
-    <div>
-        <label for="channel_name">Channel Name:</label>
-        <input name="channel_name" id="channel_name" value="{$smarty.post.channel_name}" size="40" />
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="channel_name">Channel Name:</label>
+        <div class="col-sm-5">
+            <input class="form-control" name="channel_name" id="channel_name" value="{$smarty.post.channel_name}" />
+        </div>
     </div>
 
-    <div>
-        <label for="channel_description">Channel Description:</label>
-        <textarea name="channel_description" id="channel_description" rows=3 cols=40>{$smarty.post.channel_description}</textarea>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="channel_description">Channel Description:</label>
+        <div class="col-sm-5">
+            <textarea class="form-control" ea name="channel_description" id="channel_description" rows="3">{$smarty.post.channel_description}</textarea>
+        </div>
     </div>
 
-    <div>
-        <label for="channel_image">Channel Image:</label>
-        <input type="file" name="channel_image" id="channel_image" size="30" />
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="channel_image">Channel Image:</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="file" name="channel_image" id="channel_image" />
+        </div>
     </div>
 
-    <div class="submit">
-        <input type="submit" name="add_channel" value="Add Channel" class="btn btn-primary" />
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-5">
+            <button type="submit" name="add_channel" class="btn btn-default btn-lg">Add Channel</button>
+        </div>
     </div>
 
 </form>
