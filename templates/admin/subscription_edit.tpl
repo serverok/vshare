@@ -1,13 +1,26 @@
-<h1>Edit Subscription</h1>
+<div class="page-header">
+    <h1>Edit Subscription</h1>
+</div>
+
 
 {if $todo eq "get_username"}
 
-<form method="post" action="">
-    <div>
-        <b>User Name:</b>
-        <input type="text" name="username" />
-        <input type='submit' name='edit' value="Edit" />
+
+<form method="post" action="" class="form-horizontal" role="form">
+
+    <div class="form-group">
+        <label for="user_name" class="col-sm-2 control-label">User Name</label>
+        <div class="col-sm-6">
+            <input type="text" name="username" class="form-control" />
+        </div>
     </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-6">
+            <button type="submit" name="edit" class="btn btn-primary">Edit</button>
+        </div>
+    </div>
+
 </form>
 
 {elseif $todo eq "show_edit_form"}
