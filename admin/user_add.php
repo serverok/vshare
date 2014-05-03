@@ -68,8 +68,7 @@ if (isset($_POST['submit'])) {
         $auto_friend = Config::get('signup_auto_friend');
 
         if ((strlen($auto_friend) > 1) && (check_field_exists($auto_friend, 'user_name', 'users'))) {
-            $friend = new Friends();
-            $friend->make_friends($auto_friend, $_POST['user_name']);
+            Friend::makeFriends($auto_friend, $_POST['user_name']);
         }
 
         set_message($lang['user_add_success'], 'success');
