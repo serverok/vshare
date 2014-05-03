@@ -60,7 +60,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-5">
-            <button id="submit" name="submit" class="btn btn-primary">Add User</button>
+            <button id="submit" name="submit" class="btn btn-default btn-lg">Add User</button>
         </div>
     </div>
 

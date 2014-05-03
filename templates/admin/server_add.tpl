@@ -68,7 +68,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
-            <button type="submit" name="submit" class="btn btn-primary btn-lg">Add Server</button>
+            <button type="submit" name="submit" class="btn btn-default btn-lg">Add Server</button>
         </div>
     </div>
 

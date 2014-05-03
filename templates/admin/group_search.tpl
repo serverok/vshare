@@ -4,6 +4,6 @@
     <div>
         Group Name:
         <input type="text" name="group_name" size="15" />
-        <input type="submit" name="search" value="Search" class="btn btn-primary" />
+        <input type="submit" name="search" value="Search" class="btn btn-default btn-lg" />
     </div>
 </form>
