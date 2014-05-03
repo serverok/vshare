@@ -47,7 +47,7 @@
         </div>
 
         <div class="col-md-2">
-            <input type="submit" name="submit" value="Update Sort Order" class="btn btn-primary" />
+            <input type="submit" name="submit" value="Update Sort Order" class="btn btn-default btn-lg" />
         </div>
 
     </div>
