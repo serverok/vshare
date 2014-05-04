@@ -68,7 +68,12 @@ for ($i = 0; $i < count($ch); $i ++) {
         $checked = '';
     }
 
-    $ch_checkbox .= '<input type="checkbox" name="video_channels[]" value=' . $ch[$i]['channel_id'] . ' ' . $checked . '>' . htmlspecialchars_uni($ch[$i]['channel_name']) . '</input><br />';
+    $ch_checkbox .= '<div class="checkbox">' .
+                    '<label for="channel-' . $ch[$i]['channel_id'] . '">' .
+                    '<input type="checkbox" name="video_channels[]" value=' . $ch[$i]['channel_id'] . ' ' . $checked . ' id="channel-' . $ch[$i]['channel_id'] . '">'
+                    . htmlspecialchars_uni($ch[$i]['channel_name']) .
+                    '</label>' .
+                    '</div>';
 }
 
 $smarty->assign('ch_checkbox', $ch_checkbox);
