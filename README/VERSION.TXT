@@ -1,5 +1,5 @@
 vShare          2.9              20-May-2014            http://buyscripts.in/youtube_clone.html
-TinyMCE		    3.4.2		     30-Apr-2011		    http://tinymce.moxiecode.com
+TinyMCE		    4.0.25		     05-May-2014		    http://tinymce.moxiecode.com
 ZendFramework   1.7.6            27-Feb-2009            http://framework.zend.com
 Pager	        2.4.8	         21-Apr-2009            http://pear.php.net/package/Pager/
 Smarty		    3.1.18		     07-Apr-2014		    http://www.smarty.net/download
