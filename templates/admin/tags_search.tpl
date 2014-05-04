@@ -2,12 +2,12 @@
 
 {include file='admin/tags_menu.tpl'}
 
-<form method="post" action="">
-    <div>
-        <b>Tag:</b>
-        <input type="text" name="search_tag" />
-        <input type="submit" name="submit" value="Search" class="btn btn-default btn-lg" />
+<form method="post" action="" class="form-inline" role="form">
+    <div class="form-group">
+        <label class="sr-only" for="search_tag">Tag:</label>
+        <input type="text" class="form-control" name="search_tag" id="search_tag" placeholder="Tag" />
     </div>
+    <input type="submit" name="submit" value="Search" class="btn btn-default" />
 </form>
 
 <div style="margin-bottom: 2em"></div>
