@@ -33,7 +33,7 @@
 </form>
 
 {if $editor_wysiwyg_email eq 1}
-<script language="javascript" type="text/javascript" src="{$base_url}/js/tiny_mce/tinymce.min.js"></script>
+<script language="javascript" type="text/javascript" src="{$base_url}/js/tinymce/tinymce.min.js"></script>
 {literal}
 <script language="javascript" type="text/javascript">
     tinyMCE.init({
