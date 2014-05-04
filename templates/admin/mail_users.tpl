@@ -1,50 +1,46 @@
-<h1>Send Email to {if $smarty.request.a eq "user"}User{elseif $smarty.request.a eq "group"}Group{else}{$smarty.request.uname}{/if}</h1>
+<div class="page-header">
+    <h1>Send Email to {if $smarty.request.a eq "user"}User{elseif $smarty.request.a eq "group"}Group{else}{$smarty.request.uname}{/if}</h1>
+</div>
 
 {if $smarty.request.a eq "user"}
-<form method="post" action="mail_users.php?a=user">
+<form method="post" action="mail_users.php?a=user" class="form-horizontal">
 {elseif $smarty.request.a eq "group"}
-<form method="post" action="mail_users.php?a=group">
+<form method="post" action="mail_users.php?a=group" class="form-horizontal">
 {else}
-<form method="post" action="mail_users.php?email={$smarty.request.email}&uname={$smarty.request.uname}">
+<form method="post" action="mail_users.php?email={$smarty.request.email}&uname={$smarty.request.uname}" class="form-horizontal">
 {/if}
 
-    {if $smarty.request.a eq "user"}
-
-    <div>
-        <label>Email To:</label>
-        ALL USERS
-        <input type="hidden" name="UID" value="All" />
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Email To:</label>
+        <div class="col-sm-5">
+            {if $smarty.request.a eq "user"}
+                <p class="form-control-static">ALL USERS</p>
+                <input type="hidden" name="UID" value="All">
+            {elseif $smarty.request.a eq "group"}
+                <select class="form-control" name="GID">{$group_ops}</select>
+            {else}
+                <input class="form-control" type="text" name="email" size="30" value="{$smarty.request.email}">
+            {/if}
+        </div>
     </div>
 
-    {elseif $smarty.request.a eq "group"}
-
-    <div>
-        <label>Email To:</label>
-        <select name="GID">
-            {$group_ops}
-        </select>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="subj">Subject:</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="text" name="subj" id="subj" size="60" value="{$smarty.request.subj}">
+        </div>
     </div>
 
-    {else}
-
-    <div>
-        <label>To:</label>
-        <input type="text" name="email" size="30" value="{$smarty.request.email}" />
+    <div class="form-group">
+        <div class="col-sm-7">
+            <textarea class="form-control" name="htmlCode" cols="100" rows="22">{$smarty.request.htmlCode}</textarea>
+        </div>
     </div>
 
-    {/if}
-
-    <div>
-        <label for="subj">Subject:</label>
-        <input type="text" name="subj" id="subj" size="60" value="{$smarty.request.subj}" /><br />
-    </div>
-
-    <div>
-        <textarea name="htmlCode" cols="100" rows="22">{$smarty.request.htmlCode}</textarea>
-    </div>
-
-    <div>
-        <input type="submit" name="submit" value="Send Email" class="btn btn-default btn-lg" />
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-5">
+            <button type="submit" name="submit" class="btn btn-default btn-lg">Send Email</button>
+        </div>
     </div>
 
 </form>
