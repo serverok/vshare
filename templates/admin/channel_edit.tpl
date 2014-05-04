@@ -1,4 +1,6 @@
-<h1>Edit Channel</h1>
+<div class="page-header">
+    <h1>Edit Channel</h1>
+</div>
 
 
 <form action="channel_edit.php" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">

@@ -1,23 +1,33 @@
-<h1>Edit Email: {$email.email_id}</h1>
+<div class="page-header">
+    <h1>Edit Email Template - ({$email.email_id})</h1>
+</div>
 
-<form action="?email_id={$smarty.request.email_id}" method="post">
+<form action="?email_id={$smarty.request.email_id}" method="post" class="form-horizontal">
 
-    <div>
-        <label for="email_subject">Subject: </label>
-        <input name="email_subject" id="email_subject" value="{$email.email_subject}" size="80" />
+    <div class="form-group">
+        <label class="col-sm-1 control-label" for="email_subject">Subject: </label>
+        <div class="col-sm-6">
+            <input class="form-control" name="email_subject" id="email_subject" value="{$email.email_subject}">
+        </div>
     </div>
 
-    <div>
-        <textarea name="email_body" id="email_body" rows="20" cols="100">{$email.email_body}</textarea>
+    <div class="form-group">
+        <div class="col-sm-7">
+            <textarea class="form-control"name="email_body" id="email_body" rows="20">{$email.email_body}</textarea>
+        </div>
     </div>
 
-    <div>
-        <label for="comment">Comments: <br /><i>(for admin)</i></label>
-        <input name="comment" id="comment" value="{$email.comment}" size="80" />
+    <div class="form-group">
+        <label class="col-sm-1 control-label" for="comment">Comments: <br /><i>(for admin)</i></label>
+        <div class="col-sm-6">
+            <input class="form-control"name="comment" id="comment" value="{$email.comment}">
+        </div>
     </div>
 
-    <div class="submit">
-        <input type="submit" name="submit" value="Update" class="btn btn-default btn-lg" />
+    <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-6">
+            <button type="submit" name="submit" class="btn btn-default btn-lg">Update</button>
+        </div>
     </div>
 
 </form>
