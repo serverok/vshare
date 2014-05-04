@@ -12,37 +12,45 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" for="video_url">URL:</label>
         <div class="col-sm-5">
-            <input class="form-control" type="text" maxlength="200" name="video_url" id="video_url" value="{$smarty.post.video_url}" />
+            <input class="form-control" type="text" maxlength="200" name="video_url" id="video_url" value="{$smarty.post.video_url}">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" for="video_user">Add Video to User:</label>
-        <input class="form-control" type="text" maxlength="100" name="video_user" id="video_user" value="{$smarty.post.video_user}" />
+        <div class= "col-sm-5">
+            <input class="form-control" type="text" name="video_user" id="video_user"  maxlength="100" value="{$smarty.post.video_user}">
+        </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" for="video_title">Title:</label>
-        <input class="form-control" type="text" maxlength="40" name="video_title" id="video_title" value="{$smarty.post.video_title}" />
+        <div class="col-sm-5">
+            <input class="form-control" type="text" maxlength="40" name="video_title" id="video_title" value="{$smarty.post.video_title}">
+        </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" for="video_description">Description:</label>
-        <textarea name="video_description" id="video_description" rows="4">{$smarty.post.video_description}</textarea>
+        <div class="col-sm-5">
+            <textarea class="form-control" name="video_description" id="video_description" rows="4">{$smarty.post.video_description}</textarea>
+        </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" for="video_keywords">Tags:</label>
-        <input class="form-control" type="text" maxlength="120" name="video_keywords" id="video_keywords" value="{$smarty.post.video_keywords}" />
+        <div class="col-sm-5">
+            <input class="form-control" type="text" maxlength="120" name="video_keywords" id="video_keywords" value="{$smarty.post.video_keywords}">
+        </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" for="chlist">Video Channels:</label>
-        <div class="col-sm-5">
+          <div class="col-sm-5">
             {foreach from=$channels item=channel}
                 <div class="checkbox">
                     <label for="channel-{$channel.channel_id}">
-                        <input type="checkbox" id="chlist" name="chlist[]" value="{$channel.channel_id}" id="channel-{$channel.channel_id}" /> {$channel.channel_name_html}
+                        <input type="checkbox" name="chlist[]" value="{$channel.channel_id}" id="channel-{$channel.channel_id}"> {$channel.channel_name_html}
                     </label>
                 </div>
             {/foreach}
@@ -52,14 +60,18 @@
 
     <div class="form-group">
         <label class="col-sm-2 control-label">Video Type:</label>
-        <select name="video_privacy">
-            <option value="public">Public</option>
-            <option value="private">Private</option>
-        </select>
+        <div class="col-sm-5">
+            <select class="form-control" name="video_privacy">
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+            </select>
+        </div>
     </div>
 
-    <div class="submit">
-        <input class="form-control" type="submit" name="submit" value="Download Video" class="btn btn-default btn-lg" />
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-5">
+            <button type="submit" name="submit" class="btn btn-default btn-lg">Download Video</button>
+        </div>
     </div>
 
 </form>
@@ -74,7 +86,8 @@ $(function(){
 
 {else}
 
-<br />
+<br>
+
 <center>
     <a href="import_video.php" class="btn btn-default btn-lg">Import Another Video</a>
 </center>
