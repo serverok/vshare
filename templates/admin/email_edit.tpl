@@ -33,13 +33,12 @@
 </form>
 
 {if $editor_wysiwyg_email eq 1}
-<script language="javascript" type="text/javascript" src="{$base_url}/js/tiny_mce/tiny_mce.js"></script>
+<script language="javascript" type="text/javascript" src="{$base_url}/js/tiny_mce/tinymce.min.js"></script>
 {literal}
 <script language="javascript" type="text/javascript">
     tinyMCE.init({
         mode : "textareas",
-        theme : "advanced",
-        plugins : "table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,zoom,media,searchreplace,print,contextmenu,paste,directionality,fullscreen",
+        plugins : "code, table,save,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen",
         theme_advanced_buttons1_add : "fontselect,fontsizeselect",
         theme_advanced_buttons2_add : "separator,preview,forecolor,backcolor,hr",
         theme_advanced_buttons3 : "",
