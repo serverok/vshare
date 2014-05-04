@@ -1,30 +1,36 @@
 <h1>Edit Channel</h1>
 
-<form action="channel_edit.php" method="post" enctype="multipart/form-data">
 
-    <input type="hidden" name="id" value="{$channel.channel_id}" />
+<form action="channel_edit.php" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
 
-    <div>
-        <label for="channel_name">Channel Name:</label>
-        <input name="name" id="channel_name" value="{$channel.channel_name}" size="40" />
+    <input type="hidden" name="id" value="{$channel.channel_id}">
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="channel_name">Channel Name:</label>
+        <div class="col-sm-5">
+            <input class="form-control" name="name" id="channel_name" value="{$channel.channel_name}">
+        </div>
     </div>
 
-    <div>
-        <label for="channel_description">Channel Description:</label>
-        <textarea name="descrip" id="channel_description" rows="3" cols="40">{$channel.channel_description}</textarea>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="channel_description">Channel Description:</label>
+        <div class="col-sm-5">
+            <textarea class="form-control" name="descrip" id="channel_description" rows="3">{$channel.channel_description}</textarea>
+        </div>
     </div>
 
-    <div>
-        <label>Channel Image:</label>
-        <img src="{$base_url}/chimg/{$channel.channel_id}.jpg" alt="" />
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Channel Image:</label>
+        <div class="col-sm-5">
+            <img src="{$base_url}/chimg/{$channel.channel_id}.jpg" alt="">
+            <input class="form-control" type="file" name="picture">
+        </div>
     </div>
 
-    <div class="indent">
-        <input type="file" name="picture" size="30" />
-    </div>
-
-    <div class="submit">
-        <input type="submit" name="edit_channel" value="Update" class="btn btn-default btn-lg" />
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-5">
+            <button type="submit" name="edit_channel" class="btn btn-default btn-lg">Update</button>
+        </div>
     </div>
 
 </form>
