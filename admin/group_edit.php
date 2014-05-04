@@ -142,7 +142,11 @@ for ($i = 0; $i < count($ch); $i ++) {
     } else {
         $checked = '';
     }
-    $ch_checkbox .= '<input type="checkbox" name="channel[]" value="' . $ch[$i]['channel_id'] . '"' . $checked . '/>' . htmlspecialchars($ch[$i]['channel_name'], ENT_QUOTES, 'UTF-8') . '<br />';
+    $ch_checkbox .= '<div class="checkbox">' .
+                    '<label for="channel-' . $ch[$i]['channel_id'] . '">' .
+                    '<input type="checkbox" name="channel[]" value="' . $ch[$i]['channel_id'] . '"' . $checked . 'id="channel-' . $ch[$i]['channel_id'] . '">' .
+                    htmlspecialchars($ch[$i]['channel_name'], ENT_QUOTES, 'UTF-8') .
+                    '</label></div>';
 }
 
 $smarty->assign('ch_checkbox', $ch_checkbox);

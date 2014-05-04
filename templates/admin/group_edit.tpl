@@ -1,68 +1,90 @@
-<h1>Edit Group</h1>
+<div class="page-header">
+    <h1>Edit Group</h1>
+</div>
 
-<form action="group_edit.php?a={$smarty.request.a}&action=edit&gid={$group.group_id}&page={$smarty.request.page}&sort={$smarty.request.sort}" method="post">
+<form action="group_edit.php?a={$smarty.request.a}&action=edit&gid={$group.group_id}&page={$smarty.request.page}&sort={$smarty.request.sort}" method="post" class="form-horizontal">
 
-	<div>
-		<label>Group ID:</label>
-		{$group.group_id}
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Group ID:</label>
+        <div class="col-sm-5">
+            <p class="form-control-static">{$group.group_id}</p>
+        </div>
 	</div>
 
-	<div>
-		<label>Group Name:</label>
-		<input name="group_name" value="{$group.group_name}" size="40" />
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Group Name:</label>
+        <div class="col-sm-5">
+		  <input class="form-control" name="group_name" value="{$group.group_name}">
+        </div>
 	</div>
 
-	<div>
-		<label>Tags:</label>
-		<input name="keyword" value="{$group.group_keyword}" size="40" />
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Tags:</label>
+        <div class="col-sm-5">
+		  <input class="form-control" name="keyword" value="{$group.group_keyword}">
+        </div>
 	</div>
 
-	<div>
-		<label>Group Description:</label>
-		<div class="indent">
-			<textarea name="gdescn" rows="3" cols="40">{$group.group_description}</textarea>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Group Description:</label>
+        <div class="col-sm-5">
+			<textarea class="form-control" name="gdescn" rows="3">{$group.group_description}</textarea>
 		</div>
 	</div>
 
-	<div>
-		<label>URL Name:</label>
-		<input name="gurl" value="{$group.group_url}" size="40" />
+	<div class="form-group">
+		<label class="col-sm-2 control-label">URL Name:</label>
+        <div class="col-sm-5">
+		<input class="form-control" name="gurl" value="{$group.group_url}">
+        </div>
 	</div>
 
-	<div>
-        <label>Channels:</label>
-		<div class="indent">
+	<div class="form-group">
+        <label class="col-sm-2 control-label">Channels:</label>
+        <div class="col-sm-5">
 			{$ch_checkbox}
 		</div>
 	</div>
 
-	<div>
-		<label>Group Type:</label>
-		<select name="type">{$type_box}</select>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Group Type:</label>
+        <div class="col-sm-5">
+		  <select class="form-control" name="type">{$type_box}</select>
+        </div>
 	</div>
 
-	<div>
-		<label>Video Uploads:</label>
-		<select name="gupload">{$upload_box}</select>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Video Uploads:</label>
+        <div class="col-sm-5">
+            <select class="form-control" name="gupload">{$upload_box}</select>
+        </div>
 	</div>
 
-	<div>
-		<label>Forum Postings:</label>
-		<select name="gposting">{$posting_box}</select>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Forum Postings:</label>
+        <div class="col-sm-5">
+            <select class="form-control" name="gposting">{$posting_box}</select>
+        </div>
 	</div>
 
-	<div>
-		<label>Group Icon:</label>
-		<select name="gimage">{$icon_box}</select>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Group Icon:</label>
+        <div class="col-sm-5">
+            <select class="form-control" name="gimage">{$icon_box}</select>
+        </div>
 	</div>
 
-	<div>
-		<label>Is Featured?:</label>
-		<select name="featured">{$featured_box}</select>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Is Featured?:</label>
+        <div class="col-sm-5">
+            <select class="form-control" name="featured">{$featured_box}</select>
+        </div>
 	</div>
 
-	<div class="submit">
-		<input type="submit" name="submit" value="Update" class="btn btn-default btn-lg" />
+	<div class="form-group">
+        <div class="col-sm-offset-2 col-sm-5">
+            <button type="submit" name="submit" class="btn btn-default btn-lg">Update</button>
+        </div>
 	</div>
 
 </form>
