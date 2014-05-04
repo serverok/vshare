@@ -1,9 +1,11 @@
-<h1>Search Groups</h1>
+<div class="page-header">
+    <h1>Search Groups</h1>
+</div>
 
-<form action="" method="post">
-    <div>
-        Group Name:
-        <input type="text" name="group_name" size="15" />
-        <input type="submit" name="search" value="Search" class="btn btn-default btn-lg" />
+<form action="" method="post" class="form-inline" role="form">
+    <div class="form-group">
+        <label class="sr-only" for="group_name">Group Name:</label>
+        <input type="text" class="form-control" name="group_name" id="group_name" placeholder="Group Name" />
     </div>
+    <button type="submit" name="search" class="btn btn-default">Search</button>
 </form>
