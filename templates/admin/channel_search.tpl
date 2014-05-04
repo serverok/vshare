@@ -1,20 +1,29 @@
-<h1>Channel Search</h1>
+<div class="page-header">
+    <h1>Channel Search</h1>
+</div>
 
-<form action="" method="get">
+<form action="" method="get" class="form-horizontal" role="form">
 
-    <div>
-        <input type="hidden" name="action" value="search">
-        <label>Channel ID:</label>
-        <input type="text" name="id" />
+    <input type="hidden" name="action" value="search">
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Channel ID:</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" name="id" />
+        </div>
     </div>
 
-    <div>
-        <label>Channel Name:</label>
-        <input type="text" name="name" />
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Channel Name:</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" name="name" />
+        </div>
     </div>
 
-    <div class="submit">
-        <input type="submit" name="search" value="Search" class="btn btn-default btn-lg" />
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-5">
+            <button type="submit" name="search" class="btn btn-default btn-lg">Search</button>
+        </div>
     </div>
 
 </form>
@@ -25,43 +34,39 @@
 
 {insert name=channel_count assign=count cid=$channel.channel_id}
 
-<div id="channel-search-result">
+<div>
+    <img src="{$base_url}/chimg/{$channel.channel_id}.jpg" width="120" height="90" alt="channel" />
+</div>
 
-    <div class="margin-tb-1em">
-        <img src="{$base_url}/chimg/{$channel.channel_id}.jpg" width="120" height="90" alt="channel" />
-    </div>
+<div>
+    <b>Channel ID: </b>
+    {$channel.channel_id}
+</div>
 
-    <div>
-        <b>Channel ID: </b>
-        {$channel.channel_id}
-    </div>
+<div>
+    <b>Channel Name: </b>
+    {$channel.channel_name}
+<div>
 
-    <div>
-        <b>Channel Name: </b>
-        {$channel.channel_name}
-    <div>
+<div>
+    <b>Description: </b>
+    {$channel.channel_description}
+</div>
 
-    <div>
-        <b>Description: </b>
-        {$channel.channel_description}
-    </div>
+<div>
+    <b>Total Videos: </b>
+    {$count[1]}
+</div>
 
-    <div>
-        <b>Total Videos: </b>
-        {$count[1]}
-    </div>
+<div>
+    <b>Total Groups: </b>
+    {$count[2]}
+</div>
 
-    <div>
-        <b>Total Groups: </b>
-        {$count[2]}
-    </div>
-
-    <div style="margin-top: 2em">
-        <a href="channel_edit.php?action=edit&chid={$channel.channel_id}&page={$smarty.request.page}" class="btn btn-default btn-lg">
-            Edit Channel
-        </a>
-    </div>
-
+<div style="margin-top: 2em">
+    <a href="channel_edit.php?action=edit&chid={$channel.channel_id}&page={$smarty.request.page}" class="btn btn-default btn-lg">
+        Edit Channel
+    </a>
 </div>
 
 {/if}
