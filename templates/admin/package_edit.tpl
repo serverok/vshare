@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1>Edit Package (id: {$package.package_id})</h1>
+    <h1>Edit Package - {$package.package_name}</h1>
 </div>
 
 <form method="post" action="" class="form-horizontal" role="form">
