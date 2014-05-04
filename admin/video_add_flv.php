@@ -62,7 +62,11 @@ $ch = Channel::get();
 $channel_checkbox = '';
 
 for ($i = 0; $i < count($ch); $i ++) {
-    $channel_checkbox .= '<input type="checkbox" name="channel[]" value="' . $ch[$i]['channel_id'] . '" />' . $ch[$i]['channel_name_html'] . '<br />';
+    $channel_checkbox .= '<div class="checkbox">' .
+                         '<label for="channel-' . $ch[$i]['channel_id'] . '">' .
+                         '<input type="checkbox" name="channel[]" value="' . $ch[$i]['channel_id'] . '" id="channel-' . $ch[$i]['channel_id'] . '" />' . $ch[$i]['channel_name_html'] .
+                         '</label>' .
+                         '</div>';
 }
 
 $smarty->assign('ch_checkbox', $channel_checkbox);
