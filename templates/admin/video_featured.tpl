@@ -40,7 +40,7 @@
 			</td>
 			<td align="center">
 				<a href="video_featured.php?video_id={$video_featured.video_id}&page={$smarty.request.page}&todo=un_feature" onclick="Javascript:return confirm('Are you sure you want to remove?');">
-					Remove
+					<span class="glyphicon glyphicon-trash"></span>
 				</a>
 			</td>
 		</tr>
@@ -52,7 +52,7 @@
 <div class="row">
     <div class="col-md-10">{$links}</div>
     <div class="col-md-2">
-        <a href="video_featured.php?todo=un_feature_all" onclick="Javascript:return confirm('Are you sure you want to remove all featured videos?');" class="btn btn-warning">
+        <a href="video_featured.php?todo=un_feature_all" onclick="Javascript:return confirm('Are you sure you want to remove all featured videos?');" class="btn btn-default">
             Remove All Featured
         </a>
     </div>
