@@ -5,8 +5,6 @@
  * Redistribution of source must retain this copyright notice.
  */
 
-require_once (VSHARE_DIR . "/include/class.htmlparser.php");
-
 /**
  * Class Html2Text. (HtmlParser example.)
  * Converts HTML to ASCII attempting to preserve
