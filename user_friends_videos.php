@@ -67,7 +67,7 @@ if ($friends_all) {
     $view['video_keywords_array_all'] = array_remove_duplicate($video_keywords_array_all);
 
     $start_num = $start_from + 1;
-    $end_num = $start_from + mysql_num_rows($result);
+    $end_num = $start_from + count($videoRows);
     $smarty->assign('view', $view);
     $smarty->assign('start_num', $start_num);
     $smarty->assign('end_num', $end_num);
