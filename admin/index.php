@@ -56,7 +56,5 @@ if ($err != '') {
 }
 
 $smarty->assign('login_error', $login_error);
-$smarty->display('admin/header.tpl');
 $smarty->display('admin/index.tpl');
-$smarty->display('admin/footer.tpl');
 DB::close();
