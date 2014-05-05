@@ -19,7 +19,7 @@
             {elseif $smarty.request.a eq "group"}
                 <select class="form-control" name="GID">{$group_ops}</select>
             {else}
-                <input class="form-control" type="text" name="email" size="30" value="{$smarty.request.email}">
+                <input class="form-control" type="email" name="email" value="{$smarty.request.email}" required="">
             {/if}
         </div>
     </div>

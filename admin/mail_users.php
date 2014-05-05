@@ -24,7 +24,9 @@ if (isset($_POST['submit'])) {
         $_POST['subj'] = stripslashes($_POST['subj']);
     }
 
-    if ($_GET['a'] == 'user') {
+    $a = isset($_GET['a']) ? $_GET['a'] : '';
+
+    if ($a == 'user') {
         if ($_POST['UID'] == "0" || $_POST['UID'] == '') {
             $err = $lang['select_user'];
         } else if ($_POST['subj'] == '') {
@@ -82,7 +84,7 @@ if (isset($_POST['submit'])) {
             }
         }
 
-    } else if ($_GET['a'] == 'group') {
+    } else if ($a == 'group') {
 
         if (isset($_POST['GID']) && $_POST['GID'] == '0' || $_POST['GID'] == '') {
             $err = $lang['select_group'];
@@ -122,7 +124,7 @@ if (isset($_POST['submit'])) {
     {
         if ($_POST['email'] == '') {
             $err = $lang['email_null'];
-        } else if (! validate::email($_POST['email'])) {
+        } else if (! Validate::email($_POST['email'])) {
             $err = $lang['email_invalid'];
         } else if ($_POST['subj'] == '') {
             $err = $lang['subject_null'];
