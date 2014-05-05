@@ -68,9 +68,8 @@
 
     {section name=i loop=$videos}
 
-        <div class="video-entry{if $videos[i].imported eq "1"} imported{/if}">
-
-            <div class="check-box">
+        <div class="media{if $videos[i].imported ne "0"} bg-success{/if}">
+            <div class="pull-left">
                 {if $videos[i].imported eq "0"}
                 <input type="checkbox" name="video_id[]" value="{$videos[i].video_id}" />
                 {else}
@@ -78,21 +77,20 @@
                 {/if}
             </div>
 
-            <div class="thumbnail">
+            <a class="pull-left" href="#">
                 <img src="{$videos[i].thumb_url}" alt="{$videos[i].video_title}" />
                 <img src="http://i.ytimg.com/vi/{$videos[i].video_id}/3.jpg" alt="{$videos[i].video_title}" />
-        	</div>
+            </a>
 
-            <div class="video-details">
-            	<h2>{$videos[i].video_title}</h2>
-            	<p>{$videos[i].video_description}</p>
-            	<p>Duration: {$videos[i].video_duration}</p>
-            	{if $videos[i].imported ne "0"}
-            		<p class="imported">Already Imported.</p>
-            	{/if}
-        	</div>
-
-    	</div>
+            <div class="media-body">
+                <h4>{$videos[i].video_title}</h4>
+                <p>{$videos[i].video_description}</p>
+                <p>Duration: {$videos[i].video_duration}</p>
+                {if $videos[i].imported ne "0"}
+                    <h4><span class="label label-success">Already Imported.</span></h4>
+                {/if}
+            </div>
+        </div>
 
     {/section}
 
