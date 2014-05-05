@@ -29,7 +29,7 @@
             </td>
         </tr>
         {section name=i loop=$import_video}
-            <tr class="{cycle values="tablerow1,tablerow2"}">
+            <tr>
                 <td align="left">
                     {$import_video[i][0]}
                 </td>

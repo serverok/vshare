@@ -24,7 +24,7 @@
     </tr>
 
     {section name=i loop=$process_queue}
-    <tr class="{cycle values="tablerow1,tablerow2"}">
+    <tr>
         <td align="left">{$process_queue[i].id}</td>
         <td><a href="user_view.php?user_id={$process_queue[i].user_id}">{$process_queue[i].user}</a></td>
 

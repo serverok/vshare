@@ -40,7 +40,7 @@
 
         {insert name=channel_count assign=count cid=$channels[aa].channel_id}
 
-        <tr class="{cycle values="tablerow1,tablerow2"}">
+        <tr>
             <td>{$channels[aa].channel_id}</td>
             <td><a href="channel_search.php?id={$channels[aa].channel_id}&action=search">{$channels[aa].channel_name}</a></td>
             <td>{$channels[aa].channel_description}</td>

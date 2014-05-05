@@ -23,7 +23,7 @@
 
 	{section name=i loop=$import_auto_info}
 
-		<tr class="{cycle values="tablerow1,tablerow2"}">
+		<tr>
 			<td>
 				{$import_auto_info[i].import_auto_keywords}
 			</td>

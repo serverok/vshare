@@ -159,7 +159,7 @@
 
         {section name=aa loop=$videos}
 
-            <tr class="{cycle values="tablerow1,tablerow2"}">
+            <tr>
             {if $a eq "embedded"}
                 <td><input type="checkbox" name="video_id_arr[]" value="{$videos[aa].video_id}" rel="video_ids" /></td>
             {/if}

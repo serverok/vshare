@@ -101,7 +101,7 @@
 
         {section name=aa loop=$video_info}
         
-            <tr class="{cycle values="tablerow1,tablerow2"}">
+            <tr>
                 <td>
                     {$video_info[aa].video_id}
                 </td>

@@ -10,7 +10,7 @@
 		<td><b>Sitemap Size</b></td>
 	</tr>
 	{section name=i loop=$sitemap}
-		<tr class="{cycle values="tablerow1,tablerow2"}">
+		<tr>
 			<td><a href="{$base_url}/sitemap/{$sitemap[i].sitemap_name}" target="_blank">{$sitemap[i].sitemap_name}</a></td>
 			<td>{$sitemap[i].sitemap_name|date_format:'%b %e, %Y %r'}</td>
 			<td>{$sitemap[i].sitemap_url_count}</td>

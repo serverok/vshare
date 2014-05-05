@@ -15,7 +15,7 @@
     </tr>
 
     {section name=i loop=$disallow}
-    <tr class="{cycle values="tablerow1,tablerow2"}">
+    <tr>
         <td>
             {$disallow[i].disallow_id}
         </td>

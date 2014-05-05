@@ -15,7 +15,7 @@
 
     {section name=i loop=$tags}
 
-        <tr class="{cycle values="tablerow1,tablerow2"}">
+        <tr>
             <td>
                 {$tags[i].tag}
             </td>

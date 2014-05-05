@@ -24,7 +24,7 @@
 
         {section name=aa loop=$channels}
 
-        <tr class="{cycle values="tablerow1,tablerow2"}">
+        <tr>
             <td>
                 {$channels[aa].channel_id}
             </td>
