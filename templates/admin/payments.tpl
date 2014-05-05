@@ -47,7 +47,7 @@
 
    {section name=i loop=$payment_info}
 
-   <tr class="{cycle values='tablerow1,tablerow2'}">
+   <tr>
 
        <td>
            {$payment_info[i].payment_id}
