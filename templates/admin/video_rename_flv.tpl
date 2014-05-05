@@ -22,7 +22,7 @@
     {$video_info.video_title}
 </div>
 
-<div class="margin-tb-1em">
+<div>
     <label>Type: </label>
     {$video_info.video_type}
 </div>

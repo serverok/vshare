@@ -45,6 +45,6 @@
 {/if}
 
 
-<div class="margin-tb-1em">
+<div>
     <a href="import_folder_all.php">Import All Videos</a>
 </div>

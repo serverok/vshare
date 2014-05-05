@@ -40,7 +40,7 @@
 
 </table>
 
-<div class="margin-tb-1em">
+<div>
 {$links}
 </div>
 

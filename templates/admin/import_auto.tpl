@@ -20,9 +20,9 @@
 			<b>Action</b>
 		</td>
 	</tr>
-	
+
 	{section name=i loop=$import_auto_info}
-	
+
 		<tr class="{cycle values="tablerow1,tablerow2"}">
 			<td>
 				{$import_auto_info[i].import_auto_keywords}
@@ -41,45 +41,45 @@
 	{/section}
 </table>
 
-<div class="margin-tb-1em">&nbsp;</div>
+<div>&nbsp;</div>
 
 {/if}
 
-<form method="post" action="import_auto.php" id="auto-import" name="auto-import">
-    
+<form method="post" action="" id="auto-import" name="auto-import">
+
     <div>
         <label for="video_keywords">Keyword:</label>
         <input type="text" name="video_keywords" id="video_keywords" value="{$video_keywords}" />
     </div>
-    
+
     <div>
         <label for="video_user_name">Video added to:</label>
         <input type="text" name="video_user_name" id="video_user_name" value="{$video_user_name}" />
     </div>
-    
+
     <div>
         <label for="video_channel" >Channels:</label>
         <select name="video_channel">
             <option value="">-----------SELECT-----------</option>
-            {section name=i loop=$channel_info} 
-			<option value="{$channel_info[i].channel_id}"{if $video_channel eq $channel_info[i].channel_id} selected="selected"{/if}>{$channel_info[i].channel_name}</option> 
-			{/section} 
+            {section name=i loop=$channel_info}
+			<option value="{$channel_info[i].channel_id}"{if $video_channel eq $channel_info[i].channel_id} selected="selected"{/if}>{$channel_info[i].channel_name}</option>
+			{/section}
         </select>
     </div>
-    
+
     <div>
         <label for="import_auto_download">Import Method:</label>
-        <select name="import_auto_download" id="import_auto_download"> 
-			<option value="">------Select---------</option> 
-			<option value="0"{if $import_auto_download eq 0} selected="selected"{/if}>Embed</option> 
+        <select name="import_auto_download" id="import_auto_download">
+			<option value="">------Select---------</option>
+			<option value="0"{if $import_auto_download eq 0} selected="selected"{/if}>Embed</option>
 			<option value="1"{if $import_auto_download eq 1} selected="selected"{/if}>Download</option>
 		</select>
     </div>
-	
+
     <div class="submit">
         <input type="submit" name="submit" value="Save" />
     </div>
-    
+
 </form>
 
 <script language="JavaScript" type="text/javascript" src="{$base_url}/js/jquery.validate.min.js"></script>

@@ -182,7 +182,7 @@
     </table>
 
     {if $links ne ""}
-    <div class="margin-tb-1em">
+    <div>
         {$links}
     </div>
     {/if}
