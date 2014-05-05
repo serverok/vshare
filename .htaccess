@@ -1,4 +1,4 @@
-Options +FollowSymLinks
+#Options +FollowSymLinks
 RewriteEngine on
 #RewriteCond %{HTTP_HOST} !^domain.com$ [NC]
 #RewriteRule ^(.*)$ http://domain.com/$1 [L,R=301]
