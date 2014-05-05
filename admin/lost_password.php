@@ -63,7 +63,6 @@ if (isset($_POST['submit'])) {
     $mail = new Mail();
     $mail->send($mail_info);
 }
-$smarty->display('admin/header.tpl');
+
 $smarty->display('admin/lost_password.tpl');
-$smarty->display('admin/footer.tpl');
 DB::close();
