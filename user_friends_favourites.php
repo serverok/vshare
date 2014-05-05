@@ -60,6 +60,7 @@ if ($num_friends) {
                 ORDER BY v.video_add_time DESC
                 LIMIT $start_from, $config[items_per_page]";
         $friends_fav_all = DB::fetch($sql);
+        $favorite_video_id = array();
 
         if ($friends_fav_all) {
             foreach ($friends_fav_all as $friends_fav) {
