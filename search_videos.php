@@ -97,22 +97,7 @@ if ($err == '') {
 
         $start_num = $start_from + 1;
         $end_num = $start_from + $total_current_page;
-        $page_links = Paginate::getLinks($total, $config['items_per_page'], '.', '', $page);
-
-        require 'Pager/Pager.php';
-        require 'Pager/Sliding.php';
-
-        $params = array();
-        $params['mode'] = 'Sliding';
-        $params['perPage'] = $config['items_per_page'];
-        $params['linkClass'] = 'pager';
-        $params['delta'] = 2;
-        $params['totalItems'] = $total;
-        $params['urlVar'] = 'page';
-
-        $pager = new Pager_Sliding($params);
-        $data = $pager->getPageData();
-        $page_links = $pager->getLinks();
+        $page_links = Paginate::getLinks($total, $config['items_per_page'], VSHARE_URL . '/search/' . $search_string, '', $page);
 
         //Video users
         $video_users = array_unique($video_users);
@@ -135,7 +120,7 @@ if ($err == '') {
             'page' => $page,
             'start_num' => $start_num,
             'end_num' => $end_num,
-            'page_links' => $page_links['all'],
+            'page_links' => $page_links,
             'total' => $total,
             'video_info' => $video_info,
             'user_names' => $user_names
