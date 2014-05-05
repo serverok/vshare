@@ -92,15 +92,14 @@ if (isset($_POST['action_upload'])) {
                        `import_track_site`='" . DB::quote($import_site) . "'";
                 DB::query($sql);
 
-                require 'include/class.upload_remote.php';
-                $upload_remote = new upload_remote();
+                $upload_remote = new UploadRemote();
                 $upload_remote->vid = $video_id;
                 $upload_remote->url = $url;
                 $upload_remote->debug = 1;
 
                 if ($type == 'public' && $config['approve'] == 1) {
-                    $current_keyword = DB::quote($upload_video_keywords);
-                    $tags = new Tags($current_keyword, $video_id, $_SESSION['UID'], "0|$channels|0");
+                    $current_keyword = DB::quote($video_info['video_keywords']);
+                    $tags = new Tag($current_keyword, $video_id, $_SESSION['UID'], "0|$channels|0");
                     $tags->add();
                 }
 

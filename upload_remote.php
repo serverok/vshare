@@ -134,8 +134,7 @@ if (isset($_POST['submit'])) {
 
         $video_id = DB::insertGetId($sql);
 
-        require 'include/class.upload_remote.php';
-        $upload_remote = new upload_remote();
+        $upload_remote = new UploadRemote();
         $upload_remote->vid = $video_id;
         $upload_remote->url = $url;
         $upload_remote->debug = 1;
