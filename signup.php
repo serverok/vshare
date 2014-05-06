@@ -187,9 +187,6 @@ if (isset($_POST['submit'])) {
             DB::query($sql);
         }
 
-        $sql = "INSERT INTO `verify` SET `UID`='" . (int) $userid . "'";
-        DB::query($sql);
-
         $sql = "INSERT INTO `subscriber` SET `UID`='" . (int) $userid . "'";
         DB::query($sql);
 
