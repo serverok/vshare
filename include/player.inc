@@ -18,14 +18,15 @@ if ($vshare_player == "StrobeMediaPlayback")
    ,   controlBarAutoHide: "false"
    ,   controlBarPosition: "bottom"
    ,   poster: "{$video_thumb_url}/thumb/{$video_folder}{$video_id}.jpg"
+   ,   plugin_youtube: "{$config['baseurl']}/player/YouTubePlugin.swf"
    };
-               
+
    for (var i=0; i<parameterNames.length; i++)
    {
    var parameterName = parameterNames[i];
    parameters[parameterName] = parameters[parameterName];
    }
-               
+
    swfobject.embedSWF
    ( "{$config['baseurl']}/player/StrobeMediaPlayback.swf"
    , "vshare_player"
@@ -50,7 +51,7 @@ else
 {
 $vshare_player = <<<EOT
 
-<script type="text/javascript" src="{$config['baseurl']}/player/swfobject_1.5.js"></script>
+<script type="text/javascript" src="{$config['baseurl']}/player/jwplayer.js"></script>
 
 <p id="vshare_player">
     <a href="http://www.adobe.com/go/getflashplayer">
@@ -59,20 +60,17 @@ $vshare_player = <<<EOT
 </p>
 
 <script type="text/javascript">
-var so = new SWFObject("{$config['baseurl']}/player/player.swf","vshare_player","$config[player_width]","$config[player_height]","8");
-so.addParam("allowfullscreen","true");
-so.addVariable("file","{$file}");
-so.addVariable("image","{$video_thumb_url}/thumb/{$video_folder}{$video_id}.jpg");
-so.addVariable("logo","{$config['baseurl']}/templates/images/watermark.gif");
-so.addVariable("link","{$config["watermark_url"]}");
-so.addVariable("linktarget","_blank");
-so.addVariable("width","{$config['player_width']}");
-so.addVariable("height","{$config['player_height']}");
-so.addVariable("displayheight","$displayheight");
-so.addVariable("overstretch", "true");
-so.addVariable("autostart", "{$config['player_autostart']}");
-so.addVariable("bufferlength", "{$config['player_bufferlength']}");
-so.write('vshare_player');
+jwplayer("vshare_player").setup({
+    file: "{$file}",
+    image: "{$video_thumb_url}/thumb/{$video_folder}{$video_id}.jpg",
+    logo: "{$config['baseurl']}/templates/images/watermark.gif",
+    link: "{$config["watermark_url"]}",
+    linktarget: "_blank",
+    width: "{$config['player_width']}",
+    height: "{$config['player_height']}",
+    autostart: "{$config['player_autostart']}",
+    bufferlength: "{$config['player_bufferlength']}"
+});
 </script>
 
 EOT;
