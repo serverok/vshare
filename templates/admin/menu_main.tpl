@@ -9,7 +9,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="home.php">vShare</a>
+      <a class="navbar-brand" href="home.php">
+        <img class="brand" src="{$baseurl}/templates/images/logo_admin.png">
+      </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -139,3 +141,11 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+{literal}
+<style>
+A.navbar-brand img.brand {
+    margin-top:-8px;
+}
+</style>
+{/literal}
