@@ -163,8 +163,6 @@ if (isset($_POST['submit']))
                         DB::query($sql);
                     }
 
-                    dd('ok');
-
                     $_POST['ccbill_sub_ac_no'] = isset($_POST['ccbill_sub_ac_no']) ? $_POST['ccbill_sub_ac_no'] : '';
                     $_POST['ccbill_sub_ac_no'] = trim($_POST['ccbill_sub_ac_no']);
 
