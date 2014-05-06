@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
         $err = $lang['user_name_empty'];
     } else if ($from_email == '') {
         $err = $lang['user_email_empty'];
-    } else if (! validate::email($from_email)) {
+    } else if (! Validate::email($from_email)) {
         $err = $lang['email_invalid'];
     } else {
         if (isset($_SESSION['UID'])) {
