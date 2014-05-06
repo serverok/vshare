@@ -9,3 +9,4 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES ('tool_video_thumb',
 
 
 UPDATE `sconfig` SET `svalue` = '2.9' WHERE `soption` = 'version';
+INSERT INTO `config` (`config_name`, `config_value`) VALUES ('upload_progress_bar', 'none');

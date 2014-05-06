@@ -77,6 +77,17 @@
     </div>
 
     <div class="form-group">
+        <label class="col-sm-3 control-label" for="upload_progress_bar">Upload Progress bar:</label>
+        <div class="col-sm-5">
+            <select class="form-control" name="upload_progress_bar" id="upload_progress_bar">
+                <option value="none" {if $upload_progress_bar =='none'}selected="selected"{/if}>None</option>
+                <option value="uber" {if $upload_progress_bar =='uber'}selected="selected"{/if}>Uber-Uploader</option>
+                <option value="html5" {if $upload_progress_bar =='html5'}selected="selected"{/if}>HTML5</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
             <button type="submit" name="submit" class="btn btn-default btn-lg">Update</button>
         </div>

@@ -80,9 +80,18 @@ if (isset($_POST['submit']))
         DB::query($sql);
     }
 
+    if (isset($_POST['upload_progress_bar']))
+    {
+        $sql = "UPDATE `config` SET
+               `config_value`='" . DB::quote($_POST['upload_progress_bar']) . "' WHERE
+               `config_name`='upload_progress_bar'";
+        DB::query($sql);
+    }
+
     $msg = $lang['settings_updated'];
 }
 
+$smarty->assign('upload_progress_bar', Config::get('upload_progress_bar'));
 $smarty->assign('process_upload', Config::get('process_upload'));
 $smarty->assign('tool_video_thumb', Config::get('tool_video_thumb'));
 $smarty->assign('video_flv_delete', Config::get('video_flv_delete'));
