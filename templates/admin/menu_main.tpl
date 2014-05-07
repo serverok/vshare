@@ -21,7 +21,7 @@
         <ul class="nav navbar-nav">
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuration <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-wrench"></span> Configuration <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="settings.php">Site Settings</a></li>
                     <li><a href="settings_video.php">Video Settings</a></li>
@@ -41,7 +41,7 @@
             </li>
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>  Users <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="users.php">All Users</a></li>
                     <li><a href="users.php?a=Active">Active Users</a></li>
@@ -54,7 +54,7 @@
             </li>
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Videos <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-facetime-video"></span>  Videos <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="videos.php">All Videos</a></li>
                     <li><a href="video_approve.php">Approve Videos</a></li>
@@ -77,7 +77,7 @@
             </li>
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Manage <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="channels.php">View Channels</a></li>
                     <li><a href="channel_add.php">Add Channels</a></li>
@@ -101,7 +101,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Process <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-folder-open"></span> Process <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="process_queue.php">Process Queue</a></li>
                     <li><a href="import_video.php">Import Video</a></li>
@@ -112,7 +112,7 @@
             </li>
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span> More <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     {if $enable_package eq "yes"}
                     <li><a href="payments.php">Payments</a></li>
