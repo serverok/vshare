@@ -49,7 +49,7 @@
                     <li><a href="users.php">All Users</a></li>
                     <li><a href="users.php?a=Active">Active Users</a></li>
                     <li><a href="users.php?a=Inactive">Inactive Users</a></li>
-                    <li><a href="users.php?a=Suspend">Suspend Users</a></li>
+                    <li><a href="users.php?a=Suspended">Suspend Users</a></li>
                     <li><a href="user_search.php">Search Users</a></li>
                     <li><a href="mail_users.php?a=user">Email Users</a></li>
                     <li><a href="user_add.php">Add User</a></li>
