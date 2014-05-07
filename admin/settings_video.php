@@ -28,6 +28,12 @@ if (isset($_POST['submit']))
         }
     }
 
+    if (in_array($_POST['video_output_format'], array('mp4', 'flv'))) {
+        $sql = "UPDATE `config` SET
+               `config_value`='" . DB::quote($_POST['video_output_format']) . "' WHERE
+               `config_name`='video_output_format'";
+        DB::query($sql);
+    }
 
     if (is_numeric($_POST['process_upload'])) {
         $sql = "UPDATE `config` SET
@@ -91,6 +97,7 @@ if (isset($_POST['submit']))
     $msg = $lang['settings_updated'];
 }
 
+$smarty->assign('video_output_format', Config::get('video_output_format'));
 $smarty->assign('upload_progress_bar', Config::get('upload_progress_bar'));
 $smarty->assign('process_upload', Config::get('process_upload'));
 $smarty->assign('tool_video_thumb', Config::get('tool_video_thumb'));

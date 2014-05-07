@@ -7,6 +7,16 @@
     <fieldset>
 
     <div class="form-group">
+        <label class="col-sm-3 control-label" for="video_output_format">Video Output Format:</label>
+        <div class="col-sm-5">
+            <select class="form-control" name="video_output_format" id="video_output_format">
+                <option value="mp4" {if $video_output_format eq 'mp4'}selected="selected"{/if}>MP4</option>
+                <option value="flv" {if $video_output_format eq 'flv'}selected="selected"{/if}>FLV</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
         <label class="col-sm-3 control-label" for="process_upload">Video Processing:</label>
         <div class="col-sm-5">
             <select class="form-control" name="process_upload" id="process_upload">

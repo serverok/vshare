@@ -128,6 +128,7 @@ INSERT INTO `config` (`config_name` ,`config_value`) VALUES('hotlink_protection'
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('dailymotion_api_key', '');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('dailymotion_api_secret', '');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('upload_progress_bar', 'none');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('video_output_format', 'mp4');
 
 
 -- Table structure for table `contact`

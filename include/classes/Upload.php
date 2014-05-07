@@ -121,7 +121,7 @@ class Upload
         global $config , $db_host , $db_user , $db_pass , $db_name;
 
         $log_file_name = 'convert_log_' . $vid;
-        require VSHARE_DIR . '/include/settings/video_format.php';
+        $video_output_format = Config::get('video_output_format');
 
         $err = 0;
         $re_convert = 0;

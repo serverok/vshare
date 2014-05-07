@@ -6,7 +6,7 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES ('dailymotion_api_ke
 INSERT INTO `config` (`config_name`, `config_value`) VALUES ('dailymotion_api_secret', '');
 DELETE FROM `config` WHERE `config_name`='video_duration_cmd';
 INSERT INTO `config` (`config_name`, `config_value`) VALUES ('tool_video_thumb', 'ffmpeg');
-
+INSERT INTO `config` (`config_name`, `config_value`) VALUES ('video_output_format', 'mp4');
 
 UPDATE `sconfig` SET `svalue` = '2.9' WHERE `soption` = 'version';
 INSERT INTO `config` (`config_name`, `config_value`) VALUES ('upload_progress_bar', 'none');
