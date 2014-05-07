@@ -3,5 +3,5 @@
 {/if}
 
 {if $msg ne ""}
-    <div class="vshare-success"><div>{$msg} <button class="vshare-success-button" onclick="$(this).parent().parent().hide();"></button></div> </div>
+    <div class="vshare-success">{$msg}</div>
 {/if}

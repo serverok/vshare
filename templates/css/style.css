@@ -560,41 +560,29 @@ CLASSES
     color:#333333;
 }
 .vshare-error {
-    font-size:14px;
-    font-weight:bold;
-    color:#000000;
-    vertical-align: middle;
-    padding:10px 4em;
-    background-color: #FFE5E5;
-    margin-bottom: 0.2em;
-    background-image:url(../images/error.png);
+    background-color: #F2DEDE;
+    background-image: url("../images/error.png");
+    background-origin: content-box;
+    background-position: left center;
     background-repeat: no-repeat;
-    background-position: 10px 2px;
-    margin-top: auto;
-    margin-right: auto;
-    margin-left: auto;
-    border: 1px solid #fb9999;
- }
-.vshare-success {
-    background-color: #FFE5E5;
-    background-repeat: no-repeat;
-    border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    font-weight: bold;
-    letter-spacing: 1px;
+    border-radius: 5px;
+    color: #000000;
+    font-size: 14px;
     margin: 18px;
     padding: 1em;
+    text-indent: 3em;
+    vertical-align: middle;
+ }
+.vshare-success {
+    background-color: #DFF0D8;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 18px;
+    padding: 1em;
+    position: relative;
     text-align: justify;
     vertical-align: middle;
-}
-.vshare-success-button {
-	float:right;
-	border:0;
-	background-image:url(../images/msg_close.png);
-	background-position: center center;
-	background-repeat: no-repeat;
-	height: 18px;
 }
 .confirmation {
     font-size: 14px;
@@ -629,7 +617,7 @@ CLASSES
    width:112px;
    margin:2px 3px;
    overflow:hidden;
-   text-align:left;    
+   text-align:left;
 }
 /*view_video.tpl only = >   = > end*/
 
@@ -994,7 +982,7 @@ index.tpl
 }
 /*
 ---------------------------------------------------------------------
-Site Statistics 
+Site Statistics
 ---------------------------------------------------------------------
 */
 
@@ -1919,7 +1907,7 @@ font-weight:bold;
 }
 
 #myaccount li img{
-padding-bottom: 4px; 
+padding-bottom: 4px;
 vertical-align: middle;
 }
 
@@ -2109,7 +2097,7 @@ div.view-video-watch-img-adjust {
     bottom:0px;
     left:0px;
 }
- 
+
 .home-video-queue{
     /*bottom:-1px;
     left:-1px;*/
