@@ -5,14 +5,12 @@
 <table class="table table-striped table-hover">
 
     <tr>
-        <td><b>ID</b></td>
         <td><b>User Names</b></td>
         <td align="center"><b>ACTION</b></td>
     </tr>
 
     {section name=i loop=$disallow}
     <tr>
-        <td>{$disallow[i].disallow_id}</td>
         <td>{$disallow[i].disallow_username}</td>
         <td align="center">
             <a href="?action=del&id={$disallow[i].disallow_id}" onClick='Javascript:return confirm("Are you sure you want to delete?");'>
@@ -32,7 +30,7 @@
     <div class="form-group">
         <label class="sr-only" for="name">Reserve a User Name:</label>
         <div class="col-sm-5">
-            <input class="form-control" type="text" name="name" id="name" placeholder="Reserve a User Name">
+            <input class="form-control" type="text" name="name" id="name" placeholder="Reserve a User Name" required>
         </div>
     </div>
 
