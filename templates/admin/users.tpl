@@ -4,7 +4,7 @@
 
 <table class="table table-striped">
 
-	<tr class="tabletitle">
+	<tr>
 		<td>
 			<b>ID</b>
 			<a href="users.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=user_id+asc&page={$page}">
@@ -86,7 +86,7 @@
 				{$users[aa].user_last_login_time|date_format}
 			</td>
 			{insert name=subscriber_info assign=pack uid=$users[aa].user_id}
-			<td align="right">
+			<td>
 				{if $pack.total_video gt "0"}
 					<a href="user_videos.php?uid={$users[aa].user_id}">
 						{$pack.total_video}
@@ -100,7 +100,7 @@
 				{$pack.package_name}
 			</td>
 			{/if}
-			<td align="center">
+			<td>
 				{$users[aa].user_account_status}
 			</td>
 			<td align="center">
