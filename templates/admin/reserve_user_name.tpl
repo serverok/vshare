@@ -1,27 +1,19 @@
-<h1>Reserved User Names</h1>
+<div class="page-header">
+    <h1>Reserved User Names</h1>
+</div>
 
-<table cellspacing="1" cellpadding="3" width="100%">
+<table class="table table-striped table-hover">
 
-    <tr class="tabletitle">
-        <td>
-            <b>ID</b>
-        </td>
-        <td>
-            <b>User Names</b>
-        </td>
-        <td align='center'>
-            <b>ACTION</b>
-        </td>
+    <tr>
+        <td><b>ID</b></td>
+        <td><b>User Names</b></td>
+        <td align="center"><b>ACTION</b></td>
     </tr>
 
     {section name=i loop=$disallow}
     <tr>
-        <td>
-            {$disallow[i].disallow_id}
-        </td>
-        <td>
-            {$disallow[i].disallow_username}
-        </td>
+        <td>{$disallow[i].disallow_id}</td>
+        <td>{$disallow[i].disallow_username}</td>
         <td align="center">
             <a href="?action=del&id={$disallow[i].disallow_id}" onClick='Javascript:return confirm("Are you sure you want to delete?");'>
                 <span class="glyphicon glyphicon-remove-circle"></span>
@@ -34,15 +26,16 @@
 
 <hr />
 
-<form method="post" action="">
+<form method="post" action="" class="form-inline">
 
     <input type="hidden" name="action" value="add" />
-    <div>
-        <label for="name">Reserve a User Name:</label>
-        <input type="text" size="40" name="name" id="name" />
+    <div class="form-group">
+        <label class="sr-only" for="name">Reserve a User Name:</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="text" name="name" id="name" placeholder="Reserve a User Name">
+        </div>
     </div>
-    <div class="submit">
-        <input type="submit" name="submit" value="Submit" />
-    </div> 
+
+    <button type="submit" name="submit" class="btn btn-default">Reserve</button>
 
 </form>

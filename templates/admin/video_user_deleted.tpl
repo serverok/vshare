@@ -4,7 +4,7 @@
 
 <script language="JavaScript" type="text/javascript" src="{$base_url}/js/admin_user_deleted_videos.js"></script>
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
 
 <tr>
 <td>
@@ -52,10 +52,10 @@
 <tr>
 	<td>{$videos[aa].video_id}</td>
 	<td><a href="video_details.php?a={$a}&id={$videos[aa].video_id}&page={$page}">{$videos[aa].video_title}</a></td>
-	<td align="center">{$videos[aa].video_type}</td>
-	<td align="center">{$videos[aa].video_length}</td>
-	<td align="center">{$videos[aa].video_featured}</td>
-	<td align="center">{$videos[aa].video_add_date|date_format}</td>
+	<td>{$videos[aa].video_type}</td>
+	<td>{$videos[aa].video_length}</td>
+	<td>{$videos[aa].video_featured}</td>
+	<td>{$videos[aa].video_add_date|date_format}</td>
 	<td align="center">
 		<a href="video_user_deleted_activate.php?id={$videos[aa].video_id}">
         <span class="glyphicon glyphicon-ok"></span>

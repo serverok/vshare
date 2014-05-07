@@ -5,7 +5,7 @@
     <table class="table table-striped">
 
         <tr>
-            <td align="center">
+            <td>
             <b>ID</b>
                 <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=inappropriate_request_video_id+asc&page={$page}">
                     <span class="glyphicon glyphicon-arrow-up"></span>
@@ -14,10 +14,10 @@
                     <span class="glyphicon glyphicon-arrow-down"></span>
                 </a>
             </td>
-            <td align="center">
+            <td>
                 <b>Video Title</b>
             </td>
-            <td align="center">
+            <td>
                 <b>Total Request</b>
                 <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=inappropriate_request_count+asc&page={$page}">
                     <span class="glyphicon glyphicon-arrow-up"></span>
@@ -26,7 +26,7 @@
                     <span class="glyphicon glyphicon-arrow-down"></span>
                 </a>
             </td>
-            <td align="center">
+            <td>
                 <b>Last Reqeust Date</b>
                 <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=inappropriate_request_date+asc&page={$page}">
                     <span class="glyphicon glyphicon-arrow-up"></span>
@@ -44,18 +44,10 @@
 
             {insert name=getfield assign=title field='video_title' table='videos' qfield='video_id' qvalue=$videos[aa].inappropriate_request_video_id}
             <tr>
-                <td align="center">
-                    {$videos[aa].inappropriate_request_video_id}
-                </td>
-                <td>
-                    <a href="video_details.php?id={$videos[aa].inappropriate_request_video_id}">{$title}</a>
-                </td>
-                <td align="center">
-                    {$videos[aa].inappropriate_request_count}
-                </td>
-                <td align="center">
-                    {$videos[aa].inappropriate_request_date|date_format}
-                </td>
+                <td>{$videos[aa].inappropriate_request_video_id}</td>
+                <td><a href="video_details.php?id={$videos[aa].inappropriate_request_video_id}">{$title}</a></td>
+                <td>{$videos[aa].inappropriate_request_count}</td>
+                <td>{$videos[aa].inappropriate_request_date|date_format}</td>
                 <td align="center">
                     <a href="videos.php?a={$smarty.request.a}&action=del&video_id={$videos[aa].inappropriate_request_video_id}&page={$page}&sort={$smarty.request.sort}" onclick='Javascript:return confirm("Are you sure you want to delete?");'>
                         <span class="glyphicon glyphicon-trash"></span>
@@ -83,8 +75,8 @@
     <form method="post" action="" onsubmit="javascript:return confirm('Are you sure you want to delete?');">
     {/if}
 
-    <table class="table table-striped">
-        <tr class="tabletitle">
+    <table class="table table-striped table-hover">
+        <tr>
         {if $a eq "embedded"}
             <td><input type="checkbox" id="check_all" /></td>
         {/if}
@@ -165,11 +157,11 @@
             {/if}
                 <td>{$videos[aa].video_id}</td>
                 <td><a href="video_details.php?a={$a}&id={$videos[aa].video_id}&page={$page}">{$videos[aa].video_title}</a></td>
-                <td align="center">{$videos[aa].video_type}</td>
-                <td align="center">{$videos[aa].video_length}</td>
-                <td align="center">{$videos[aa].video_featured}</td>
-                <td align="center">{$videos[aa].video_view_number}</td>
-                <td align="center">{$videos[aa].video_add_date|date_format}</td>
+                <td>{$videos[aa].video_type}</td>
+                <td>{$videos[aa].video_length}</td>
+                <td>{$videos[aa].video_featured}</td>
+                <td>{$videos[aa].video_view_number}</td>
+                <td>{$videos[aa].video_add_date|date_format}</td>
                 <td align="center">
                     <a href="video_edit.php?a={$a}&action=edit&video_id={$videos[aa].video_id}&page={$page}&sort={$smarty.request.sort}">
                         <span class="glyphicon glyphicon-edit"></span>

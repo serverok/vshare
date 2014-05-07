@@ -2,15 +2,11 @@
 
 <form method="post" action="channel_sort.php">
 
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
 
-        <tr class="tabletitle">
-            <td width="10%">
-                <b>ID</b>
-            </td>
-            <td width="70%">
-                <b>Channel Name</b>
-            </td>
+        <tr>
+            <td width="10%"><b>ID</b></td>
+            <td width="70%"><b>Channel Name</b></td>
             <td width="20%">
                 <b>Sort Order</b>
                 <a href="channel_sort.php?sort=asc&page={$page}">
@@ -45,11 +41,9 @@
         <div class="col-md-10">
             {$link}
         </div>
-
         <div class="col-md-2">
             <input type="submit" name="submit" value="Update Sort Order" class="btn btn-default btn-lg" />
         </div>
-
     </div>
 
 </form>

@@ -18,9 +18,9 @@
     <p>Upload your videos to <b>{$base_dir}/templates_c/import</b> folder to import.</p>
     <p>Make sure folder import have read/write permission (chmod 777).</p>
     <hr />
-    <table cellspacing="1" cellpadding="3" width="100%">
+    <table class="table table-striped table-hover">
 
-        <tr class="tabletitle">
+        <tr>
             <td align="left">
                 <b>Video Name</b>
             </td>
@@ -43,7 +43,6 @@
     </table>
 
 {/if}
-
 
 <div>
     <a href="import_folder_all.php">Import All Videos</a>

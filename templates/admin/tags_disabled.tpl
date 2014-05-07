@@ -2,9 +2,9 @@
 
 {include file='admin/tags_menu.tpl'}
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
 
-    <tr class="tabletitle">
+    <tr>
         <td>
             <b>Tag</b>
         </td>

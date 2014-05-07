@@ -38,8 +38,8 @@
     <p>Total: {$total}</p>
 
     <table cellspacing="1" cellpadding="3"  width="100%" border="0">
-    
-        <tr class="tabletitle">
+
+        <tr>
             <td>
                 <b>ID</b>
                 <a href="?search=Search&{$search_query}&sort=video_id+asc">
@@ -100,7 +100,7 @@
         </tr>
 
         {section name=aa loop=$video_info}
-        
+
             <tr>
                 <td>
                     {$video_info[aa].video_id}

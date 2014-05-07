@@ -3,7 +3,7 @@
 {if $sitemap|@count ne '0'}
 
 <table cellspacing="1" cellpadding="3"  width="100%" border="0">
-	<tr class="tabletitle">
+	<tr>
 		<td><b>Sitemap Name</b></td>
 		<td><b>Sitemap Generated On</b></td>
 		<td><b>Sitemap URL Count</b></td>
