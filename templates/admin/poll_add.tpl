@@ -29,7 +29,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">End date:</label>
         <div class="col-sm-5">
-            <div class="form-inlin">
+            <div class="form-inline">
                 <select class="form-control" name="end_date_day">
                     {$days}
                     <option value="{$smarty.post.end_date_day}">{$smarty.post.end_date_day}</option>
