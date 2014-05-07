@@ -33,13 +33,10 @@
                     <li><a href="upload_logo.php">Upload Logo</a></li>
                     <li><a href="upload_watermark.php">Upload Watermark</a></li>
                     <li><a href="advertisements.php">Advertisements</a></li>
-                    <li><a href="admin_log.php">Admin Log</a></li>
                     <li><a href="email_templates.php">Email Templates</a></li>
                     <li class="divider"></li>
                     <li><a href="server_manage.php">List Server</a></li>
                     <li><a href="server_add.php">Add Server</a></li>
-                    <li class="divider"></li>
-                    <li><a href="change_password.php">Admin password</a></li>
                </ul>
             </li>
 
@@ -134,9 +131,20 @@
 
         </ul>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="logout.php">Logout</a></li>
-      </ul>
+        <ul class="nav navbar-nav pull-right">
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle">
+                    <span class="glyphicon glyphicon-user"></span>
+                    Admin <span class="caret"></span>
+                </a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a href="admin_log.php"><span class="glyphicon glyphicon-book"></span> Admin Log</a></li>
+                    <li><a href="change_password.php"><span class="glyphicon glyphicon-wrench"></span> Admin Password</a></li>
+                    <li class="divider"></li>
+                    <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </li>
+        </ul>
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
