@@ -101,7 +101,14 @@
 			</td>
 			{/if}
 			<td>
-				{$users[aa].user_account_status}
+                {if $users[aa].user_account_status eq 'Active'}
+                <span class="label label-success">
+                {else if $users[aa].user_account_status eq 'Inactive'}
+                <span class="label label-warning">
+                {else if $users[aa].user_account_status eq 'Suspended'}
+                <span class="label label-danger">
+                {/if}
+                {$users[aa].user_account_status}</span>
 			</td>
 			<td align="center">
 				<a href="user_edit.php?action=edit&uid={$users[aa].user_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
