@@ -2,11 +2,11 @@
     <h1>Admin Log</h1>
 </div>
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
 
     <tr>
-        <td align="center" width="15%"><b>USERNAME</b></td>
-        <td align="center" width="15%">
+        <td width="15%"><b>USERNAME</b></td>
+        <td width="15%">
             <b>USER IP</b>
             <a href="admin_log.php?sort=admin_log_ip+asc&page={$page}">
                 <span class="glyphicon glyphicon-arrow-up"></span>
@@ -15,7 +15,7 @@
                 <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
-        <td align="center" width="20%">
+        <td width="20%">
             <b>TIME</b>
             <a href="admin_log.php?sort=admin_log_time+asc&page={$page}">
             <span class="glyphicon glyphicon-arrow-up"></span>
@@ -24,8 +24,8 @@
                 <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
-        <td align="center">
-            <b>ACTION</b>
+        <td>
+            <b>PAGE REQUESTED</b>
         </td>
 
     </tr>
@@ -40,8 +40,8 @@
             <a href="user_view.php?user_id={$admin_log_info[i].admin_log_user_id}">{$user_name}</a>
         {/if}
         </td>
-        <td align="center">{$admin_log_info[i].admin_log_ip}</td>
-        <td align="center">{$admin_log_info[i].admin_log_time|date_format:"%B %e, %Y %H:%M:%S"}</td>
+        <td>{$admin_log_info[i].admin_log_ip}</td>
+        <td>{$admin_log_info[i].admin_log_time|date_format:"%B %e, %Y %H:%M:%S"}</td>
         <td>{$admin_log_info[i].admin_log_script}{if $admin_log_info[i].admin_log_extra ne ''}?{$admin_log_info[i].admin_log_extra}{/if}</td>
     </tr>
     {/section}
