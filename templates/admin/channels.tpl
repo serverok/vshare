@@ -22,18 +22,10 @@
                 <span class="glyphicon glyphicon-arrow-down"></span>
             </a>
         </td>
-        <td>
-            <b>Description</b>
-        </td>
-        <td align="center">
-            <b>Videos</b>
-        </td>
-        <td align="center">
-            <b>Groups</b>
-        </td>
-        <td width="100" align="center">
-            <b>Action</b>
-        </td>
+        <td><b>Description</b></td>
+        <td><b>Videos</b></td>
+        <td><b>Groups</b></td>
+        <td width="100" align="center"><b>Action</b></td>
     </tr>
 
     {section name=aa loop=$channels}
@@ -44,8 +36,8 @@
             <td>{$channels[aa].channel_id}</td>
             <td><a href="channel_search.php?id={$channels[aa].channel_id}&action=search">{$channels[aa].channel_name}</a></td>
             <td>{$channels[aa].channel_description}</td>
-            <td align="center">{if $count[1] ne "0"}<a href="channel_videos.php?chid={$channels[aa].channel_id}">{$count[1]}</a>{else}0{/if}</td>
-            <td align="center">{if $count[2] ne "0"}<a href="channel_groups.php?chid={$channels[aa].channel_id}">{$count[2]}</a>{else}0{/if}</td>
+            <td>{if $count[1] ne "0"}<a href="channel_videos.php?chid={$channels[aa].channel_id}">{$count[1]}</a>{else}0{/if}</td>
+            <td>{if $count[2] ne "0"}<a href="channel_groups.php?chid={$channels[aa].channel_id}">{$count[2]}</a>{else}0{/if}</td>
             <td align="center">
             <a href="channel_edit.php?action=edit&chid={$channels[aa].channel_id}&page={$page}&sort={$smarty.request.sort}">
                 <span class="glyphicon glyphicon-edit"></span>
