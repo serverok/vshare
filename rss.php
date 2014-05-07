@@ -107,7 +107,7 @@ foreach ($videos_all as $video_info) {
     echo '<a href=' . $video . ' target=_blank><img src="' . $photo . '" border="0" width="174" height="130" vspace="4" hspace="4"></a><p>' . $description . '</p>' . '<p>Added by: <a href="' . VSHARE_URL . '/' . $video_info['user_name'] . '">' . $video_info['user_name'] . '</a>';
     echo '<br />Tags: ';
 
-    $tag = new Tags($video_info['video_keywords'], $video_info['video_id'], '', "0||0");
+    $tag = new Tag($video_info['video_keywords'], $video_info['video_id'], '', "0||0");
     $tags = $tag->get_tags();
     unset($tag);
 
