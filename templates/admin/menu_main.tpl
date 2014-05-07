@@ -141,17 +141,3 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
-{literal}
-<style>
-A.navbar-brand img.brand {
-    margin-top:-8px;
-}
-.footer {
-    border-top: 1px solid #E5E5E5;
-    color: #777777;
-    padding-top: 19px;
-}
-
-</style>
-{/literal}
