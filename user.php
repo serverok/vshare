@@ -82,10 +82,12 @@ $smarty->assign('user_friends', $user_friends);
 
 $chkuserflag = '';
 
-if (! isset($_SESSION['UID'])) {
-    $chkuserflag = 'guest';
-} else if ($_SESSION['UID'] == $user_info['user_id']) {
-    $chkuserflag = 'self';
+if (isset($_SESSION['UID'])) {
+    if ($_SESSION['UID'] == $user_info['user_id']) {
+        $chkuserflag = 'self';
+    } else {
+        $chkuserflag = 'guest';
+    }
 }
 
 if ($config['enable_package'] == 'yes' and isset($_SESSION['UID'])) {
