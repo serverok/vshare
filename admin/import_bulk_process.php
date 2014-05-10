@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
                            `import_track_id`=" . (int) $import_track_id;
                     $result = DB::fetch($sql);
 
-                    Users::updateVideoCount($user_id);
+                    User::updateVideoCount($user_id);
 
                 } else {
                     $sql = "INSERT INTO `process_queue`SET
