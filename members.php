@@ -15,7 +15,7 @@
 require 'include/config.php';
 
 $page = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
-$sort = (isset($_GET['sort'])) ? $_GET['sort'] : 'recent';
+$sort = (isset($_GET['sort'])) ? $_GET['sort'] : 'video_uploaded';
 
 if ($page < 1) {
     $page = 1;
@@ -34,14 +34,8 @@ if (! in_array($sort, $sort_array)) {
 }
 
 if ($sort == 'video_uploaded') {
-    $sql = "SELECT u . * , count( v.video_id ) AS `total` FROM
-		   `videos` AS `v`, `users` AS `u`
-            WHERE v.video_user_id=u.user_id AND
-            v.video_active='1' AND
-            v.video_approve='1'
-            GROUP BY v.video_user_id";
-    $result = DB::fetch($sql);
-    $total = count($result);
+    $sql = "SELECT count(*) AS `total` FROM `users` WHERE `user_videos` > 0";
+    $total = DB::getTotal($sql);
 }
 else if ($sort == 'subscribed')
 {
@@ -75,13 +69,10 @@ if ($sort == 'recent')
 else if ($sort == 'video_uploaded')
 {
     $title = 'Most Video Uploaded';
-    $sql = "SELECT u . * , count( v.video_id ) AS tmp
-            FROM `videos` AS v, users AS u
-            WHERE v.video_user_id = u.user_id AND
-            v.video_active='1' AND
-            v.video_approve='1'
-            GROUP BY v.video_user_id
-            ORDER BY tmp DESC
+
+    $sql = "SELECT * FROM `users` WHERE
+            `user_videos` > 0
+            ORDER BY `user_videos` DESC
             LIMIT $start_from, $config[items_per_page]";
 }
 else if ($sort == 'profile_viewed')
