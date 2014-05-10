@@ -18,7 +18,7 @@
 <table class="table table-hover table-striped">
 
 <tr>
-    <td width="100px">Video ID</td>
+    <td width="160px">Video ID</td>
     <td>{$video.video_id}</td>
 </tr>
 
