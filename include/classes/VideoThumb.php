@@ -18,9 +18,9 @@ class VideoThumb
             $video_data['duration'] = VideoDuration::find($video_data);
         }
 
-        if ($video_data['tool'] == 0) {
+        if ($video_data['tool'] == 'mplayer') {
             $tmp = self::_createWithMplayer($video_data);
-        } else if ($video_data['tool'] == 1) {
+        } else if ($video_data['tool'] == 'ffmpeg') {
             $tmp = self::_createWithFfmpeg($video_data);
         } else {
             $tmp = self::_createWithFfmpegPhp($video_data);
