@@ -15,8 +15,10 @@
         </div>
     </div>
 
-    <div>
-        <button type="submit" name="tags_regenerate" class="btn btn-default btn-lg">Generate</button>
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-5">
+            <button type="submit" name="tags_regenerate" class="btn btn-default btn-lg">Generate</button>
+        </div>
     </div>
 
 </form>
