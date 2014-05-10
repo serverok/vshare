@@ -68,7 +68,7 @@
 {foreach from=$videos item=video}
 <tr>
 	<td>{$video.video_id}</td>
-	<td><a href="video_details.php?id={$video.video_id}">{$video.video_title}</a></td>
+	<td><a href="video_details.php?id={$video.video_id}">{$video.video_title|truncate:60:"...":true}</a></td>
 	<td align="center">{$video.video_type}</td>
 	<td align="center">{$video.video_length}</td>
 	<td align="center">{$video.video_featured}</td>
