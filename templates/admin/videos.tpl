@@ -62,7 +62,7 @@
 <div class="row">
     <div class="col-md-10">{$links}</div>
     <div class="col-md-2">
-        <a href="videos.php?a={$smarty.request.a}&page={$page}&action=delete" onclick='Javascript:return confirm("Are you sure you want to delete?");' class="btn btn-warning">
+        <a href="videos.php?a={$smarty.request.a}&page={$page}&action=delete" onclick='Javascript:return confirm("Are you sure you want to delete?");' class="btn btn-danger">
             Delete All Requests
         </a>
     </div>

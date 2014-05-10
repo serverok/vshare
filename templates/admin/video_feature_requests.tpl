@@ -76,7 +76,7 @@
 <div class="row">
     <div class="col-md-10">{$links}</div>
     <div class="col-md-2">
-        <a href="?page={$page}&action=delete_all" onclick="javascript:return confirm('Are you sure you want to remove?');" class="btn btn-warning">
+        <a href="?page={$page}&action=delete_all" onclick="javascript:return confirm('Are you sure you want to remove?');" class="btn btn-danger">
             Remove All Requests
         </a>
     </div>
