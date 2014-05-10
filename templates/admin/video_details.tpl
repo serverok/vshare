@@ -1,6 +1,8 @@
 {if !empty($video)}
 
-<h1>{$video.video_title}</h1>
+<div class="page-header">
+    <h1>{$video.video_title}</h1>
+</div>
 
 {$VSHARE_PLAYER}
 
@@ -10,95 +12,109 @@
     </a>
 </p>
 
-<div>
-    <label>Video ID</label>
-    {$video.video_id}
-</div>
+<div class="row">
+    <div class="col-md-8">
 
-<div>
-    <label>Server ID</label>
-    {$video.video_server_id}
-</div>
+<table class="table table-hover table-striped">
 
-<div>
-    <label>Title</label>
-    {$video.video_title}
-</div>
+<tr>
+    <td width="100px">Video ID</td>
+    <td>{$video.video_id}</td>
+</tr>
 
-<div>
-    <label>Added by</label>
+<tr>
+    <td>Server ID</td>
+    <td>{$video.video_server_id}</td>
+</tr>
+
+<tr>
+    <td>Title</td>
+    <td>{$video.video_title}</td>
+</tr>
+
+<tr>
+    <td>Added by</td>
+    <td>
     {if $video.video_user_id eq 0}
         Deleted Video
     {else}
         {insert name=id_to_name assign=uname un=$video.video_user_id}
         <a href="user_view.php?user_id={$video.video_user_id}">{$uname}</a>
     {/if}
-</div>
+    </td>
+</tr>
 
-<div>
-     <label>Description</label>
-     {$video.video_description}
-</div>
+<tr>
+     <td>Description</td>
+     <td>{$video.video_description}</td>
+</tr>
 
-<div>
-     <label>Tags</label>
-     {$video.video_keywords}
-</div>
+<tr>
+     <td>Tags</td>
+     <td>{$video.video_keywords}</td>
+</tr>
 
-<div>
-    <label>Channel</label>
+<tr>
+    <td>Channel</td>
+    <td>
     {insert name=video_channel assign=channel vid=$video.video_id}
     {section name=j loop=$channel}
         {$channel[j].channel_name},
     {/section}
-</div>
+    </td>
+</tr>
 
-<div>
-   <label>Duration</label>
-   {$video.video_length}
-</div>
+<tr>
+   <td>Duration</td>
+   <td>{$video.video_length}</td>
+</tr>
 
-<div>
-   <label>Type</label>
-   {$video.video_type}
-</div>
+<tr>
+   <td>Type</td>
+   <td>{$video.video_type}</td>
+</tr>
 
-<div>
-   <label>vType</label>
-   {$video.video_vtype}
-</div>
+<tr>
+   <td>vType</td>
+   <td>{$video.video_vtype}</td>
+</tr>
 
-<div>
-   <label>Rate</label>
-   {$video.video_rate}
-</div>
+<tr>
+   <td>Rate</td>
+   <td>{$video.video_rate}</td>
+</tr>
 
-<div>
-   <label>Is featured ?</label>
-   {$video.video_featured}
-</div>
+<tr>
+   <td>Is featured ?</td>
+   <td>{$video.video_featured}</td>
+</tr>
 
-<div>
-   <label>Can be commented ?</label>
-   {$video.video_allow_comment}
-</div>
+<tr>
+   <td>Can be commented ?</td>
+   <td>{$video.video_allow_comment}</td>
+</tr>
 
-<div>
-    <label>Can be rated?</label>
-    {$video.video_allow_rated}
-</div>
+<tr>
+    <td>Can be rated?</td>
+    <td>{$video.video_allow_rated}</td>
+</tr>
 
-<div>
-    <label>Can be embaded?</label>
-    {$video.video_allow_embed}
-</div>
+<tr>
+    <td>Can be embaded?</td>
+    <td>{$video.video_allow_embed}</td>
+</tr>
 
 {if $family_filter eq "1"}
-    <div>
-        <label>Adult Video</label>
-        {if $video.video_adult eq "1"}Yes{else}No{/if}
-    </div>
+<tr>
+    <td>Adult Video</td>
+    <td>{if $video.video_adult eq "1"}Yes{else}No{/if}</td>
+</tr>
 {/if}
+
+</table>
+
+    </div>
+</div>
 
 <div class="btn-group">
     {if $video_type eq "0"}
