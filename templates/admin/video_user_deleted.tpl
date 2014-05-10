@@ -73,7 +73,7 @@
 <div class="row">
     <div class="col-md-10">{$links}</div>
     <div class="col-md-2">
-        <a href="{$base_url}/admin/video_user_deleted_all.php" class="btn btn-danger">
+        <a href="{$base_url}/admin/video_user_deleted_all.php" class="btn btn-warning">
             Delete All
         </a>
     </div>
