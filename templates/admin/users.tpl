@@ -71,31 +71,30 @@
 		</td>
 	</tr>
 
-	{section name=aa loop=$users}
+	{foreach from=$users item=user_info}
 		<tr>
 			<td>
-				{$users[aa].user_id}
+				{$user_info.user_id}
 			</td>
 			<td>
-				<a href="user_view.php?user_id={$users[aa].user_id}&page={$smarty.request.page}">
-					{$users[aa].user_name}
+				<a href="user_view.php?user_id={$user_info.user_id}&page={$smarty.request.page}">
+					{$user_info.user_name}
 				</a>
 			</td>
 			<td>
-				{$users[aa].user_country}
+				{$user_info.user_country}
 			</td>
 			<td>
-				{$users[aa].user_last_login_time|date_format}
+				{$user_info.user_last_login_time|date_format}
 			</td>
-			{insert name=subscriber_info assign=pack uid=$users[aa].user_id}
 			<td>
-				{if $pack.total_video gt "0"}
-					<a href="user_videos.php?uid={$users[aa].user_id}">
-						{$pack.total_video}
-					</a>
-				{else}
-					0
-				{/if}
+                {if $user_info.user_videos gt "0"}
+                <a href="user_videos.php?uid={$user_info.user_id}">
+                    {$user_info.user_videos}
+                </a>
+                {else}
+                0
+                {/if}
 			</td>
 			{if $enable_package eq "yes"}
 			<td>
@@ -103,34 +102,34 @@
 			</td>
 			{/if}
 			<td>
-                {if $users[aa].user_account_status eq 'Active'}
+                {if $user_info.user_account_status eq 'Active'}
                 <span class="label label-success">
-                {else if $users[aa].user_account_status eq 'Inactive'}
+                {else if $user_info.user_account_status eq 'Inactive'}
                 <span class="label label-warning">
-                {else if $users[aa].user_account_status eq 'Suspended'}
+                {else if $user_info.user_account_status eq 'Suspended'}
                 <span class="label label-danger">
                 {/if}
-                {$users[aa].user_account_status}</span>
+                {$user_info.user_account_status}</span>
 			</td>
 			<td align="center">
-				<a href="user_edit.php?action=edit&uid={$users[aa].user_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
+				<a href="user_edit.php?action=edit&uid={$user_info.user_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
                 &nbsp;
-                <a href="user_delete.php?uid={$users[aa].user_id}&a={$smarty.get.a}&page={$smarty.get.page}&sort={$smarty.get.sort}" onclick="javascript:return confirm('Are you sure you want to delete?');">
+                <a href="user_delete.php?uid={$user_info.user_id}&a={$smarty.get.a}&page={$smarty.get.page}&sort={$smarty.get.sort}" onclick="javascript:return confirm('Are you sure you want to delete?');">
                     <span class="glyphicon glyphicon-remove-circle"></span>
                 </a>
                 &nbsp;
-				<a href="mail_users.php?email={$users[aa].user_email}&uname={$users[aa].user_name}">
+				<a href="mail_users.php?email={$user_info.user_email}&uname={$user_info.user_name}">
                     <span class="glyphicon glyphicon-envelope"></span>
                 </a>
                 &nbsp;
-				<a href="user_login.php?username={$users[aa].user_name}" target="_blank">
+				<a href="user_login.php?username={$user_info.user_name}" target="_blank">
                     <span class="glyphicon glyphicon-log-in"></span>
                 </a>
 			</td>
 		</tr>
-	{/section}
+	{/foreach}
 
 </table>
 
