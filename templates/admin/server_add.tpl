@@ -45,17 +45,19 @@
     <div class="form-group">
         <label class="col-sm-3 control-label" for="server_type">Server Type:</label>
         <div class="col-sm-5">
-            <select class="form-control" name="server_type" id="server_type" onchange="server_type_change(this.value);">
-                <option value="0" {if $smarty.post.server_type == "0"}selected="selected"{/if}>VIDEO SERVER</option>
-                <option value="1" {if $smarty.post.server_type == "1"}selected="selected"{/if}>THUMBNAIL SERVER</option>
-                <option value="2" {if $smarty.post.server_type == "2"}selected="selected"{/if}>MOD_SECDOWNLOAD (LIGHTTPD)</option>
-                <option value="3" {if $smarty.post.server_type == "3"}selected="selected"{/if}>ngx_http_secure_link_module</option>
-            </select>
-            <p class="help-block">
-                <a href="http://labs.buyscripts.in/projects/vshare/wiki/Add_Server" target="_blank">
-                    <span class="glyphicon glyphicon-question-sign"></span>
-                </a>
-            </p>
+            <div class="input-group">
+                <select class="form-control" name="server_type" id="server_type" onchange="server_type_change(this.value);">
+                    <option value="0" {if $smarty.post.server_type == "0"}selected="selected"{/if}>VIDEO SERVER</option>
+                    <option value="1" {if $smarty.post.server_type == "1"}selected="selected"{/if}>THUMBNAIL SERVER</option>
+                    <option value="2" {if $smarty.post.server_type == "2"}selected="selected"{/if}>MOD_SECDOWNLOAD (LIGHTTPD)</option>
+                    <option value="3" {if $smarty.post.server_type == "3"}selected="selected"{/if}>ngx_http_secure_link_module</option>
+                </select>
+                <div class="input-group-addon">
+                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Add_Server" target="_blank">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
