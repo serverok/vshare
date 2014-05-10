@@ -1,4 +1,6 @@
-<h1>Approve Videos ({$total})</h1>
+<div class="page-header">
+    <h1>Approve Videos ({$total})</h1>
+</div>
 
 {if $total > 0}
 
@@ -113,6 +115,6 @@
 
 {else}
 
-<h5>No videos currently awaiting approval.</p>
+<p>No videos currently awaiting approval.</p>
 
 {/if}

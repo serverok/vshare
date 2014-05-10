@@ -1,4 +1,6 @@
-<h1>{$smarty.request.a} Users ({$total})</h1>
+<div class="page-header">
+    <h1>{$smarty.request.a} Users ({$total})</h1>
+</div>
 
 {if $total > 0}
 
@@ -132,11 +134,9 @@
 
 </table>
 
-{if $links ne ""}
-    <div>
-        {$links}
-    </div>
-{/if}
+<div>
+    {$links}
+</div>
 
 {else}
 
