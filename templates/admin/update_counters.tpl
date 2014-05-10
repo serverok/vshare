@@ -15,11 +15,14 @@
         </div>
     </div>
 
-    <div>
-        <input type="submit" name="submit" value="Update Video Counts" class="btn btn-default btn-lg" />
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-5">
+            <button class="btn btn-default btn-lg" type="submit" name="submit">Update Video Counts</button>
+        </div>
     </div>
 
 </form>
+
 
 <div class="page-header">
     <h1>Update Video Comments Count</h1>
@@ -38,10 +41,11 @@
         </div>
     </div>
 
-    <div>
-        <input type="submit" name="submit" value="Update Video Comment Counts" class="btn btn-default btn-lg" />
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-5">
+            <button class="btn btn-default btn-lg" name="submit" type="submit">Update Video Comment Counts</button>
+        </div>
     </div>
 
-</form>
 
-<div style="margin-top:4em"></div>
+</form>
