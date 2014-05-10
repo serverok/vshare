@@ -33,6 +33,13 @@ if ($re_convert == 1) {
     DB::query($sql);
 }
 
+ob_start();
 $video_id = Upload::processVideo($qid, 1);
+$debug_log = ob_get_contents();
+ob_end_clean();
+
 DB::close();
+
+$smarty->display('admin/header.tpl');
+echo $debug_log;
 echo "<p><a href=\"javascript:history.go(-1)\">Back</a></p>";

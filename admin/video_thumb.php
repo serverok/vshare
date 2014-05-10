@@ -19,6 +19,8 @@ Admin::auth();
 
 if (is_numeric($_GET['id'])) {
 
+    ob_start();
+
     $video_info = Video::getById($_GET['id']);
     $video_src = VSHARE_DIR . '/video/' . $video_info['video_name'];
     $log_file_name = 're_create_thumb_' . $video_info['video_id'];
@@ -70,6 +72,10 @@ if (is_numeric($_GET['id'])) {
             $ftp->upload_thumb($ftp_config);
         }
 
+        $debug_log = ob_get_contents();
+        ob_end_clean();
+
+        $smarty->assign('debug_log', $debug_log);
         $msg = str_replace('[FIND_WIDTH]', $tool_video_thumb, $lang['thumb_created']);
         $smarty->assign('video_folder', $video_info['video_folder']);
         $video_thumb_url = $servers[$video_info['video_thumb_server_id']];
