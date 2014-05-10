@@ -32,13 +32,14 @@ header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Cache-Control: post-check=0, pre-check=0', FALSE);
 header('Pragma: no-cache');
 
-$smarty->assign('use_upload_progress_bar', $use_upload_progress_bar);
+$upload_progress_bar = Config::get('upload_progress_bar');
+$smarty->assign('upload_progress_bar', $upload_progress_bar);
 
 if (isset($_GET['id'])) {
     $smarty->assign('upload_id', $_GET['id']);
 }
 
-if ($use_upload_progress_bar == 1) {
+if ($upload_progress_bar == 'uber') {
 
     $THIS_VERSION = '2.5';
 
@@ -92,6 +93,8 @@ if ($use_upload_progress_bar == 1) {
 
 if (isset($_GET['upload_id'])) {
 
+    if ($upload_progress_bar == 'uber') {
+
     require VSHARE_DIR . '/ubr/ubr_finished_lib.php';
 
     if (isset($_GET['upload_id']) && preg_match("/^[a-zA-Z0-9]{32}$/", $_GET['upload_id'])) {
@@ -144,6 +147,49 @@ if (isset($_GET['upload_id'])) {
     }
 
     $upload_id = $_POST_DATA['upload_id'];
+
+    } elseif ($upload_progress_bar == 'html5') {
+        $upload_dir = VSHARE_DIR . '/video';
+        $upload_file_name = $_FILES['upfile_0']['name'];
+
+        $pos = mb_strrpos($upload_file_name, ".", 'UTF-8');
+        $upload_file_arr = explode('.', $upload_file_name);
+        $upload_file_extn = $upload_file_arr[count($upload_file_arr) - 1];
+        $upload_file_extn = mb_strtolower($upload_file_extn);
+        $upfile_no_extn = basename($upload_file_name, ".$upload_file_extn");
+        $upfile_no_extn = mb_ereg_replace("[&$#]+", " ", $upfile_no_extn);
+        $upfile_no_extn = mb_ereg_replace("\s+", "-", $upfile_no_extn);
+
+        $upload_file_name = $upfile_no_extn . '.' . $upload_file_extn;
+        $upload_file_path = $upload_dir . '/' . $upload_file_name;
+        $i = 0;
+
+        while (file_exists($upload_file_path))
+        {
+            $i ++;
+            $upload_file_name = $upfile_no_extn . '_' . $i . '.' . $upload_file_extn;
+            $upload_file_path = $upload_dir . '/' . $upload_file_name;
+        }
+
+        if (move_uploaded_file($_FILES['upfile_0']['tmp_name'], $upload_file_path))
+        {
+            if (! in_array($upload_file_extn, $file_types))
+            {
+                unlink($upload_file_path);
+                $err = "Invalid File format - $upload_file_extn";
+                write_log($err);
+                exit($err);
+            }
+        }
+
+        if ($err == '')
+        {
+            $upfile_details = "UPLOAD WITH PROGRESS BAR";
+            $process_video = 1;
+        }
+
+        $upload_id = $_GET['upload_id'];
+    }
 }
 
 if (isset($_POST['upload_final'])) {
@@ -274,11 +320,18 @@ if (isset($process_video) && $process_video == 1) {
         exec($cmd_bkgnd);
     }
 
+    if ($upload_progress_bar == 'html5') {
+        echo $qid;
+        exit();
+    }
+
     $redirect_url = VSHARE_URL . '/upload/success/' . $qid . '/' . $upload_id . '/';
     Http::redirect($redirect_url);
 }
 
-if ($use_upload_progress_bar == 1) {
+$html_extra = $html_head_extra = '';
+
+if ($upload_progress_bar == 'uber') {
     $html_extra = '
     <script language="javascript" type="text/javascript">
     var JQ = jQuery.noConflict();
@@ -291,11 +344,39 @@ if ($use_upload_progress_bar == 1) {
         });
     </script>
     ';
-    $smarty->assign('html_extra', $html_extra);
+    $html_head_extra = '<link rel="stylesheet" type="text/css"  href="' . VSHARE_URL . '/ubr/ubr.css">';
+} elseif ($upload_progress_bar == 'html5') {
+    $html_extra = '
+    <script src="' . VSHARE_URL . '/js/jquery.form.js"></script>
+    <script src="' . VSHARE_URL . '/js/upload_progress.js"></script>
+    ';
+    $html_head_extra = '
+    <style>
+    .progress {
+        position: relative;
+        width: 400px;
+        border: 1px solid #00008B;
+        overflow: hidden;
+        padding: 0px;
+        border-radius: 3px;
+    }
+    .bar {
+        background-color: #00008B;
+        height: 25px;
+        width: 0%;
+    }
+    .percent {
+        display: inline-block;
+        left: 48%;
+        position: absolute;
+        text-shadow: 0 0 0 #FFFFFF;
+        top: 6px;
+    }
+    </style>
+    ';
 }
 
-$html_head_extra = '<link rel="stylesheet" type="text/css"  href="' . VSHARE_URL . '/ubr/ubr.css">';
-
+$smarty->assign('html_extra', $html_extra);
 $smarty->assign('html_head_extra', $html_head_extra);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
