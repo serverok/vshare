@@ -156,7 +156,7 @@
                 <td><input type="checkbox" name="video_id_arr[]" value="{$videos[aa].video_id}" rel="video_ids" /></td>
             {/if}
                 <td>{$videos[aa].video_id}</td>
-                <td><a href="video_details.php?a={$a}&id={$videos[aa].video_id}&page={$page}">{$videos[aa].video_title}</a></td>
+                <td><a href="video_details.php?a={$a}&id={$videos[aa].video_id}&page={$page}">{$videos[aa].video_title|truncate:50:"...":true}</a></td>
                 <td>{$videos[aa].video_type}</td>
                 <td>{$videos[aa].video_length}</td>
                 <td>{$videos[aa].video_featured}</td>
