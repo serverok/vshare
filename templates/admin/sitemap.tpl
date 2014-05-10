@@ -1,4 +1,6 @@
-<h1>Site Map</h1>
+<div class="page-header">
+    <h1>Site Map</h1>
+</div>
 
 {if $sitemap|@count ne '0'}
 

@@ -1,4 +1,6 @@
-<h1>Import Folder</h1>
+<div class="page-header">
+    <h1>Import Folder</h1>
+</div>
 
 {if $folder_empty eq "1"}
 
