@@ -8,7 +8,7 @@
 
     <tr>
         <td><b>Tag</b></td>
-        <td align="center" width="10%"><b>Action</b></td>
+        <td width="10%"><b>Action</b></td>
     </tr>
 
     {section name=tag loop=$tags}

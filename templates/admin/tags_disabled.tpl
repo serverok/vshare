@@ -8,7 +8,7 @@
         <td>
             <b>Tag</b>
         </td>
-        <td width="15%" align="center">
+        <td width="15%">
             <b>Action</b>
         </td>
     </tr>
