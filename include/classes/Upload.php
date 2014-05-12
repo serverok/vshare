@@ -316,37 +316,32 @@ class Upload
 
             DB::close();
 
-            $duration_arr = array();
-            $duration_arr['src'] = $video_src;
-            $duration_arr['debug'] = $debug;
-            $duration_arr['tool'] = $tool_video_thumb;
+            $videoDuration = VideoDuration::find($video_src, $tool_video_thumb, $debug);
 
-            $duration = VideoDuration::find($video_src, $tool_video_thumb, $debug);
+            $log_text = "<p>Duration ($tool_video_thumb): $videoDuration</p>";
+            write_log($log_text, $log_file_name, $debug, 'html');
 
-            $bit_rate = (int) VideoBitrate::findVideoBitrateFfmpeg($duration_arr);
-
-            unset($duration_arr);
 
             /*
              * This is to set max bitrate for generated videos
              */
 
-            $bit_rate_max = 500;
+/*
+            $videoBitrate = (int) VideoBitrate::find($video_src);
+            $videoBitrateMax = 500;
 
-            if ($bit_rate > $bit_rate_max) {
-                // $bit_rate = 500;
+            if ($videoBitrate > $videoBitrateMax) {
+                $videoBitrate = 500;
             }
 
-            $log_text = "<p>Source Video bitrate: $bit_rate</p>";
+            $log_text = "<p>Source Video bitrate: $videoBitrate</p>";
             write_log($log_text, $log_file_name, $debug, 'html');
+*/
 
-            $log_text = "<p>Duration ($tool_video_thumb): $duration</p>";
-            write_log($log_text, $log_file_name, $debug, 'html');
-
-            $duration_hms = sec2hms($duration); //covert to 00:00:00 i.e. hrs:min:sec
+            $videoDurationHMS = sec2hms($videoDuration); //covert to 00:00:00 i.e. hrs:min:sec
 
 
-            $log_text = "DURATION: $duration_hms";
+            $log_text = "DURATION: $videoDurationHMS";
             write_log($log_text, $log_file_name, $debug, 'html');
 
             $log_text = "<h2>Create Thumbnail - START</h2>";
@@ -361,7 +356,7 @@ class Upload
             $t_info = array();
             $t_info['src'] = $video_src;
             $t_info['vid'] = $convert_vid;
-            $t_info['duration'] = $duration;
+            $t_info['duration'] = $videoDuration;
             $t_info['video_folder'] = $video_folder;
             $t_info['debug'] = $debug;
             $t_info['tool'] = $tool_video_thumb;
@@ -439,8 +434,8 @@ class Upload
                     $sql = "UPDATE `videos` SET
                            `video_flv_name`='" . DB::quote($rand_flv_name) . "',
                            `video_space`=$flv_size,
-                           `video_duration`='$duration',
-                           `video_length`='$duration_hms' WHERE
+                           `video_duration`='$videoDuration',
+                           `video_length`='$videoDurationHMS' WHERE
                            `video_id`=$convert_vid";
                     DB::query($sql);
 

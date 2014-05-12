@@ -2,25 +2,23 @@
 
 class VideoBitrate
 {
-    static function findVideoBitrateFfmpeg($duration_arr)
+    static function find($videoPath)
     {
         global $config;
         $bitrate = 0;
-
-        $video = $duration_arr['src'];
-        $cmd = $config['ffmpeg'] . " -i " . $video;
+        $cmd = $config['ffmpeg'] . ' -i ' . $videoPath;
         @exec("$cmd 2>&1", $output_ffmpeg);
+
         $output_all_ffmpeg = implode("\n", $output_ffmpeg);
 
-        if (@preg_match('/bitrate: ([0-9][0-9]+) .*/', $output_all_ffmpeg, $regs))
-        {
+        if (@preg_match('/bitrate: ([0-9][0-9]+) .*/', $output_all_ffmpeg, $regs)) {
             $bitrate = (int) $regs[1];
         }
 
         return $bitrate;
     }
 
-    static function findVideoBitrateMplayer($duration_arr)
+/*    static function findVideoBitrateMplayer($duration_arr)
     {
         global $config;
         $bitrate = 0;
@@ -36,5 +34,5 @@ class VideoBitrate
         }
 
         return $bitrate;
-    }
+    }*/
 }
