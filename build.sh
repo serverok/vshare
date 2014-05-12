@@ -1,9 +1,14 @@
 #!/bin/bash
 
 # RUN THIS IN LINUX AS REPLACE COMMAND IN WINDOWS WILL NOT WORK
+# mkdir -p /home/buyscrip/downloads/
+# mkdir -p /home/buyscrip/vshare_build/relese/
+# mkdir -p /home/buyscrip/vshare_build/
+# cd /home/buyscrip/vshare_build/
+# git clone git://git.bizhat.com/vshare.git
 # cd /home/buyscrip/vshare_build/vshare
 # git pull origin master
-# sh ./build.sh 2.8.1
+# sh ./build.sh 2.9
 # ls -l /home/buyscrip/downloads
 
 VERSION=$1
@@ -69,7 +74,6 @@ replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/index.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/logout.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/lost_password.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/mail_users.php
-replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/miscellaneous.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/packages.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/package_add.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/package_edit.php
@@ -219,8 +223,10 @@ replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/upgrade
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./upload_embed.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/sitemap.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./install/install_collect_info.php
-replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./include/functions_mp4.php
 replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/user_add.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/settings_miscellaneous.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/settings_video.php
+replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/sitemap_generate.php
 
 echo '' > /home/buyscrip/vshare_build/relese/vshare_$VERSION/include/config.php
 mv /home/buyscrip/vshare_build/relese/vshare_$VERSION/cgi-bin/ubr_upload_sample.pl /home/buyscrip/vshare_build/relese/vshare_$VERSION/cgi-bin/ubr_upload.pl
@@ -231,7 +237,11 @@ read -p "Press Enter key to create ZIP file..."
 
 cd /home/buyscrip/vshare_build/relese/
 
-zip -r vshare_$VERSION.zip vshare_$VERSION
+if (! file_exists('/usr/bin/zip')) {
+    die('/usr/bin/zip not found');
+}
+
+/usr/bin/zip -r vshare_$VERSION.zip vshare_$VERSION
 # chown buyscrip:buyscrip vshare_$VERSION.zip
 
 cd /home/buyscrip/vshare_build/relese/
