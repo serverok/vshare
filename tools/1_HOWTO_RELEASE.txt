@@ -1,0 +1,45 @@
+==========================================================
+BUILD
+==========================================================
+
+cd /home/buyscrip/vshare_build/vshare
+git pull origin master
+sh ./build.sh 2.9
+ls -l /home/buyscrip/downloads
+
+==========================================================
+GETTING DOWNLOAD LINK WORK
+http://buyscripts.in/download/vshare_2.9.zip
+==========================================================
+
+Edit
+
+vi /home/buyscrip/public_html/dl/download.php
+
+Add $valid_files[] = 'vshare_2.9.zip';
+
+==========================================================
+ADDING NEW VERSION IN PHPAUDIT.
+==========================================================
+
+Login to
+
+http://buyscripts.in/useradmin/
+
+Go to
+
+http://buyscripts.in/useradmin/product_upload_add.php
+
+File Naming Options: User Defined File Name
+File Name: vshare_2.9.zip
+File Title: vshare_2.9.zip
+Upload Type: Manual FTP to /downloads as a product.
+File Description: vShare YouTube Clone Version 2.9
+Automatically Assign To Products: vShare Youtube Clone
+
+
+By adding, it will download product from folder
+
+/home/buyscrip/downloads
+
+==========================================================
