@@ -321,7 +321,7 @@ class Upload
             $duration_arr['debug'] = $debug;
             $duration_arr['tool'] = $tool_video_thumb;
 
-            $duration = VideoDuration::find($duration_arr);
+            $duration = VideoDuration::find($video_src, $tool_video_thumb, $debug);
 
             $bit_rate = (int) VideoBitrate::findVideoBitrateFfmpeg($duration_arr);
 
