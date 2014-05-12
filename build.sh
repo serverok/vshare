@@ -237,10 +237,6 @@ read -p "Press Enter key to create ZIP file..."
 
 cd /home/buyscrip/vshare_build/relese/
 
-if (! file_exists('/usr/bin/zip')) {
-    die('/usr/bin/zip not found');
-}
-
 /usr/bin/zip -r vshare_$VERSION.zip vshare_$VERSION
 # chown buyscrip:buyscrip vshare_$VERSION.zip
 
