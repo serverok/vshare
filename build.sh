@@ -231,6 +231,8 @@ replace '* VERSION: [VSHARE_VERSION]' "* VERSION: $VERSION" -- ./admin/sitemap_g
 echo '' > /home/buyscrip/vshare_build/relese/vshare_$VERSION/include/config.php
 mv /home/buyscrip/vshare_build/relese/vshare_$VERSION/cgi-bin/ubr_upload_sample.pl /home/buyscrip/vshare_build/relese/vshare_$VERSION/cgi-bin/ubr_upload.pl
 
+chmod -R 755 /home/buyscrip/vshare_build/relese/vshare_$VERSION/
+
 # chown -R buyscrip:buyscrip /home/buyscrip/vshare_build/relese/
 
 read -p "Press Enter key to create ZIP file..."
