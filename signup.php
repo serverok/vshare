@@ -18,15 +18,7 @@ require 'include/language/' . LANG . '/lang_signup.php';
 $signup_dob = Config::get('signup_dob');
 $signup_enable = Config::get('signup_enable');
 $captcha_type = Config::get('captcha_type');
-
-if ($captcha_type == 'recaptcha')
-{
-    require 'Zend/Service/ReCaptcha.php';
-    $pubKey = '6Le6eAUAAAAAAFFu7P7Z2QX_J748rwpvAattTlzq';
-    $privKey = '6Le6eAUAAAAAADDQahn7Hgqbr21lEQAkoIQAAdKK';
-    $recaptcha = new Zend_Service_ReCaptcha($pubKey, $privKey);
-    $smarty->assign('recaptcha_html', $recaptcha->getHTML());
-}
+$smarty->assign('recaptcha_html', Captcha::get($captcha_type));
 
 $signup = array();
 
@@ -109,27 +101,15 @@ if (isset($_POST['submit'])) {
     }
 
     if (($config['signup_captcha'] == '1') and ($err == '')) {
-        if ($captcha_type == 'recaptcha') {
-            if ($_POST['recaptcha_response_field'] == '') {
-                $err = $lang['captcha_null'];
-            } else {
-	            $result = $recaptcha->verify($_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
-	            if (! $result->isValid()) {
-	                $err = $lang['captcha_invalid'];
-	            }
-            }
-        } else {
-            $_POST['security_code'] = htmlspecialchars_uni($_POST['security_code']);
+        $captcha_response = ($captcha_type == 'recaptcha') ? $_POST['recaptcha_response_field'] : htmlspecialchars_uni($_POST['security_code']);
+        $captcha_challenge = ($captcha_type == 'recaptcha') ? $_POST['recaptcha_challenge_field'] : '';
 
-            if ($_POST['security_code'] == '') {
-                $err = $lang['captcha_null'];
-            } else if (($_SESSION['security_code'] != $_POST['security_code'])) {
-                $err = $lang['captcha_invalid'];
-            }
+        if (! Captcha::validate($captcha_type, $captcha_response, $captcha_challenge)) {
+            $err = $lang['captcha_invalid'];
         }
     }
 
-    if ($signup_dob == 1) {
+    if ($signup_dob == 1 and $err == '') {
         $signup['year'] = $_POST['year'];
         $signup['month'] = $_POST['month'];
         $signup['day'] = $_POST['day'];
