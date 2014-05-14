@@ -13,27 +13,21 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.video.php';
-require 'include/class.tags.php';
 
 $video_id = $_GET['id'];
 
-if (! is_numeric($video_id))
-{
+if (! is_numeric($video_id)) {
     Http::redirect(VSHARE_URL);
 }
 
 $video_info = Video::getById($video_id);
 
-if ($video_info == 0 || $video_info['video_user_id'] == 0)
-{
+if (! $video_info || $video_info['video_user_id'] == 0) {
     set_message($lang['video_not_found'], 'error');
     $redirect_url = VSHARE_URL . '/';
-    Http::redirect($redirect_url);
-}
-else
-{
+} else {
     $redirect_url = VSHARE_URL . '/view/' . $video_info['video_id'] . '/' . $video_info['video_seo_name'] . '/';
-    DB::close();
-    Http::redirect($redirect_url);
 }
+
+DB::close();
+Http::redirect($redirect_url);
