@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.video.php';
 
 if ($config['allow_download'] != 1) {
     echo 'Video download disabled';
@@ -43,6 +42,6 @@ header('Cache-Control: private', false);
 header('Content-Type: application/zip');
 header('Content-Disposition: attachment; filename="' . basename($video_name) . '";');
 header('Content-Transfer-Encoding: binary');
-header('Content-Length: ' . filesize($video_name));
+header('Content-Length: ' . filesize($file_path));
 readfile("$file_path");
 exit();
