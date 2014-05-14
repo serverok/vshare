@@ -17,7 +17,7 @@ require '../include/config.php';
 $user_name = isset($_GET['user_name']) ? $_GET['user_name'] : '';
 
 if ((strlen($user_name) < 4) || (check_field_exists($user_name, 'user_name', 'users') == 1) || User::isReserved($user_name)) {
-    echo 0;
+    exit('false');
 } else {
-    echo 1;
+    exit('true');
 }
