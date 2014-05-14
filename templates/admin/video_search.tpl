@@ -1,54 +1,64 @@
-<h1>Video Search</h1>
+{if empty($video_info)}
 
-<form action="" method="get">
-    <div>
-        <label>Video ID:</label>
-        <input type="text" name="id" size="25" />
+<div class="page-header">
+    <h1>Video Search</h1>
+</div>
+
+<form action="" method="get" class="form-horizontal" role="form">
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Video ID:</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="text" name="id">
+        </div>
     </div>
 
-    <div>
-        <label>Video FLV Name:</label>
-        <input type="text" name="video_flv_name" size="25" />
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Video FLV Name:</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="text" name="video_flv_name">
+        </div>
     </div>
 
-    <div>
-        <label>Video Name:</label>
-        <input type="text" name="video_name" size="25" />
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Video Name:</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="text" name="video_name">
+        </div>
     </div>
 
-    <div>
-        <label>Video Title:</label>
-        <input type="text" name="video_title" size="25" />
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Video Title:</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="text" name="video_title">
+        </div>
     </div>
 
-    <div>
-        <label>Video Description:</label>
-        <input type="text" name="video_description" size="25" />
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Video Description:</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="text" name="video_description">
+        </div>
     </div>
 
-    <div class="submit">
-        <input type="submit" name="search" value="Search" />
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-5">
+            <button type="submit" name="search" class="btn btn-default btn-lg">Search</button>
+        </div>
     </div>
 </form>
 
-{if $video_info ne ""}
+{else}
 
-    <h1>Search Results for: {$search_string}</h1>
+    <div class="page-header">
+        <span class="badge pull-right">Total: {$total}</span>
+        <h1>Search Results for: {$search_string}</h1>
+    </div>
 
-    <p>Total: {$total}</p>
-
-    <table cellspacing="1" cellpadding="3"  width="100%" border="0">
+    <table class="table table-striped table-hover">
 
         <tr>
-            <td>
-                <b>ID</b>
-                <a href="?search=Search&{$search_query}&sort=video_id+asc">
-                    <span class="glyphicon glyphicon-arrow-up"></span>
-                </a>
-                <a href="?search=Search&{$search_query}&sort=video_id+desc">
-                    <span class="glyphicon glyphicon-arrow-down"></span>
-                </a>
-            </td>
+
             <td>
                 <b>Title</b>
                 <a href="?search=Search&{$search_query}&sort=video_title+asc">
@@ -102,11 +112,9 @@
         {section name=aa loop=$video_info}
 
             <tr>
+
                 <td>
-                    {$video_info[aa].video_id}
-                </td>
-                <td>
-                    <a href="video_details.php?a={$a}&id={$video_info[aa].video_id}&page={$page}">{$video_info[aa].video_title}</a>
+                    <a href="video_details.php?a={$a}&id={$video_info[aa].video_id}&page={$page}">{$video_info[aa].video_title|truncate:60:"...":true}</a>
                 </td>
                 <td align="center">
                     {$video_info[aa].video_type}
@@ -122,7 +130,7 @@
                 </td>
                 <td align="center">
                     <a href="video_edit.php?action=edit&video_id={$video_info[aa].video_id}&sort={$smarty.request.sort}">
-                     <img src="{$img_css_url}/images/edit.gif" title="Edit" alt="Edit" />
+                        <span class="glyphicon glyphicon-edit"></span>
                     </a>
                 </td>
             </tr>
