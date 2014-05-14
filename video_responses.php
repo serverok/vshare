@@ -13,8 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/class.video.php';
-require 'include/class.cache.php';
 require 'include/language/' . LANG . '/lang_video_response.php';
 
 $video_id = isset($_GET['video_id']) ? $_GET['video_id'] : '';
