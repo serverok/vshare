@@ -85,7 +85,7 @@ $sql = "SELECT * FROM `group_members` WHERE
 $group_members = DB::fetch($sql);
 
 $start_num = $start_from + 1;
-$end_num = $start_from + mysql_num_rows($result);
+$end_num = $start_from + count($group_members);
 $page_links = Paginate::getLinks($total, $config['items_per_page'], '.', '', $page);
 
 $smarty->assign('err', $err);
