@@ -16,8 +16,7 @@ function insert_tags()
     require 'HTML/TagCloud.php';
     $tags = new HTML_TagCloud();
 
-    foreach ($tags_all as $tag)
-    {
+    foreach ($tags_all as $tag) {
         $tag_url = VSHARE_URL . '/tag/' . mb_strtolower($tag['tag']) . '/';
         $tags->addElement($tag['tag'], $tag_url, $tag['tag_count'], $tag['used_on']);
     }
@@ -25,6 +24,7 @@ function insert_tags()
     return $tags->buildHTML();
 }
 
+/*
 function insert_show_videos($a)
 {
     if ($a['type'] == "top") {
@@ -59,6 +59,7 @@ function insert_show_videos($a)
 
     return $videos;
 }
+*/
 
 function insert_id_to_name($id)
 {
@@ -265,6 +266,7 @@ function insert_channel_count($a)
     return $list;
 }
 
+/*
 function insert_get_photo($a)
 {
     global $conn;
@@ -299,6 +301,7 @@ function insert_comment_info($a)
     }
     return $comments;
 }
+*/
 
 function insert_comment_count($a)
 {
@@ -710,6 +713,7 @@ function insert_advertise($v)
     echo $tmp['adv_text'];
 }
 
+/*
 function insert_adv_status($v)
 {
     global $conn;
@@ -719,6 +723,7 @@ function insert_adv_status($v)
     $tmp = mysql_fetch_assoc($result);
     return $tmp['adv_status'];
 }
+*/
 
 function insert_subscriber_info($v)
 {
@@ -730,6 +735,7 @@ function insert_subscriber_info($v)
     return DB::fetch1($sql);
 }
 
+/*
 function insert_id_to_uploaddate($v)
 {
     global $conn;
@@ -745,6 +751,7 @@ function insert_id_to_uploaddate($v)
     print_r('-');
     print_r($list[0]);
 }
+*/
 
 function insert_voter_name($voter_id)
 {
