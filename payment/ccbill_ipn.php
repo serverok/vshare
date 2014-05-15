@@ -97,90 +97,76 @@ vshare_payment_id = {$_POST['vshare_payment_id']}
 
 EOT;
 
-if (empty($_POST['reasonForDeclineCode']))
-{
+if (empty($_POST['reasonForDeclineCode'])) {
     $sql = "SELECT * FROM `payments` WHERE
     	   `payment_id`='" . (int) $_POST['vshare_payment_id'] . "'";
-    $result = mysql_query($sql);
-    
+    $payments = DB::fetch1($sql);
+
     $log_txt .= "$sql\n";
-    
-    if (! $result)
-    {
+
+    if (! $payments) {
         $log_txt .= "PAYMENT INFO NOT FOUND\n";
     }
-    
-    $payments = mysql_fetch_assoc($result);
-    
+
     $user_id = $payments['payment_user_id'];
     $package_id = $payments['payment_package_id'];
     $period = $payments['payment_period'];
     $price = $payments['payment_amount'];
-    
+
     $sql = "SELECT * FROM `packages` WHERE
     	   `package_id`='" . (int) $package_id . "'";
-    $result = mysql_query($sql);
-    
+    $package_info = DB::fetch1($sql);
+
     $log_txt .= "$sql\n";
-    
-    $package_info = mysql_fetch_assoc($result);
-    
-    if ($package_info['package_period'] != 'Month' && $package_info['package_period'] != 'Year')
-    {
+
+    if ($package_info['package_period'] != 'Month' && $package_info['package_period'] != 'Year') {
         $package_info['package_period'] = 'Day';
     }
-    
+
     $log_txt .= "package_period : {$package_info['package_period']}\n";
-    
+
     $period = $period . ' ' . $package_info['package_period'];
-    
+
     $log_txt .= "\$period : $period\n";
-    
+
     $expired_time = date("Y-m-d H:i:s", strtotime("+$period"));
-    
+
     $sql = "UPDATE `subscriber` SET
            `pack_id`='" . (int) $package_id . "',
            `subscribe_time`='" . date("Y-m-d H:i:s") . "',
            `expired_time`='" . DB::quote($expired_time) . "' WHERE
            `UID`='" . (int) $user_id . "'";
-    mysql_query($sql);
-    
+    DB::query($sql);
+
     $log_txt .= "$sql\n";
-    
+
     $sql = "UPDATE `payments` SET
            `payment_completed`='1' WHERE
            `payment_id`='" . (int) $_POST['vshare_payment_id'] . "'";
-    mysql_query($sql);
-    
+    DB::query($sql);
+
     $log_txt .= "$sql\n";
-    
+
     $sql = "UPDATE `users` SET
            `user_account_status`='Active' WHERE
            `user_id`='" . (int) $user_id . "'";
-    mysql_query($sql);
-    
+    DB::query($sql);
+
     $log_txt .= "$sql\n";
-    
-    $sql = "SELECT * from `users` WHERE
-    	   `user_id`='" . (int) $user_id . "'";
-    $result = mysql_query($sql);
-    
-    $log_txt .= "$sql\n";
-    
-    $user_info = mysql_fetch_assoc($result);
+
+    $user_info = User::getById($user_id);
     $user_email = $user_info['user_email'];
     $username = $user_info['user_name'];
-    
+
     $sql = "SELECT * FROM `packages` WHERE
     	   `package_id`='" . (int) $package_id . "'";
-    $result = mysql_query($sql);
-    $package_info = mysql_fetch_assoc($result);
+    $package_info = DB::fetch1($sql);
     $package_name = $package_info['package_name'];
-    
+
     $log_txt .= "$sql\n";
-    
+
     $vshare_url = VSHARE_URL;
-    
+
     $body = "
 	<P>Hello  $username,</P>
 
@@ -199,20 +185,20 @@ if (empty($_POST['reasonForDeclineCode']))
 
 	<P>$config[site_name] Team</p>
     ";
-    
+
     $headers = "From: " . $config['admin_email'] . "\n";
     $headers .= "Content-Type: text/html\n";
     $subj = "Receipt for your payment to" . $config['site_name'];
-    
+
     mail("$user_email", "$subj", "$body", "$headers");
-    
+
     $log_txt .= "$user_email\n$body\n";
-    
+
     ####################### PAYMENT SUCCESS ########################### END
-    
+
 
     ####################### SEND MAIL TO ADMIN ############################
-    
+
 
     $message_admin = <<<EOT
 User: $username
@@ -226,24 +212,20 @@ Payment Date: $start_date
 ----
 $sql_log
 EOT;
-    
+
     $subject = $config['site_name'] . " - Got Payment";
-    
+
     mail($config['admin_email'], $subject, $message_admin);
-    
+
     $log_txt .= "$message_admin\n";
 
     ####################### SEND MAIL TO ADMIN ######################## END
 
 
-}
-else
-{
+} else {
     $log_txt .= "===============================\n";
     $log_txt .= "PAYMENT FAILED\n";
     $log_txt .= "===============================\n";
 }
 
 mail($config['admin_email'], 'CCBill PAYMENT LOG', $log_txt);
-
-
