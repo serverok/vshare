@@ -40,8 +40,7 @@ if (isset($_GET['action']) && $_GET["action"] == 'approve') {
     $keyword = DB::quote($keyword);
 
     if ($type == 'public') {
-        require VSHARE_DIR . '/include/class.tags.php';
-        $tags = new Tags($keyword, $_GET['video_id'], 'user_id_not_used', $channel);
+        $tags = new Tag($keyword, $_GET['video_id'], 'user_id_not_used', $channel);
         $tags->add();
         $video_tags = $tags->get_tags();
         $sql = "UPDATE `videos` SET
