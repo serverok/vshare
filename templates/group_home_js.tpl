@@ -1,4 +1,3 @@
-<script language="JavaScript" type="text/javascript" src="{$baseurl}/js/group_topics.js"></script>
 <script language="JavaScript" type="text/javascript" src="{$base_url}/js/group_topics.js"></script>
 
 <script type="text/javascript">

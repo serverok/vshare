@@ -33,7 +33,7 @@ if ($group_info) {
 	$group_total_posts = DB::getTotal($sql);
 
 	if ($group_total_posts > 0) {
-			$start_from = ($page-1) * $config[items_per_page];
+			$start_from = ($page-1) * $config['items_per_page'];
 
 			$sql = "SELECT * FROM
                    `group_topics` AS gt,
@@ -48,7 +48,7 @@ if ($group_info) {
             $group_topics = array();
 
 			foreach ($group_topics_all as $topics) {
-				$topics['addtime'] = date('F j,Y H:i a',strtotime($topics['addtime']));
+				$topics['addtime'] = date('F j,Y H:i a',strtotime($topics['group_topic_add_time']));
 				$group_topics[] = $topics;
 			}
 
@@ -56,7 +56,7 @@ if ($group_info) {
 			$smarty->assign('group_topics', $group_topics);
 
 			$start_num = $start_from + 1;
-			$end_num = $start_from + mysql_num_rows($result);
+			$end_num = $start_from + count($group_topics);
 
 			require_once 'Pager/Pager.php';
 			require_once 'Pager/Sliding.php';
@@ -74,7 +74,7 @@ if ($group_info) {
 				'fileName' => 'javascript:display_topics(%d)'
 			);
 
-			$pager = & new Pager_Sliding($params);
+			$pager = new Pager_Sliding($params);
 			$data = $pager->getPageData();
 			$links = $pager->getLinks();
 

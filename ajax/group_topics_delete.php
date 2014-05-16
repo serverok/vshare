@@ -20,18 +20,18 @@ $sql = "SELECT * FROM
         gt.group_topic_group_id=$group_id AND
         gt.group_topic_group_id=gr.group_id AND
         gr.group_owner_id=$_SESSION[UID]";
-$result = mysql_query($sql);
+$group_topic_owner = DB::fetch1($sql);
 
-if(mysql_num_rows($result)>0)
+if($group_topic_owner)
 {
 	$sql = "DELETE FROM `group_topics` WHERE
            `group_topic_id`=$topic_id AND
            `group_topic_group_id`=$group_id";
-	 mysql_query($sql);
+	 DB::query($sql);
 
 	 $sql = "DELETE FROM `group_topic_posts` WHERE
             `group_topic_post_topic_id`=$topic_id";
-	 mysql_query($sql);
+	 DB::query($sql);
 
 	 if ($ajax_debug) error_log(" $topic_id topic deleted\n",3, VSHARE_DIR . '/ajax/log.txt');
 	Ajax::returnJson('deleted','success');
