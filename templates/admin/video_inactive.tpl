@@ -1,4 +1,6 @@
-<h1>Inactive Videos ({$total})</h1>
+<div class="page-header">
+    <h1>Inactive Videos ({$total})</h1>
+</div>
 
 {if !empty($videos_inactive_all)}
 
