@@ -2,6 +2,8 @@
     <h1>Reserved User Names</h1>
 </div>
 
+{if !empty($disallow)}
+
 <table class="table table-striped table-hover">
 
     <tr>
@@ -9,20 +11,28 @@
         <td align="center"><b>ACTION</b></td>
     </tr>
 
-    {section name=i loop=$disallow}
+    {foreach from=$disallow item=reserved_name}
     <tr>
-        <td>{$disallow[i].disallow_username}</td>
+        <td>{$reserved_name.disallow_username}</td>
         <td align="center">
-            <a href="?action=del&id={$disallow[i].disallow_id}" onClick='Javascript:return confirm("Are you sure you want to delete?");'>
+            <a href="?action=del&id={$reserved_name.disallow_id}" onClick='Javascript:return confirm("Are you sure you want to delete?");'>
                 <span class="glyphicon glyphicon-remove-circle"></span>
             </a>
         </td>
     </tr>
-    {/section}
+    {/foreach}
 
 </table>
 
-<hr />
+{else}
+
+<div class="alert alert-info">
+    No user name reserved.
+</div>
+
+{/if}
+
+<hr>
 
 <form method="post" action="" class="form-inline">
 
