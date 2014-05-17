@@ -1,4 +1,6 @@
-<h1>Videos By User : {$user_name} ({$total})</h1>
+<div class="page-header">
+	<h1>Videos By User : {$user_name} ({$total})</h1>
+</div>
 
 {if $total > 0}
 
@@ -93,6 +95,8 @@
 
 {else}
 
-<h5>There is no video uploaded by user {$user_name}</h5>
+<div class="alert alert-warning">
+	There is no video uploaded by user {$user_name}
+</div>
 
 {/if}
