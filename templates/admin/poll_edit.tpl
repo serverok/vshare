@@ -86,7 +86,7 @@
         <div class="col-sm-offset-2 col-sm-5">
             <div id="begining_text"></div>
             {section name=i loop=$list}
-                <input type="text" name="edit_poll_answers[]" size="20" id="txtPollAnsQty" value="{$list[i]}">
+                <input type="text" name="edit_poll_answers[]" class="form-control" id="txtPollAnsQty" value="{$list[i]}">
                 <div id="{$k++}"></div>
             {/section}
             <div id="ending_text"></div>
