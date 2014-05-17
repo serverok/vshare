@@ -1,4 +1,6 @@
-<h1>View polls</h1>
+<div class="page-header">
+    <h1>View polls</h1>
+</div>
 
 {section name=i loop=$pollArray}
 
@@ -12,7 +14,7 @@
         </a>)
     </p>
 
-    <table border="1" width="300">
+    <table class="table table-striped table-hover">
         {section name=j loop=$poll_info[i]}
         <tr>
             <td>{$poll_info[i][j].answer}</td>
