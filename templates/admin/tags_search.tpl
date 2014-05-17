@@ -1,4 +1,6 @@
-<h1>Search Tags</h1>
+<div class="page-header">
+    <h1>Search Tags</h1>
+</div>
 
 {include file='admin/tags_menu.tpl'}
 
