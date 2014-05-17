@@ -52,7 +52,7 @@
 <div class="row">
     <div class="col-md-10">{$links}</div>
     <div class="col-md-2">
-        <a href="video_featured.php?todo=un_feature_all" onclick="Javascript:return confirm('Are you sure you want to remove all featured videos?');" class="btn btn-default">
+        <a href="video_featured.php?todo=un_feature_all" onclick="Javascript:return confirm('Are you sure you want to remove all featured videos?');" class="btn btn-danger">
             Remove All Featured
         </a>
     </div>
