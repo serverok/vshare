@@ -65,33 +65,15 @@
 	{foreach from=$users item=user}
 
         <tr>
+            <td>{$user.user_id}</td>
+            <td><a href="user_view.php?user_id={$user.user_id}">{$user.user_name}</a></td>
+            <td>{$user.user_country}</td>
+            <td>{$user.user_last_login_time|date_format}</td>
             <td>
-                {$user.user_id}
-            </td>
-            <td>
-                <a href="user_view.php?user_id={$user.user_id}">
-                    {$user.user_name}
-                </a>
-            </td>
-            <td>
-                {$user.user_country}
-            </td>
-            <td>
-                {$user.user_last_login_time|date_format}
-            </td>
-            <td align="right">
                 {insert name=video_count assign=vdo uid=$user.user_id}
-                {if $vdo ne "0"}
-                    <a href="user_videos.php?uid={$user.user_id}">
-                        {$vdo}
-                    </a>
-                {else}
-                    {$vdo}
-                {/if}
+                {if $vdo ne "0"}<a href="user_videos.php?uid={$user.user_id}">{$vdo}</a>{else}0{/if}
             </td>
-            <td align="center">
-                {$user.user_account_status}
-            </td>
+            <td>{$user.user_account_status}</td>
             <td align="center">
                 <a href="user_edit.php?action=edit&uid={$user.user_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
                     <span class="glyphicon glyphicon-edit"></span>
