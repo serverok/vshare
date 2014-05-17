@@ -66,7 +66,7 @@
                     <li><a href="video_inactive.php">Inactive Videos</a></li>
                     <li><a href="video_featured.php">Featured Videos</a></li>
                     <li><a href="video_feature_requests.php">Feature Requests</a></li>
-                    <li><a href="videos.php?a=inappropriate">Flagged Videos</a></li>
+                    <li><a href="videos_inappropriate.php">Flagged Videos</a></li>
                     <li><a href="comment.php">Manage Comments</a></li>
                     <li><a href="video_user_deleted.php">User Deleted Videos</a></li>
                     <li><a href="video_search.php">Search Videos</a></li>

@@ -1,190 +1,119 @@
 <h1>{$smarty.request.a|capitalize} Videos ({$total})</h1>
 
-{if $smarty.request.a eq "inappropriate"}
 
-    <table class="table table-striped">
+{if $a eq "embedded"}
+<form method="post" action="" onsubmit="javascript:return confirm('Are you sure you want to delete?');">
+{/if}
 
-        <tr>
-            <td>
-            <b>ID</b>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=inappropriate_request_video_id+asc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-up"></span>
-                </a>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=inappropriate_request_video_id+desc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-down"></span>
-                </a>
-            </td>
-            <td>
-                <b>Video Title</b>
-            </td>
-            <td>
-                <b>Total Request</b>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=inappropriate_request_count+asc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-up"></span>
-                </a>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=inappropriate_request_count+desc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-down"></span>
-                </a>
-            </td>
-            <td>
-                <b>Last Reqeust Date</b>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=inappropriate_request_date+asc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-up"></span>
-                </a>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=inappropriate_request_date+desc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-down"></span>
-                </a>
-            </td>
-            <td align="center">
-                <b>Action</b>
-            </td>
-        </tr>
-
-        {section name=aa loop=$videos}
-
-            {insert name=getfield assign=title field='video_title' table='videos' qfield='video_id' qvalue=$videos[aa].inappropriate_request_video_id}
-            <tr>
-                <td>{$videos[aa].inappropriate_request_video_id}</td>
-                <td><a href="video_details.php?id={$videos[aa].inappropriate_request_video_id}">{$title}</a></td>
-                <td>{$videos[aa].inappropriate_request_count}</td>
-                <td>{$videos[aa].inappropriate_request_date|date_format}</td>
-                <td align="center">
-                    <a href="videos.php?a={$smarty.request.a}&action=del&video_id={$videos[aa].inappropriate_request_video_id}&page={$page}&sort={$smarty.request.sort}" onclick='Javascript:return confirm("Are you sure you want to delete?");'>
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </a>
-                </td>
-            </tr>
-
-        {/section}
-
-    </table>
-
-<div class="row">
-    <div class="col-md-10">{$links}</div>
-    <div class="col-md-2">
-        <a href="videos.php?a={$smarty.request.a}&page={$page}&action=delete" onclick='Javascript:return confirm("Are you sure you want to delete?");' class="btn btn-danger">
-            Delete All Requests
-        </a>
-    </div>
-</div>
-
-
-{else}
-
+<table class="table table-striped table-hover">
+    <tr>
     {if $a eq "embedded"}
-    <form method="post" action="" onsubmit="javascript:return confirm('Are you sure you want to delete?');">
+        <td><input type="checkbox" id="check_all" /></td>
     {/if}
+        <td>
+            <b>ID</b>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_id+asc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+            </a>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_id+desc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </a>
+        </td>
 
-    <table class="table table-striped table-hover">
+        <td>
+            <b>Title</b>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_title+asc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+            </a>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_title+desc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </a>
+        </td>
+        <td>
+            <b>Type</b>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_type+asc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+            </a>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_type+desc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </a>
+        </td>
+        <td>
+            <b>Duration</b>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_duration+asc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+            </a>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_duration+desc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </a>
+        </td>
+        <td>
+            <b>Featured</b>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_featured+asc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+            </a>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_featured+desc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </a>
+        </td>
+        <td>
+            <b>Views</b>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_view_number+asc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+            </a>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_view_number+desc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </a>
+        </td>
+        <td>
+            <b>Date</b>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_add_date+asc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+            </a>
+            <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_add_date+desc&page={$page}">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </a>
+        </td>
+        <td align="center">
+            <b>Action</b>
+        </td>
+    </tr>
+
+    {section name=aa loop=$videos}
+
         <tr>
         {if $a eq "embedded"}
-            <td><input type="checkbox" id="check_all" /></td>
+            <td><input type="checkbox" name="video_id_arr[]" value="{$videos[aa].video_id}" rel="video_ids" /></td>
         {/if}
-            <td>
-                <b>ID</b>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_id+asc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-up"></span>
-                </a>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_id+desc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-down"></span>
-                </a>
-            </td>
-
-            <td>
-                <b>Title</b>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_title+asc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-up"></span>
-                </a>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_title+desc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-down"></span>
-                </a>
-            </td>
-            <td>
-                <b>Type</b>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_type+asc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-up"></span>
-                </a>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_type+desc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-down"></span>
-                </a>
-            </td>
-            <td>
-                <b>Duration</b>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_duration+asc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-up"></span>
-                </a>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_duration+desc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-down"></span>
-                </a>
-            </td>
-            <td>
-                <b>Featured</b>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_featured+asc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-up"></span>
-                </a>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_featured+desc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-down"></span>
-                </a>
-            </td>
-            <td>
-                <b>Views</b>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_view_number+asc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-up"></span>
-                </a>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_view_number+desc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-down"></span>
-                </a>
-            </td>
-            <td>
-                <b>Date</b>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_add_date+asc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-up"></span>
-                </a>
-                <a href="videos.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=video_add_date+desc&page={$page}">
-                    <span class="glyphicon glyphicon-arrow-down"></span>
-                </a>
-            </td>
+            <td>{$videos[aa].video_id}</td>
+            <td><a href="video_details.php?a={$a}&id={$videos[aa].video_id}&page={$page}">{$videos[aa].video_title|truncate:50:"...":true}</a></td>
+            <td>{$videos[aa].video_type}</td>
+            <td>{$videos[aa].video_length}</td>
+            <td>{$videos[aa].video_featured}</td>
+            <td>{$videos[aa].video_view_number}</td>
+            <td>{$videos[aa].video_add_date|date_format}</td>
             <td align="center">
-                <b>Action</b>
+                <a href="video_edit.php?a={$a}&action=edit&video_id={$videos[aa].video_id}&page={$page}&sort={$smarty.request.sort}">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
             </td>
         </tr>
 
-        {section name=aa loop=$videos}
+    {/section}
 
-            <tr>
-            {if $a eq "embedded"}
-                <td><input type="checkbox" name="video_id_arr[]" value="{$videos[aa].video_id}" rel="video_ids" /></td>
-            {/if}
-                <td>{$videos[aa].video_id}</td>
-                <td><a href="video_details.php?a={$a}&id={$videos[aa].video_id}&page={$page}">{$videos[aa].video_title|truncate:50:"...":true}</a></td>
-                <td>{$videos[aa].video_type}</td>
-                <td>{$videos[aa].video_length}</td>
-                <td>{$videos[aa].video_featured}</td>
-                <td>{$videos[aa].video_view_number}</td>
-                <td>{$videos[aa].video_add_date|date_format}</td>
-                <td align="center">
-                    <a href="video_edit.php?a={$a}&action=edit&video_id={$videos[aa].video_id}&page={$page}&sort={$smarty.request.sort}">
-                        <span class="glyphicon glyphicon-edit"></span>
-                    </a>
-                </td>
-            </tr>
+</table>
 
-        {/section}
-
-    </table>
-
-    {if $links ne ""}
-    <div>
-        {$links}
-    </div>
-    {/if}
-
-    {if $a eq "embedded"}
-        <input type="submit" name="submit" id="video_del" value="Delete Selected Videos" />
-    </form>
-    {/if}
-
+{if $links ne ""}
+<div>
+    {$links}
+</div>
 {/if}
+
+{if $a eq "embedded"}
+    <input type="submit" name="submit" id="video_del" value="Delete Selected Videos" />
+</form>
+{/if}
+
 
 {literal}
 <script type="text/javascript">
