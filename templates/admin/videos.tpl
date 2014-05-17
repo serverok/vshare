@@ -119,7 +119,7 @@
 
 {else}
 
-    <div class="alert alert-warning">No Videos found.</div>
+    <div class="alert alert-warning">No videos found.</div>
 
 {/if}
 
