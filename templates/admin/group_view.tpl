@@ -3,103 +3,109 @@
 {insert name=group_info_count assign=num_group_topics tbl=group_topics gid=$group.group_id query="1" field1=group_topic_approved field2=group_topic_group_id}
 {insert name=id_to_name assign=uname un=$group.group_owner_id}
 
+
+<div class="row">
+
+<div class="col-md-8">
+
 <form action="" method="post">
-	<div>
-		{insert name=group_image assign=group_image_info gid=$group.group_id tbl=group_videos}
-		{if $group_image_info eq "0"}
-			<img src="{$img_css_url}/images/no_videos_groups.gif" width="120" height="90" alt="" />
-		{else}
-			<img src="{$group_image_info.video_thumb_url}/thumb/{$group_image_info.video_folder}1_{$group_image_info.video_id}.jpg" width="120" height="90" alt="" />
-		{/if}
-	</div>
 
-	<div>
-		<label>Group ID</label>
-		{$group.group_id}
-	</div>
+	<table class="table table-striped table-hover">
 
-	<div>
-		<label>Group Name</label>
-		{$group.group_name}
-	</div>
+	<tr>
+		<td colspan="2">
+			{insert name=group_image assign=group_image_info gid=$group.group_id tbl=group_videos}
+			{if $group_image_info eq "0"}
+				<img src="{$img_css_url}/images/no_videos_groups.gif" width="120" height="90">
+			{else}
+				<img src="{$group_image_info.video_thumb_url}/thumb/{$group_image_info.video_folder}1_{$group_image_info.video_id}.jpg" width="120" height="90">
+			{/if}
+		</td>
+	</tr>
 
-	<div>
-		<label>Owner</label>
-		<a href="user_view.php?user_id={$group.group_owner_id}">{$uname}</a>
-	</div>
+	<tr>
+		<td>Group ID</td>
+		<td>{$group.group_id}</td>
+	</tr>
 
-	<div>
-		<label>Tags</label>
-		{$group.group_keyword}
-	</div>
+	<tr>
+		<td>Group Name</td>
+		<td>{$group.group_name}</td>
+	</tr>
 
-	<div>
-		<label>Group Description</label>
-		{$group.fname} {$group.group_description}
-	</div>
+	<tr>
+		<td>Owner</td>
+		<td><a href="user_view.php?user_id={$group.group_owner_id}">{$uname}</a></td>
+	</tr>
 
-	<div>
-		<label>Group URL</label>
-		{$group.group_url}
-	</div>
+	<tr>
+		<td>Tags</td>
+		<td>{$group.group_keyword}</td>
+	</tr>
 
-	<div>
-		<label>Total Video</label>
-		<a href="group_videos.php?gid={$group.group_id}">
-			{$num_group_videos}
-		</a>
-	</div>
+	<tr>
+		<td>Group Description</td>
+		<td>{$group.fname} {$group.group_description}</td>
+	</tr>
 
-	<div>
-		<label>Total Member</label>
-		<a href="group_members.php?group_id={$group.group_id}">
-			{$num_group_members}
-		</a>
-	</div>
+	<tr>
+		<td>Group URL</td>
+		<td>{$group.group_url}</td>
+	</tr>
 
-	<div>
-		<label>Total Topics</label>
-		<a href="group_topics.php?gid={$group.group_id}">
-			{$num_group_topics}
-		</a>
-	</div>
+	<tr>
+		<td>Total Video</td>
+		<td><a href="group_videos.php?gid={$group.group_id}">{$num_group_videos}</a></td>
+	</tr>
 
-	<div>
-		<label>Group Type</label>
-		{$group.group_type}
-	</div>
+	<tr>
+		<td>Total Member</td>
+		<td><a href="group_members.php?group_id={$group.group_id}">{$num_group_members}</a></td>
+	</tr>
 
-	<div>
-		<label>Upload Type</label>
-		{$group.group_upload}
-	</div>
+	<tr>
+		<td>Total Topics</td>
+		<td><a href="group_topics.php?gid={$group.group_id}">{$num_group_topics}</a></td>
+	</tr>
 
-	<div>
-		<label>Topic Posting Type</label>
-		{$group.group_posting}
-	</div>
+	<tr>
+		<td>Group Type</td>
+		<td>{$group.group_type}</td>
+	</tr>
 
-	<div>
-		<label>Group Image</label>
-		{$group.group_image}
-	</div>
+	<tr>
+		<td>Upload Type</td>
+		<td>{$group.group_upload}</td>
+	</tr>
 
-	<div>
-		<label>Is Featured?</label>
-		{$group.group_featured}
-	</div>
+	<tr>
+		<td>Topic Posting Type</td>
+		<td>{$group.group_posting}</td>
+	</tr>
 
-	<div>
-		<label>Channel</label>
-		<div style="margin-left:200px;">
-			{$ch_checkbox}
-		</div>
-	</div>
+	<tr>
+		<td>Group Image</td>
+		<td>{$group.group_image}</td>
+	</tr>
 
-	<div style="margin-top:1em;">
-		<a href="group_edit.php?action=edit&gid={$group.group_id}&page={$smarty.request.page}">
-			Edit Group
-		</a>
-	</div>
+	<tr>
+		<td>Is Featured?</td>
+		<td>{$group.group_featured}</td>
+	</tr>
+
+	<tr>
+		<td>Channel</td>
+		<td>{$ch_checkbox}</td>
+	</tr>
+
+	</table>
 
 </form>
+
+</div>  <!-- //col-md-x -->
+
+</div> <!-- //row -->
+
+<a href="group_edit.php?action=edit&gid={$group.group_id}&page={$smarty.request.page}" class="btn btn-default btn-lg">
+	Edit Group
+</a>
