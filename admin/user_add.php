@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
         $err = $lang['user_name_reserved'];
     } else if (check_field_exists($_POST['user_name'], 'user_name', 'users') == 1) {
         $err = $lang['user_name_exist'];
-    } else if (empty($_POST['user_email']) || ! validate::email($_POST['user_email'])) {
+    } else if (empty($_POST['user_email']) || ! Validate::email($_POST['user_email'])) {
         $err = $lang['email_invalid'];
     } else if (check_field_exists($_POST['user_email'], "user_email", "users") == 1) {
         $err = $lang['email_exist'];
