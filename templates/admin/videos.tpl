@@ -2,6 +2,8 @@
     <h1>{$smarty.request.a|capitalize} Videos ({$total})</h1>
 </div>
 
+{if $total gt 0}
+
 {if $a eq "embedded"}
 <form method="post" action="" onsubmit="javascript:return confirm('Are you sure you want to delete?');">
 {/if}
@@ -113,6 +115,12 @@
 {if $a eq "embedded"}
     <input type="submit" name="submit" id="video_del" value="Delete Selected Videos" />
 </form>
+{/if}
+
+{else}
+
+    <div class="alert alert-warning">No Videos found.</div>
+
 {/if}
 
 

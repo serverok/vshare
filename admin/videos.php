@@ -78,8 +78,8 @@ $videos = DB::fetch($sql);
 
 $smarty->assign('links', $links);
 $smarty->assign('grandtotal', $total);
-$smarty->assign('total', $total + 0);
-$smarty->assign('page', $page + 0);
+$smarty->assign('total', $total);
+$smarty->assign('page', $page);
 $smarty->assign('videos', $videos);
 $smarty->assign('a', $_GET['a']);
 $smarty->assign('err', $err);
