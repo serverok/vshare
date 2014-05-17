@@ -2,6 +2,7 @@
     <h1>Bad Words</h1>
 </div>
 
+{if !empty($badwords)}
 <table class="table table-striped table-hover">
 
 	<tr>
@@ -24,7 +25,13 @@
 
 </table>
 
-<hr />
+{else}
+<div class="alert alert-info">
+    No bad words found.
+</div>
+{/if}
+
+<hr>
 
 <form method="post" action="" class="form-inline" role="form">
 
