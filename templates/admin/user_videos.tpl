@@ -69,10 +69,10 @@
 <tr>
 	<td>{$video.video_id}</td>
 	<td><a href="video_details.php?id={$video.video_id}">{$video.video_title|truncate:60:"...":true}</a></td>
-	<td align="center">{$video.video_type}</td>
-	<td align="center">{$video.video_length}</td>
-	<td align="center">{$video.video_featured}</td>
-	<td align="center">{$video.video_add_date|date_format}</td>
+	<td>{$video.video_type}</td>
+	<td>{$video.video_length}</td>
+	<td>{$video.video_featured}</td>
+	<td>{$video.video_add_date|date_format}</td>
 	<td align="center">
 		<a href="video_edit.php?action=edit&video_id={$video.video_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
 			<span class="glyphicon glyphicon-edit"></span>
