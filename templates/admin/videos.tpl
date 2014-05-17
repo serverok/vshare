@@ -1,5 +1,6 @@
-<h1>{$smarty.request.a|capitalize} Videos ({$total})</h1>
-
+<div class="page-header">
+    <h1>{$smarty.request.a|capitalize} Videos ({$total})</h1>
+</div>
 
 {if $a eq "embedded"}
 <form method="post" action="" onsubmit="javascript:return confirm('Are you sure you want to delete?');">

@@ -43,8 +43,8 @@ if (isset($_POST['video_id_arr'])) {
     $msg = 'Selected Videos are Deleted.';
 }
 
-if (in_array($_GET['a'], $view_types)) {
-    die('Invalid video type: ' . $_GET['a'])
+if (! in_array($_GET['a'], $view_types)) {
+    die('Invalid video type: ' . $_GET['a']);
 }
 
 if ($_GET['a'] == 'all') {
