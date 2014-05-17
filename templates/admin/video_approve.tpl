@@ -115,6 +115,8 @@
 
 {else}
 
-<p>No videos currently awaiting approval.</p>
+<div class="alert alert-success">
+	No videos currently awaiting approval.
+</div>
 
 {/if}
