@@ -43,3 +43,29 @@ By adding, it will download product from folder
 /home/buyscrip/downloads
 
 ==========================================================
+
+
+Update
+
+http://buyscripts.in/vshare2-installation.html
+
+http://buyscripts.in web site side bar (template).
+
+----------------------------------------------------------
+vi /home/buyscrip/public_html/vshare/version.txt
+
+Update version and date
+
+cat /home/buyscrip/public_html/vshare/version.txt
+
+[root@server70 vshare]# cat /home/buyscrip/public_html/vshare/version.txt
+2.9
+20140520
+[root@server70 vshare]#
+
+----------------------------------------------------------
+
+http://buyscripts.in/vshare-release.html
+http://vshare.in/
+
+----------------------------------------------------------
