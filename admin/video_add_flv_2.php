@@ -147,7 +147,7 @@ if (isset($_POST['submit'])) {
             $fd = VSHARE_DIR . '/thumb/' . $video_id . '.jpg';
             $maxwidth = $config['img_max_width'];
             $maxheight = $config['img_max_height'];
-            VideoThumb::createThumb($_FILES['embedded_code_image_local']['tmp_name'][0], $fd, $maxwidth, $maxheight);
+            Image::createThumb($_FILES['embedded_code_image_local']['tmp_name'][0], $fd, $maxwidth, $maxheight);
 
             //$limit = count($_FILES['embedded_code_image_local']['name']);
             $j = 0;
@@ -155,7 +155,7 @@ if (isset($_POST['submit'])) {
                 $j ++;
                 if (! empty($_FILES['embedded_code_image_local']['name'][$i]) && ($_FILES['embedded_code_image_local']['type'][$i] == "image/jpeg")) {
                     $fd = VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg';
-                    VideoThumb::createThumb($_FILES['embedded_code_image_local']['tmp_name'][$i], $fd, $maxwidth, $maxheight);
+                    Image::createThumb($_FILES['embedded_code_image_local']['tmp_name'][$i], $fd, $maxwidth, $maxheight);
                 } else {
                     copy(VSHARE_DIR . '/templates/images/no_thumbnail.gif', VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg');
                 }
