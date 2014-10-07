@@ -34,7 +34,7 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i'])) {
         $verify_info = DB::fetch1($sql);
 
         if ($verify_info) {
-            $password = $verify_code_info['data2'];
+            $password = $verify_info['data2'];
 
             $sql = "UPDATE `users` SET
                    `user_password`='" . md5($password) . "' WHERE
