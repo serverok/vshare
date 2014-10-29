@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
 
     # check if user exists
 
-    $user_info = User::getById($_POST['video_user']);
+    $user_info = User::getByName($_POST['video_user']);
 
     if (! $user_info) {
         $err = $lang['user_not_found'];

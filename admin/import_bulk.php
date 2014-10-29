@@ -61,6 +61,9 @@ if (isset($_GET['keyword'])) {
             $smarty->assign('videos', $videos);
             $next = $page + 1;
             $previous = $page - 1;
+        } else {
+            $total = 0;
+            $err = 'There are no videos found with keyword.';
         }
 
         $links = Paginate::getLinks2($total, $admin_listing_per_page, '', $page);
