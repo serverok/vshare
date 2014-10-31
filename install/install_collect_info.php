@@ -50,6 +50,12 @@ if (isset($_POST['connect_info']))
         $error .= '<li>flvtool2 not found : ' . $flvtool_path . '</li>';
     }
 
+    $qtfaststart_path = $_POST['qtfaststart_path'];
+
+    if (! file_exists($qtfaststart_path)) {
+        $error .= '<li>Qt-faststart not found : ' . $qtfaststart_path . '</li>';
+    }
+
     $db_server = $_POST['db_server'];
     $db_name = $_POST['db_name'];
     $db_user = $_POST['db_user'];
@@ -94,6 +100,7 @@ session_start();
 \$config['mplayer']          =  '$_POST[mplayer_path]';
 \$config['mencoder']          =  '$_POST[mencoder_path]';
 \$config['flvtool']          =  '$_POST[flvtool_path]';
+\$config['qt-faststart']   =  '$_POST[qtfaststart_path]';
 \$config['basedir']        =  '$_POST[folder]';
 \$config['baseurl']        =  '$_POST[site_url]';
 
@@ -184,6 +191,15 @@ else
         $flvtool_path = '/usr/local/bin/flvtool2';
     }
 
+    if (file_exists('/usr/bin/qt-faststart'))
+    {
+        $qtfaststart_path = '/usr/bin/qt-faststart';
+    }
+    else if (file_exists('/usr/local/bin/qt-faststart'))
+    {
+        $qtfaststart_path = '/usr/local/bin/qt-faststart';
+    }
+
     $db_name = $db_user = $db_pass = '';
     $db_server = 'localhost';
 }
@@ -255,6 +271,14 @@ echo $mplayer_path;
 echo $flvtool_path;
 ?>"> (i.e. <i>/usr/bin/flvtool2</i>)</td>
 	</tr>
+
+    <tr>
+        <td width="30%">Qt-faststart binary</td>
+        <td width="70%"><input type="text" name="qtfaststart_path" size="33"
+            value="<?php
+echo $qtfaststart_path;
+?>"> (i.e. <i>/usr/bin/qt-faststart</i>)</td>
+    </tr>
 
 	<tr>
 		<td width="30%">MySQL database server</td>
