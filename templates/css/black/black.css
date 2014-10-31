@@ -304,8 +304,8 @@ LAYOUT
 	padding: 0;
 	text-align:left;
 	width:60em; /* !IE */
- *width:960px;/* IE */
-	min-width:960px;
+ *width:970px;/* IE */
+	min-width:970px;
 	background-color:#000;
 }
 
@@ -330,6 +330,7 @@ TOP MENU
 */
 
 #menu {
+    background-image: none;
 	width: 100%;
 	margin-bottom: 2em;
     margin-top:5px;
@@ -354,7 +355,7 @@ TOP MENU
 	margin: 0 1px 0 0;
 	padding:12px 0;
 	letter-spacing: 1px;
-	width:119px;
+	width:120px;
 	text-align:center;
 	background-image: url("./images/menu.gif");
 }
