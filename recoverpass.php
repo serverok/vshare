@@ -34,7 +34,7 @@ if (isset($_POST['recover'])) {
                 $err = $lang['user_name_not_found'];
             }
         } else if ($user_email != '') {
-            if (validate::email($user_email) == 1) {
+            if (Validate::email($user_email)) {
                 if (check_field_exists($user_email, 'user_email', 'users') == 1) {
                     $query = " WHERE `user_email`='" . DB::quote($user_email) . "'";
                 } else {
