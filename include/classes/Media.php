@@ -45,6 +45,8 @@ class Media
 
     public static function mp4Metadata($mp4_name, $video_folder, $log_file_name, $debug)
     {
+        global $config;
+
         $video_metadata_mp4 = VSHARE_DIR . '/flvideo/' . $video_folder . 'metadata_' . $mp4_name;
         $video_mp4 = (string) VSHARE_DIR . '/flvideo/' . $video_folder . $mp4_name;
         $video_mp4 = trim($video_mp4);
@@ -53,14 +55,7 @@ class Media
             $log_text = "Metadata Mp4 : $video_metadata_mp4";
             write_log($log_text, $log_file_name, $debug, 'html');
 
-            if (! file_exists(VSHARE_DIR . '/include/qt-faststart/qt-faststart')) {
-                $cmd_faststart = 'gcc ' . VSHARE_DIR . '/include/qt_faststart/qt-faststart.c -o ' . VSHARE_DIR . '/include/qt_faststart/qt-faststart';
-                $tmp = exec($cmd_faststart, $exec_result);
-                $log_text = "<h2>Compile with gcc: $cmd_faststart</h2>";
-                write_log($log_text, $log_file_name, $debug, 'html');
-            }
-
-            $cmd_qt_faststart = VSHARE_DIR . "/include/qt_faststart/qt-faststart $video_mp4 $video_metadata_mp4";
+            $cmd_qt_faststart = $config['qt-faststart'] . " $video_mp4 $video_metadata_mp4";
             $tmp = exec($cmd_qt_faststart, $exec_result);
             $log_text = "<h2>Running qt-faststart: $cmd_qt_faststart</h2>";
             write_log($log_text, $log_file_name, $debug, 'html');
