@@ -115,7 +115,7 @@ function upload_jpg($FILE, $var_name, $file_name, $img_width = 128, $dir = "uplo
 {
 
     if ($FILE[$var_name]['name']) {
-        $file_url = $dir . uniqid("") . tmp;
+        $file_url = $dir . uniqid("") . 'tmp';
         $ext = strrchr($FILE[$var_name]['name'], '.');
         move_uploaded_file($FILE[$var_name]['tmp_name'], $file_url);
 
