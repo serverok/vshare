@@ -22,6 +22,11 @@ if (isset($_GET['action']) && ($_GET['action'] == 'del')) {
     $sql = "DELETE FROM `channels` WHERE
            `channel_id`='" . (int) $_GET['chid'] . "'";
     DB::query($sql);
+
+    $ch_img = VSHARE_DIR . '/chimg/' . (int) $_GET['chid'] . '.jpg';
+    if (file_exists($ch_img)) {
+        @unlink($ch_img);
+    }
 }
 
 $allowedSort = array(

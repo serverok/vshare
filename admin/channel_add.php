@@ -40,8 +40,8 @@ if (isset($_POST['add_channel'])) {
                `channel_name`='" . DB::quote($_POST['channel_name']) . "',
                `channel_seo_name`='" . DB::quote($seo_name) . "',
                `channel_description`='" . DB::quote($_POST['channel_description']) . "'";
-        DB::query($sql);
-        $err = upload_jpg($_FILES, 'channel_image', mysql_insert_id() . '.jpg', 120, VSHARE_DIR . '/chimg/');
+        $channel_id = DB::insertGetId($sql);
+        $err = upload_jpg($_FILES, 'channel_image', $channel_id . '.jpg', 120, VSHARE_DIR . '/chimg/');
     }
 
     if ($err == '') {
