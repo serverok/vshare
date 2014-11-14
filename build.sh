@@ -251,9 +251,11 @@ then
 fi
 
 cp vshare_$VERSION.zip /home/buyscrip/downloads
+cp vshare_$VERSION.zip /home/manage.buyscripts.in/downloads
 
 # chown buyscrip:buyscrip /home/buyscrip/downloads/vshare_$VERSION.zip
 chmod 755 /home/buyscrip/downloads/vshare_$VERSION.zip
+chmod 755 /home/manage.buyscripts.in/downloads/vshare_$VERSION.zip
 
 echo "VERIFY ZIP CREATE TIME"
 
