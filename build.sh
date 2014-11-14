@@ -247,10 +247,17 @@ cd /home/buyscrip/vshare_build/relese/
 if [ -f /home/buyscrip/downloads/vshare_$VERSION.zip ]
 then
     mv /home/buyscrip/downloads/vshare_$VERSION.zip /home/buyscrip/downloads/vshare_$VERSION.zip.$(date +%m%d%Y%H%i%s).backup
-    echo "Renaming existing ZIP file"
+    echo "Renaming existing ZIP file in /home/buyscrip/downloads/"
 fi
 
 cp vshare_$VERSION.zip /home/buyscrip/downloads
+
+if [ -f /home/manage.buyscripts.in/downloads/vshare_$VERSION.zip ]
+then
+    mv /home/manage.buyscripts.in/downloads/vshare_$VERSION.zip /home/manage.buyscripts.in/downloads/vshare_$VERSION.zip.$(date +%m%d%Y%H%i%s).backup
+    echo "Renaming existing ZIP file in /home/manage.buyscripts.in/downloads/"
+fi
+
 cp vshare_$VERSION.zip /home/manage.buyscripts.in/downloads
 
 # chown buyscrip:buyscrip /home/buyscrip/downloads/vshare_$VERSION.zip
