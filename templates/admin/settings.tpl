@@ -12,7 +12,7 @@
             <div class="input-group">
             <input class="form-control" name="site_name" id="site_name" value="{$site_name}" size="40" />
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Site_Name" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/2.9/site_name" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
             <div class="input-group">
                 <input class="form-control" name="meta_keywords" id="meta_keywords" value="{$meta_keywords}" size="40" />
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Meta_Keywords" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/2.9/meta_keywords" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
             <div class="input-group">
                 <input class="form-control" name="meta_description" id="meta_description" value="{$meta_description}" size="40" />
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Meta_Description" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/2.9/meta_description" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
             <div class="input-group">
                 <input class="form-control" name="admin_email" id="admin_email" value="{$admin_email}" size="40" />
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Admin_Email" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/2.9/admin_email" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
             <div class="input-group">
                 <input class="form-control" name="items_per_page" id="items_per_page" value="{$items_per_page}" size="40" />
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/List_Per_Page" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/2.9/list_per_page" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
             <div class="input-group">
                 <input class="form-control" name="rel_video_per_page" id="rel_video_per_page" value="{$rel_video_per_page}" size="40" />
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Related_Videos" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/2.9/related_videos" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -84,7 +84,7 @@
             <div class="input-group">
                 <input class="form-control" name="num_watch_videos" id="num_watch_videos" value="{$num_watch_videos}" size="40" />
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Watch_Videos" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/2.9/watch_videos" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -96,7 +96,7 @@
             <div class="input-group">
                 <input class="form-control" name="guest_limit" id="guest_limit" value="{$guest_limit}" size="40" />
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Guest_Limit" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/2.9/guest_limit" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -111,7 +111,7 @@
                     <option value="0" {if $cache_enable eq "0"}selected="selected"{/if}>No</option>
                 </select>
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Cache" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/2.9/cache" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -126,7 +126,7 @@
                     <option value="0" {if $allow_html eq "0"}selected="selected"{/if}>No</option>
                 </select>
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Allow_Links_in_comment" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/2.9/allow_links_in_comment" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -141,7 +141,7 @@
                     <option value="0" {if $approve eq "0"}selected="selected"{/if}>Disable</option>
                 </select>
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Auto_Approve" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/2.9/auto_approve" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -166,7 +166,7 @@
                     <option value="0" {if $debug eq "0"}selected="selected"{/if}>Disable</option>
                 </select>
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Auto_Approve" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/2.9/debug_mode" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -208,7 +208,7 @@
             <div class="input-group">
                 <select class="form-control" name="enable_package" id="enable_package">{$service_ops}</select>
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Service_Type" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/2.9/service_type" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
