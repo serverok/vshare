@@ -11,7 +11,7 @@ it will not work. So do upgrade in the order below.
 Upgrade vShare v1 to v2 Instructions available at
 -----------------------------------------------------------------
 
-http://buyscripts.in/vshare-upgrade-1-2.html
+http://buyscripts.in/vshare-upgrade-1-2
 
 
 -----------------------------------------------------------------
@@ -73,7 +73,7 @@ http://forums.buyscripts.in/announcements/2001-upgrade-vshare-2-5-vshare-2-6-a.h
 Upgrade vShare v2.6 to 2.7
 -----------------------------------------------------------------
 
-http://labs.buyscripts.in/projects/vshare/wiki/Upgrade_vShare_26_to_27
+http://forums.buyscripts.in/showthread.php/4234-Upgrade-vShare-2-6-to-vShare-2-7
 
 -----------------------------------------------------------------
 Upgrade vShare v2.7 to 2.8.1
