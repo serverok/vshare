@@ -11,7 +11,12 @@
     <div class="form-group">
         <label class="col-sm-3 control-label" for="server_url">Server URL</label>
         <div class="col-sm-5">
-            <input class="form-control" name="server_url" id="server_url" value="{$server_info.url}" size="50" />
+            <div class="input-group">
+                <input class="form-control" name="server_url" id="server_url" value="{$server_info.url}" size="50" />
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_url" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
             <p class="help-block">No trailing slash. Eg: http://video1.site.com</p>
         </div>
     </div>
@@ -19,34 +24,55 @@
     <div class="form-group">
         <label class="col-sm-3 control-label" for="server_ip">Server IP</label>
         <div class="col-sm-5">
-            <input class="form-control" name="server_ip" id="server_ip" value="{$server_info.ip}" size="50" />
+            <div class="input-group">
+                <input class="form-control" name="server_ip" id="server_ip" value="{$server_info.ip}" size="50" />
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_ip" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-3 control-label" for="user_name">Username</label>
         <div class="col-sm-5">
-            <input class="form-control" name="user_name" id="user_name" value="{$server_info.user_name}" size="50" />
+            <div class="input-group">
+                <input class="form-control" name="user_name" id="user_name" value="{$server_info.user_name}" size="50" />
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_username" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-3 control-label" for="password">Password</label>
         <div class="col-sm-5">
-            <input class="form-control" name="password" id="password" value="{$server_info.password}" size="50" />
+            <div class="input-group">
+                <input class="form-control" name="password" id="password" value="{$server_info.password}" size="50" />
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_password" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-3 control-label" for="folder">Folder Name</label>
         <div class="col-sm-5">
-            <input class="form-control" name="folder" id="folder" value="{$server_info.folder}" size="50" />
+            <div class="input-group">
+                <input class="form-control" name="folder" id="folder" value="{$server_info.folder}" size="50" />
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_folder" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-3 control-label" for="server_type">Server Type</label>
         <div class="col-sm-5">
+            <div class="input-group">
             {if $server_info.server_type != "1"}
                 <select class="form-control" name="server_type" id="server_type" onchange="server_type_change(this.value);">
                     <option value="0" {if $server_info.server_type == "0"}selected="selected"{/if}>VIDEO SERVER</option>
@@ -55,18 +81,24 @@
                 </select>
             {else}
                 <input class="form-control" type="hidden" name="server_type" value="1" />
-            THUMBNAIL SERVER
+                <input class="form-control" type="text" value="THUMBNAIL SERVER" disabled>
             {/if}
-            <a href="http://labs.buyscripts.in/projects/vshare/wiki/Video_Server_Type" target="_blank">
-                <span class="glyphicon glyphicon-question-sign"></span>
-            </a>
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_type" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="form-group" {if $server_info.server_type == 2 || $server_info.server_type == 3}style="display:block"{else}style="display:none"{/if} id="secdownload_secret_div">
         <label class="col-sm-3 control-label" for="server_secdownload_secret">secdownload.secret</label>
         <div class="col-sm-5">
-            <input class="form-control" type="text" name="server_secdownload_secret" id="server_secdownload_secret" size="50" value="{$server_info.server_secdownload_secret}" />
+            <div class="input-group">
+                <input class="form-control" type="text" name="server_secdownload_secret" id="server_secdownload_secret" size="50" value="{$server_info.server_secdownload_secret}" />
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_type" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
         </div>
     </div>
 
