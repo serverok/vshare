@@ -9,7 +9,12 @@
     <div class="form-group">
         <label class="col-sm-3 control-label" for="server_url">Server URL:</label>
         <div class="col-sm-5">
-            <input class="form-control" type="text" name="server_url" id="server_url" value="{$smarty.post.server_url}" />
+            <div class="input-group">
+                <input class="form-control" type="text" name="server_url" id="server_url" value="{$smarty.post.server_url}" />
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_url" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
             <p class="help-block">No trailing slash. Eg: http://video1.site.com</p>
         </div>
     </div>
@@ -17,28 +22,48 @@
     <div class="form-group">
         <label class="col-sm-3 control-label" for="server_ip">FTP Server IP:</label>
         <div class="col-sm-5">
-            <input class="form-control" type="text" name="server_ip" id="server_ip" value="{$smarty.post.server_ip}" />
+            <div class="input-group">
+                <input class="form-control" type="text" name="server_ip" id="server_ip" value="{$smarty.post.server_ip}" />
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_ip" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-3 control-label" for="server_username">FTP Server Username:</label>
         <div class="col-sm-5">
-            <input class="form-control" type="text" name="server_username" id="server_username" value="{$smarty.post.server_username}" />
+            <div class="input-group">
+                <input class="form-control" type="text" name="server_username" id="server_username" value="{$smarty.post.server_username}" />
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_username" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-3 control-label" for="server_password">FTP Server Password:</label>
         <div class="col-sm-5">
-            <input class="form-control" type="text" name="server_password" id="server_password" value="{$smarty.post.server_password}" />
+            <div class="input-group">
+                <input class="form-control" type="text" name="server_password" id="server_password" value="{$smarty.post.server_password}" />
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_password" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-3 control-label" for="server_folder">FTP Server Folder Name:</label>
         <div class="col-sm-5">
-            <input class="form-control" type="text" name="server_folder" id="server_folder" value="{$smarty.post.server_folder}" />
+            <div class="input-group">
+                <input class="form-control" type="text" name="server_folder" id="server_folder" value="{$smarty.post.server_folder}" />
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_folder" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -53,7 +78,7 @@
                     <option value="3" {if $smarty.post.server_type == "3"}selected="selected"{/if}>ngx_http_secure_link_module</option>
                 </select>
                 <div class="input-group-addon">
-                    <a href="http://labs.buyscripts.in/projects/vshare/wiki/Add_Server" target="_blank">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_type" target="_blank">
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </a>
                 </div>
@@ -64,7 +89,12 @@
     <div class="form-group" {if $smarty.post.server_type == 2}style="display:block"{else}style="display:none"{/if} id="secret_div">
         <label class="col-sm-3 control-label" for="server_secdownload_secret">secret</label>
         <div class="col-sm-5">
-            <input class="form-control" type="text" name="server_secdownload_secret" id="server_secdownload_secret" value="{$smarty.post.secdownload_secret}" />
+            <div class="input-group">
+                <input class="form-control" type="text" name="server_secdownload_secret" id="server_secdownload_secret" value="{$smarty.post.secdownload_secret}" />
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_type" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
         </div>
     </div>
 
