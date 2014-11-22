@@ -4,8 +4,8 @@
  * COMPANY: BuyScripts.in
  * PROJECT: vShare Youtube Clone
  * VERSION: 2.9
- * LISENSE: http://buyscripts.in/vshare-license.html
- * WEBSITE: http://buyscripts.in/youtube_clone.html
+ * LICENSE: http://buyscripts.in/vshare-license
+ * WEBSITE: http://buyscripts.in/vshare-youtube-clone
  *
  * This program is a commercial software and any kind of using it must agree
  * to vShare license.
