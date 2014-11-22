@@ -6,7 +6,7 @@ server_type
 1 - THUMBNAIL SERVER
 2 - MOD_SECDOWNLOAD (LIGHTTPD)
 
-http://labs.buyscripts.in/projects/vshare/wiki/Video_Server_Type
+http://buyscripts.in/docs/vshare/2.9/add_server#server_type
 
 ===========================================================
 Process Queue Status
