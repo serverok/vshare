@@ -6,7 +6,7 @@
         
             <div class="float_l">
                 <a href="{$base_url}/{$comments[i].user_name}">{$comments[i].user_name}</a>
-                {insert name=time_range assign=comment_time field=comment_add_time IDFR=comment_id id=$comments[i].comment_id tbl=comments}
+                {insert name=time_range assign=comment_time time=$comments[i].comment_add_time}
                 <small>( {$comment_time} )</small>
             </div>
             <div class="float_r">
