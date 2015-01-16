@@ -86,6 +86,11 @@ if ($err == '') {
 
         $videos_all = DB::fetch($sql);
 
+        if (! count($videos_all)) {
+            require '404.php';
+            exit();
+        }
+
         foreach ($videos_all as $video)
         {
             $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
