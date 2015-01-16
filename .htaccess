@@ -1,5 +1,9 @@
 #Options +FollowSymLinks
 RewriteEngine on
+# FOR URL WITH OUT WWW
+#RewriteCond %{HTTP_HOST} !^domain.com$ [NC]
+#RewriteRule ^(.*)$ http://domain.com/$1 [L,R=301]
+# FOR URL WITH WWW
 #RewriteCond %{HTTP_HOST} ^domain.com$ [NC]
 #RewriteRule ^(.*)$ http://www.domain.com/$1 [L,R=301]
 RewriteRule ^admin$ - [L]
