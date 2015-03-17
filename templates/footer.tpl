@@ -28,6 +28,7 @@
 
 </div> <!-- wrapper -->
 <div class="quicklist_box" id="quicklist_box"></div>
+<script src="{$base_url}/js/bootstrap.min.js"></script>
 </body>
 </html>
 <script language="JavaScript" type="text/javascript">
