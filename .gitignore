@@ -18,3 +18,4 @@ include/config.php
 patch/*
 cgi-bin/*
 sitemap/*
+.idea
