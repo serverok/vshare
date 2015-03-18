@@ -103,6 +103,7 @@ session_start();
 \$config['qt-faststart']   =  '$_POST[qtfaststart_path]';
 \$config['basedir']        =  '$_POST[folder]';
 \$config['baseurl']        =  '$_POST[site_url]';
+\$config['theme']          =  'default';
 
 include(\$config['basedir'] . '/include/vshare.php');
 
