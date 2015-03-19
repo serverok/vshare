@@ -24,6 +24,7 @@ function write_admin_log()
            `admin_log_user_id`='$admin_log_user_id',
            `admin_log_script`='$admin_log_script',
            `admin_log_time`='$admin_log_time',
+           `admin_log_action`='',
            `admin_log_extra`='$admin_log_extra',
            `admin_log_ip`='$admin_log_ip'";
     DB::query($sql);
