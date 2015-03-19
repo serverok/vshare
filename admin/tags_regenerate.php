@@ -1,5 +1,6 @@
 <?php
 
+require 'admin_config.php';
 require '../include/config.php';
 
 Admin::auth();

@@ -12,6 +12,7 @@
  *
  ******************************************************************************/
 
+require 'admin_config.php';
 require '../include/config.php';
 require '../include/class.ftp.php';
 require '../include/class.video.php';

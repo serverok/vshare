@@ -12,6 +12,7 @@
  *
  ******************************************************************************/
 
+require 'admin_config.php';
 require '../include/config.php';
 
 if (isset($_POST['submit'])) {
