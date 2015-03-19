@@ -1,0 +1,21 @@
+header h1 {
+    margin: 0px;
+    padding: 0px;
+}
+.font-size-md {
+    font-size: medium;
+}
+.thumbnail img {
+    max-height: 130px;
+}
+.preview {
+    position: relative;
+}
+.preview .video-time {
+    background-color: #000000;
+    border-radius: 5px;
+    bottom: 0;
+    opacity: 0.6;
+    position: absolute;
+    right: 0;
+}
