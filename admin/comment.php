@@ -12,6 +12,7 @@
  *
  ******************************************************************************/
 
+require 'admin_config.php';
 include '../include/config.php';
 
 Admin::auth();

@@ -12,6 +12,7 @@
  *
  ******************************************************************************/
 
+require 'admin_config.php';
 require '../include/config.php';
 require '../include/language/' . LANG . '/admin/settings_signup.php';
 

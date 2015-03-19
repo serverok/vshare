@@ -12,6 +12,7 @@
  *
  ******************************************************************************/
 
+require 'admin_config.php';
 require '../include/config.php';
 require '../include/settings/upload.php';
 require '../include/language/' . LANG . '/admin/import_video.php';

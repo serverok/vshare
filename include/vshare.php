@@ -18,7 +18,11 @@ $smarty = new Smarty();
 if (!isset($config['theme'])) {
     $smarty->template_dir = VSHARE_DIR . '/templates';
 } else {
-    $smarty->template_dir = VSHARE_DIR . '/themes/' . $config['theme'];
+    if (defined('ADMIN_AREA')) {
+        $smarty->template_dir = VSHARE_DIR . '/templates';
+    } else {
+        $smarty->template_dir = VSHARE_DIR . '/themes/' . $config['theme'];
+    }
 }
 $smarty->compile_dir = VSHARE_DIR . '/templates_c';
 $smarty->cache_dir = VSHARE_DIR . '/templates_c/cache';
