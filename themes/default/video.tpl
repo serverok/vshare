@@ -1,180 +1,148 @@
-<div id="sidebar" style="float: left;">
-
-    <div class="section bg2">
-        <div class="hd">
-            <div class="hd-l">
-                Video Categories
-            </div>
-        </div>
-        
-        <ul style="list-style-type:none;">
-            {section name=i loop=$view.channels}
-                {insert name=channel_count assign=chinfo cid=$view.channels[i].channel_id}
-                <li style="margin: 2px 1px 3px -20px;">
-                    <a style="font-weight: normal;" href="{$base_url}/channel/{$view.channels[i].channel_id}/{$view.category}/{$view.view_type}/1">{$view.channels[i].channel_name}</a> <small>({$chinfo[1]})</small>
-                </li>
-            {/section}
-        </ul>
-        <div class="clearfix"></div>
+<div class="col-md-3">
+    <div class="page-header">
+        <h2>Video Categories</h2>
     </div>
-
+    <div class="list-group">
+    {section name=i loop=$view.channels}
+        {insert name=channel_count assign=chinfo cid=$view.channels[i].channel_id}
+        <a class="list-group-item" href="{$base_url}/channel/{$view.channels[i].channel_id}/{$view.category}/{$view.view_type}/1">
+            {$view.channels[i].channel_name}
+            <span class="badge">{$chinfo[1]}</span>
+        </a>
+    {/section}
+    </div>
 </div>
 
-<div id="content" style="float:right;">
-
-<div class="section bg2">
-
-    <div class="hd">
-    
-        <div class="hd-l">
+<div class="col-md-9">
+    <div class="page-header">
+        <h1>
             {$view.display_order}
             {if $channel_name ne ''}
                 {$channel_name} videos
             {/if}
-        </div>
-        
-        <div style="float:right;margin-right:1em;">
-            Videos {$view.start_num}-{$view.end_num} of {$view.total}
-        </div>
-    
-        <div class="hd-r" style="width:120px;">
-            {if $channel_name ne ""}
-	            {if $view.view_type eq "detailed"}
-	                <a  href="{$base_url}/{if $channel_name ne ''}channel/{$smarty.get.chid}/{/if}{$view.category}/basic/{$view.page}">Basic View</a>
-	            {else}
-	                <a  href="{$base_url}/{if $channel_name ne ''}channel/{$smarty.get.chid}/{/if}{$view.category}/detailed/{$view.page}">Detailed View</a>
-	            {/if}
-            {else}
-	            {if $view.view_type eq "detailed"}
-	                <a  href="{$base_url}/{$view.category}/{$view.page}">Basic View</a>
-	            {else}
-	                <a  href="{$base_url}/detailed/{$view.category}/{$view.page}">Detailed View</a>
-	            {/if}
-            {/if}
-        </div>
-    
+            <small class="pull-right font-size-md btn">Videos {$view.start_num}-{$view.end_num} of {$view.total}</small>
+            <small class="font-size-md col-md-offset-1 text-nowrap">
+                {if $channel_name ne ""}
+                    {if $view.view_type eq "detailed"}
+                        <a href="{$base_url}/{if $channel_name ne ''}channel/{$smarty.get.chid}/{/if}{$view.category}/basic/{$view.page}">Basic View</a>
+                    {else}
+                        <a href="{$base_url}/{if $channel_name ne ''}channel/{$smarty.get.chid}/{/if}{$view.category}/detailed/{$view.page}">Detailed View</a>
+                    {/if}
+                {else}
+                    {if $view.view_type eq "detailed"}
+                        <a href="{$base_url}/{$view.category}/{$view.page}">Basic View</a>
+                    {else}
+                        <a href="{$base_url}/detailed/{$view.category}/{$view.page}">Detailed View</a>
+                    {/if}
+                {/if}
+            </small>
+        </h1>
     </div>
 
     <div class="video_block clearfix">
-    
+
         {if $smarty.request.view_type eq "" or $smarty.request.view_type eq "basic"}
-        
+        <div class="row">
             {section name=i loop=$view.videos}
-            
-                <div class="watch-video-box">
-                
-                    <div class="preview watch-video-box-img-adjust">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <div class="preview">
                         <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
-                            <img src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}1_{$view.videos[i].video_id}.jpg" alt="{$view.videos[i].video_title}" />
+                            <img class="img-responsive" width="100%" height="130" src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}1_{$view.videos[i].video_id}.jpg" alt="{$view.videos[i].video_title}" />
                         </a>
-                        <div class="video-queue" id="{$view.videos[i].video_id}" rel="video_queue">&nbsp;</div>
-                        <div class="video-time">{$view.videos[i].video_length}</div>
+                        <span class="badge video-time">{$view.videos[i].video_length}</span>
                     </div>
-                
-                    <p class="video_title">
-                        <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">{$view.videos[i].video_title}</a>
-                    </p>
-                
-                    <p class="video_details">
-                        Added by: {insert name=id_to_name assign=uname un=$view.videos[i].video_user_id}<a href="{$base_url}/{$uname}" target="_parent">{$uname}</a>
-                    </p>
-                
-                    <p class="video_details">
-                        Views: {$view.videos[i].video_view_number} | {insert name=comment_count assign=commentcount vid=$view.videos[i].video_id}Comments: {$commentcount}
-                    </p>
-                
-                    <p class="video_details">
-                        {if $view.videos[i].video_rated_by gt "0"}
-                            {insert name=show_rate assign=rate rte=$view.videos[i].video_rate rated=$view.videos[i].video_rated_by}
-                            {$rate}
-                        {else}
-                            (not yet rated)
-                        {/if}
-                    </p>
+                    <div class="caption">
+                        <h5 class="video_title">
+                            <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">{$view.videos[i].video_title|truncate:30}</a>
+                        </h5>
+                        <p class="text-muted small">
+                            {insert name=id_to_name assign=uname un=$view.videos[i].video_user_id}
+                            <span class="glyphicon glyphicon-user"></span>
+                            <a href="{$base_url}/{$uname}" target="_parent">{$uname}</a>
+                            <span class="text-nowrap">on {$view.videos[i].video_add_time|date_format}</span>
+                        </p>
+                        <p class="text-muted small">
+                            <span class="glyphicon glyphicon-eye-open"></span> {$view.videos[i].video_view_number} views,
+                            &nbsp;
+                            {insert name=comment_count assign=commentcount vid=$view.videos[i].video_id}
+                            <span class="glyphicon glyphicon-comment"></span> Comments {$commentcount}
+                        </p>
+                        <p class="text-muted small">
+                            <span class="text-nowrap">
+                                <span class="glyphicon glyphicon-star"></span>
+                                {if $view.videos[i].video_rated_by gt "0"}
+                                    {insert name=show_rate assign=rate rte=$view.videos[i].video_rate rated=$view.videos[i].video_rated_by}
+                                    {$rate}
+                                {else}
+                                    Not yet rated
+                                {/if}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {sectionelse}
+                <br />
+                <center><p><b>There are no videos found.</b></p></center>
+            {/section}
+        </div>
+        {else}
+
+            {section name=i loop=$view.videos}
+               <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <div class="preview">
+                                <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
+                                    <img class="img-responsive" width="100%" height="130" src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}1_{$view.videos[i].video_id}.jpg" alt="{$view.videos[i].video_title}">
+                                </a>
+                                <span class="badge video-time">{$view.videos[i].video_length}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-8">
+                        <h4>
+                            <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">{$view.videos[i].video_title}</a>
+                            <br>
+                            <small>{$view.videos[i].video_description|truncate:150}</small>
+                        </h4>
+                        <p class="text-muted small">
+                            {insert name=id_to_name assign=user_name un=$view.videos[i].video_user_id}
+                            {insert name=time_range assign=added_on time=$view.videos[i].video_add_time}
+                            <span class="glyphicon glyphicon-user"></span>
+                            <a href="{$base_url}/{$user_name}">{$user_name}</a>,
+                            {$added_on}
+                            <br />
+                            <span class="glyphicon glyphicon-eye-open"></span> Views {$view.videos[i].video_view_number},
+                            <span class="glyphicon glyphicon-comment"></span> Comments {$view.videos[i].video_com_num},
+                            <span class="text-nowrap">
+                                <span class="glyphicon glyphicon-star"></span>
+                                {if $view.videos[i].video_rated_by gt "0"}
+                                    {insert name=show_rate assign=rate rte=$view.videos[i].video_rate rated=$view.videos[i].video_rated_by}
+                                    {$rate}
+                                    ({$view.videos[i].video_rated_by} ratings)
+                                {else}
+                                    Not yet rated
+                                {/if}
+                            </span>
+                        </p>
+                    </div>
+                    <hr>
                 </div>
             {sectionelse}
                 <br />
                 <center><p><b>There are no videos found.</b></p></center>
             {/section}
-      
-        {else}
-            
-            {section name=i loop=$view.videos}
-            
-               <div class="watch-detailed clearfix">
-    
-                    <div class="box1">
-                        <div class="preview search-videos-img-adjust">
-                            <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
-                                <img src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}1_{$view.videos[i].video_id}.jpg" alt="" />
-                            </a>
-                            <div class="video-queue" id="{$view.videos[i].video_id}_detail1" rel="video_queue">&nbsp;</div>
-                            <div class="video-time">{$view.videos[i].video_length}</div>
-                        </div>
-                        
-                        <div class="preview search-videos-img-adjust">
-                            <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
-                                <img src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}2_{$view.videos[i].video_id}.jpg" alt="" />
-                            </a>
-                            <div class="video-queue" id="{$view.videos[i].video_id}_detail2" rel="video_queue">&nbsp;</div>
-                            <div class="video-time">{$view.videos[i].video_length}</div>
-                        </div>
-                        
-                        <div class="preview search-videos-img-adjust">
-                            <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
-                                <img src="{$view.videos[i].video_thumb_url}/thumb/{$view.videos[i].video_folder}3_{$view.videos[i].video_id}.jpg" alt="" />
-                            </a>
-                            <div class="video-queue" id="{$view.videos[i].video_id}_detail3" rel="video_queue">&nbsp;</div>
-                            <div class="video-time">{$view.videos[i].video_length}</div>
-                        </div>
-                    </div>
-    
-                    <div class="box2">
-    
-                        <p class="video_title">
-                            <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
-                                {$view.videos[i].video_title}
-                            </a>
-                        </p>
-    
-                        <p class="video_description">
-                            {$view.videos[i].video_description}
-                        </p>
-                        
-                        <p class="video_details">
-                            Added by: {insert name=id_to_name assign=user_name un=$view.videos[i].video_user_id}
-                            <a href="{$base_url}/{$uname}" target="_parent">{$user_name}</a>
-                        </p>
-    
-                        <p class="video_details">
-                            Views: {$view.videos[i].video_view_number} |
-                            {insert name=comment_count assign=commentcount vid=$view.videos[i].video_id}
-                            Comments: {$commentcount}
-                        </p>
-                        
-                        {if $view.videos[i].ratedby gt "0"}
-                            {insert name=show_rate assign=rate rte=$view.videos[i].video_rate rated=$view.videos[i].video_rated_by}
-                            {$rate}
-                        {/if}
-                        
-                    </div>
-                    
-                </div> <!--watch-detailed-->
-            {sectionelse}
-                <br />
-                <center><p><b>There are no videos found.</b></p></center>
-            {/section}
-        
+
         {/if}
-        
+
     </div> <!-- video_block -->
-   
+
     {if $view.page_links ne ""}
         <div class="page_links">
-            Pages: &nbsp; &nbsp; {$view.page_links}
+            {$view.page_links}
         </div>
     {/if}
 
-</div> <!-- section -->
-
-</div> <!-- content -->
+</div>
