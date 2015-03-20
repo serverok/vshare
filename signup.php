@@ -144,6 +144,7 @@ if (isset($_POST['submit'])) {
                `user_email`='" . DB::quote($_POST['email']) . "',
                `user_name`='" . DB::quote($_POST['user_name']) . "',
                `user_password`='" . DB::quote($request_password) . "',
+               `user_salt`='',
                `user_join_time`='" . $_SERVER['REQUEST_TIME'] . "',
                `user_last_login_time`='" . $_SERVER['REQUEST_TIME'] . "',
                `user_ip`='" . DB::quote($user_ip) . "'";
