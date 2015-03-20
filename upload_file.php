@@ -350,30 +350,6 @@ if ($upload_progress_bar == 'uber') {
     <script src="' . VSHARE_URL . '/js/jquery.form.js"></script>
     <script src="' . VSHARE_URL . '/js/upload_progress.js"></script>
     ';
-    $html_head_extra = '
-    <style>
-    .progress {
-        position: relative;
-        width: 400px;
-        border: 1px solid #00008B;
-        overflow: hidden;
-        padding: 0px;
-        border-radius: 3px;
-    }
-    .bar {
-        background-color: #00008B;
-        height: 25px;
-        width: 0%;
-    }
-    .percent {
-        display: inline-block;
-        left: 48%;
-        position: absolute;
-        text-shadow: 0 0 0 #FFFFFF;
-        top: 6px;
-    }
-    </style>
-    ';
 }
 
 $smarty->assign('html_extra', $html_extra);

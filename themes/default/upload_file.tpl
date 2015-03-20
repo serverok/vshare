@@ -40,176 +40,169 @@
 
 {/if}
 
-<div class="section">
+<div class="page-header">
+    <h1>Video Upload (Step 2 of 2)</h1>
+</div>
 
-    <div class="hd">
-        <div class="hd-l">Video Upload (Step 2 of 2)</div>
-    </div>
-
-    <br />
-    {if $upload_progress_bar eq "uber"}
-        {if $upload_iframe ne ""}
-            <div id="upload_div" style="display: none;">
-                <iframe name="upload_iframe" frameborder="0" width="800" height="200" scrolling="auto"></iframe>
-            </div>
-        {/if}
+{if $upload_progress_bar eq "uber"}
+    {if $upload_iframe ne ""}
+        <div id="upload_div" style="display: none;">
+            <iframe name="upload_iframe" frameborder="0" width="800" height="200" scrolling="auto"></iframe>
+        </div>
     {/if}
+{/if}
 
-    <!-- Start Upload Form -->
+<!-- Start Upload Form -->
 
-    {if $upload_progress_bar eq "uber"}
+{if $upload_progress_bar eq "uber"}
 
-        <form name="uu_upload" id="uu_upload" {$upload_iframe} method="post" enctype="multipart/form-data" action="#" style="margin: 0px; padding: 0px;">
-            <noscript>
-                <span class="ubrError">ERROR</span>: Javascript must be enabled to use this Uber-Uploader.
-                <br /><br />
-            </noscript>
+    <form name="uu_upload" id="uu_upload" {$upload_iframe} method="post" enctype="multipart/form-data" action="#" class="form-horizontal" role="form">
+        <noscript>
+            <span class="ubrError">ERROR</span>: Javascript must be enabled to use this Uber-Uploader.
+            <br><br>
+        </noscript>
 
-            <input type="hidden" name="upload_id" value="{$upload_id}" />
+        <input type="hidden" name="upload_id" value="{$upload_id}">
 
-            <div style="margin-left:84px;">
-                <label>File:</label>
-            </div>
-            <div style="width:550px; padding-left:180px;">
-                <div class="formHighlight">
-                    <div id="upload_slots">
-                        <input class="ubrUploadSlot" type="file" name="upfile_0" size="70" onkeypress="return handleKey(event)" value="" />
-                    </div>
-                     <div class="formHighlightText">
-                        <strong>Max. video file size: {ini_get('upload_max_filesize')}. No copyrighted {if $smarty.session.$upload_id.adult eq "0"}or obscene {/if}material.</strong><br />
-                        After uploading, you can edit or remove this video at any time under the "My Videos" link
-                        on the top of the page.
-                    </div>
-                </div>
-            </div>
-            <div style="padding:5px 0px 5px 180px;">
-                PLEASE BE PATIENT, THIS MAY TAKE SEVERAL MINUTES. <br />ONCE COMPLETED, YOU WILL SEE A CONFIRMATION MESSAGE.
-                <input type="hidden" name="upload_range" value="1" />
-                <noscript><input type="hidden" name="no_script" value="1" /></noscript>
-            </div>
-            <div style="margin-left:5%;">
-                <label>Progress:</label>
-                <div style="width: 80%;margin-left: 15%;">
-                    <!-- Start Progress Bar -->
-                    <div id="ubr_alert" class="ubrAlert"></div>
-
-                    <div align="left" id="progress_bar" style="display:none;">
-
-                        <div id="upload_status_wrap" class="ubrBar1" style="width: {$progress_bar_width}px;">
-                            <div id="upload_status" class="ubrBar2"></div>
+        <div class="form-group">
+            <label class="control-label col-md-2">File:</label>
+            <div class="col-md-8">
+                <div style="width:550px;">
+                    <div class="formHighlight">
+                        <div id="upload_slots">
+                            <input class="ubrUploadSlot" type="file" name="upfile_0" size="70" onkeypress="return handleKey(event)" value="">
                         </div>
-
-                        <br />
-
-                        <table class="ubrUploadData">
-                            <tr>
-                                <td class='ubrUploadDataLabel'>Percent Complete:</td>
-                                <td class='ubrUploadDataInfo'><span id="percent_complete">0%</span></td>
-                            </tr>
-
-                            <tr>
-                                <td class='ubrUploadDataLabel'>Current Position:</td>
-                                <td class='ubrUploadDataInfo'><span id="current_position">0</span> / <span id="total_kbytes"></span> KBytes</td>
-                            </tr>
-                            <tr>
-                                <td class='ubrUploadDataLabel'>Elapsed Time:</td>
-                                <td class='ubrUploadDataInfo'><span id="elapsed_time">0</span></td>
-                            </tr>
-                            <tr>
-                                <td class='ubrUploadDataLabel'>Est Time Left:</td>
-                                <td class='ubrUploadDataInfo'><span id="est_time_left">0</span></td>
-                            </tr>
-                            <tr>
-                                <td class='ubrUploadDataLabel'>Est Speed:</td>
-                                <td class='ubrUploadDataInfo'><span id="est_speed">0</span> KB/s.</td>
-                            </tr>
-
-                        </table>
-
-                    </div>
-
-                    <!-- End Progress Bar -->
-
-                    <div style="padding:20px 10px 10px 0;">
-                        <input type="button" id="upload_button" name="upload_button" value="Upload" />
+                         <div class="help-block">
+                            <strong>Max. video file size: {ini_get('upload_max_filesize')}. No copyrighted {if $smarty.session.$upload_id.adult eq "0"}or obscene {/if}material.</strong><br>
+                            After uploading, you can edit or remove this video at any time under the "My Videos" link
+                            on the top of the page.
+                        </div>
                     </div>
                 </div>
+                <div class="alert alert-warning">
+                    PLEASE BE PATIENT, THIS MAY TAKE SEVERAL MINUTES. <br>ONCE COMPLETED, YOU WILL SEE A CONFIRMATION MESSAGE.
+                    <input type="hidden" name="upload_range" value="1">
+                    <noscript><input type="hidden" name="no_script" value="1"></noscript>
+                </div>
             </div>
-        </form>
-        <div id="ajax_div"><!-- Used to store AJAX --></div>
-
-    {elseif $upload_progress_bar eq "html5"}
-
-        <form action="{$base_url}/upload_file.php?upload_id={$upload_id}" method="post" enctype="multipart/form-data">
-            <noscript>
-                <span class="ubrError">ERROR</span>: Javascript must be enabled to use this HTML5-Uploader.
-                <br /><br />
-            </noscript>
-
-            <input type="hidden" name="upload_id" id="upload_id" value="{$upload_id}">
-
-            <div style="margin-left:84px;">
-                <label>File:</label>
-            </div>
-            <div style="width:550px; padding-left:180px;">
-                <div class="formHighlight">
-                    <div id="upload_slots">
-                        <input type="file" name="upfile_0">
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Progress:</label>
+            <div class="col-md-8">
+                <!-- Start Progress Bar -->
+                <div id="ubr_alert" class="ubrAlert"></div>
+                <div align="left" id="progress_bar" style="display:none;">
+                    <div id="upload_status_wrap" class="ubrBar1" style="width: {$progress_bar_width}px;">
+                        <div id="upload_status" class="ubrBar2"></div>
                     </div>
-                     <div class="formHighlightText">
-                        <strong>Max. video file size: {ini_get('upload_max_filesize')}. No copyrighted {if $smarty.session.$upload_id.adult eq "0"}or obscene {/if}material.</strong><br />
-                        After uploading, you can edit or remove this video at any time under the "My Videos" link
-                        on the top of the page.
+                    <br />
+                    <table class="ubrUploadData">
+                        <tr>
+                            <td class='ubrUploadDataLabel'>Percent Complete:</td>
+                            <td class='ubrUploadDataInfo'><span id="percent_complete">0%</span></td>
+                        </tr>
+                        <tr>
+                            <td class='ubrUploadDataLabel'>Current Position:</td>
+                            <td class='ubrUploadDataInfo'><span id="current_position">0</span> / <span id="total_kbytes"></span> KBytes</td>
+                        </tr>
+                        <tr>
+                            <td class='ubrUploadDataLabel'>Elapsed Time:</td>
+                            <td class='ubrUploadDataInfo'><span id="elapsed_time">0</span></td>
+                        </tr>
+                        <tr>
+                            <td class='ubrUploadDataLabel'>Est Time Left:</td>
+                            <td class='ubrUploadDataInfo'><span id="est_time_left">0</span></td>
+                        </tr>
+                        <tr>
+                            <td class='ubrUploadDataLabel'>Est Speed:</td>
+                            <td class='ubrUploadDataInfo'><span id="est_speed">0</span> KB/s.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End Progress Bar -->
+        <div class="form-group">
+            <div class="col-md-2 col-md-offset-2">
+                <button type="button" id="upload_button" name="upload_button" class="btn btn-default btn-lg">Upload</button>
+            </div>
+        </div>
+    </form>
+    <div id="ajax_div"><!-- Used to store AJAX --></div>
+
+{elseif $upload_progress_bar eq "html5"}
+
+    <form action="{$base_url}/upload_file.php?upload_id={$upload_id}" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+        <noscript>
+            <span class="ubrError">ERROR</span>: Javascript must be enabled to use this HTML5-Uploader.
+            <br><br>
+        </noscript>
+        <input type="hidden" name="upload_id" id="upload_id" value="{$upload_id}">
+
+        <div class="form-group">
+            <label class="control-label col-md-2">File:</label>
+            <div class="col-md-6">
+                <div style="width:550px;">
+                    <div class="formHighlight">
+                        <div id="upload_slots">
+                            <input type="file" name="upfile_0">
+                        </div>
+                         <div class="help-block">
+                            <strong>Max. video file size: {ini_get('upload_max_filesize')}. No copyrighted {if $smarty.session.$upload_id.adult eq "0"}or obscene {/if}material.</strong><br />
+                            After uploading, you can edit or remove this video at any time under the "My Videos" link
+                            on the top of the page.
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div style="padding:5px 0px 5px 180px;">
-                PLEASE BE PATIENT, THIS MAY TAKE SEVERAL MINUTES. <br />ONCE COMPLETED, YOU WILL SEE A CONFIRMATION MESSAGE.
-                <input type="hidden" name="upload_range" value="1" />
-                <noscript><input type="hidden" name="no_script" value="1" /></noscript>
-            </div>
-            <div style="padding-left:180px;">
-                <div class="progress">
-                    <div class="bar"></div >
-                    <div class="percent">0%</div >
+                <div class="alert alert-warning">
+                    PLEASE BE PATIENT, THIS MAY TAKE SEVERAL MINUTES. <br>ONCE COMPLETED, YOU WILL SEE A CONFIRMATION MESSAGE.
+                    <input type="hidden" name="upload_range" value="1">
+                    <noscript><input type="hidden" name="no_script" value="1"></noscript>
                 </div>
-                <div id="processing" style="display: none;">
-                    <img src="{$base_url}/templates/images/loading.gif"> <strong>Processing...</strong>
-                </div>
-                <div id="status"></div>
-                <div style="padding:20px 10px 10px 0;">
-                    <input type="submit" value="Upload">
-                </div>
-            </div>
-        </form>
-
-    {else}
-
-        <form id="theForm" name="theForm" action="{$base_url}/upload_file.php" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="upload_id" value="{$upload_id}" />
-            <div style="width:550px; padding-left:180px;">
-                <div class="formHighlight">
-                    <input type="file" name="field_uploadfile" size="70" />
-
-                    <div class="formHighlightText">
-                        <strong>Max. video file size: {ini_get('upload_max_filesize')}. No copyrighted {if $smarty.session.$upload_id.adult eq "0"}or obscene {/if}material.</strong><br />
-                        After uploading, you can edit or remove this video at any time under the "My Videos" link
-                        on the top of the page.
+                <div>
+                    <div class="progress">
+                        <div class="progress-bar bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                            <span class="sr-only percent">0%</span>
+                        </div>
                     </div>
+                    <div id="processing" style="display: none;">
+                        <img src="{$base_url}/templates/images/loading.gif"> <strong>Processing...</strong>
+                    </div>
+                    <div id="status"></div>
                 </div>
             </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 col-md-offset-2">
+                <button type="submit" class="btn btn-default btn-lg">Upload</button>
+            </div>
+        </div>
+    </form>
 
-            <div style="padding:5px 0px 5px 180px;">
-                PLEASE BE PATIENT, THIS MAY TAKE SEVERAL MINUTES. <br />ONCE COMPLETED, YOU WILL SEE A CONFIRMATION MESSAGE.
-                <input type="hidden" name="upload_range" value="1" />
-                <noscript><input type="hidden" name="no_script" value="1" /></noscript>
+{else}
 
-                <div style="padding:20px 10px 10px 0;">
-                    <input name="upload_final" type="submit" value="Upload Video" />
+    <form id="theForm" name="theForm" action="{$base_url}/upload_file.php" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+        <input type="hidden" name="upload_id" value="{$upload_id}">
+        <div class="form-group">
+            <label class="control-label col-md-2">File:</label>
+            <div class="col-md-8">
+                <input type="file" name="field_uploadfile" size="70">
+                <div class="help-block">
+                    <strong>Max. video file size: {ini_get('upload_max_filesize')}. No copyrighted {if $smarty.session.$upload_id.adult eq "0"}or obscene {/if}material.</strong><br />
+                    After uploading, you can edit or remove this video at any time under the "My Videos" link
+                    on the top of the page.
+                </div>
+                <div class="alert alert-warning">
+                    PLEASE BE PATIENT, THIS MAY TAKE SEVERAL MINUTES. <br />ONCE COMPLETED, YOU WILL SEE A CONFIRMATION MESSAGE.
+                    <input type="hidden" name="upload_range" value="1">
+                    <noscript><input type="hidden" name="no_script" value="1"></noscript>
                 </div>
             </div>
-        </form>
-
-    {/if}
-
-</div> <!-- section -->
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 col-md-offset-2">
+                <button name="upload_final" type="submit" class="btn btn-default btn-lg">Upload Video</button>
+            </div>
+        </div>
+    </form>
+{/if}

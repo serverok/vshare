@@ -1,7 +1,7 @@
 {if $err ne ""}
-    <div class="vshare-error">{$err}</div>
+    <div class="alert alert-danger" role="alert">{$err}</div>
 {/if}
 
 {if $msg ne ""}
-    <div class="vshare-success">{$msg}</div>
+    <div class="alert alert-success" role="alert">{$msg}</div>
 {/if}
