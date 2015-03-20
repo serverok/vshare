@@ -87,3 +87,7 @@ a.latest:active {
     color: #00f;
 }
 /* tag cloud end */
+
+img.preview {
+    width: 100%;
+}

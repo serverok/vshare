@@ -1,35 +1,35 @@
-<div class="section bg2">
+<div class="page-header">
+    <h1>All Channels</h1>
+</div>
 
-    <div class="hd">
-        <div class="hd-l">
-            All Channels
+<div class="row">
+    {section name=i loop=$channels}
+    <div class="col-sm-6 col-md-3">
+        <div class="thumbnail">
+            <div class="preview">
+                <a href="{$base_url}/channel/{$channels[i].channel_id}/{$channels[i].channel_seo_name}/">
+                    <img class="img-responsive" width="100%" height="130" src="{$base_url}/chimg/{$channels[i].channel_id}.jpg" alt="channel">
+                </a>
+            </div>
+            <div class="caption">
+                <h5>
+                    <a href="{$base_url}/channel/{$channels[i].channel_id}/{$channels[i].channel_seo_name}/">
+                        {$channels[i].channel_name_html}
+                    </a>
+                    <br>
+                    <small>{$channels[i].channel_description|truncate:40}</small>
+                </h5>
+                {insert name=channel_count assign=infoch cid=$channels[i].channel_id}
+                <p class="text-muted small">
+                    <span class="glyphicon glyphicon-facetime-video"></span>
+                    &nbsp;Today: {$infoch[0]} | Total: {$infoch[1]}
+                </p>
+                <p class="text-muted small">
+                    <span class="glyphicon glyphicon-globe"></span>
+                    Groups: {$infoch[2]}
+                </p>
+            </div>
         </div>
     </div>
-
-    <ul id="channels">
-        {section name=i loop=$channels}
-            {insert name=channel_count assign=infoch cid=$channels[i].channel_id}
-            <li>
-                <a href="{$base_url}/channel/{$channels[i].channel_id}/{$channels[i].channel_seo_name}/">
-                    <img class="preview" src="{$base_url}/chimg/{$channels[i].channel_id}.jpg" alt="channel" width="120" height="90" />
-                </a>
-                <br />
-                <a href="{$base_url}/channel/{$channels[i].channel_id}/{$channels[i].channel_seo_name}/">
-                    {$channels[i].channel_name_html}
-                </a>
-                <div class="channel-activity">
-                    <img src="{$img_css_url}/images/star.gif" width="12" alt="star" />
-                    &nbsp;Today: {$infoch[0]} | Total: {$infoch[1]} 
-                </div>
-                <div class="channel-groups">
-                    Groups: {$infoch[2]} 
-                </div>
-                <div class="channel_description">
-                    {$channels[i].channel_description}
-                </div>
-            </li>
-        {/section}
-    </ul>
-	<div class="clearfix"></div>
-
+    {/section}
 </div>
