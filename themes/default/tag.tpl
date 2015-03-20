@@ -1,86 +1,63 @@
-<div class="tag-top-links">
-    <b>Sort by:</b>
-    <a href="{$base_url}/tag/{$smarty.get.search_string}/?sort=adddate">Date Added</a> -
-    <a href="{$base_url}/tag/{$smarty.get.search_string}/?sort=viewnum">View Count</a> -
-    <a href="{$base_url}/tag/{$smarty.get.search_string}/?sort=rate">Rating</a>
+<div class="page-header">
+    <h1>
+        Videos with tag <strong>{$search_string}</strong>
+        <small class="pull-right font-size-md btn">Results {$start_num} - {$end_num} of {$total}</small>
+        <div class="btn-group col-md-offset-1">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                Sort by <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{$base_url}/tag/{$smarty.get.search_string}/?sort=adddate">Date added</a></li>
+                <li><a href="{$base_url}/tag/{$smarty.get.search_string}/?sort=viewnum">View count</a></li>
+                <li><a href="{$base_url}/tag/{$smarty.get.search_string}/?sort=rate">Rating</a></li>
+            </ul>
+        </div>
+    </h1>
 </div>
 
-<div class="section bg2">
-
-	<div class="hd">
-	
-		<div class="hd-l">
-			Videos with tag {$search_string}
-		</div>
-		
-		<div class="hd-r">
-			Results <b>{$start_num}</b>-<b>{$end_num}</b> of <b>{$total}</b>
-		</div>
-		
-	</div>
-
-	{section name=i loop=$video_info}
-
-        <div class="tags-video-entry clearfix">
-        
-            <div class="box1">
-                <div class="preview search-videos-img-adjust">
-					<a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">
-	    				<img src="{$video_info[i].video_thumb_url}/thumb/{$video_info[i].video_folder}1_{$video_info[i].video_id}.jpg" alt="" />
-					</a>
-					<div class="video-queue" id="{$video_info[i].video_id}" rel="video_queue">&nbsp;</div>
-					<div class="video-time">{$video_info[i].video_length}</div>
-				</div>
-				
-				<div class="preview search-videos-img-adjust">
-					<a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">
-					    <img src="{$video_info[i].video_thumb_url}/thumb/{$video_info[i].video_folder}2_{$video_info[i].video_id}.jpg" alt="" />
-					</a>
-					<div class="video-time">{$video_info[i].video_length}</div>
-				</div>
-				
-				<div class="preview search-videos-img-adjust">
-					<a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">
-					    <img src="{$video_info[i].video_thumb_url}/thumb/{$video_info[i].video_folder}3_{$video_info[i].video_id}.jpg" alt="" />
-					</a>
-					<div class="video-time">{$video_info[i].video_length}</div>
-				</div>
+{section name=i loop=$video_info}
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <div class="thumbnail">
+                <div class="preview">
+                    <a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">
+                        <img class="img-responsive" width="100%" height="130" src="{$video_info[i].video_thumb_url}/thumb/{$video_info[i].video_folder}1_{$video_info[i].video_id}.jpg" alt="{$video_info[i].video_title}" />
+                    </a>
+                    <span class="badge video-time">{$video_info[i].video_length}</span>
+                </div>
             </div>
-            
-            <div class="box2">
-				
-				<p class="video-entry-title">
-					<a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">
-						{$video_info[i].video_title}
-					</a>
-				</p>
+        </div>
+        <div class="col-sm-8 col-md-9">
+            <h4>
+                <a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">{$video_info[i].video_title}</a>
+                <br>
+                <small>{$video_info[i].video_description|truncate:150}</small>
+            </h4>
+            <p class="text-muted small">
+                {insert name=id_to_name assign=user_name un=$video_info[i].video_user_id}
+                {insert name=time_range assign=added_on time=$video_info[i].video_add_time}
+                <span class="glyphicon glyphicon-user"></span>
+                <a href="{$base_url}/{$user_name}">{$user_name}</a>,
+                {$added_on}
+                <br />
+                <span class="glyphicon glyphicon-eye-open"></span> Views {$video_info[i].video_view_number},
+                <span class="glyphicon glyphicon-comment"></span> Comments {$video_info[i].video_com_num},
+                <span class="text-nowrap">
+                    <span class="glyphicon glyphicon-star"></span>
+                    {if $video_info[i].video_rated_by gt "0"}
+                        {insert name=show_rate assign=rate rte=$video_info[i].video_rate rated=$video_info[i].video_rated_by}
+                        {$rate}
+                        ({$video_info[i].video_rated_by} ratings)
+                    {else}
+                        Not yet rated
+                    {/if}
+                </span>
+            </p>
+        </div>
+        <hr>
+    </div>
+{/section}
 
-				<p class="video-entry-description">
-					{$video_info[i].video_description}
-				</p>
-
-				<p class="video-entry-details">
-					{insert name=time_range assign=rtime time=$video_info[i].video_add_time}
-					Added: {$rtime} by
-					<a href="{$base_url}/{$user_names[$video_info[i].video_user_id]}">
-						{$user_names[$video_info[i].video_user_id]}
-					</a>
-					<br /><br />
-					Views: {$video_info[i].video_view_number} |
-					Comments: {$video_info[i].video_com_num} |
-					{insert name=show_rate assign=rate rte=$video_info[i].video_rate rated=$video_info[i].video_rated_by}
-					{$rate}
-			    </p>
-			</div>
-        
-		</div> <!-- tags-video-entry -->
-
-	{/section}
-
-	{if $page_links ne ""}
-		<div class="page_links" align="right">
-			Pages {$page_links} &nbsp;
-		</div>
-	{/if}
-
-</div>  <!-- section -->
+{if $page_links ne ""}
+    <div class="page_links">{$page_links}</div>
+{/if}
