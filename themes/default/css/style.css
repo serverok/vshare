@@ -19,3 +19,71 @@ header h1 {
     position: absolute;
     right: 0;
 }
+
+/* tag cloud start */
+
+a.earliest:link {
+    text-decoration: none;
+    color: #CCCCCC;
+}
+a.earliest:visited {
+    text-decoration: none;
+    color: #CCCCCC;
+}
+a.earliest:hover {
+    text-decoration: none;
+    color: #CCCCCC;
+}
+a.earliest:active {
+    text-decoration: none;
+    color: #CCCCCC;
+}
+a.earlier:link {
+    text-decoration: none;
+    color: #99c;
+}
+a.earlier:visited {
+    text-decoration: none;
+    color: #99c;
+}
+a.earlier:hover {
+    text-decoration: none;
+    color: #99c;
+}
+a.earlier:active {
+    text-decoration: none;
+    color: #99c;
+}
+a.later:link {
+    text-decoration: none;
+    color: #99f;
+}
+a.later:visited {
+    text-decoration: none;
+    color: #99f;
+}
+a.later:hover {
+    text-decoration: none;
+    color: #99f;
+}
+a.later:active {
+    text-decoration: none;
+    color: #99f;
+}
+a.latest:link {
+    text-decoration: none;
+    color: #00f;
+}
+a.latest:visited {
+    text-decoration: none;
+    color: #00f;
+}
+a.latest:hover {
+    text-decoration: none;
+    color: #00f;
+}
+a.latest:active {
+    text-decoration: none;
+    color: #00f;
+}
+/* tag cloud end */
