@@ -108,7 +108,7 @@ $sql = "SELECT count(*) AS `total` FROM `friends` WHERE
         $query";
 $total = DB::getTotal($sql);
 
-$page_links = Paginate::getLinks($total, $config['items_per_page'], '.', '', $page);
+$page_links = Paginate::getLinks2($total, $config['items_per_page'], './', $page);
 
 $start_from = ($page - 1) * $config['items_per_page'];
 $start = $start_from + 1;
