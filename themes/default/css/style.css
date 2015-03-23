@@ -1,10 +1,42 @@
+header {
+padding:10px 0px;
+}
+
 header h1 {
     margin: 0px;
     padding: 0px;
 }
+
+.search{
+     padding: 10px 0;
+}
+
+.top-usernav{
+    padding: 10px 0;
+ }
+
+
+.nav-tabs.nav-justified > li > a {
+    border-bottom: 0px solid #ddd;
+    border-radius: 0px 0px 0 0;
+}
+
+.nav-tabs>li>a{
+    border-color:#fff #fff #eee #eee
+}
+
+.nav-tabs>li>a:hover{
+    border-color:#fff #fff #eee #eee
+}
+
+.nav-tabs> li .no-bdr{
+    border-left:0px solid #fff;
+}
+
 .font-size-md {
     font-size: medium;
 }
+
 .thumbnail img {
     max-height: 130px;
 }
