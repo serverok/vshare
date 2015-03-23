@@ -1,98 +1,106 @@
 {if $signup_verification_msg ne ""}
-	<div class="signup_verification_msg">{$signup_verification_msg}</div>
+    <h3 class="text-success">{$signup_verification_msg}</h3>
 {else}
-<div id="signup-box">
+<div class="col-md-8">
+    <div class="page-header">
+        <h1>
+            New Member? Sign up
+            <br>
+            <small>Just fill out the account information below:</small>
+        </h1>
+    </div>
 
-    <div class="section bg2">
-    
-        <div class="hd">
-            <div class="hd-l">New Member? Sign up</div>
+    <form  method="post" action="{$base_url}/signup/" id="signup-form" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="user_name" class="control-label col-md-3">User Name:</label>
+            <div class="col-md-6">
+                <input type="text" id="user_name" name="user_name" value="{$signup.user_name}" class="form-control">
+            </div>
         </div>
-        
-        <form  method="post" action="{$base_url}/signup/" id="signup-form">
-        
-            <p>Just fill out the account information below:</p>
-            
-            <div>
-                <label for="user_name">User Name:</label>
-                <input type="text" id="user_name" name="user_name" value="{$signup.user_name}" />
+        <div class="form-group">
+            <label for="email" class="control-label col-md-3">Email:</label>
+            <div class="col-md-6">
+                <input type="text" name="email" id="email" value="{$signup.email}" class="form-control">
             </div>
-            
-            <div>
-                <label for="email">Email:</label>
-                <input type="text" name="email" id="email" value="{$signup.email}" />
+        </div>
+        <div class="form-group">
+            <label for="password" class="control-label col-md-3">Password:</label>
+            <div class="col-md-6">
+                <input type="password" id="password" name="password" value="" class="form-control">
             </div>
-                            
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" value="" />
+        </div>
+        <div class="form-group">
+            <label for="password_confirm" class="control-label col-md-3">Confirm Password:</label>
+            <div class="col-md-6">
+                <input type="password" id="password_confirm" name="password_confirm"  value="" class="form-control">
             </div>
-            
-            <div>
-                <label for="password_confirm">Confirm Password:</label>
-                <input type="password" id="password_confirm" name="password_confirm"  value="" />
-            </div>
-            
-            {if $signup_dob eq "1"}
-                            
-                <div>
-                    <label>Date of Birth:</label>
-                    <select name="month"><option>mm</option>
+        </div>
+
+        {if $signup_dob eq "1"}
+            <div class="form-group">
+                <label class="control-label col-md-3">Date of Birth:</label>
+                <div class="col-md-2">
+                    <select name="month" class="form-control">
+                        <option>mm</option>
                         {foreach from=$months item=month}
                             <option {if $month eq $signup.month} selected {/if}>{$month}</option>
                         {/foreach}
                     </select>
-                    <select name="day">
+                </div>
+                <div class="col-md-2">
+                    <select name="day" class="form-control">
                         <option>dd</option>
                         {foreach from=$days item=day}
                             <option {if $day eq $signup.day} selected {/if}>{$day}</option>
                         {/foreach}
                     </select>
-                    <select name="year">
+                </div>
+                <div class="col-md-2">
+                    <select name="year" class="form-control">
                         <option>yyyy</option>
                         {foreach from=$years item=year}
                             <option {if $year eq $signup.year} selected {/if}>{$year}</option>
                         {/foreach}
                     </select>
                 </div>
-            
+            </div>
+        {/if}
+
+        {if $signup_captcha eq "1"}
+            {if $captcha_type eq 'default'}
+                <div class="form-group">
+                    <label class="control-label col-md-3">Security Code:</label>
+                    <div class="col-md-6">
+                        <img src="{$base_url}/captcha.php" alt="captcha" class="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="security_code" class="control-label col-md-3">Enter Security Code:</label>
+                    <div class="col-md-3">
+                        <input type="text" name="security_code" id="security_code" class="form-control required">
+                    </div>
+                </div>
+            {else}
+                <div class="form-group">
+                    <label class="control-label col-md-3">Security Code:</label>
+                    <div class="col-md-6">
+                    {$recaptcha_html}
+                    </div>
+                </div>
             {/if}
-            
-            {if $signup_captcha eq "1"}
-                {if $captcha_type eq 'default'}
-                    <div>
-                        <label>Security Code:</label>
-                        <img src="{$base_url}/captcha.php" alt="captcha" class="required" />
-                    </div>
-                    <div>
-                        <label for="security_code">Enter Security Code:</label>
-                        <input type="text" name="security_code" id="security_code" class="required" />
-                    </div>
-                {else}
-                    <div>
-                        <label>Security Code:</label>
-                        <div class="indent">
-                        {$recaptcha_html}
-                        </div>
-                    </div>
-                {/if}
-            {/if}
-            
-            {if $enable_package eq "yes"}
-            
-                <div class="package-container clearfix">
-                
-                    <label>Available Packages:</label>
-                    <div id="packages">
-                        {section name=i loop=$package}
-    
-                            <div class="package-box-1">
-                                <input type="radio" name="pack_id" value="{$package[i].package_id}" />
-                            </div>
-                            
-                            <div class="package-box-2">
+        {/if}
+
+        {if $enable_package eq "yes"}
+            <div class="form-group">
+                <label class="control-label col-md-3">Available Packages:</label>
+                <div class="col-md-6">
+                    {section name=i loop=$package}
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="pack_id" value="{$package[i].package_id}">
                                 <b>{$package[i].package_name}</b>
-                                <br />
+                                <br>
+                                <small>
                                 {$package[i].package_description}<br />
                                 - <font color="#0055CC">{insert name=format_size size=$package[i].package_space}</font> video upload space<br />
                                 {if $package[i].package_videos gt "0"}
@@ -103,19 +111,18 @@
                                 {elseif $package[i].package_trial eq "yes"}
                                     - Free for <font color="#0055CC">{$package[i].package_trial_period} days</font>
                                 {/if}
-                            </div>
-    
-                        {/section}
-                    </div>
+                                </small>
+                            </label>
+                        </div>
+                    {/section}
                 </div>
+            </div>
+        {/if}
 
-            {/if}
-
-           <div class="indent">
+       <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
                 <ul>
-                    <li>
-                        I certify I am over {$age_minimum} years old.
-                    </li>
+                    <li>I certify I am over {$age_minimum} years old.</li>
                     <li>
                         I agree to the
                         <a href="{$base_url}/pages/terms.html" target="_blank">terms of use</a> and
@@ -123,48 +130,41 @@
                     </li>
                 </ul>
             </div>
-            
-            <div class="submit">
-                <input type="submit" value="Signup" name="submit" />
-            </div>
-            
-        </form>
-        
-    </div>
-    
-</div> <!-- signup-box1 end -->
-
-<div id="login_box2">
-
-    <div class="section bg2">
-    
-        <div class="hd">
-            <div class="hd-l">{$site_name} Log In</div>
         </div>
-    
-        <form method="post" action="{$base_url}/login/" id="login-form">
-        
-            <div>
-                <label for="user_name">User Name:</label>
-                <input type="text" size="22" name="user_name" value="{$user_name}" />
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-3">
+                <button type="submit" class="btn btn-default btn-lg" name="submit">Signup</button>
             </div>
-             
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" size="22" name="user_password" />
-            </div>
-         
-            <div class="forget-passsword">
-                <a href="{$base_url}/recoverpass.php">Forgot your password?</a>
-            </div>
-            
-            <div class="submit">
-                <input type="submit" value="Log In" name="action_login" />
-                <input type="checkbox" name="autologin" />Remember
-            </div>
-             
-        </form>
+        </div>
+    </form>
+</div>
+
+<div class="col-md-4">
+    <div class="page-header">
+        <h2>{$site_name} Log In</h2>
     </div>
 
-</div> <!-- login_box2 -->
+    <form method="post" action="{$base_url}/login/" id="login-form" role="form">
+        <div class="form-group">
+            <label>User Name:</label>
+            <input type="text" name="user_name" value="{$user_name}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" id="password" name="user_password" class="form-control" required>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" name="autologin">Remember</label>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default btn-lg" name="action_login">Log In</button>
+        </div>
+    </form>
+
+    <br>
+
+    <div class="forget-passsword">
+        <a href="{$base_url}/recoverpass.php">Forgot your password?</a>
+    </div>
+</div>
 {/if}
