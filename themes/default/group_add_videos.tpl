@@ -1,101 +1,81 @@
 {if $total gt "0"}
 
-<div id="content">
-
-    <div class="section">
-    
-        <div class="hd">
-            <div class="hd-l">
-                Add Videos to Group:
-                <a href="{$base_url}/group/{$group_info.group_url}/">
-                    {$group_info.group_name}
-                </a>
-            </div>
-            <div class="hd-r">
+<div class="col-md-9">
+    <div class="page-header">
+        <h1>
+            Add Videos: {$group_info.group_name}
+            <small class="pull-right btn font-size-md">
                 Videos {$start_num}-{$end_num} of {$total}
-            </div>
-        </div>
-    
-        {section name=i loop=$videos}
-        
-            <div class="video-entry bg2">
-                
-                <div class="box1">
-                    <div class="preview default-img-adjust">
-	                    <a href="{$base_url}/view/{$videos[i].video_id}/{$videos[i].video_seo_name}/">
-	                        <img src="{$videos[i].video_thumb_url}/thumb/{$videos[i].video_folder}1_{$videos[i].video_id}.jpg" alt="" />
-	                    </a>
-	                    <div class="video-queue home-video-queue"  id="{$videos[i].video_id}_add" rel="video_queue">&nbsp;</div>
-	                    <div class="video-time">{$videos[i].video_length}</div>
-	                </div>
-                </div>
-                
-                <div class="box2">
-                    <p class="video-entry-title">
-                        <a href="{$base_url}/view/{$videos[i].video_id}/{$videos[i].video_seo_name}/">{$videos[i].video_title}</a>
-                    </p>
-                    <p class="video-entry-description">
-                        {$videos[i].video_description}
-                    </p>
-                    <p class="video-entry-tags">
-                        <img src="{$img_css_url}/images/tags.gif" width="38" height="14" alt="" />:
-                        {section name=j loop=$videos[i].video_keywords_array}
-                            <a href="{$base_url}/tag/{$videos[i].video_keywords_array[j]}/">{$videos[i].video_keywords_array[j]}</a>&nbsp;
-                        {/section}
-                    </p>
-                    
-                    <p class="video-entry-details">
-                        {insert name=time_to_date assign=todate tm=$videos[i].video_add_time}
-                        Added: {$todate}<br /><br />
-                        Views: {$videos[i].video_view_number} |
-                        {insert name=comment_count assign=commentcount vid=$videos[i].video_id}
-                        Comments: {$commentcount}
-                    </p>
-                    
-                    {if $videos[i].in_group eq "0"}
-                        <form name="addVideoForm" action="{$base_url}/group/{$group_info.group_url}/add/{$page}" method="post">
-                            <input type="hidden" value="{$videos[i].video_id}" name="video_id" />
-                            <input type="submit" class="button" value="Add to Group" name="add_video" />
-                        </form>
-                    {else}
-                        <font color="green"><b>Already in group</b></font>
-                    {/if}
-                    
-                </div>
-                
-            </div> <!-- video-entry -->
-            
-        {/section}
-
-        {if $page_links ne ""}
-            <div class="page_links">
-                Pages: {$page_links}
-            </div>
-        {/if}
-
-    </div> <!-- section  -->
-
-</div> <!-- content -->
-
-<div id="sidebar">
-
-    <div class="section bg2">
-    
-        <div class="hd">
-            <div class="hd-l">
-                Share your videos !
-            </div>
-        </div>
-
-        <div class="tags">
-            My Tags:
-            {section name=i loop=$view.group_add_video_keywords_array}
-                <p><a href="{$base_url}/tag/{$view.group_add_video_keywords_array[i]}/">{$view.group_add_video_keywords_array[i]}</a></p>
-            {/section}
-        </div>
-        
+            </small>
+        </h1>
     </div>
 
+    {section name=i loop=$videos}
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <div class="preview">
+                        <a href="{$base_url}/view/{$videos[i].video_id}/{$videos[i].video_seo_name}/">
+                            <img class="img-responsive" width="100%" height="130" src="{$videos[i].video_thumb_url}/thumb/{$videos[i].video_folder}1_{$videos[i].video_id}.jpg" alt="">
+                        </a>
+                        <div class="badge video-time">{$videos[i].video_length}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <h4>
+                    <a href="{$base_url}/view/{$videos[i].video_id}/{$videos[i].video_seo_name}/">{$videos[i].video_title|truncate:40}</a>
+                    <br>
+                    <small>{$videos[i].video_description|truncate:100}</small>
+                </h4>
+                <p class="text-muted small">
+                    {insert name=id_to_name assign=user_name un=$videos[i].video_user_id}
+                    {insert name=time_range assign=added_on time=$videos[i].video_add_time}
+                    <span class="glyphicon glyphicon-user"></span>
+                    <a href="{$base_url}/{$user_name}">{$user_name}</a>,
+                    {$added_on}
+                    <br />
+                    <span class="glyphicon glyphicon-eye-open"></span> Views {$videos[i].video_view_number},
+                    <span class="glyphicon glyphicon-comment"></span> Comments {$videos[i].video_com_num},
+                    <span class="text-nowrap">
+                    {if $videos[i].video_rated_by gt "0"}
+                        {insert name=show_rate assign=rate rte=$videos[i].video_rate rated=$videos[i].video_rated_by}
+                        {$rate}
+                        ({$videos[i].video_rated_by} ratings)
+                    {else}
+                        Not yet rated
+                    {/if}
+                    </span>
+                </p>
+            </div>
+            <div class="col-md-2">
+                {if $videos[i].in_group eq "0"}
+                    <form name="addVideoForm" action="{$base_url}/group/{$group_info.group_url}/add/{$page}" method="post">
+                        <input type="hidden" value="{$videos[i].video_id}" name="video_id" />
+                        <button type="submit" class="btn btn-default"name="add_video">Add to group</button>
+                    </form>
+                {else}
+                    <span class="text-success"><b>Already in group</b></span>
+                {/if}
+            </div>
+            <hr>
+        </div>
+    {/section}
+
+    {if $page_links ne ""}
+    <div>{$page_links}</div>
+    {/if}
+</div>
+
+<div class="col-md-3">
+    <div class="page-header">
+        <h2>My Tags</h2>
+    </div>
+    <div class="list-group">
+        {section name=i loop=$view.group_add_video_keywords_array}
+            <a class="list-group-item" href="{$base_url}/tag/{$view.group_add_video_keywords_array[i]}/">{$view.group_add_video_keywords_array[i]}</a>
+        {/section}
+    </div>
 </div>
 
 {/if}

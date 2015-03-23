@@ -1,104 +1,79 @@
 {if $total gt "0"}
-
-    <div id="content">
-    
-        <div class="section bg2">
-        
-            <div class="hd">
-            
-                <div class="hd-l">
-                    Add Favorite Videos to Group:
-                    <a href="{$base_url}/group/{$group_info.group_url}/">
-                        {$group_name}
-                    </a>
-                </div>
-                
-                <div class="hd-r">
-                    Videos {$start_num}-{$end_num} of {$total}
-                </div>
-                
-            </div>
-
-            {section name=i loop=$favorite_videos}
-            
-                <div class="video-entry bg2">
-                
-                    <div class="box1">
-                        <div class="preview default-img-adjust">
-	                        <a href="{$base_url}/view/{$favorite_videos[i].video_id}/{$favorite_videos[i].video_seo_name}/">
-	                            <img src="{$favorite_videos[i].video_thumb_url}/thumb/{$favorite_videos[i].video_folder}1_{$favorite_videos[i].video_id}.jpg" alt="" />
-	                        </a>
-	                        <div class="video-queue home-video-queue"  id="{$favorite_videos[i].video_id}_favorite" rel="video_queue">&nbsp;</div>
-	                        <div class="video-time">{$favorite_videos[i].video_length}</div>
-	                    </div>
-                    </div>
-                    
-                    <div class="box2">
-                        <p class="video-entry-title">
-                            <a href="{$base_url}/view/{$favorite_videos[i].video_id}/{$favorite_videos[i].video_seo_name}/">
-                                {$favorite_videos[i].video_title}
-                            </a>
-                        </p>
-                        <p class="video-entry-description">
-                            {$favorite_videos[i].video_description}
-                        </p>
-                        <p class="video-entry-tags">
-                            <img width="38" height="14" src="{$img_css_url}/images/tags.gif" />:
-                            {section name=j loop=$favorite_videos[i].video_keywords_array}
-                                <a href="{$base_url}/tag/{$favorite_videos[i].video_keywords_array[j]}/">{$favorite_videos[i].video_keywords_array[j]}</a>&nbsp;
-                            {/section}
-                        </p>
-                        <p class="video-entry-details">
-                            {insert name=time_to_date assign=todate tm=$favorite_videos[i].video_add_time}
-                            Added: {$todate} <br /><br />
-                            Views: {$favorite_videos[i].video_view_number} |
-                            {insert name=comment_count assign=commentcount vid=$favorite_videos[i].video_id}
-                            Comments: {$commentcount}<br /><br />
-                            Rating: {insert name=show_rate assign=vrate rte=$favorite_videos[i].video_rate rated=$favorite_videos[i].video_rated_by}{$vrate}
-                        </p>
-                        
-                        {if $favorite_videos[i].in_group eq "0"}
-                            <form name="addVideoForm" action="{$base_url}/group/{$group_info.group_url}/fav/{$page}" method="post">
-                                <input type="hidden" value="{$favorite_videos[i].video_id}" name="video_id">
-                                <input type="submit" class="button" value="Add to Group" name="add_video">
-                            </form>
-                        {else}
-                            <font color="green"><b>ALREADY IN GROUP</b></font>
-                        {/if}
-                        
-                    </div>
-                     
-                </div><!-- video-entry -->
-            
-            {/section}
-            
-            {if $page_links ne ""}
-                <div class="page_links">
-                    Pages: {$page_links}
-                </div>
-            {/if}
-            
-        </div> <!-- section -->
-    
-    </div> <!-- content-->
-    
-    <div id="sidebar">
-    
-        <div class="section bg2">
-        
-            <div class="hd">
-                <div class="hd-l">Share your videos !</div>
-            </div>
-        
-            <div class="tags">
-                <b>My Tags :</b><br />
-                {section name=i loop=$favorite_video_keywords_array}
-                   <p><a href="{$base_url}/tag/{$favorite_video_keywords_array[i]|lower}/">{$favorite_video_keywords_array[i]}</a></p>
-                {/section}
-            </div>
-            
-        </div>
-        
+<div class="col-md-9">
+    <div class="page-header">
+        <h1>
+            Add Favorite Videos: {$group_name}
+            <small class="pull-right btn font-size-md">
+                Videos {$start_num}-{$end_num} of {$total}
+            </small>
+        </h1>
     </div>
-    
+
+    {section name=i loop=$favorite_videos}
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <div class="preview">
+                        <a href="{$base_url}/view/{$favorite_videos[i].video_id}/{$favorite_videos[i].video_seo_name}/">
+                            <img class="img-responsive" width="100%" height="130" src="{$favorite_videos[i].video_thumb_url}/thumb/{$favorite_videos[i].video_folder}1_{$favorite_videos[i].video_id}.jpg" alt="">
+                        </a>
+                        <div class="badge video-time">{$favorite_videos[i].video_length}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <h4>
+                    <a href="{$base_url}/view/{$favorite_videos[i].video_id}/{$favorite_videos[i].video_seo_name}/">{$favorite_videos[i].video_title|truncate:40}</a>
+                    <br>
+                    <small>{$favorite_videos[i].video_description|truncate:100}</small>
+                </h4>
+                <p class="text-muted small">
+                    {insert name=id_to_name assign=user_name un=$favorite_videos[i].video_user_id}
+                    {insert name=time_range assign=added_on time=$favorite_videos[i].video_add_time}
+                    <span class="glyphicon glyphicon-user"></span>
+                    <a href="{$base_url}/{$user_name}">{$user_name}</a>,
+                    {$added_on}
+                    <br />
+                    <span class="glyphicon glyphicon-eye-open"></span> Views {$favorite_videos[i].video_view_number},
+                    <span class="glyphicon glyphicon-comment"></span> Comments {$favorite_videos[i].video_com_num},
+                    <span class="text-nowrap">
+                    {if $favorite_videos[i].video_rated_by gt "0"}
+                        {insert name=show_rate assign=rate rte=$favorite_videos[i].video_rate rated=$favorite_videos[i].video_rated_by}
+                        {$rate}
+                        ({$favorite_videos[i].video_rated_by} ratings)
+                    {else}
+                        Not yet rated
+                    {/if}
+                    </span>
+                </p>
+            </div>
+            <div class="col-md-2">
+                {if $favorite_videos[i].in_group eq "0"}
+                    <form name="addVideoForm" action="{$base_url}/group/{$group_info.group_url}/add/{$page}" method="post">
+                        <input type="hidden" value="{$favorite_videos[i].video_id}" name="video_id" />
+                        <button type="submit" class="btn btn-default" name="add_video">Add to group</button>
+                    </form>
+                {else}
+                    <span class="text-success"><b>Already in group</b></span>
+                {/if}
+            </div>
+            <hr>
+        </div>
+    {/section}
+
+    {if $page_links ne ""}
+        <div>{$page_links}</div>
+    {/if}
+</div>
+
+<div class="col-md-3">
+    <div class="page-header">
+        <h2>My Tags</h2>
+    </div>
+    <div class="list-group">
+    {section name=i loop=$favorite_video_keywords_array}
+        <a class="list-group-item" href="{$base_url}/tag/{$favorite_video_keywords_array[i]|lower}/">{$favorite_video_keywords_array[i]}</a>
+    {/section}
+</div>
+
 {/if}

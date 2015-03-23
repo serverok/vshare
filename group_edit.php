@@ -118,7 +118,12 @@ for ($i = 0; $i < count($channelsAll); $i ++) {
     } else {
         $checked = '';
     }
-    $ch_checkbox .= '<input type="checkbox" name="group_channels[]" value="' . $channelsAll[$i]['channel_id'] . '" ' . $checked . '>' . $channelsAll[$i]['channel_name_html'] . '</input><br />';
+    $ch_checkbox .= '
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" name="group_channels[]" value="' . $channelsAll[$i]['channel_id'] . '" ' . $checked . '>' . $channelsAll[$i]['channel_name_html'] . '
+        </label>
+    </div>';
 }
 
 $smarty->assign('err', $err);
