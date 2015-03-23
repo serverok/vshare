@@ -135,7 +135,7 @@ if ($err == '')
 
     $start_num = $start_from + 1;
     $end_num = $start_from + $num_videos;
-    $page_links = Paginate::getLinks($total, $config['items_per_page'], '.', '', $page);
+    $page_links = Paginate::getLinks2($total, $config['items_per_page'], './', $page);
 
     $html_title = "$group_info[group_name] - Videos page $page";
 }
