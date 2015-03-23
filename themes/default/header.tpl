@@ -8,6 +8,7 @@
 <meta name="keywords" content="{if $html_keywords ne ""}{$html_keywords}, {/if}{$meta_keywords}" />
 <meta name="description" content="{if $html_description ne ""}{$html_description} {/if}{$meta_description}" />
 <link href="{$base_url}/css/bootstrap.min.css" rel="stylesheet">
+<link href="{$base_url}/css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="{$base_url}/themes/default/css/style.css" rel="stylesheet">
 <link rel="alternate" type="application/rss+xml" title="20 Latest videos" href="{$base_url}/rss/new/" />
 <link rel="alternate" type="application/rss+xml" title="20 Most Viewed Videos" href="{$base_url}/rss/views/" />
