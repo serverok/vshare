@@ -1,78 +1,59 @@
 {if $inactive_user eq '1'}
 
-<div align="center">
-     <a href="{$base_url}/resend_activation_mail.php">Resend activation e-mail</a>
+<div class="text-center">
+     <a class="btn btn-default btn-lg" href="{$base_url}/resend_activation_mail.php">Resend Activation E-Mail</a>
 </div>
 
 {else}
 
-<div id="login_box1">
-
-    <div class="section bg2">
-    
-        <div class="hd">
-            <div class="hd-l">
-                Information of {$site_name}
-            </div>
-        </div>
-        
-        <div class="margin-1em">
-            
-            <h2>What is {$site_name}?</h2>                 
-            
-            <p>{$site_name} is a way to get your videos to the people who matter to you. With {$site_name} you can:</p>
-            
-            <ul>
-                <li>Show off your favorite videos to the world</li>
-                <li>Blog the videos you take with your digital camera or cell phone</li>
-                <li>Securely and privately show videos to your friends and family around the world</li>
-                <li>... and much, much more!</li>                
-            </ul>
-            
-            <p class="signup"><a href="{$base_url}/signup/">Sign up Now</a> and open a new account.</p>
-            
-            <p>To learn more about our service, please see our <a href="{$base_url}/pages/help.html">Help</a> section.</p>
-        </div>
-    
+<div class="col-md-7">
+    <div class="page-header">
+        <h1>Information of {$site_name}</h1>
     </div>
 
-</div> <!-- login_box1 -->
+    <h2>What is {$site_name}?</h2>
+    <p>{$site_name} is a way to get your videos to the people who matter to you. With {$site_name} you can:</p>
 
-<div id="login_box2">
-  
-    <div class="section bg2">
-    
-        <div class="hd">
-            <div class="hd-l">
-                  {$site_name} Log In
+    <ul>
+        <li>Show off your favorite videos to the world</li>
+        <li>Blog the videos you take with your digital camera or cell phone</li>
+        <li>Securely and privately show videos to your friends and family around the world</li>
+        <li>... and much, much more!</li>
+    </ul>
+
+    <p><a href="{$base_url}/signup/">Sign up Now</a> and open a new account.</p>
+    <p>To learn more about our service, please see our <a href="{$base_url}/pages/help.html">Help</a> section.</p>
+</div>
+
+<div class="col-md-5">
+    <div class="page-header">
+        <h2>{$site_name} Log In</h2>
+    </div>
+
+    <form method="post" action="{$base_url}/login/" id="login-form" role="form">
+        <div class="form-group">
+            <label for="user_name">User Name:</label>
+            <input type="text" id="user_name" name="user_name" value="{$user_name}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" size="22" name="user_password" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="autologin"> Remember
+                </label>
             </div>
         </div>
-        
-        <form method="post" action="{$base_url}/login/" id="login-form">
-        
-            <div>
-                <label for="user_name">User Name:</label>
-                <input type="text" id="user_name" size="22" name="user_name" value="{$user_name}" />
-            </div>
-             
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" size="22" name="user_password" />
-            </div>
+        <div class="form-group">
+            <button type="submit" name="action_login" class="btn btn-default btn-lg">Log In</button>
+        </div>
+    </form>
 
-            <div class="forget-passsword">
-                <a href="{$base_url}/recoverpass.php">Forgot your password?</a>
-            </div>
-            
-            <div class="submit">
-                <input type="submit" value="Log In" name="action_login" />
-                <input type="checkbox" name="autologin" />Remember
-            </div>
-        
-        </form>
-    
-    </div> 
-    
-</div> <!--login_box2 -->
+    <br>
+
+    <p><a href="{$base_url}/recoverpass.php">Forgot your password?</a></p>
+</div>
 
 {/if}
