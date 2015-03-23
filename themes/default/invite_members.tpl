@@ -1,67 +1,51 @@
 {if $allow_invite eq "1"}
+<div class="page-header">
+    <h1>Invite Friends to {$group_info.group_name}</h1>
+</div>
 
-<div class="section page">
-	
-    <div class="hd">
-    	<div class="hd-l">
-    		Invite Friends to {$group_info.group_name}
-    	</div>
+<form action="{$base_url}/group/{$group_info.group_url}/invite/" id="invite-members-forum" name="invite-members-forum" method="post" onsubmit="return false;" class="form-horizontal" role="form">
+    <input type="hidden" name="send" value="send" />
+    <div class="col-md-4">
+        <select name="myfriends" id="myfriends" size="10" class="form-control">
+            {$fname}
+        </select>
+    </div>
+    <div class="col-md-4 text-center">
+        <button name="add_all" class="btn btn-default" onclick="invite_mem_addall();">Add All <span class="glyphicon glyphicon-forward"></span></button><br><br>
+        <button name="add" class="btn btn-default" onclick="invite_mem_add();">Add <span class="glyphicon glyphicon-triangle-right"></span></button><br><br>
+        <button name="remove" class="btn btn-default" onclick="invite_mem_remove();"><span class="glyphicon glyphicon-triangle-left"></span> Remove</button><br><br>
+        <button name="remove_all" class="btn btn-default" onclick="invite_mem_removeall();"><span class="glyphicon glyphicon-backward"></span> Remove All</button><br><br>
+    </div>
+    <div class="col-md-4">
+        <select name="flist[]" id="invitefriends" size="10" class="form-control">
+        </select>
+        <div id="friends_div"></div>
     </div>
 
-    <form action="{$base_url}/group/{$group_info.group_url}/invite/" id="invite-members-forum" name="invite-members-forum" method="post" onsubmit="return false;">
-
-        <input type="hidden" name="send" value="send" />
-
-		<table width="100%" border="0">
-			<tr>
-				<td align="center">
-					<select name="myfriends" id="myfriends" size="10" style="width:200px;">
-						{$fname}
-					</select>
-				</td>
-				
-				<td align="center">
-					<input type="button" name="add_all" value="Add All >>" style="width:120px;" onclick="invite_mem_addall();" /><br /><br />
-					<input type="button" name="add" value="Add >" style="width:120px;" onclick="invite_mem_add();" /><br /><br />
-					<input type="button" name="remove" value="< Remove" style="width:120px;" onclick="invite_mem_remove();" /><br /><br />
-					<input type="button" name="remove_all" value="<< Remove All" style="width:120px;" onclick="invite_mem_removeall();" /><br /><br />
-				</td>
-				
-				<td align="center">
-					<select name="flist[]" id="invitefriends" size="10" style="width:200px;" />
-					</select>
-                    <div id="friends_div"></div>
-				</td>
-			</tr>
-		</table>
-      
-        <h3>Invite New Friends</h3>
-        
-        <hr />
-        
-        <div>
-            <label>Email Address:</label>
-            <div class="indent">
-                Enter Email Addresses separated by Commas:<br />
-                <textarea id="recipients" name="recipients" cols="40" rows="3">{$smarty.request.recipients}</textarea>
-            </div>
+    <div class="clearfix"></div>
+    <div class="page-header">
+        <h2>Invite New Friends</h2>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Email Address:</label>
+        <div class="col-md-6">
+            <textarea id="recipients" name="recipients" rows="4" class="form-control">{$smarty.request.recipients}</textarea>
+            <div class="help-block">Enter Email Addresses separated by commas</div>
         </div>
-
-        <div>
-            <label>Your Message:</label>
-            <div class="indent">
-                Enter your message below:<br />
-                <textarea name="message" rows="5" cols="45">{$message}</textarea>
-            </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Your Message:</label>
+        <div class="col-md-6">
+            <div class="help-block">Enter your message below:</div>
+            <textarea name="message" rows="5" class="form-control">{$message}</textarea>
         </div>
-        
-        <div class="submit">
-            <input type="button" value="Send" name="action_invite" onclick="invite_mem_send();" />
-		</div>
-		
-    </form>
-
-</div> <!-- section -->
+    </div>
+    <div class="form-group">
+        <div class="col-md-3 col-md-offset-2">
+            <button name="action_invite" onclick="invite_mem_send();" class="btn btn-default btn-lg">Send</button>
+        </div>
+	</div>
+</form>
 
 {else}
 

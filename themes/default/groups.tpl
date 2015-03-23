@@ -16,9 +16,9 @@
                 <div class="thumbnail">
                     <a href="{$base_url}/group/{$group_info[i].group_url}/">
                         {if $group_image_info eq "0"}
-                            <img class="img-responsive" src="{$img_css_url}/images/no_videos_groups.gif" alt="videos groups">
+                            <img class="img-responsive" width="100%" src="{$img_css_url}/images/no_videos_groups.gif" alt="videos groups">
                         {else}
-                            <img class="img-responsive" src="{$group_image_info.video_thumb_url}/thumb/{$group_image_info.video_folder}1_{$group_image_info.video_id}.jpg" alt="{$group_image_info.video_folder}">
+                            <img class="img-responsive" width="100%" src="{$group_image_info.video_thumb_url}/thumb/{$group_image_info.video_folder}1_{$group_image_info.video_id}.jpg" alt="{$group_image_info.video_folder}">
                         {/if}
                     </a>
                     <div class="caption">
