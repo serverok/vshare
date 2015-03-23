@@ -23,85 +23,84 @@
 <body>
 
 <div class="container">
-    <header class="row">
-        <div class="col-md-4">
-            <div class="row">
+    <div class="row">
+        <header class="clearfix">
+
+            <div class="col-md-2">
                 <h1>
                     <a href="{$base_url}/index.php" title="{$site_name}">
-                        <img class="img-responsive" src="{$img_css_url}/images/logo.jpg">
+                    <img class="img-responsive" src="{$base_url}/themes/default/images/logo.png">
                     </a>
                 </h1>
             </div>
-        </div>
-        <div class="col-md-8">
-            <div class="row text-right">
-                {if $smarty.session.USERNAME ne ""}
-                <div class="btn-group btn-group-sm">
-                    <div class="btn-group btn-group-sm" role="group">
-                        <a href="{$base_url}/{$smarty.session.USERNAME}" class="btn btn-default dropdown-toggle text-nowrap" data-toggle="dropdown" aria-expanded="false">
-                            <span class="glyphicon glyphicon-user"></span> {$smarty.session.USERNAME} <span class="caret"></span>
-                        </a>
 
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{$base_url}/{$smarty.session.USERNAME}">My profile</a></li>
-                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/account/">My Account</a></li>
-                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/public/">Public Videos</a></li>
-                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/private/">Private Videos</a></li>
-                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/favorites/">Favorites</a></li>
-                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/friends/">Friends</a></li>
-                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/playlist/">Playlist</a></li>
-                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/groups/">Groups</a></li>
-                        </ul>
-                    </div>
-                    <a class="btn btn-default text-nowrap" href="{$base_url}/mail.php?folder=inbox">
+            <div class="col-md-5">
+                <form method="get" action="{$base_url}/search_videos.php" class="form-horizontal search">
+                <input type="hidden" name="type" value="video">
+                <div class="input-group">
+                <input class="form-control" placeholder="Search" required value="{$smarty.request.search_string}" name="search_string" />
+                <span class="input-group-btn">
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+                </div>
+                </form>
+            </div>
+
+            <div class="col-md-5 top-usernav text-right">
+                <div class="btn-group">
+                    {if $smarty.session.USERNAME ne ""}
+                    <a href="{$base_url}/{$smarty.session.USERNAME}" class="text-nowrap btn btn-primary" data-toggle="dropdown" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user"></span> {$smarty.session.USERNAME} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{$base_url}/{$smarty.session.USERNAME}">My profile</a></li>
+                        <li><a href="{$base_url}/{$smarty.session.USERNAME}/account/">My Account</a></li>
+                        <li><a href="{$base_url}/{$smarty.session.USERNAME}/public/">Public Videos</a></li>
+                        <li><a href="{$base_url}/{$smarty.session.USERNAME}/private/">Private Videos</a></li>
+                        <li><a href="{$base_url}/{$smarty.session.USERNAME}/favorites/">Favorites</a></li>
+                        <li><a href="{$base_url}/{$smarty.session.USERNAME}/friends/">Friends</a></li>
+                        <li><a href="{$base_url}/{$smarty.session.USERNAME}/playlist/">Playlist</a></li>
+                        <li><a href="{$base_url}/{$smarty.session.USERNAME}/groups/">Groups</a></li>
+                    </ul>
+
+                    <a class="text-nowrap btn btn-primary" href="{$base_url}/mail.php?folder=inbox">
                         <span class="glyphicon glyphicon-envelope"></span>
                         ({insert name="msg_count" assign=total_msg}{$total_msg})
                     </a>
-                    <a class="btn btn-default text-nowrap" href="{$base_url}/logout/" class="bold">
+
+                    <a class="text-nowrap btn btn-primary" href="{$base_url}/logout/" class="bold">
                         <span class="glyphicon glyphicon-log-out"></span> Log Out
                     </a>
-                </div>
-                {else}
-                <div class="btn-group btn-group-sm">
-                    <a class="btn btn-default text-nowrap" href="{$base_url}/signup/">Sign Up</a>
-                    <a class="btn btn-default text-nowrap" href="{$base_url}/login/">Log In</a>
-                </div>
-                {/if}
 
-                <div class="btn-group btn-group-sm">
-                    {if $family_filter eq '1'}
-                        <a class="btn btn-default text-nowrap" href="{$base_url}/family_filter/">Family Filter {if $smarty.session.FAMILY_FILTER eq '1'}ON{else}OFF{/if}</a>
+                    {else}
+                    <a class="text-nowrap btn btn-primary" href="{$base_url}/signup/">Sign Up</a>
+                    <a class="text-nowrap btn btn-primary" href="{$base_url}/login/">Log In</a>
                     {/if}
-                    <a class="btn btn-default text-nowrap" href="{$base_url}/pages/help.html">Help</a>
-                    <a class="btn btn-default text-nowrap" href="{$base_url}/rss/new/"><img border="0" src="{$img_css_url}/images/rss.gif" alt="rss" /></a>
+
+                    {if $family_filter eq '1'}
+                    <a class="text-nowrap btn btn-default" href="{$base_url}/family_filter/"><small>Family Filter</small> <b>{if $smarty.session.FAMILY_FILTER eq '1'}ON{else}OFF{/if}</b></a>
+                    {/if}
+                    <a class="text-nowrap btn btn-default" href="{$base_url}/rss/new/"> RSS</a>
 
                     {if $smarty.session.CSS eq "default"}
-                        <a class="btn btn-default text-nowrap" href="{$base_url}/style/black/">
-                            <img src="{$img_css_url}/images/style/black.png" alt="Black" />
-                        </a>
+                    <a class="btn btn-default" href="{$base_url}/style/black/">
+                    <img src="{$img_css_url}/images/style/black.png" alt="Black" />
+                    </a>
+
                     {else}
-                        <a class="btn btn-default text-nowrap" href="{$base_url}/style/default/">
-                            <img src="{$img_css_url}/images/style/default.png" alt="Default" />
-                        </a>
+                    <a class="btn btn-default" href="{$base_url}/style/default/">
+                    <img src="{$img_css_url}/images/style/default.png" alt="Default" />
+                    </a>
                     {/if}
+
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-7 pull-right row">
-                    <form method="get" action="{$base_url}/search_videos.php" class="form-horizontal">
-                        <input type="hidden" name="type" value="video">
-                        <div class="input-group">
-                            <input class="form-control" placeholder="Search" required value="{$smarty.request.search_string}" name="search_string" />
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-default">Search</button>
-                            </span>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <nav class="navbar navbar-default">
+        </header>
+    </div>
+
+
+<div class="row">
+          <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="row">
                     <div class="navbar-header">
@@ -115,7 +114,7 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <div class="row">
                         <ul class="nav nav-tabs navbar-nav nav-justified">
-                            <li><a href="{$base_url}/index.php"><strong>HOME</strong></a></li>
+                            <li><a class="no-bdr" href="{$base_url}/index.php"><strong>HOME</strong></a></li>
                             <li><a href="{$base_url}/upload/"><strong>UPLOAD</strong></a></li>
                             <li><a href="{$base_url}/recent/"><strong>WATCH</strong></a></li>
                             <li><a href="{$base_url}/tags/"><strong>TAGS</strong></a></li>
@@ -129,7 +128,8 @@
                 </div>
             </div>
         </nav>
-    </header>
+</div>
+
 
     {if $sub_menu ne ""}
         <div id="menu-sub">
