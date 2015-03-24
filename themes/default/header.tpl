@@ -21,7 +21,7 @@
 
 <div class="container">
     <div class="row">
-        <header class="clearfix">
+        <header class="col-md-12">
 
             <div class="col-md-2">
                 <h1>
@@ -85,36 +85,37 @@
 
 
 <div class="row">
-          <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <div class="row">
-                        <ul class="nav nav-tabs navbar-nav nav-justified">
-                            <li><a class="no-bdr" href="{$base_url}/index.php"><strong>HOME</strong></a></li>
-                            <li><a href="{$base_url}/upload/"><strong>UPLOAD</strong></a></li>
-                            <li><a href="{$base_url}/recent/"><strong>WATCH</strong></a></li>
-                            <li><a href="{$base_url}/tags/"><strong>TAGS</strong></a></li>
-                            <li><a href="{$base_url}/channels/"><strong>CHANNELS</strong></a></li>
-                            <li><a href="{$base_url}/groups/featured/1"><strong>GROUPS</strong></a></li>
-                            <li><a href="{$base_url}/friends/"><strong>FRIENDS</strong></a></li>
-                            <li><a href="{$base_url}/members/"><strong>PEOPLE</strong></a></li>
-                        </ul>
+    <div class="col-md-12">
+              <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <div class="row">
+                            <ul class="nav nav-tabs navbar-nav nav-justified">
+                                <li><a class="no-bdr" href="{$base_url}/index.php"><strong>HOME</strong></a></li>
+                                <li><a href="{$base_url}/upload/"><strong>UPLOAD</strong></a></li>
+                                <li><a href="{$base_url}/recent/"><strong>WATCH</strong></a></li>
+                                <li><a href="{$base_url}/tags/"><strong>TAGS</strong></a></li>
+                                <li><a href="{$base_url}/channels/"><strong>CHANNELS</strong></a></li>
+                                <li><a href="{$base_url}/groups/featured/1"><strong>GROUPS</strong></a></li>
+                                <li><a href="{$base_url}/friends/"><strong>FRIENDS</strong></a></li>
+                                <li><a href="{$base_url}/members/"><strong>PEOPLE</strong></a></li>
+                            </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+    </div>
 </div>
-
 
     {if $sub_menu ne ""}
         <div id="menu-sub">
