@@ -33,8 +33,39 @@ header h1 {
     border-left:0px solid #fff;
 }
 
-.font-size-md {
-    font-size: medium;
+.watch-uplod-share h2{
+    margin:0px;
+    padding:0px;
+    font-size:25px
+}
+
+.watch-uplod-share .watch{
+    background-color:#e7e7e7;
+    padding:3px
+}
+
+.watch-uplod-share .icon{
+    background-color: #fff;
+    border-radius: 5px;
+    color: #337ab7;
+    float: left;
+    font-size: 60px;
+    height:80px;
+    line-height: 80px;
+    margin: 0 10px 0 auto;
+    text-align: center;
+    width: 70px;
+}
+
+@media (min-width: 1200px) {
+    .border-r{
+    border-right:1px solid #ddd
+}
+}
+
+.panel-default > .panel-heading {
+    background-image: linear-gradient(to bottom, #fff 0px, #f8f8f8 100%) !important;
+    background-repeat: repeat-x;
 }
 
 .thumbnail img {
