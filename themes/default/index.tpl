@@ -130,20 +130,28 @@
     <div class="panel panel-default">
         <div class="panel-heading"><h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> <b> Last {$num_last_users_online} Users Online</b></h3></div>
         <div class="panel-body">
-           {insert name=recently_active_users assign=recently_active_users}
+         <span class="text-nowrap">
+            <span class="glyphicon glyphicon-facetime-video"></span> Videos
+            </span> |
+            <span class="text-nowrap">
+            <span class="glyphicon glyphicon-heart"></span> Favorites
+            </span> |
+            <span class="text-nowrap">
+            <span class="glyphicon glyphicon-user"></span> Friends
+        </div>
+
+        <ul class="list-group">
+            {insert name=recently_active_users assign=recently_active_users}
             {section name=i loop=$recently_active_users}
-            <p>
+
             {insert name=id_to_name assign=uname un=$recently_active_users[i].user_login_user_id}
             {insert name=video_count assign=vdocount uid=$recently_active_users[i].user_login_user_id}
             {insert name=favour_count assign=favcount uid=$recently_active_users[i].user_login_user_id}
             {insert name=friends_count assign=friends uid=$recently_active_users[i].user_login_user_id}
 
-            <h4>
-            <a href="{$base_url}/{$uname}">
-            <span class="glyphicon glyphicon-user"></span> {$uname}
-            </a>
-            <br>
-            <small>
+            <li class="list-group-item">
+            <a href="{$base_url}/{$uname}"><b>{$uname}</b></a>
+            <small class="pull-right">
             <span class="glyphicon glyphicon-facetime-video"></span>
             <a href="{$base_url}/{$uname}/public/">({$vdocount})</a>
 
@@ -153,24 +161,12 @@
             <span class="glyphicon glyphicon-user"></span>
             <a href="{$base_url}/{$uname}/friends/">({$friends})</a>
             </small>
-            </h4>
-            <hr>
-            </p>
+            </li>
             {/section}
-            <p class="icon-key">
-            <h4>Icon Key:</h4>
-            <span class="text-nowrap">
-            <span class="glyphicon glyphicon-facetime-video"></span> Videos
-            </span> |
-            <span class="text-nowrap">
-            <span class="glyphicon glyphicon-heart"></span> Favorites
-            </span> |
-            <span class="text-nowrap">
-            <span class="glyphicon glyphicon-user"></span> Friends
-            </span>
-            </p>
+
             {/if}
-        </div>
+        </ul>
+
     </div>
 
 
