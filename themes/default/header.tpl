@@ -14,9 +14,6 @@
 <link rel="alternate" type="application/rss+xml" title="20 Most Viewed Videos" href="{$base_url}/rss/views/" />
 <link rel="alternate" type="application/rss+xml" title="20 Most Commented Videos" href="{$base_url}/rss/comments/" />
 <script language="JavaScript" type="text/javascript" src="{$base_url}/js/jquery-1.11.0.min.js"></script>
-{if $smarty.session.CSS ne "" && $smarty.session.CSS ne "default"}
-<link href="{$img_css_url}/css/{$smarty.session.CSS}/{$smarty.session.CSS}.css" rel="stylesheet" type="text/css" />
-{/if}
 <link href="{$img_css_url}/css/rating.css" rel="stylesheet" type="text/css" />
 {$html_head_extra}
 </head>
@@ -81,18 +78,6 @@
                     <a class="text-nowrap btn btn-default" href="{$base_url}/family_filter/"><small>Family Filter</small> <b>{if $smarty.session.FAMILY_FILTER eq '1'}ON{else}OFF{/if}</b></a>
                     {/if}
                     <a class="text-nowrap btn btn-default" href="{$base_url}/rss/new/"> RSS</a>
-
-                    {if $smarty.session.CSS eq "default"}
-                    <a class="btn btn-default" href="{$base_url}/style/black/">
-                    <img src="{$img_css_url}/images/style/black.png" alt="Black" />
-                    </a>
-
-                    {else}
-                    <a class="btn btn-default" href="{$base_url}/style/default/">
-                    <img src="{$img_css_url}/images/style/default.png" alt="Default" />
-                    </a>
-                    {/if}
-
                 </div>
             </div>
         </header>
