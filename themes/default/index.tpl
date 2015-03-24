@@ -193,7 +193,7 @@
 
     {if $pollinganel ne 'Disable' AND $poll_question ne ""}
     <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title"><span class="glyphicon glyphicon-poll"></span> <b> Vote Here</b></h3></div>
+        <div class="panel-heading"><h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> <b> Vote Here</b></h3></div>
         <div class="panel-body">
 
             <div id="poll_body"> <!-- poll start -->
