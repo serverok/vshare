@@ -24,7 +24,6 @@ function video_post_comment(video_id)
 function video_post_comment_success(msg) 
 {
 	$("#comment_post_result").html(msg);
-    $("#comment_post_result").addClass("c3");
 	$('#comment_post_result').fadeIn("slow");
 	$('#comment_box').slideUp("slow");
 	show_comments(vid,1);

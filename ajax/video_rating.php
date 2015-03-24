@@ -84,8 +84,8 @@ $new_back[] .= '<li class="r8-unit">8</li>';
 $new_back[] .= '<li class="r9-unit">9</li>';
 $new_back[] .= '<li class="r10-unit">10</li>';
 $new_back[] .= '</ul>';
-$new_back[] .= '<p class="voted"><!-- ' . $video_id . '. ' . $lang['rating'] . ' <strong>' . @number_format($video_rate_new / $video_rated_by_new, 1) . '</strong>/' . $units . ' --> (' . $video_rated_by . ' ' . $tense . ' ' . $lang['cast'] . ') ';
-$new_back[] .= '<span class="thanks">' . $lang['vote_added'] . '</span></p>';
+$new_back[] .= '<span class="small voted">(' . $video_rated_by . ' ' . $tense . ') ';
+$new_back[] .= '<span class="thanks">' . $lang['vote_added'] . '</span></span>';
 
 $output = join("\n", $new_back);
 echo $output;

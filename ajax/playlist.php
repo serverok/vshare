@@ -37,30 +37,30 @@ if ($action == 'create_playlist') {
             ORDER BY `playlist_id` DESC";
     $user_playlists = DB::fetch($sql);
 
-    echo '<ul id="pl_lists">';
+    echo '<div id="pl_lists" class="list-group">';
     foreach ($user_playlists as $playlist) {
-        echo '<li><span id="' . (int) $playlist['playlist_id'] . '" rel="pl_items">' . $playlist['playlist_name'] . '</span></li>';
+        echo '<a href="#" class="list-group-item" id="' . (int) $playlist['playlist_id'] . '" rel="pl_items">' . $playlist['playlist_name'] . '</a>';
     }
 
     echo '
-    <li>
-        <span id="create_pl">Create a new playlist...</span>
+    <span class="list-group-item">
+        <span id="create_pl" class="text-nowrap">Create a new playlist...</span>
         <span id="pl_txt_box" style="display: none;">
-        <form id="pl-frm" action="javascript:void(0);" onsubmit="javascript:create_playlist();">
-        <input type="text" name="playlist_name" id="playlist_name" style="width: 150px;" onclick=";return false;" /></span>
-        </form>
-        </li>
-    </ul>';
+            <form id="pl-frm" action="javascript:void(0);" onsubmit="javascript:create_playlist();">
+                <input type="text" name="playlist_name" id="playlist_name" class="form-control" onclick=";return false;">
+            </form>
+        </span>
+    </div>';
 
     echo '
     <script type="text/javascript">
-        $("ul#pl_lists *").click(function(){ return false; });
-        $("span#create_pl").click(function(){
+        $("#pl_lists *").click(function(){ return false; });
+        $("#create_pl").click(function(){
            $(this).remove();
-           $("span#pl_txt_box").show();
-           $("input#playlist_name").focus();
+           $("#pl_txt_box").show();
+           $("#playlist_name").focus();
         });
-        $("ul#pl_lists li span[rel=pl_items]").each(function(){
+        $("#pl_lists a[rel=pl_items]").each(function(){
             $(this).click(function(){
                 add_video_playlist($(this).attr("id"));
                 $("#show_playlists").hide();

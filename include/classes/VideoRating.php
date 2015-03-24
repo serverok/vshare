@@ -43,7 +43,7 @@ class VideoRating
         $rating2 = @number_format($current_rating / $count, 2);
 
         $rater = '<div>';
-        $rater .= '<div>';
+        $rater .= '<div class="col-md-6">';
         $rater .= '<ul id="unit_ul' . $video_id . '" class="unit-rating" style="width:' . $rating_unitwidth * $units . 'px;">';
         $rater .= '<li class="current-rating" style="width:' . $rating_width . 'px;">Currently ' . $rating2 . '/' . $units . '</li>';
 
@@ -55,14 +55,14 @@ class VideoRating
 
         $ncount = 0;
 
-        $rater .= '</ul><p';
+        $rater .= '</ul></div><div class="col-md-6"><span class="small';
 
         if ($is_voted == 1) {
-            $rater .= ' class="voted"';
+            $rater .= ' voted';
         }
 
-        $rater .= '>' . $lang['rating'] . ' <strong> ' . $rating1 . '</strong>/' . $units . ' (' . $count . ' ' . $tense . ' ' . $lang['cast'] . ')';
-        $rater .= '</p></div></div>';
+        $rater .= '"> <strong> ' . $rating1 . '</strong>/' . $units . ' (' . $count . ' ' . $tense . ')';
+        $rater .= '</span></div></div>';
 
         return $rater;
     }
