@@ -2,31 +2,35 @@
 
     <div class="clearfix">&nbsp;</div>
 
-    <footer class="row">
-
-        <div class="clearfix center">
+     <div class="clearfix center">
             {insert name=advertise adv_name='banner_bottom'}
         </div>
 
-        <ul class="list-inline text-center">
-            <li><a class="btn" href="{$base_url}/pages/about.html">About Us</a></li>
-            <li><a class="btn" href="{$base_url}/pages/help.html">Help</a></li>
-            <li><a class="btn" href="{$base_url}/pages/advertise.html">Advertise</a></li>
-            <li><a class="btn" href="{$base_url}/pages/terms.html">Terms of Use</a></li>
-            <li><a class="btn" href="{$base_url}/pages/privacy.html">Privacy Policy</a></li>
-        </ul>
+<div class="row">
+    <div class="col-md-12">
+        <footer class="clearfix">
+            <div class="col-md-6 row">
+                Copyright &copy; {$smarty.now|date_format:"%Y"} {$site_name}. All rights reserved.
+                <!--
+                REMOVING THE LINE BELOW CONSTITUTES A VIOLATION
+                OF YOUR LICENSE AGREEMENT AND WILL RESULT IN
+                SIGNIFICANT PENALITIES IF REMOVED.
+                -->
+                Powered by <a class="copy" href="http://buyscripts.in/youtube_clone.html" target="_blank">vShare</a>
+            </div>
 
-        <div class="copy text-center text-muted">
-            Copyright &copy; {$smarty.now|date_format:"%Y"} {$site_name}. All rights reserved.<br />
-            <!--
-            REMOVING THE LINE BELOW CONSTITUTES A VIOLATION
-            OF YOUR LICENSE AGREEMENT AND WILL RESULT IN
-            SIGNIFICANT PENALITIES IF REMOVED.
-            -->
-            Powered by <a class="copy" href="http://buyscripts.in/youtube_clone.html" target="_blank">vShare</a>
-        </div>
-
-    </footer>
+            <div class="col-md-6 row pull-right">
+                <ul class="list-inline text-right">
+                    <li><a href="{$base_url}/pages/about.html">About Us</a></li>
+                    <li><a href="{$base_url}/pages/help.html">Help</a></li>
+                    <li><a href="{$base_url}/pages/advertise.html">Advertise</a></li>
+                    <li><a href="{$base_url}/pages/terms.html">Terms of Use</a></li>
+                    <li><a href="{$base_url}/pages/privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</div>
 
 </div> <!-- container -->
 <div class="quicklist_box" id="quicklist_box"></div>
