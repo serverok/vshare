@@ -112,7 +112,7 @@ if ($playlists) {
 
         $start_num = $start_from + 1;
         $end_num = $start_from + $results_on_this_page;
-        $page_links = Paginate::getLinks($total, $config['items_per_page'], '.', '', $page);
+        $page_links = Paginate::getLinks2($total, $config['items_per_page'], './', $page);
 
         $smarty->assign('start_num', $start_num);
         $smarty->assign('end_num', $end_num);
