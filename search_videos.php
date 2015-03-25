@@ -102,7 +102,7 @@ if ($err == '') {
 
         $start_num = $start_from + 1;
         $end_num = $start_from + $total_current_page;
-        $page_links = Paginate::getLinks($total, $config['items_per_page'], VSHARE_URL . '/search/' . $search_string, '', $page);
+        $page_links = Paginate::getLinks2($total, $config['items_per_page'], VSHARE_URL . '/search/' . $search_string . '/', $page);
 
         //Video users
         $video_users = array_unique($video_users);
