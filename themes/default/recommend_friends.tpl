@@ -1,39 +1,48 @@
-<div id="content">
-
-    <div class="section bg2">
-    
-        <div class="hd">
-            <div class="hd-l">Recommend Video</div>
-        </div>
-
-        <div style="padding:2em;">
-
-            {if $report ne ""}
-                {foreach from=$report item=msg}
-                    {$msg}
-                {/foreach}
-            {else}
-            
-                <form method="post" action="">
-                    <strong>Enter email addresses, separated by commas. Maximum 50 characters.</strong><br /><br />
-                    <textarea id="recipients" name="emails" rows="5" cols="32" size="60" maxlength="200">{$emails}</textarea><br /><br />
-                    <strong>Your name:</strong><br />
-                    <input type="text" name="fname" value="{if $user_name ne ''}{$user_name}{else}{$fname}{/if}" maxlength="100" style="width :255px;" /><br />
-                    <strong>Your Email:</strong><br />
-                    <input type="text" name="guest_email" maxlength="100" value="{if $guest_email ne ''}{$guest_email}{else}{$user_email}{/if}" style="width :255px;" /><br /><br />
-                    <strong>Add a personal message:</strong><br />
-                    <textarea wrap="virtual" name="message" rows="6" cols="32" maxlength="200">{if $message ne ""}{$message}{else}This is awesome!{/if}</textarea><br /><br />
-                    <input type="submit" name="submit" value="Send" />
-                </form>
-            
-            {/if}
-
-        </div>
-        
+<div class="col-md-9">
+    <div class="page-header">
+        <h1>Recommend Video</h1>
     </div>
 
-</div> <!--  content -->
+    {if $report ne ""}
+        {foreach from=$report item=msg}
+            {$msg}
+        {/foreach}
+    {else}
+        <form method="post" action="" class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-3">E-Mail Addresses:</label>
+                <div class="col-md-8">
+                    <div class="help-block">Separated by commas. Maximum 50 characters.</div>
+                    <textarea id="recipients" name="emails" rows="2" class="form-control">{$emails}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">Your name:</label>
+                <div class="col-md-4">
+                    <input type="text" name="fname" value="{if $user_name ne ''}{$user_name}{else}{$fname}{/if}" maxlength="100" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">Your Email:</label>
+                <div class="col-md-4">
+                    <input type="email" name="guest_email" maxlength="100" value="{if $guest_email ne ''}{$guest_email}{else}{$user_email}{/if}" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">Message:</label>
+                <div class="col-md-8">
+                    <textarea wrap="virtual" name="message" rows="3" maxlength="200" class="form-control">{if $message ne ""}{$message}{else}This is awesome!{/if}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3 col-md-offset-3">
+                    <button type="submit" name="submit" class="btn btn-default btn-lg">Send</button>
+                </div>
+            </div>
+        </form>
+    {/if}
+</div>
 
-<div id="sidebar">
+<div class="col-md-3">
     {insert name=advertise adv_name='wide_skyscraper'}
 </div>

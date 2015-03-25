@@ -66,9 +66,9 @@ if (isset($_POST['submit'])) {
         for ($i = 0; $i < count($email_array); $i ++) {
             $email_array[$i] = trim($email_array[$i]);
             if (! Validate::email($email_array[$i])) {
-                $report[] = '<div class="mail_err">Invalid email address ' . $email_array[$i] . '</div>';
+                $report[] = '<div class="alert alert-danger">Invalid email address ' . $email_array[$i] . '</div>';
             } else {
-                $report[] = '<div class="mail_ok">Mail Sent to ' . $email_array[$i] . '</div>';
+                $report[] = '<div class="alert alert-success">Mail Sent to ' . $email_array[$i] . '</div>';
                 $to_email = $email_array[$i];
                 $email_body_tmp = $email_body;
 
