@@ -1,31 +1,29 @@
-<table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">
-    <thead>
-        <tr>
-            <td colspan="5"><span style="font-size: 15px; font-weight: bold;">Compose</span></td>
-        </tr>
-    </thead>
-</table>
-
-<div class="compose-container">
-    <form action="javascript:void(0);" id="frm" method="post" onsubmit="javascript:mail.send();">
-        <div>
-            <label>To:</label>
-            <input type="text" name="mail_to" id="mail_to" maxlength="40" value="{$mail_to}" />
-        </div>
-        
-        <div>
-            <label>Subject:</label>
-            <input type="text" name="mail_subject" id="mail_subject" value="{$mail_subject}" maxlength="200" size="50" />
-        </div>
-        
-        <div>
-            <label>Message:</label>
-            <textarea name="mail_body" id="mail_body" cols="50" rows="10">{$mail_body}</textarea>
-        </div>
-        
-        <div>
-            <label>&nbsp;</label>
-            <input type="submit" name="send" value="Send" />
-        </div>
-    </form>
+<div class="page-header">
+    <h2>Compose</h2>
 </div>
+
+<form action="javascript:void(0);" id="frm" method="post" onsubmit="javascript:mail.send();" class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="control-label col-md-2">To:</label>
+        <div class="col-md-6">
+            <input type="text" name="mail_to" id="mail_to" maxlength="40" value="{$mail_to}" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Subject:</label>
+        <div class="col-md-6">
+            <input type="text" name="mail_subject" id="mail_subject" value="{$mail_subject}" maxlength="200" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Message:</label>
+        <div class="col-md-8">
+            <textarea name="mail_body" id="mail_body" class="form-control" rows="5">{$mail_body}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2 col-md-offset-2">
+            <button type="submit" name="send" class="btn btn-default btn-lg">Send</button>
+        </div>
+    </div>
+</form>

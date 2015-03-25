@@ -64,7 +64,8 @@ require 'Pager/Sliding.php';
 $params = array(
     'mode' => 'Sliding',
     'perPage' => $config['items_per_page'],
-    'linkClass' => 'pager',
+    'linkClass' => 'btn btn-default',
+    'curPageLinkClassName' => 'btn btn-default disabled',
     'delta' => 2,
     'totalItems' => $total,
     'urlVar' => 'page',

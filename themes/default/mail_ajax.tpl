@@ -1,34 +1,24 @@
-<table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">
+<div class="page-header">
+    <h2>{$mail_folder|capitalize}</h2>
+</div>
+
+<table class="table table-striped">
     <thead>
-	    <tr>
-	        <td colspan="5">
-	           <span style="font-size: 15px; font-weight: bold;">{$mail_folder|capitalize}</span>
-	           <hr>
-	        </td>
-	    </tr>
 	    {if $mails|@count gt "0"}
 		    <tr class="bg2">
-		        <td width="5%">&nbsp;</td>
-		        <td width="5%">&nbsp;</td>
-		        <td width="20%">{if $mail_folder eq 'inbox'}From{else}To{/if}</td>
-		        <td width="">Subject</td>
-		        <td width="15%">Date</td>
+		        <th width="5%">&nbsp;</th>
+		        <th width="20%">{if $mail_folder eq 'inbox'}From{else}To{/if}</th>
+		        <th width="">Subject</th>
+		        <th width="15%">Date</th>
 		    </tr>
 	    {/if}
     </thead>
-    
+
     <tbody>
 	    {section name=i loop=$mails}
 	        <tr rel="mail-list" valign="top">
 	            <td align="center">
 	                <input type="checkbox" name="mid[]" value="{$mails[i].mail_id}" />
-	            </td>
-	            <td align="center">
-	                {if $mails[i].mail_read == "0" AND $mail_folder eq 'inbox'}
-	                    <img src="{$img_css_url}/images/newmail.gif" alt="New Message" />
-	                {else}
-	                    <img src="{$img_css_url}/images/mail.gif" alt="Message" />
-	                {/if}
 	            </td>
                 <td align="left">
                     {if $mail_folder eq 'inbox'}
@@ -36,21 +26,28 @@
                     {else}
                         <a href="{$base_url}/{$mails[i].mail_receiver}">{$mails[i].mail_receiver}
                     {/if}
-                    
-	                    <div rel="mail-detail" id="mail-photo-{$mails[i].mail_id}" style="display: none;">
+
+	                    <div rel="mail-detail" class="thumbnail" id="mail-photo-{$mails[i].mail_id}" style="display: none;">
 	                        {insert name=member_img UID=$mails[i].user_id}
 	                    </div>
                     </a>
                 </td>
 	            <td align="left">
 	                <a href="javascript:void(0);" onclick="mail.detail('{$mails[i].mail_id}', '{$mail_folder}', '{$mails[i].mail_read}');">
-	                    {$mails[i].mail_subject}
+	                    {if $mails[i].mail_read == "0" AND $mail_folder eq 'inbox'}
+                            <strong>{$mails[i].mail_subject}</strong>
+                        {else}
+                            {$mails[i].mail_subject}
+                        {/if}
 	                </a>
-	                <div rel="mail-detail" id="mail-body-{$mails[i].mail_id}" style="display: none;">{$mails[i].mail_body}</div>
-	                
+	                <div rel="mail-detail" id="mail-body-{$mails[i].mail_id}" style="display: none;">
+                        <br>
+                        <p>{$mails[i].mail_body}</p>
+                    </div>
+
 	                {if $mail_folder ne 'outbox'}
                         <p rel="mail-detail" id="mail-reply-{$mails[i].mail_id}" style="display: none;">
-                            <a id="mail-reply-bttn" href="javascript:void(0);" onclick="mail.compose('{$mails[i].mail_sender}','Re: {$mails[i].mail_subject}');">Reply</a>
+                            <a class="btn btn-default btn-sm" id="mail-reply-bttn" href="javascript:void(0);" onclick="mail.compose('{$mails[i].mail_sender}','Re: {$mails[i].mail_subject}');">Reply</a>
                         </p>
                     {/if}
 	            </td>
@@ -60,16 +57,26 @@
 	        </tr>
 	    {sectionelse}
 	        <tr>
-	            <td colspan="5" align="center"><h3>There are no messages in this folder.</h3></td>
+	            <td colspan="4" align="center">
+                    <h4>There are no messages in this folder.</h4>
+                </td>
 	        </tr>
 	    {/section}
     </tbody>
-    
+
     {if $mails|@count gt "0"}
-	    <tr class="page_links">
-	        <td align="center"><input type="checkbox" name="select_all" id="select_all" /></td>
-	        <td align="center"><input type="image" id="del-mails" onclick="mail.del('{$mail_folder}');" src="{$img_css_url}/images/del.gif" title="Delete" /></td>
-	        <td align="right" colspan="3">{if $page_link ne ''}{$page_link}{else}&nbsp;{/if}</td>
+	    <tr>
+	        <td align="center">
+                <input type="checkbox" name="select_all" id="select_all">
+            </td>
+	        <td align="left">
+                <button type="button" class="btn btn-default btn-sm" id="del-mails" onclick="mail.del('{$mail_folder}');" title="Delete">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+            </td>
+	        <td align="right" colspan="2">
+                {if $page_link ne ''}{$page_link}{else}&nbsp;{/if}
+            </td>
 	    </tr>
     {/if}
 </table>
