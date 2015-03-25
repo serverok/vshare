@@ -154,3 +154,8 @@ a.latest:active {
 img.preview {
     width: 100%;
 }
+
+footer {
+    border-top: 1px solid #ddd;
+    padding: 20px 0;
+}
