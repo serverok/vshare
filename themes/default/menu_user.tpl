@@ -4,7 +4,7 @@
 {insert name=group_count assign=grpcount uid=$user_info.user_id}
 {insert name=friends_count assign=friendcount uid=$user_info.user_id}
 {insert name=playlist_count assign=playcount uid=$user_info.user_id}
-<ul>
+<ul class="list-inline text-center">
 	<li><a href="{$base_url}/{$user_info.user_name}">Profile</li>
 	<li><a href="{$base_url}/{$user_info.user_name}/public/">Public Videos ({$publicvdo})</a></li>
 	<li><a href="{$base_url}/{$user_info.user_name}/private/">Private Videos ({$privatvdo})</a></li>
