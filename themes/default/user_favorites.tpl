@@ -1,103 +1,85 @@
 {if $total gt "0"}
+<div class="col-md-9">
+    <div class="page-header">
+        <h1>
+            Favorites Videos of <strong>{$user_info.user_name}</strong>
+            <span class="pull-right btn font-size-md">Videos {$start_num}-{$end_num} of {$total}</span>
+        </h1>
+    </div>
 
-<div id="content">
-
-	<div class="section bg2">
-	
-        <div class="hd">
-		   <div class="hd-l">Favorites Videos of {$user_info.user_name}</div>
-		   <div class="hd-r">Videos {$start_num}-{$end_num} of {$total}</div>
+    {section name=i loop=$favVideos}
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <div class="preview">
+                        <a href="{$base_url}/view/{$favVideos[i].video_id}/{$favVideos[i].video_seo_name}/">
+                            <img class="img-responsive" width="100%" height="130" src="{$favVideos[i].video_thumb_url}/thumb/{$favVideos[i].video_folder}1_{$favVideos[i].video_id}.jpg" alt="{$favVideos[i].video_title}">
+                        </a>
+                        <span class="badge video-time">{$favVideos[i].video_length}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-8">
+                <h4>
+                    <a href="{$base_url}/view/{$favVideos[i].video_id}/{$favVideos[i].video_seo_name}/">{$favVideos[i].video_title}</a>
+                    <br>
+                    <small>{$favVideos[i].video_description|truncate:80}</small>
+                </h4>
+                <p class="text-muted small">
+                    {insert name=id_to_name assign=user_name un=$favVideos[i].video_user_id}
+                    {insert name=time_range assign=added_on time=$favVideos[i].video_add_time}
+                    <span class="glyphicon glyphicon-user"></span>
+                    <a href="{$base_url}/{$user_name}">{$user_name}</a>,
+                    {$added_on}
+                    <br />
+                    <span class="glyphicon glyphicon-eye-open"></span> Views {$favVideos[i].video_view_number},
+                    <span class="glyphicon glyphicon-comment"></span> Comments {$favVideos[i].video_com_num},
+                    <span class="text-nowrap">
+                    {if $favVideos[i].video_rated_by gt "0"}
+                        {insert name=show_rate assign=rate rte=$favVideos[i].video_rate rated=$favVideos[i].video_rated_by}
+                        {$rate}
+                        ({$favVideos[i].video_rated_by} ratings)
+                    {else}
+                        Not yet rated
+                    {/if}
+                    </span>
+                </p>
+                {if $smarty.session.USERNAME eq $user_info.user_name}
+                    <p>
+                        <form name="USERFAVOUR" method="post" action="">
+                            <input type="hidden" name="rvid" value="{$favVideos[i].video_id}" />
+                            <button type="submit" class="btn btn-default btn-sm" name="removfavour">
+                                <span class="glyphicon glyphicon-remove"></span> Remove
+                            </button>
+                        </form>
+                    </p>
+                {/if}
+            </div>
+            <hr>
         </div>
+	{/section}
+    <div class="clearfix"></div>
 
-        {section name=i loop=$favVideos}
-        
-            <div class="video-entry clearfix">
-                 
-	           	<div class="box1">
-	           	   <div class="preview default-img-adjust">
-	           	       <a href="{$base_url}/view/{$favVideos[i].video_id}/{$favVideos[i].video_seo_name}/">
-	           	           <img src="{$favVideos[i].video_thumb_url}/thumb/{$favVideos[i].video_folder}1_{$favVideos[i].video_id}.jpg" alt="" />
-	           	       </a>
-	           	       <div class="video-queue" id="{$favVideos[i].video_id}" rel="video_queue">&nbsp;</div>
-	           	       <div class="video-time">{$favVideos[i].video_length}</div>
-	           	   </div>
+    {if $page_links ne ""}
+        <div>{$page_links}</div>
+    {/if}
+</div>
 
-					{if $smarty.session.USERNAME eq $user_info.user_name}
-						<center>
-							<form name="USERFAVOUR" method="post" action="">
-								<input type="hidden" name="rvid" value="{$favVideos[i].video_id}" />
-								<input type="submit" size="20" class="button" name="removfavour" value="Remove Favorites" />
-							</form>
-						</center>
-					{/if}
-				</div>
+<div class="col-md-3">
+    <a class="btn btn-default btn-block" href="{$base_url}/invite_friends.php">Share your videos!</a>
 
-				<div class="box2">
-					<p class="video-entry-title">
-						<a href="{$base_url}/view/{$favVideos[i].video_id}/{$favVideos[i].video_seo_name}/">
-					    {$favVideos[i].video_title}</a>
-					</p>
-					
-					<p class="video-entry-description">{$favVideos[i].video_description}</p>
-					
-					<p class="video-entry-tags">
-						<img width="38" height="14" src="{$img_css_url}/images/tags.gif" alt="" />
-						{section name=j loop=$favVideos[i].video_keywords_array}
-							<a href="{$base_url}/tag/{$favVideos[i].video_keywords_array[j]}/">{$favVideos[i].video_keywords_array[j]}</a>&nbsp;
-						{/section}
-					</p>
-					
-					<p class="video-entry-details">
-						{insert name=time_to_date assign=todate tm=$favVideos[i].video_add_time}
-						Added: {$todate} <br /><br />
-						Views: {$favVideos[i].video_view_number} |
-						{insert name=comment_count assign=commentcount vid=$favVideos[i].video_id}
-						Comments: {$commentcount} <br /><br />
-						Rating: {insert name=show_rate assign=vrate rte=$favVideos[i].video_rate rated=$favVideos[i].video_rated_by}{$vrate}<br />
-					</p>
-				</div>
-				
-			</div>  <!-- video-entry -->
-		
-		{/section}
-        
-        <div class="clearfix"></div>
-        
-		{if $page_links ne ""}
-			<div class="page_links">Pages: {$page_links}</div>
-		{/if}
-		     
-	</div> <!-- section -->
-	
-</div> <!-- content -->
- 
-<div id="sidebar">
-
-	<div class="section bg2">
-		
-		<div class="hd">
-			<div class="hd-l">
-				<a href="{$base_url}/invite_friends.php">Share your videos !</a>
-			</div>
-		</div>
-		
-		<div class="tags">
-			<b>My Tags:</b>
-			{section name=k loop=$view.video_keywords_all_array}
-				<p> <a href="{$base_url}/tag/{$view.video_keywords_all_array[k]}/">{$view.video_keywords_all_array[k]}</a></p>
-			{/section}
-		</div>
-		
-		<br />
-        {insert name=advertise adv_name='wide_skyscraper'}
-        <br />
-        
+    <div class="page-header">
+        <h2>My Tags</h2>
+    </div>
+    <div class="list-group">
+        {section name=k loop=$view.video_keywords_all_array}
+            <a class="list-group-item" href="{$base_url}/tag/{$view.video_keywords_all_array[k]}/">{$view.video_keywords_all_array[k]}</a>
+        {/section}
 	</div>
 
-</div> <!-- sidebar -->
-
+    <br>
+    {insert name=advertise adv_name='wide_skyscraper'}
+</div>
 {else}
-
-<h5>There is no favorite video found</h5>
-
+    <center><h4>There is no favorite video found</h4></center>
 {/if}
