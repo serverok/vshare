@@ -41,8 +41,7 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i'])) {
         $video_info['video_thumb_url'] = $servers[$video_info['video_thumb_server_id']];
         $smarty->assign('video_info', $video_info);
 
-       if (isset($_POST['action'])) {
-            if ($_POST['action'] == 'Accept this video') {
+            if (isset($_POST['accept'])) {
 
                 $sql = "UPDATE `video_responses` SET
                        `video_response_active`='1' WHERE
@@ -59,7 +58,7 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i'])) {
                 set_message($lang['video_response_activated'], 'success');
                 $redirect_url = VSHARE_URL . '/response/' . $verify_info['data2'] . '/videos/1';
                 Http::redirect($redirect_url);
-            } else if ($_POST['action'] == 'Reject this video') {
+            } else if (isset($_POST['reject'])) {
 
                 $sql = "DELETE FROM `verify_code` WHERE
                        `id`='" . (int) $_GET['i'] . "' AND
@@ -76,7 +75,6 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i'])) {
                 $redirect_url = VSHARE_URL . '/response/' . $verify_info['data2'] . '/videos/1';
                 Http::redirect($redirect_url);
             }
-       }
     }
 }
 
