@@ -1,94 +1,81 @@
 {if $total ne "0"}
+    <div class="col-md-9">
+        <div class="page-header">
+            <h1>
+                <strong>{$user_info.user_name}</strong>'s Groups
+                <small class="pull-right btn font-size-md">Results {$start_num}-{$end_num} of {$total}</small>
+            </h1>
+        </div>
 
-    <div id="content">
-    
-        <div class="section bg2">
-        
-            <div class="hd">
-                <div class="hd-l">
-                    {$user_info.user_name}'s Groups
-                </div>
-                <div class="hd-r">
-                    Results {$start_num}-{$end_num} of {$total}
-                </div>
-            </div>
-        
+        <div class="row">
             {section name=i loop=$groups}
-            
                 {insert name=group_image assign=group_image_info gid=$groups[i].group_id tbl=group_videos}
                 {insert name=time_to_date assign=todate tm=$groups[i].group_create_time}
-        
-                <div class="video-entry bg2">
-                
-                    <div class="box1">
+                {insert name=group_info_count assign=gvdocount tbl=group_videos gid=$groups[i].group_id query="1" field1=group_video_approved field2=group_video_group_id}
+                {insert name=group_info_count assign=gmemcount tbl=group_members gid=$groups[i].group_id query="1" field1=group_member_approved field2=group_member_group_id}
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
                         <a href="{$base_url}/group/{$groups[i].group_url}/">
                             {if $group_image_info eq "0"}
-                                <img class="preview" src="{$img_css_url}/images/no_videos_groups.gif" width="120px" height="90" alt="" />
+                                <img class="img-responsive" width="100%" src="{$img_css_url}/images/no_videos_groups.gif" alt="{$groups[i].group_name}">
                             {else}
-                                <img width="120px" height="90" src="{$group_image_info.video_thumb_url}/thumb/{$group_image_info.video_folder}1_{$group_image_info.video_id}.jpg" alt="" />
-                            {/if} 
+                                <img class="img-responsive" width="100%" src="{$group_image_info.video_thumb_url}/thumb/{$group_image_info.video_folder}1_{$group_image_info.video_id}.jpg" alt="{$groups[i].group_name}">
+                            {/if}
                         </a>
-                        {if $groups[i].group_owner_id eq $smarty.session.UID}
-                             <font color="#009900"><b>(Group owner)</b></font>
-                        {/if}
+                        <div class="caption">
+                            <h5>
+                                <a href="{$base_url}/group/{$groups[i].group_url}/">
+                                    {$groups[i].group_name}
+                                </a>
+                                <br>
+                                <small>{$groups[i].group_description|truncate:60}</small>
+                            </h5>
+                            <p class="text-muted small">
+                                on {$groups[i].group_create_time|date_format}&nbsp;|&nbsp;
+                                Status : {$groups[i].group_type}
+                            </p>
+                            <p class="text-muted small">
+                                <a href="{$base_url}/group/{$groups[i].group_url}/members/1">{$gmemcount} Members</a> |
+                                <a href="{$base_url}/group/{$groups[i].group_url}/videos/1">{$gvdocount} Videos</a> |
+                                {if $groups[i].group_owner_id eq $smarty.session.UID}
+                                     <span class="label label-success">Group owner</span>
+                                {/if}
+                            </p>
+                        </div>
                     </div>
-                
-                    <div class="box2">
-                        <p class="video-entry-title">
-                            <a href="{$base_url}/group/{$groups[i].group_url}/">
-                                {$groups[i].group_name}
-                            </a>
-                            {insert name=row_count assign=num_group_members group_id=$groups[i].group_id table=group_members field1=group_member_group_id field2=group_member_approved}
-                            ({$num_group_members} members)
-                        </p>
-                        
-                        <p class="video-entry-description">
-                            {$groups[i].group_description}
-                        </p>
-                        
-                        <p class="video-entry-details">
-                            Status : {$groups[i].group_type} <br /><br />
-                            Created : {$todate} <br /><br />
-                        </p>
-                    </div>
-                    
-                </div> <!-- video-entry  -->
-            
-            {/section}
-            
-            {if $page_links ne ""}
-                <div class="page_links">Pages: {$page_links}</div>
-            {/if}
-        
-        </div> <!-- section -->
-        
-    </div> <!-- content -->
-    
-    <div id="sidebar">
-    
-        <div class="section bg2">
-            <div class="hd">
-                <div class="hd-l">
-                    <a href="{$base_url}/invite_friends.php">Share your videos</a>!
                 </div>
-            </div>
-        
-            <div class="tags"><b>Group Tags:</b>
-                {section name=i loop=$view.user_group_keywords_array}
-                <p><a href="{$base_url}/tag/{$view.user_group_keywords_array[i]}/">{$view.user_group_keywords_array[i]}</a></p>
-                {/section}
-            </div>
-        </div> <!-- section -->
-    
-    </div> <!-- sidebar -->
+            {/section}
+        </div>
+
+        {if $page_links ne ""}
+            <div>{$page_links}</div>
+        {/if}
+
+    </div>
+
+    <div class="col-md-3">
+        <a class="btn btn-default btn-sm btn-block" href="{$base_url}/invite_friends.php">Share your videos!</a>
+
+        <div class="page-header">
+            <h2>Group Tags:</h2>
+        </div>
+        <div class="list-group">
+            {section name=i loop=$view.user_group_keywords_array}
+                <a class="list-group-item" href="{$base_url}/tag/{$view.user_group_keywords_array[i]}/">{$view.user_group_keywords_array[i]}</a>
+            {/section}
+        </div>
+    </div>
 
 {else}
 
     <div align="center">
-        <p>This user is not a member of any groups.</p>
-        {if $smarty.session.USERNAME == $user_info.user_name}
-            <p><a href="{$base_url}/group/new/">Click here</a> to create a group now</p>
-        {/if}
+        <h4>
+            This user is not a member of any groups.
+            {if $smarty.session.USERNAME == $user_info.user_name}
+            <br>
+            <small><a href="{$base_url}/group/new/">Click here</a> to create a group now.</small>
+            {/if}
+        </h4>
     </div>
 
 {/if}
