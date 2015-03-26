@@ -38,8 +38,7 @@ if (! $verify_info) {
     exit;
 }
 
-if (isset($_POST['submit'])) {
-    if ($_POST['submit'] == 'Unsubscribe') {
+    if (isset($_POST['unsubscribe'])) {
     	$sql = "UPDATE `users` SET `user_subscribe_admin_mail`='0' WHERE
     		   `user_id`='" . $user_info['user_id'] . "'";
     	DB::query($sql);
@@ -48,10 +47,9 @@ if (isset($_POST['submit'])) {
     	$unsubscribe_txt = str_replace('[SITE_NAME]', $config['site_name'], $unsubscribe_txt);
     	$smarty->assign('unsubscribe_txt',$unsubscribe_txt);
     	$unsubscribed_success = 1;
-    } else {
+    } elseif (isset($_POST['cancel'])) {
         Http::redirect(VSHARE_URL);
     }
-}
 
 $smarty->assign('unsubscribed_success', $unsubscribed_success);
 $smarty->assign('err', $err);
