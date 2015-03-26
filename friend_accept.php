@@ -73,7 +73,7 @@ if (isset($_GET['id']) && (is_numeric($_GET['key']))) {
 
 # accept friend request
 
-if (isset($_POST['friend_accept']) && $_POST['friend_accept'] != '') {
+if (isset($_POST['friend_accept'])) {
 
     $id = $_POST['id'];
     $fid = $_POST['AID'];
@@ -133,7 +133,7 @@ if (isset($_POST['friend_accept']) && $_POST['friend_accept'] != '') {
 
 # deny friend request
 
-if (isset($_POST['friend_deny']) && $_POST['friend_deny'] != '') {
+if (isset($_POST['friend_deny'])) {
 
     $id = $_POST['id'];
     $fid = $_POST['AID'];
