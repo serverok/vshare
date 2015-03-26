@@ -1,25 +1,29 @@
-<div class="section">
-
-	<div class="hd">
-		<div class="hd-l">Upload Photo</div>
+<div class="col-md-12">
+	<div class="page-header">
+        <h1>
+            Upload Photo
+            <br>
+            <small>After uploading a new photo, refresh the page (Press F5), to see the new image.</small>
+        </h1>
 	</div>
 
-    <form action="user_photo_upload.php" method="post" enctype="multipart/form-data" name="profile-photo-upload" id="profile-photo-upload">
-    
-        <div>
-            <p>After uploading a new photo, refresh the page (Press F5), to see the new image.</p>
-			<p><strong>Photo must be in JPG format</strong></p>
-            <img src="{$photo_url}?{$vshare_rand}" alt="" />
+    <form action="user_photo_upload.php" method="post" enctype="multipart/form-data" name="profile-photo-upload" id="profile-photo-upload" class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-offset-2">
+                <img class="img-responsive" src="{$photo_url}?{$vshare_rand}" alt="">
+            </div>
         </div>
-        
-        <div>
-            <input type="file" name="photo" size="30" />
+        <div class="form-group">
+            <label class="control-label col-md-2">File:</label>
+            <div class="col-md-5">
+                <input type="file" name="photo">
+                <span class="help-block">Photo must be in JPG format</span>
+            </div>
         </div>
-        
-        <div>
-            <input type="submit" name="submit" value="Upload Photo" />
+        <div class="form-group">
+            <div class="col-md-2 col-md-offset-2">
+                <button type="submit" name="submit" class="btn btn-default btn-lg">Upload Photo</button>
+            </div>
         </div>
-        
     </form>
-    
 </div>
