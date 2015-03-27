@@ -1,37 +1,36 @@
 {if $profile_comments ne ''}
-        
-{section name = i loop=$profile_comments}
-    
-    <div id="cid-{$profile_comments[i].profile_comment_id}" class="profile-comment {cycle values="comment-bg1,comment-bg2"} clearfix">
-
-        <div class="box1">
+    <div class="row">
+        {section name = i loop=$profile_comments}
             {insert name=voter_name assign=name id=$profile_comments[i].profile_comment_posted_by}
-            <a href="{$base_url}/{$name.name}">{$name.name}</a>
-            <div class="margin-2em-auto">
-                <a href="{$base_url}/{$name.name}">
-                    {insert name=member_img UID=$profile_comments[i].profile_comment_posted_by type=1}
-                </a>
+            <div id="cid-{$profile_comments[i].profile_comment_id}" class="clearfix">
+                <div class="col-md-4 col-sm-4">
+                    <div class="thumbnail">
+                        <a href="{$base_url}/{$name.name}">
+                            {insert name=member_img UID=$profile_comments[i].profile_comment_posted_by}
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-8">
+                    {if $smarty.session.UID eq $profile_comments[i].profile_comment_user_id}
+                        <p>
+                            <a class="btn btn-danger btn-xs pull-right" href="javascript:void(0)" onclick="delete_comment('{$profile_comments[i].profile_comment_id}')">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </p>
+                    {/if}
+                    <h5>
+                        <a href="{$base_url}/{$name.name}">{$name.name}</a>
+                        <small>on {$profile_comments[i].profile_comment_date|date_format}</small>
+                    </h5>
+                    <p>{$profile_comments[i].profile_comment_text}</p>
+                </div>
             </div>
-        </div>
-            
-        <div class="box2">
-            <p class="date">{$profile_comments[i].profile_comment_date}</p>
-            {$profile_comments[i].profile_comment_text}
-            {if $smarty.session.UID eq $profile_comments[i].profile_comment_user_id}
-                <a href="javascript:void(0)" onclick="delete_comment('{$profile_comments[i].profile_comment_id}')">
-                    <img src="{$img_css_url}/images/del.gif" border="0" alt=""  class="delete-botton" />
-                </a>
-            {/if}
-        </div>
-        
+            <hr>
+        {/section}
     </div>
-    
-{/section}
 
 {if $page_links ne ""}
-    <div class="page_links">
-        Pages: {$page_links}
-    </div>
+    <div>{$page_links}</div>
 {/if}
 
 {else}

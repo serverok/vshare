@@ -19,6 +19,9 @@ function post_profile_comment_success(json)
     if (json.messageType == 'success')
     {
         $('#comment_box').fadeOut();
+        $('#comm_result').attr("class", "alert alert-success");
+    } else {
+        $('#comm_result').attr("class", "alert alert-danger");
     }
     $('#comm_result').css('display','block').html(json.message).fadeIn('slow');
     display_user_comments(1);
@@ -50,7 +53,10 @@ function delete_comment_success(jsonObj)
         var div_id = jsonObj.message;
 		div_id = "#cid-"+div_id;
 		$(div_id).slideUp('slow');
-	}
+        $('#comm_result').attr("class", "alert alert-success");
+	} else {
+        $('#comm_result').attr("class", "alert alert-danger");
+    }
 
     $("#comm_result").css('display','block').html('Comment deleted successfully.');
 }
