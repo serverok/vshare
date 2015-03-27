@@ -58,8 +58,8 @@
                     <span class="text-success"><b>Already in group</b></span>
                 {/if}
             </div>
-            <hr>
-        </div>
+          </div>
+        <hr>
     {/section}
 
     {if $page_links ne ""}
