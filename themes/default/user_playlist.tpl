@@ -32,7 +32,7 @@
             <h1>
                 Videos of: {$playlist_info.playlist_name}
                 {if $smarty.session.UID eq $playlist_info.playlist_user_id}
-                    <a class="btn btn-default col-md-offset-1" onclick="Javascript:return confirm('Are you sure you want to delete?');" href="{$base_url}/playlist_delete.php?pl_id={$playlist_info.playlist_id}&action=pl_del">
+                    <a class="btn btn-danger col-md-offset-1" onclick="Javascript:return confirm('Are you sure you want to delete?');" href="{$base_url}/playlist_delete.php?pl_id={$playlist_info.playlist_id}&action=pl_del">
                         <span class="glyphicon glyphicon-remove"></span> Delete Playlist
                     </a>
                 {/if}
@@ -62,11 +62,11 @@
                         {insert name=id_to_name assign=user_name un=$videos[i].video_user_id}
                         {insert name=time_range assign=added_on time=$videos[i].video_add_time}
                         <span class="glyphicon glyphicon-user"></span>
-                        <a href="{$base_url}/{$user_name}">{$user_name}</a>,
+                        <a href="{$base_url}/{$user_name}"><b>{$user_name}</b></a>,
                         {$added_on}
                         <br />
-                        <span class="glyphicon glyphicon-eye-open"></span> Views {$videos[i].video_view_number},
-                        <span class="glyphicon glyphicon-comment"></span> Comments {$videos[i].video_com_num},
+                        <span class="glyphicon glyphicon-eye-open"></span> {$videos[i].video_view_number} Views  |
+                        <span class="glyphicon glyphicon-comment"></span> {$videos[i].video_com_num} Comments |
                         <span class="text-nowrap">
                         {if $videos[i].video_rated_by gt "0"}
                             {insert name=show_rate assign=rate rte=$videos[i].video_rate rated=$videos[i].video_rated_by}
@@ -79,14 +79,14 @@
                     </p>
                     {if $user_info.user_name eq $smarty.session.USERNAME}
                         <p>
-                            <a class="btn btn-default btn-sm" href="{$base_url}/playlist_delete.php?pl_id={$playlist_info.playlist_id}&action=vdo_del&vid={$videos[i].video_id}&page={$page}" title="Remove from playlist">
+                            <a class="btn btn-danger btn-sm" href="{$base_url}/playlist_delete.php?pl_id={$playlist_info.playlist_id}&action=vdo_del&vid={$videos[i].video_id}&page={$page}" title="Remove from playlist">
                                 <span class="glyphicon glyphicon-remove"></span> Remove
                             </a>
                         </p>
                     {/if}
                 </div>
-                <hr>
             </div>
+          <hr>
         {sectionelse}
             <center><h4>There is no video found.</h4></center>
         {/section}
