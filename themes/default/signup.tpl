@@ -3,12 +3,11 @@
 {else}
 <div class="col-md-8">
     <div class="page-header">
-        <h1>
-            New Member? Sign up
-            <br>
-            <small>Just fill out the account information below:</small>
-        </h1>
-    </div>
+        <h2>
+            New Member ? Sign up
+        </h2>
+        <p class="lead text-muted">Just fill out the account information below:</p>
+     </div>
 
     <form  method="post" action="{$base_url}/signup/" id="signup-form" class="form-horizontal" role="form">
         <div class="form-group">
@@ -142,8 +141,8 @@
 <div class="col-md-4">
     <div class="page-header">
         <h2>{$site_name} Log In</h2>
+        <p class="lead text-muted">Welcome back. Log in to your account</p>
     </div>
-
     <form method="post" action="{$base_url}/login/" id="login-form" role="form">
         <div class="form-group">
             <label>User Name:</label>
