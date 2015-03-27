@@ -103,7 +103,7 @@ $sql = "SELECT * FROM `group_videos` WHERE
         ORDER BY `AID` DESC
         LIMIT 0, 4";
 $grp_videos = DB::fetch($sql);
-
+$group_videos = array();
 foreach ($grp_videos as $tmp) {
     if (isset($tmp['group_video_video_id'])) {
         $sql = "SELECT * FROM `videos` WHERE
