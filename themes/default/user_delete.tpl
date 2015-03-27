@@ -3,12 +3,12 @@
     <div class="text-center">
         <h1 class="text-danger">
             Delete Account
-            <br>
-            <small>Deleting account will remove all your videos, comments from this site.</small>
         </h1>
-        <br />
+
+        <p class="lead text-muted">Deleting account will remove all your videos, comments from this site.</p>
+
         <form action="user_delete.php" method="post">
-            <button type="submit" name="submit" class="btn btn-default btn-lg">Yes, Delete My Account</button>
+            <button type="submit" name="submit" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-remove"></span>  Yes, Delete My Account</button>
         </form>
     </div>
 
