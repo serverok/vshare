@@ -16,6 +16,7 @@ if ($user_info) {
            `profile_comment_user_id`='" . (int) $user_info['user_id'] . "'";
     $total = DB::getTotal($sql);
     if ($total > 0) {
+
         $start_from = ($page - 1) * $config['user_comments_per_page'];
         $sql = "SELECT * FROM `profile_comments` WHERE
                `profile_comment_user_id`='" . (int) $user_info['user_id'] . "'
@@ -32,12 +33,14 @@ if ($user_info) {
             'perPage' => $config['user_comments_per_page'],
             'delta' => 2,
             'totalItems' => $total,
-            'nextImg' => 'Next',
-            'prevImg' => 'Previous',
+            'nextImg' => 'Next &raquo;',
+            'prevImg' => '&laquo; Prev',
             'urlVar' => 'page',
             'path' => '',
             'append' => false,
-            'fileName' => 'javascript:display_user_comments(%d)'
+            'fileName' => 'javascript:display_user_comments(%d)',
+            'linkClass' => 'btn btn-default',
+            'curPageLinkClassName' => 'btn btn-default disabled'
         );
 
         $pager = new Pager_Sliding($params);

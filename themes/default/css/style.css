@@ -175,6 +175,12 @@ img.preview {
 .myaccount h4 {
     padding: 5px 0;
 }
+.profile-details dt {
+    width: 100px;
+}
+.profile-details dd {
+    margin-left: 120px;
+}
 
 
 footer {
