@@ -2,9 +2,9 @@
 	<div class="page-header">
         <h1>
             Upload Photo
-            <br>
-            <small>After uploading a new photo, refresh the page (Press F5), to see the new image.</small>
         </h1>
+
+        <p class="lead text-muted">After uploading a new photo, refresh the page (Press F5), to see the new image.</p>
 	</div>
 
     <form action="user_photo_upload.php" method="post" enctype="multipart/form-data" name="profile-photo-upload" id="profile-photo-upload" class="form-horizontal">
