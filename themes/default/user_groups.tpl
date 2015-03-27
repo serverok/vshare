@@ -68,14 +68,17 @@
 
 {else}
 
-    <div align="center">
-        <h4>
-            This user is not a member of any groups.
+        <div align="center">
+            <h3>
+            {if $smarty.session.USERNAME == $user_info.user_name} Hi {$smarty.session.USERNAME}, {/if}  You are not a member of any groups.
+            </h3>
+
             {if $smarty.session.USERNAME == $user_info.user_name}
-            <br>
-            <small><a href="{$base_url}/group/new/">Click here</a> to create a group now.</small>
+            <p class="lead text-muted text-center">Click the below button to create your group and share videos with group members </p>
+
+            <a href="{$base_url}/group/new/" class="btn btn-success btn-lg">Create a group now</a>
             {/if}
-        </h4>
-    </div>
+
+        </div>
 
 {/if}
