@@ -1,67 +1,78 @@
-<div class="section clearfix">
+<div class="col-md-9 myaccount">
 
-	<div class="hd">
-		<div class="hd-l">My Account</div>
+	<div class="page-header">
+		<h1>My Account</h1>
 	</div>
-	
-	<div>
-	
-    <div id="myaccount">
-    
-		<ul>
-		
-			<li>
-				<a href="{$base_url}/{$smarty.session.USERNAME}" style="text-decoration: none;">
-					<img src="{$img_css_url}/images/profile.png" border="0" /> My Profile
-				</a>
-			</li>
-			
-			<li>
-				<a href="{$base_url}/{$smarty.session.USERNAME}/edit/" style="text-decoration: none;">
-					<img src="{$img_css_url}/images/profile_edit.png" border="0" /> Edit Profile
-				</a>
-			</li>
-			
-			{if $enable_package eq "yes"}
-				<li>
-					<a href="{$base_url}/renew_account.php?uid={$smarty.session.UID}&action=upgrade" style="text-decoration: none;">
-						<img src="{$img_css_url}/images/upgrade.png" border="0" /> Upgrade Package
-					</a>
-				</li>
-			{/if}
-			
-			<li>
-				<a href="{$base_url}/user_delete.php" style="text-decoration: none;">
-					<img src="{$img_css_url}/images/delete_account.png" border="0" /> Delete Account
-				</a>
-			</li>
-			
-			<li>
-				<a href="{$base_url}/privacy/" style="text-decoration: none;">
-					<img src="{$img_css_url}/images/privacy_settings.png" border="0" /> Privacy Settings
-				</a>
-			</li>
-			
-			<li>
-				<a href="{$base_url}/{$smarty.session.USERNAME}/playlist/" style="text-decoration: none;">
-					<img src="{$img_css_url}/images/playlist.png" border="0" /> My Playlists
-				</a>
-			</li>
-			
-			<li>
-				<a href="{$base_url}/upload/" style="text-decoration: none;">
-					<img src="{$img_css_url}/images/upload_video.png" border="0" /> Upload Video
-				</a>
-			</li>
-			
-			<li>
-				<a href="{$base_url}/user_photo_upload.php" style="text-decoration: none;">
-					<img src="{$img_css_url}/images/upload_profile_photo.png" border="0" /> Upload Profile Photo
-				</a>
-			</li>
-			
-		</ul>
-		
-    </div>
-    
+
+	<div class="col-md-4">
+
+		<h4>
+			<a href="{$base_url}/{$smarty.session.USERNAME}">
+			<span class="glyphicon glyphicon-eye-open"></span> My Profile
+			</a>
+		</h4>
+
+		<h4>
+			<a href="{$base_url}/{$smarty.session.USERNAME}/edit/">
+			<span class="glyphicon glyphicon-edit"></span> Edit Profile
+			</a>
+		</h4>
+
+		{if $enable_package eq "yes"}
+
+		<h4>
+			<a href="{$base_url}/renew_account.php?uid={$smarty.session.UID}&action=upgrade" style="text-decoration: none;">
+			<span class="glyphicon glyphicon-upload"></span> Upgrade Package</a>
+		</h4>
+
+		{/if}
+
+		<h4>
+			<a href="{$base_url}/user_delete.php">
+			<span class="glyphicon glyphicon-remove delete"></span> Delete Account</a>
+		</h4>
+
+	</div>
+
+
+
+	<div class="col-md-4">
+
+		<h4>
+			<a href="{$base_url}/upload/">
+			<span class="glyphicon glyphicon-film"></span> Upload Video</a>
+		</h4>
+
+		<h4>
+			<a href="{$base_url}/user_photo_upload.php">
+			<span class="glyphicon glyphicon-picture"></span> Upload Profile Photo</a>
+		</h4>
+
+		<h4>
+			<a href="{$base_url}/privacy/">
+			<span class="glyphicon glyphicon-lock"></span> Privacy Settings</a>
+		</h4>
+
+	</div>
+
+
+	<div class="col-md-4">
+
+		<h4>
+			<a href="{$base_url}/{$smarty.session.USERNAME}/playlist/">
+			<span class="glyphicon glyphicon-list"></span> My Playlists</a>
+		</h4>
+
+		<h4>
+			<a href="{$base_url}/{$smarty.session.USERNAME}/favorites/">
+			<span class="glyphicon glyphicon-heart"></span> My Favorites</a>
+		</h4>
+
+		<h4>
+			<a href="{$base_url}/{$smarty.session.USERNAME}/groups/">
+			<span class="glyphicon glyphicon-user"></span> My Groups</a>
+		</h4>
+
+	</div>
+
 </div>
