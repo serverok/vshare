@@ -107,8 +107,8 @@
                             {/if}
                         </p>
                     </div>
-                    <hr>
                 </div>
+             <hr>
             {/section}
 
             <div class="col-md-6">
