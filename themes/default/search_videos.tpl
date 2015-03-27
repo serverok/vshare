@@ -18,6 +18,9 @@
                                 <img class="img-responsive" width="100%" height="130" src="{$video_info[i].video_thumb_url}/thumb/{$video_info[i].video_folder}1_{$video_info[i].video_id}.jpg" alt="{$video_info[i].video_title}">
                             </a>
                             <span class="badge video-time">{$video_info[i].video_length}</span>
+                            <span class="btn btn-default btn-xs video-queue" id="queue_{$video_info[i].video_id}" data-id="{$video_info[i].video_id}" rel="video_queue">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </span>
                         </div>
                     </div>
                 </div>

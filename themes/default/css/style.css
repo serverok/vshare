@@ -181,7 +181,35 @@ img.preview {
 .profile-details dd {
     margin-left: 120px;
 }
-
+.video-queue {
+    bottom: 0;
+    position: absolute;
+}
+.quicklist_box {
+    bottom: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    z-index: 1000;
+}
+.quicklist_box .panel {
+    margin-bottom: 0;
+}
+.quicklist_box .panel-heading h4 {
+    margin: 0;
+}
+.quicklist_box .panel-body {
+    max-height: 430px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 5px;
+}
+.quicklist_box hr {
+    margin: 10px 0;
+}
+.quicklist_box .thumbnail {
+    margin-bottom: 0;
+}
 
 footer {
     border-top: 1px solid #ddd;
