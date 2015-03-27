@@ -5,8 +5,10 @@
         <div class="page-header">
             <h1>
                 Welcome to {$site_name}, {$smarty.session.USERNAME}!
-                <small>We hope you enjoy your experience. Write anytime to let us know how we can serve you better.</small>
             </h1>
+
+            <p class="lead text-muted">We hope you enjoy your experience. Write anytime to let us know how we can serve you better.</p>
+
             <h2><i>The {$site_name} Team</i></h2>
         </div>
 
@@ -46,9 +48,9 @@
     <div class="page-header">
         <h1>
             Invite Your Friends
-            <br>
-            <small>We'll send each person you list below an email invitation to join {$site_name} as your friend or family.</small>
         </h1>
+
+        <p class="lead text-muted">We'll send each person you list below an email invitation to join {$site_name} as your friend or family.</p>
     </div>
 
     <form action="" method="post" id="invite-friends-form" class="form-horizontal">
