@@ -33,7 +33,7 @@
 </div>
 
 </div> <!-- container -->
-<div class="quicklist_box" id="quicklist_box"></div>
+<div class="col-md-3 col-sm-5 quicklist_box" id="quicklist_box"></div>
 <script src="{$base_url}/js/bootstrap.min.js"></script>
 </body>
 </html>

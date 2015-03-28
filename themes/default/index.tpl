@@ -49,6 +49,9 @@
                         <img class="img-responsive" width="100%" height="130" src="{$view.new_videos[i].video_thumb_url}/thumb/{$view.new_videos[i].video_folder}1_{$view.new_videos[i].video_id}.jpg" alt="{$view.new_videos[i].video_title}" />
                     </a>
                     <span class="badge video-time">{$view.new_videos[i].video_length}</span>
+                    <span class="btn btn-default btn-xs video-queue" id="queue_{$view.new_videos[i].video_id}" data-id="{$view.new_videos[i].video_id}" rel="video_queue">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </span>
                 </div>
                 <div class="caption">
                     <h5>
@@ -86,6 +89,9 @@
                         <img class="img-responsive" width="100%" height="130" src="{$view.recent_videos[i].video_thumb_url}/thumb/{$view.recent_videos[i].video_folder}1_{$view.recent_videos[i].video_id}.jpg" alt="{$view.recent_videos[i].video_title}" />
                     </a>
                     <span class="badge video-time">{$view.recent_videos[i].video_length}</span>
+                    <span class="btn btn-default btn-xs video-queue" id="queue_{$view.recent_videos[i].video_id}" data-id="{$view.recent_videos[i].video_id}" rel="video_queue">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </span>
                 </div>
                 <div class="caption">
                     <h5>
