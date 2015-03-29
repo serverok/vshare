@@ -188,8 +188,8 @@
             <li class="list-group-item">Number of Channels:<span class="badge">{$stats.total_channel}</span></li>
             <li class="list-group-item">Number of Groups:<span class="badge">{$stats.total_groups}</span></li>
         </ul>
-        {/if}
     </div>
+    {/if}
 
     <!-- poll start -->
 
