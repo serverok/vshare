@@ -27,18 +27,19 @@
                 <div class="col-sm-7 col-md-9">
                     <h4>
                         <a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">{$video_info[i].video_title}</a>
-                        <br>
-                        <small>{$video_info[i].video_description|truncate:150}</small>
                     </h4>
+
+                    <p>{$video_info[i].video_description|truncate:150}</p>
+
                     <p class="text-muted small">
                         {insert name=id_to_name assign=user_name un=$video_info[i].video_user_id}
                         {insert name=time_range assign=added_on time=$video_info[i].video_add_time}
                         <span class="glyphicon glyphicon-user"></span>
-                        <a href="{$base_url}/{$user_name}">{$user_name}</a>,
-                        {$added_on}
-                        <br />
-                        <span class="glyphicon glyphicon-eye-open"></span> Views {$video_info[i].video_view_number},
-                        <span class="glyphicon glyphicon-comment"></span> Comments {$video_info[i].video_com_num},
+                        <a href="{$base_url}/{$user_name}"><b>{$user_name}</b></a>,
+                        {$added_on} </p>
+                         <p class="text-muted small">
+                        <span class="glyphicon glyphicon-eye-open"></span> Views {$video_info[i].video_view_number}&nbsp;|&nbsp;
+                        <span class="glyphicon glyphicon-comment"></span> Comments {$video_info[i].video_com_num} &nbsp;|&nbsp;
                         <span class="text-nowrap">
                         {if $video_info[i].video_rated_by gt "0"}
                             {insert name=show_rate assign=rate rte=$video_info[i].video_rate rated=$video_info[i].video_rated_by}
@@ -50,8 +51,8 @@
                         </span>
                     </p>
                 </div>
-                <hr>
-            </div>
+                </div>
+                 <hr>
         {/section}
 
         <div class="clearfix"></div>
