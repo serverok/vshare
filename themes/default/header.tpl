@@ -127,6 +127,6 @@
 
     {*{include file="search_box.tpl"}*}
 
-    <div class="row">
+    <div class="row row-offcanvas row-offcanvas-left">
 
         {include file="error.tpl"}
