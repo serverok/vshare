@@ -1,11 +1,10 @@
-<div class="page-header">
-    <h1>Today's Featured Videos
-        <small class="pull-right font-size-md">
-            <a class="btn" href="{$base_url}/featured/">See More Videos</a>
-        </small>
-    </h1>
-</div>
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-film"></span> <strong>Today's Featured Videos</strong> <span class="pull-right">
+        <a href="{$base_url}/featured/"> <span class="glyphicon glyphicon-plus"></span> More</a></span></h3>
+    </div>
+<div class="panel-body">
 {section name=i loop=$featured_videos}
     <div class="row">
         <div class="col-sm-6 col-md-4">
@@ -53,6 +52,8 @@
                 </span>
             </p>
         </div>
-        <hr>
     </div>
+    <hr>
 {/section}
+</div>
+</div>
