@@ -1,16 +1,11 @@
-<div style="font-weight:bold;color:#006600;margin-bottom:0.5em">
-    Current Poll Result
-</div>
+<h4>Current Poll Result</h4>
 
-<table width="100%">
-    {section name=i loop=$poll_info}
-        <tr>
-            <td>
-                <p class="poll-result">{$poll_info[i].answer}</p>
-            </td>
-            <td>
-                <p class="poll-result">{$poll_info[i].percentage}%</p>
-            </td>
-        </tr>
-    {/section}
-</table>
+{section name=i loop=$poll_info}
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{$poll_info[i].percentage}" aria-valuemin="0" aria-valuemax="100" style="width: {$poll_info[i].percentage}%;">
+            <span class="text-nowrap text-shadow">
+                &nbsp;&nbsp;<strong>{$poll_info[i].answer} {$poll_info[i].percentage}%</strong>
+            </span>
+        </div>
+    </div>
+{/section}
