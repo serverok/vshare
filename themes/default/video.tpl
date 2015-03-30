@@ -1,4 +1,10 @@
-<div class="col-md-3">
+<link rel="stylesheet" href="{$base_url}/css/offcanvas.css">
+<script src="{$base_url}/js/offcanvas.js"></script>
+<button data-toggle="offcanvas" class="btn btn-default btn-sm pull-left visible-xs" type="button" title="Categories">
+    <span class="glyphicon glyphicon-menu-right"></span>
+</button>
+
+<div class="col-xs-6 col-sm-4 col-md-3 sidebar-offcanvas">
     <div class="page-header">
         <h2>Video Categories</h2>
     </div>
