@@ -60,10 +60,11 @@
                             <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">{$view.videos[i].video_title|truncate:30}</a>
                         </h5>
                         <p class="text-muted small">
-                            {insert name=id_to_name assign=uname un=$view.videos[i].video_user_id}
+                            {insert name=id_to_name assign=user_name un=$view.videos[i].video_user_id}
+                            {insert name=time_range assign=added_on time=$view.videos[i].video_add_time}
                             <span class="glyphicon glyphicon-user"></span>
-                            <a href="{$base_url}/{$uname}" target="_parent">{$uname}</a>
-                            <span class="text-nowrap">on {$view.videos[i].video_add_time|date_format}</span>
+                            <a href="{$base_url}/{$user_name}">{$user_name}</a>,
+                            {$added_on}
                         </p>
                         <p class="text-muted small">
                             <span class="glyphicon glyphicon-eye-open"></span> {$view.videos[i].video_view_number} views,
