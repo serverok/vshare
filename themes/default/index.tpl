@@ -31,19 +31,16 @@
 
     {if $view.new_video_total gt "0"}
 
-    <div class="page-header">
-        <h1>
-            New Videos
-            <small class="pull-right font-size-md">
-                <a class="btn" href="{$base_url}/recent/">More Recent Videos</a>
-            </small>
-        </h1>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-film"></span> <strong>New Videos</strong> <span class="pull-right">
+        <a href="{$base_url}/recent/"> <span class="glyphicon glyphicon-plus"></span> More</a></span></h3>
     </div>
 
+<div class="panel-body">
     <div class="row">
     {section name=i loop=$view.new_videos}
         <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
                 <div class="preview">
                     <a href="{$base_url}/view/{$view.new_videos[i].video_id}/{$view.new_videos[i].video_seo_name}/">
                         <img class="img-responsive" width="100%" height="130" src="{$view.new_videos[i].video_thumb_url}/thumb/{$view.new_videos[i].video_folder}1_{$view.new_videos[i].video_id}.jpg" alt="{$view.new_videos[i].video_title}" />
@@ -53,37 +50,33 @@
                         <span class="glyphicon glyphicon-plus"></span>
                     </span>
                 </div>
-                <div class="caption">
                     <h5>
                         <a href="{$base_url}/view/{$view.new_videos[i].video_id}/{$view.new_videos[i].video_seo_name}/" >
-                            {$view.new_videos[i].video_title|truncate:30}
+                            {$view.new_videos[i].video_title|truncate:35}
                         </a>
                     </h5>
-                </div>
-            </div>
         </div>
     {/section}
     </div>
 
     {/if}
+   </div>
+</div>
 
     <!-- recent video -->
 
     {if $view.recent_total gt 0}
 
-    <div class="page-header">
-        <h1>
-            Recently Viewed
-            <small class="pull-right font-size-md">
-                <a class="btn" href="{$base_url}/viewed/">More Recently Viewed</a>
-            </small>
-        </h1>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-film"></span> <strong>Recently Viewed</strong> <span class="pull-right">
+        <a href="{$base_url}/viewed/"> <span class="glyphicon glyphicon-plus"></span> More</a></span></h3>
     </div>
 
+<div class="panel-body">
     <div class="row">
     {section name=i loop=$view.recent_videos}
         <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
                 <div class="preview">
                     <a href="{$base_url}/view/{$view.recent_videos[i].video_id}/{$view.recent_videos[i].video_seo_name}/">
                         <img class="img-responsive" width="100%" height="130" src="{$view.recent_videos[i].video_thumb_url}/thumb/{$view.recent_videos[i].video_folder}1_{$view.recent_videos[i].video_id}.jpg" alt="{$view.recent_videos[i].video_title}" />
@@ -93,19 +86,17 @@
                         <span class="glyphicon glyphicon-plus"></span>
                     </span>
                 </div>
-                <div class="caption">
                     <h5>
                         <a href="{$base_url}/view/{$view.recent_videos[i].video_id}/{$view.recent_videos[i].video_seo_name}/">
-                            {$view.recent_videos[i].video_title|truncate:30}
+                            {$view.recent_videos[i].video_title|truncate:35}
                         </a>
                     </h5>
-                </div>
-            </div>
         </div>
     {/section}
     </div>
-
+    </div>
     {/if}
+</div>
 
     <!-- featured videos -->
 
