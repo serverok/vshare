@@ -73,11 +73,6 @@
                     <a class="text-nowrap btn btn-primary" href="{$base_url}/signup/">Sign Up</a>
                     <a class="text-nowrap btn btn-primary" href="{$base_url}/login/">Log In</a>
                     {/if}
-
-                    {if $family_filter eq '1'}
-                    <a class="text-nowrap btn btn-default" href="{$base_url}/family_filter/"><small>Family Filter</small> <b>{if $smarty.session.FAMILY_FILTER eq '1'}ON{else}OFF{/if}</b></a>
-                    {/if}
-                    <a class="text-nowrap btn btn-default" href="{$base_url}/rss/new/"> RSS</a>
                 </div>
             </div>
         </header>
