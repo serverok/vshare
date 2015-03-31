@@ -16,7 +16,6 @@
     {else}
         <h4>Please verify you are {$age_minimum} or older by <a href="{$base_url}/login/">signing in</a> or <a href="{$base_url}/signup/">signing up</a>.</h4>
         <p class="text-muted">If you would instead prefer to avoid potentially inappropriate content, consider activating {$site_name}'s Family Filter.</p>
-    </div>
     {/if}
     <br>
 </div>

@@ -21,6 +21,25 @@
 
             <div class="col-md-6 row pull-right">
                 <ul class="list-inline text-right">
+                    {if $family_filter eq '1'}
+                        <li>
+                            <a class="btn btn-default btn-sm" href="{$base_url}/family_filter/">
+                                <span class="glyphicon glyphicon-filter"></span> Family Filter
+                                {if $smarty.session.FAMILY_FILTER eq '1'}
+                                    <span class="label label-success">ON</span>
+                                {else}
+                                    <span class="label label-default">OFF</span>
+                                {/if}
+                            </a>
+                        </li>
+                    {/if}
+                    <li>
+                        <a class="btn btn-default btn-sm" href="{$base_url}/rss/new/">
+                            <span class="glyphicon glyphicon-list"></span> RSS
+                        </a>
+                    </li>
+                </ul>
+                <ul class="list-inline text-right">
                     <li><a href="{$base_url}/pages/about.html">About Us</a></li>
                     <li><a href="{$base_url}/pages/help.html">Help</a></li>
                     <li><a href="{$base_url}/pages/advertise.html">Advertise</a></li>
