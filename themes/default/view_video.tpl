@@ -368,34 +368,30 @@
     </div>
 
     {section name=i loop=$view.related_videos}
+    <div class="row">
         <div class="col-md-4 col-sm-6">
-            <div class="row">
-                <div class="thumbnail">
                     <div class="preview">
                         <a href="{$base_url}/view/{$view.related_videos[i].video_id}/{$view.related_videos[i].video_seo_name}/">
                             <img class="img-responsive" width="100%" src="{$view.related_videos[i].video_thumb_url}/thumb/{$view.related_videos[i].video_folder}1_{$view.related_videos[i].video_id}.jpg" alt="{$view.related_videos[i].video_title}">
                         </a>
                         <span class="badge video-time">{$view.related_videos[i].video_length}</span>
                     </div>
-                </div>
-            </div>
         </div>
         <div class="col-md-8 col-sm-6">
-            <h5>
                 <a href="{$base_url}/view/{$view.related_videos[i].video_id}/{$view.related_videos[i].video_seo_name}/" target="_parent">
-                    {$view.related_videos[i].video_title|truncate: 30}
+                   <strong>{$view.related_videos[i].video_title|truncate: 50}</strong>
                 </a>
-            </h5>
-            <p class="text-muted small">
+            <br>
+            <span class="text-muted small">
                {insert name=id_to_name assign=uname un=$view.related_videos[i].video_user_id}
-                by <a href="{$base_url}/{$uname}" target="_parent">{$uname}</a>
-            </p>
-            <p class="text-muted small">
-                Views: {$view.related_videos[i].video_view_number} |
-                Comments: {$view.related_videos[i].video_com_num}
-            </p>
+                <span class="glyphicon glyphicon-user"></span> by <strong><a href="{$base_url}/{$uname}" target="_parent">{$uname}</a></strong>
+            <br>
+                <span class="glyphicon glyphicon-eye-open"></span> Views: <strong>{$view.related_videos[i].video_view_number}</strong> |
+               <span class="glyphicon glyphicon-comment"></span> Comments: <strong>{$view.related_videos[i].video_com_num}</strong>
+            </span>
         </div>
-        <div class="clearfix"><hr></div>
+    </div>
+    <hr>
     {/section}
 
 </div> <!-- video-sidebar -->
