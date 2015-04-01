@@ -29,11 +29,11 @@
                     {insert name=id_to_name assign=user_name un=$favVideos[i].video_user_id}
                     {insert name=time_range assign=added_on time=$favVideos[i].video_add_time}
                     <span class="glyphicon glyphicon-user"></span>
-                    <a href="{$base_url}/{$user_name}">{$user_name}</a>,
+                    <a href="{$base_url}/{$user_name}"><strong>{$user_name}</strong></a>,
                     {$added_on}
                     <br />
-                    <span class="glyphicon glyphicon-eye-open"></span> Views {$favVideos[i].video_view_number},
-                    <span class="glyphicon glyphicon-comment"></span> Comments {$favVideos[i].video_com_num},
+                    <span class="glyphicon glyphicon-eye-open"></span> <strong>{$favVideos[i].video_view_number}</strong>  Views,
+                    <span class="glyphicon glyphicon-comment"></span> <strong>{$favVideos[i].video_com_num}</strong> Comments ,
                     <span class="text-nowrap">
                     {if $favVideos[i].video_rated_by gt "0"}
                         {insert name=show_rate assign=rate rte=$favVideos[i].video_rate rated=$favVideos[i].video_rated_by}
@@ -48,15 +48,15 @@
                     <p>
                         <form name="USERFAVOUR" method="post" action="">
                             <input type="hidden" name="rvid" value="{$favVideos[i].video_id}" />
-                            <button type="submit" class="btn btn-default btn-sm" name="removfavour">
+                            <button type="submit" class="btn btn-danger btn-sm" name="removfavour">
                                 <span class="glyphicon glyphicon-remove"></span> Remove
                             </button>
                         </form>
                     </p>
                 {/if}
             </div>
-            <hr>
         </div>
+        <hr>
 	{/section}
     <div class="clearfix"></div>
 
