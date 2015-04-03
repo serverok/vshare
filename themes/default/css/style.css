@@ -213,6 +213,9 @@ img.preview {
 .text-shadow {
     text-shadow: 0 0 2px #000000;
 }
+.bdr-left{
+   border-left:1px solid #ddd
+}
 
 footer {
     border-top: 1px solid #ddd;

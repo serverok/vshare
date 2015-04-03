@@ -1,3 +1,4 @@
+<div class="col-md-12">
 <div class="page-header">
     <h1>
         Videos with tag <strong>{$search_string}</strong>
@@ -17,7 +18,7 @@
 
 {section name=i loop=$video_info}
     <div class="row">
-        <div class="col-sm-4 col-md-3">
+        <div class="col-sm-3 col-md-3">
             <div class="thumbnail">
                 <div class="preview">
                     <a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">
@@ -30,21 +31,24 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-8 col-md-9">
+
+        <div class="col-sm-6 col-md-6">
             <h4>
                 <a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">{$video_info[i].video_title}</a>
                 <br>
                 <small>{$video_info[i].video_description|truncate:150}</small>
             </h4>
+        </div>
+
+        <div class="col-sm-3 col-md-3 bdr-left">
             <p class="text-muted small">
                 {insert name=id_to_name assign=user_name un=$video_info[i].video_user_id}
-                {insert name=time_range assign=added_on time=$video_info[i].video_add_time}
                 <span class="glyphicon glyphicon-user"></span>
-                <a href="{$base_url}/{$user_name}">{$user_name}</a>,
-                {$added_on}
-                <br />
-                <span class="glyphicon glyphicon-eye-open"></span> Views {$video_info[i].video_view_number},
-                <span class="glyphicon glyphicon-comment"></span> Comments {$video_info[i].video_com_num},
+                <strong>by <a href="{$base_url}/{$user_name}">{$user_name}</a></strong>,<br>
+                {insert name=time_range assign=added_on time=$video_info[i].video_add_time}
+                <span class="glyphicon glyphicon-upload"></span> Uploaded <strong>{$added_on}</strong><br />
+                <span class="glyphicon glyphicon-eye-open"></span> <strong>{$video_info[i].video_view_number}</strong> Views <br>
+                <span class="glyphicon glyphicon-comment"></span> <strong>{$video_info[i].video_com_num}</strong> Comments <br>
                 <span class="text-nowrap">
                     <span class="glyphicon glyphicon-star"></span>
                     {if $video_info[i].video_rated_by gt "0"}
@@ -57,10 +61,12 @@
                 </span>
             </p>
         </div>
-        <hr>
+
     </div>
+<hr>
 {/section}
 
 {if $page_links ne ""}
     <div class="page_links">{$page_links}</div>
 {/if}
+</div>
