@@ -217,6 +217,74 @@ img.preview {
    border-left:1px solid #ddd
 }
 
+.user-page h4{
+    margin:0px;
+    padding:0px;
+}
+
+.user-page img.profile-cover{
+    z-index: 0;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.user-page .profile-pic {
+    margin: -90px 10px 0px 50px;
+    z-index: 9;
+    width: 20%;
+}
+
+.user-page .userinfo{
+    margin:0px 10px 10px 0px;
+}
+
+.user-page .userinfo>h1{
+    margin:0px;
+    padding:;
+
+}
+
+@media (max-width:768px) {
+
+
+.user-page .userinfo>h1{
+
+    font-weight: 700;
+    font-size:16px;
+}
+
+.user-page .profile-pic
+{
+    margin: -45px 10px 0px 25px;
+    z-index: 9;
+    width: 20%;
+}
+}
+
+.user-page .user-stats {
+    display: block;
+    list-style: outside none none;
+    margin: 0px;
+    padding:0px;
+}
+
+.user-page .user-stats li {
+    border-left: 1px solid #ededed;
+    display: inline-block;
+    float: left;
+    padding: 2px 12px;
+}
+
+.user-page .user-stats li:first-child {
+    border-left: medium none;
+}
+
+.user-page .about-me{
+      margin-bottom: 10px;
+    margin-top: 10px;
+    padding:5px;
+}
+
 footer {
     border-top: 1px solid #ddd;
     padding: 20px 0;
