@@ -133,41 +133,35 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
                     <li class="list-group-item">Friends:
                     <span class="pull-right">{$user_info.user_friends_name}</span>
                     {/if}
-
                     </ul>
 
-                    <script>var candidate_id = {$user_info.user_id};</script>
-                    {if $chkuserflag ne "self"}
-                    {if $chkuserflag eq "guest"}
-                    <div class="col-md-12">
-                    <div id="user_vote_result" class="row small">
-                    <div>Rate me:</div>
-                    <div>{insert name=user_rate user_id=$user_info.user_id}</div>
+                    <div class="panel-body">
+                        <script>var candidate_id = {$user_info.user_id};</script>
+                        {if $chkuserflag ne "self"}
+                        {if $chkuserflag eq "guest"}
+                        <div class="col-md-12">
+                        <div id="user_vote_result" class="row small">
+                        <div>Rate me:</div>
+                        <div>{insert name=user_rate user_id=$user_info.user_id}</div>
+                        </div>
+                        </div>
+                        {/if}
+                        {/if}
+
+                        {if $smarty.session.USERNAME eq $user_info.user_name}
+                        {if $enable_package eq "yes"}
+                        <p>I have uploaded <b>{$u_info.total_video}</b> videos {if $pack.package_videos gt "0"} out of {$pack.package_videos} videos{/if}.</p>
+                        <p>Space I have used <b>{insert name=format_size size=$u_info.used_space}</b> out of {insert name=format_size size=$pack.package_space}.</p>
+                        {/if}
+                        {/if}
+
+                        {if $chkuserflag eq ""}
+                        <p>
+                        <a href="{$base_url}/signup/">Sign up</a> or
+                        <a href="{$base_url}/login/">Log in</a> to add {$user_info.user_name} as a friend.
+                        </p>
+                        {/if}
                     </div>
-                    </div>
-                    {/if}
-                    {/if}
-
-
-        <div class="clearfix"></div>
-
-        {if $smarty.session.USERNAME eq $user_info.user_name}
-        {if $enable_package eq "yes"}
-        <p class="small">I have uploaded <b>{$u_info.total_video}</b> videos {if $pack.package_videos gt "0"} out of {$pack.package_videos} videos{/if}.</p>
-        <p class="small">Space I have used <b>{insert name=format_size size=$u_info.used_space}</b> out of {insert name=format_size size=$pack.package_space}.</p>
-        {/if}
-        {/if}
-
-        {if $chkuserflag eq ""}
-        <div class="panel-body">
-        <p class="small">
-        <a href="{$base_url}/signup/">Sign up</a> or
-        <a href="{$base_url}/login/">Log in</a> to add {$user_info.user_name} as a friend.
-        </p>
-        </div>
-        {/if}
-
-        <div class="clearfix"></div>
 
 </div>
 
