@@ -116,7 +116,59 @@
             </form>
         </div> <!-- video-tools-feedback -->
 
-        <p><strong>Added on {$view.video_info.video_add_date|date_format} by <a href="{$base_url}/{$view.user_info.user_name}">{$view.user_info.user_name}</a></strong></p>
+        <p>
+            <strong>
+                Added on {$view.video_info.video_add_date|date_format}
+                by
+                <a class="btn bg-info" role="button" tabindex="0" data-toggle="popover">
+                    <strong>{$view.user_info.user_name} <span class="caret"></span></strong>
+                </a>
+            </strong>
+        </p>
+        <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover({
+                placement: 'bottom',
+                trigger: 'click',
+                html: 'true',
+                title: '<h4><strong>{$view.user_info.user_name}</strong></h4>',
+                content: $("#user-details-container").html()
+            });
+        });
+        </script>
+        <div class="hidden" id="user-details-container">
+            <div>
+                <div class="thumbnail">
+                    <a href="{$base_url}/{$view.user_info.user_name}">
+                        {insert name=member_img UID=$view.video_info.video_user_id}
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4>
+                    <a href="{$base_url}/{$view.user_info.user_name}">{$view.user_info.user_name}</a>
+                    {if $view.user_info.user_website ne ""}
+                        <br>
+                        <small>Website: <a href="{$view.user_info.user_website}" target="_blank">{$view.user_info.user_website}</a></small>
+                    {/if}
+                </h4>
+                {insert name=video_count assign=vdocount uid=$view.video_info.video_user_id}
+                {insert name=favour_count assign=favcount uid=$view.video_info.video_user_id}
+                {insert name=friends_count assign=friendcount uid=$view.video_info.video_user_id}
+
+                <p class="text-muted small text-center">
+                    <span class="text-nowrap">{$vdocount} <a href="{$base_url}/{$view.user_info.user_name}/public/">Videos</a> |</span>
+                    <span class="text-nowrap">{$favcount} <a href="{$base_url}/{$view.user_info.user_name}/favorites/">Favorites</a> |</span>
+                    <span class="text-nowrap">{$friendcount} <a href="{$base_url}/{$view.user_info.user_name}/friends/">Friends</a></span>
+                </p>
+                <p class="text-muted small text-center">
+                    <span class="text-nowrap">
+                        (<a href="{$base_url}/mail.php?folder=compose&receiver={$view.user_info.user_name}">Send Me a Private Message!</a>)
+                    </span>
+                </p>
+            </div>
+        </div>
+
         <p class="text-justify">{$view.video_info.video_description}</p>
         <p>
             <strong>Tags:</strong>
@@ -174,48 +226,6 @@
             {sectionelse}
                 <center><p>Be the first to post a video response!</p></center>
             {/section}
-        </div>
-
-        <div class="page-header">
-            <h2>User Details</h2>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="thumbnail">
-                    <a href="{$base_url}/{$view.user_info.user_name}">
-                        {insert name=member_img UID=$view.video_info.video_user_id}
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <h5>
-                    <strong>
-                        Username:
-                        <a href="{$base_url}/{$view.user_info.user_name}">{$view.user_info.user_name}</a>
-                    </strong>
-                </h5>
-                {if $view.user_info.user_website ne ""}
-                    <h5>
-                        <strong>
-                            Website:
-                            <a href="{$view.user_info.user_website}" target="_blank">{$view.user_info.user_website}</a>
-                        </strong>
-                    </h5>
-                {/if}
-                {insert name=video_count assign=vdocount uid=$view.video_info.video_user_id}
-                {insert name=favour_count assign=favcount uid=$view.video_info.video_user_id}
-                {insert name=friends_count assign=friendcount uid=$view.video_info.video_user_id}
-
-                <p class="text-muted small">
-                    {$vdocount} <a href="{$base_url}/{$view.user_info.user_name}/public/">Videos</a> |
-                    {$favcount} <a href="{$base_url}/{$view.user_info.user_name}/favorites/">Favorites</a> |
-                    {$friendcount} <a href="{$base_url}/{$view.user_info.user_name}/friends/">Friends</a>
-                </p>
-                <p class="text-muted small">
-                    (<a href="{$base_url}/mail.php?folder=compose&receiver={$view.user_info.user_name}">Send Me a Private Message!</a>)
-                </p>
-            </div>
         </div>
 
         <div class="page-header">
