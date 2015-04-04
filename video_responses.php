@@ -72,6 +72,7 @@ if (! $view) {
             LIMIT $start_from, $config[num_watch_videos]";
     $videos_all = DB::fetch($sql);
     $video_count = count($videos_all);
+    $videos = array();
 
     foreach ($videos_all as $video) {
         $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
