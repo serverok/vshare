@@ -107,71 +107,71 @@
 
 <div class="col-md-3">
 
-        <div align="center">
-            {insert name=advertise adv_name='home_right_box'}
-        </div>
+    <div align="center">
+        {insert name=advertise adv_name='home_right_box'}
+    </div>
 
-{if $home_num_tags gt 0}
-
+    {if $home_num_tags gt 0}
     <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title"><span class="glyphicon glyphicon-tag"></span> <b> Recent Tags</b></h3></div>
+        <div class="panel-heading">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-tag"></span> <b> Recent Tags</b></h3>
+        </div>
         <div class="panel-body">
             <p>{$view.home_tags}</p>
             <p><a class="text-muted pull-right" href="{$base_url}/tags/"><b>See More Tags</b></a></p>
-            {/if}
         </div>
     </div>
+    {/if}
 
-         {if $num_last_users_online ne 0}
-
+    {if $num_last_users_online ne 0}
     <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> <b> Last {$num_last_users_online} Users Online</b></h3></div>
+        <div class="panel-heading">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> <b> Last {$num_last_users_online} Users Online</b></h3>
+        </div>
         <div class="panel-body">
-         <span class="text-nowrap">
-            <span class="glyphicon glyphicon-facetime-video"></span> Videos
+            <span class="text-nowrap">
+                <span class="glyphicon glyphicon-facetime-video"></span> Videos
             </span> |
             <span class="text-nowrap">
-            <span class="glyphicon glyphicon-heart"></span> Favorites
+                <span class="glyphicon glyphicon-heart"></span> Favorites
             </span> |
             <span class="text-nowrap">
-            <span class="glyphicon glyphicon-user"></span> Friends
+                <span class="glyphicon glyphicon-user"></span> Friends
+            </span>
         </div>
 
         <ul class="list-group">
             {insert name=recently_active_users assign=recently_active_users}
             {section name=i loop=$recently_active_users}
+                {insert name=id_to_name assign=uname un=$recently_active_users[i].user_login_user_id}
+                {insert name=video_count assign=vdocount uid=$recently_active_users[i].user_login_user_id}
+                {insert name=favour_count assign=favcount uid=$recently_active_users[i].user_login_user_id}
+                {insert name=friends_count assign=friends uid=$recently_active_users[i].user_login_user_id}
 
-            {insert name=id_to_name assign=uname un=$recently_active_users[i].user_login_user_id}
-            {insert name=video_count assign=vdocount uid=$recently_active_users[i].user_login_user_id}
-            {insert name=favour_count assign=favcount uid=$recently_active_users[i].user_login_user_id}
-            {insert name=friends_count assign=friends uid=$recently_active_users[i].user_login_user_id}
-
-            <li class="list-group-item">
-            <a href="{$base_url}/{$uname}"><b>{$uname}</b></a>
-            <small class="pull-right">
-            <span class="glyphicon glyphicon-facetime-video"></span>
-            <a href="{$base_url}/{$uname}/public/">({$vdocount})</a>
-
-            <span class="glyphicon glyphicon-heart"></span>
-            <a href="{$base_url}/{$uname}/favorites/">({$favcount})</a>
-
-            <span class="glyphicon glyphicon-user"></span>
-            <a href="{$base_url}/{$uname}/friends/">({$friends})</a>
-            </small>
-            </li>
+                <li class="list-group-item">
+                    <a href="{$base_url}/{$uname}"><b>{$uname}</b></a>
+                    <small class="pull-right">
+                        <span class="glyphicon glyphicon-facetime-video"></span>
+                        <a href="{$base_url}/{$uname}/public/">({$vdocount})</a>
+                        <span class="glyphicon glyphicon-heart"></span>
+                        <a href="{$base_url}/{$uname}/favorites/">({$favcount})</a>
+                        <span class="glyphicon glyphicon-user"></span>
+                        <a href="{$base_url}/{$uname}/friends/">({$friends})</a>
+                    </small>
+                </li>
             {/section}
-
-            {/if}
         </ul>
-
     </div>
+    {/if}
 
 
     {if $show_stats ne "0"}
     {insert name="show_stats" assign="stats"}
     <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title"><span class="glyphicon glyphicon-stats"></span> <b> Site Statistics</b></h3></div>
-            <ul class="list-group">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-stats"></span> <b> Site Statistics</b></h3>
+        </div>
+        <ul class="list-group">
             <li class="list-group-item">Number of Videos: <span class="badge">{$stats.total_video}</span></li>
             <li class="list-group-item">Public Videos:<span class="badge">{$stats.total_public_video}</span></li>
             <li class="list-group-item">Private Videos:<span class="badge">{$stats.total_private_video}</span></li>
@@ -186,41 +186,42 @@
 
     {if $pollinganel ne 'Disable' AND $poll_question ne ""}
     <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> <b> Vote Here</b></h3></div>
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <span class="glyphicon glyphicon-comment"></span> <b> Vote Here</b>
+            </h3>
+        </div>
         <div class="panel-body">
-
             <div id="poll_body"> <!-- poll start -->
-            <div id="poll">
-            <p><strong>{$poll_question}</strong></p>
+                <div id="poll">
+                    <p><strong>{$poll_question}</strong></p>
+                    <div id="poll_answers">
+                        {section name=i loop=$list}
+                            <label>
+                                <input type="radio" name="xx" onclick="poll_vote_for('{$list[i]}','user_answer')" />
+                                <span> {$list[i]}</span>
+                            </label>
+                            <br>
+                        {/section}
+                        <input type="hidden" id="user_answer" value="" />
+                        <button type="submit" class="btn btn-default" onclick="poll_vote({$poll_id})"><strong>Cast This</strong></button>
+                    </div>
 
-            <div id="poll_answers">
-            {section name=i loop=$list}
-            <label>
-            <input type="radio" name="xx" onclick="poll_vote_for('{$list[i]}','user_answer')" />
-            <span> {$list[i]}</span>
-            </label>
-            <br>
-            {/section}
-            <input type="hidden" id="user_answer" value="" />
-            <button type="submit" class="btn btn-default" onclick="poll_vote({$poll_id})"><strong>Cast This</strong></button>
-            </div>
+                    {if $list ne ""}
+                        <br>
+                        <div id="poll_view">
+                            <a href="javascript:void(0)" onclick="poll_view({$poll_id})">
+                                <strong>View current status</strong>
+                            </a>
+                        </div>
+                    {/if}
+                </div> <!-- poll -->
 
-            {if $list ne ""}
-            <br>
-            <div id="poll_view">
-            <a href="javascript:void(0)" onclick="poll_view({$poll_id})">
-            <strong>View current status</strong>
-            </a>
-            </div>
-            {/if}
-
-            </div> <!-- poll -->
-
-            <div id="poll_loading"></div>
-            <div id="poll_result"></div>
+                <div id="poll_loading"></div>
+                <div id="poll_result"></div>
             </div>  <!--  poll body -->
-            {/if}
         </div>
     </div>
+    {/if}
 
 </div> <!-- sidebar -->
