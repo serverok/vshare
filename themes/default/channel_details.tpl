@@ -134,6 +134,6 @@
     </div> <!-- section -->
 
     {else}
-        <h5>There is no video in this channel</h5>
+        <div class="alert alert-danger">There is no video in this channel</div>
     {/if}
 </div>
