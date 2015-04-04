@@ -22,10 +22,9 @@
             <div class="col-sm-6 col-md-8">
                 <h4>
                     <a href="{$base_url}/view/{$favVideos[i].video_id}/{$favVideos[i].video_seo_name}/">{$favVideos[i].video_title}</a>
-                    <br>
-                    <small>{$favVideos[i].video_description|truncate:80}</small>
                 </h4>
-                <p class="text-muted small">
+                <p>{$favVideos[i].video_description|truncate:80}</p>
+                <span class="text-muted small">
                     {insert name=id_to_name assign=user_name un=$favVideos[i].video_user_id}
                     {insert name=time_range assign=added_on time=$favVideos[i].video_add_time}
                     <span class="glyphicon glyphicon-user"></span>
@@ -43,7 +42,7 @@
                         Not yet rated
                     {/if}
                     </span>
-                </p>
+                </span>
                 {if $smarty.session.USERNAME eq $user_info.user_name}
                     <p>
                         <form name="USERFAVOUR" method="post" action="">
