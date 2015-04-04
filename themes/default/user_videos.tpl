@@ -26,24 +26,22 @@
             <div class="col-sm-7 col-md-8">
                 <h4>
                     <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">{$view.videos[i].video_title}</a>
-                    <br>
-                    <small>{$view.videos[i].video_description|truncate:150}</small>
                 </h4>
-                <p class="text-muted small">
+                <p>{$view.videos[i].video_description|truncate:150}</p>
+                <span class="text-muted small">
                     <span class="glyphicon glyphicon-tag"></span>
                     {section name=j loop=$view.videos[i].video_keywords_array}
                         <a href="{$base_url}/tag/{$view.videos[i].video_keywords_array[j]}/">{$view.videos[i].video_keywords_array[j]}</a>&nbsp;
                     {/section}
-                </p>
-                <p class="text-muted small">
+                    <br>
                     {insert name=id_to_name assign=user_name un=$view.videos[i].video_user_id}
                     {insert name=time_range assign=added_on time=$view.videos[i].video_add_time}
                     <span class="glyphicon glyphicon-user"></span>
-                    <a href="{$base_url}/{$user_name}">{$user_name}</a>,
+                    <a href="{$base_url}/{$user_name}"><strong>{$user_name}</a></strong>,
                     {$added_on}
                     <br />
-                    <span class="glyphicon glyphicon-eye-open"></span> Views {$view.videos[i].video_view_number},
-                    <span class="glyphicon glyphicon-comment"></span> Comments {$view.videos[i].video_com_num},
+                    <span class="glyphicon glyphicon-eye-open"></span> <strong>{$view.videos[i].video_view_number}</strong> Views ,
+                    <span class="glyphicon glyphicon-comment"></span> <strong>{$view.videos[i].video_com_num}</strong>  Comments,
                     <span class="text-nowrap">
                     {if $view.videos[i].video_rated_by gt "0"}
                         {insert name=show_rate assign=rate rte=$view.videos[i].video_rate rated=$view.videos[i].video_rated_by}
@@ -53,10 +51,10 @@
                         Not yet rated
                     {/if}
                     </span>
-                </p>
+                 </span>
             </div>
-            <hr>
         </div>
+        <hr>
     {/section}
 
     <div class="clearfix"></div>
