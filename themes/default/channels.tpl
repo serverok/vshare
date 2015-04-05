@@ -1,3 +1,4 @@
+<div class="col-md-12">
 <div class="page-header">
     <h1>All Channels</h1>
 </div>
@@ -32,4 +33,5 @@
         </div>
     </div>
     {/section}
+</div>
 </div>
