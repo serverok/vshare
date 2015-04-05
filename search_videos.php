@@ -24,6 +24,12 @@ if ($search_string == '') {
     $err = $lang['search_key_empty'];
 }
 
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+
+if ($page < 1) {
+    $page = 1;
+}
+
 if ($err == '') {
 
     if (mb_strlen($search_string) < 4) {
@@ -57,12 +63,6 @@ if ($err == '') {
     $total = DB::getTotal($sql);
 
     if ($total > 0) {
-
-        $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
-
-        if ($page < 1) {
-            $page = 1;
-        }
 
         $start_from = ($page - 1) * $config['items_per_page'];
         $sql_limit = " LIMIT $start_from, $config[items_per_page]";
