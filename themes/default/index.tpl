@@ -29,8 +29,6 @@
 
     <!-- new videos -->
 
-    {if $view.new_video_total gt "0"}
-
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title"><span class="glyphicon glyphicon-film"></span> <strong>New Videos</strong> <span class="pull-right">
@@ -56,16 +54,15 @@
                         </a>
                     </h5>
         </div>
+    {sectionelse}
+        <p class="text-center">There is no video found.</p>
     {/section}
     </div>
 
-    {/if}
    </div>
 </div>
 
     <!-- recent video -->
-
-    {if $view.recent_total gt 0}
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -92,10 +89,11 @@
                         </a>
                     </h5>
         </div>
+    {sectionelse}
+        <p class="text-center">There is no video found.</p>
     {/section}
     </div>
     </div>
-    {/if}
 </div>
 
     <!-- featured videos -->
