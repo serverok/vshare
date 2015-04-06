@@ -285,6 +285,17 @@ img.preview {
     padding:5px;
 }
 
+#recent-videos-carousel .thumbnail {
+    margin-bottom: 0;
+}
+#recent-videos-carousel .thumbnail img {
+    height: 130px;
+    width: 100%;
+}
+#recent-videos-carousel .carousel-control {
+    width: 5%;
+}
+
 footer {
     border-top: 1px solid #ddd;
     padding: 20px 0;

@@ -26,6 +26,7 @@
         </div>
     </div>
 
+    <div id="flash_recent_videos"></div>
 
     <!-- new videos -->
 
