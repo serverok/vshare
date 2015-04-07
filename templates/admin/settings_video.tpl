@@ -143,6 +143,34 @@
     </div>
 
     <div class="form-group">
+        <label class="col-sm-3 control-label" for="img_max_width">Maximum Thumbnail Width:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <input class="form-control" type="text" name="img_max_width" id="img_max_width" value="{$img_max_width}">
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/video_settings#img_max_width" target="_blank">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="img_max_height">Maximum Thumbnail Height:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <input class="form-control" type="text" name="img_max_height" id="img_max_height" value="{$img_max_height}">
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/video_settings#img_max_height" target="_blank">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
             <button type="submit" name="submit" class="btn btn-default btn-lg">Update</button>
         </div>

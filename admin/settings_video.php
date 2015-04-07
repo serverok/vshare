@@ -95,6 +95,22 @@ if (isset($_POST['submit']))
         DB::query($sql);
     }
 
+    if (is_numeric($_POST['img_max_width'])){
+        $sql = "UPDATE `sconfig` SET
+               `svalue`='" . (int) $_POST['img_max_width'] . "' WHERE
+               `soption`='img_max_width'";
+        DB::query($sql);
+        $smarty->assign('img_max_width', $_POST['img_max_width']);
+    }
+
+    if (is_numeric($_POST['img_max_height'])){
+        $sql = "UPDATE `sconfig` SET
+               `svalue`='" . (int) $_POST['img_max_height'] . "' WHERE
+               `soption`='img_max_height'";
+        DB::query($sql);
+        $smarty->assign('img_max_height', $_POST['img_max_height']);
+    }
+
     $msg = $lang['settings_updated'];
 }
 
