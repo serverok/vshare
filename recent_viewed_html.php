@@ -57,7 +57,10 @@ foreach ($video_chunks as $key => $videos) {
         <div class="col-md-4 col-sm-4">
             <div class="thumbnail">
                 <a href="' . VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '">
-                    <img src="' . $thumb_url . '"/>
+                    <div class="preview">
+                        <img src="' . $thumb_url . '"/>
+                        <div class="badge video-time">' . $video['video_length'] . '</div>
+                    </div>
                     <div class="caption">
                         <strong>' . substr($video['video_title'], 0, 20) . '</strong>
                     </div>
