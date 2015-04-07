@@ -29,12 +29,17 @@ class UploadRemote
 
         if ($this->err == '') {
             for ($i = 1; $i <= 3; $i ++) {
-                $source = 'http://img.youtube.com/vi/' . $video_id . '/' . $i . '.jpg';
+                if ($i == 1) {
+                    $thumb_name = 'mqdefault.jpg';
+                } else {
+                    $thumb_name = $i . '.jpg';
+                }
+                $source = 'http://img.youtube.com/vi/' . $video_id . '/' . $thumb_name;
                 $desination = VSHARE_DIR . '/thumb/' . $i . '_' . $videojpg;
                 $this->upload = Http::download($source, $desination);
             }
             #Create Main Image
-            $source = 'http://img.youtube.com/vi/' . $video_id . '/0.jpg';
+            $source = 'http://img.youtube.com/vi/' . $video_id . '/hqdefault.jpg';
             $desination = VSHARE_DIR . '/thumb/' . $vid . '.jpg';
             $this->upload = Http::download($source, $desination);
         }
