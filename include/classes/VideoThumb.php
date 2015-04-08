@@ -64,8 +64,8 @@ class VideoThumb
             $pos_this = $pos;
 
             if ($fc == 0) {
-                $maxwidth = 320;
-                $maxheight = 240;
+                $maxwidth = 500;
+                $maxheight = 300;
                 $pos_this = rand(1, $duration);
                 $fd = $thumb_folder . '/' . $t_info['vid'] . ".jpg";
             } else {
@@ -153,8 +153,8 @@ class VideoThumb
             }
 
             if ($fc == 0) {
-                $maxwidth = 320;
-                $maxheight = 240;
+                $maxwidth = 500;
+                $maxheight = 300;
                 $fd = $thumb_folder . '/' . $t_info['vid'] . ".jpg";
             } else {
                 $maxwidth = $config['img_max_width'];
