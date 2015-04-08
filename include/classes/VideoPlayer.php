@@ -80,14 +80,7 @@ class VideoPlayer
 	        return $vshare_player;
         }
 
-        $vshare_player = '
-        <object width="' . $config['player_width'] . '" height="' . $config['player_height'] . '">
-        <param name="movie" value="http://www.youtube.com/v/' . $this->video_info['video_name'] . '&autoplay=' . $config['player_autostart'] . '&hl=en&fs=1"></param>
-        <param name="allowFullScreen" value="true"></param>
-        <param name="allowscriptaccess" value="always"></param>
-        <embed src="http://www.youtube.com/v/' . $this->video_info['video_name'] . '&autoplay=' . $config['player_autostart'] . '&hl=en&fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true"
-        width="' . $config['player_width'] . '" height="' . $config['player_height'] . '"></embed>
-        </object>';
+        $vshare_player = '<iframe width="' . $config['player_width'] . '" height="' . $config['player_height'] . '" src="https://www.youtube.com/embed/' . $this->video_info['video_name'] . '?autoplay=' . $config['player_autostart'] . '" frameborder="0" allowfullscreen></iframe>';
         return $vshare_player;
     }
 
@@ -95,13 +88,7 @@ class VideoPlayer
     {
         global $config;
 
-        $vshare_player = '
-        <object width="' . $config['player_width'] . '" height="' . $config['player_height'] . '">
-        <param name="movie" value="http://www.dailymotion.com/swf/video/' . $this->video_info['video_name'] . '?width=&theme=none&foreground=%23F7FFFD&highlight=%23FFC300&background=%23171D1B&autoPlay=1&start=&animatedTitle=&iframe=0&additionalInfos=0&hideInfos=0"></param>
-        <param name="allowFullScreen" value="true"></param>
-        <param name="allowScriptAccess" value="always"></param>
-        <embed type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/' . $this->video_info['video_name'] . '?width=&theme=none&foreground=%23F7FFFD&highlight=%23FFC300&background=%23171D1B&autoPlay=' . $config['player_autostart'] . '&start=&animatedTitle=&iframe=0&additionalInfos=0&hideInfos=0" width="' . $config['player_width'] . '" height="' . $config['player_height'] . '" allowfullscreen="true" allowscriptaccess="always">
-        </embed></object>';
+        $vshare_player = '<iframe frameborder="0" width="' . $config['player_width'] . '" height="' . $config['player_height'] . '" src="//www.dailymotion.com/embed/video/' . $this->video_info['video_name'] . '?logo=0&info=0&autoPlay=' . $config['player_autostart'] . '" allowfullscreen></iframe>';
         return $vshare_player;
     }
 
@@ -119,9 +106,7 @@ class VideoPlayer
     function metcafe()
     {
         global $config;
-        $vshare_player = "<embed src=\"http://www.metacafe.com/fplayer/{$this->video_info['video_name']}.swf\" width=\"$config[player_width]\"
-				 height=\"$config[player_height]\" wmode=\"transparent\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\"
-				 type=\"application/x-shockwave-flash\"> </embed>";
+        $vshare_player = '<iframe src="http://www.metacafe.com/embed/' . $this->video_info['video_name'] . '/?ap=' . $config['player_autostart'] . '" width="' . $config['player_width'] . '" height="' . $config['player_height'] . '" allowFullScreen frameborder="0"></iframe>';
         return $vshare_player;
     }
 
