@@ -59,7 +59,7 @@ if (isset($_POST['edit_channel'])) {
         DB::query($sql);
 
         if ($_FILES['picture'] != '') {
-            $err = upload_jpg($_FILES, 'picture', "{$_POST['id']}.jpg", 120, VSHARE_DIR . '/chimg/');
+            Image::createThumb($_FILES['picture']['tmp_name'], VSHARE_DIR . '/chimg/' . $_POST['id'] . '.jpg', $config['img_max_width'], $config['img_max_height']);
         }
 
         if ($err == '') {
