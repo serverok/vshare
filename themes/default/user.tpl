@@ -40,7 +40,7 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
             <b>About Me : </b>{$user_info.user_about_me}
             {/if}
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 pull-right">
             {if $smarty.session.USERNAME eq $user_info.user_name}
 
             <ul class="user-stats">
