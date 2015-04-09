@@ -63,11 +63,12 @@ $vshare_player = <<<EOT
 jwplayer("vshare_player").setup({
     file: "{$file}",
     image: "{$video_thumb_url}/thumb/{$video_folder}{$video_id}.jpg",
-    logo: "{$config['baseurl']}/templates/images/watermark.gif",
-    link: "{$config["watermark_url"]}",
-    linktarget: "_blank",
-    width: "{$config['player_width']}",
-    height: "{$config['player_height']}",
+    logo: {
+        file: "{$config['baseurl']}/templates/images/watermark.gif",
+        link: "{$config["watermark_url"]}"
+    },
+    width: "100%",
+    aspectratio: "16:9",
     autostart: "{$config['player_autostart']}",
     bufferlength: "{$config['player_bufferlength']}"
 });
