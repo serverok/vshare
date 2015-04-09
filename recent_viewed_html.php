@@ -41,46 +41,50 @@ if (empty($videos)) exit();
 $video_chunks = array_chunk($videos, 3);
 
 echo '
-<h3>Videos being watched right now...</h3>
-<div id="recent-videos-carousel" class="carousel slide well" data-ride="carousel">
-    <div class="carousel-inner" role="listbox">';
-foreach ($video_chunks as $key => $videos) {
-    echo '<div class="item';
-    if ($key == 0) {
-        echo ' active';
-    }
-    echo '">';
-    foreach ($videos as $video) {
-        $video_url = VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '/';
-        $thumb_url = $servers[$video['video_thumb_server_id']] . '/thumb/' . $video['video_folder'] . '1_' . $video['video_id'] . '.jpg';
-        echo '
-        <div class="col-md-4 col-sm-4">
-            <div class="thumbnail">
-                <a href="' . VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-facetime-video"></span> <strong>Videos being watched right now...</strong></h3>
+    </div>
+    <div class="panel-body">
+        <div id="recent-videos-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">';
+                foreach ($video_chunks as $key => $videos) {
+                echo '<div class="item';
+                if ($key == 0) {
+                echo ' active';
+                }
+                echo '">';
+                foreach ($videos as $video) {
+                $video_url = VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '/';
+                $thumb_url = $servers[$video['video_thumb_server_id']] . '/thumb/' . $video['video_folder'] . '1_' . $video['video_id'] . '.jpg';
+                echo '
+                <div class="col-md-4 col-sm-4">
+                    <a href="' . VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '">
                     <div class="preview">
-                        <img src="' . $thumb_url . '"/>
+                        <img class="img-responsive" src="' . $thumb_url . '"/>
                         <div class="badge video-time">' . $video['video_length'] . '</div>
                     </div>
-                    <div class="caption">
+                        <div class="caption">
                         <strong>' . substr($video['video_title'], 0, 20) . '</strong>
-                    </div>
-                </a>
-            </div>
-        </div>';
-    }
-    echo '</div>';
-}
+                        </div>
+                    </a>
+                </div>';
+                }
+                echo '</div>';
+                }
 
-echo '
+                echo '
+            </div>
+            <a class="left carousel-control" href="#recent-videos-carousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#recent-videos-carousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
     </div>
-    <a class="left carousel-control" href="#recent-videos-carousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#recent-videos-carousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
 </div>
 <script>
 $("#recent-videos-carousel").carousel("cycle");

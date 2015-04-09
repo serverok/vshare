@@ -288,12 +288,34 @@ img.preview {
 #recent-videos-carousel .thumbnail {
     margin-bottom: 0;
 }
+
 #recent-videos-carousel .thumbnail img {
     height: 130px;
     width: 100%;
 }
+
 #recent-videos-carousel .carousel-control {
     width: 5%;
+    opacity: 1;
+    text-shadow: 0 0px 0px rgba(0, 0, 0, 0.6);
+}
+
+#recent-videos-carousel .carousel-control.left {
+    background-image: none;
+}
+
+#recent-videos-carousel .carousel-control.right {
+    background-image: none;
+}
+
+#recent-videos-carousel .carousel-control .glyphicon-chevron-left, .carousel-control .icon-prev {
+    left: 10%;
+    color:#337ab7;
+}
+
+#recent-videos-carousel .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next {
+    right: 10%;
+    color:#337ab7;
 }
 
 footer {
