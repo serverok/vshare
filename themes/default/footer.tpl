@@ -10,6 +10,13 @@
     <div class="col-md-12">
         <footer class="clearfix">
             <div class="col-md-6 row">
+                    <ul class="list-inline">
+                    <li><a href="{$base_url}/pages/about.html">About Us</a></li>
+                    <li><a href="{$base_url}/pages/help.html">Help</a></li>
+                    <li><a href="{$base_url}/pages/advertise.html">Advertise</a></li>
+                    <li><a href="{$base_url}/pages/terms.html">Terms of Use</a></li>
+                    <li><a href="{$base_url}/pages/privacy.html">Privacy Policy</a></li>
+                </ul>
                 Copyright &copy; {$smarty.now|date_format:"%Y"} {$site_name}. All rights reserved.
                 <!--
                 REMOVING THE LINE BELOW CONSTITUTES A VIOLATION
@@ -38,13 +45,6 @@
                             <span class="glyphicon glyphicon-list"></span> RSS
                         </a>
                     </li>
-                </ul>
-                <ul class="list-inline text-right">
-                    <li><a href="{$base_url}/pages/about.html">About Us</a></li>
-                    <li><a href="{$base_url}/pages/help.html">Help</a></li>
-                    <li><a href="{$base_url}/pages/advertise.html">Advertise</a></li>
-                    <li><a href="{$base_url}/pages/terms.html">Terms of Use</a></li>
-                    <li><a href="{$base_url}/pages/privacy.html">Privacy Policy</a></li>
                 </ul>
             </div>
         </footer>
