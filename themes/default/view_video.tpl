@@ -292,72 +292,68 @@
     <div class="page-header">
         <h2>Watch</h2>
     </div>
-
-    <div class="col-md-4 col-sm-4">
-        <div class="row">
-            <div class="thumbnail">
-                {if $view.video_prev == 0}
-                    <div class="preview">
-                        <img src="{$img_css_url}/images/no_prev.gif" width="100%" alt="no prev">
-                    </div>
-                    <div>
-                        <small><span class="glyphicon glyphicon-step-backward"></span> Prev</small>
-                    </div>
-                {else}
-                    <div class="preview">
-                        <a href="{$base_url}/view/{$view.video_prev.video_id}/{$view.video_prev.video_seo_name}/">
-                            <img class="img-responsive" src="{$view.video_prev.video_thumb_url}/thumb/{$view.video_prev.video_folder}1_{$view.video_prev.video_id}.jpg" alt="Prev" width="100%">
-                        </a>
-                        <div class="badge video-time"><small>{$view.video_prev.video_length}</small></div>
-                    </div>
-                    <div>
-                        <a href="{$base_url}/view/{$view.video_prev.video_id}/{$view.video_prev.video_seo_name}/">
-                            <small><span class="glyphicon glyphicon-step-backward"></span> Prev</small>
-                        </a>
-                    </div>
-                {/if}
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-sm-4">
-        <div class="row">
-            <div class="thumbnail">
-                <div class="preview">
-                    <img class="img-responsive" src="{$view.video_info.video_thumb_url}/thumb/{$view.video_info.video_folder}1_{$smarty.request.id}.jpg" width="100%" alt="now playing">
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            {if $view.video_prev == 0}
+            <div class="preview thumbnail">
+                <img src="{$img_css_url}/images/no_prev.gif" class="img-responsive" width="100% "alt="no prev">
+                <div>
+                    <small><span class="glyphicon glyphicon-step-backward"></span> Prev</small>
                 </div>
+            </div>
+
+        {else}
+        <div class="preview thumbnail">
+            <a href="{$base_url}/view/{$view.video_prev.video_id}/{$view.video_prev.video_seo_name}/">
+            <img class="img-responsive" src="{$view.video_prev.video_thumb_url}/thumb/{$view.video_prev.video_folder}1_{$view.video_prev.video_id}.jpg" alt="Prev" width="100%">
+            </a>
+                 <div>
+                    <a href="{$base_url}/view/{$view.video_prev.video_id}/{$view.video_prev.video_seo_name}/">
+                    <small><span class="glyphicon glyphicon-step-backward"></span> Prev</small>
+                    </a>
+                </div>
+            </div>
+        {/if}
+        </div>
+
+        <div class="col-md-4 col-sm-4">
+            <div class="preview thumbnail">
+                <img class="img-responsive" src="{$view.video_info.video_thumb_url}/thumb/{$view.video_info.video_folder}1_{$smarty.request.id}.jpg" alt="now playing">
+
                 <div class="text-center">
                     <small><span class="glyphicon glyphicon-play"></span> Now Playing</small>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4 col-sm-4">
-        <div class="row">
-            <div class="thumbnail">
-                {if $view.video_next == 0}
-                    <div class="preview">
-                        <img src="{$img_css_url}/images/no_next.gif" width="100%" alt="no next">
-                    </div>
-                    <div class="text-right">
-                        <small>Next <span class="glyphicon glyphicon-step-forward"></span></small>
-                    </div>
-                {else}
-                    <div class="preview">
-                        <a href="{$base_url}/view/{$view.video_next.video_id}/{$view.video_next.video_seo_name}/">
-                            <img class="img-responsive" src="{$view.video_next.video_thumb_url}/thumb/{$view.video_next.video_folder}1_{$view.video_next.video_id}.jpg" width="100%" alt="related videos">
-                        </a>
-                        <div class="badge video-time"><small>{$view.video_next.video_length}</small></div>
-                    </div>
-                    <div class="text-right">
-                        <a href="{$base_url}/view/{$view.video_next.video_id}/{$view.video_next.video_seo_name}/">
-                            <small>Next <span class="glyphicon glyphicon-step-forward"></span></small>
-                        </a>
-                    </div>
-                {/if}
+
+        <div class="col-md-4 col-sm-4">
+            {if $view.video_next == 0}
+            <div class="preview thumbnail">
+                <img src="{$img_css_url}/images/no_next.gif" class="img-responsive" width="100%" alt="no next">
+
+                <div class="text-right">
+                <small>Next <span class="glyphicon glyphicon-step-forward"></span></small>
+                </div>
             </div>
+
+        {else}
+
+            <div class="preview thumbnail">
+            <a href="{$base_url}/view/{$view.video_next.video_id}/{$view.video_next.video_seo_name}/">
+            <img class="img-responsive" src="{$view.video_next.video_thumb_url}/thumb/{$view.video_next.video_folder}1_{$view.video_next.video_id}.jpg" width="100%" alt="related videos">
+            </a>
+
+                <div class="text-right">
+                <a href="{$base_url}/view/{$view.video_next.video_id}/{$view.video_next.video_seo_name}/">
+                <small>Next <span class="glyphicon glyphicon-step-forward"></span></small>
+                </a>
+                </div>
+            </div>
+        {/if}
         </div>
     </div>
-    <div class="clearfix"></div>
+
+
     <div class="section bg2">
         {insert name=advertise adv_name='video_right_single'}
     </div>
