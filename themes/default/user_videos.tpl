@@ -27,7 +27,7 @@
                 <h4>
                     <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">{$view.videos[i].video_title}</a>
                 </h4>
-                <p>{$view.videos[i].video_description|truncate:150}</p>
+                <p>{$view.videos[i].video_description|truncate:80}</p>
                 <span class="text-muted small">
                     <span class="glyphicon glyphicon-tag"></span>
                     {section name=j loop=$view.videos[i].video_keywords_array}
@@ -52,6 +52,24 @@
                     {/if}
                     </span>
                  </span>
+                 {if $user_info.user_name == $smarty.session.USERNAME}
+                    <div>
+                        <form name="editVideoForm" action="{$base_url}/video_edit.php" method="GET" style="display: inline;">
+                            <input type="hidden" value={$view.videos[i].video_id} name="video_id" />
+                            <input type="hidden" value={$page} name="page" />
+                            <button type="submit" class="btn btn-default btn-sm" title="Edit">
+                                <span class="glyphicon glyphicon-edit"></span> Edit
+                            </button>
+                        </form>
+                        <form name="removeVideoForm" action="" method="POST" style="display: inline;margin-left: 1em;">
+                            <input type="hidden" value="1" name="remove_video" />
+                            <input type="hidden" value="{$view.videos[i].video_id}" name="VID" />
+                            <button type="submit" class="btn btn-danger btn-sm" title="Delete" onclick="return confirm('Are you sure you want to remove this video?');">
+                                <span class="glyphicon glyphicon-remove"></span> Delete
+                            </button>
+                        </form>
+                   </div>
+                {/if}
             </div>
         </div>
         <hr>

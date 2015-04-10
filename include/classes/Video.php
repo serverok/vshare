@@ -282,7 +282,7 @@ class Video
         return $related_videos;
     }
 
-    function delete($video_id, $video_uid, $delete = 1)
+    public static function delete($video_id, $video_uid, $delete = 1)
     {
         global $config;
         $log_file_name = 'delete_' . $video_id;
