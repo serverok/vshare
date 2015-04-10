@@ -19,7 +19,7 @@ require '../include/language/' . LANG . '/admin/package_edit.php';
 Admin::auth();
 
 if (isset($_POST['submit'])) {
-    $package_trail_period = isset($_POST['package_trial_period']) ? $_POST['package_trial_period'] : '';
+    $package_trail_period = isset($_POST['package_trial_period']) ? $_POST['package_trial_period'] : 0;
     $sql = "UPDATE `packages` SET
          `package_name`='" . DB::quote($_POST['package_name']) . "',
          `package_description`='" . DB::quote($_POST['package_description']) . "',
