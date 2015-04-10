@@ -356,6 +356,8 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
                     </a>
                 </div>
             </div>
+        {sectionelse}
+            <p class="text-center">No friends.</p>
         {/section}
     </div>
     </div>
