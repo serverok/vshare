@@ -75,35 +75,39 @@
                             {insert name=favour_count assign=favour uid=$friends[i].friend_friend_id}
                             {insert name=friends_count assign=frnd uid=$friends[i].friend_friend_id}
                             <p>
-                                Videos:
-                                {if $video ne "0" and $video ne ""}
+                               <span class="glyphicon glyphicon-facetime-video"></span> Videos:
+                                <strong>{if $video ne "0" and $video ne ""}
                                     <a href="{$base_url}/{$friends[i].friend_name}/public/">{$video}</a>
                                 {else}
                                     0
-                                {/if}
-                                | Favorites:
-                                {if $favour ne "0"}
+                                {/if}</strong>
+                                | <span class="glyphicon glyphicon-heart"></span> Favorites:
+                               <strong> {if $favour ne "0"}
                                     <a href="{$base_url}/{$friends[i].friend_name}/favorites/">
                                         {$favour}
                                     </a>
                                     {else}
                                         0
-                                    {/if}
-                                | Friends: {if $frnd ne "0"}
-                                <a href="{$base_url}/{$friends[i].friend_name}/friends/">
+                                    {/if}</strong>
+                                | <span class="glyphicon glyphicon-user"></span> Friends: {if $frnd ne "0"}
+                                <strong><a href="{$base_url}/{$friends[i].friend_name}/friends/">
                                     {$frnd}
                                 </a>
                                 {else}
                                     0
-                                {/if}
+                                {/if}</strong>
                             </p>
                         {/if}
                         {insert name=showlist assign=showlist id=$friends[i].friend_id}
                         <p>Lists: {$showlist}</p>
-                        <p>
-                            Status: {$friends[i].friend_status}
+                        <p> Status:
+                             {if $friends[i].friend_status eq "Confirmed"}
+                             <span class="label label-success"><span class="glyphicon glyphicon-ok"></span> Confirmed</span>
+                             {/if}
+
                             {if $friends[i].friend_status eq "Pending"}
-                                ({$friends[i].friend_invite_date|date_format:"%B %e, %Y"})
+                            <span class="label label-default"><span class="glyphicon glyphicon-warning-sign"></span> Pending</span>
+                            ({$friends[i].friend_invite_date|date_format:"%B %e, %Y"})
                             {/if}
                         </p>
                     </div>
