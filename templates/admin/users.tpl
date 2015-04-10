@@ -97,6 +97,7 @@
                 {/if}
 			</td>
 			{if $enable_package eq "yes"}
+            {insert name=subscriber_info assign=pack uid=$user_info.user_id}
 			<td>
 				{$pack.package_name}
 			</td>
