@@ -1,14 +1,14 @@
 {if $signup_verification_msg ne ""}
     <h3 class="text-success">{$signup_verification_msg}</h3>
 {else}
-<div class="col-md-8">
-    <div class="page-header">
+<div class="col-md-7">
+    <div class="panel panel-default">
+    <div class="panel-body">
         <h2>
             New Member ? Sign up
         </h2>
         <p class="lead text-muted">Just fill out the account information below:</p>
-     </div>
-
+        <hr>
     <form  method="post" action="{$base_url}/signup/" id="signup-form" class="form-horizontal" role="form">
         <div class="form-group">
             <label for="user_name" class="control-label col-md-3">User Name:</label>
@@ -120,9 +120,9 @@
 
        <div class="form-group">
             <div class="col-md-offset-3 col-md-9">
-                <ul>
-                    <li>I certify I am over {$age_minimum} years old.</li>
-                    <li>
+                <ul class="list-unstyled">
+                    <li><span class="glyphicon glyphicon-ok"></span> I certify I am over {$age_minimum} years old.</li>
+                    <li> <span class="glyphicon glyphicon-ok"></span>
                         I agree to the
                         <a href="{$base_url}/pages/terms.html" target="_blank">terms of use</a> and
                         <a href="{$base_url}/pages/privacy.html" target="_blank">privacy policy</a>.
@@ -136,13 +136,16 @@
             </div>
         </div>
     </form>
+    </div>
+    </div>
 </div>
 
-<div class="col-md-4">
-    <div class="page-header">
+<div class="col-md-5">
+    <div class="panel panel-default">
+    <div class="panel-body">
         <h2>{$site_name} Log In</h2>
         <p class="lead text-muted">Welcome back. Log in to your account</p>
-    </div>
+    <hr>
     <form method="post" action="{$base_url}/login/" id="login-form" role="form">
         <div class="form-group">
             <label>User Name:</label>
@@ -163,7 +166,10 @@
     <br>
 
     <div class="forget-passsword">
-        <a href="{$base_url}/recoverpass.php">Forgot your password?</a>
+        <a href="{$base_url}/recoverpass.php">Forgot your password?</a> <br>
+        <a href="{$base_url}/pages/help.html">Need Help? </a>
+    </div>
+    </div>
     </div>
 </div>
 {/if}
