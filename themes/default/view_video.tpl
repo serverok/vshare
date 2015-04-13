@@ -271,29 +271,23 @@
         </div>
 
         <div class="page-header">
-            <h2>Post Comments</h2>
+            <h2>Comments: (<span>{$view.video_info.video_com_num}</span>)</h2>
         </div>
 
         {if $view.video_info.video_allow_comment eq "yes"}
             <div id="comment_box">
                 <form name="add_comment" method="post" action="" role="form">
                     <div class="form-group">
-                        <label>Comment on this video:</label>
-                        <textarea name="user_comment" id="user_comment" rows="3" class="form-control"></textarea>
+                        <textarea name="user_comment" id="user_comment" rows="2" class="form-control" placeholder="Your comments"></textarea>
                     </div>
                     <div class="form-group">
-                        <button type="button" name="post" class="btn btn-default btn-lg" onclick="video_post_comment({$view.video_info.video_id})">Post</button>
+                        <button type="button" name="post" class="btn btn-default" onclick="video_post_comment({$view.video_info.video_id})">Post</button>
                     </div>
                 </form>
             </div>
         {/if}
 
-        <div id="comment_post_result" class="alert text-info"></div>
-
-        <div class="page-header">
-            <h2>Comments: (<span>{$view.video_info.video_com_num}</span>)</h2>
-        </div>
-
+        <div id="comment_post_result" class="alert alert-success" style="display: none;"></div>
         <div id="section_comment"></div>
 </div>
 
