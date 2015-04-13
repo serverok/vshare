@@ -61,7 +61,7 @@ echo '
                 <div class="col-md-4 col-sm-4">
                     <a href="' . VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '">
                     <div class="preview">
-                        <img class="img-responsive" src="' . $thumb_url . '"/>
+                        <img class="img-responsive" src="' . $thumb_url . '" width="100%">
                         <div class="badge video-time">' . $video['video_length'] . '</div>
                     </div>
                         <div class="caption">
