@@ -375,18 +375,17 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
             {if $allow_comment eq 1}
             <form name="comment_form"  action="" method="post">
                 <div class="form-group">
-                <textarea name="user_comment" rows="2" id="user_comment" class="form-control"></textarea>
+                    <textarea name="user_comment" rows="2" id="user_comment" class="form-control" placeholder="Your comments"></textarea>
                 </div>
                 <div class="form-group">
-                <button type="button" name="submit" class="btn btn-default" onclick="post_profile_comment({$user_info.user_id})">Add Comment</button>
+                    <button type="button" name="submit" class="btn btn-default" onclick="post_profile_comment({$user_info.user_id})">Post</button>
                 </div>
             </form>
             <br>
             {/if}
-            </div>
-            <div id="comm_result"></div>
-            <div id="user_comment_display"></div>
         </div>
+        <div id="comm_result"></div>
+        <div id="user_comment_display"></div>
     </div>
 </div>
 
