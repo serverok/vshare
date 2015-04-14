@@ -23,7 +23,7 @@
     <div class="row">
         <header class="col-md-12">
 
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <h1>
                     <a href="{$base_url}/index.php" title="{$site_name}">
                     <img class="img-responsive" src="{$base_url}/themes/default/images/logo.png">
@@ -43,7 +43,7 @@
                 </form>
             </div>
 
-            <div class="col-md-5 top-usernav text-right">
+            <div class="col-md-4 top-usernav text-right">
                 <div class="btn-group">
                     {if $smarty.session.USERNAME ne ""}
                     <a href="{$base_url}/{$smarty.session.USERNAME}" class="text-nowrap btn btn-primary" data-toggle="dropdown" aria-expanded="false">
