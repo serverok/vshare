@@ -731,35 +731,36 @@ NZ1 color palette by shayshell
     background-color: #5C512f;
 }
 .page_links {
-    padding-right: 20px;
     font-weight: bold;
-    font-size: 13px;
     padding-bottom: 5px;
-    color: #444;
+    padding-right: 20px;
     padding-top: 5px;
     text-align: right;
-    background-color: #e1e4f2;
 }
 .pagination {
-    padding: 2px 5px 2px 5px;
-    margin: 2px;
-    border: 1px solid #AAD;
-    text-decoration: none;
-    color: #009;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 0;
+    padding-left: 0;
 }
-.pagination_next, .pagination_prev {
-    padding: 2px 5px 2px 5px;
-    margin: 2px;
-    border: 1px solid #AAD;
-    text-decoration: none;
-    background-color: #FFFFCC;
+.pagination > li {
+    display: inline;
 }
-.pagination_active {
-    padding: 2px 5px 2px 5px;
-    margin: 2px;
-    border: 1px solid #AAD;
+.pagination > li > a, .pagination > li > span {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    color: #337AB7;
+    float: left;
+    line-height: 1.42857;
+    margin-left: -1px;
+    padding: 6px 12px;
+    position: relative;
     text-decoration: none;
-    background-color: #CFC;
+}
+.pagination > .active > a {
+    background-color: #337AB7;
+    color: #FFFFFF;
+    cursor: default;
 }
 a.tags:link, a.tags:active, a.tags:visited {
     color: #3F4C6B;
