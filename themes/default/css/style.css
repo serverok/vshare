@@ -69,10 +69,13 @@ header h1 {
 }
 
 .thumbnail img {
-    max-height: 130px;
+    max-height: 125px;
 }
 .preview {
     position: relative;
+}
+.preview img {
+    max-height: 125px;
 }
 .preview .video-time {
     background-color: #000000;
