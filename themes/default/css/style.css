@@ -235,6 +235,7 @@ img.preview {
     margin: -90px 10px 0px 50px;
     z-index: 9;
     width: 20%;
+    min-height: 180px;
 }
 
 .user-page .userinfo{
