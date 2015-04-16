@@ -4,21 +4,21 @@ require '../include/config.php';
 require '../include/language/' . LANG . '/lang_video_add_favorite.php';
 
 if (! isset($_SESSION['UID'])) {
-    echo $lang['user_must_login'];
+    Ajax::returnJson($lang['user_must_login'], 'error');;
     exit(0);
 }
 
 $video_id = isset($_POST['video_id']) ? $_POST['video_id'] : '';
 
 if (! is_numeric($video_id)) {
-    echo $lang['hacking'];
+    Ajax::returnJson($lang['hacking'], 'error');
     exit(0);
 }
 
 $video_info = Video::getById($video_id);
 
 if ($_SESSION['UID'] == $video_info['video_user_id']) {
-    echo $lang['favorite_self'];
+    Ajax::returnJson($lang['favorite_self'], 'error');
     exit(0);
 }
 
@@ -36,9 +36,9 @@ if (! $is_favourite) {
 	       `video_fav_num`=`video_fav_num`+1
 	        WHERE `video_id`=" . (int) $video_id;
     DB::query($sql);
-    echo $lang['favorite_added'];
+    Ajax::returnJson($lang['favorite_added'], 'success');
 } else {
-    echo $lang['favorite_exists'];
+    Ajax::returnJson($lang['favorite_exists'], 'success');
 }
 
 DB::close();

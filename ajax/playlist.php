@@ -6,15 +6,16 @@ require '../include/language/' . LANG . '/lang_playlist.php';
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
 if (! isset($_SESSION['UID'])) {
-    echo $lang['must_login'];
-    exit();
+    Ajax::returnJson($lang['must_login'], 'error');
+    exit(0);
 }
 
 if ($action == 'create_playlist') {
     $playlist_name = isset($_GET['playlist_name']) ? $_GET['playlist_name'] : '';
 
     if ($playlist_name == '') {
-        echo $lang['playlist_name_empty'];
+        Ajax::returnJson($lang['playlist_name_empty'], 'error');
+        exit(0);
     } else {
         $sql = "SELECT * FROM `playlists` WHERE
                `playlist_user_id`='" . (int) $_SESSION['UID'] . "' AND
@@ -26,10 +27,11 @@ if ($action == 'create_playlist') {
                    `playlist_user_id`='" . (int) $_SESSION['UID'] . "',
                    `playlist_name`='" . DB::quote($playlist_name) . "',
                    `playlist_add_date`='" . (int) time() . "'";
-            echo DB::insertGetId($sql);
+            Ajax::returnJson(DB::insertGetId($sql), 'success');
         } else {
-            echo $lang['playlist_duplicate'];
+            Ajax::returnJson($lang['playlist_duplicate'], 'error');
         }
+        exit(0);
     }
 } else if ($action == 'show_playlist') {
     $sql = "SELECT * FROM `playlists` WHERE
@@ -37,12 +39,12 @@ if ($action == 'create_playlist') {
             ORDER BY `playlist_id` DESC";
     $user_playlists = DB::fetch($sql);
 
-    echo '<div id="pl_lists" class="list-group">';
+    $return = '<div id="pl_lists" class="list-group">';
     foreach ($user_playlists as $playlist) {
-        echo '<a href="#" class="list-group-item" id="' . (int) $playlist['playlist_id'] . '" rel="pl_items">' . $playlist['playlist_name'] . '</a>';
+        $return .= '<a href="#" class="list-group-item" id="' . (int) $playlist['playlist_id'] . '" rel="pl_items">' . $playlist['playlist_name'] . '</a>';
     }
 
-    echo '
+    $return .= '
     <span class="list-group-item">
         <span id="create_pl" class="text-nowrap">Create a new playlist...</span>
         <span id="pl_txt_box" style="display: none;">
@@ -52,7 +54,7 @@ if ($action == 'create_playlist') {
         </span>
     </div>';
 
-    echo '
+    $return .= '
     <script type="text/javascript">
         $("#pl_lists *").click(function(){ return false; });
         $("#create_pl").click(function(){
@@ -67,6 +69,7 @@ if ($action == 'create_playlist') {
             });
         });
     </script>';
+    Ajax::returnJson($return, 'success');
 } else if ($action == 'add_playlist_video') {
 
     $video_id = isset($_GET['video_id']) ? $_GET['video_id'] : '';
@@ -74,11 +77,16 @@ if ($action == 'create_playlist') {
 
     if ($video_id == '') {
         $err = $lang['playlist_vid_invalid'];
-    } else if ($playlist_id == '') {
+    }
+    if ($playlist_id == '') {
         $err = $lang['playlist_id_invalid'];
     }
 
-    if ($err == '') {
+    if (! empty($err)) {
+        Ajax::returnJson($err, 'error');
+        exit(0);
+    }
+
         $sql = "SELECT * FROM `playlists` AS `p`, `playlists_videos` AS `pv` WHERE
                 p.playlist_id='" . (int) $playlist_id . "' AND
                 p.playlist_user_id='" . (int) $_SESSION['UID'] . "' AND
@@ -92,9 +100,8 @@ if ($action == 'create_playlist') {
                    `playlists_videos_video_id`='" . (int) $video_id . "'";
             DB::query($sql);
 
-            echo $lang['playlist_video_added'];
+            Ajax::returnJson($lang['playlist_video_added'], 'success');
         } else {
-            echo $lang['playlist_video_duplicate'];
+            Ajax::returnJson($lang['playlist_video_duplicate'], 'success');
         }
-    }
 }

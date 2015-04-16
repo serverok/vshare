@@ -29,15 +29,26 @@ function create_playlist() {
 	    type: "GET",
 	    url: sUrl,
 	    data: postData,
-	    dataType: 'html',
+	    dataType: 'json',
 	    success: function(msg) {
-			$("form#pl-frm input#playlist_name").val('');
-
-			if (isNaN(parseInt(msg))) {
-				$("#video-tools-result").html(msg).slideDown('fast');
-			} else {
-				add_video_playlist(msg);
-			}
+            if (msg.messageType == "error") {
+                $("#video-tools-result")
+                    .removeClass("alert-success")
+                    .addClass("alert-danger")
+                    .text(msg.message)
+                    .fadeIn("slow");
+            } else {
+                $("form#pl-frm input#playlist_name").val('');
+                if (isNaN(parseInt(msg.message))) {
+                    $("#video-tools-result")
+                        .removeClass("alert-danger")
+                        .addClass("alert-success")
+                        .text(msg.message)
+                        .fadeIn("slow");
+                } else {
+                    add_video_playlist(msg.message);
+                }
+            }
 		},
 	    error: function() {
 			//$("#video-tools-result").html('connection failed').show();
@@ -55,9 +66,18 @@ function show_playlists() {
 	    type: "GET",
 	    url: sUrl,
 	    data: postData,
-	    dataType: 'html',
+	    dataType: 'json',
 	    success: function(msg) {
-			$("#show_playlists").html(msg);
+            if (msg.messageType == "error") {
+                $("#video-tools-result")
+                    .removeClass("alert-success")
+                    .addClass("alert-danger")
+                    .text(msg.message)
+                    .fadeIn("slow");
+                $("#show_playlists").hide();
+            } else {
+                $("#show_playlists").html(msg.message).show();
+            }
 		},
 	    error: function() {
 			//$("#video-tools-result").html('connection failed').show();
@@ -83,9 +103,21 @@ function add_video_playlist(pl_id) {
 		type: "GET",
 		url: sUrl,
 		data: postData,
-		dataType: 'html',
+		dataType: 'json',
 		success: function(msg) {
-			$("#video-tools-result").html(msg).slideDown('fast');
+            if (msg.messageType == "error") {
+                $("#video-tools-result")
+                    .removeClass("alert-success")
+                    .addClass("alert-danger")
+                    .text(msg.message)
+                    .fadeIn("slow");
+            } else {
+                $("#video-tools-result")
+                    .removeClass("alert-danger")
+                    .addClass("alert-success")
+                    .text(msg.message)
+                    .fadeIn("slow");
+            }
 		},
 		error: function() {
 			//$("#video-tools-result").html('connection failed').show();
