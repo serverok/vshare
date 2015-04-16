@@ -24,7 +24,7 @@ function feedback()
 	{
 		var sUrl = baseurl + '/ajax/video_inappropriate.php';
 		var postData = 'vid=' + vid + "&abuse_type=" + abuse_type + "&comment=" + comment;
-		
+
 		$.ajax({
 	        type: "POST",
 	        url: sUrl,
@@ -38,11 +38,27 @@ function feedback()
 
 function inappropriate_success(json)
 {
-	$("#video-tools-feedback").slideUp('fast');
-	$('#video-tools-result').html(json.message).slideDown('slow');
+    if (json.messageType == "success") {
+        $("#video-tools-result")
+            .removeClass("alert-danger")
+            .addClass("alert-success")
+            .text(json.message)
+            .fadeIn("slow");
+        inappropriate_cancel();
+    } else {
+        $("#video-tools-result")
+            .removeClass("alert-success")
+            .addClass("alert-danger")
+            .text(json.message)
+            .fadeIn("slow");
+    }
 }
 
 function inappropriate_failure()
 {
-	$('#video-tools-result').html('Connection failed.').show();
+    $("#video-tools-result")
+        .removeClass("alert-success")
+        .addClass("alert-danger")
+        .text("Connection failed")
+        .fadeIn("slow");
 }

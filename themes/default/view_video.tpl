@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="clearfix">&nbsp;</div>
-        <p id="video-tools-result" class="text-info"></p>
+        <div id="video-tools-result" class="alert" role="alert" style="display: none;"></div>
 
         <!-- video feedback end -->
 
