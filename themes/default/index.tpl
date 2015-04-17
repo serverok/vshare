@@ -3,14 +3,14 @@
         <div class="panel-body">
             <div class="watch-uplod-share clearfix">
 
-                <div class="col-md-4 border-r">
+                <div class="col-md-4 border-r clearfix">
                 <div class="icon"><span class="glyphicon glyphicon-eye-open"></span></div>
                     <a href="{$base_url}/recent/"><h2>Watch</h2></a>
                    Better than TV watch what you want when you want it!
 
                 </div>
 
-                <div class="col-md-4 border-r">
+                <div class="col-md-4 border-r clearfix">
                     <div class="icon"><span class="glyphicon glyphicon-upload"></span></div>
                     <a href="{$base_url}/upload/"><h2>Upload</h2></a>
                         Quickly upload and tag videos in almost any video format.
