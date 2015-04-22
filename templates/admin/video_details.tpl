@@ -4,7 +4,12 @@
     <h1>{$video.video_title}</h1>
 </div>
 
-{$VSHARE_PLAYER}
+<div class="col-md-8">
+    <div class="row">
+        <div class="embed-responsive embed-responsive-16by9">{$VSHARE_PLAYER}</div>
+    </div>
+</div>
+<div class="clearfix">&nbsp;</div>
 
 <p class="video-link">
     <a href ="{$base_url}/view/{$video.video_id}/{$video.video_seo_name}/" target="_blank">
