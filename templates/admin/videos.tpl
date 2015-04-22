@@ -113,7 +113,7 @@
 {/if}
 
 {if $a eq "embedded"}
-    <input type="submit" name="submit" id="video_del" value="Delete Selected Videos" />
+    <input type="submit" name="submit" id="video_del" value="Delete Selected Videos" class="btn btn-default btn-lg">
 </form>
 {/if}
 
@@ -127,12 +127,8 @@
 {literal}
 <script type="text/javascript">
 $("input#check_all").click(function(){
-    var checked = $("input#check_all:checked").length;
-    $("input[rel=video_ids]").attr("checked", "");
-
-    if (checked == 1) {
-        $("input[rel=video_ids]").attr("checked", "checked");
-    }
+    var checked = $("input#check_all").is(":checked");
+    $("input[rel=video_ids]").prop("checked", checked);
 });
 </script>
 {/literal}
