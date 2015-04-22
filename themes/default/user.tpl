@@ -338,7 +338,7 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
 
     <!-- user friends -->
 
-<div class="panel panel-default">
+<div class="panel panel-default user-friends">
     <div class="panel-heading">
         <h3 class="panel-title"><span class="glyphicon glyphicon-film"></span><b> New Friends</b> <span class="pull-right">
         <a href="{$base_url}/{$user_info.user_name}/friends/"> <span class="glyphicon glyphicon-plus"></span> More</a></span>

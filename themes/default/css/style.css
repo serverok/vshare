@@ -335,6 +335,9 @@ img.preview {
     font-weight: bold
 }
 
+.user-friends .thumbnail a > img {
+    min-height: 130px;
+}
 
 footer {
     border-top: 1px solid #ddd;
