@@ -164,7 +164,7 @@ function create_dir($dir){
 
 //Purge old redirect and link files
 function purge_ubr_files($temp_dir, $purge_time_limit, $file_type, $debug_ajax){
-	$now_time = mktime();
+	$now_time = time();
 
 	if(@is_dir($temp_dir)){
 		if($dp = @opendir($temp_dir)){
