@@ -20,7 +20,7 @@
 <body>
 
 <div class="container">
-    <div class="row">
+    <div class="row hidden-xs">
         <header class="col-md-12">
 
             <div class="col-md-3">
@@ -31,19 +31,21 @@
                 </h1>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-5 col-sm-6">
                 <form method="get" action="{$base_url}/search_videos.php" class="form-horizontal search">
-                <input type="hidden" name="type" value="video">
-                <div class="input-group">
-                <input class="form-control" placeholder="Search" required value="{$smarty.request.search_string}" name="search_string" />
-                <span class="input-group-btn">
-                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
-                </div>
+                    <input type="hidden" name="type" value="video">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search" required value="{$smarty.request.search_string}" name="search_string" />
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div>
+                    </div>
                 </form>
             </div>
 
-            <div class="col-md-4 top-usernav text-right">
+            <div class="col-md-4 col-sm-6 top-usernav text-right">
                 <div class="btn-group">
                     {if $smarty.session.USERNAME ne ""}
                     <a href="{$base_url}/{$smarty.session.USERNAME}" class="text-nowrap btn btn-primary" data-toggle="dropdown" aria-expanded="false">
@@ -75,13 +77,14 @@
                     {/if}
                 </div>
             </div>
+
         </header>
     </div>
 
 
 <div class="row">
     <div class="col-md-12">
-              <nav class="navbar navbar-default">
+            <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="navbar-header">
@@ -91,24 +94,62 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
+                            <a class="navbar-brand navbar-brand-vshare visible-xs" href="{$base_url}/index.php" title="{$site_name}">
+                                <img class="img-responsive" src="{$base_url}/themes/default/images/logo-small.png">
+                            </a>
+                            <div class="pull-right dropdown visible-xs">
+                                <button class="btn btn-xs dropdown-toggle navbar-toggle navbar-btn-vshare" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-user"></span> <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    {if $smarty.session.USERNAME ne ""}
+                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}">My profile</a></li>
+                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/account/">My Account</a></li>
+                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/public/">Public Videos</a></li>
+                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/private/">Private Videos</a></li>
+                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/favorites/">Favorites</a></li>
+                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/friends/">Friends</a></li>
+                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/playlist/">Playlist</a></li>
+                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/groups/">Groups</a></li>
+                                    <li><a href="{$base_url}/mail.php?folder=inbox">Inbox <span class="badge">{$total_msg}</span></a></li>
+                                    <li><a href="{$base_url}/logout/">Log Out</a></li>
+                                    {else}
+                                    <li><a href="{$base_url}/signup/">Sign Up</a></li>
+                                    <li><a href="{$base_url}/login/">Log In</a></li>
+                                    {/if}
+                                </ul>
+                            </div>
                         </div>
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <div class="row">
-                            <ul class="nav nav-tabs navbar-nav nav-justified">
-                                <li><a class="no-bdr" href="{$base_url}/index.php"><strong>HOME</strong></a></li>
-                                <li><a href="{$base_url}/upload/"><strong>UPLOAD</strong></a></li>
-                                <li><a href="{$base_url}/recent/"><strong>WATCH</strong></a></li>
-                                <li><a href="{$base_url}/tags/"><strong>TAGS</strong></a></li>
-                                <li><a href="{$base_url}/channels/"><strong>CHANNELS</strong></a></li>
-                                <li><a href="{$base_url}/groups/featured/1"><strong>GROUPS</strong></a></li>
-                                <li><a href="{$base_url}/friends/"><strong>FRIENDS</strong></a></li>
-                                <li><a href="{$base_url}/members/"><strong>PEOPLE</strong></a></li>
-                            </ul>
+                                <ul class="nav nav-tabs navbar-nav nav-justified">
+                                    <li><a class="no-bdr" href="{$base_url}/index.php"><strong>HOME</strong></a></li>
+                                    <li><a href="{$base_url}/upload/"><strong>UPLOAD</strong></a></li>
+                                    <li><a href="{$base_url}/recent/"><strong>WATCH</strong></a></li>
+                                    <li><a href="{$base_url}/tags/"><strong>TAGS</strong></a></li>
+                                    <li><a href="{$base_url}/channels/"><strong>CHANNELS</strong></a></li>
+                                    <li><a href="{$base_url}/groups/featured/1"><strong>GROUPS</strong></a></li>
+                                    <li><a href="{$base_url}/friends/"><strong>FRIENDS</strong></a></li>
+                                    <li><a href="{$base_url}/members/"><strong>PEOPLE</strong></a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </nav>
+            <div class="row search-box-xs visible-xs">
+                <form method="get" action="{$base_url}/search_videos.php" class="form-horizontal">
+                    <input type="hidden" name="type" value="video">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search" required value="{$smarty.request.search_string}" name="search_string" />
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
     </div>
 </div>
 
