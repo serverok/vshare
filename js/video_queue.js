@@ -34,12 +34,12 @@ function video_queue_display(){
         url: sUrl,
         dataType: 'html',
         success: function(html){
-           $("#quicklist_box").html(html);
-           show = $.COOKIE('show');
+           jQuery("#quicklist_box").html(html);
+           show = jQuery.COOKIE('show');
            if (show == '') {
-               $('#collapseQueue').collapse('hide');
+               jQuery('#collapseQueue').collapse('hide');
            } else {
-                $('#collapseQueue').collapse('show');
+                jQuery('#collapseQueue').collapse('show');
            }
 
         },
