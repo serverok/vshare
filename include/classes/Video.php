@@ -186,7 +186,7 @@ class Video
             $this->video_featured = 'yes';
         }
 
-        if ($this->video_allow_embed == 1) {
+        if ($this->video_allow_embed == 'enabled') {
             $this->video_allow_embed = 'enabled';
         } else {
             $this->video_allow_embed = 'disabled';

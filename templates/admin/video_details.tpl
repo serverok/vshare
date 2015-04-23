@@ -106,7 +106,7 @@
 
 <tr>
     <td>Can be embaded?</td>
-    <td>{$video.video_allow_embed}</td>
+    <td>{if $video.video_allow_embed eq "enabled"}Yes{else}No{/if}</td>
 </tr>
 
 {if $family_filter eq "1"}
