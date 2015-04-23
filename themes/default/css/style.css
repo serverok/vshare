@@ -33,6 +33,17 @@ header h1 {
     border-left:0px solid #fff;
 }
 
+.navbar-brand-vshare {
+    padding: 8px;
+}
+.navbar-btn-vshare {
+    padding: 7px 10px;
+}
+.search-box-xs {
+    margin-bottom: 15px;
+    margin-top: -15px;
+}
+
 .watch-uplod-share h2{
     margin:0px;
     padding:0px;
