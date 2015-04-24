@@ -163,8 +163,8 @@ if ($video['video_allow_embed'] == 'enabled') {
 }
 
 $embed_box = "
-<option value='1' $embed_yes>Yes</option>
-<option value='0' $embed_no>No</option>
+<option value='enabled' $embed_yes>Yes</option>
+<option value='disabled' $embed_no>No</option>
 ";
 
 $smarty->assign('embed_box', $embed_box);
