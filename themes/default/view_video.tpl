@@ -364,12 +364,10 @@
 
     <!-- user videos -->
 
-    <h3>
-        <a href="javascript:void(0);" class="btn btn-default btn-block" onclick="show_user_videos('{$view.video_info.video_user_id}');">
-            More from: {$view.user_info.user_name} <span class="caret"></span>
-        </a>
-    </h3>
-    <div id="show_user_videos" style="display: none;"></div>
+    <button class="btn btn-default btn-block" id="show-user-videos" data-loading-text="Loading...">
+        More videos from <strong>{$view.user_info.user_name}</strong> <span class="caret"></span>
+    </button>
+    <div id="user-videos-block" data-user-id="{$view.video_info.video_user_id}" data-loaded="no" style="display: none;"></div>
 
     <!-- end user videos -->
 
