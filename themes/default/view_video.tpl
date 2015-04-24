@@ -378,26 +378,34 @@
     </div>
 
     {section name=i loop=$view.related_videos}
-    <div class="row">
-        <div class="col-md-4 col-sm-6">
-                    <div class="preview">
-                        <a href="{$base_url}/view/{$view.related_videos[i].video_id}/{$view.related_videos[i].video_seo_name}/">
-                            <img class="img-responsive" width="100%" src="{$view.related_videos[i].video_thumb_url}/thumb/{$view.related_videos[i].video_folder}1_{$view.related_videos[i].video_id}.jpg" alt="{$view.related_videos[i].video_title}">
-                        </a>
-                        <span class="badge video-time">{$view.related_videos[i].video_length}</span>
-                    </div>
-        </div>
-        <div class="col-md-8 col-sm-6">
-                <a href="{$base_url}/view/{$view.related_videos[i].video_id}/{$view.related_videos[i].video_seo_name}/" target="_parent">
-                   <strong>{$view.related_videos[i].video_title|truncate: 50}</strong>
+    <div class="media">
+        <div class="media-left">
+            <div class="preview">
+                <a href="{$base_url}/view/{$view.related_videos[i].video_id}/{$view.related_videos[i].video_seo_name}/">
+                    <img class="media-object" width="130" src="{$view.related_videos[i].video_thumb_url}/thumb/{$view.related_videos[i].video_folder}1_{$view.related_videos[i].video_id}.jpg" alt="{$view.related_videos[i].video_title}">
                 </a>
-            <br>
+                <span class="badge video-time">{$view.related_videos[i].video_length}</span>
+            </div>
+        </div>
+        <div class="media-body">
+            <h5 class="media-heading text-nowrap">
+                <a href="{$base_url}/view/{$view.related_videos[i].video_id}/{$view.related_videos[i].video_seo_name}/" target="_parent">
+                    <strong>{$view.related_videos[i].video_title}</strong>
+                </a>
+            </h5>
             <span class="text-muted small">
-               {insert name=id_to_name assign=uname un=$view.related_videos[i].video_user_id}
-                <span class="glyphicon glyphicon-user"></span> by <strong><a href="{$base_url}/{$uname}" target="_parent">{$uname}</a></strong>
-            <br>
-                <span class="glyphicon glyphicon-eye-open"></span> Views: <strong>{$view.related_videos[i].video_view_number}</strong> |
-               <span class="glyphicon glyphicon-comment"></span> Comments: <strong>{$view.related_videos[i].video_com_num}</strong>
+                {insert name=id_to_name assign=uname un=$view.related_videos[i].video_user_id}
+                <span class="text-nowrap">
+                    <span class="glyphicon glyphicon-user"></span>
+                    by <strong><a href="{$base_url}/{$uname}" target="_parent">{$uname}</a></strong>
+                </span>
+                <br>
+                <span class="text-nowrap">
+                    <span class="glyphicon glyphicon-eye-open"></span> Views: <strong>{$view.related_videos[i].video_view_number}</strong> |
+                </span>
+                <span class="text-nowrap">
+                    <span class="glyphicon glyphicon-comment"></span> Comments: <strong>{$view.related_videos[i].video_com_num}</strong>
+                </span>
             </span>
         </div>
     </div>
