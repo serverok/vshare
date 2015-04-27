@@ -37,6 +37,12 @@ class UploadRemote
                 $source = 'http://img.youtube.com/vi/' . $video_id . '/' . $thumb_name;
                 $desination = VSHARE_DIR . '/thumb/' . $i . '_' . $videojpg;
                 $this->upload = Http::download($source, $desination);
+
+                if ($i == 1) {
+                    $maxwidth = $config['img_max_width'];
+                    $maxheight = $config['img_max_height'];
+                    Image::createThumb($desination, VSHARE_DIR . '/thumb/' . $i . '_' . $videojpg, $maxwidth, $maxheight);
+                }
             }
             #Create Main Image
             $source = 'http://img.youtube.com/vi/' . $video_id . '/hqdefault.jpg';
