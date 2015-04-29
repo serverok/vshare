@@ -26,22 +26,26 @@
             {if $channel_name ne ''}
                 {$channel_name} videos
             {/if}
-            <small class="pull-right font-size-md btn">Videos {$view.start_num}-{$view.end_num} of {$view.total}</small>
-            <small class="font-size-md col-md-offset-1 text-nowrap">
-                {if $channel_name ne ""}
-                    {if $view.view_type eq "detailed"}
-                        <a href="{$base_url}/{if $channel_name ne ''}channel/{$smarty.get.chid}/{/if}{$view.category}/basic/{$view.page}">Basic View</a>
+            <div class="pull-right">
+                <div class="btn-group">
+                    {if $channel_name ne ""}
+                        <a class="btn btn-default{if $view.view_type eq 'basic'} disabled{/if}" href="{$base_url}/{if $channel_name ne ''}channel/{$smarty.get.chid}/{/if}{$view.category}/basic/{$view.page}" title="Grid view">
+                            <span class="glyphicon glyphicon-th-large"></span>
+                        </a>
+                        <a class="btn btn-default{if $view.view_type eq 'detailed'} disabled{/if}" href="{$base_url}/{if $channel_name ne ''}channel/{$smarty.get.chid}/{/if}{$view.category}/detailed/{$view.page}" title="List view">
+                            <span class="glyphicon glyphicon-th-list"></span>
+                        </a>
                     {else}
-                        <a href="{$base_url}/{if $channel_name ne ''}channel/{$smarty.get.chid}/{/if}{$view.category}/detailed/{$view.page}">Detailed View</a>
+                        <a class="btn btn-default{if $view.view_type eq 'basic'} disabled{/if}" href="{$base_url}/{$view.category}/{$view.page}" title="Grid view">
+                            <span class="glyphicon glyphicon-th-large"></span>
+                        </a>
+                        <a class="btn btn-default{if $view.view_type eq 'detailed'} disabled{/if}" href="{$base_url}/detailed/{$view.category}/{$view.page}" title="List view">
+                            <span class="glyphicon glyphicon-th-list"></span>
+                        </a>
                     {/if}
-                {else}
-                    {if $view.view_type eq "detailed"}
-                        <a href="{$base_url}/{$view.category}/{$view.page}">Basic View</a>
-                    {else}
-                        <a href="{$base_url}/detailed/{$view.category}/{$view.page}">Detailed View</a>
-                    {/if}
-                {/if}
-            </small>
+                </div>
+                <small class="btn disabled">Videos {$view.start_num}-{$view.end_num} of {$view.total}</small>
+            </div>
         </h1>
     </div>
 
