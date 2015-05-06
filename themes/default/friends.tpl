@@ -33,7 +33,7 @@
         <div class="pull-right">
             <div class="input-group">
                 <span class="input-group-addon">View:</span>
-                <select name="view" class="form-control" onchange="javascript: document.location.href='{$base_url}/friends.php?view='+this.value;">
+                <select name="view" class="form-control" onchange="javascript: document.location.href='{$base_url}/friends/?view='+this.value;">
                     {$ftype_ops}
                 </select>
             </div>
