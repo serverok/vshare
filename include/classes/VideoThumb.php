@@ -87,7 +87,7 @@ class VideoThumb
                 echo "<p>$fd</p>";
             }
 
-            $cmd = "$config[ffmpeg] -i $t_info[src] -ss $thumb_position -t 00:00:01 -s " . $maxwidth . 'x' . $maxheight . " -r 1 -f mjpeg $fd";
+            $cmd = "$config[ffmpeg] -i '$t_info[src]' -ss $thumb_position -t 00:00:01 -s " . $maxwidth . 'x' . $maxheight . " -r 1 -f mjpeg $fd";
             @exec("$cmd 2>&1", $output);
 
             if ($debug) {
@@ -139,7 +139,7 @@ class VideoThumb
 
         for ($i = 1; $i < $duration; $i += $sstep) {
 
-            $cmd = $config['mplayer'] . " $t_info[src] -ss " . $i . " -nosound -vo jpeg:outdir=" . $output_folder . " -frames 2";
+            $cmd = $config['mplayer'] . " '$t_info[src]' -ss " . $i . " -nosound -vo jpeg:outdir=" . $output_folder . " -frames 2";
             @exec("$cmd 2>&1", $output_all);
 
             write_log($cmd);

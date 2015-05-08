@@ -22,7 +22,7 @@ class VideoDuration
     private static function _findWithFfmpeg($videoPath)
     {
         global $config;
-        $cmd = $config['ffmpeg'] . " -i " . $videoPath;
+        $cmd = $config['ffmpeg'] . " -i '" . $videoPath . "'";
         @exec("$cmd 2>&1", $output);
 
         $output_all = implode("\n", $output);
@@ -50,7 +50,7 @@ class VideoDuration
     {
         global $config;
 
-        $cmd = $config['mplayer'] . " -vo null -ao null -frames 0 -identify " . $videoPath;
+        $cmd = $config['mplayer'] . " -vo null -ao null -frames 0 -identify '" . $videoPath . "'";
         @exec("$cmd 2>&1", $output);
 
         $output_all = implode("\n", $output);
