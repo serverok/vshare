@@ -17,8 +17,7 @@
 
         <br>
 
-        <div class="col-md-8">
-            <div class="row">
+        <div class="btn-toolbar" role="toolbar">
                 <div class="btn-group">
                     <a class="btn btn-default" href="javascript:void(0);" onclick="video_add_favorite({$view.video_info.video_id});">
                         <span class="glyphicon glyphicon-heart"></span> Add to Favorites
@@ -66,13 +65,8 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="row">
-                <div id="video-rating">
-                    {insert name=video_rating assign=rating id=$view.video_info.video_id}{$rating}
-                </div>
+            <div class="btn-group" role="group">
+                {insert name=video_like assign=like id=$view.video_info.video_id}{$like}
             </div>
         </div>
         <div class="clearfix">&nbsp;</div>

@@ -855,3 +855,24 @@ function insert_video_rating($a)
 {
     return VideoRating::showRate($a['id']);
 }
+
+function insert_video_like($a)
+{
+    $video_id = $a['id'];
+    $video_info = Video::getById($video_id);
+    $class = 'btn btn-default';
+
+    if (isset($_SESSION['UID'])) {
+        $voters = explode('|', $video_info['video_voter_id']);
+        if (in_array($_SESSION['UID'], $voters)) {
+            $class = 'btn btn-success disabled';
+        }
+    }
+
+    $output = '
+    <button class="btn-like ' . $class . '" title="I like this">
+        <span class="glyphicon glyphicon-thumbs-up"></span>
+        <span id="like-count">' . $video_info['video_rated_by'] . '</span>
+    </button>';
+    return $output;
+}
