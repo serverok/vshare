@@ -254,6 +254,7 @@ $(function(){
 <script language="JavaScript" type="text/javascript" src="' . VSHARE_URL . '/js/video_comment_delete.js"></script>
 <script language="JavaScript" type="text/javascript" src="' . VSHARE_URL . '/js/user_videos.js"></script>
 <script language="JavaScript" type="text/javascript" src="' . VSHARE_URL . '/js/playlist.js"></script>
+<script language="JavaScript" src="' . VSHARE_URL . '/js/video_like.js"></script>
 ';
 
 $smarty->assign('html_head_extra', $html_head_extra);
