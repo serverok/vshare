@@ -3,7 +3,7 @@
  *
  *   COMPANY: BuyScripts.in
  *   PROJECT: vShare Youtube Clone
- *   VERSION: 2.7
+ *   VERSION: [VSHARE_VERSION]
  *   LICENSE: http://buyscripts.in/vshare-license
  *   WEBSITE: http://buyscripts.in/vshare-youtube-clone
  *
