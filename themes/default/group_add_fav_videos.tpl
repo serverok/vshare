@@ -37,13 +37,7 @@
                     <span class="glyphicon glyphicon-eye-open"></span> Views {$favorite_videos[i].video_view_number},
                     <span class="glyphicon glyphicon-comment"></span> Comments {$favorite_videos[i].video_com_num},
                     <span class="text-nowrap">
-                    {if $favorite_videos[i].video_rated_by gt "0"}
-                        {insert name=show_rate assign=rate rte=$favorite_videos[i].video_rate rated=$favorite_videos[i].video_rated_by}
-                        {$rate}
-                        ({$favorite_videos[i].video_rated_by} ratings)
-                    {else}
-                        Not yet rated
-                    {/if}
+                        <span class="glyphicon glyphicon-thumbs-up"></span> {$favorite_videos[i].video_rated_by} Likes
                     </span>
                 </p>
             </div>

@@ -24,7 +24,7 @@
         <p class="text-muted small">
             Views: {$video_info.video_view_number} |
             Comments: {$video_info.video_com_num} |
-            Rating: {insert name=show_rate assign=rate rte=$video_info.video_rate rated=$video_info.video_rated_by}{$rate}
+            Likes: {$video_info.video_rated_by}
         </p>
     </div>
     <div class="col-md-3">
