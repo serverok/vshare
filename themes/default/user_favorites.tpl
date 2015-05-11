@@ -34,13 +34,7 @@
                     <span class="glyphicon glyphicon-eye-open"></span> <strong>{$favVideos[i].video_view_number}</strong>  Views,
                     <span class="glyphicon glyphicon-comment"></span> <strong>{$favVideos[i].video_com_num}</strong> Comments ,
                     <span class="text-nowrap">
-                    {if $favVideos[i].video_rated_by gt "0"}
-                        {insert name=show_rate assign=rate rte=$favVideos[i].video_rate rated=$favVideos[i].video_rated_by}
-                        {$rate}
-                        ({$favVideos[i].video_rated_by} ratings)
-                    {else}
-                        Not yet rated
-                    {/if}
+                        <span class="glyphicon glyphicon-thumbs-up"></span> {$favVideos[i].video_rated_by} Likes
                     </span>
                 </span>
                 {if $smarty.session.USERNAME eq $user_info.user_name}

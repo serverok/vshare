@@ -20,7 +20,7 @@
         <p class="text-muted small">
             Views: {$view.video_info.video_view_number} |
             Comments: {$view.video_info.video_com_num} |
-            Rating: {insert name=show_rate assign=rate rte=$view.video_info.video_rate rated=$view.video_info.video_rated_by}{$rate}
+            Likes: {$view.video_info.video_rated_by}
         </p>
     </div>
     <div class="col-md-3">
@@ -70,11 +70,10 @@
                 {insert name=id_to_name assign=uname un=$view.videos[i].video_user_id}
                 <p class="text-muted small">Added by: <a href="{$base_url}/{$uname}" target="_parent">{$uname}</a></p>
                 {insert name=comment_count assign=commentcount vid=$view.videos[i].video_id}
-                {insert name=show_rate assign=rate rte=$view.videos[i].video_rate rated=$view.videos[i].video_rated_by}
                 <p class="text-muted small">
                     Views: {$view.videos[i].video_view_number} |
                     Comments: {$commentcount} |
-                    {$rate}
+                    Likes: {$view.videos[i].video_rated_by}
                 </p>
                 <div>
                     {if $smarty.session.UID eq $view.video_info.video_user_id}

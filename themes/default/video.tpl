@@ -84,13 +84,7 @@
                         </p>
                         <p class="text-muted small">
                             <span class="text-nowrap">
-                                <span class="glyphicon glyphicon-star"></span>
-                                {if $view.videos[i].video_rated_by gt "0"}
-                                    {insert name=show_rate assign=rate rte=$view.videos[i].video_rate rated=$view.videos[i].video_rated_by}
-                                    {$rate}
-                                {else}
-                                    Not yet rated
-                                {/if}
+                                <span class="glyphicon glyphicon-thumbs-up"></span> {$view.videos[i].video_rated_by} Likes
                             </span>
                         </p>
                     </div>
@@ -131,14 +125,7 @@
                             <span class="glyphicon glyphicon-eye-open"></span> Views {$view.videos[i].video_view_number},
                             <span class="glyphicon glyphicon-comment"></span> Comments {$view.videos[i].video_com_num},
                             <span class="text-nowrap">
-                                <span class="glyphicon glyphicon-star"></span>
-                                {if $view.videos[i].video_rated_by gt "0"}
-                                    {insert name=show_rate assign=rate rte=$view.videos[i].video_rate rated=$view.videos[i].video_rated_by}
-                                    {$rate}
-                                    ({$view.videos[i].video_rated_by} ratings)
-                                {else}
-                                    Not yet rated
-                                {/if}
+                                <span class="glyphicon glyphicon-thumbs-up"></span> {$view.videos[i].video_rated_by} Likes
                             </span>
                         </p>
                     </div>

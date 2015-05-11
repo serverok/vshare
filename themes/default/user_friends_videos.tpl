@@ -37,13 +37,7 @@
                         <span class="glyphicon glyphicon-eye-open"></span> Views {$videoRows[i].video_view_number},
                         <span class="glyphicon glyphicon-comment"></span> Comments {$videoRows[i].video_com_num},
                         <span class="text-nowrap">
-                        {if $videoRows[i].video_rated_by gt "0"}
-                            {insert name=show_rate assign=rate rte=$videoRows[i].video_rate rated=$videoRows[i].video_rated_by}
-                            {$rate}
-                            ({$videoRows[i].video_rated_by} ratings)
-                        {else}
-                            Not yet rated
-                        {/if}
+                            <span class="glyphicon glyphicon-thumbs-up"></span> {$videoRows[i].video_rated_by} Likes
                         </span>
                     </p>
                 </div>
