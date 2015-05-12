@@ -136,10 +136,18 @@ if (isset($_POST['submit'])) {
             DB::query($sql);
         }
 
+        if (isset($_POST['youtube_api_key']))
+        {
+            $sql = "UPDATE `config` SET
+                   `config_value`='" . DB::quote($_POST['youtube_api_key']) . "' WHERE
+                   `config_name`='youtube_api_key'";
+            DB::query($sql);
+        }
+
         $msg = $lang['settings_updated'];
     }
 }
-
+$smarty->assign('youtube_api_key', Config::get('youtube_api_key'));
 $smarty->assign('dailymotion_api_key', Config::get('dailymotion_api_key'));
 $smarty->assign('dailymotion_api_secret', Config::get('dailymotion_api_secret'));
 $smarty->assign('video_comment_notify', Config::get('video_comment_notify'));
