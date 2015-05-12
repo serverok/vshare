@@ -85,16 +85,10 @@ if (isset($_POST['submit'])) {
         $video_length = '01:00';
 
         if (preg_match("/youtube/i", $embed_code)) {
-
             $youtube_video_id = BulkImport::getYoutubeVideoId($embed_code);
-
             if (! empty($youtube_video_id)) {
-                require 'Zend/Loader.php';
-                Zend_Loader::loadClass('Zend_Gdata_YouTube');
-
-                $youtube_video_info = BulkImport::getYoutubeVideoInfo($youtube_video_id);
-                $video_duration = $youtube_video_info['video_duration'];
-                $video_length = sec2hms($youtube_video_info['video_duration']);
+                $video_duration = Youtube::getVideoDuration($youtube_video_id);
+                $video_length = sec2hms($video_duration);
             }
         }
 
