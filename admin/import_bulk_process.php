@@ -14,8 +14,6 @@
 
 require 'admin_config.php';
 require '../include/config.php';
-require 'Zend/Loader.php';
-Zend_Loader::loadClass('Zend_Gdata_YouTube');
 
 Admin::auth();
 
@@ -47,7 +45,14 @@ if (isset($_POST['submit'])) {
 
                 if ($_POST['import_site'] == 'youtube') {
                     $video_url = 'http://www.youtube.com/watch?v=' . $video_id[$i];
-                    $video_info = BulkImport::getYoutubeVideoInfo($video_id[$i]);
+                    $video_info['video_id'] = $video_id[$i];
+                    $video_info['video_title'] = $_POST['video_title'][$video_id[$i]];
+                    $video_info['video_description'] = $_POST['video_description'][$video_id[$i]];
+                    $video_info['video_keywords'] = $_POST['video_keywords'][$video_id[$i]];
+                    if (empty($video_info['video_keywords'])) {
+                        $video_info['video_keywords'] = $video_info['video_title'];
+                    }
+                    $video_info['video_duration'] = $_POST['video_duration'][$video_id[$i]];
                 }
 
                 if ($_POST['import_method'] == 'embed') {
@@ -122,7 +127,7 @@ if (isset($_POST['submit'])) {
     }
 
     $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
-    $page = isset($_POST['page']) ? (int) $_POST['page'] : 1;
+    $page = isset($_POST['page']) ? $_POST['page'] : '';
 
     $redirect_url = VSHARE_URL . '/admin/import_bulk.php?keyword=' . $keyword . '&user_name=' . $user_name . '&channel=' . $channel_id . '&page=' . $page;
     Http::redirect($redirect_url);

@@ -222,6 +222,18 @@
     </div>
 
     <div class="form-group">
+        <label class="col-sm-3 control-label" for="youtube_api_key">Youtube API Key:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <input class="form-control" type="text" name="youtube_api_key" id="youtube_api_key" value="{$youtube_api_key}" />
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#youtube_api_key" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
             <button type="submit" name="submit" class="btn btn-default btn-lg">Update</button>
         </div>
