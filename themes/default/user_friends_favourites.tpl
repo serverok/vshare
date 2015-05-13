@@ -42,8 +42,8 @@
                         </span>
                     </p>
                 </div>
-                <hr>
             </div>
+            <hr>
     	{/section}
 
     	{if $page_links ne ""}

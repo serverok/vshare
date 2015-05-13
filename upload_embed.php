@@ -13,8 +13,6 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'Zend/Loader.php';
-Zend_Loader::loadClass('Zend_Gdata_YouTube');
 
 $guest_upload = Config::get('guest_upload');
 
@@ -52,35 +50,27 @@ if (isset($_POST['action_upload'])) {
         $import_site = 'youtube';
 
         if (preg_match("/youtube/i", $url)) {
-            if (preg_match('/&feature=/i', $url)) {
-                $yt_url = explode('&feature=', $url);
-                $url = $yt_url[0];
-            }
 
-            $pattern = '/v=([^&]+)/';
-            preg_match($pattern, $url, $matches);
-            $video_id = $matches[1];
+            $video_id = BulkImport::getYoutubeVideoId($url);
 
             if (BulkImport::checkImported($video_id, $import_site)) {
                 $err = 'Video already exists. Enter another video url.';
             }
 
             if ($err == '') {
-                $video_info = BulkImport::getYoutubeVideoInfo($video_id);
-
+                $video_info = Youtube::getVideoInfo($video_id);
                 $seo_name = Url::seoName($video_info['video_title']);
-                $video_length = sec2hms($video_info['video_duration']);
 
                 $sql = "INSERT INTO `videos` SET
 		               `video_user_id`='" . (int) $user_id . "',
 		               `video_title`='" . DB::quote($video_info['video_title']) . "',
-		               `video_description`='" . DB::quote($video_info['video_description']) . "',
+		               `video_description`='" . DB::quote(Xss::clean($video_info['video_description'])) . "',
 		               `video_keywords`='" . DB::quote($video_info['video_keywords']) . "',
 		               `video_seo_name`='" . DB::quote($seo_name) . "',
 		               `video_channels`='0|" . DB::quote($channel_id) . "|0',
 		               `video_type`='" . DB::quote($type) . "',
 		               `video_duration`='" . (int) $video_info['video_duration'] . "',
-		               `video_length`='" . DB::quote($video_length) . "',
+		               `video_length`='" . DB::quote($video_info['video_length']) . "',
 		               `video_add_time`='" . $_SERVER['REQUEST_TIME'] . "',
 		               `video_add_date`='" . date('Y-m-d') . "',
 		               `video_active`='1',

@@ -581,7 +581,7 @@ INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('signup_captcha', '1');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('version', '2.9');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('paypal_currency', 'USD');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('embed_show', '1');
-INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('embed_type', '1');
+INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('embed_type', '0');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('allow_download', '0');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('player_autostart', '0');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('player_bufferlength', '5');

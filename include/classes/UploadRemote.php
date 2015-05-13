@@ -50,15 +50,6 @@ class UploadRemote
             $this->upload = Http::download($source, $desination);
         }
 
-        $youtube_xml = $this->get_youtube_duration('http://www.youtube.com/api2_rest?method=youtube.videos.get_details&dev_id=rG48P7iz0eo&video_id=' . $this->video_id);
-        preg_match('/<length_seconds>(.*)<\/length_seconds>/i', $youtube_xml, $duration);
-
-        if (isset($duration[1])) {
-            $youtube_duration = $duration[1];
-            $youtube_video_time = sec2hms($youtube_duration);
-            $this->update_youtube_duration($youtube_video_time, $youtube_duration);
-        }
-
         if ($this->upload <= 0) {
             $this->upload_failed();
         } else {
@@ -184,29 +175,5 @@ class UploadRemote
             $err = $lang['invalid_url'];
         }
         return $err;
-    }
-
-    function get_youtube_duration($url)
-    {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.2) Gecko/20070219 Firefox/2.0.0.2');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $page = curl_exec($ch);
-        if (! curl_errno($ch)) {
-            curl_close($ch);
-        } else {
-            $page = false;
-        }
-        return $page;
-    }
-
-    function update_youtube_duration($youtube_video_time, $youtube_duration)
-    {
-        $sql = "UPDATE `videos` SET
-		       `video_duration`='$youtube_duration',
-		       `video_length`='$youtube_video_time' WHERE
-		       `video_id`=$this->vid";
-        DB::query($sql);
     }
 }
