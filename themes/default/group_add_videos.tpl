@@ -46,10 +46,10 @@
                 {if $videos[i].in_group eq "0"}
                     <form name="addVideoForm" action="{$base_url}/group/{$group_info.group_url}/add/{$page}" method="post">
                         <input type="hidden" value="{$videos[i].video_id}" name="video_id" />
-                        <button type="submit" class="btn btn-default"name="add_video">Add to group</button>
+                        <button type="submit" class="btn btn-default" name="add_video">Add to group</button>
                     </form>
                 {else}
-                    <span class="text-success"><b>Already in group</b></span>
+                    <span class="btn btn-success"><b>Already in group</b></span>
                 {/if}
             </div>
           </div>
