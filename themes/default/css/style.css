@@ -350,6 +350,13 @@ img.preview {
     min-height: 130px;
 }
 
+.watch-view-count {
+    color: #666;
+    font-size: 19px;
+    line-height: 24px;
+    text-align: right;
+}
+
 footer {
     border-top: 1px solid #ddd;
     padding: 20px 0;
