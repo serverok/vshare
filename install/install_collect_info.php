@@ -192,6 +192,8 @@ else
         $flvtool_path = '/usr/local/bin/flvtool2';
     }
 
+    $qtfaststart_path = '';
+
     if (file_exists('/usr/bin/qt-faststart'))
     {
         $qtfaststart_path = '/usr/bin/qt-faststart';
