@@ -24,9 +24,9 @@
                 <div class="col-sm-6 col-md-8">
                     <h4>
                         <a href="{$base_url}/view/{$videoRows[i].video_id}/{$videoRows[i].video_seo_name}/">{$videoRows[i].video_title}</a>
-                        <br>
                         <small>{$videoRows[i].video_description|truncate:150}</small>
                     </h4>
+
                     <p class="text-muted small">
                         {insert name=id_to_name assign=user_name un=$videoRows[i].video_user_id}
                         {insert name=time_range assign=added_on time=$videoRows[i].video_add_time}
@@ -41,8 +41,8 @@
                         </span>
                     </p>
                 </div>
-                <hr>
             </div>
+            <hr>
 		{/section}
 
         {if $page_links ne ""}
