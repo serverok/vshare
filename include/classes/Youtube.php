@@ -96,4 +96,25 @@ class Youtube
         return $seconds;
     }
 
+    public static function getVideoInfo($id)
+    {
+        $youtube_api_key = Config::get('youtube_api_key');
+        $url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' . $id . '&key=' . $youtube_api_key;
+        $contents = file_get_contents($url);
+        $contents = json_decode($contents, true);
+        $item = $contents['items'][0];
+
+        $video = array();
+        $video['video_id'] = $id;
+        $video['thumb_url'] = $item['snippet']['thumbnails']['medium']['url'];
+        $video['video_title'] = $item['snippet']['title'];
+        $video['video_title'] = htmlspecialchars($video['video_title'], ENT_QUOTES, 'UTF-8');
+        $video['video_description'] = $item['snippet']['description'];
+        $video['video_description'] = htmlspecialchars($video['video_description'], ENT_QUOTES, 'UTF-8');
+        $video['video_keywords'] = '';
+        $video['video_duration'] = self::getVideoDuration($video['video_id']);
+        $video['video_length'] = sec2hms($video['video_duration']);
+        return $video;
+    }
+
 }
