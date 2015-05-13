@@ -17,8 +17,6 @@ $current_folder = dirname(__FILE__);
 chdir("$current_folder");
 
 require $current_folder . '/include/config.php';
-require 'Zend/Loader.php';
-Zend_Loader::loadClass('Zend_Gdata_YouTube');
 
 $sql = "SELECT * FROM `import_auto`";
 $auto_import_all = DB::fetch($sql);
@@ -29,29 +27,20 @@ if (! $auto_import_all) {
 
 foreach ($auto_import_all as $import_auto_info) {
     if ($import_auto_info['import_auto_keywords'] != '') {
-        $import_auto_info['import_auto_keywords'];
         $search_string = $import_auto_info['import_auto_keywords'];
-        $yt = new Zend_Gdata_YouTube();
-        $query = $yt->newVideoQuery();
-        $query->setQuery($search_string);
-        $query->setStartIndex(1);
-        $query->setMaxResults(10);
+        $videos_info = Youtube::getVideos($search_string, 10);
+        $videos = $videos_info['videos'];
+        $video_count = count($videos);
 
-        $feed = $yt->getVideoFeed($query);
-
-        foreach ($feed as $entry) {
-            $videos[] = $entry->getVideoId();
-        }
-
-        for ($i = 0; $i < count($videos); $i ++) {
-            if (! BulkImport::checkImported($videos[$i], 'youtube')) {
+        for ($i = 0; $i < $video_count; $i++) {
+            if (! BulkImport::checkImported($videos[$i]['video_id'], 'youtube')) {
                 $sql = "INSERT INTO `import_track` SET
-					   `import_track_unique_id`='" . DB::quote($videos[$i]) . "' ,
+					   `import_track_unique_id`='" . DB::quote($videos[$i]['video_id']) . "' ,
 					   `import_track_site`='" . DB::quote('youtube') . "'";
                 DB::query($sql);
 
-                $video_url = 'http://www.youtube.com/watch?v=' . $videos[$i];
-                $video_info = BulkImport::getYoutubeVideoInfo($videos[$i]);
+                $video_url = 'http://www.youtube.com/watch?v=' . $videos[$i]['video_id'];
+                $video_info = Youtube::getVideoInfo($videos[$i]['video_id']);
                 $user_name = $import_auto_info['import_auto_user'];
 
                 $user_info = User::getByName($user_name);
@@ -61,6 +50,7 @@ foreach ($auto_import_all as $import_auto_info) {
                 if ($import_auto_info['import_auto_download'] == 0) {
 
                     $seo_name = Url::seoName($video_info['video_title']);
+                    $type = 'public';
 
                     $sql = "INSERT INTO `videos` SET
 		                   `video_user_id`='" . (int) $user_info['user_id'] . "',
@@ -69,9 +59,9 @@ foreach ($auto_import_all as $import_auto_info) {
 		                   `video_keywords`='" . DB::quote($video_info['video_keywords']) . "',
 		                   `video_seo_name`='" . DB::quote($seo_name) . "',
 		                   `video_channels`='0|" . DB::quote($channel_id) . "|0',
-		                   `video_type`='" . DB::quote('public') . "',
-		                   `video_duration`=1,
-		                   `video_length`='01:00',
+		                   `video_type`='" . DB::quote($type) . "',
+		                   `video_duration`='" . (int) $video_info['video_duration'] . "',
+		                   `video_length`='" . DB::quote($video_info['video_length']) . "',
 		                   `video_add_time`='" . $_SERVER['REQUEST_TIME'] . "',
 		                   `video_add_date`='" . date('Y-m-d') . "',
 		                   `video_active`='1',
