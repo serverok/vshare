@@ -74,7 +74,7 @@ if ($num_friends) {
         $end_num = $start_from + count($friend_videos);
     }
 
-    $page_links = Paginate::getLinks($total, $config['items_per_page'], '.', '', $page);
+    $page_links = Paginate::getLinks2($total, $config['items_per_page'], './', $page);
     $smarty->assign('page_links', $page_links);
 
     /*
