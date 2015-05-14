@@ -156,24 +156,4 @@ class UploadRemote
 			   `video_vtype`=$video_type WHERE `video_id`=$this->vid";
         DB::query($sql);
     }
-
-    function url_exists($url)
-    {
-        global $lang;
-        $err = '';
-        $resurl = curl_init();
-        curl_setopt($resurl, CURLOPT_URL, $url);
-        curl_setopt($resurl, CURLOPT_BINARYTRANSFER, 1);
-        curl_setopt($resurl, CURLOPT_HEADERFUNCTION, 'curlHeaderCallback');
-        curl_setopt($resurl, CURLOPT_FAILONERROR, 1);
-        curl_exec($resurl);
-
-        $returncode = curl_getinfo($resurl, CURLINFO_HTTP_CODE);
-        curl_close($resurl);
-
-        if ($returncode != 200 && $returncode != 302 && $returncode != 304) {
-            $err = $lang['invalid_url'];
-        }
-        return $err;
-    }
 }
