@@ -64,7 +64,7 @@
                 <div class="btn-group" role="group">
                     {insert name=video_like assign=like id=$view.video_info.video_id}{$like}
                 </div>
-                <div class="watch-view-count"> {$view.video_info.video_view_number} Views</div>
+                <div class="watch-view-count pull-right"> {$view.video_info.video_view_number} Views</div>
             </div>
             <div class="clearfix">&nbsp;</div>
             <div id="video-tools-result" class="alert" role="alert" style="display: none;"></div>
@@ -155,13 +155,14 @@
 
             <div class="col-md-10">
                 <strong>
-                Added on {$view.video_info.video_add_date|date_format} by
+                <span class="glyphicon glyphicon-user"></span> Added on {$view.video_info.video_add_date|date_format} by
                 <a class="" role="button" tabindex="0" data-toggle="popover">
-                <strong>{$view.user_info.user_name} <span class="caret"></span></strong></a>
-                </strong><br>
-                Length:<strong> {$view.video_info.video_length}</strong> |
-                Comments: <strong>{$view.video_info.video_com_num}</strong><br>
-                Channels:
+                {$view.user_info.user_name} <span class="caret"></span></a>
+                </strong>
+                <br>
+                <span class="glyphicon glyphicon-time"></span> Length:<strong> {$view.video_info.video_length}</strong> |
+                <span class="glyphicon glyphicon-comment"></span> Comments: <strong>{$view.video_info.video_com_num}</strong><br>
+                <span class="glyphicon glyphicon-film"></span> Channels :
                 <strong>{insert name=video_channel assign=channel vid=$view.video_info.video_id}
                 {section name=k loop=$channel}
                 <a href="{$base_url}/channel/{$channel[k].channel_id}/{$channel[k].channel_seo_name}/">{$channel[k].channel_name}</a> &nbsp;
@@ -219,7 +220,7 @@
             <hr>
             <p>
             <p class="text-justify">{$view.video_info.video_description}</p>
-                <strong>Tags:</strong>
+                <strong><span class="glyphicon glyphicon-tags"></span> Tags :</strong>
                 {section name=j loop=$view.tags}
                     <a href="{$base_url}/tag/{$view.tags[j]}/">{$view.tags[j]}</a>&nbsp;
                 {/section}
