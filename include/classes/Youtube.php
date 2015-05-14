@@ -123,8 +123,15 @@ class Youtube
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
             $data = curl_exec($ch);
+            $return_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             curl_close($ch);
+
+            if ($return_code != 200 && $return_code != 302 && $return_code != 304) {
+                exit($return_code . ': Invalid url');
+            }
         } else {
             $data = file_get_contents($url);
         }
