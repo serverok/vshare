@@ -354,7 +354,7 @@ img.preview {
     color: #666;
     font-size: 19px;
     line-height: 24px;
-    text-align: right;
+    border-bottom:2px solid #ddd;
 }
 
 footer {
