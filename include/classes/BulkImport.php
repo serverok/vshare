@@ -25,11 +25,16 @@ class BulkImport
 
     public static function getYoutubeVideoId($url = '')
     {
-        if (preg_match('/v\/(.[a-zA-Z0-9_-]+)/i', $url, $matches) || preg_match('/v=(.[a-zA-Z0-9_-]+)/i', $url, $matches))
-        {
-            if (isset($matches[1]))
-            {
-                return $matches[1];
+        $search = array(
+            '/v\/(.[a-zA-Z0-9_-]+)/i',
+            '/v=(.[a-zA-Z0-9_-]+)/i',
+            '/embed\/(.[a-zA-Z0-9_-]+)/i',
+        );
+        foreach ($search as $pattern) {
+            if (preg_match($pattern, $url, $matches)) {
+                if (isset($matches[1])) {
+                    return $matches[1];
+                }
             }
         }
 
