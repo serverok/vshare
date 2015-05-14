@@ -12,17 +12,6 @@ class BulkImport
         return count($import_track);
     }
 
-    public static function getYoutubeVideoInfo($video_id)
-    {
-		$yt = new Zend_Gdata_YouTube();
-		$entry = $yt->getVideoEntry($video_id);
-		$tmp['video_title'] = (string)$entry->mediaGroup->title;
-		$tmp['video_description'] = (string)$entry->mediaGroup->description;
-		$tmp['video_keywords'] = (string)$entry->mediaGroup->keywords;
-		$tmp['video_duration'] = $entry->mediaGroup->duration->seconds;
-		return $tmp;
-    }
-
     public static function getYoutubeVideoId($url = '')
     {
         $search = array(
