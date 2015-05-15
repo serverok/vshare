@@ -64,7 +64,12 @@
                 <div class="btn-group" role="group">
                     {insert name=video_like assign=like id=$view.video_info.video_id}{$like}
                 </div>
-                <div class="watch-view-count pull-right"> {$view.video_info.video_view_number} Views</div>
+                <div class="watch-view-count pull-right">
+                    {$view.video_info.video_view_number} Views
+                    <div class="progress">
+                        <div style="width: {$view.video_info.video_view_number/20}%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{$view.video_info.video_view_number}" role="progressbar" class="progress-bar progress-bar-info"></div>
+                    </div>
+                </div>
             </div>
             <div class="clearfix">&nbsp;</div>
             <div id="video-tools-result" class="alert" role="alert" style="display: none;"></div>
