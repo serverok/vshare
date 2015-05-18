@@ -44,10 +44,10 @@
         {/if}
     </td>
     <td>
-        <a href="{$base_url}/admin/server_manage_edit.php?id={$server_details.id}">
+        <a href="{$base_url}/admin/server_manage_edit.php?id={$server_details.id}" data-toggle="tooltip" data-placement="bottom" title="Edit">
             <span class="glyphicon glyphicon-edit"></span>
         </a> &nbsp;
-        <a href="{$base_url}/admin/server_manage_delete.php?id={$server_details.id}" onclick="return confirm('Are you sure you want to remove ?');">
+        <a href="{$base_url}/admin/server_manage_delete.php?id={$server_details.id}" onclick="return confirm('Are you sure you want to remove ?');" data-toggle="tooltip" data-placement="bottom" title="Delete">
             <span class="glyphicon glyphicon-remove-circle"></span>
         </a>
     </td>
@@ -56,3 +56,11 @@
 {/foreach}
 
 </table>
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}

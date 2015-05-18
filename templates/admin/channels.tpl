@@ -39,10 +39,10 @@
             <td>{if $count[1] ne "0"}<a href="channel_videos.php?chid={$channels[aa].channel_id}">{$count[1]}</a>{else}0{/if}</td>
             <td>{if $count[2] ne "0"}<a href="channel_groups.php?chid={$channels[aa].channel_id}">{$count[2]}</a>{else}0{/if}</td>
             <td align="center">
-            <a href="channel_edit.php?action=edit&chid={$channels[aa].channel_id}&page={$page}&sort={$smarty.request.sort}">
+            <a href="channel_edit.php?action=edit&chid={$channels[aa].channel_id}&page={$page}&sort={$smarty.request.sort}" data-toggle="tooltip" data-placement="bottom" title="Edit">
                 <span class="glyphicon glyphicon-edit"></span>
             </a> &nbsp;
-            <a href="?a={$smarty.request.a}&action=del&chid={$channels[aa].channel_id}&page={$page}&sort={$smarty.request.sort}" onclick="Javascript:return confirm('Are you sure you want to delete?');">
+            <a href="?a={$smarty.request.a}&action=del&chid={$channels[aa].channel_id}&page={$page}&sort={$smarty.request.sort}" onclick="Javascript:return confirm('Are you sure you want to delete?');" data-toggle="tooltip" data-placement="bottom" title="Delete">
                 <span class="glyphicon glyphicon-remove-circle"></span>
             </a>
             </td>
@@ -55,3 +55,11 @@
 <div>
     {$links}
 </div>
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}

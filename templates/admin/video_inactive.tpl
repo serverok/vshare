@@ -32,7 +32,7 @@
     <td align="center">{$video_inactive.video_id}</td>
     <td><a href="video_details.php?id={$video_inactive.video_id}">{$video_inactive.video_title}</a></td>
     <td align="center">
-        <a href="?video_id={$video_inactive.video_id}&page={$smarty.request.page}&action=activate">
+        <a href="?video_id={$video_inactive.video_id}&page={$smarty.request.page}&action=activate" data-toggle="tooltip" data-placement="bottom" title="Activate">
             <span class="glyphicon glyphicon-ok"></span>
         </a>
     </td>
@@ -59,3 +59,11 @@
 </div>
 
 {/if}
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}

@@ -120,10 +120,10 @@
                 {$groups[aa].group_featured}
             </td>
             <td align="center">
-                <a href="group_edit.php?action=edit&gid={$groups[aa].group_id}&page={$smarty.request.page}&sort={$smarty.request.sort}&a={$smarty.request.a}">
+                <a href="group_edit.php?action=edit&gid={$groups[aa].group_id}&page={$smarty.request.page}&sort={$smarty.request.sort}&a={$smarty.request.a}" data-toggle="tooltip" data-placement="bottom" title="Edit">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a> &nbsp;
-                <a href="groups.php?a={$smarty.request.a}&action=del&gid={$groups[aa].group_id}&page={$smarty.request.page}&sort={$smarty.request.sort}" onclick="Javascript:return confirm('Are you sure you want to delete?');">
+                <a href="groups.php?a={$smarty.request.a}&action=del&gid={$groups[aa].group_id}&page={$smarty.request.page}&sort={$smarty.request.sort}" onclick="Javascript:return confirm('Are you sure you want to delete?');" data-toggle="tooltip" data-placement="bottom" title="Delete">
                     <span class="glyphicon glyphicon-remove-circle"></span>
                 </a>
             </td>
@@ -135,3 +135,11 @@
 <div>
     {$links}
 </div>
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}
