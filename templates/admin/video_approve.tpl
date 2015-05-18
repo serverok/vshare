@@ -109,7 +109,7 @@
 <div class="row">
     <div class="col-md-10">{$links}</div>
     <div class="col-md-2">
-        <a href="?action=approve_all" class="btn btn-default btn-lg">Approve All</a>
+        <a href="?action=approve_all" class="btn btn-default btn-lg"  data-toggle="tooltip" data-placement="bottom" title="Approve All">Approve All</a>
     </div>
 </div>
 
@@ -120,3 +120,11 @@
 </div>
 
 {/if}
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}

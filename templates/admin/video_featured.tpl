@@ -39,7 +39,7 @@
 				</a>
 			</td>
 			<td align="center">
-				<a href="video_featured.php?video_id={$video_featured.video_id}&page={$smarty.request.page}&todo=un_feature" onclick="Javascript:return confirm('Are you sure you want to remove?');">
+				<a href="video_featured.php?video_id={$video_featured.video_id}&page={$smarty.request.page}&todo=un_feature" onclick="Javascript:return confirm('Are you sure you want to remove?');" data-toggle="tooltip" data-placement="bottom" title="Remove">
 					<span class="glyphicon glyphicon-trash"></span>
 				</a>
 			</td>
@@ -66,3 +66,11 @@
 </div>
 
 {/if}
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}

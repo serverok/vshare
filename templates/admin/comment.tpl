@@ -27,11 +27,11 @@
                 {$comment.comment_text}
             </td>
             <td align="center">
-                <a href='comment_edit.php?action=edit&id={$comment.comment_id}&page={$page}'>
+                <a href='comment_edit.php?action=edit&id={$comment.comment_id}&page={$page}' data-toggle="tooltip" data-placement="bottom" title="Edit">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
                 <a href='comment.php?action=del&id={$comment.comment_id}&page={$page}' onclick='Javascript:return confirm("Are you sure you want to delete?");'>
-                    <span class="glyphicon glyphicon-remove-circle"></span>
+                    <span class="glyphicon glyphicon-remove-circle" data-toggle="tooltip" data-placement="bottom" title="Delete"></span>
                 </a>
             </td>
         </tr>
@@ -42,3 +42,11 @@
 <div>
     {$links}
 </div>
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}

@@ -96,7 +96,7 @@
             <td>{$videos[aa].video_view_number}</td>
             <td>{$videos[aa].video_add_date|date_format}</td>
             <td align="center">
-                <a href="video_edit.php?a={$a}&action=edit&video_id={$videos[aa].video_id}&page={$page}&sort={$smarty.request.sort}">
+                <a href="video_edit.php?a={$a}&action=edit&video_id={$videos[aa].video_id}&page={$page}&sort={$smarty.request.sort}" data-toggle="tooltip" data-placement="bottom" title="Edit">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
             </td>
@@ -129,6 +129,14 @@
 $("input#check_all").click(function(){
     var checked = $("input#check_all").is(":checked");
     $("input[rel=video_ids]").prop("checked", checked);
+});
+</script>
+{/literal}
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
 });
 </script>
 {/literal}
