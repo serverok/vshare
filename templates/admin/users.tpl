@@ -113,19 +113,19 @@
                 {$user_info.user_account_status}</span>
 			</td>
 			<td align="center">
-				<a href="user_edit.php?action=edit&uid={$user_info.user_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
+				<a href="user_edit.php?action=edit&uid={$user_info.user_id}&page={$smarty.request.page}&sort={$smarty.request.sort}" data-toggle="tooltip" data-placement="bottom" title="Edit">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
                 &nbsp;
-                <a href="user_delete.php?uid={$user_info.user_id}&a={$smarty.get.a}&page={$smarty.get.page}&sort={$smarty.get.sort}" onclick="javascript:return confirm('Are you sure you want to delete?');">
+                <a href="user_delete.php?uid={$user_info.user_id}&a={$smarty.get.a}&page={$smarty.get.page}&sort={$smarty.get.sort}" onclick="javascript:return confirm('Are you sure you want to delete?');" data-toggle="tooltip" data-placement="bottom" title="Delete">
                     <span class="glyphicon glyphicon-remove-circle"></span>
                 </a>
                 &nbsp;
-				<a href="mail_users.php?email={$user_info.user_email}&uname={$user_info.user_name}">
+				<a href="mail_users.php?email={$user_info.user_email}&uname={$user_info.user_name}" data-toggle="tooltip" data-placement="bottom" title="Email User">
                     <span class="glyphicon glyphicon-envelope"></span>
                 </a>
                 &nbsp;
-				<a href="user_login.php?username={$user_info.user_name}" target="_blank">
+				<a href="user_login.php?username={$user_info.user_name}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Login as {$user_info.user_name}">
                     <span class="glyphicon glyphicon-log-in"></span>
                 </a>
 			</td>
@@ -143,3 +143,9 @@
 <h5>No inactive users found.</h5>
 
 {/if}
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>
