@@ -16,7 +16,7 @@
 		<td>{$badwords[i].word_id}</td>
 		<td>{$badwords[i].word}</td>
 		<td align="center">
-			<a href="bad_words.php?action=del&id={$badwords[i].word_id}" onClick='Javascript:return confirm("Are you sure you want to delete?");'>
+			<a href="bad_words.php?action=del&id={$badwords[i].word_id}" onClick='Javascript:return confirm("Are you sure you want to delete?");' data-toggle="tooltip" data-placement="bottom" title="Remove">
                 <span class="glyphicon glyphicon-remove-circle"></span>
             </a>
 		</td>
@@ -45,3 +45,11 @@
     <button type="submit" name="submit" class="btn btn-default">Add</button>
 
 </form>
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}

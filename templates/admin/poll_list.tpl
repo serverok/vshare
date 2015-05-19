@@ -7,9 +7,9 @@
     <p>
         <b>Q: </b>
         {$pollArray[i].poll_qty}
-        ( <a href="poll_edit.php?poll_id={$pollArray[i].poll_id}">
+        ( <a href="poll_edit.php?poll_id={$pollArray[i].poll_id}" data-toggle="tooltip" data-placement="bottom" title="Edit">
             <span class="glyphicon glyphicon-edit"></span>
-        </a> <a href="poll_list.php?action=delete&poll_id={$pollArray[i].poll_id}" onclick="return confirm('Click OK to delete poll')">
+        </a> <a href="poll_list.php?action=delete&poll_id={$pollArray[i].poll_id}" onclick="return confirm('Click OK to delete poll')" data-toggle="tooltip" data-placement="bottom" title="Delete">
             <span class="glyphicon glyphicon-remove-circle"></span>
         </a>)
     </p>
@@ -28,3 +28,11 @@
     <hr size="1" />
 
 {/section}
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}

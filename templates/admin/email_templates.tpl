@@ -38,7 +38,7 @@
             <td>{$email_template.email_subject}</td>
             <td>{$email_template.comment}</td>
             <td align="center">
-                <a href="email_edit.php?action=edit&email_id={$email_template.email_id}">
+                <a href="email_edit.php?action=edit&email_id={$email_template.email_id}" data-toggle="tooltip" data-placement="bottom" title="Edit">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
             </td>
@@ -47,3 +47,11 @@
     {/foreach}
 
 </table>
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}

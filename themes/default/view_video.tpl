@@ -64,7 +64,12 @@
                 <div class="btn-group" role="group">
                     {insert name=video_like assign=like id=$view.video_info.video_id}{$like}
                 </div>
-                <div class="watch-view-count pull-right"> {$view.video_info.video_view_number} Views</div>
+                <div class="watch-view-count pull-right">
+                    {$view.video_info.video_view_number} Views
+                    <div class="progress">
+                        <div style="width: {$view.video_info.video_view_number/20}%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{$view.video_info.video_view_number}" role="progressbar" class="progress-bar progress-bar-info"></div>
+                    </div>
+                </div>
             </div>
             <div class="clearfix">&nbsp;</div>
             <div id="video-tools-result" class="alert" role="alert" style="display: none;"></div>
@@ -72,78 +77,13 @@
             <!-- video feedback end -->
 
             <div id="video-tools-feedback" style="display: none;">
-                <div class="page-header">
-                    <a class="btn btn-default pull-right" href="javascript:void(0)" onclick="inappropriate_cancel();" title="Close">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </a>
-                    <h3>Report this video</h3>
-                </div>
-                <form id="video-report-form" name="form1" onsubmit="javascript:feedback();" method="post" action="javascript:void(0)" class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Type of abuse</label>
-                        <div class="col-md-4 col-sm-6">
-                            <select name="abuse_type" id="abuse_type" class="form-control">
-                                <option value="">Select a category</option>
-                                <option value="porn">Porn</option>
-                                <option value="racism">Racism</option>
-                                <option value="prohibited">Prohibited</option>
-                                <option value="violent">Violent</option>
-                                <option value="copyright">Copyright</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Comments</label>
-                        <div class="col-md-6 col-sm-6">
-                            <textarea name="abuse_comments" id="abuse_comments" rows="4" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-2 col-md-offset-2">
-                            <button type="submit" class="btn btn-default" name="send">Send</button>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </form>
+                {include file="view_video_flag.tpl"}
             </div> <!-- video-tools-feedback -->
 
             <!-- Video share tools -->
 
             <div id="video-tools-share" style="display: none;">
-                <div class="page-header">
-                    <a class="btn btn-default pull-right btn-video-share" href="javascript:void(0)" title="Close">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </a>
-                    <h3>Share Details</h3>
-                </div>
-                <div class="btn-group">
-                    <a class="btn btn-default btn-xs" href="{$base_url}/friends/recommend/{$view.video_info.video_id}/" title="Recommend Friends by E-Mail"><img src="{$baseurl}/themes/default/images/icon_mail.png" width="45" height="45" border="0" alt="Mail"></a>
-                    <a class="btn btn-default btn-xs" href="http://www.facebook.com/share.php?u={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;t={$view.video_info.video_title}" title="FaceBook" target="_blank"><img src="{$baseurl}/themes/default/images/icon_facebook.png" width="45" height="45" border="0" alt="facebook"></a>
-                    <a class="btn btn-default btn-xs" href="https://plus.google.com/share?url={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/" title="Google+" target="_blank"><img src="{$baseurl}/themes/default/images/icon_google-plus.png" width="45" height="45" border="0" alt="Google+"></a>
-                    <a class="btn btn-default btn-xs" href="http://digg.com/submit?phase=2&amp;url={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;title={$view.video_info.video_title}" title="Digg It!" target="_blank"><img src="{$baseurl}/themes/default/images/icon_digg.png" width="45" height="45" border="0" alt="digg"></a>
-                    <a class="btn btn-default btn-xs" href="http://del.icio.us/post?url={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;title={$view.video_info.video_title}" title="del.icio.us" target="_blank"><img src="{$baseurl}/themes/default/images/icon_delicious.png" width="45" height="45" border="0" alt="delicious"></a>
-                    <a class="btn btn-default btn-xs" href="http://newsvine.com/_tools/seed&amp;save?u={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;u={$view.video_info.video_title}" title="NewsVine" target="_blank"><img src="{$baseurl}/themes/default/images/icon_newsvine.png" width="45" height="45" border="0" alt="newsvine"></a>
-                    <a class="btn btn-default btn-xs" href="http://reddit.com/submit?url={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;title={$view.video_info.video_title}" title="reddit" target="_blank"><img src="{$baseurl}/themes/default/images/icon_reddit.png" width="45" height="45" border="0" alt="reddit"></a>
-                    <a class="btn btn-default btn-xs" href="http://simpy.com/simpy/LinkAdd.do?href={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;title={$view.video_info.video_title}" title="Simpy" target="_blank"><img src="{$baseurl}/themes/default/images/icon_simpy.png" width="45" height="45" border="0" alt="simpy"></a>
-                    <a class="btn btn-default btn-xs" href="http://spurl.net/spurl.php?title={$view.video_info.title}&amp;url={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/" title="Spurl" target="_blank"><img src="{$baseurl}/themes/default/images/icon_spurl.png" width="45" height="45" border="0" alt="spurl"></a>
-                    <a class="btn btn-default btn-xs" href="http://myweb2.search.yahoo.com/myresults/bookmarklet?u={$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/&amp;t={$view.video_info.video_title}" title="My Yahoo!" target="_blank"><img src="{$baseurl}/themes/default/images/icon_yahoo.png" width="45" height="45" border="0" alt="yahoo"></a>
-                </div>
-                <div class="clearfix">&nbsp;</div>
-                <form role="form">
-                    <div class="form-group">
-                        <label>Video URL (Permanent Link):</label>
-                        <input class="form-control" value="{$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/" onclick="javascript:this.focus();this.select();" readonly="readonly">
-                    </div>
-                    {if $view.video_info.video_vtype eq "0" && ($view.video_info.video_type == "public" || $view.video_info.video_user_id == $smarty.session.UID)}
-                        {if $view.video_info.video_allow_embed eq "enabled" && $embed_show eq 1}
-                            <div class="form-group">
-                                <label>Embeddable Player:</label>
-                                <input class="form-control" value='{if $embed_type eq "0"}<iframe vspace="0" hspace="0" allowtransparency="true" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border:0px;" width="600" height="500" SRC="{$base_url}/show.php?id={$view.video_info.video_id}"></iframe>{else}<object width="560" height="340"><param name="movie" value="{$base_url}/v/{$view.video_info.video_id}&hl=en_US&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="{$base_url}/v/{$view.video_info.video_id}&hl=en_US&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="560" height="340"></embed></object>{/if}' onclick="javascript:this.focus();this.select();" readonly="readonly">
-                                <div class="help-block">(Put this video on your website. Works on Friendster, eBay, Blogger, MySpace!)</div>
-                            </div>
-                        {/if}
-                    {/if}
-                </form>
+                {include file="view_video_share.tpl"}
             </div>
 
         <div class="row">
@@ -184,43 +124,12 @@
             });
             </script>
             <div class="hidden" id="user-details-container">
-                <div>
-                    <div class="thumbnail">
-                        <a href="{$base_url}/{$view.user_info.user_name}">
-                            {insert name=member_img UID=$view.video_info.video_user_id}
-                        </a>
-                    </div>
-                </div>
-                <div>
-                    <h4>
-                        <a href="{$base_url}/{$view.user_info.user_name}">{$view.user_info.user_name}</a>
-                        {if $view.user_info.user_website ne ""}
-                            <br>
-                            <small>Website: <a href="{$view.user_info.user_website}" target="_blank">{$view.user_info.user_website}</a></small>
-                        {/if}
-                    </h4>
-                    {insert name=video_count assign=vdocount uid=$view.video_info.video_user_id}
-                    {insert name=favour_count assign=favcount uid=$view.video_info.video_user_id}
-                    {insert name=friends_count assign=friendcount uid=$view.video_info.video_user_id}
-
-                    <p class="text-muted small text-center">
-                        <span class="text-nowrap">{$vdocount} <a href="{$base_url}/{$view.user_info.user_name}/public/">Videos</a> |</span>
-                        <span class="text-nowrap">{$favcount} <a href="{$base_url}/{$view.user_info.user_name}/favorites/">Favorites</a> |</span>
-                        <span class="text-nowrap">{$friendcount} <a href="{$base_url}/{$view.user_info.user_name}/friends/">Friends</a></span>
-                    </p>
-                    <p class="text-muted small text-center">
-                        <span class="text-nowrap">
-                            (<a href="{$base_url}/mail.php?folder=compose&receiver={$view.user_info.user_name}">Send Me a Private Message!</a>)
-                        </span>
-                    </p>
-                </div>
+                {include file="view_video_user_details.tpl"}
             </div>
 
-
             <hr>
-            <p>
             <p class="text-justify">{$view.video_info.video_description}</p>
-                <strong><span class="glyphicon glyphicon-tags"></span> Tags :</strong>
+            <p><strong><span class="glyphicon glyphicon-tags"></span> Tags :</strong>
                 {section name=j loop=$view.tags}
                     <a href="{$base_url}/tag/{$view.tags[j]}/">{$view.tags[j]}</a>&nbsp;
                 {/section}

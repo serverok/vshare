@@ -57,10 +57,10 @@
 	<td>{$videos[aa].video_featured}</td>
 	<td>{$videos[aa].video_add_date|date_format}</td>
 	<td align="center">
-		<a href="video_user_deleted_activate.php?id={$videos[aa].video_id}">
+		<a href="video_user_deleted_activate.php?id={$videos[aa].video_id}" data-toggle="tooltip" data-placement="bottom" title="Activate">
         <span class="glyphicon glyphicon-ok"></span>
         </a> &nbsp;
-		<a href="video_delete.php?id={$videos[aa].video_id}" onclick='Javascript:return confirm("Are you sure want to delete?");'>
+		<a href="video_delete.php?id={$videos[aa].video_id}" onclick='Javascript:return confirm("Are you sure want to delete?");' data-toggle="tooltip" data-placement="bottom" title="Delete Permanently">
             <span class="glyphicon glyphicon-remove-circle"></span>
         </a>
 	</td>
@@ -84,3 +84,11 @@
 <h5>There is no user deleted videos found.</h5>
 
 {/if}
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}

@@ -43,7 +43,7 @@
             <a href="advertisement_status.php?adv_id={$advertisement.adv_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">{$advertisement.adv_status}</a>
         </td>
         <td align="center">
-            <a href="advertisement_edit.php?adv_id={$advertisement.adv_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
+            <a href="advertisement_edit.php?adv_id={$advertisement.adv_id}&page={$smarty.request.page}&sort={$smarty.request.sort}" data-toggle="tooltip" data-placement="bottom" title="Edit">
                 <span class="glyphicon glyphicon-edit"></span>
             </a>
         </td>
@@ -52,3 +52,11 @@
     {/foreach}
 
 </table>
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}

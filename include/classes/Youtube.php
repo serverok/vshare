@@ -37,7 +37,7 @@ class Youtube
         $search_string = urlencode($search_string);
         $youtube_api_key = Config::get('youtube_api_key');
         $url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' . $search_string . '&type=video&videoCaption=closedCaption&key=' . $youtube_api_key . '&videoEmbeddable=true&maxResults=' . $max_results . '&order=relevance&pageToken=' . $page;
-        $contents = file_get_contents($url);
+        $contents = self::getContents($url);
         $contents = json_decode($contents, true);
 
         $videos = array();
@@ -74,7 +74,7 @@ class Youtube
     {
         $youtube_api_key = Config::get('youtube_api_key');
         $url = 'https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=' . $id . '&key=' . $youtube_api_key;
-        $contents = file_get_contents($url);
+        $contents = self::getContents($url);
         $contents = json_decode($contents, true);
         $video_info = $contents['items'][0];
 
@@ -100,7 +100,7 @@ class Youtube
     {
         $youtube_api_key = Config::get('youtube_api_key');
         $url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' . $id . '&key=' . $youtube_api_key;
-        $contents = file_get_contents($url);
+        $contents = self::getContents($url);
         $contents = json_decode($contents, true);
         $item = $contents['items'][0];
 
@@ -115,6 +115,28 @@ class Youtube
         $video['video_duration'] = self::getVideoDuration($video['video_id']);
         $video['video_length'] = sec2hms($video['video_duration']);
         return $video;
+    }
+
+    public static function getContents($url)
+    {
+        if (function_exists('curl_init')) {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_FAILONERROR, true);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+            $data = curl_exec($ch);
+            $return_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if ($return_code != 200 && $return_code != 302 && $return_code != 304) {
+                exit($return_code . ': Invalid url');
+            }
+        } else {
+            $data = file_get_contents($url);
+        }
+
+        return $data;
     }
 
 }

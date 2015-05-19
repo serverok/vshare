@@ -60,10 +60,10 @@
             {$video.feature_request_date|date_format}
         </td>
         <td align="center">
-            <a href="?vid={$video.feature_request_video_id}&page={$page}&action=approve">
+            <a href="?vid={$video.feature_request_video_id}&page={$page}&action=approve" data-toggle="tooltip" data-placement="bottom" title="Approve">
                 <span class="glyphicon glyphicon-ok"></span>
             </a> &nbsp;
-            <a href="?vid={$video.feature_request_video_id}&page={$page}&action=del">
+            <a href="?vid={$video.feature_request_video_id}&page={$page}&action=del" data-toggle="tooltip" data-placement="bottom" title="Delete">
                 <span class="glyphicon glyphicon-trash"></span>
             </a>
         </td>
@@ -85,3 +85,11 @@
 {else}
     <h5>No feature requests found.</h5>
 {/if}
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}
