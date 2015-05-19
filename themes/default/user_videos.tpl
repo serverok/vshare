@@ -92,6 +92,8 @@
 
 {else}
 
-    <center><h4>There is no video found</h4></center>
+<div class="col-md-12">
+    <div class="alert alert-danger">There is no video found</div>
+</div>
 
 {/if}
