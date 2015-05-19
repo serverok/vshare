@@ -61,7 +61,11 @@
 	{/if}
 
 {else}
-	<center><h4>There is no friends found</h4></center>
+
+<div class="col-md-12">
+    <div class="alert alert-danger">There is no friends found</div>
+</div>
+
 {/if}
 </div>
 

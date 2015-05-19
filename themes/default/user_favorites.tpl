@@ -74,5 +74,9 @@
     {insert name=advertise adv_name='wide_skyscraper'}
 </div>
 {else}
-    <center><h4>There is no favorite video found</h4></center>
+<div class="col-md-12">
+    <div class="alert alert-danger">There is no favorite video found</div>
+</div>
+
+
 {/if}
