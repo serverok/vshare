@@ -71,8 +71,8 @@
                     {/if}
                 {/if}
             </div>
+            </div>
             <hr>
-        </div>
     {/section}
 
     {if $total gt $items_per_page}
