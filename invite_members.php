@@ -186,7 +186,7 @@ if (isset($_POST['send']) && $allow_invite == 1)
 
             for ($i = 0; $i < count($emails); $i ++)
             {
-                if (validate::email($emails[$i]))
+                if (Validate::email($emails[$i]))
                 {
                     $user_mail_today ++;
 
