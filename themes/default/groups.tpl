@@ -44,7 +44,7 @@
     </div>
 
     {if $page_links ne ""}
-        <div class="page_links">Pages: {$page_links}</div>
+        <div class="page_links">{$page_links}</div>
     {/if}
 </div>
 <div class="col-md-3">
