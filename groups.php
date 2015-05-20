@@ -141,7 +141,7 @@ if (count($group_info) == 0 && $category == 'featured') {
 $start_num = $start_from + 1;
 $end_num = $start_from + count($group_info);
 
-$page_link = Paginate::getLinks($total, $config['items_per_page'], '.', '', $page);
+$page_link = Paginate::getLinks2($total, $config['items_per_page'], '.', '', $page);
 
 $channels = Channel::get();
 
