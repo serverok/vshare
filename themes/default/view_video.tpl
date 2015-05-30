@@ -1,17 +1,37 @@
 <div class="col-md-8">
-        {insert name=advertise adv_name='player_top'}
-        <div class="embed-responsive embed-responsive-16by9">{$view.VSHARE_PLAYER}</div>
-        <div class="panel panel-default">
+    {insert name=advertise adv_name='player_top'}
+    <div class="embed-responsive embed-responsive-16by9" style="z-index: 0;">{$view.VSHARE_PLAYER}</div>
+    {insert name=advertise adv_name='player_bottom'}
+    <p></p>
+    <div class="panel panel-default">
         <div class="panel-body">
-            <h1>{$view.video_info.video_title}</h1>
-            {insert name=advertise adv_name='player_bottom'}
+            <h1 class="view-video-title">{$view.video_info.video_title}</h1>
             {if $view.owner_video_info ne ''}
-        	<p class="alert alert-info">
-        	    <label>This is a video response to <a href="{$base_url}/view/{$view.owner_video_info.video_id}/{$view.owner_video_info.video_seo_name}/">{$view.owner_video_info.video_title}</a></label>
-        	</p>
-        	{/if}
+                <p class="label label-info">This video is a response to <a href="{$base_url}/view/{$view.owner_video_info.video_id}/{$view.owner_video_info.video_seo_name}/">{$view.owner_video_info.video_title}</a></p>
+                <div class="clearfix">&nbsp;</div>
+            {/if}
 
-            <br>
+            <div>
+                <div class="col-md-2 col-sm-3 col-xs-4">
+                    <div class="row">
+                        <a class="btn padding-no" data-toggle="popover">
+                            <img src="{insert name=member_img_url assign=url UID=$view.video_info.video_user_id type=1}" width="50">
+                            {$view.user_info.user_name}
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-10 col-sm-9 col-xs-8">
+                    <div class="watch-view-count text-right">
+                        {$view.video_info.video_view_number} Views
+
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="progress watch-view-progress">
+                    <div style="width: {$view.video_info.video_view_number/20}%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{$view.video_info.video_view_number}" role="progressbar" class="progress-bar progress-bar-info pull-right"></div>
+                </div>
+            </div>
+            <div class="clearfix">&nbsp;</div>
 
             <div class="btn-toolbar" role="toolbar">
                     <div class="btn-group">
@@ -64,12 +84,6 @@
                 <div class="btn-group" role="group">
                     {insert name=video_like assign=like id=$view.video_info.video_id}{$like}
                 </div>
-                <div class="watch-view-count pull-right">
-                    {$view.video_info.video_view_number} Views
-                    <div class="progress">
-                        <div style="width: {$view.video_info.video_view_number/20}%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{$view.video_info.video_view_number}" role="progressbar" class="progress-bar progress-bar-info"></div>
-                    </div>
-                </div>
             </div>
             <div class="clearfix">&nbsp;</div>
             <div id="video-tools-result" class="alert" role="alert" style="display: none;"></div>
@@ -85,67 +99,59 @@
             <div id="video-tools-share" style="display: none;">
                 {include file="view_video_share.tpl"}
             </div>
-
-        <div class="row">
-            <div class="col-md-2">
-                <a href="{$base_url}/{$view.user_info.user_name}">
-                {insert name=member_img UID=$view.video_info.video_user_id}
-                </a>
-            </div>
-
-            <div class="col-md-10">
-                <strong>
-                <span class="glyphicon glyphicon-user"></span> Added on {$view.video_info.video_add_date|date_format} by
-                <a class="" role="button" tabindex="0" data-toggle="popover">
-                {$view.user_info.user_name} <span class="caret"></span></a>
-                </strong>
-                <br>
-                <span class="glyphicon glyphicon-time"></span> Length:<strong> {$view.video_info.video_length}</strong> |
-                <span class="glyphicon glyphicon-comment"></span> Comments: <strong>{$view.video_info.video_com_num}</strong><br>
-                <span class="glyphicon glyphicon-film"></span> Channels :
-                <strong>{insert name=video_channel assign=channel vid=$view.video_info.video_id}
-                {section name=k loop=$channel}
-                <a href="{$base_url}/channel/{$channel[k].channel_id}/{$channel[k].channel_seo_name}/">{$channel[k].channel_name}</a> &nbsp;
-                {/section}</strong>
-            </div>
         </div>
-            <script>
-            $(function () {
-                $('[data-toggle="popover"]').popover({
-                    placement: 'bottom',
-                    trigger: 'click',
-                    html: 'true',
-                    title: '<h4><strong>{$view.user_info.user_name}</strong></h4>',
-                    content: $("#user-details-container").html()
-                });
-                $(".btn-video-share").click(function(){
-                    $("#video-tools-share").slideToggle('fast');
-                });
-            });
-            </script>
-            <div class="hidden" id="user-details-container">
-                {include file="view_video_user_details.tpl"}
-            </div>
+    </div>
 
-            <hr>
-            <p class="text-justify">{$view.video_info.video_description}</p>
-            <p><strong><span class="glyphicon glyphicon-tags"></span> Tags :</strong>
+    <div class="hidden" id="user-details-container">
+        {include file="view_video_user_details.tpl"}
+    </div>
+    <script>
+    $(function () {
+        $('[data-toggle="popover"]').popover({
+            placement: 'right',
+            trigger: 'click',
+            html: 'true',
+            content: $("#user-details-container").html()
+        });
+        $(".btn-video-share").click(function(){
+            $("#video-tools-share").slideToggle('fast');
+        });
+    });
+    </script>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p><strong><span class="glyphicon glyphicon-upload"></span>Added on {$view.video_info.video_add_date|date_format}</strong></p>
+            <p>
+                <span class="glyphicon glyphicon-time"></span> Length:<strong> {$view.video_info.video_length}</strong> |
+                <span class="glyphicon glyphicon-comment"></span> Comments: <strong>{$view.video_info.video_com_num}</strong>
+            </p>
+            <p class="text-justify view-video-desc">{$view.video_info.video_description}</p>
+            <p>
+                <span class="glyphicon glyphicon-film"></span> Channels:
+                {insert name=video_channel assign=channel vid=$view.video_info.video_id}
+                {section name=k loop=$channel}
+                    <a href="{$base_url}/channel/{$channel[k].channel_id}/{$channel[k].channel_seo_name}/">{$channel[k].channel_name}</a> &nbsp;
+                {/section}
+            </p>
+            <p>
+                <span class="glyphicon glyphicon-tags"></span> Tags:
                 {section name=j loop=$view.tags}
                     <a href="{$base_url}/tag/{$view.tags[j]}/">{$view.tags[j]}</a>&nbsp;
                 {/section}
             </p>
+        </div>
+    </div>
 
-            <hr>
-
+    <div class="panel panel-default">
+        <div class="panel-body">
             {insert name=video_response_count video_id=$view.video_info.video_id assign=response_count}
-            <div class="page-header">
-                <h2>
-                    Video Responses (<a href="{$base_url}/response/{$view.video_info.video_id}/videos/1">{$response_count}</a>)
-                    <small class="pull-right font-size-md btn">
-                        <a href="{$base_url}/video_response_upload/{$view.video_info.video_id}">Post Video Response</a>
-                    </small>
-                </h2>
-            </div>
+            <h2>
+                Video Responses (<a href="{$base_url}/response/{$view.video_info.video_id}/videos/1">{$response_count}</a>)
+                <small class="pull-right font-size-md btn">
+                    <a href="{$base_url}/video_response_upload/{$view.video_info.video_id}">Post Video Response</a>
+                </small>
+            </h2>
 
             <div class="row">
                 {section name=i loop=$view.video_responses}
@@ -176,9 +182,7 @@
                 {/section}
             </div>
 
-            <div class="page-header">
-                <h2>Comments: (<span>{$view.video_info.video_com_num}</span>)</h2>
-            </div>
+            <h2>Comments: (<span>{$view.video_info.video_com_num}</span>)</h2>
 
             {if $view.video_info.video_allow_comment eq "yes"}
                 <div id="comment_box">
@@ -196,7 +200,7 @@
             <div id="comment_post_result" class="alert alert-success" style="display: none;"></div>
             <div id="section_comment"></div>
         </div>
-        </div>
+    </div>
 </div>
 
 <div class="col-md-4">

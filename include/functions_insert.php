@@ -554,6 +554,41 @@ function insert_member_img($a)
     }
 }
 
+function insert_member_img_url($a)
+{
+    global $config , $servers;
+
+    $user_id = $a['UID'];
+    $photo_type = isset($a['type']) ? $a['type'] : 0;
+    $sql = "SELECT `user_photo` FROM `users` WHERE
+           `user_id`='" . (int) $user_id . "'";
+    $user_info = DB::fetch1($sql);
+
+    $src_url = IMG_CSS_URL . '/images/no_pic.gif';
+
+    if ($user_info['user_photo'] == 1) {
+        if ($photo_type == 1) {
+            $src_url = VSHARE_URL . '/photo/1_' . $user_id . '.jpg';
+        } else {
+            $src_url = VSHARE_URL . '/photo/' . $user_id . '.jpg';
+        }
+    } else {
+        $sql = "SELECT `video_id`, `video_folder`, `video_thumb_server_id` FROM `videos` WHERE
+               `video_user_id`='" . (int) $user_id . "' AND
+               `video_active`=1 AND
+               `video_approve`=1
+                ORDER BY `video_id` DESC
+                LIMIT 1";
+        $user_recent_video = DB::fetch1($sql);
+
+        if ($user_recent_video) {
+            $src_url = $servers[$user_recent_video['video_thumb_server_id']] . '/thumb/' . $user_recent_video['video_folder'] . '1_' . $user_recent_video['video_id'] . '.jpg';
+        }
+    }
+
+    echo $src_url;
+}
+
 function insert_check_group_mem($a)
 {
     global $conn;
