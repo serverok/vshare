@@ -5,7 +5,7 @@
 
 <div class="row">
     {section name=i loop=$channels}
-    <div class="col-sm-6 col-md-3 channel">
+    <div class="col-orient-ls col-sm-6 col-md-3 channel">
         <div class="thumbnail">
             <div class="preview">
                 <a href="{$base_url}/channel/{$channels[i].channel_id}/{$channels[i].channel_seo_name}/">

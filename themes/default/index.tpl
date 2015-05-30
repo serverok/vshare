@@ -39,7 +39,7 @@
 <div class="panel-body">
     <div class="row">
     {section name=i loop=$view.new_videos}
-        <div class="col-sm-6 col-md-4">
+        <div class="col-orient-ls col-sm-6 col-md-4">
                 <div class="preview">
                     <a href="{$base_url}/view/{$view.new_videos[i].video_id}/{$view.new_videos[i].video_seo_name}/">
                         <img class="img-responsive" width="100%" height="130" src="{$view.new_videos[i].video_thumb_url}/thumb/{$view.new_videos[i].video_folder}1_{$view.new_videos[i].video_id}.jpg" alt="{$view.new_videos[i].video_title}" />
@@ -74,7 +74,7 @@
 <div class="panel-body">
     <div class="row">
     {section name=i loop=$view.recent_videos}
-        <div class="col-sm-6 col-md-4">
+        <div class="col-orient-ls col-sm-6 col-md-4">
                 <div class="preview">
                     <a href="{$base_url}/view/{$view.recent_videos[i].video_id}/{$view.recent_videos[i].video_seo_name}/">
                         <img class="img-responsive" width="100%" height="130" src="{$view.recent_videos[i].video_thumb_url}/thumb/{$view.recent_videos[i].video_folder}1_{$view.recent_videos[i].video_id}.jpg" alt="{$view.recent_videos[i].video_title}" />

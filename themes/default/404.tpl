@@ -14,7 +14,7 @@
     </div>
     <div class="row">
         {section name=i loop=$video_info}
-	        <div class="col-sm-4 col-md-3">
+	        <div class="col-orient-ls col-sm-4 col-md-3">
                 <div class="thumbnail">
                     <div class="preview">
                         <a href="{$base_url}/view/{$video_info[i].video_id}/{$video_info[i].video_seo_name}/">

@@ -12,7 +12,7 @@
     <div class="row">
         {section name=i loop=$group_members}
     		{if $smarty.session.UID eq $group_info.group_owner_id or $group_members[i].group_member_approved eq "yes"}
-                <div class="col-sm-6 col-md-4">
+                <div class="col-orient-ls col-sm-6 col-md-4">
                     <div class="thumbnail">
                         {insert name=member_img UID=$group_members[i].group_member_user_id}
     					<div class="caption">

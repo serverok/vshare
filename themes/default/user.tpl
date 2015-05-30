@@ -224,7 +224,7 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
             {section name=i loop=$groups start=0 max=6}
             {insert name=group_image assign=group_image_info gid=$groups[i].group_id tbl=group_videos}
             {insert name=time_to_date assign=todate tm=$groups[i].group_create_time}
-            <div class="col-md-6 col-sm-6">
+            <div class="col-orient-ls col-md-6 col-sm-6">
                     <div class="thumbnail">
                         <a href="{$base_url}/group/{$groups[i].group_url}/">
                         {if $group_image_info eq "0"}
@@ -286,7 +286,7 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
         <div class="panel-body">
             <div class="row">
                 {section name=i loop=$new_video start=0 max=3}
-                <div class="col-md-4 col-sm-6">
+                <div class="col-orient-ls col-md-4 col-sm-6">
                     <div class="preview">
                         <a href="{$base_url}/view/{$new_video[i].video_id}/{$new_video[i].video_seo_name}/">
                         <img class="img-response" width="100%" src="{$new_video[i].video_thumb_url}/thumb/{$new_video[i].video_folder}1_{$new_video[i].video_id}.jpg" alt="{$new_videos[i].video_title}">
@@ -317,7 +317,7 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
         <div class="panel-body">
             <div class="row">
                 {section name=i loop=$popular start=0 max=3}
-                <div class="col-md-4 col-sm-6">
+                <div class="col-orient-ls col-md-4 col-sm-6">
                     <div class="preview">
                         <a href="{$base_url}/view/{$popular[i].video_id}/{$popular[i].video_seo_name}/">
                         <img class="img-responsive" width="100%" src="{$popular[i].video_thumb_url}/thumb/{$popular[i].video_folder}1_{$popular[i].video_id}.jpg" alt="{$popular[i].video_title}">
@@ -348,7 +348,7 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
 <div class="panel-body">
     <div class="row">
         {section name=i loop=$user_friends start=0 max=4}
-            <div class="col-md-3 col-sm-4">
+            <div class="col-orient-ls col-md-3 col-sm-4">
                 <div class="thumbnail">
                     <a href="{$base_url}/{$user_friends[i].friend_name}">
                         {insert name=member_img UID=$user_friends[i].friend_friend_id}

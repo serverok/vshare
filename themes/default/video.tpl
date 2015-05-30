@@ -54,7 +54,7 @@
         {if $smarty.request.view_type eq "" or $smarty.request.view_type eq "basic"}
         <div class="row">
             {section name=i loop=$view.videos}
-            <div class="col-sm-6 col-md-4">
+            <div class="col-orient-ls col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <div class="preview">
                         <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
@@ -99,7 +99,7 @@
 
             {section name=i loop=$view.videos}
                <div class="row">
-                    <div class="col-sm-6 col-md-4">
+                    <div class="col-orient-ls col-sm-6 col-md-4">
                         <div class="thumbnail">
                             <div class="preview">
                                 <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-8">
+                    <div class="col-orient-ls col-sm-6 col-md-8">
                         <h4>
                             <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">{$view.videos[i].video_title}</a>
                             <br>

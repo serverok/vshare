@@ -8,7 +8,7 @@
     </div>
     <div class="row">
         {section name=i loop=$friends}
-            <div class="col-md-4 col-sm-6">
+            <div class="col-orient-ls col-md-4 col-sm-6">
                 <div class="thumbnail">
                     <a href="{$base_url}/{$friends[i].friend_name}">
                         {insert name=member_img UID=$friends[i].friend_friend_id}
