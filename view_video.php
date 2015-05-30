@@ -205,7 +205,7 @@ if (isset($show_video) && $show_video == 1 && $err == '') {
         $owner_video_info = DB::fetch1($sql);
         $view['owner_video_info'] = $owner_video_info;
 
-        $sql = "SELECT `user_name`,`user_website` FROM `users` WHERE
+        $sql = "SELECT `user_name`,`user_website`,`user_about_me` FROM `users` WHERE
                `user_id`='" . (int) $video_info['video_user_id'] . "'";
         $user_info = DB::fetch1($sql);
         $view['user_info'] = $user_info;

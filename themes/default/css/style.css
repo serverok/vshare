@@ -353,10 +353,10 @@ img.preview {
 .watch-view-count {
     color: #666;
     font-size: 19px;
-    line-height: 24px;
+    line-height: 45px;
 }
 
-.watch-view-count .progress {
+.watch-view-progress {
     height: 3px;
     margin-bottom: 0;
 }
@@ -371,4 +371,15 @@ footer {
         float: left;
         width: 50%;
     }
+}
+.view-video-title {
+    font-size: 25px;
+    margin-top: 10px;
+}
+.padding-no {
+    padding: 0;
+}
+.view-video-desc {
+    color: #484848;
+    font-size: 13px;
 }
