@@ -12,7 +12,7 @@
             {insert name=group_image assign=group_image_info gid=$group_info[i].group_id tbl=group_videos}
             {insert name=group_info_count assign=gmemcount tbl=group_members gid=$group_info[i].group_id query="1" field1=group_member_approved field2=group_member_group_id}
             {insert name=group_info_count assign=gvdocount tbl=group_videos gid=$group_info[i].group_id query="1" field1=group_video_approved field2=group_video_group_id}
-            <div class="col-sm-6 col-md-4">
+            <div class="col-orient-ls col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <a href="{$base_url}/group/{$group_info[i].group_url}/">
                         {if $group_image_info eq "0"}

@@ -365,3 +365,10 @@ footer {
     border-top: 1px solid #ddd;
     padding: 20px 0;
 }
+
+@media all and (max-width: 768px) and (orientation: landscape) {
+    .col-orient-ls {
+        float: left;
+        width: 50%;
+    }
+}

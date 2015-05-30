@@ -8,7 +8,7 @@
     <div class="row">
         {section name=i loop=$most_active_users}
         {insert name=id_to_name assign=user_name un=$most_active_users[i].video_user_id}
-        <div class="col-sm-6 col-md-3">
+        <div class="col-orient-ls col-sm-6 col-md-3">
             <div class="thumbnail">
                 <a href="{$base_url}/{$user_name}">
                     {insert name=member_img UID=$most_active_users[i].video_user_id}
@@ -37,7 +37,7 @@
 
     <div class="row">
     	{section name=i loop=$recent_channel_videos}
-            <div class="col-sm-6 col-md-3">
+            <div class="col-orient-ls col-sm-6 col-md-3">
                 <div class="thumbnail">
                     <div class="preview">
                         <a href="{$base_url}/view/{$recent_channel_videos[i].video_id}/{$recent_channel_videos[i].video_seo_name}/">
@@ -91,7 +91,7 @@
 
     <div class="row">
     	{section name=i loop=$mostview}
-            <div class="col-sm-6 col-md-3">
+            <div class="col-orient-ls col-sm-6 col-md-3">
                 <div class="thumbnail">
                     <div class="preview">
                         <a href="{$base_url}/view/{$mostview[i].video_id}/{$mostview[i].video_seo_name}/">

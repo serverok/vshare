@@ -51,7 +51,7 @@
 
             {section name=i loop=$friends}
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-orient-ls col-sm-6 col-md-4">
                         <div class="thumbnail">
                             {if $friends[i].friend_id ne ''}
                                 <a href="{$base_url}/{$friends[i].friend_name}">
@@ -60,7 +60,7 @@
                             {/if}
                         </div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-orient-ls col-sm-6 col-md-8">
                         <label>
                             <input id="AID[]" type="checkbox" value="{$friends[i].friend_id}" name="AID[]">
                             {if $friends[i].friend_status eq "Confirmed"}

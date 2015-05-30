@@ -11,7 +11,7 @@
 
     {section name=i loop=$favorite_videos}
         <div class="row">
-            <div class="col-sm-6 col-md-4">
+            <div class="col-orient-ls col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <div class="preview">
                         <a href="{$base_url}/view/{$favorite_videos[i].video_id}/{$favorite_videos[i].video_seo_name}/">

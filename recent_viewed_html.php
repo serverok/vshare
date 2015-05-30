@@ -58,7 +58,7 @@ echo '
                 $video_url = VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '/';
                 $thumb_url = $servers[$video['video_thumb_server_id']] . '/thumb/' . $video['video_folder'] . '1_' . $video['video_id'] . '.jpg';
                 echo '
-                <div class="col-md-4 col-sm-4">
+                <div class="col-orient-ls col-md-4 col-sm-4">
                     <a href="' . VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '">
                     <div class="preview">
                         <img class="img-responsive" src="' . $thumb_url . '" width="100%">

@@ -13,7 +13,7 @@
             {insert name=group_info_count assign=gtpscount tbl=group_topics gid=$group_info.group_id query="1" field1=group_topic_approved field2=group_topic_group_id}
             {insert name=check_group_mem assign=checkmem gid=$group_info.group_id}
             {insert name=group_image assign=group_image_info gid=$group_info.group_id tbl=group_videos}
-            <div class="col-sm-6 col-md-4">
+            <div class="col-orient-ls col-sm-6 col-md-4">
                 <div class="thumbnail">
                 {if $group_image_info eq "0"}
                     <img class="img-responsive" src="{$img_css_url}/images/no_videos_groups.gif" width="100%" alt="">
@@ -22,7 +22,7 @@
                 {/if}
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6">
+            <div class="col-orient-ls col-sm-6 col-md-6">
                 <p class="text-muted small">{$group_info.group_description}</p>
                 {insert name=id_to_name assign=uname un=$group_info.group_owner_id}
                 <p class="text-muted small">
@@ -71,6 +71,7 @@
                     <a href="{$base_url}/group/{$group_info.group_url}/">{$base_url}/group/{$group_info.group_url}/</a>
                 </p>
             </div>
+            <div class="clearfix"></div>
             <div class="col-md-2">
                 {if $smarty.session.UID ne $group_info.group_owner_id}
                     <form method="GET" action="{$base_url}/group_join.php">
@@ -130,7 +131,7 @@
 
         <div class="row">
             {section name=i loop=$group_videos}
-                <div class="col-sm-6 col-md-4">
+                <div class="col-orient-ls col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <div class="preview">
                             <a href="{$base_url}/view/{$group_videos[i].video_id}/{$group_videos[i].video_seo_name}/">
@@ -163,7 +164,7 @@
 
         <div class="row">
             {section name=i loop=$group_members}
-                <div class="col-sm-6 col-md-4">
+                <div class="col-orient-ls col-sm-6 col-md-4">
                     <div class="thumbnail">
                         {insert name=id_to_name assign=uname un=$group_members[i].user_id}
                         <a href="{$base_url}/{$uname}/">

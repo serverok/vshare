@@ -149,7 +149,7 @@
 
             <div class="row">
                 {section name=i loop=$view.video_responses}
-                    <div class="col-md-4 col-sm-6">
+                    <div class="col-orient-ls col-md-4 col-sm-6">
                         <div class="thumbnail">
                             <div class="preview">
                                 <a href="{$base_url}/view/{$view.video_responses[i].video_id}/{$view.video_responses[i].video_seo_name}/" title="{$view.video_responses[i].video_title}">

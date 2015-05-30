@@ -23,7 +23,7 @@
 
     <div class="row">
         {section name=i loop=$members}
-            <div class="col-sm-6 col-md-4">
+            <div class="col-orient-ls col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <a href="{$base_url}/{$members[i].user_name}/">
                         <img class="preview" src="{$members[i].photo_url}" alt="{$members[i].user_name}" />
