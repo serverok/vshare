@@ -1,6 +1,6 @@
 <?php
 
-$vshare_version = '2.9';
+$vshare_version = '3.0';
 date_default_timezone_set('GMT');
 set_time_limit(0);
 

@@ -31,7 +31,8 @@ $vshare_versions = array(
     '2.7',
     '2.8',
     '2.8.1',
-    '2.9'
+    '2.9',
+    '3.0',
 );
 
 if (! in_array($config['version'], $vshare_versions))
@@ -80,6 +81,9 @@ switch ($config['version'])
         $redirect_url = VSHARE_URL . '/install/upgrade_2.8.1_to_2.9.php';
         break;
     case '2.9':
+        $redirect_url = VSHARE_URL . '/install/upgrade_2.9_to_3.0.php';
+        break;
+    case '3.0':
         $redirect_url = VSHARE_URL . '/install/upgrade_finished.php';
         break;
     default:
