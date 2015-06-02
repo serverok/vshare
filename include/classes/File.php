@@ -38,6 +38,9 @@ class File
             $md5hash_sd = str_replace('=', '', strtr(base64_encode($md5hash_sd), '+/', '-_'));
             $file_url =  $server_info['url'] . '/media/' . $md5hash_sd . ',' .$time . $file_uri;
         }
+        else if ($server_info['server_type'] == 0 && $server_id != 0) {
+            $file_url = $server_info['url'] . '/' . $folder . $name;
+        }
         else
         {
             $file_url = VSHARE_URL . '/flvideo/' . $folder . $name;
