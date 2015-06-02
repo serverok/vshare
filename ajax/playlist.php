@@ -34,38 +34,60 @@ if ($action == 'create_playlist') {
         exit(0);
     }
 } else if ($action == 'show_playlist') {
+    $video_id = isset($_GET['video_id']) ? (int) $_GET['video_id'] : 0;
+
+    if ($video_id == 0) {
+        $err = $lang['playlist_vid_invalid'];
+        Ajax::returnJson($err, 'error');
+        exit(0);
+    }
+
     $sql = "SELECT * FROM `playlists` WHERE
            `playlist_user_id`='" . (int) $_SESSION['UID'] . "'
             ORDER BY `playlist_id` DESC";
     $user_playlists = DB::fetch($sql);
 
-    $return = '<div id="pl_lists" class="list-group">';
-    foreach ($user_playlists as $playlist) {
-        $return .= '<a href="#" class="list-group-item" id="' . (int) $playlist['playlist_id'] . '" rel="pl_items">' . $playlist['playlist_name'] . '</a>';
+    $return = '
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" onclick="video_add_favorite(' . $video_id . ');">
+                <span class="glyphicon glyphicon-heart"></span> Favorites
+            </a>
+        </li>
+        <li role="presentation" class="divider"></li>';
+    if (count($user_playlists)) {
+        foreach ($user_playlists as $playlist) {
+            $return .= '
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" id="' . (int) $playlist['playlist_id'] . '" rel="pl-items">
+                    <span class="glyphicon glyphicon-play"></span> ' . $playlist['playlist_name'] . '
+                </a>
+            </li>';
+        }
+        $return .= '<li role="presentation" class="divider"></li>';
     }
 
     $return .= '
-    <span class="list-group-item">
-        <span id="create_pl" class="text-nowrap">Create a new playlist...</span>
-        <span id="pl_txt_box" style="display: none;">
+    <li role="presentation">
+        <a id="create_pl" class="text-nowrap">Create new playlist</a>
+        <span id="pl_txt_box" class="col-md-12" style="display: none;">
             <form id="pl-frm" action="javascript:void(0);" onsubmit="javascript:create_playlist();">
-                <input type="text" name="playlist_name" id="playlist_name" class="form-control" onclick=";return false;">
+                <input type="text" name="playlist_name" id="playlist_name" class="form-control" onclick="return false;">
             </form>
         </span>
-    </div>';
+    </li>';
 
     $return .= '
     <script type="text/javascript">
-        $("#pl_lists *").click(function(){ return false; });
         $("#create_pl").click(function(){
            $(this).remove();
            $("#pl_txt_box").show();
            $("#playlist_name").focus();
+           return false;
         });
-        $("#pl_lists a[rel=pl_items]").each(function(){
+        $(".pl-lists a[rel=pl-items]").each(function(){
             $(this).click(function(){
                 add_video_playlist($(this).attr("id"));
-                $("#show_playlists").hide();
+                return true;
             });
         });
     </script>';
