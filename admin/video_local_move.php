@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
 
     $ftp_config = array();
     $ftp_config['must_upload'] = 0;
-    $ftp_config['debug'] = $debug;
+    $ftp_config['debug'] = $config['debug'];
     $ftp = new Ftp();
 
     for ($i = 0; $i < count($videos); $i ++) {
@@ -41,5 +41,8 @@ if (isset($_POST['submit'])) {
 }
 
 DB::close();
-$redirect_url = VSHARE_URL . '/admin/video_local.php';
-Http::redirect($redirect_url);
+
+if ($config['debug'] == 0) {
+    $redirect_url = VSHARE_URL . '/admin/video_local.php';
+    Http::redirect($redirect_url);
+}
