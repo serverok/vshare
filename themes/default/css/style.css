@@ -383,3 +383,18 @@ footer {
     color: #484848;
     font-size: 13px;
 }
+.details-collapse {
+    height: 120px;
+    overflow: hidden;
+    position: relative;
+}
+.details-expand {
+    height: auto;
+}
+.btn-collapse-expand {
+    background-color: #FFFFFF;
+    bottom: 0;
+    cursor: pointer;
+    position: absolute;
+    width: 100%;
+}

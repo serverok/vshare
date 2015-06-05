@@ -117,7 +117,7 @@
     });
     </script>
 
-    <div class="panel panel-default">
+    <div class="panel panel-default details-collapse">
         <div class="panel-body">
             <p><strong><span class="glyphicon glyphicon-upload"></span>Added on {$view.video_info.video_add_date|date_format}</strong></p>
             <p>
@@ -138,8 +138,18 @@
                     <a href="{$base_url}/tag/{$view.tags[j]}/">{$view.tags[j]}</a>&nbsp;
                 {/section}
             </p>
+            <div class="btn-collapse-expand text-center">
+                <div class="label label-default">SHOW MORE <span class="glyphicon glyphicon-menu-down"></span></div>
+                <div class="label label-default hidden">SHOW LESS <span class="glyphicon glyphicon-menu-up"></span></div>
+            </div>
         </div>
     </div>
+    <script>
+    $(".btn-collapse-expand").on("click", function(){
+        $(".details-collapse").toggleClass("details-expand");
+        $(".btn-collapse-expand div").toggleClass("hidden");
+    });
+    </script>
 
     <div class="panel panel-default">
         <div class="panel-body">
