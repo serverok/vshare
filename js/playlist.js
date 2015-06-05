@@ -1,26 +1,13 @@
-$("#playlist-form-btn").click(function(){
-	if ($("#show_playlists").is(':hidden')) {
-		$("#show_playlists").show();
-		show_playlists();
-		return false;
-	} else {
-		$("#video_playlist_form").slideUp('fast');
-		$("#show_playlists").hide();
-	}
-});
-
-$(document).click(function(){
-	$("#show_playlists").hide();
+$(".dropdown-pl").on("shown.bs.dropdown", function(){
+    show_playlists();
 });
 
 function create_playlist() {
 	var playlist_name = $("form#pl-frm input#playlist_name").val();
 
 	if (playlist_name == '') {
-		return false;
+		return true;
 	}
-
-	$("#show_playlists").hide();
 
 	var sUrl = baseurl + "/ajax/playlist.php";
 	var postData = "action=create_playlist&playlist_name=" + playlist_name;
@@ -54,13 +41,14 @@ function create_playlist() {
 			//$("#video-tools-result").html('connection failed').show();
 		}
 	});
+    $(".dropdown-pl").toggleClass('open');
+    return true;
 }
 
 function show_playlists() {
-	$("#show_playlists").html('<img src="' + baseurl + '/templates/images/loading.gif" />');
-
+    $(".dropdown-pl .pl-lists").html('<img src="' + baseurl + '/templates/images/loading.gif" />');
 	var sUrl = baseurl + "/ajax/playlist.php";
-	var postData = "action=show_playlist&user_id=" + user_id;
+	var postData = "action=show_playlist&user_id=" + user_id + "&video_id=" + vid;
 
 	$.ajax({
 	    type: "GET",
@@ -74,9 +62,9 @@ function show_playlists() {
                     .addClass("alert-danger")
                     .text(msg.message)
                     .fadeIn("slow");
-                $("#show_playlists").hide();
+                $(".pl-lists").hide();
             } else {
-                $("#show_playlists").html(msg.message).show();
+                $(".pl-lists").html(msg.message);
             }
 		},
 	    error: function() {
@@ -123,4 +111,5 @@ function add_video_playlist(pl_id) {
 			//$("#video-tools-result").html('connection failed').show();
 		}
 	});
+    return true;
 }

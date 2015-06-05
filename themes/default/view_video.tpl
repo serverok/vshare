@@ -34,16 +34,14 @@
             <div class="clearfix">&nbsp;</div>
 
             <div class="btn-toolbar" role="toolbar">
-                    <div class="btn-group">
-                        <a class="btn btn-default" href="javascript:void(0);" onclick="video_add_favorite({$view.video_info.video_id});">
-                            <span class="glyphicon glyphicon-heart"></span> Add to Favorites
-                        </a>
-                        <div class="btn-group" role="group">
-                            <a class="btn btn-default dropdown-toggle" id="playlist-form-btn" data-toggle="dropdown" aria-expanded="false">
-                                <span class="glyphicon glyphicon-play-circle"></span> Add to Playlist <span class="caret"></span>
-                            </a>
-                            <div id="show_playlists" class="dropdown-menu" role="menu"></div>
-                        </div>
+                <div class="btn-group">
+                    <div class="btn-group dropdown-pl">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-plus"></span> Add to <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pl-lists" role="menu" aria-labelledby="playlist-form-btn">
+                        </ul>
+                    </div>
                         <a class="btn btn-default btn-video-share" href="javascript:void(0);">
                             <span class="glyphicon glyphicon-share"></span> Share
                         </a>
