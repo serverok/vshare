@@ -66,7 +66,7 @@ if ($err == '') {
 
         $start_from = ($page - 1) * $config['items_per_page'];
         $sql_limit = " LIMIT $start_from, $config[items_per_page]";
-        $sql_select_fields = "`video_id`,`video_user_id`,`video_title`,`video_description`,`video_seo_name`,`video_length`,`video_com_num`,`video_view_number`,`video_rate`,`video_rated_by`,`video_thumb_server_id`,`video_folder`";
+        $sql_select_fields = "`video_id`,`video_user_id`,`video_title`,`video_description`,`video_seo_name`,`video_length`,`video_com_num`,`video_view_number`,`video_rate`,`video_rated_by`,`video_thumb_server_id`,`video_folder`,`video_add_time`";
 
         if ($fulltext_search) {
             $sql = "SELECT  $sql_select_fields , MATCH (`video_title`,`video_description`,`video_keywords`) AGAINST ('" . DB::quote($search_string) . "' IN BOOLEAN MODE) AS `relevance` FROM `videos`
