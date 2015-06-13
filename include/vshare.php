@@ -15,10 +15,10 @@ $config['TMB_DIR'] = VSHARE_DIR . '/thumb';
 require VSHARE_DIR . '/include/smarty/libs/Smarty.class.php';
 
 $smarty = new Smarty();
-if (!isset($config['theme'])) {
-    $smarty->template_dir = VSHARE_DIR . '/templates';
+if (defined('ADMIN_AREA')) {
+    $smarty->template_dir = VSHARE_DIR . '/themes';
 } else {
-    if (defined('ADMIN_AREA')) {
+    if (! isset($config['theme'])) {
         $smarty->template_dir = VSHARE_DIR . '/templates';
     } else {
         $smarty->template_dir = VSHARE_DIR . '/themes/' . $config['theme'];
