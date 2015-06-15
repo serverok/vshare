@@ -186,14 +186,18 @@ if (isset($show_video) && $show_video == 1 && $err == '') {
             }
 
             if ($config['allow_download'] == 1) {
-                $sql = "SELECT `pack_id` FROM `subscriber` WHERE
-	                   `UID`='" . (int) $_SESSION['UID'] . "'";
-                $subscriber_info = DB::fetch1($sql);
+                if ($config['enable_package'] == 'yes') {
+                    $sql = "SELECT `pack_id` FROM `subscriber` WHERE
+                           `UID`='" . (int) $_SESSION['UID'] . "'";
+                    $subscriber_info = DB::fetch1($sql);
 
-                $sql = "SELECT `package_allow_download` FROM `packages` WHERE
-	                   `package_id`='" . (int) $subscriber_info['pack_id'] . "'";
-                $package_info = DB::fetch1($sql);
-                $package_allow_video_download = $package_info['package_allow_download'];
+                    $sql = "SELECT `package_allow_download` FROM `packages` WHERE
+                           `package_id`='" . (int) $subscriber_info['pack_id'] . "'";
+                    $package_info = DB::fetch1($sql);
+                    $package_allow_video_download = $package_info['package_allow_download'];
+                } else {
+                    $package_allow_video_download = 1;
+                }
             }
         }
 
