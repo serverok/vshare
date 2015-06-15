@@ -10,13 +10,13 @@ CREATE TABLE IF NOT EXISTS `adv` (
 
 -- Dumping data for table `adv`
 
-INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(1, 'banner_top', '<div  align="center" style="border:1px solid blue;width:728px;height:90px;margin:auto;line-height:80px;color:#0000FF; font-size:20px;">\r\nTo Replace This Advertisement , Go To Admin > Advertise Settings \r\n</div>\r\n\r\n', 'Active');
-INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(2, 'banner_bottom', '<div  align="center" style="border:1px solid blue;width:728px;height:90px;margin:auto;line-height:80px;color:#0000FF; font-size:20px;">\r\nTo Replace This Advertisement , Go To Admin > Advertise Settings \r\n</div>\r\n\r\n', 'Active');
-INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(3, 'home_right_box', '<div style="background-color: #000; width: 180px;	color: #FFF; font-weight: bold; text-align: center; margin: 0px auto;">PUT ADVT HERE</div>', 'Active');
-INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(4, 'video_right_single', '<TABLE CELLPADDING=0 CELLSPACING=0 BORDER=0 WIDTH=100% BGCOLOR=#000000>\r\n<TR>\r\n<TD >\r\n<FONT color=white>PUT ADVT HERE</font>\r\n</TD>\r\n</TR>\r\n</TABLE>', 'Active');
-INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(5, 'wide_skyscraper', '    <div align="center" style="border: 1px solid blue; margin: auto; width: 160px; height: 600px; line-height: 45px; color: rgb(0, 0, 255); font-size: 20px;">\r\n        To Replace This Advertisement , Go To Admin > Advertise Settings \r\n    </div>', 'Active');
-INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(6, 'player_top', '<div align="center"><img src="http://adserver.bizhat.com/banners/vshare_1.gif" width="468" height="60" alt="advertisement" /></div>', 'Inactive');
-INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(7, 'player_bottom', '<div align="center"><img src="http://adserver.bizhat.com/banners/vshare_1.gif" width="468" height="60" alt="advertisement" /></div>', 'Inactive');
+INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(1, 'banner_top', '<p><a href="http://buyscripts.in/docs/vshare/3.0/advertisements" target="_blank"><img src="/themes/default/images/placeholder-horizontal.png" width="100%" height="100px"></a></p>', 'Active');
+INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(2, 'banner_bottom', '<p><a href="http://buyscripts.in/docs/vshare/3.0/advertisements" target="_blank"><img src="/themes/default/images/placeholder-horizontal.png" width="100%" height="100px"></a></p>', 'Active');
+INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(3, 'home_right_box', '<p><a href="http://buyscripts.in/docs/vshare/3.0/advertisements" target="_blank"><img src="/themes/default/images/placeholder-vertical.png" width="100%"></a></p>', 'Active');
+INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(4, 'video_right_single', '<p><a href="http://buyscripts.in/docs/vshare/3.0/advertisements" target="_blank"><img src="/themes/default/images/placeholder-vertical.png" width="100%" height="300px"></a></p>', 'Active');
+INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(5, 'wide_skyscraper', '<p><a href="http://buyscripts.in/docs/vshare/3.0/advertisements" target="_blank"><img src="/themes/default/images/placeholder-vertical.png" width="100%" height="500px"></a></p>', 'Active');
+INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(6, 'player_top', '<p><a href="http://buyscripts.in/docs/vshare/3.0/advertisements" target="_blank"><img src="/themes/default/images/placeholder-horizontal.png" width="100%" height="50px"></a></p>', 'Inactive');
+INSERT INTO `adv` (`adv_id`, `adv_name`, `adv_text`, `adv_status`) VALUES(7, 'player_bottom', '<p><a href="http://buyscripts.in/docs/vshare/3.0/advertisements" target="_blank"><img src="/themes/default/images/placeholder-horizontal.png" width="100%" height="50px"></a></p>', 'Inactive');
 
 -- Table structure for table `buddy_list`
 
