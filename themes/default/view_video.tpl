@@ -212,7 +212,7 @@
 </div>
 
 <div class="col-md-4">
-    <div class="clearfix">&nbsp;</div>
+    <!-- <div class="clearfix">&nbsp;</div> -->
 
     <div class="section bg2">
         {insert name=advertise adv_name='video_right_single'}
