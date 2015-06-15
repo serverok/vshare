@@ -1,43 +1,63 @@
+<link rel="stylesheet" href="{$base_url}/css/offcanvas.css">
+<script src="{$base_url}/js/offcanvas.js"></script>
 
-<div class="col-md-12">
-    {if $total gt "0"}
+<div class="col-xs-6 col-sm-4 col-md-3 sidebar-offcanvas">
+    <div class="list-group">
+        <a class="list-group-item disabled"><b>Categories</b></a>
+    {section name=i loop=$channels}
+        <a class="list-group-item{if $channels[i].channel_id eq $channel.channel_id} active{/if}" href="{$base_url}/channel/{$channels[i].channel_id}/{$channels[i].channel_name}/">
+            {$channels[i].channel_name}
+        </a>
+    {/section}
+    </div>
+</div>
+<div class="col-sm-8 col-md-9">
     <div class="page-header">
-        <h1>Most Active Users in the Channel</h1>
+        <h1>
+            <button data-toggle="offcanvas" class="btn btn-default btn-sm pull-left visible-xs" type="button" title="Categories">
+                <span class="glyphicon glyphicon-menu-right"></span>
+            </button>
+            &nbsp;{$channel.channel_name}
+        </h1>
+    </div>
+
+    {if $total gt "0"}
+
+    <div class="page-header">
+        <h2>Most active users</h2>
     </div>
 
     <div class="row">
         {section name=i loop=$most_active_users}
         {insert name=id_to_name assign=user_name un=$most_active_users[i].video_user_id}
-        <div class="col-orient-ls col-sm-6 col-md-3">
-            <div class="thumbnail">
+        <div class="col-orient-ls col-sm-4 col-md-3">
+            <div class="media">
                 <a href="{$base_url}/{$user_name}">
-                    {insert name=member_img UID=$most_active_users[i].video_user_id}
+                    <img class="media-object" width="100%" height="120" src="{insert name=member_img_url UID=$most_active_users[i].video_user_id}">
                 </a>
-                <div class="caption">
-                    <h5>
-                        <a href="{$base_url}/{$user_name}">{$user_name}</a>
-                        <small>({$most_active_users[i].total})</small>
-                    </h5>
-                </div>
+                <h5 class="text-center">
+                    <a href="{$base_url}/{$user_name}">{$user_name}</a>
+                    <small>({$most_active_users[i].total})</small>
+                </h5>
             </div>
         </div>
         {/section}
     </div>
 
     <div class="page-header">
-        <h1>
-            Recently added to <strong>{$channel.channel_name}</strong> channel
+        <h2>
+            Recently added videos
             <small class="pull-right btn font-size-md">
                 <a href="{$base_url}/channel/{$channel.channel_id}/{$channel.channel_seo_name}/recent/1">
                     More Videos
                 </a>
             </small>
-        </h1>
+        </h2>
     </div>
 
     <div class="row">
     	{section name=i loop=$recent_channel_videos}
-            <div class="col-orient-ls col-sm-6 col-md-3">
+            <div class="col-orient-ls col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <div class="preview">
                         <a href="{$base_url}/view/{$recent_channel_videos[i].video_id}/{$recent_channel_videos[i].video_seo_name}/">
@@ -47,7 +67,7 @@
                     </div>
                     <div class="caption">
                         <h5 class="video_title">
-                            <a href="{$base_url}/view/{$recent_channel_videos[i].video_id}/{$recent_channel_videos[i].video_seo_name}/">{$recent_channel_videos[i].video_title|truncate:30}</a>
+                            <a class="text-nowrap" href="{$base_url}/view/{$recent_channel_videos[i].video_id}/{$recent_channel_videos[i].video_seo_name}/">{$recent_channel_videos[i].video_title|truncate:25:"...":true}</a>
                         </h5>
                         <p class="text-muted small">
                             {insert name=id_to_name assign=uname un=$recent_channel_videos[i].video_user_id}
@@ -63,13 +83,7 @@
                         </p>
                         <p class="text-muted small">
                             <span class="text-nowrap">
-                                <span class="glyphicon glyphicon-star"></span>
-                                {if $recent_channel_videos[i].video_rated_by gt "0"}
-                                    {insert name=show_rate assign=rate rte=$recent_channel_videos[i].video_rate rated=$recent_channel_videos[i].video_rated_by}
-                                    {$rate}
-                                {else}
-                                    Not yet rated
-                                {/if}
+                                <span class="glyphicon glyphicon-thumbs-up"></span> {$recent_channel_videos[i].video_rated_by} Likes
                             </span>
                         </p>
                     </div>
@@ -79,19 +93,19 @@
     </div>
 
     <div class="page-header">
-        <h1>
-            Top watched videos in <strong>{$channel.channel_name}</strong> channel
+        <h2>
+            Top watched videos
             <small class="pull-right btn font-size-md">
                 <a href="{$base_url}/channel/{$channel.channel_id}/{$channel.channel_seo_name}/viewed/1">
                     More Videos
                 </a>
             </small>
-        </h1>
+        </h2>
     </div>
 
     <div class="row">
     	{section name=i loop=$mostview}
-            <div class="col-orient-ls col-sm-6 col-md-3">
+            <div class="col-orient-ls col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <div class="preview">
                         <a href="{$base_url}/view/{$mostview[i].video_id}/{$mostview[i].video_seo_name}/">
@@ -101,7 +115,7 @@
                     </div>
                     <div class="caption">
                         <h5 class="video_title">
-                            <a href="{$base_url}/view/{$mostview[i].video_id}/{$mostview[i].video_seo_name}/">{$mostview[i].video_title|truncate:30}</a>
+                            <a class="text-nowrap" href="{$base_url}/view/{$mostview[i].video_id}/{$mostview[i].video_seo_name}/">{$mostview[i].video_title|truncate:30}</a>
                         </h5>
                         <p class="text-muted small">
                             {insert name=id_to_name assign=uname un=$mostview[i].video_user_id}
@@ -117,13 +131,7 @@
                         </p>
                         <p class="text-muted small">
                             <span class="text-nowrap">
-                                <span class="glyphicon glyphicon-star"></span>
-                                {if $mostview[i].video_rated_by gt "0"}
-                                    {insert name=show_rate assign=rate rte=$mostview[i].video_rate rated=$mostview[i].video_rated_by}
-                                    {$rate}
-                                {else}
-                                    Not yet rated
-                                {/if}
+                                <span class="glyphicon glyphicon-thumbs-up"></span> {$mostview[i].video_rated_by} Likes
                             </span>
                         </p>
                     </div>
