@@ -81,6 +81,8 @@ if ($channel) {
     $smarty->assign('channel', $channel);
 }
 
+$channels = Channel::get();
+$smarty->assign('channels', $channels);
 $smarty->assign('html_title', $channel['channel_name']);
 $smarty->assign('html_keywords', $channel['channel_name']);
 $smarty->assign('html_description', $channel['channel_description']);
