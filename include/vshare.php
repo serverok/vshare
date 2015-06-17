@@ -17,11 +17,14 @@ require VSHARE_DIR . '/include/smarty/libs/Smarty.class.php';
 $smarty = new Smarty();
 if (defined('ADMIN_AREA')) {
     $smarty->template_dir = VSHARE_DIR . '/themes';
+    $img_css_url = VSHARE_URL . '/themes';
 } else {
     if (! isset($config['theme'])) {
         $smarty->template_dir = VSHARE_DIR . '/templates';
+        $img_css_url = VSHARE_URL . '/templates';
     } else {
         $smarty->template_dir = VSHARE_DIR . '/themes/' . $config['theme'];
+        $img_css_url = VSHARE_URL . '/themes/' . $config['theme'];
     }
 }
 $smarty->compile_dir = VSHARE_DIR . '/templates_c';
@@ -62,7 +65,7 @@ if (mysqli_num_rows($result) > 0) {
     }
 }
 
-define('IMG_CSS_URL', VSHARE_URL . '/templates');
+define('IMG_CSS_URL', $img_css_url);
 
 $smarty->assign(array(
     'servers' => $servers,
