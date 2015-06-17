@@ -120,6 +120,7 @@ if ($err == '')
             LIMIT $start_from, $config[items_per_page]";
     $grp_videos = DB::fetch($sql);
     $num_videos = count($grp_videos);
+    $group_videos = array();
 
     $group_video_keywords_all = '';
 

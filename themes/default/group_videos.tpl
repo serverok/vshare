@@ -95,6 +95,8 @@
 
 {else}
 
-<h4>There is no video in this group</h4>
+<div class="col-md-12">
+    <h4>There is no video in this group</h4>
+</div>
 
 {/if}
