@@ -20,7 +20,7 @@
                 <li><span class="glyphicon glyphicon-ok"></span> and much, much more!</li>
             </ul>
 
-            <p><a class="btn btn-info" href="{$base_url}/signup/"><strong>Sign up Now and open a new account</strong></a></p>
+            <p><a class="btn btn-info normal-white-space" href="{$base_url}/signup/"><strong>Sign up Now and open a new account</strong></a></p>
             <p>To learn more about our service, please see our <a href="{$base_url}/pages/help.html">Help</a> section.</p>
         </div>
     </div>

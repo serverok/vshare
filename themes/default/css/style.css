@@ -398,3 +398,7 @@ footer {
     position: absolute;
     width: 100%;
 }
+
+.normal-white-space {
+    white-space: normal!important;
+}
