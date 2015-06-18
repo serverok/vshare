@@ -49,7 +49,7 @@ class VideoThumb
         }
 
         $thumb_folder = VSHARE_DIR . '/thumb/' . $t_info['video_folder'];
-        $no_thumb_image = VSHARE_DIR . '/templates/images/no_thumbnail.gif';
+        $no_thumb_image = VSHARE_DIR . '/themes/default/images/no_thumbnail.gif';
         @unlink($thumb_folder . '/' . $t_info['vid'] . ".jpg");
         @unlink($thumb_folder . '/1_' . $t_info['vid'] . ".jpg");
         @unlink($thumb_folder . '/2_' . $t_info['vid'] . ".jpg");
@@ -173,7 +173,7 @@ class VideoThumb
             }
 
             if (! file_exists($source_image)) {
-                $source_image = VSHARE_DIR . "/templates/images/no_thumbnail.gif";
+                $source_image = VSHARE_DIR . "/themes/default/images/no_thumbnail.gif";
             }
 
             Image::createThumb($source_image, $fd, $maxwidth, $maxheight);

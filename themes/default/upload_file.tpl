@@ -166,7 +166,7 @@
                         </div>
                     </div>
                     <div id="processing" style="display: none;">
-                        <img src="{$base_url}/templates/images/loading.gif"> <strong>Processing...</strong>
+                        <img src="{$img_css_url}/images/loading.gif"> <strong>Processing...</strong>
                     </div>
                     <div id="status"></div>
                 </div>

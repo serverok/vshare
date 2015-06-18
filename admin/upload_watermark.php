@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
         $upfile_type = $_FILES['upfile']['type'];
 
         if ($upfile_type == 'image/gif') {
-            $new_file_name = VSHARE_DIR . '/templates/images/watermark.gif';
+            $new_file_name = VSHARE_DIR . '/themes/default/images/watermark.gif';
 
             if (move_uploaded_file($_FILES['upfile']['tmp_name'], $new_file_name)) {
                 chmod($new_file_name, 0777);

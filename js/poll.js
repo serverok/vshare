@@ -1,4 +1,4 @@
-var loading_image = '<img src="' + baseurl + '/templates/images/loading_graphic.gif" alt="loading" />';
+var loading_image = '<img src="' + baseurl + '/themes/default/images/loading.gif" alt="loading">';
 
 function poll_view(poll_id)
 {
@@ -35,7 +35,7 @@ function poll_view_error()
 function poll_vote(poll_id)
 {
 	var user_answer = $('#user_answer').val();
-	
+
 	if (user_answer == '')
 	{
 		alert('Select any one');

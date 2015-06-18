@@ -80,7 +80,7 @@ echo '<link>' . $url . '</link>';
 echo '<description>' . $feed_title . '</description>';
 echo '<copyright>Copyright (c) by ' . $config['site_name'] . ' - All rights reserved.</copyright>';
 echo '<image>';
-echo '<url>' . VSHARE_URL . '/templates/images/logo.jpg</url>';
+echo '<url>' . IMG_CSS_URL . '/images/logo.jpg</url>';
 echo '<title>' . $config['site_name'] . '</title>';
 echo '<link>' . $url . '</link>';
 echo '</image>';
