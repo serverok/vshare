@@ -46,7 +46,7 @@ function create_playlist() {
 }
 
 function show_playlists() {
-    $(".dropdown-pl .pl-lists").html('<img src="' + baseurl + '/templates/images/loading.gif" />');
+    $(".dropdown-pl .pl-lists").html('<img src="' + baseurl + '/themes/default/images/loading.gif">');
 	var sUrl = baseurl + "/ajax/playlist.php";
 	var postData = "action=show_playlist&user_id=" + user_id + "&video_id=" + vid;
 

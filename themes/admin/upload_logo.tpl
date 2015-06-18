@@ -2,9 +2,9 @@
     <h1>Upload Logo</h1>
 </div>
 
-<p>To clear cache open the <a href="{$img_css_url}/images/logo.jpg" target="_blank">Logo image</a> on a new browser and refresh it (Press F5 on your keyboard), so you will be able to see the new image.</p>
+<p>To clear cache open the <a href="{$img_css_url}/default/images/logo.jpg" target="_blank">Logo image</a> on a new browser and refresh it (Press F5 on your keyboard), so you will be able to see the new image.</p>
 
-<img src="{$img_css_url}/images/logo.jpg?{$vshare_rand}" alt="" />
+<img src="{$img_css_url}/default/images/logo.jpg?{$vshare_rand}" alt="" />
 
 <br />
 

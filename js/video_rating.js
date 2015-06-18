@@ -1,4 +1,4 @@
-var video_rating_loading_msg = '<img src=' + baseurl + '/templates/images/loading.gif>';
+var video_rating_loading_msg = '<img src=' + baseurl + '/themes/default/images/loading.gif>';
 
 function video_rating_success(msg)
 {

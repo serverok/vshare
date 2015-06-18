@@ -76,7 +76,7 @@
                 {if $videos['videos'][i].imported eq "0"}
                 <input type="checkbox" name="video_id[]" value="{$videos['videos'][i].video_id}">
                 {else}
-                    <img src="{$base_url}/templates/images/tick.png" alt="imported">
+                    <img src="{$img_css_url}/default/images/tick.png" alt="imported">
                 {/if}
             </div>
 

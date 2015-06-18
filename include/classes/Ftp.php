@@ -226,7 +226,7 @@ class Ftp
         $source_thumb_path_real = 1;
         if (! file_exists($source_thumb_path)) {
             $this->log('<p>Thumbnail image missing :' . $source_thumb_path . '</p>');
-            $source_thumb_path = VSHARE_DIR . '/templates/images/no_thumbnail.gif';
+            $source_thumb_path = VSHARE_DIR . '/themes/default/images/no_thumbnail.gif';
             $source_thumb_path_real = 0;
         }
 
@@ -257,7 +257,7 @@ class Ftp
 
             if (! file_exists($source_thumb_path)) {
                 $this->log('<p>Thumbnail image missing :' . $source_thumb_path . '</p>');
-                $source_thumb_path = VSHARE_DIR . '/templates/images/no_thumbnail.gif';
+                $source_thumb_path = VSHARE_DIR . '/themes/default/images/no_thumbnail.gif';
                 $source_thumb_path_real = 0;
             }
 

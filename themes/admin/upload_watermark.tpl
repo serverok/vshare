@@ -2,10 +2,10 @@
     <h1>Upload Watermark</h1>
 </div>
 
-<p>After uploading the new watermark image, you may see OLD image due to caching. To clear cache, open the <a href="{$img_css_url}/images/watermark.gif" target="_blank">Watermark Image</a> on a new browser and refresh it, so you will be able to see the new image.</p>
+<p>After uploading the new watermark image, you may see OLD image due to caching. To clear cache, open the <a href="{$img_css_url}/default/images/watermark.gif" target="_blank">Watermark Image</a> on a new browser and refresh it, so you will be able to see the new image.</p>
 
 <div style="margin:2em 0em">
-    <img src="{$img_css_url}/images/watermark.gif?{$vshare_rand}" alt="watermark" />
+    <img src="{$img_css_url}/default/images/watermark.gif?{$vshare_rand}" alt="watermark" />
 </div>
 
 <div class="row">

@@ -135,7 +135,7 @@ if (isset($_POST['submit'])) {
                     Http::download($source, $destination);
                 } else {
                     $destination = VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg';
-                    copy(VSHARE_DIR . '/templates/images/no_thumbnail.gif', $destination);
+                    copy(VSHARE_DIR . '/themes/default/images/no_thumbnail.gif', $destination);
                 }
             }
         } else if (! empty($_FILES['embedded_code_image_local']['tmp_name'][0])) {
@@ -152,7 +152,7 @@ if (isset($_POST['submit'])) {
                     $fd = VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg';
                     Image::createThumb($_FILES['embedded_code_image_local']['tmp_name'][$i], $fd, $maxwidth, $maxheight);
                 } else {
-                    copy(VSHARE_DIR . '/templates/images/no_thumbnail.gif', VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg');
+                    copy(VSHARE_DIR . '/themes/default/images/no_thumbnail.gif', VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg');
                 }
             }
         }

@@ -51,7 +51,7 @@ class DailymotionVideo extends Dailymotion
     public function CreateThumb()
     {
         $sourceThumb = $this->videoResult['thumbnail_medium_url'];
-        $noThumb = VSHARE_DIR . '/templates/images/no_thumbnail.jpg';
+        $noThumb = VSHARE_DIR . '/themes/default/images/no_thumbnail.gif';
         $spriteSourceThumb = str_replace('jpeg_preview_medium','jpeg_preview_sprite',$this->videoResult['thumbnail_medium_url']);
 
         $destinationThumb = VSHARE_DIR . '/thumb/' . $this->vshareVideoId . '.jpg';

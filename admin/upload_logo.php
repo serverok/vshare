@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
     if (is_uploaded_file($_FILES['logo']['tmp_name'])) {
         $upfile_type = $_FILES['logo']['type'];
         if (($upfile_type == 'image/jpeg') or ($upfile_type == 'image/pjpeg')) {
-            $new_file_name = VSHARE_DIR . '/templates/images/logo.jpg';
+            $new_file_name = VSHARE_DIR . '/themes/default/images/logo.jpg';
             if (move_uploaded_file($_FILES['logo']['tmp_name'], $new_file_name)) {
                 chmod($new_file_name, 0777);
                 $msg = $lang['logo_uploaded'];

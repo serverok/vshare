@@ -71,7 +71,7 @@ function Mail() {
 	};
 	
 	this.loading = function(){
-		$("#folder-links-result").html("<center><img src='./templates/images/loading.gif'></center>");
+		$("#folder-links-result").html("<center><img src='" + baseurl + "/themes/default/images/loading.gif'></center>");
 	};
 	
 	this.rowcolor = function(){

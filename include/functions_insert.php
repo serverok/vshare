@@ -169,20 +169,20 @@ function insert_show_rate($a)
         $num_full_star = floor($rate);
 
         for ($i = 0; $i < $num_full_star; $i ++) {
-            $list .= '<img src="' . VSHARE_URL . '/templates/images/star.gif" alt="star" />&nbsp;';
+            $list .= '<img src="' . IMG_CSS_URL . '/images/star.gif" alt="star">&nbsp;';
         }
 
         if ($rate == $num_full_star) {
             $num_falf_star = 0;
         } else {
             $num_falf_star = 1;
-            $list .= '<img src="' . VSHARE_URL . '/templates/images/half_star.gif" alt="half star" />';
+            $list .= '<img src="' . IMG_CSS_URL . '/images/half_star.gif" alt="half star">';
         }
 
         $num_blank_star = 5 - $num_full_star - $num_falf_star;
 
         for ($i = 0; $i < $num_blank_star; $i ++) {
-            $list .= '<img src="' . VSHARE_URL . '/templates/images/blank_star.gif" alt="blank star" />';
+            $list .= '<img src="' . IMG_CSS_URL . '/images/blank_star.gif" alt="blank star">';
         }
     } else {
         $rate = 0;

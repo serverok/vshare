@@ -112,8 +112,8 @@
 	height: 20px;
 	border: 1px solid #505050;
 	z-index: 5;
-	background-image:url(../templates/images/progress_bar_white.gif);
-	layer-background-image:url(../templates/images/progress_bar_white.gif);
+	background-image:url(../themes/default/images/progress_bar_white.gif);
+	layer-background-image:url(../themes/default/images/progress_bar_white.gif);
 }
 
 .ubrBar2 {
@@ -123,8 +123,8 @@
 	height: 20px;
 	width: 0%;
 	z-index: 6;
-	background-image:url(../templates/images/progress_bar_blue.gif);
-	layer-background-image:url(../templates/images/progress_bar_blue.gif);
+	background-image:url(../themes/default/images/progress_bar_blue.gif);
+	layer-background-image:url(../themes/default/images/progress_bar_blue.gif);
 }
 
 .ubrUploadSlot{}

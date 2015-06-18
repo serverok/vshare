@@ -25,6 +25,6 @@ function show_comments(video_id,page)
 
 function show_loading() 
 {
-    var loading = '<div style="margin:2em auto;text-align:center;"><img src=' + baseurl + '/templates/images/loading_2.gif></div>';
+    var loading = '<div style="margin:2em auto;text-align:center;"><img src=' + baseurl + '/themes/default/images/loading_2.gif></div>';
 	$('#section_comment').html(loading);
 }
