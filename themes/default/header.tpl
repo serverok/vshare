@@ -26,7 +26,7 @@
             <div class="col-md-3">
                 <h1>
                     <a href="{$base_url}/index.php" title="{$site_name}">
-                    <img class="img-responsive" src="{$base_url}/themes/default/images/logo.png">
+                    <img class="img-responsive" src="{$base_url}/themes/default/images/logo.jpg">
                     </a>
                 </h1>
             </div>
