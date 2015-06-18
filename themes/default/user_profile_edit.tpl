@@ -181,15 +181,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2">Profile Style</label>
-            <div class="col-md-5">
-                <select name="user_style" class="form-control">
-                    <option value="">- -Select- -</option>
-                    {$css_options}
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
             <div class="col-md-2 col-md-offset-2">
                 <button type="submit" name="submit" class="btn btn-default btn-lg">Save Changes</button>
             </div>
