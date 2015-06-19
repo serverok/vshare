@@ -1,8 +1,8 @@
 <div class="col-md-8">
     {insert name=advertise adv_name='player_top'}
     <div class="embed-responsive embed-responsive-16by9" style="z-index: 0;">{$view.VSHARE_PLAYER}</div>
+    <p class="clearfix"></p>
     {insert name=advertise adv_name='player_bottom'}
-    <p></p>
     <div class="panel panel-default">
         <div class="panel-body">
             <h1 class="view-video-title">{$view.video_info.video_title}</h1>
