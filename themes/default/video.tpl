@@ -20,13 +20,17 @@
 </div>
 
 <div class="col-md-9">
-    <div class="page-header">
-        <h1>
-            {$view.display_order}
-            {if $channel_name ne ''}
+    <div class="page-header row">
+        <div class="col-md-9">
+            <h2>
+                {$view.display_order}
+                {if $channel_name ne ''}
                 {$channel_name} videos
-            {/if}
-            <div class="pull-right">
+                {/if}
+            </h2>
+        </div>
+            <div class="col-md-3 text-right">
+            <br>
                 <div class="btn-group">
                     {if $channel_name ne ""}
                         <a class="btn btn-default{if $view.view_type eq 'basic'} disabled{/if}" href="{$base_url}/{if $channel_name ne ''}channel/{$smarty.get.chid}/{/if}{$view.category}/basic/{$view.page}" title="Grid view">
@@ -44,9 +48,9 @@
                         </a>
                     {/if}
                 </div>
-                <small class="btn disabled">Videos {$view.start_num}-{$view.end_num} of {$view.total}</small>
+                <small class="text-muted">Videos {$view.start_num}-{$view.end_num} of {$view.total}</small>
             </div>
-        </h1>
+
     </div>
 
     <div class="video_block clearfix">
@@ -129,8 +133,8 @@
                             </span>
                         </p>
                     </div>
+                    </div>
                     <hr>
-                </div>
             {sectionelse}
                 <br />
                 <center><p><b>There are no videos found.</b></p></center>
