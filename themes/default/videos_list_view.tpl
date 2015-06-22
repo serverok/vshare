@@ -13,12 +13,16 @@
         <a href="{$base_url}/view/{$video_info.video_id}/{$video_info.video_seo_name}/">{$video_info.video_title}</a>
     </h4>
     <p class="text-muted small">
-        {insert name=id_to_name assign=user_name un=$video_info.video_user_id}
-        {insert name=time_range assign=added_on time=$video_info.video_add_time}
-        by <a href="{$base_url}/{$user_name}">{$user_name}</a>
-        <br>
-       {$video_info.video_view_number} views, {$added_on}</p>
-       <p class="text-muted small">
+        {if !isset($hide_owner_info)}
+            {insert name=id_to_name assign=user_name un=$video_info.video_user_id}
+            by <a href="{$base_url}/{$user_name}">{$user_name}</a>
+            <br>
+        {/if}
+       {$video_info.video_view_number} views,
+       {insert name=time_range assign=added_on time=$video_info.video_add_time}
+       {$added_on}
+   </p>
+   <p class="text-muted small">
        {$video_info.video_description|truncate: 200:"...":true}
        </p>
 </div>
