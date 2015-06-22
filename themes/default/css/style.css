@@ -402,3 +402,40 @@ footer {
 .normal-white-space {
     white-space: normal!important;
 }
+
+.video-block .thumbnail {
+    border: medium none;
+    box-shadow: none;
+    height: 202px;
+    margin-bottom: 5px;
+    margin-left: -7px;
+    margin-right: -7px;
+    overflow: hidden;
+}
+.video-block .thumbnail .caption {
+    padding: 0;
+}
+.video-title {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    max-height: 15px;
+    overflow: hidden;
+}
+.video-title a {
+    font-weight: bold;
+    line-height: 1.3px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+h4.video-title {
+    font-size: 14px;
+}
+h5.video-title {
+    font-size: 13px;
+}
+.video-block-list .thumbnail {
+    height: auto;
+}
+.video-block-list .video-title {
+    max-height: 31px;
+}
