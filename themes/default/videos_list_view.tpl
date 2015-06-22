@@ -17,7 +17,8 @@
         {insert name=time_range assign=added_on time=$video_info.video_add_time}
         by <a href="{$base_url}/{$user_name}">{$user_name}</a>
         <br>
-        {$video_info.video_view_number} views, {$added_on}
-        <div class="text-muted small">{$video_info.video_description|truncate: 200:"...":true}</div>
-    </p>
+       {$video_info.video_view_number} views, {$added_on}</p>
+       <p class="text-muted small">
+       {$video_info.video_description|truncate: 200:"...":true}
+       </p>
 </div>
