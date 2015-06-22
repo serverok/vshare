@@ -53,24 +53,29 @@ echo '
                 if ($key == 0) {
                 echo ' active';
                 }
-                echo '">';
+                echo '">
+                <div class="video-block home-videos">';
                 foreach ($videos as $video) {
                 $video_url = VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '/';
                 $thumb_url = $servers[$video['video_thumb_server_id']] . '/thumb/' . $video['video_folder'] . '1_' . $video['video_id'] . '.jpg';
                 echo '
                 <div class="col-orient-ls col-md-4 col-sm-4">
-                    <a href="' . VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '">
-                    <div class="preview">
-                        <img class="img-responsive" src="' . $thumb_url . '" width="100%">
-                        <div class="badge video-time">' . $video['video_length'] . '</div>
-                    </div>
-                        <div class="caption">
-                        <strong>' . substr($video['video_title'], 0, 20) . '</strong>
+                    <div class="thumbnail" style="height: 160px;">
+                        <div class="preview">
+                            <a href="' . VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '">
+                                <img class="img-responsive" src="' . $thumb_url . '" width="100%">
+                                <div class="badge video-time">' . $video['video_length'] . '</div>
+                            </a>
                         </div>
-                    </a>
+                        <div class="caption">
+                            <h5 class="video-title">
+                                <a href="' . VSHARE_URL . '/view/' . $video['video_id'] . '/' . $video['video_seo_name'] . '">' . $video['video_title'] . '</a>
+                            </h5>
+                        </div>
+                    </div>
                 </div>';
                 }
-                echo '</div>';
+                echo '</div></div>';
                 }
 
                 echo '

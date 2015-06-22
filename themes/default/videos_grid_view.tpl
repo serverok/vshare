@@ -9,7 +9,7 @@
                 <span class="glyphicon glyphicon-plus"></span>
             </span>
         </div>
-        <div class="captions">
+        <div class="caption">
             <h5 class="video-title">
                 <a href="{$base_url}/view/{$video_info.video_id}/{$video_info.video_seo_name}/">{$video_info.video_title}</a>
             </h5>
