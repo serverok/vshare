@@ -22,8 +22,8 @@
                 {/if}
                 </div>
             </div>
-            <div class="col-orient-ls col-sm-6 col-md-6">
-                <p class="text-muted small">{$group_info.group_description}</p>
+            <div class="col-orient-ls col-sm-6 col-md-8">
+                <p class="text-muted">{$group_info.group_description}</p>
                 {insert name=id_to_name assign=uname un=$group_info.group_owner_id}
                 <p class="text-muted small">
                     <span class="glyphicon glyphicon-user"></span>
@@ -43,37 +43,38 @@
                     Tags: {$group_info.group_keyword}
                 </p>
                 <p class="text-muted small">
-                    Type: {$group_info.group_type},&nbsp;&nbsp;
-                    Channel:
+                    <span class="glyphicon glyphicon-list"></span> Type: <strong>{$group_info.group_type},</strong>
+                    Channel:<strong>
                     {insert name=video_channel assign=grpchannel tbl=groups gid=$group_info.group_id}
                     {section name=k loop=$grpchannel}
-                    <a href="{$base_url}/channel/{$grpchannel[k].channel_id}/{$grpchannel[k].channel_seo_name}/">{$grpchannel[k].channel_name}</a>&nbsp;
-                    {/section}
+                    <a href="{$base_url}/channel/{$grpchannel[k].channel_id}/{$grpchannel[k].channel_seo_name}/">{$grpchannel[k].channel_name}</a>
+                    {/section}</strong>
                 </p>
-                <p class="text-muted small">
-                    Videos: <a href="{$base_url}/group/{$group_info.group_url}/videos/1">{$gvdocount}</a>
 
+                <p class="text-muted small">
+                    <span class="glyphicon glyphicon-film"></span> Videos: <strong><a href="{$base_url}/group/{$group_info.group_url}/videos/1">{$gvdocount}</a></strong>
                     {if $smarty.session.UID eq $group_info.group_owner_id}
                         {if $total_new_video ne "0"}
                             &nbsp;&nbsp;&nbsp;<b>({$total_new_video} new)</b>
                         {/if}
-                    {/if},&nbsp;&nbsp;
-                    Members:
-                    <a href="{$base_url}/group/{$group_info.group_url}/members/1">{$gmemcount}</a>
+                    {/if},
+                    <span class="glyphicon glyphicon-user"></span>  Members:
+                    <strong><a href="{$base_url}/group/{$group_info.group_url}/members/1">{$gmemcount}</a>
                     {if $smarty.session.UID eq $group_info.group_owner_id}
                         {if $total_new_member ne "0"}
                             &nbsp;&nbsp;&nbsp;<b>({$total_new_member} new)</b>
                         {/if}
-                    {/if}
+                    {/if}</strong>
                 </p>
                 <p class="text-muted small">
-                    Group URL:
+                   <span class="glyphicon glyphicon-globe"></span> Group URL:
                     <a href="{$base_url}/group/{$group_info.group_url}/">{$base_url}/group/{$group_info.group_url}/</a>
                 </p>
             </div>
             <div class="clearfix"></div>
-            <div class="col-md-2">
+            <div class="col-md-8">
                 {if $smarty.session.UID ne $group_info.group_owner_id}
+                <div class="col-md-4">
                     <form method="GET" action="{$base_url}/group_join.php">
                         <input type="hidden" name="group_id" value="{$group_info.group_id}" />
                         {if $checkmem eq "0" && $group_info.group_type ne 'private'}
@@ -81,35 +82,35 @@
                             <button type="submit" name="submit" class="btn btn-default">Join to this Group</button>
                         {elseif $is_member eq "yes"}
                             <input type="hidden" name="action" value="remove" />
-                            <button type="submit" name="submit" class="btn btn-default btn-block">Leave this Group</button>
+                            <button type="submit" name="submit" class="btn btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span> Leave this Group</button>
                         {/if}
                     </form>
-                    <br>
+                    </div>
                 {/if}
-                <div class="btn-group-vertical btn-block" role="group">
+                <div class="btn-group" role="group">
                     {if $smarty.session.UID ne "" and $checkmem ne "0"}
                         {if $smarty.session.UID eq $group_info.group_owner_id}
-                            <a class="btn btn-default" href="{$base_url}/group/{$group_info.group_url}/edit/">Edit this Group</a>
+                            <a class="btn btn-default" href="{$base_url}/group/{$group_info.group_url}/edit/"><span class="glyphicon glyphicon-edit"></span> Edit this Group</a>
                             {if $smarty.session.UID eq $group_info.group_owner_id and $group_info.group_upload eq "owner_only"}
-                                <a class="btn btn-default" href="{$base_url}/group/{$group_info.group_url}/add/1">Add Videos</a>
+                                <a class="btn btn-success" href="{$base_url}/group/{$group_info.group_url}/add/1"><span class="glyphicon glyphicon-plus"></span> Add Videos</a>
                             {/if}
 
                             {if $group_info.group_upload ne "owner_only"}
-                                <a class="btn btn-default" href="{$base_url}/group/{$group_info.group_url}/add/1">Add Videos</a>
+                                <a class="btn btn-success" href="{$base_url}/group/{$group_info.group_url}/add/1"><span class="glyphicon glyphicon-plus"></span> Add Videos</a>
                             {/if}
-                            <a class="btn btn-default" href="{$base_url}/group/{$group_info.group_url}/invite/">Invite Members</a>
+                            <a class="btn btn-default" href="{$base_url}/group/{$group_info.group_url}/invite/"><span class="glyphicon glyphicon-envelope"></span> Invite Members</a>
 
                         {else}
 
                             {if $is_member eq "yes"}
                                 {if $smarty.session.UID eq $group_info.group_owner_id and $group_info.group_upload eq "owner_only"}
-                                    <a class="btn btn-default" href="{$base_url}/group/{$group_info.group_url}/add/1">Add Videos</a>
+                                    <a class="btn btn-success" href="{$base_url}/group/{$group_info.group_url}/add/1"><span class="glyphicon glyphicon-plus"></span> Add Videos</a>
                                 {/if}
                                 {if $group_info.group_upload ne "owner_only"}
-                                    <a class="btn btn-default" href="{$base_url}/group/{$group_info.group_url}/add/1">Add Videos</a>
+                                    <a class="btn btn-success" href="{$base_url}/group/{$group_info.group_url}/add/1"><span class="glyphicon glyphicon-plus"></span> Add Videos</a>
                                 {/if}
                                 {if $group_info.group_type ne "private" or $smarty.session.UID eq $group_info.group_owner_id}
-                                    <a class="btn btn-default" href="{$base_url}/group/{$group_info.group_url}/invite/">Invite Members</a><br />
+                                    <a class="btn btn-default" href="{$base_url}/group/{$group_info.group_url}/invite/"><span class="glyphicon glyphicon-envelope"></span> Invite Members</a><br />
                                 {/if}
                             {/if}
                         {/if}
@@ -130,25 +131,14 @@
         </div>
 
         <div class="row">
-            {section name=i loop=$group_videos}
-                <div class="col-orient-ls col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <div class="preview">
-                            <a href="{$base_url}/view/{$group_videos[i].video_id}/{$group_videos[i].video_seo_name}/">
-                                <img class="img-responsive" width="100%" height="130" src="{$group_videos[i].video_thumb_url}/thumb/{$group_videos[i].video_folder}1_{$group_videos[i].video_id}.jpg" alt="">
-                            </a>
-                            <div class="badge video-time">{$group_videos[i].video_length}</div>
-                        </div>
-                        <div class="caption">
-                            <h5>
-                                <a href="{$base_url}/view/{$group_videos[i].video_id}/{$group_videos[i].video_seo_name}/">
-                                    {$group_videos[i].video_title|truncate:30}
-                                </a>
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-            {/section}
+            <div class="video-block">
+                {section name=i loop=$group_videos}
+                {include file="videos_grid_view.tpl" video_info=$group_videos[i]}
+                {sectionelse}
+                <br>
+                <center><h4>There are no videos found.</h4></center>
+                {/section}
+            </div>
         </div>
 
         <div class="page-header">
