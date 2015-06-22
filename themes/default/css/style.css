@@ -439,3 +439,6 @@ h5.video-title {
 .video-block-list .video-title {
     max-height: 31px;
 }
+.home-videos .thumbnail {
+    height: 185px;
+}
