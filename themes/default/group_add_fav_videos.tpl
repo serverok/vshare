@@ -37,7 +37,7 @@
                     <span class="glyphicon glyphicon-eye-open"></span> Views {$favorite_videos[i].video_view_number},
                     <span class="glyphicon glyphicon-comment"></span> Comments {$favorite_videos[i].video_com_num},
                     <span class="text-nowrap">
-                        <span class="glyphicon glyphicon-thumbs-up"></span> {$favorite_videos[i].video_rated_by} Likes
+                    <span class="glyphicon glyphicon-thumbs-up"></span> {$favorite_videos[i].video_rated_by} Likes
                     </span>
                 </p>
             </div>
@@ -51,8 +51,8 @@
                     <span class="text-success"><b>Already in group</b></span>
                 {/if}
             </div>
+            </div>
             <hr>
-        </div>
     {/section}
 
     {if $page_links ne ""}
