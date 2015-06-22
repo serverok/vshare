@@ -14,6 +14,7 @@
             <div class="row">
                 {include file="videos_list_view.tpl" video_info=$answers[i]}
             </div>
+            <hr>
     	{/section}
         </div>
 
