@@ -69,6 +69,7 @@
             <div class="row">
                 {include file="videos_list_view.tpl" video_info=$view.videos[i]}
             </div>
+             <hr>
         {sectionelse}
             <br>
             <center><h4>There are no videos found.</h4></center>
