@@ -21,4 +21,3 @@
         <div class="text-muted small">{$video_info.video_description|truncate: 200:"...":true}</div>
     </p>
 </div>
-<p class="clearfix">&nbsp;</p>
