@@ -284,22 +284,12 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
         </div>
 
         <div class="panel-body">
-            <div class="row">
-                {section name=i loop=$new_video start=0 max=3}
-                <div class="col-orient-ls col-md-4 col-sm-6">
-                    <div class="preview">
-                        <a href="{$base_url}/view/{$new_video[i].video_id}/{$new_video[i].video_seo_name}/">
-                        <img class="img-response" width="100%" src="{$new_video[i].video_thumb_url}/thumb/{$new_video[i].video_folder}1_{$new_video[i].video_id}.jpg" alt="{$new_videos[i].video_title}">
-                        </a>
-                        <div class="badge video-time">{$new_video[i].video_length}</div>
-                    </div>
-                    <h5>
-                        <a href="{$base_url}/view/{$new_video[i].video_id}/{$new_video[i].video_seo_name}/">
-                        {$new_video[i].video_title|truncate:35:'...'}
-                        </a>
-                    </h5>
+            <div class="video-block home-videos">
+                <div class="row">
+                    {section name=i loop=$new_video start=0 max=6}
+                        {include file="videos_grid_view.tpl" video_info=$new_video[i] hide_owner_info=1}
+                    {/section}
                 </div>
-                {/section}
             </div>
         </div>
     </div> <!-- NEW VIDEOS ENDS -->
@@ -315,21 +305,12 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
         </div>
 
         <div class="panel-body">
-            <div class="row">
-                {section name=i loop=$popular start=0 max=3}
-                <div class="col-orient-ls col-md-4 col-sm-6">
-                    <div class="preview">
-                        <a href="{$base_url}/view/{$popular[i].video_id}/{$popular[i].video_seo_name}/">
-                        <img class="img-responsive" width="100%" src="{$popular[i].video_thumb_url}/thumb/{$popular[i].video_folder}1_{$popular[i].video_id}.jpg" alt="{$popular[i].video_title}">
-                        </a>
-                        <div class="badge video-time">{$popular[i].video_length}</div>
-                    </div>
-
-                    <h5>
-                    <a href="{$base_url}/view/{$popular[i].video_id}/{$popular[i].video_seo_name}/">{$popular[i].video_title|truncate:35:'...'}</a>
-                    </h5>
+            <div class="video-block home-videos">
+                <div class="row">
+                    {section name=i loop=$popular start=0 max=6}
+                        {include file="videos_grid_view.tpl" video_info=$popular[i] hide_owner_info=1}
+                    {/section}
                 </div>
-                {/section}
             </div>
         </div>
     </div> <!-- POPULAR VIDEOS ENDS -->
