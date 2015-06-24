@@ -1,11 +1,16 @@
-<div class="col-md-9 myaccount">
-
+<div class="col-md-12 myaccount">
 	<div class="page-header">
-		<h1>My Account</h1>
+		<h2>
+			Welcome,
+			{if $smarty.session.USERNAME ne ""}
+			{$smarty.session.USERNAME} {/if}
+		</h2>
+		<p class="lead text-muted">
+			Now manage everything about your account from here
+		</p>
 	</div>
 
-	<div class="col-md-4">
-
+	<div class="col-md-3">
 		<h4>
 			<a href="{$base_url}/{$smarty.session.USERNAME}">
 			<span class="glyphicon glyphicon-eye-open"></span> My Profile
@@ -31,33 +36,28 @@
 			<a href="{$base_url}/user_delete.php">
 			<span class="glyphicon glyphicon-remove delete"></span> Delete Account</a>
 		</h4>
-
 	</div>
 
 
+	<div class="col-md-3">
+	<h4>
+		<a href="{$base_url}/upload/">
+		<span class="glyphicon glyphicon-film"></span> Upload Video</a>
+	</h4>
 
-	<div class="col-md-4">
+	<h4>
+		<a href="{$base_url}/user_photo_upload.php">
+		<span class="glyphicon glyphicon-picture"></span> Upload Profile Photo</a>
+	</h4>
 
-		<h4>
-			<a href="{$base_url}/upload/">
-			<span class="glyphicon glyphicon-film"></span> Upload Video</a>
-		</h4>
-
-		<h4>
-			<a href="{$base_url}/user_photo_upload.php">
-			<span class="glyphicon glyphicon-picture"></span> Upload Profile Photo</a>
-		</h4>
-
-		<h4>
-			<a href="{$base_url}/privacy/">
-			<span class="glyphicon glyphicon-lock"></span> Privacy Settings</a>
-		</h4>
-
+	<h4>
+		<a href="{$base_url}/privacy/">
+		<span class="glyphicon glyphicon-lock"></span> Privacy Settings</a>
+	</h4>
 	</div>
 
 
-	<div class="col-md-4">
-
+	<div class="col-md-3">
 		<h4>
 			<a href="{$base_url}/{$smarty.session.USERNAME}/playlist/">
 			<span class="glyphicon glyphicon-list"></span> My Playlists</a>
@@ -72,7 +72,23 @@
 			<a href="{$base_url}/{$smarty.session.USERNAME}/groups/">
 			<span class="glyphicon glyphicon-user"></span> My Groups</a>
 		</h4>
+	</div>
 
+	<div class="col-md-3">
+		<h4>
+			<a href="{$base_url}/{$user_info.user_name}/friends/">
+			<span class="glyphicon glyphicon-user"></span> My Friends</a>
+		</h4>
+
+		<h4>
+			<a href="{$base_url}/{$smarty.session.USERNAME}/public/">
+			<span class="glyphicon glyphicon-film"></span> My Public videos</a>
+		</h4>
+
+		<h4>
+			<a href="{$base_url}/{$user_info.user_name}/private/">
+			<span class="glyphicon glyphicon-film"></span> My Private Videos</a>
+		</h4>
 	</div>
 
 </div>
