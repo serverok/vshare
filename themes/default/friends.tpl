@@ -30,7 +30,7 @@
             </h1>
         </div>
 
-        <div class="pull-right">
+        <div class="col-md-3 pull-right">
             <div class="input-group">
                 <span class="input-group-addon">View:</span>
                 <select name="view" class="form-control" onchange="javascript: document.location.href='{$base_url}/friends/?view='+this.value;">
