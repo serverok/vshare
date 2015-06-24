@@ -442,3 +442,7 @@ h5.video-title {
 .home-videos .thumbnail {
     height: 185px;
 }
+
+.profile-groups img {
+    min-height:100px;
+}

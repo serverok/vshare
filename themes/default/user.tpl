@@ -220,7 +220,7 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
     </div>
 
     <div class="panel-body">
-        <div class="row">
+        <div class="row profile-groups">
             {section name=i loop=$groups start=0 max=6}
             {insert name=group_image assign=group_image_info gid=$groups[i].group_id tbl=group_videos}
             {insert name=time_to_date assign=todate tm=$groups[i].group_create_time}
