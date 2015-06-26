@@ -28,62 +28,51 @@
     {if $playlists|@count eq "0"}
         <center><h4>There is no playlist found.</h4></center>
     {else}
-        <div class="page-header">
-            <h1>
-                Videos of: {$playlist_info.playlist_name}
-                {if $smarty.session.UID eq $playlist_info.playlist_user_id}
-                    <a class="btn btn-danger col-md-offset-1" onclick="Javascript:return confirm('Are you sure you want to delete?');" href="{$base_url}/playlist_delete.php?pl_id={$playlist_info.playlist_id}&action=pl_del">
-                        <span class="glyphicon glyphicon-remove"></span> Delete Playlist
-                    </a>
+        <div class="media">
+            <div class="media-left">
+                {if $total gt "0"}
+                    <img class="media-object" width="150px" height="85px" src="{$videos[0].video_thumb_url}/thumb/{$videos[0].video_folder}1_{$videos[0].video_id}.jpg" alt="{$videos[0].video_title}">
+                {else}
+                    <img class="media-object" width="150px" height="85px" src="{$img_css_url}/images/no_thumbnail.gif" alt="No videos">
                 {/if}
-                <span class="pull-right btn font-size-md">Videos {$start_num}-{$end_num} of {$total}</span>
-            </h1>
+            </div>
+            <div class="media-body">
+                <h3 class="margin-no">
+                    <b>{$playlist_info.playlist_name}</b>
+                </h3>
+                <p class="text-muted small">
+                    by <a href="{$base_url}/{$user_info.user_name}">{$user_info.user_name}</a>,
+                    {$total} videos,
+                    {insert name=timediff time=$playlist_info.playlist_add_date}
+                    {if $smarty.session.UID eq $playlist_info.playlist_user_id}
+                        <p></p>
+                        <a class="btn btn-default btn-sm" onclick="Javascript:return confirm('Are you sure you want to delete?');" href="{$base_url}/playlist_delete.php?pl_id={$playlist_info.playlist_id}&action=pl_del">
+                            <span class="glyphicon glyphicon-remove"></span> Delete
+                        </a>
+                    {/if}
+                </p>
+            </div>
         </div>
+        <div class="clearfix"></div>
+        <hr>
 
+        <div class="video-block video-block-list">
         {section name=i loop=$videos}
             <div class="row">
-                <div class="col-orient-ls col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <div class="preview">
-                            <a href="{$base_url}/view/{$videos[i].video_id}/{$videos[i].video_seo_name}/">
-                                <img class="img-responsive" width="100%" height="130" src="{$videos[i].video_thumb_url}/thumb/{$videos[i].video_folder}1_{$videos[i].video_id}.jpg" alt="{$videos[i].video_title}">
-                            </a>
-                            <span class="badge video-time">{$videos[i].video_length}</span>
-                        </div>
+                {include file="videos_list_view.tpl" video_info=$videos[i]}
+                {if $user_info.user_name eq $smarty.session.USERNAME}
+                    <div class="col-sm-4 col-md-3 pull-right text-right">
+                        <a class="btn btn-danger btn-sm" href="{$base_url}/playlist_delete.php?pl_id={$playlist_info.playlist_id}&action=vdo_del&vid={$videos[i].video_id}&page={$page}" title="Remove from playlist">
+                            <span class="glyphicon glyphicon-remove"></span> Remove
+                        </a>
                     </div>
-                </div>
-                <div class="col-orient-ls col-sm-6 col-md-8">
-                    <h4>
-                        <a href="{$base_url}/view/{$videos[i].video_id}/{$videos[i].video_seo_name}/">{$videos[i].video_title}</a>
-                        <br>
-                        <small>{$videos[i].video_description|truncate:70}</small>
-                    </h4>
-                    <p class="text-muted small">
-                        {insert name=id_to_name assign=user_name un=$videos[i].video_user_id}
-                        {insert name=time_range assign=added_on time=$videos[i].video_add_time}
-                        <span class="glyphicon glyphicon-user"></span>
-                        <a href="{$base_url}/{$user_name}"><b>{$user_name}</b></a>,
-                        {$added_on}
-                        <br />
-                        <span class="glyphicon glyphicon-eye-open"></span> {$videos[i].video_view_number} Views  |
-                        <span class="glyphicon glyphicon-comment"></span> {$videos[i].video_com_num} Comments |
-                        <span class="text-nowrap">
-                            <span class="glyphicon glyphicon-thumbs-up"></span> {$videos[i].video_rated_by} Likes
-                        </span>
-                    </p>
-                    {if $user_info.user_name eq $smarty.session.USERNAME}
-                        <p>
-                            <a class="btn btn-danger btn-sm" href="{$base_url}/playlist_delete.php?pl_id={$playlist_info.playlist_id}&action=vdo_del&vid={$videos[i].video_id}&page={$page}" title="Remove from playlist">
-                                <span class="glyphicon glyphicon-remove"></span> Remove
-                            </a>
-                        </p>
-                    {/if}
-                </div>
+                {/if}
             </div>
           <hr>
         {sectionelse}
             <center><h4>There is no video found.</h4></center>
         {/section}
+        </div>
 
         {if $page_links ne ""}
             <div>{$page_links}</div>
