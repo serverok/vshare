@@ -245,8 +245,7 @@ img.preview {
 .user-page .profile-pic {
     margin: -90px 10px 0px 50px;
     z-index: 9;
-    width: 20%;
-    min-height: 180px;
+    min-height: 160px;
 }
 
 .user-page .userinfo{
