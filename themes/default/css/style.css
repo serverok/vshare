@@ -446,3 +446,17 @@ h5.video-title {
 .profile-groups img {
     min-height:100px;
 }
+
+.members h5 {
+    background: #000;
+    bottom: 0;
+    color: #fff;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px;
+    position: absolute;
+    text-shadow: 1px 1px #000;
+    width: 100%;
+}
+
