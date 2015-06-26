@@ -130,6 +130,10 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('dailymotion_api_sec
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('upload_progress_bar', 'none');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('video_output_format', 'mp4');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('youtube_api_key', '');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('user_photo_width', '160');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('user_photo_height', '160');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('user_avatar_width', '40');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('user_avatar_height', '40');
 
 
 -- Table structure for table `contact`

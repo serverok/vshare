@@ -18,7 +18,7 @@
             <div class="col-md-5">
             <label class="control-label">Select file to upload:</label>
                 <input type="file" name="photo" class="file">
-                <span class="help-block">Photo must be in JPG format</span>
+                <span class="help-block">Photo must be in JPG format. Recommended size {Config::get('user_photo_width')}x{Config::get('user_photo_height')}</span>
                 <p class="small">By clicking “Upload”, you certify that you have the right to distribute the uploaded photo and that it does not violate the <a href="{$base_url}/pages/terms.html" target="_blank">terms of use</a> and <a href="{$base_url}/pages/privacy.html" target="_blank">privacy policy</a></p>
             </div>
         </div>

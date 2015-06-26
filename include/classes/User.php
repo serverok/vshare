@@ -120,8 +120,8 @@ class User
         $location_photo = VSHARE_DIR . '/photo/' . $_SESSION['UID'] . '.jpg';
         $location_avatar = VSHARE_DIR . '/photo/1_' . $_SESSION['UID'] . '.jpg';
 
-        Image::createThumb($file_tmp_name, $location_photo, $config['img_max_width'], $config['img_max_height']);
-        Image::createThumb($file_tmp_name, $location_avatar, 50, 40);
+        Image::createThumb($file_tmp_name, $location_photo, Config::get('user_photo_width'), Config::get('user_photo_height'));
+        Image::createThumb($file_tmp_name, $location_avatar, Config::get('user_avatar_width'), Config::get('user_avatar_height'));
 
         $sql = "UPDATE `users` SET
                `user_photo`=1 WHERE
