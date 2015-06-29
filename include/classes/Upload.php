@@ -570,7 +570,7 @@ class Upload
                     $email_subject = str_replace('[VIDEO_TITLE]', $download_info['title'], $email_subject);
                     $email_subject = str_replace('[SITE_NAME]', $config['site_name'], $email_subject);
 
-                    $email_body = str_replace('[USER_ID]', $download_info['user_id'], $email_body);
+                    $email_body = str_replace('[USER_ID]', $download_info['user_id'], $email_body_tmp);
                     $email_body = str_replace('[USER_IP]', $download_info['process_queue_upload_ip'], $email_body);
                     $email_body = str_replace('[USERNAME]', $download_info['user'], $email_body);
                     $email_body = str_replace('[VIDEO_TITLE]', $download_info['title'], $email_body);
