@@ -234,8 +234,8 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
                         {/if}
                         </a>
                         <div class="caption">
-                        <h5>
-                        <a href="{$base_url}/group/{$groups[i].group_url}/">{$groups[i].group_name|truncate:20}</a>
+                        <h5 class="video-title">
+                            <a href="{$base_url}/group/{$groups[i].group_url}/">{$groups[i].group_name|truncate:20}</a>
                         </h5>
                         {insert name=row_count assign=num_group_members group_id=$groups[i].group_id table=group_members field1=group_member_group_id field2=group_member_approved}
                         {insert name=group_info_count assign=num_group_videos tbl=group_videos gid=$groups[i].group_id query="1" field1=group_video_approved field2=group_video_group_id}
@@ -329,12 +329,14 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
 <div class="panel-body">
     <div class="row">
         {section name=i loop=$user_friends start=0 max=4}
-            <div class="col-orient-ls col-md-3 col-sm-4">
-                <div class="thumbnail">
-                    <a href="{$base_url}/{$user_friends[i].friend_name}">
-                        {insert name=member_img UID=$user_friends[i].friend_friend_id}
-                        <h5>{$user_friends[i].friend_name|truncate:25:'...'}</h5>
-                    </a>
+            <div class="col-orient-ls-members col-xs-6 col-sm-4 col-md-3">
+                <div class="thumbnail members">
+                    <div class="preview">
+                        <a href="{$base_url}/{$user_friends[i].friend_name}">
+                            <img class="img-responsive" src="{insert name=member_img_url UID=$user_friends[i].friend_friend_id}">
+                            <h5>{$user_friends[i].friend_name}</h5>
+                        </a>
+                    </div>
                 </div>
             </div>
         {sectionelse}

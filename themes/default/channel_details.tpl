@@ -30,15 +30,19 @@
     <div class="row">
         {section name=i loop=$most_active_users}
         {insert name=id_to_name assign=user_name un=$most_active_users[i].video_user_id}
-        <div class="col-orient-ls col-sm-4 col-md-3">
-            <div class="media">
-                <a href="{$base_url}/{$user_name}">
-                    <img class="media-object" width="100%" height="120" src="{insert name=member_img_url UID=$most_active_users[i].video_user_id}">
-                </a>
-                <h5 class="text-center">
-                    <a href="{$base_url}/{$user_name}">{$user_name}</a>
-                    <small>({$most_active_users[i].total})</small>
-                </h5>
+        <div class="col-orient-ls-members col-sm-4 col-md-3">
+            <div class="thumbnail members">
+                <div class="preview">
+                    <a href="{$base_url}/{$user_name}">
+                        <img class="img-responsive" src="{insert name=member_img_url UID=$most_active_users[i].video_user_id}">
+                    </a>
+                </div>
+                <div class="caption">
+                    <h5>
+                        <a href="{$base_url}/{$user_name}">{$user_name}</a>
+                        <small>({$most_active_users[i].total})</small>
+                    </h5>
+                </div>
             </div>
         </div>
         {/section}

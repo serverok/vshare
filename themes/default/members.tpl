@@ -24,53 +24,44 @@
 <hr>
 
     <div class="clarfix"></div>
-    <div class="clarfix">&nbsp;</div>
-
     <div class="row">
         {section name=i loop=$members}
-            <div class="col-orient-ls col-sm-6 col-md-3">
+            <div class="col-orient-ls-members col-xs-6 col-sm-4 col-md-2">
                 <div class="thumbnail members">
-                <div class="preview">
-                    <a href="{$base_url}/{$members[i].user_name}/">
-                        <img class="preview" src="{$members[i].photo_url}" alt="{$members[i].user_name}" />
-                        <h5>
-                           {$members[i].user_name}
-                        </h5>
-                    </a>
-                       </div>
+                    <div class="preview">
+                        <a href="{$base_url}/{$members[i].user_name}/">
+                            <img class="img-responsive" src="{$members[i].photo_url}" alt="{$members[i].user_name}">
+                            <h4 class="user-title">{$members[i].user_name}</h4>
+                        </a>
+                    </div>
                     <div class="caption">
-                        <p class="text-muted small">
-                            Joined :<b>{insert name=time_range assign=stime time=$members[i].user_join_time} {$stime}</b>
+                        <p class="text-muted small text-nowrap">
+                            Joined: {insert name=timediff assign=stime time=$members[i].user_join_time}<b>{$stime}</b>
                         </p>
 
-                        <p class="text-muted small">
-    			             Last Login: <b>{insert name=time_range assign=rtime time=$members[i].user_last_login_time} {$rtime}</b>
+                        <p class="text-muted small text-nowrap">
+                            Last Login: {insert name=timediff assign=rtime time=$members[i].user_last_login_time}<b>{$rtime}</b>
                         </p>
-
-                        <p class="text-muted small">
-                        	<span class="glyphicon glyphicon-facetime-video"></span> Videos : <b>{insert name=video_count uid=$members[i].user_id assign=video_num}<a href="{$base_url}/{$members[i].user_name}/public/1">{$video_num}</a></b> &nbsp;&nbsp;
-
-                        	<span class="glyphicon glyphicon-heart"></span> Favorite :<b> {insert name=favour_count assign=favour_num uid=$members[i].user_id}<a href="{$base_url}/{$members[i].user_name}/favorites/1">{$favour_num}</a></b>
+                        <p class="text-muted small text-nowrap">
+                            <span class="glyphicon glyphicon-facetime-video"></span> Videos: {insert name=video_count uid=$members[i].user_id assign=video_num}<b><a href="{$base_url}/{$members[i].user_name}/public/1">{$video_num}</a></b> &nbsp;
+                            <span class="glyphicon glyphicon-heart"></span> Favorites: {insert name=favour_count assign=favour_num uid=$members[i].user_id}<b><a href="{$base_url}/{$members[i].user_name}/favorites/1">{$favour_num}</a></b>
                         </p>
-
                         {if $sort eq "profile_viewed"}
-                        	<p class="text-muted small">
-                        		<span class="glyphicon glyphicon-eye-open"></span> Profile Viewed : <b>{$members[i].user_profile_viewed}</b>
-                        	</p>
-
+                            <p class="text-muted small text-nowrap">
+                                <span class="glyphicon glyphicon-eye-open"></span> Profile Viewed: <b>{$members[i].user_profile_viewed}</b>
+                            </p>
                         {elseif $sort eq "video_viewed"}
-                        	<p class="text-muted small">
-                        		<span class="glyphicon glyphicon-eye-open"></span> Video Viewed:<b> {$members[i].user_watched_video}</b>
-                        	</p>
-
+                            <p class="text-muted small text-nowrap">
+                                <span class="glyphicon glyphicon-eye-open"></span> Video Viewed: <b>{$members[i].user_watched_video}</b>
+                            </p>
                         {elseif $sort eq "subscribed"}
-                        	<p class="text-muted small">
-                        		<span class="glyphicon glyphicon-user"></span> Subscribers: {$members[i].total}
-                        	</p>
+                            <p class="text-muted small text-nowrap">
+                                <span class="glyphicon glyphicon-user"></span> Subscribers: <b>{$members[i].total}</b>
+                            </p>
                         {else}
-                        	<p class="text-muted small">
-    	                    	<span class="glyphicon glyphicon-user"></span> My Friends : <b>{insert name=friends_count assign=friends_num uid=$members[i].user_id}<a href="{$base_url}/{$members[i].user_name}/friends/1">{$friends_num}</a></b>
-    	                    </p>
+                            <p class="text-muted small text-nowrap">
+                                <span class="glyphicon glyphicon-user"></span> My Friends: {insert name=friends_count assign=friends_num uid=$members[i].user_id}<b><a href="{$base_url}/{$members[i].user_name}/friends/1">{$friends_num}</a></b>
+                            </p>
                         {/if}
                     </div>
         		</div>

@@ -51,65 +51,71 @@
 
             {section name=i loop=$friends}
                 <div class="row">
-                    <div class="col-orient-ls col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            {if $friends[i].friend_id ne ''}
-                                <a href="{$base_url}/{$friends[i].friend_name}">
-                                    {insert name=member_img UID=$friends[i].friend_friend_id}
-                                </a>
-                            {/if}
+                    <div class="col-orient-members col-xs-4 col-sm-6 col-md-3">
+                        <div class="thumbnail members">
+                            <div class="preview">
+                                {if $friends[i].friend_id ne ''}
+                                    <a href="{$base_url}/{$friends[i].friend_name}">
+                                        <img class="img-responsive" src="{insert name=member_img_url UID=$friends[i].friend_friend_id}">
+                                    </a>
+                                {/if}
+                            </div>
                         </div>
                     </div>
-                    <div class="col-orient-ls col-sm-6 col-md-8">
-                        <label>
-                            <input id="AID[]" type="checkbox" value="{$friends[i].friend_id}" name="AID[]">
-                            {if $friends[i].friend_status eq "Confirmed"}
-                            <a href="{$base_url}/{$friends[i].friend_name}">{$friends[i].friend_name}</a>
-                            {else}
-                            {$friends[i].friend_name}
-                            {/if}
-                        </label>
+                    <div class="col-orient-members col-xs-8 col-sm-6 col-md-9">
+                        <div class="row">
+                            <label>
+                                <h4 class="user-title">
+                                    <input id="AID[]" type="checkbox" value="{$friends[i].friend_id}" name="AID[]">
+                                    {if $friends[i].friend_status eq "Confirmed"}
+                                    <a href="{$base_url}/{$friends[i].friend_name}">{$friends[i].friend_name}</a>
+                                    {else}
+                                    {$friends[i].friend_name}
+                                    {/if}
+                                </h4>
+                            </label>
 
-                        {if $friends[i].friend_status eq "Confirmed"}
-                            {insert name=video_count assign=video uid=$friends[i].friend_friend_id}
-                            {insert name=favour_count assign=favour uid=$friends[i].friend_friend_id}
-                            {insert name=friends_count assign=frnd uid=$friends[i].friend_friend_id}
-                            <p>
-                               <span class="glyphicon glyphicon-facetime-video"></span> Videos:
-                                <strong>{if $video ne "0" and $video ne ""}
-                                    <a href="{$base_url}/{$friends[i].friend_name}/public/">{$video}</a>
-                                {else}
-                                    0
-                                {/if}</strong>
-                                | <span class="glyphicon glyphicon-heart"></span> Favorites:
-                               <strong> {if $favour ne "0"}
-                                    <a href="{$base_url}/{$friends[i].friend_name}/favorites/">
-                                        {$favour}
+                            {if $friends[i].friend_status eq "Confirmed"}
+                                {insert name=video_count assign=video uid=$friends[i].friend_friend_id}
+                                {insert name=favour_count assign=favour uid=$friends[i].friend_friend_id}
+                                {insert name=friends_count assign=frnd uid=$friends[i].friend_friend_id}
+                                <p class="text-muted small text-nowrap">
+                                   <span class="glyphicon glyphicon-facetime-video"></span> Videos:
+                                    <strong>{if $video ne "0" and $video ne ""}
+                                        <a href="{$base_url}/{$friends[i].friend_name}/public/">{$video}</a>
+                                    {else}
+                                        0
+                                    {/if}</strong>
+                                    | <span class="glyphicon glyphicon-heart"></span> Favorites:
+                                   <strong> {if $favour ne "0"}
+                                        <a href="{$base_url}/{$friends[i].friend_name}/favorites/">
+                                            {$favour}
+                                        </a>
+                                        {else}
+                                            0
+                                        {/if}</strong>
+                                    | <span class="glyphicon glyphicon-user"></span> Friends: {if $frnd ne "0"}
+                                    <strong><a href="{$base_url}/{$friends[i].friend_name}/friends/">
+                                        {$frnd}
                                     </a>
                                     {else}
                                         0
                                     {/if}</strong>
-                                | <span class="glyphicon glyphicon-user"></span> Friends: {if $frnd ne "0"}
-                                <strong><a href="{$base_url}/{$friends[i].friend_name}/friends/">
-                                    {$frnd}
-                                </a>
-                                {else}
-                                    0
-                                {/if}</strong>
-                            </p>
-                        {/if}
-                        {insert name=showlist assign=showlist id=$friends[i].friend_id}
-                        <p>Lists: {$showlist}</p>
-                        <p> Status:
-                             {if $friends[i].friend_status eq "Confirmed"}
-                             <span class="label label-success"><span class="glyphicon glyphicon-ok"></span> Confirmed</span>
-                             {/if}
-
-                            {if $friends[i].friend_status eq "Pending"}
-                            <span class="label label-default"><span class="glyphicon glyphicon-warning-sign"></span> Pending</span>
-                            ({$friends[i].friend_invite_date|date_format:"%B %e, %Y"})
+                                </p>
                             {/if}
-                        </p>
+                            {insert name=showlist assign=showlist id=$friends[i].friend_id}
+                            <p class="text-muted small text-nowrap">Lists: {$showlist}</p>
+                            <p class="text-muted small text-nowrap"> Status:
+                                 {if $friends[i].friend_status eq "Confirmed"}
+                                 <span class="label label-success"><span class="glyphicon glyphicon-ok"></span> Confirmed</span>
+                                 {/if}
+
+                                {if $friends[i].friend_status eq "Pending"}
+                                <span class="label label-default"><span class="glyphicon glyphicon-warning-sign"></span> Pending</span>
+                                ({$friends[i].friend_invite_date|date_format:"%B %e, %Y"})
+                                {/if}
+                            </p>
+                        </div>
                     </div>
                 </div>
              <hr>
