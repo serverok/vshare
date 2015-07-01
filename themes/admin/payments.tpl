@@ -85,10 +85,10 @@
            <div style="display:block;">
                <form action="subscription_edit.php" method="POST" style="display: inline;">
                    <input type="hidden" value="edit" name="edit">
-                   <input type="hidden" value="{$payment_info[i].user_name}" name="username">
+                   <input type="hidden" value="{$payment_info[i].user_name}" name="username" data-toggle="tooltip" data-placement="bottom" title="Edit Subscription">
                    <input type=image src="{$img_css_url}/images/edit.gif" border="0">
                </form>
-               <a href="payments.php?action=delete&id={$payment_info[i].payment_id}" onclick="return confirm('Are you sure you want to remove?');">
+               <a href="payments.php?action=delete&id={$payment_info[i].payment_id}" onclick="return confirm('Are you sure you want to remove?');" data-toggle="tooltip" data-placement="bottom" title="Remove">
                    <span class="glyphicon glyphicon-remove-circle"></span>
                </a>
            </div>
@@ -103,3 +103,11 @@
 <div>
    {$page_links}
 </div>
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}
