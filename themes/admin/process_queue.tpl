@@ -51,13 +51,13 @@
         <td>{$process_queue[i].file}</td>
 
         <td>
-            <a href="{$base_url}/templates_c/convert_log_{$process_queue[i].id}.html" target="_blank">
+            <a href="{$base_url}/templates_c/convert_log_{$process_queue[i].id}.html" target="_blank" data-toggle="tooltip" data-placement="bottom" title="View Log">
                 <span class="glyphicon glyphicon-file"></span>
             </a> &nbsp;
-            <a href="process_status_edit.php?id={$process_queue[i].id}&page={$page}">
+            <a href="process_status_edit.php?id={$process_queue[i].id}&page={$page}" data-toggle="tooltip" data-placement="bottom" title="Edit Status">
                 <span class="glyphicon glyphicon-edit"></span>
             </a> &nbsp;
-            <a href="process_queue.php?action=delete&id={$process_queue[i].id}" onclick="return confirm('Are you sure you want to remove ?');">
+            <a href="process_queue.php?action=delete&id={$process_queue[i].id}" onclick="return confirm('Are you sure you want to remove ?');" data-toggle="tooltip" data-placement="bottom" title="Remove">
                 <span class="glyphicon glyphicon-remove-circle"></span>
             </a>
         </td>
@@ -73,4 +73,10 @@
     <div class="col-md-3"><a href="?action=delete_all" class="btn btn-default btn-lg">Clear Process Queue</a></div>
 </div>
 
-
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}

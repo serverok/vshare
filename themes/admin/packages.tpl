@@ -24,8 +24,16 @@
         <td>{if $packages[aa].package_trial eq "yes"}{$packages[aa].package_trial_period} days{else}{$packages[aa].package_period}{/if}</td>
         <td>{if $packages[aa].package_allow_download eq '1'} Yes {else} No {/if}</td>
         <td>{$packages[aa].package_status}</td>
-        <td><a href="package_edit.php?package_id={$packages[aa].package_id}"><span class="glyphicon glyphicon-edit"></span></a></td>
+        <td><a href="package_edit.php?package_id={$packages[aa].package_id}" data-toggle="tooltip" data-placement="bottom" title="Edit Package"><span class="glyphicon glyphicon-edit"></span></a></td>
     </tr>
     {/section}
 
 </table>
+
+{literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{/literal}
