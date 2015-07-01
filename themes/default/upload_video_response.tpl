@@ -3,17 +3,17 @@
         <h1>You are posting a video response to:</h1>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-orient-ls-members col-sm-3 col-md-3">
         <div class="thumbnail">
             <div class="preview">
                 <a href="{$base_url}/view/{$video_info.video_id}/{$video_info.video_seo_name}/">
-                    <img class="img-response" width="100%" src="{$video_info.video_thumb_url}/thumb/{$video_info.video_folder}1_{$video_info.video_id}.jpg">
+                    <img class="img-responsive" src="{$video_info.video_thumb_url}/thumb/{$video_info.video_folder}1_{$video_info.video_id}.jpg">
                 </a>
                 <div class="badge video-time">{$video_info.video_length}</div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6 col-md-7">
         <h5>
             <a href="{$base_url}/view/{$video_info.video_id}/{$video_info.video_seo_name}/">
                 {$video_info.video_title}
@@ -27,16 +27,14 @@
             Likes: {$video_info.video_rated_by}
         </p>
     </div>
-    <div class="col-md-3">
-        <div class="thumbnail">
+    <div class="col-sm-3 col-md-2 pull-right">
+        <div class="thumbnail members">
             {insert name=id_to_name assign=uname un=$video_info.video_user_id}
             <a href="{$base_url}/{$uname}">
-                {insert name=member_img UID=$video_info.video_user_id}
+                <img class="img-responsive" src="{insert name=member_img_url UID=$video_info.video_user_id}">
             </a>
             <div class="caption">
-                <h5>
-                    From: <a href="{$base_url}/{$uname}">{$uname}</a>
-                </h5>
+                <h5>From: <a href="{$base_url}/{$uname}">{$uname}</a></h5>
                 {insert name=video_count assign=vdo_count type=public uid=$video_info.video_user_id}
                 <p class="text-muted small">Videos: {$vdo_count}</p>
             </div>

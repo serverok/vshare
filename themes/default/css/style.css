@@ -370,6 +370,10 @@ footer {
         float: left;
         width: 50%;
     }
+    .col-orient-ls-members {
+        float: left;
+        width: 25%;
+    }
 }
 .view-video-title {
     font-size: 25px;
@@ -446,16 +450,33 @@ h5.video-title {
     min-height:100px;
 }
 
-.members h5 {
+.members .user-title {
     background: #000;
     bottom: 0;
     color: #fff;
-    font-size: 17px;
-    font-weight: bold;
     margin: 0;
+    overflow: hidden;
     padding: 5px;
     position: absolute;
     text-shadow: 1px 1px #000;
     width: 100%;
 }
 
+.thumbnail.members {
+    border: 0 none;
+    box-shadow: none;
+    margin-bottom: 5px;
+    margin-left: -7px;
+    margin-right: -7px;
+    overflow: hidden;
+}
+.members .preview {
+    max-width: 160px;
+}
+.members img.img-responsive {
+    margin-left: 0;
+    max-height: 160px;
+}
+.members .caption {
+    padding: 5px 0;
+}

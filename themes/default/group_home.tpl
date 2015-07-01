@@ -154,12 +154,14 @@
 
         <div class="row">
             {section name=i loop=$group_members}
-                <div class="col-orient-ls col-sm-6 col-md-4">
-                    <div class="thumbnail">
+                <div class="col-orient-ls-members col-xs-6 col-sm-4 col-md-3">
+                    <div class="thumbnail members">
                         {insert name=id_to_name assign=uname un=$group_members[i].user_id}
-                        <a href="{$base_url}/{$uname}/">
-                            {insert name=member_img UID=$group_members[i].user_id}
-                        </a>
+                        <div class="preview">
+                            <a href="{$base_url}/{$uname}/">
+                                <img class="img-responsive" src="{insert name=member_img_url UID=$group_members[i].user_id}" alt="{$uname}">
+                            </a>
+                        </div>
                         <div class="caption">
                             <h5><a href="{$base_url}/{$uname}/">{$uname}</a></h5>
                         </div>

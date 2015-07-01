@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <div class="col-md-3">
+    <div class="col-orient-ls-members col-sm-3 col-md-3">
         <div class="thumbnail">
             <div class="preview">
                 <a href="{$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/">
@@ -9,7 +9,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6 col-md-7">
         <h5>
             <a href="{$base_url}/view/{$view.video_info.video_id}/{$view.video_info.video_seo_name}/">
                 {$view.video_info.video_title}
@@ -23,22 +23,21 @@
             Likes: {$view.video_info.video_rated_by}
         </p>
     </div>
-    <div class="col-md-3">
-        <div class="thumbnail">
+    <div class="col-sm-3 col-md-2 pull-right">
+        <div class="thumbnail members">
             {insert name=id_to_name assign=uname un=$view.video_info.video_user_id}
             <a href="{$base_url}/{$uname}">
-                {insert name=member_img UID=$view.video_info.video_user_id}
+                <img class="img-responsive" src="{insert name=member_img_url UID=$view.video_info.video_user_id}">
             </a>
             <div class="caption">
-                <h5>
-                    From: <a href="{$base_url}/{$uname}">{$uname}</a>
-                </h5>
+                <h5>From: <a href="{$base_url}/{$uname}">{$uname}</a></h5>
                 {insert name=video_count assign=vdo_count type=public uid=$view.video_info.video_user_id}
                 <p class="text-muted small">Videos: {$vdo_count}</p>
             </div>
         </div>
     </div>
 </div>
+<div class="clearfix"></div>
 
 <div class="col-md-12">
     <div class="page-header">
@@ -52,7 +51,7 @@
 
     <div class="row">
         {section name=i loop=$view.videos}
-            <div class="col-md-3">
+            <div class="col-orient-ls col-sm-4 col-md-3">
                 <div class="thumbnail">
                     <div class="preview">
                         <a href="{$base_url}/view/{$view.videos[i].video_id}/{$view.videos[i].video_seo_name}/">

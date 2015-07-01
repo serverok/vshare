@@ -8,11 +8,13 @@
     </div>
     <div class="row">
         {section name=i loop=$friends}
-            <div class="col-orient-ls col-md-4 col-sm-6">
-                <div class="thumbnail">
-                    <a href="{$base_url}/{$friends[i].friend_name}">
-                        {insert name=member_img UID=$friends[i].friend_friend_id}
-                    </a>
+            <div class="col-orient-ls-members col-xs-6 col-sm-4 col-md-3">
+                <div class="thumbnail members">
+                    <div class="preview">
+                        <a href="{$base_url}/{$friends[i].friend_name}">
+                            <img class="img-responsive" src="{insert name=member_img_url UID=$friends[i].friend_friend_id}">
+                        </a>
+                    </div>
                     <div class="caption">
                         <h5>
                         {if $friends[i].friend_status eq "Confirmed"}
@@ -26,7 +28,7 @@
                             {insert name=video_count assign=video uid=$friends[i].friend_friend_id}
                             {insert name=favour_count assign=favour uid=$friends[i].friend_friend_id}
                             {insert name=friends_count assign=frnd uid=$friends[i].friend_friend_id}</li>
-                            <p class="text-muted small">
+                            <p class="text-muted small text-nowrap">
                                 Videos:
                                 {if $video ne "0" and $video ne ""} <a href="{$base_url}/{$friends[i].friend_name}/public/">{$video}</a>
                                 {else} 0
@@ -43,8 +45,8 @@
                         {/if}
 
                         {insert name=showlist assign=showlist id=$friends[i].friend_id}
-                        <p class="text-muted small">Lists: {$showlist}</p>
-                        <p class="text-muted small">
+                        <p class="text-muted small text-nowrap">Lists: {$showlist}</p>
+                        <p class="text-muted small text-nowrap">
                             Status: {$friends[i].friend_status}
                             {if $friends[i].friend_status eq "Pending"}
                             ({$friends[i].friend_invite_date|date_format:"%B %e, %Y"})
