@@ -70,7 +70,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-3">Security Code:</label>
                     <div class="col-md-6">
-                        <img src="{$base_url}/captcha.php" alt="captcha" class="required">
+                        {$captcha_html}
                     </div>
                 </div>
                 <div class="form-group">
@@ -83,7 +83,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-3">Security Code:</label>
                     <div class="col-md-6">
-                    {$recaptcha_html}
+                        {$captcha_html}
                     </div>
                 </div>
             {/if}

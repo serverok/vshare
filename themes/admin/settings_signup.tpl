@@ -82,6 +82,30 @@
         </div>
     </div>
 
+    <div class="form-group recaptcha-keys">
+        <label class="col-sm-3 control-label" for="recaptcha_sitekey">reCaptcha Site Key:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <input type="text" name="recaptcha_sitekey" id="recaptcha_sitekey" value="{$recaptcha_sitekey}" class="form-control">
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/signup_settings#recaptcha_sitekey" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group recaptcha-keys">
+        <label class="col-sm-3 control-label" for="recaptcha_secretkey">reCaptcha Secret Key:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <input type="text" name="recaptcha_secretkey" id="recaptcha_secretkey" value="{$recaptcha_secretkey}" class="form-control">
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/signup_settings#recaptcha_secretkey" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="form-group">
         <label class="col-sm-3 control-label" for="signup_dob">Date of Birth on Signup:</label>
         <div class="col-sm-5">
@@ -145,3 +169,17 @@
     </fieldset>
 
 </form>
+
+<script>
+if ($("#captcha_type").val() == "default") {
+    $(".recaptcha-keys").addClass("hidden");
+}
+$("#captcha_type").change(function(){
+    var captcha_type = $(this).val();
+    if (captcha_type == "recaptcha") {
+        $(".recaptcha-keys").removeClass("hidden");
+    } else {
+        $(".recaptcha-keys").addClass("hidden");
+    }
+});
+</script>

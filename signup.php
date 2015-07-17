@@ -17,8 +17,9 @@ require 'include/language/' . LANG . '/lang_signup.php';
 
 $signup_dob = Config::get('signup_dob');
 $signup_enable = Config::get('signup_enable');
-$captcha_type = Config::get('captcha_type');
-$smarty->assign('recaptcha_html', Captcha::get($captcha_type));
+$captcha = new Captcha;
+$captcha_type = $captcha->getType();
+$smarty->assign('captcha_html', $captcha->get());
 
 $signup = array();
 
@@ -101,10 +102,9 @@ if (isset($_POST['submit'])) {
     }
 
     if (($config['signup_captcha'] == '1') and ($err == '')) {
-        $captcha_response = ($captcha_type == 'recaptcha') ? $_POST['recaptcha_response_field'] : htmlspecialchars_uni($_POST['security_code']);
-        $captcha_challenge = ($captcha_type == 'recaptcha') ? $_POST['recaptcha_challenge_field'] : '';
+        $captcha_response = ($captcha_type == 'recaptcha') ? $_POST['g-recaptcha-response'] : htmlspecialchars_uni($_POST['security_code']);
 
-        if (! Captcha::validate($captcha_type, $captcha_response, $captcha_challenge)) {
+        if (! $captcha->validate($captcha_response)) {
             $err = $lang['captcha_invalid'];
         }
     }
