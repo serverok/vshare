@@ -2,61 +2,78 @@
 
 class Captcha
 {
-    private static $public_key = '6Le6eAUAAAAAAFFu7P7Z2QX_J748rwpvAattTlzq';
-    private static $private_key = '6Le6eAUAAAAAADDQahn7Hgqbr21lEQAkoIQAAdKK';
+    private $public_key;
+    private $private_key;
+    private $captcha_type;
 
-    public static function get($captcha_type = 'default')
+    public function __construct()
     {
-        if ($captcha_type == 'recaptcha') {
-            return self::_reCaptcha();
-        } else {
-            return self::_default();
-        }
+        $this->public_key = Config::get('recaptcha_sitekey');
+        $this->private_key = Config::get('recaptcha_secretkey');
+        $this->captcha_type = $this->getType();
     }
 
-    private static function _reCaptcha()
+    public function getType()
+    {
+        $captcha_type = 'default';
+
+        if (Config::get('captcha_type') != 'default') {
+            if (strlen($this->public_key) > 10 && strlen($this->private_key) > 10) {
+                $captcha_type = 'recaptcha';
+            }
+        }
+
+        return $captcha_type;
+    }
+
+    public function get()
+    {
+        if ($this->captcha_type == 'recaptcha') {
+            return $this->_reCaptcha();
+        }
+
+        return $this->_default();
+    }
+
+    private function _reCaptcha()
     {
         $captcha_code = '
-        <script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=' . self::$public_key . '"></script>
-        <noscript>
-            <iframe src="http://www.google.com/recaptcha/api/noscript?k=' . self::$public_key . '" height="300" width="500" frameborder="0"></iframe><br>
-            <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
-            <input type="hidden" name="recaptcha_response_field" value="manual_challenge" />
-        </noscript>
+        <div class="g-recaptcha" data-sitekey=' . $this->public_key . '></div>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
         ';
         return $captcha_code;
     }
 
-    private static function _default()
+    private function _default()
     {
-        return '<img src="' . VSHARE_URL . '/captcha.php">';
+        return '<img src="' . VSHARE_URL . '/captcha.php" alt="captcha" class="required">';
     }
 
-    public static function validate($captcha_type = 'default', $response = '', $challenge = '')
+    public function validate($response = '')
     {
-        if ($captcha_type == 'recaptcha') {
-            return self::_reCaptchaValidate($challenge, $response);
+        if ($this->captcha_type == 'recaptcha') {
+            return $this->_reCaptchaValidate($response);
         } else {
-            return self::_defaultValidate($response);
+            return $this->_defaultValidate($response);
         }
     }
 
-    private static function _defaultValidate($security_code)
+    private function _defaultValidate($security_code)
     {
         if ($_SESSION['security_code'] == $security_code)
         {
+            unset($_SESSION['security_code']);
             return true;
         }
 
         return false;
     }
 
-    private static function _reCaptchaValidate($challenge, $response)
+    private function _reCaptchaValidate($response)
     {
         $data = array(
-            'privatekey' => self::$private_key,
+            'secret' => $this->private_key,
             'remoteip' => User::get_ip(),
-            'challenge' => $challenge,
             'response' => $response
         );
         $req = "";
@@ -66,35 +83,22 @@ class Captcha
 
         $req = substr($req, 0, strlen($req) - 1);
 
-        $http_request  = "POST /verify HTTP/1.0\r\n";
-        $http_request .= "Host: api-verify.recaptcha.net\r\n";
-        $http_request .= "Content-Type: application/x-www-form-urlencoded;\r\n";
-        $http_request .= "Content-Length: " . strlen($req) . "\r\n";
-        $http_request .= "User-Agent: reCAPTCHA/PHP\r\n";
-        $http_request .= "\r\n";
-        $http_request .= $req;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $response = curl_exec($ch);
 
-        $response = '';
-
-        if( false == ( $fs = @fsockopen('api-verify.recaptcha.net', 80, $errno, $errstr, 10) ) )
+        if(! $response)
         {
-            die ('Could not open socket');
+            die(curl_error($ch));
         }
 
-        fwrite($fs, $http_request);
+        curl_close($ch);
 
-        while ( !feof($fs) )
-            $response .= fgets($fs, 1160);
-        fclose($fs);
-
-        $response = explode("\r\n\r\n", $response);
-        $response = explode("\n", $response[1]);
-
-        if ($response[0] == "true")
-        {
-            return true;
-        }
-
-        return false;
+        $response = json_decode($response);
+        return $response->success;
     }
 }

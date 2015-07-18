@@ -134,6 +134,8 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('user_photo_width', 
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('user_photo_height', '160');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('user_avatar_width', '40');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('user_avatar_height', '40');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('recaptcha_sitekey', '');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('recaptcha_secretkey', '');
 
 
 -- Table structure for table `contact`
