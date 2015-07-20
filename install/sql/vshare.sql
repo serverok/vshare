@@ -136,6 +136,7 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('user_avatar_width',
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('user_avatar_height', '40');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('recaptcha_sitekey', '');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('recaptcha_secretkey', '');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('spam_filter', '0');
 
 
 -- Table structure for table `contact`
@@ -876,3 +877,10 @@ CREATE TABLE `mail_logs` (
   `mail_log_time` INT( 11 ) NOT NULL
 ) ENGINE = MYISAM CHARACTER SET utf8;
 
+--
+-- Table structure for table `banned_ip`
+--
+
+CREATE TABLE IF NOT EXISTS `banned_ip` (
+  `ip` varchar(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
