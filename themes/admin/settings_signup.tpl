@@ -161,6 +161,21 @@
     </div>
 
     <div class="form-group">
+        <label class="col-sm-3 control-label" for="spam_filter">Spam Filter:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <select class="form-control" name="spam_filter" id="spam_filter">
+                    <option value="0" {if $spam_filter =='0'}selected="selected"{/if}>Disable</option>
+                    <option value="1" {if $spam_filter =='1'}selected="selected"{/if}>Enable</option>
+                </select>
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/2.9/signup_settings#spam_filter" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
             <button type="submit" name="submit" class="btn btn-default btn-lg">Update</button>
         </div>

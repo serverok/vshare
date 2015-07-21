@@ -131,6 +131,11 @@ if (isset($_POST['submit']))
         }
     }
 
+    $sql = "UPDATE `config` SET
+           `config_value`='" . (int) $_POST['spam_filter'] . "' WHERE
+           `config_name`='spam_filter'";
+    DB::query($sql);
+
     if ($err == '')
     {
         $msg = $lang['settings_updated'];
@@ -145,6 +150,7 @@ $smarty->assign('signup_dob', Config::get('signup_dob'));
 $smarty->assign('captcha_type', Config::get('captcha_type'));
 $smarty->assign('recaptcha_sitekey', Config::get('recaptcha_sitekey'));
 $smarty->assign('recaptcha_secretkey', Config::get('recaptcha_secretkey'));
+$smarty->assign('spam_filter', Config::get('spam_filter'));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

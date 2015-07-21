@@ -15,6 +15,16 @@
 require 'include/config.php';
 require 'include/language/' . LANG . '/lang_signup.php';
 
+$user_ip = User::get_ip();
+$spam_filter = Config::get('spam_filter');
+
+if ($spam_filter == 1) {
+    if (Spam::isIPBanned($user_ip)) {
+        require '404.php';
+        exit();
+    }
+}
+
 $signup_dob = Config::get('signup_dob');
 $signup_enable = Config::get('signup_enable');
 $captcha = new Captcha;
@@ -137,7 +147,6 @@ if (isset($_POST['submit'])) {
     }
 
     if ($err == '') {
-        $user_ip = User::get_ip();
         $request_password = $_POST['password'];
         $request_password = md5($request_password);
         $sql = "INSERT INTO `users` SET
@@ -243,6 +252,18 @@ if (isset($_POST['submit'])) {
         }
         # send activation mail end
 
+        $spam_notify_info = '';
+
+        if ($spam_filter == 1) {
+            $spam_score = Spam::foundOnSFS($user_ip, $_POST['user_name'], $_POST['email']);
+            if ($spam_score > 1) {
+                Spam::banIP($user_ip);
+                $config['notify_signup'] = 1;
+                $spam_notify_info .= "\n";
+                $spam_notify_info .= 'FOUND ON SFS (score: ' . $spam_score . '): http://www.stopforumspam.com/api?f=serial&ip=' . $user_ip . '&username=' . $_POST['user_name'] . '&email=' . $_POST['email'];
+            }
+        }
+
         # admin signup notify
 
         if ($config['notify_signup'] == 1) {
@@ -262,6 +283,7 @@ if (isset($_POST['submit'])) {
             $email_body_tmp = str_replace('[REMOTE_ADDR]', $_SERVER['REMOTE_ADDR'], $email_body_tmp);
             $email_body_tmp = str_replace('[HTTP_USER_AGENT]', $_SERVER['HTTP_USER_AGENT'], $email_body_tmp);
             $email_body_tmp = str_replace('[USER_URL]', VSHARE_URL . '/' . $_POST['user_name'], $email_body_tmp);
+            $email_body_tmp .= $spam_notify_info;
 
             $email = array();
             $email['from_email'] = $config['admin_email'];
