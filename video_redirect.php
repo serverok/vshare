@@ -26,7 +26,7 @@ if (! $video_info || $video_info['video_user_id'] == 0) {
     set_message($lang['video_not_found'], 'error');
     $redirect_url = VSHARE_URL . '/';
 } else {
-    $redirect_url = VSHARE_URL . '/view/' . $video_info['video_id'] . '/' . $video_info['video_seo_name'] . '/';
+    $redirect_url = VSHARE_URL . '/view/' . $video_info['video_id'] . '/' . urlencode($video_info['video_seo_name']) . '/';
 }
 
 DB::close();
