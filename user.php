@@ -19,7 +19,7 @@ $user_name = $_GET['user_name'];
 
 $user_info = User::getByName($user_name);
 
-if (! $user_info) {
+if (! $user_info || in_array($user_info['user_account_status'], array('Inactive', 'Suspended'))) {
     require '404.php';
     exit();
 }
