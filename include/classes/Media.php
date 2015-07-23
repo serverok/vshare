@@ -47,6 +47,12 @@ class Media
     {
         global $config;
 
+        if (! isset($config['qt-faststart'])) {
+            $log_text = '<h3 class="text-danger">ERROR: qt-faststart not found.</h3>';
+            write_log($log_text, $log_file_name, $debug, 'html');
+            return ;
+        }
+
         $video_metadata_mp4 = VSHARE_DIR . '/flvideo/' . $video_folder . 'metadata_' . $mp4_name;
         $video_mp4 = (string) VSHARE_DIR . '/flvideo/' . $video_folder . $mp4_name;
         $video_mp4 = trim($video_mp4);
