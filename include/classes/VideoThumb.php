@@ -87,7 +87,7 @@ class VideoThumb
                 echo "<p>$fd</p>";
             }
 
-            $cmd = "$config[ffmpeg] -i '$t_info[src]' -ss $thumb_position -t 00:00:01 -s " . $maxwidth . 'x' . $maxheight . " -r 1 -f mjpeg $fd";
+            $cmd = "$config[ffmpeg] -ss $thumb_position -i '$t_info[src]' -s " . $maxwidth . 'x' . $maxheight . " '$fd' -r 1 -vframes 1 -an -vcodec mjpeg";
             @exec("$cmd 2>&1", $output);
 
             if ($debug) {
