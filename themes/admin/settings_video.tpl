@@ -15,7 +15,7 @@
                 <option value="flv" {if $video_output_format eq 'flv'}selected="selected"{/if}>FLV</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/video_settings#video_output_format" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/video_settings#video_output_format" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                 <option value="2" {if $process_upload =='2'}selected="selected"{/if}>Background Processing</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/video_settings#process_upload" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/video_settings#process_upload" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                 <option value="ffmpeg-php" {if $tool_video_thumb =='ffmpeg-php'}selected="selected"{/if}>ffmpeg-php</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/video_settings#tool_video_thumb" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/video_settings#tool_video_thumb" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@
                 <option value="none" {if $flv_metadata =='none'}selected="selected"{/if}>None</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/video_settings#flv_metadata" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/video_settings#flv_metadata" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
                 <option value="1" {if $process_notify_user =='1'}selected="selected"{/if}>Yes</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/video_settings#process_notify_user" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/video_settings#process_notify_user" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@
                 <option value="1" {if $video_flv_delete =='1'}selected="selected"{/if}>Yes</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/video_settings#video_flv_delete" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/video_settings#video_flv_delete" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
                 <option value="1" {if $guest_upload =='1'}selected="selected"{/if}>Yes</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/video_settings#guest_upload" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/video_settings#guest_upload" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -120,7 +120,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="guest_upload_user" id="guest_upload_user" value="{$guest_upload_user}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/video_settings#guest_upload_user" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/video_settings#guest_upload_user" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -136,7 +136,7 @@
                 <option value="html5" {if $upload_progress_bar =='html5'}selected="selected"{/if}>HTML5</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/video_settings#upload_progress_bar" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/video_settings#upload_progress_bar" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -148,7 +148,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="img_max_width" id="img_max_width" value="{$img_max_width}">
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/video_settings#img_max_width" target="_blank">
+                    <a href="http://buyscripts.in/docs/vshare/3.0/video_settings#max_thumb_width" target="_blank">
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </a>
                 </div>
@@ -162,7 +162,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="img_max_height" id="img_max_height" value="{$img_max_height}">
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/video_settings#img_max_height" target="_blank">
+                    <a href="http://buyscripts.in/docs/vshare/3.0/video_settings#max_thumb_height" target="_blank">
                         <span class="glyphicon glyphicon-question-sign"></span>
                     </a>
                 </div>

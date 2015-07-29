@@ -14,7 +14,7 @@
             <div class="input-group">
                 <input class="form-control" name="server_url" id="server_url" value="{$server_info.url}" size="50" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_url" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/add_server#server_url" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
             <p class="help-block">No trailing slash. Eg: http://video1.site.com</p>
@@ -27,7 +27,7 @@
             <div class="input-group">
                 <input class="form-control" name="server_ip" id="server_ip" value="{$server_info.ip}" size="50" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_ip" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/add_server#server_ip" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
             <div class="input-group">
                 <input class="form-control" name="user_name" id="user_name" value="{$server_info.user_name}" size="50" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_username" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/add_server#server_username" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
             <div class="input-group">
                 <input class="form-control" name="password" id="password" value="{$server_info.password}" size="50" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_password" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/add_server#server_password" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@
             <div class="input-group">
                 <input class="form-control" name="folder" id="folder" value="{$server_info.folder}" size="50" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_folder" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/add_server#server_folder" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -84,7 +84,7 @@
                 <input class="form-control" type="text" value="THUMBNAIL SERVER" disabled>
             {/if}
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_type" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/add_server#server_type" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -96,7 +96,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="server_secdownload_secret" id="server_secdownload_secret" size="50" value="{$server_info.server_secdownload_secret}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/add_server#server_type" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/add_server#server_type" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>

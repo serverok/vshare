@@ -15,7 +15,7 @@
                 <option value="Unlimited" {if $video_rating =='Unlimited'}selected="selected"{/if}>Unlimited</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#video_rating" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#video_rating" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="admin_listing_per_page" id="admin_listing_per_page" size="2" value="{$item_per_page}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#admin_listing_per_page" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#admin_listing_per_page" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="num_channel_video" id="num_channel_video" size="2" value="{$num_channel_video}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#num_channel_video" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#num_channel_video" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="php_path" id="php_path" value="{$php_path}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#php_path" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#php_path" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
                 <option value="1" {if $recommend_all =='1'}selected="selected"{/if}>Everyone</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#recommend_all" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#recommend_all" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@
                 <option value="1" {if $allow_download =='1'}selected="selected"{/if}>Yes</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#allow_download" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#allow_download" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="video_comments_per_page" id="video_comments_per_page" value="{$video_comments_per_page}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#video_comments_per_page" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#video_comments_per_page" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
                 <option value="1" {if $video_comment_notify =='1'}selected="selected"{/if}>Yes</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#video_comment_notify" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#video_comment_notify" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -120,7 +120,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="user_comments_per_page" id="user_comments_per_page" value="{$user_comments_per_page}" /></label>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#user_comments_per_page" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#user_comments_per_page" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -135,7 +135,7 @@
                 <option value="1" {if $editor_wysiwyg_admin =='1'}selected="selected"{/if}>Enable</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#editor_wysiwyg_admin" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#editor_wysiwyg_admin" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
             <span class="help-block">(For Web Pages)</span>
@@ -151,7 +151,7 @@
                 <option value="1" {if $editor_wysiwyg_email =='1'}selected="selected"{/if}>Enable</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#editor_wysiwyg_email" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#editor_wysiwyg_email" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
             <span class="help-block">(For Email Templates)</span>
@@ -167,7 +167,7 @@
                 <option value="1" {if $mail_abuse_report =='1'}selected="selected"{/if}>Yes</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#mail_abuse_report" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#mail_abuse_report" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -179,7 +179,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="num_max_channels" id="num_max_channels" value="{$num_max_channels}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#num_max_channels" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#num_max_channels" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -191,7 +191,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="user_daily_mail_limit" id="user_daily_mail_limit" value="{$user_daily_mail_limit}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#user_daily_mail_limit" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#user_daily_mail_limit" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -203,7 +203,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="dailymotion_api_key" id="dailymotion_api_key" value="{$dailymotion_api_key}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#dailymotion_api_key" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#dailymotion_api_key" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -215,7 +215,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="dailymotion_api_secret" id="dailymotion_api_secret" value="{$dailymotion_api_secret}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#dailymotion_api_key" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#dailymotion_api_key" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -227,7 +227,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="youtube_api_key" id="youtube_api_key" value="{$youtube_api_key}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/miscellaneous#youtube_api_key" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#youtube_api_key" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
