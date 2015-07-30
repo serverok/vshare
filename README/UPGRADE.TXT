@@ -80,3 +80,15 @@ Upgrade vShare v2.7 to 2.8.1
 -----------------------------------------------------------------
 
 http://forums.buyscripts.in/announcements/8728-upgrade-vshare-2-7-vshare-2-8-1-a.html
+
+-----------------------------------------------------------------
+Upgrade vShare v2.8.1 to 2.9
+-----------------------------------------------------------------
+
+http://forums.buyscripts.in/showthread.php/10082-Upgrade-vShare-2-8-1-to-vShare-2-9
+
+-----------------------------------------------------------------
+Upgrade vShare v2.9 to 3.0
+-----------------------------------------------------------------
+
+http://buyscripts.in/docs/vshare/3.0/upgrade_vshare_29_30

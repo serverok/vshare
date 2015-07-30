@@ -4,7 +4,7 @@ VSHARE INSTALLATION
 
 You can find vShare Installation Instructions at
 
-http://buyscripts.in/vshare2-installation
+http://buyscripts.in/docs/vshare/3.0/installation
 
 ===========================================
 IMPORTANT NOTE
