@@ -14,7 +14,7 @@
                 <option value="Unlimited" {if $user_poll =='Unlimited'}selected="selected"{/if}>Unlimited</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/home_page#user_poll" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/home_page#user_poll" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="home_num_tags" id="home_num_tags" value="{$home_num_tags}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/home_page#home_num_tags" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/home_page#home_num_tags" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="num_last_users_online" id="num_last_users_online" value="{$num_last_users_online}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/home_page#num_last_users_online" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/home_page#num_last_users_online" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="num_new_videos" id="num_new_videos" value="{$num_new_videos}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/home_page#num_new_videos" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/home_page#num_new_videos" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="recently_viewed_video" id="recently_viewed_video" value="{$recently_viewed_video}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/home_page#recently_viewed_video" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/home_page#recently_viewed_video" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -77,7 +77,7 @@
                 <option value="0" {if $show_stats eq "0"}selected="selected"{/if}>Disable</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/2.9/home_page#show_stats" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="http://buyscripts.in/docs/vshare/3.0/home_page#show_stats" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
