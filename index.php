@@ -92,12 +92,13 @@ if (! $view) {
     # recent videos
 
     $sql = "SELECT * FROM `videos` WHERE
-           `video_view_time`<>'0000-00-00 00:00:00' AND
            `video_type`='public' AND
            `video_active`='1' AND
            `video_approve`='1'
-            $sql_adult_filter
-            ORDER BY `video_view_time` DESC
+            $sql_adult_filter ORDER BY
+           `video_view_number` DESC,
+           `video_com_num` DESC,
+           `video_rated_by` DESC
             LIMIT 0, $config[recently_viewed_video]";
     $videos = DB::fetch($sql);
 

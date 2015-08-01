@@ -75,8 +75,9 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title"><span class="glyphicon glyphicon-film"></span> <strong>Recently Viewed</strong> <span class="pull-right">
-        <a href="{$base_url}/viewed/"> <span class="glyphicon glyphicon-plus"></span> More</a></span></h3>
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-film"></span> <strong>Popular videos</strong>
+        </h3>
     </div>
 
     <div class="panel-body">
