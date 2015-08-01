@@ -19,11 +19,21 @@ if (isset($_GET['thumbs_regenerate'])) {
     $start = ($page - 1) * $items_per_page;
     $page++;
 
-    $sql = "SELECT `video_id`,`video_name`,`video_duration`,`video_folder`,`video_vtype`
+    $last_video_id = 0;
+    $thumb_last_video_info_file = VSHARE_DIR . '/templates_c/thumbs_regenerate.txt';
+    if (file_exists($thumb_last_video_info_file)) {
+        $last_video_id = file_get_contents($thumb_last_video_info_file);
+        $last_video_id = (int) $last_video_id;
+    }
+
+    $sql = "SELECT `video_id`,`video_name`,`video_flv_name`,`video_duration`,`video_folder`,`video_vtype`
             FROM `videos` WHERE
-           `video_vtype` IN (0, 1)
-            ORDER BY `video_id` DESC
-            LIMIT $start, $items_per_page";
+           `video_vtype` IN (0, 1)";
+    if ($last_video_id > 0) {
+        $sql .= " AND `video_id`<'$last_video_id'";
+    }
+    $sql .= " ORDER BY `video_id` DESC
+             LIMIT $start, $items_per_page";
     $videos = DB::fetch($sql);
 
     if (! empty($videos)) {
@@ -33,7 +43,10 @@ if (isset($_GET['thumbs_regenerate'])) {
             if ($video['video_vtype'] == 0) {
                 $video_src = VSHARE_DIR . '/video/' . $video['video_name'];
                 if (! file_exists($video_src)) {
-                    continue;
+                    $video_src = VSHARE_DIR . '/flvideo/' . $video['video_folder'] . $video['video_flv_name'];
+                    if (! file_exists($video_src)) {
+                        continue;
+                    }
                 }
                 $t_info = array();
                 $t_info['src'] = $video_src;
@@ -60,6 +73,13 @@ if (isset($_GET['thumbs_regenerate'])) {
                 $desination = VSHARE_DIR . '/thumb/' . $video['video_id'] . '.jpg';
                 Http::download($source, $desination);
             }
+            $last_video_id = $video['video_id'];
+        }
+
+        if ($last_video_id > 0) {
+            $fh = fopen($thumb_last_video_info_file, 'w');
+            fwrite($fh, $last_video_id);
+            fclose($fh);
         }
 
         echo "<p>Please wait...</p>";
