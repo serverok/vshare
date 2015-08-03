@@ -50,6 +50,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                 echo "<p>User " . $user['user_name'] . " deleted.</p>";
             }
         }
+        DB::close();
         echo '<meta http-equiv="refresh" content="3;url=' . VSHARE_URL . '/admin/users_inactive_delete.php?action=delete&items_per_page=' . $items_per_page . '&page=' . $page . '">';
     } else {
         DB::close();
