@@ -18,8 +18,8 @@ You can install youtube clone requirement on your server if you have a dedicated
 
 If you need installation, contact
 
-http://hostonnet.com/youtube-clone-script-installation.php
+http://hostonnet.com/youtube-clone-script-installation
 
 For YouTube Clone Hosting, visit
 
-http://hostonnet.com/ffmpeg_hosting.php
+http://hostonnet.com/ffmpeg-hosting
