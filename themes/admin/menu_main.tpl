@@ -126,6 +126,7 @@
                     <li><a href="update_counters.php">Update Counters</a></li>
                     <li><a href="tags_regenerate.php">Regenerate Tags</a></li>
                     <li><a href="thumbs_regenerate.php">Regenerate Thumbs</a></li>
+                    <li><a href="users_inactive_delete.php">Delete Inactive Users</a></li>
                     <li><a href="phpinfo.php">View PHP Info</a></li>
                 </ul>
             </li>

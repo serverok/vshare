@@ -1,4 +1,7 @@
 <div class="page-header">
+    {if $smarty.get.a eq 'Inactive'}
+        <a class="btn btn-danger pull-right" href="users_inactive_delete.php">Delete Inactive Users</a>
+    {/if}
     <h1>{$smarty.request.a} Users ({$total})</h1>
 </div>
 
