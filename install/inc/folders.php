@@ -7,7 +7,6 @@ $writable_folders = array(
     'include' => 'DIR',
     'include/config.php' => 'FILE',
     'photo' => 'DIR',
-    'templates' => 'DIR',
     'templates_c' => 'DIR',
     'thumb' => 'DIR',
     'video' => 'DIR'
