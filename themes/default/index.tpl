@@ -30,89 +30,91 @@
 
     <!-- new videos -->
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title"><span class="glyphicon glyphicon-film"></span> <strong>New Videos</strong> <span class="pull-right">
-        <a href="{$base_url}/recent/"> <span class="glyphicon glyphicon-plus"></span> More</a></span></h3>
-    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-film"></span> <strong>New Videos</strong> <span class="pull-right">
+            <a href="{$base_url}/recent/"> <span class="glyphicon glyphicon-plus"></span> More</a></span></h3>
+        </div>
 
-    <div class="panel-body">
-        <div class="row">
-            <div class="video-block home-videos">
-            {section name=i loop=$view.new_videos}
-                <div class="col-orient-ls col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <div class="preview">
-                            <a href="{$base_url}/view/{$view.new_videos[i].video_id}/{$view.new_videos[i].video_seo_name}/">
-                                <img class="img-responsive" width="100%" height="130" src="{$view.new_videos[i].video_thumb_url}/thumb/{$view.new_videos[i].video_folder}1_{$view.new_videos[i].video_id}.jpg" alt="{$view.new_videos[i].video_title}" />
-                            </a>
-                            <span class="badge video-time">{$view.new_videos[i].video_length}</span>
-                            <span class="btn btn-default btn-xs video-queue" id="queue_{$view.new_videos[i].video_id}" data-id="{$view.new_videos[i].video_id}" rel="video_queue">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </span>
-                        </div>
-                        <div class="caption">
-                            <h5 class="video-title">
-                                <a href="{$base_url}/view/{$view.new_videos[i].video_id}/{$view.new_videos[i].video_seo_name}/">{$view.new_videos[i].video_title}</a>
-                            </h5>
-                            <p class="text-muted small">
-                                {insert name=time_range assign=added_on time=$view.new_videos[i].video_add_time}
-                                {$view.new_videos[i].video_view_number} views, {$added_on}
-                            </p>
+        <div class="panel-body">
+            <div class="row">
+                <div class="video-block home-videos">
+                {section name=i loop=$view.new_videos}
+                    <div class="col-orient-ls col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <div class="preview">
+                                <a href="{$base_url}/view/{$view.new_videos[i].video_id}/{$view.new_videos[i].video_seo_name}/">
+                                    <img class="img-responsive" width="100%" height="130" src="{$view.new_videos[i].video_thumb_url}/thumb/{$view.new_videos[i].video_folder}1_{$view.new_videos[i].video_id}.jpg" alt="{$view.new_videos[i].video_title}" />
+                                </a>
+                                <span class="badge video-time">{$view.new_videos[i].video_length}</span>
+                                <span class="btn btn-default btn-xs video-queue" id="queue_{$view.new_videos[i].video_id}" data-id="{$view.new_videos[i].video_id}" rel="video_queue">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </span>
+                            </div>
+                            <div class="caption">
+                                <h5 class="video-title">
+                                    <a href="{$base_url}/view/{$view.new_videos[i].video_id}/{$view.new_videos[i].video_seo_name}/">{$view.new_videos[i].video_title}</a>
+                                </h5>
+                                <p class="text-muted small">
+                                    {insert name=time_range assign=added_on time=$view.new_videos[i].video_add_time}
+                                    {$view.new_videos[i].video_view_number} views, {$added_on}
+                                </p>
+                            </div>
                         </div>
                     </div>
+                {sectionelse}
+                    <br>
+                    <center><h4>There are no videos found.</h4></center>
+                {/section}
                 </div>
-            {sectionelse}
-                <br>
-                <center><h4>There are no videos found.</h4></center>
-            {/section}
             </div>
-        </div>
-   </div>
-</div>
-
-    <!-- recent video -->
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title"><span class="glyphicon glyphicon-film"></span> <strong>Recently Viewed</strong> <span class="pull-right">
-        <a href="{$base_url}/viewed/"> <span class="glyphicon glyphicon-plus"></span> More</a></span></h3>
+       </div>
     </div>
 
-    <div class="panel-body">
-        <div class="row">
-            <div class="video-block home-videos">
-            {section name=i loop=$view.recent_videos}
-                <div class="col-orient-ls col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <div class="preview">
-                            <a href="{$base_url}/view/{$view.recent_videos[i].video_id}/{$view.recent_videos[i].video_seo_name}/">
-                                <img class="img-responsive" width="100%" height="130" src="{$view.recent_videos[i].video_thumb_url}/thumb/{$view.recent_videos[i].video_folder}1_{$view.recent_videos[i].video_id}.jpg" alt="{$view.recent_videos[i].video_title}">
-                            </a>
-                            <span class="badge video-time">{$view.recent_videos[i].video_length}</span>
-                            <span class="btn btn-default btn-xs video-queue" id="queue_{$view.recent_videos[i].video_id}" data-id="{$view.recent_videos[i].video_id}" rel="video_queue">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </span>
-                        </div>
-                        <div class="caption">
-                            <h5 class="video-title">
-                                <a href="{$base_url}/view/{$view.recent_videos[i].video_id}/{$view.recent_videos[i].video_seo_name}/">{$view.recent_videos[i].video_title}</a>
-                            </h5>
-                            <p class="text-muted small">
-                                {insert name=time_range assign=added_on time=$view.recent_videos[i].video_view_time}
-                                {$view.recent_videos[i].video_view_number} views, {$added_on}
-                            </p>
+    <!-- popular videos -->
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <span class="glyphicon glyphicon-film"></span> <strong>Popular videos</strong> <span class="pull-right">
+                <a href="{$base_url}/rated/"> <span class="glyphicon glyphicon-plus"></span> More</a></span>
+            </h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="video-block home-videos">
+                {section name=i loop=$view.recent_videos}
+                    <div class="col-orient-ls col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <div class="preview">
+                                <a href="{$base_url}/view/{$view.recent_videos[i].video_id}/{$view.recent_videos[i].video_seo_name}/">
+                                    <img class="img-responsive" width="100%" height="130" src="{$view.recent_videos[i].video_thumb_url}/thumb/{$view.recent_videos[i].video_folder}1_{$view.recent_videos[i].video_id}.jpg" alt="{$view.recent_videos[i].video_title}">
+                                </a>
+                                <span class="badge video-time">{$view.recent_videos[i].video_length}</span>
+                                <span class="btn btn-default btn-xs video-queue" id="queue_{$view.recent_videos[i].video_id}" data-id="{$view.recent_videos[i].video_id}" rel="video_queue">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </span>
+                            </div>
+                            <div class="caption">
+                                <h5 class="video-title">
+                                    <a href="{$base_url}/view/{$view.recent_videos[i].video_id}/{$view.recent_videos[i].video_seo_name}/">{$view.recent_videos[i].video_title}</a>
+                                </h5>
+                                <p class="text-muted small">
+                                    {insert name=time_range assign=added_on time=$view.recent_videos[i].video_view_time}
+                                    {$view.recent_videos[i].video_view_number} views, {$added_on}
+                                </p>
+                            </div>
                         </div>
                     </div>
+                {sectionelse}
+                    <br>
+                    <center><h4>There are no videos found.</h4></center>
+                {/section}
                 </div>
-            {sectionelse}
-                <br>
-                <center><h4>There are no videos found.</h4></center>
-            {/section}
             </div>
         </div>
     </div>
-</div>
 
     <!-- featured videos -->
 
