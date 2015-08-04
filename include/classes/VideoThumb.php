@@ -15,10 +15,8 @@ class VideoThumb
 
         if ($video_data['tool'] == 'mplayer') {
             $tmp = self::_createWithMplayer($video_data);
-        } else if ($video_data['tool'] == 'ffmpeg') {
-            $tmp = self::_createWithFfmpeg($video_data);
         } else {
-            $tmp = self::_createWithFfmpegPhp($video_data);
+            $tmp = self::_createWithFfmpeg($video_data);
         }
 
         return $tmp;
@@ -192,37 +190,5 @@ class VideoThumb
         }
 
         rmdir($output_folder);
-    }
-
-    private static function _createWithFfmpegPhp($t_info)
-    {
-        global $config;
-
-        $video_src = $t_info['src'];
-        $duration = $t_info['duration'];
-        $debug = isset($t_info['debug']) ? $t_info['debug'] : 0;
-
-        $mov = new ffmpeg_movie($video_src);
-        $frcount = $mov->getFrameCount() - 1;
-        $try = 1;
-        $fc = 1;
-
-        while (1) {
-            $p = rand(1, $frcount);
-            $ff_frame = $mov->getFrame($p);
-            if ($ff_frame == true) {
-                $gd_image = $ff_frame->toGDImage();
-                $ff = VSHARE_DIR . '/thumb/' . $t_info['video_folder'] . '/' . $t_info['vid'] . '.jpg';
-                imagejpeg($gd_image, $ff);
-                $fd = VSHARE_DIR . '/thumb/' . $t_info['video_folder'] . '/' . $fc . '_' . $t_info['vid'] . '.jpg';
-                Image::createThumb($ff, $fd, $config['img_max_width'], $config['img_max_height']);
-                $fc ++;
-            }
-
-            $try ++;
-            if ($try > 10 || $fc == 4) {
-                break;
-            }
-        }
     }
 }
