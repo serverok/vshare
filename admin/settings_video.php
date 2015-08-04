@@ -43,7 +43,7 @@ if (isset($_POST['submit']))
         DB::query($sql);
     }
 
-    if (in_array($_POST['tool_video_thumb'], array('ffmpeg', 'ffmpeg-php', 'mplayer'))) {
+    if (in_array($_POST['tool_video_thumb'], array('ffmpeg', 'mplayer'))) {
         $sql = "UPDATE `config` SET
                `config_value`='" . $_POST['tool_video_thumb'] . "' WHERE
                `config_name`='tool_video_thumb'";

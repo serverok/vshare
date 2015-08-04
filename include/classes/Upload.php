@@ -347,7 +347,7 @@ class Upload
             $log_text = "<h2>Create Thumbnail - START</h2>";
             write_log($log_text, $log_file_name, $debug, 'html');
 
-            # Create thumnail with mplayer/ffmpeg/ffmpeg-php
+            # Create thumnail with mplayer/ffmpeg
 
             if (! is_dir(VSHARE_DIR . '/thumb/' . $video_folder)) {
                 mkdir(VSHARE_DIR . '/thumb/' . $video_folder);
