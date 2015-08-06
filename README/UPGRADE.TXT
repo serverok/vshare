@@ -91,4 +91,4 @@ http://forums.buyscripts.in/showthread.php/10082-Upgrade-vShare-2-8-1-to-vShare-
 Upgrade vShare v2.9 to 3.0
 -----------------------------------------------------------------
 
-http://buyscripts.in/docs/vshare/3.0/upgrade_vshare_29_30
+https://www.buyscripts.in/docs/vshare/3.0/upgrade
