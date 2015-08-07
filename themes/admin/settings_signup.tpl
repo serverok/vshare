@@ -71,10 +71,9 @@
         <label class="col-sm-3 control-label" for="captcha_type">Signup Captcha Type:</label>
         <div class="col-sm-5">
             <div class="input-group">
-            <select class="form-control" name="captcha_type" id="captcha_type">
-                <option value="default" {if $captcha_type eq "default"}selected="selected"{/if}>Default</option>
-                <option value="recaptcha" {if $captcha_type eq "recaptcha"}selected="selected"{/if}>Recaptcha</option>
-            </select>
+                <select class="form-control" name="captcha_type" id="captcha_type">
+                    <option value="recaptcha" {if $captcha_type eq "recaptcha"}selected="selected"{/if}>Recaptcha</option>
+                </select>
                 <div class="input-group-addon">
                     <a href="http://buyscripts.in/docs/vshare/3.0/signup_settings#captcha_type" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>

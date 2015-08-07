@@ -92,7 +92,6 @@ if (isset($_POST['submit']))
     }
 
     $captcha_type_all = array(
-        'default',
         'recaptcha'
     );
 
