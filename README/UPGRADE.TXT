@@ -11,7 +11,7 @@ it will not work. So do upgrade in the order below.
 Upgrade vShare v1 to v2 Instructions available at
 -----------------------------------------------------------------
 
-http://buyscripts.in/vshare-upgrade-1-2
+https://www.buyscripts.in/vshare-upgrade-1-2
 
 
 -----------------------------------------------------------------
