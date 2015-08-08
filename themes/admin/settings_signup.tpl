@@ -7,7 +7,7 @@
     <fieldset>
 
     <div class="form-group">
-        <label class="col-sm-3 control-label" for="signup">Allow User Signup:</label>
+        <label class="col-sm-3 control-label" for="signup">Allow Signup:</label>
         <div class="col-sm-5">
             <div class="input-group">
             <select class="form-control" name="signup" id="signup">
@@ -92,7 +92,7 @@
     </div>
 
     <div class="form-group">
-        <label class="col-sm-3 control-label" for="signup_dob">Date of Birth on Signup:</label>
+        <label class="col-sm-3 control-label" for="signup_dob">Date of Birth:</label>
         <div class="col-sm-5">
             <div class="input-group">
             <select class="form-control" name="signup_dob" id="signup_dob">
@@ -119,7 +119,7 @@
     </div>
 
      <div class="form-group">
-        <label class="col-sm-3 control-label" for="signup_age_min_enforce">Age Minimum Enforce:</label>
+        <label class="col-sm-3 control-label" for="signup_age_min_enforce">Enforce Age Minimum:</label>
         <div class="col-sm-5">
             <div class="input-group">
             <select class="form-control" name="signup_age_min_enforce" id="signup_age_min_enforce">
