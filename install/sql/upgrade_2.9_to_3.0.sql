@@ -10,4 +10,5 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('recaptcha_sitekey',
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('recaptcha_secretkey', '');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('spam_filter', '0');
 CREATE TABLE IF NOT EXISTS `banned_ip` (`ip` varchar(20) NOT NULL) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-UPDATE `config` SET `config_value`='recaptcha' WHERE `config_name`='captcha_type';
+DELETE FROM `config` WHERE `config_name`='captcha_type';
+UPDATE `sconfig` SET `svalue`='0' WHERE `soption`='signup_captcha';

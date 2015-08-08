@@ -67,20 +67,6 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-sm-3 control-label" for="captcha_type">Signup Captcha Type:</label>
-        <div class="col-sm-5">
-            <div class="input-group">
-                <select class="form-control" name="captcha_type" id="captcha_type">
-                    <option value="recaptcha" {if $captcha_type eq "recaptcha"}selected="selected"{/if}>Recaptcha</option>
-                </select>
-                <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/signup_settings#captcha_type" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="form-group recaptcha-keys">
         <label class="col-sm-3 control-label" for="recaptcha_sitekey">reCaptcha Site Key:</label>
         <div class="col-sm-5">
@@ -183,17 +169,3 @@
     </fieldset>
 
 </form>
-
-<script>
-if ($("#captcha_type").val() == "default") {
-    $(".recaptcha-keys").addClass("hidden");
-}
-$("#captcha_type").change(function(){
-    var captcha_type = $(this).val();
-    if (captcha_type == "recaptcha") {
-        $(".recaptcha-keys").removeClass("hidden");
-    } else {
-        $(".recaptcha-keys").addClass("hidden");
-    }
-});
-</script>

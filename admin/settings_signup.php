@@ -91,18 +91,6 @@ if (isset($_POST['submit']))
         $smarty->assign('notify_signup', $_POST['notify_signup']);
     }
 
-    $captcha_type_all = array(
-        'recaptcha'
-    );
-
-    if (in_array($_POST['captcha_type'], $captcha_type_all))
-    {
-        $sql = "UPDATE `config` SET
-               `config_value`='" . $_POST['captcha_type'] . "' WHERE
-               `config_name`='captcha_type'";
-        DB::query($sql);
-    }
-
     $sql = "UPDATE `config` SET
            `config_value`='" . DB::quote($_POST['recaptcha_sitekey']) . "' WHERE
            `config_name`='recaptcha_sitekey'";
@@ -146,7 +134,6 @@ $smarty->assign('signup_age_min_enforce', Config::get('signup_age_min_enforce'))
 $smarty->assign('signup_enable', Config::get('signup_enable'));
 $smarty->assign('signup_auto_friend', Config::get('signup_auto_friend'));
 $smarty->assign('signup_dob', Config::get('signup_dob'));
-$smarty->assign('captcha_type', Config::get('captcha_type'));
 $smarty->assign('recaptcha_sitekey', Config::get('recaptcha_sitekey'));
 $smarty->assign('recaptcha_secretkey', Config::get('recaptcha_secretkey'));
 $smarty->assign('spam_filter', Config::get('spam_filter'));

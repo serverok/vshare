@@ -4,34 +4,26 @@ class Captcha
 {
     private $public_key;
     private $private_key;
-    private $captcha_type;
 
     public function __construct()
     {
         $this->public_key = Config::get('recaptcha_sitekey');
         $this->private_key = Config::get('recaptcha_secretkey');
-        $this->captcha_type = $this->getType();
     }
 
-    public function getType()
+    public function isEnabled()
     {
-        $captcha_type = '';
-
-        if (Config::get('captcha_type') == 'recaptcha') {
-            if (strlen($this->public_key) > 10 && strlen($this->private_key) > 10) {
-                $captcha_type = 'recaptcha';
-            }
+        if (strlen($this->public_key) > 10 && strlen($this->private_key) > 10) {
+            return true;
         }
-
-        return $captcha_type;
+        return false;
     }
 
     public function get()
     {
-        if ($this->captcha_type == 'recaptcha') {
+        if ($this->isEnabled()) {
             return $this->_reCaptcha();
         }
-
         return '';
     }
 
@@ -46,10 +38,7 @@ class Captcha
 
     public function validate($response = '')
     {
-        if ($this->captcha_type == 'recaptcha') {
-            return $this->_reCaptchaValidate($response);
-        }
-        return false;
+        return $this->_reCaptchaValidate($response);
     }
 
     private function _reCaptchaValidate($response)
