@@ -112,7 +112,6 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('flv_metadata', 'flv
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('video_flv_delete', '1');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('video_source_delete', '0');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('num_max_channels', '3');
-INSERT INTO `config` (`config_name`, `config_value`) VALUES('captcha_type', 'recaptcha');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('allow_html', '1');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('num_channel_video', '4');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('guest_upload', '0');
@@ -584,7 +583,7 @@ INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('notify_upload', '1');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('guest_limit', '20000000000');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('watermark_url', 'http://www.yourdomain.com');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('signup_verify', '1');
-INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('signup_captcha', '1');
+INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('signup_captcha', '0');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('version', '2.9');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('paypal_currency', 'USD');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('embed_show', '1');

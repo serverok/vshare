@@ -65,15 +65,13 @@
             </div>
         {/if}
 
-        {if $signup_captcha eq "1"}
-            {if $captcha_html ne ''}
-                <div class="form-group">
-                    <label class="control-label col-md-3">Security Code:</label>
-                    <div class="col-md-6">
-                        {$captcha_html}
-                    </div>
+        {if $captcha_enabled eq "1"}
+            <div class="form-group">
+                <label class="control-label col-md-3">Verify you are human:</label>
+                <div class="col-md-6">
+                    {$captcha_html}
                 </div>
-            {/if}
+            </div>
         {/if}
 
         {if $enable_package eq "yes"}

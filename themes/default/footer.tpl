@@ -23,7 +23,7 @@
                 OF YOUR LICENSE AGREEMENT AND WILL RESULT IN
                 SIGNIFICANT PENALITIES IF REMOVED.
                 -->
-                Powered by <a class="copy" href="http://buyscripts.in/youtube_clone.html" target="_blank">vShare</a>
+                Powered by <a class="copy" href="https://www.buyscripts.in/vshare-youtube-clone" target="_blank">vShare</a>
             </div>
 
             <div class="col-md-6 row pull-right">
