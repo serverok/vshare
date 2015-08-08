@@ -66,20 +66,7 @@
         {/if}
 
         {if $signup_captcha eq "1"}
-            {if $captcha_type eq 'default'}
-                <div class="form-group">
-                    <label class="control-label col-md-3">Security Code:</label>
-                    <div class="col-md-6">
-                        {$captcha_html}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="security_code" class="control-label col-md-3">Enter Security Code:</label>
-                    <div class="col-md-3">
-                        <input type="text" name="security_code" id="security_code" class="form-control required">
-                    </div>
-                </div>
-            {else}
+            {if $captcha_html ne ''}
                 <div class="form-group">
                     <label class="control-label col-md-3">Security Code:</label>
                     <div class="col-md-6">

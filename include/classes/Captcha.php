@@ -15,9 +15,9 @@ class Captcha
 
     public function getType()
     {
-        $captcha_type = 'default';
+        $captcha_type = '';
 
-        if (Config::get('captcha_type') != 'default') {
+        if (Config::get('captcha_type') == 'recaptcha') {
             if (strlen($this->public_key) > 10 && strlen($this->private_key) > 10) {
                 $captcha_type = 'recaptcha';
             }
@@ -32,7 +32,7 @@ class Captcha
             return $this->_reCaptcha();
         }
 
-        return $this->_default();
+        return '';
     }
 
     private function _reCaptcha()
@@ -44,28 +44,11 @@ class Captcha
         return $captcha_code;
     }
 
-    private function _default()
-    {
-        return '<img src="' . VSHARE_URL . '/captcha.php" alt="captcha" class="required">';
-    }
-
     public function validate($response = '')
     {
         if ($this->captcha_type == 'recaptcha') {
             return $this->_reCaptchaValidate($response);
-        } else {
-            return $this->_defaultValidate($response);
         }
-    }
-
-    private function _defaultValidate($security_code)
-    {
-        if ($_SESSION['security_code'] == $security_code)
-        {
-            unset($_SESSION['security_code']);
-            return true;
-        }
-
         return false;
     }
 

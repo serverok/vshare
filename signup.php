@@ -112,10 +112,11 @@ if (isset($_POST['submit'])) {
     }
 
     if (($config['signup_captcha'] == '1') and ($err == '')) {
-        $captcha_response = ($captcha_type == 'recaptcha') ? $_POST['g-recaptcha-response'] : htmlspecialchars_uni($_POST['security_code']);
-
-        if (! $captcha->validate($captcha_response)) {
-            $err = $lang['captcha_invalid'];
+        if ($captcha_type == 'recaptcha') {
+            $captcha_response = isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : '';
+            if (! $captcha->validate($captcha_response)) {
+                $err = $lang['captcha_invalid'];
+            }
         }
     }
 
@@ -397,7 +398,6 @@ $smarty->assign('html_description', 'Sign Up');
 $smarty->assign('signup', $signup);
 $smarty->assign('signup_verification_msg', $signup_verification_msg);
 $smarty->assign('age_minimum', Config::get('signup_age_min'));
-$smarty->assign('captcha_type', $captcha_type);
 $smarty->assign('signup_dob', $signup_dob);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
