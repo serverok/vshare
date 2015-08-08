@@ -15,7 +15,7 @@
                 <option value="0" {if $signup_enable =='0'}selected="selected"{/if}>No</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/signup_settings#signup_enable" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#signup_enable" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                 <option value="2" {if $signup_verify eq "2"}selected="selected"{/if}>Admin</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/signup_settings#signup_verify" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#signup_verify" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
                 <option value="0" {if $notify_signup eq "0"}selected="selected"{/if}>Disable</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/signup_settings#notify_signup" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#notify_signup" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
                 <option value="0" {if $signup_captcha eq "0"}selected="selected"{/if}>No</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/signup_settings#signup_captcha" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#signup_captcha" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
             <div class="input-group">
                 <input type="text" name="recaptcha_sitekey" id="recaptcha_sitekey" value="{$recaptcha_sitekey}" class="form-control">
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/signup_settings#recaptcha_sitekey" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#recaptcha_sitekey" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
             <div class="input-group">
                 <input type="text" name="recaptcha_secretkey" id="recaptcha_secretkey" value="{$recaptcha_secretkey}" class="form-control">
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/signup_settings#recaptcha_secretkey" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#recaptcha_secretkey" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@
                 <option value="1" {if $signup_dob =='1'}selected="selected"{/if}>Yes</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/signup_settings#signup_dob" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#signup_dob" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -112,7 +112,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="signup_age_min" value="{$signup_age_min}" id="signup_age_min">
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/signup_settings#signup_age_min" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#signup_age_min" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -127,7 +127,7 @@
                 <option value="1" {if $signup_age_min_enforce =='1'}selected="selected"{/if}>Yes</option>
             </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/signup_settings#signup_age_min_enforce" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#signup_age_min_enforce" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="signup_auto_friend" id="signup_auto_friend" value="{$signup_auto_friend}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/signup_settings#signup_auto_friend" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#signup_auto_friend" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -154,7 +154,7 @@
                     <option value="1" {if $spam_filter =='1'}selected="selected"{/if}>Enable</option>
                 </select>
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/signup_settings#spam_filter" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#spam_filter" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
