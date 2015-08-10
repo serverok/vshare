@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1>Videos By User : {$user_name} ({$total})</h1>
+	<h1>Videos By User : <a href="user_view.php?user_id={$user_id}">{$user_name}</a> ({$total})</h1>
 </div>
 
 {if $total > 0}

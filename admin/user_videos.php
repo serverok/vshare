@@ -27,6 +27,7 @@ $admin_listing_per_page = Config::get('admin_listing_per_page');
 
 $user_info = User::getById($_GET['uid']);
 $smarty->assign('user_name', $user_info['user_name']);
+$smarty->assign('user_id', $_GET['uid']);
 
 $query = " WHERE `video_user_id`='" . (int) $_GET['uid'] . "'";
 
