@@ -120,10 +120,6 @@
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
                 &nbsp;
-                <a href="user_delete.php?uid={$user_info.user_id}&a={$smarty.get.a}&page={$smarty.get.page}&sort={$smarty.get.sort}" onclick="javascript:return confirm('Are you sure you want to delete?');" data-toggle="tooltip" data-placement="bottom" title="Delete">
-                    <span class="glyphicon glyphicon-remove-circle"></span>
-                </a>
-                &nbsp;
 				<a href="mail_users.php?email={$user_info.user_email}&uname={$user_info.user_name}" data-toggle="tooltip" data-placement="bottom" title="Email User">
                     <span class="glyphicon glyphicon-envelope"></span>
                 </a>
