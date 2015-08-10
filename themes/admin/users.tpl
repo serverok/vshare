@@ -11,15 +11,6 @@
 
 	<tr>
 		<td>
-			<b>ID</b>
-			<a href="users.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=user_id+asc&page={$page}">
-				<span class="glyphicon glyphicon-arrow-up"></span>
-			</a>
-			<a href="users.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=user_id+desc&page={$page}">
-				<span class="glyphicon glyphicon-arrow-down"></span>
-			</a>
-		</td>
-		<td>
 			<b>Name</b>
 			<a href="users.php?a={$smarty.request.a}&status={$smarty.request.status}&sort=user_name+asc&page={$page}">
 				<span class="glyphicon glyphicon-arrow-up"></span>
@@ -76,9 +67,6 @@
 
 	{foreach from=$users item=user_info}
 		<tr>
-			<td>
-				{$user_info.user_id}
-			</td>
 			<td>
 				<a href="user_view.php?user_id={$user_info.user_id}&page={$smarty.request.page}">
 					{$user_info.user_name}
