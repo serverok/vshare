@@ -111,10 +111,6 @@
 				<a href="mail_users.php?email={$user_info.user_email}&uname={$user_info.user_name}" data-toggle="tooltip" data-placement="bottom" title="Email User">
                     <span class="glyphicon glyphicon-envelope"></span>
                 </a>
-                &nbsp;
-				<a href="user_login.php?username={$user_info.user_name}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Login as {$user_info.user_name}">
-                    <span class="glyphicon glyphicon-log-in"></span>
-                </a>
 			</td>
 		</tr>
 	{/foreach}
