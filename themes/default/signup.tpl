@@ -1,5 +1,11 @@
 {if $signup_verification_msg ne ""}
-    <h3 class="text-success">{$signup_verification_msg}</h3>
+<div class="col-md-12">
+    <div class="page-header">
+        <h2>Information</h2>
+    </div>
+    <p class="lead">{$signup_verification_msg}</p>
+    <p><a href="{$base_url}/">Return to the home page</a></p>
+</div>
 {else}
 <div class="col-md-7">
     <div class="panel panel-default">

@@ -42,6 +42,7 @@ if ($config['payment_method'] != '') {
 }
 
 $smarty->assign('err', $err);
+$smarty->assign('msg', $msg);
 $smarty->display('header.tpl');
 $smarty->display('package_options.tpl');
 $smarty->display('footer.tpl');
