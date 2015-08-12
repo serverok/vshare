@@ -73,22 +73,17 @@ if (file_exists($version_file)) {
 $errno = 0;
 
 if ($check_version_now == 1) {
-    $errstr = '';
-    $version_info = '';
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'http://buyscripts.in/vshare/version.txt');
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-    $version_info = curl_exec($ch);
-    curl_close($ch);
+    $version_info = simplexml_load_file('https://buyscripts.in/version/vshare.xml');
+    $latest_version = $version_info->version;
+    $latest_release = $version_info->release_date;
+    unset($version_info);
 
     $fp = fopen($version_file, 'w');
-    fwrite($fp, $version_info);
+    fwrite($fp, $latest_version);
+    fwrite($fp, "\n");
+    fwrite($fp, $latest_release);
     fclose($fp);
 }
-
-unset($version_info);
 
 $version_info = file($version_file);
 
