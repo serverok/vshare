@@ -588,7 +588,7 @@ INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('guest_limit', '20000000000')
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('watermark_url', 'http://www.yourdomain.com');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('signup_verify', '1');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('signup_captcha', '0');
-INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('version', '2.9');
+INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('version', '3.1');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('paypal_currency', 'USD');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('embed_show', '1');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('embed_type', '0');
