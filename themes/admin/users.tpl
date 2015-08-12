@@ -60,7 +60,7 @@
 				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
-		<td align="center">
+		<td align="left">
 			<b>Action</b>
 		</td>
 	</tr>
@@ -103,7 +103,7 @@
                 {/if}
                 {$user_info.user_account_status}</span>
 			</td>
-			<td align="center">
+			<td align="left">
 				<a href="user_edit.php?action=edit&uid={$user_info.user_id}&page={$smarty.request.page}&sort={$smarty.request.sort}" data-toggle="tooltip" data-placement="bottom" title="Edit">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
@@ -111,6 +111,12 @@
 				<a href="mail_users.php?email={$user_info.user_email}&uname={$user_info.user_name}" data-toggle="tooltip" data-placement="bottom" title="Email User">
                     <span class="glyphicon glyphicon-envelope"></span>
                 </a>
+                {if $user_info.user_account_status eq 'Inactive'}
+                &nbsp;
+                <a href="user_activate.php?uid={$user_info.user_id}&redirect=users.php?a={$smarty.get.a}&page={$smarty.request.page}&sort={$smarty.request.sort}" data-toggle="tooltip" data-placement="bottom" title="Activate">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                </a>
+                {/if}
 			</td>
 		</tr>
 	{/foreach}

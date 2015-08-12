@@ -186,4 +186,7 @@
     <a href="user_delete.php?uid={$user.user_id}" class="btn btn-danger btn-lg" onclick='Javascript:return confirm("Are you sure you want to delete?");'>Delete</a>
     <a href="mail_users.php?email={$user.user_email}&uname={$user.user_name}" class="btn btn-default btn-lg">Send Mail</a>
     <a href="user_login.php?username={$user.user_name}"  class="btn btn-default btn-lg" target="_blank">Login</a>
+    {if $user.user_account_status eq 'Inactive'}
+    <a href="user_activate.php?uid={$user.user_id}"  class="btn btn-default btn-lg">Activate</a>
+    {/if}
 </div>
