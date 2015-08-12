@@ -7,7 +7,7 @@ class Spam {
         $ip_arr = explode('.', $ip);
         $ip_search = $ip_arr[0] . '.' . $ip_arr[1] . '.';
 
-        $sql = "SELECT * FROM `banned_ip` WHERE
+        $sql = "SELECT * FROM `banned_ips` WHERE
                `ip` LIKE '" . $ip_search . "%'";
         $banned_ip_info = DB::fetch($sql);
 
@@ -34,7 +34,7 @@ class Spam {
 
     public static function banIP($ip)
     {
-        $sql = "INSERT INTO `banned_ip` SET
+        $sql = "INSERT INTO `banned_ips` SET
                `ip`='" . DB::quote($ip) . "'";
         DB::query($sql);
     }

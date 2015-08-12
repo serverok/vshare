@@ -877,9 +877,10 @@ CREATE TABLE `mail_logs` (
 ) ENGINE = MYISAM CHARACTER SET utf8;
 
 --
--- Table structure for table `banned_ip`
+-- Table structure for table `banned_ips`
 --
 
-CREATE TABLE IF NOT EXISTS `banned_ip` (
+CREATE TABLE IF NOT EXISTS `banned_ips` (
+  `id` int(12) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `ip` varchar(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
