@@ -12,7 +12,7 @@
  *
  ******************************************************************************/
 
-$version = '3.0';
+$version = '3.1';
 
 if (file_exists('../include/config.php') && filesize('../include/config.php') > 0) {
     $vshare_installed = 1;
