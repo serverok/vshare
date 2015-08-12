@@ -40,7 +40,7 @@
 <div class="alert alert-danger">
 You are using old version of vShare ({$vshare_version})<br />
 You must upgrade to vShare {$latest_version}<br />
-More information on vShare {$latest_version} available at <a href="http://buyscripts.in/vshare-release.html" target="_blank">http://buyscripts.in/vshare-release.html</a>
+More information on vShare {$latest_version} available at <a href="https://www.buyscripts.in/vshare-release" target="_blank">https://www.buyscripts.in/vshare-release</a>
 </div>
 {else}
 <div class="alert alert-success">

@@ -65,7 +65,7 @@ cat /home/buyscrip/public_html/vshare/version.txt
 
 ----------------------------------------------------------
 
-http://buyscripts.in/vshare-release.html
+https://www.buyscripts.in/vshare-release
 http://vshare.in/
 
 ----------------------------------------------------------
