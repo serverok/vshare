@@ -187,57 +187,93 @@ if (isset($_POST['submit'])) {
         $sql = "INSERT INTO `subscriber` SET `UID`='" . (int) $userid . "'";
         DB::query($sql);
 
+        $paid_member = 0;
+
         if ($config['enable_package'] == 'yes') {
             $sql = "SELECT * FROM `packages` WHERE
                    `package_id`='" . (int) $_POST['pack_id'] . "'";
-            $tmp = DB::fetch1($sql);
+            $package_info = DB::fetch1($sql);
 
-            if ($tmp['package_trial'] == 'yes') {
-                $paid_member = 0;
-            } else {
+            if ($package_info['package_trial'] == 'yes') {
                 $paid_member = 1;
+            } else {
+                $paid_member = 2;
             }
-        } else {
-            $paid_member = 0;
         }
 
-        # send activation mail
+        # send welcome mail
 
-        if (($config['signup_verify'] == '1') && ($paid_member == 0)) {
+        if ($config['signup_verify'] == 0) {
+            $sql = "SELECT * FROM `email_templates` WHERE
+                   `email_id`='user_signup'";
+            $email_template = DB::fetch1($sql);
+            $email_subject = $email_template['email_subject'];
+            $email_body_tmp = $email_template['email_body'];
 
+            $email_subject = str_replace('[SITE_NAME]', $config['site_name'], $email_subject);
+
+            $email_body_tmp = str_replace('[SITE_NAME]', $config['site_name'], $email_body_tmp);
+            $email_body_tmp = str_replace('[SITE_URL]', VSHARE_URL, $email_body_tmp);
+            $email_body_tmp = str_replace('[USERNAME]', $_POST['user_name'], $email_body_tmp);
+            $email_body_tmp = str_replace('[PASSWORD]', $_POST['password'], $email_body_tmp);
+
+            $headers = "From: $config[site_name] <$config[admin_email]> \n";
+            $headers .= "Content-Type: text/html\n";
+
+            $email = array();
+            $email['from_email'] = $config['admin_email'];
+            $email['from_name'] = $config['site_name'];
+            $email['to_email'] = $_POST["email"];
+            $email['to_name'] = $_POST['user_name'];
+            $email['subject'] = $email_subject;
+            $email['body'] = $email_body_tmp;
+            $mail = new Mail();
+            $mail->send($email);
+
+            $signup_verification_msg = $lang['signup_welcome'];
+
+        } else if ($config['signup_verify'] == 1) {
             $sql = "UPDATE `users` SET
                    `user_account_status`='Inactive',
                    `user_email_verified`='no' WHERE
                    `user_id`='" . (int) $userid . "'";
             DB::query($sql);
 
-            $data1 = 'SIGNUP' . $userid;
-
-            $vkey = $_SERVER['REQUEST_TIME'] . rand(1, 99999999);
-            $vkey = md5($vkey);
-
-            $sql = "INSERT INTO `verify_code` SET
-                   `vkey`='" . DB::quote($vkey) . "',
-                   `data1`='" . DB::quote($data1) . "'";
-            $verify_id = DB::insertGetId($sql);
-
             $password = $_POST['password'];
             $user_name = $_POST['user_name'];
 
+            if ($paid_member == 2) {
+                $email_template_name = 'user_signup';
+                $verify_id = 0;
+            } else {
+                $email_template_name = 'user_signup_verify';
+
+                $data1 = 'SIGNUP' . $userid;
+                $vkey = $_SERVER['REQUEST_TIME'] . rand(1, 99999999);
+                $vkey = md5($vkey);
+
+                $sql = "INSERT INTO `verify_code` SET
+                       `vkey`='" . DB::quote($vkey) . "',
+                       `data1`='" . DB::quote($data1) . "'";
+                $verify_id = DB::insertGetId($sql);
+            }
+
             $sql = "SELECT * FROM `email_templates` WHERE
-                   `email_id`='user_signup_mail'";
-            $tmp = DB::fetch1($sql);
-            $email_subject = $tmp['email_subject'];
-            $email_body_tmp = $tmp['email_body'];
+                   `email_id`='$email_template_name'";
+            $email_template = DB::fetch1($sql);
+            $email_subject = $email_template['email_subject'];
+            $email_body_tmp = $email_template['email_body'];
 
             $email_subject = str_replace('[SITE_NAME]', $config['site_name'], $email_subject);
             $email_subject = str_replace('[SITE_URL]', VSHARE_URL, $email_subject);
 
-            $verify_link = VSHARE_URL . '/verify/user/' . $userid . '/' . $verify_id . '/' . $vkey . '/';
+            if ($verify_id > 0) {
+                $verify_link = VSHARE_URL . '/verify/user/' . $userid . '/' . $verify_id . '/' . $vkey . '/';
+                $email_body_tmp = str_replace('[VERIFY_LINK]', $verify_link, $email_body_tmp);
+            }
 
             $email_body_tmp = str_replace('[SITE_NAME]', $config['site_name'], $email_body_tmp);
             $email_body_tmp = str_replace('[SITE_URL]', VSHARE_URL, $email_body_tmp);
-            $email_body_tmp = str_replace('[VERIFY_LINK]', $verify_link, $email_body_tmp);
             $email_body_tmp = str_replace('[USERNAME]', $user_name, $email_body_tmp);
             $email_body_tmp = str_replace('[PASSWORD]', $password, $email_body_tmp);
 
@@ -254,8 +290,41 @@ if (isset($_POST['submit'])) {
             $mail = new Mail();
             $mail->send($email);
 
-            $signup_verification_msg = $lang['verification_mail_send'];
-            $smarty->assign('signup_verification_msg', $signup_verification_msg);
+            $signup_verification_msg = $lang['signup_verify_email'];
+
+        } else if ($config['signup_verify'] == 2) {
+            $sql = "UPDATE `users` SET
+                   `user_account_status`='Inactive' WHERE
+                   `user_id`='" . (int) $userid . "'";
+            DB::query($sql);
+
+            $sql = "SELECT * FROM `email_templates` WHERE
+                   `email_id`='user_signup_verify_admin'";
+            $email_template = DB::fetch1($sql);
+            $email_subject = $email_template['email_subject'];
+            $email_body_tmp = $email_template['email_body'];
+
+            $email_subject = str_replace('[SITE_NAME]', $config['site_name'], $email_subject);
+
+            $email_body_tmp = str_replace('[SITE_NAME]', $config['site_name'], $email_body_tmp);
+            $email_body_tmp = str_replace('[SITE_URL]', VSHARE_URL, $email_body_tmp);
+            $email_body_tmp = str_replace('[USERNAME]', $_POST['user_name'], $email_body_tmp);
+            $email_body_tmp = str_replace('[PASSWORD]', $_POST['password'], $email_body_tmp);
+
+            $headers = "From: $config[site_name] <$config[admin_email]> \n";
+            $headers .= "Content-Type: text/html\n";
+
+            $email = array();
+            $email['from_email'] = $config['admin_email'];
+            $email['from_name'] = $config['site_name'];
+            $email['to_email'] = $_POST["email"];
+            $email['to_name'] = $_POST['user_name'];
+            $email['subject'] = $email_subject;
+            $email['body'] = $email_body_tmp;
+            $mail = new Mail();
+            $mail->send($email);
+
+            $signup_verification_msg = $lang['signup_verify_admin'];
         }
         # send activation mail end
 
@@ -305,61 +374,33 @@ if (isset($_POST['submit'])) {
 
         # admin signup notify end
 
+        // package_enabled && package_trial == Yes
+        if ($paid_member == 1) {
+            $expired_time = date("Y-m-d H:i:s", strtotime("+" . $package_info['package_trial_period'] . " day"));
+            $sql = "UPDATE `subscriber` SET
+                   `pack_id`='" . (int) $_POST['pack_id'] . "',
+                   `subscribe_time`='" . date("Y-m-d H:i:s") . "',
+                   `expired_time`='$expired_time' WHERE
+                   `UID`='" . (int) $userid . "'";
+            DB::query($sql);
+        }
 
-        if ($config['enable_package'] == 'yes') {
+        // package_enabled && package_trial == No
+         else if ($paid_member == 2) {
+            $sql = "UPDATE `subscriber` SET
+                   `pack_id`='" . (int) $_POST['pack_id'] . "',
+                   `subscribe_time`='" . date("Y-m-d H:i:s") . "',
+                   `expired_time`='" . date("Y-m-d H:i:s") . "' WHERE
+                   `UID`='" . (int) $userid . "'";
+            DB::query($sql);
 
-            $sql = "SELECT * FROM `packages` WHERE
-                   `package_id`='" . (int) $_POST['pack_id'] . "'";
-            $tmp = DB::fetch1($sql);
-
-            if ($tmp['package_trial'] == 'yes') {
-
-                $expired_time = date("Y-m-d H:i:s", strtotime("+" . $tmp['package_trial_period'] . " day"));
-
-                $sql = "UPDATE `subscriber` SET
-                       `pack_id`='" . (int) $_POST['pack_id'] . "',
-                       `subscribe_time`='" . date("Y-m-d H:i:s") . "',
-                       `expired_time`='$expired_time' WHERE
-                       `UID`='" . (int) $userid . "'";
-                DB::query($sql);
-
-                if ($config['signup_verify'] == '1') {
-                    $msg = $lang['signup_verify_email'];
-                } else {
-                    User::login($_POST['user_name']);
-                    $redirect_url = VSHARE_URL . '/friends/invite/?welcome=1';
-                    Http::redirect($redirect_url);
-                }
-
-            } else {
-                $sql = "UPDATE `subscriber` SET
-                       `pack_id`='" . (int) $_POST['pack_id'] . "',
-                       `subscribe_time`='" . date("Y-m-d H:i:s") . "',
-                       `expired_time`='" . date("Y-m-d H:i:s") . "' WHERE
-                       `UID`='" . (int) $userid . "'";
-                DB::query($sql);
-
-                $sql = "UPDATE `users` SET
-                       `user_account_status`='Inactive' WHERE
-                       `user_id`='" . (int) $userid . "'";
-                DB::query($sql);
-                $redirect_url = VSHARE_URL . '/package_options.php?package_id=' . $_POST['pack_id'] . '&user_id=' . $userid;
-                Http::redirect($redirect_url);
-            }
-        } else {
-            if ($config['signup_verify'] == '1') {
-                $signup_verification_msg = $lang['signup_verify_email'];
-            } else if ($config['signup_verify'] == '2') {
-                $sql = "UPDATE `users` SET
-                       `user_account_status`='Inactive' WHERE
-                       `user_id`='" . (int) $userid . "'";
-                DB::query($sql);
-                $signup_verification_msg = $lang['signup_verify_admin'];
-            } else {
-                User::login($_POST['user_name']);
-                $redirect_url = VSHARE_URL . '/friends/invite/?welcome=1';
-                Http::redirect($redirect_url);
-            }
+            $sql = "UPDATE `users` SET
+                   `user_account_status`='Inactive' WHERE
+                   `user_id`='" . (int) $userid . "'";
+            DB::query($sql);
+            set_message($lang['signup_success_payment'], 'success');
+            $redirect_url = VSHARE_URL . '/package_options.php?package_id=' . $_POST['pack_id'] . '&user_id=' . $userid;
+            Http::redirect($redirect_url);
         }
     }
 } else {
