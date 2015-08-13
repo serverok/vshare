@@ -155,8 +155,6 @@ else
     $user_css = '/css/profile/' . $user_info['user_style'] . '.css';
 }
 
-$html_head_extra = '<link href="' . IMG_CSS_URL . '/css/profile.css" rel="stylesheet" type="text/css" />' . '<link href="' . IMG_CSS_URL . $user_css . '" rel="stylesheet" type="text/css" />';
-
 $html_extra = '
 <script type="text/javascript">
     var user_id = ' . $user_info['user_id'] . ';
@@ -169,7 +167,6 @@ $html_extra = '
 <script type="text/javascript" src="' . VSHARE_URL . '/js/user_comment_display.js"></script>
 <script type="text/javascript" src="' . VSHARE_URL . '/js/user_rate.js"></script>';
 
-$smarty->assign('html_head_extra', $html_head_extra);
 $smarty->assign('html_extra', $html_extra);
 $smarty->assign('photo_url', $photo_url);
 $smarty->assign('chkuserflag', $chkuserflag);

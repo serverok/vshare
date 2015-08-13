@@ -14,7 +14,6 @@
 <link rel="alternate" type="application/rss+xml" title="20 Most Viewed Videos" href="{$base_url}/rss/views/" />
 <link rel="alternate" type="application/rss+xml" title="20 Most Commented Videos" href="{$base_url}/rss/comments/" />
 <script language="JavaScript" type="text/javascript" src="{$base_url}/js/jquery-1.11.0.min.js"></script>
-<link href="{$img_css_url}/css/rating.css" rel="stylesheet" type="text/css" />
 {$html_head_extra}
 </head>
 <body>
