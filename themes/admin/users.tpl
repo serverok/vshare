@@ -113,13 +113,7 @@
 				<a href="mail_users.php?email={$user_info.user_email}&uname={$user_info.user_name}" data-toggle="tooltip" data-placement="bottom" title="Email User">
                     <span class="glyphicon glyphicon-envelope"></span>
                 </a>
-                {if $user_info.user_account_status eq 'Inactive'}
-                &nbsp;
-                <a href="user_activate.php?uid={$user_info.user_id}&redirect=users.php?a={$smarty.get.a}&page={$smarty.request.page}&sort={$smarty.request.sort}" data-toggle="tooltip" data-placement="bottom" title="Activate">
-                    <span class="glyphicon glyphicon-thumbs-up"></span>
-                </a>
-                {/if}
-			</td>
+            </td>
 		</tr>
 	{/foreach}
 
