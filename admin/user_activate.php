@@ -17,10 +17,7 @@ require '../include/config.php';
 
 Admin::auth();
 
-if (isset($_GET['uid'])) {
-    activate_user($_GET['uid']);
-    set_message('User has been activated.', 'success');
-} else if (isset($_POST['user_ids'])) {
+if (isset($_POST['user_ids'])) {
     foreach ($_POST['user_ids'] as $user_id) {
         activate_user($user_id);
     }
