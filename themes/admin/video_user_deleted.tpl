@@ -1,4 +1,6 @@
-<h1>User Deleted Videos ({$total})</h1>
+<div class="page-header">
+    <h1>User Deleted Videos ({$total})</h1>
+</div>
 
 {if $total > 0}
 
@@ -70,9 +72,9 @@
 
 </table>
 
-<div class="row">
-    <div class="col-md-10">{$links}</div>
-    <div class="col-md-2">
+<div>
+    <div class="col-md-10 pull-left">{$links}</div>
+    <div class="pull-right">
         <a href="{$base_url}/admin/video_user_deleted_all.php" class="btn btn-danger">
             Delete All
         </a>
@@ -81,7 +83,7 @@
 
 {else}
 
-<h5>There is no user deleted videos found.</h5>
+<h5>There are no user deleted videos found.</h5>
 
 {/if}
 
