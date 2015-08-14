@@ -47,3 +47,9 @@ More information on vShare {$latest_version} available at <a href="https://www.b
 You are using vShare version: {$vshare_version} (DB Version: {$version})
 </div>
 {/if}
+
+{if isset($total_users_inactive)}
+<div class="alert alert-warning">
+    <span class="glyphicon glyphicon-warning-sign"></span> <a href="user_inactive_manage.php" class="alert-link">{$total_users_inactive} users waiting to be activated.</a>
+</div>
+{/if}

@@ -54,6 +54,13 @@ $sql = "SELECT count(*) AS `total` FROM `groups`";
 $total_groups = DB::getTotal($sql);
 $smarty->assign('total_groups', $total_groups);
 
+if ($config['signup_verify'] == 2) {
+    $sql = "SELECT COUNT(`user_id`) AS `total` FROM `users` WHERE
+           `user_account_status`='Inactive'";
+    $total_users_inactive = DB::getTotal($sql);
+    $smarty->assign('total_users_inactive', $total_users_inactive);
+}
+
 # check version
 $version_file = VSHARE_DIR . '/templates_c/version.txt';
 
