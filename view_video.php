@@ -265,7 +265,6 @@ $smarty->assign('html_head_extra', $html_head_extra);
 $smarty->assign('html_extra', $html_extra);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
-$smarty->assign('sub_menu', 'menu_watch.tpl');
 $smarty->display('header.tpl');
 $smarty->display('view_video.tpl');
 $smarty->display('footer.tpl');

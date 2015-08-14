@@ -124,7 +124,12 @@
                                 <ul class="nav nav-tabs navbar-nav nav-justified">
                                     <li><a class="no-bdr" href="{$base_url}/index.php"><strong>HOME</strong></a></li>
                                     <li><a href="{$base_url}/upload/"><strong>UPLOAD</strong></a></li>
-                                    <li><a href="{$base_url}/recent/"><strong>WATCH</strong></a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <strong>WATCH</strong> <span class="caret"></span>
+                                        </a>
+                                        {include file="menu_watch.tpl"}
+                                    </li>
                                     <li><a href="{$base_url}/tags/"><strong>TAGS</strong></a></li>
                                     <li><a href="{$base_url}/channels/"><strong>CHANNELS</strong></a></li>
                                     <li><a href="{$base_url}/groups/featured/1"><strong>GROUPS</strong></a></li>
