@@ -63,6 +63,9 @@
                 </div>
             </div>
         </div>
+        {if (empty(Config::get('youtube_api_key')))}
+        <input type="hidden" name="upload_from" value="local">
+        {else}
         <div class="form-group">
             <label class="control-label col-md-2">Upload From:</label>
             <div class="col-md-6">
@@ -80,6 +83,7 @@
                 </div>
             </div>
         </div>
+        {/if}
 
         {if $family_filter eq "1"}
             <div class="form-group">
