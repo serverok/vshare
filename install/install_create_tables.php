@@ -30,17 +30,24 @@ $tables = DB::fetch('SHOW TABLES');
 if (! empty($tables)) {
 
     echo "<p>Your database already have tables needed for vshare. If you are upgrading, use the upgrade script instead.</p>";
-    echo "<p class=\"table-already-exists\">If you are doing fresh install, make sure the database is empty.</p>";
+    echo "<p class=\"text-danger lead\">If you are doing fresh install, make sure the database is empty.</p>";
 
-    echo "<form name='yesgo' method='POST' action=''>
-    <input type='submit' class='button' name='submit' value='Retry Installing' />
-    <input type='hidden' name='step' value='2' />
-    <input type=\"hidden\" name=\"db_host\" value=\"$db_host\" />
-    <input type=\"hidden\" name=\"db_name\" value=\"$db_name\" />
-    <input type=\"hidden\" name=\"db_user\" value=\"$db_user\" />
-    <input type=\"hidden\" name=\"db_pass\" value=\"$db_pass\" />
-    <input type=\"hidden\" name=\"action\" value=\"create_tables\" />
-    </form>";
+    echo "
+
+    <div class=\"row\">
+      <div class=\"col-md-4\">
+        <form name='yesgo' method='POST' action=''>
+        <input type='submit' class='btn-block btn btn-primary btn-lg' name='submit' value='Retry Installing' />
+        <input type='hidden' name='step' value='2' />
+        <input type=\"hidden\" name=\"db_host\" value=\"$db_host\" />
+        <input type=\"hidden\" name=\"db_name\" value=\"$db_name\" />
+        <input type=\"hidden\" name=\"db_user\" value=\"$db_user\" />
+        <input type=\"hidden\" name=\"db_pass\" value=\"$db_pass\" />
+        <input type=\"hidden\" name=\"action\" value=\"create_tables\" />
+        </form>
+      </div>
+    </div>
+    ";
 
 } else {
 
@@ -64,11 +71,20 @@ if (! empty($tables)) {
            `user_last_login_time`='" . time() . "'";
     DB::query($sql);
 
-    echo "<p class=\"tables-created\">Database tables created.</p>
+    echo "
+    <div class=row>
+      <div class=col-md-12>
+        <div class=\"alert alert-success\">
+          <strong>Database tables created</strong>
+        </div>
         <form action=\"install_finished.php\" METHOD=\"POST\">
         <input type=\"hidden\" name=\"buyscript_pass\" value=\"$buyscript_pass\" />
-        <input type=\"submit\" name=\"submit\" value=\"Continue Installation >>\" class=\"button\" />
-        </form>";
+        <input type=\"submit\" name=\"submit\" value=\"Continue Installation\" class=\"col-md-4 btn btn-primary btn-lg\" />
+        </form>
+      </div>
+    </div>";
 }
+
+
 
 require './tpl/footer.php';

@@ -13,11 +13,12 @@
  ******************************************************************************/
 
 require '../include/config.php';
+require 'tpl/header.php';
 
 if (! isset($config) || ! is_array($config))
 {
-    echo '<div stye="font-family:verdana;"><p><font size="4" color="#FF0000">ERROR: File include/config.php Missing.</font></p>
-          <p>Restore include/config.php and try again.</p></div>';
+    echo '<p class=text-danger>ERROR: File include/config.php Missing.</font></p>
+          <p>Restore include/config.php and try again.</p>';
     exit(0);
 }
 
@@ -38,16 +39,14 @@ $vshare_versions = array(
 
 if (! in_array($config['version'], $vshare_versions))
 {
-
     echo <<<EOT
-            <p>
-            <font size="3" color="#FF0000" face="verdana"><b>
-            Upgrade script can only upgrade from vShare Release: 20070625<br />
-            You are using an old version that require manual upgrade, for upgrade instruction visit<br /><br />
-            <a href="http://forums.buyscripts.in/viewforum.php?f=7">http://forums.buyscripts.in/viewforum.php?f=7</a><br />
-            For professional upgrade, contact install@hostonnet.com
-            </b></font>
-            </p>
+    <p class=lead>
+    <strong>Upgrade script can only upgrade from <span class="text-danger">vShare Release: 20070625</span><br />
+    You are using an old version that require manual upgrade, for upgrade instruction visit </strong> </p>
+    <a href="https://www.buyscripts.in/vshare-release" target="_blank">https://www.buyscripts.in/vshare-release</a>
+    <hr />
+    <p class=lead>For professional upgrade, contact <a href="mailto:install@hostonnet.com">install@hostonnet.com</a></p>
+
 EOT;
     exit(0);
 }
@@ -91,5 +90,6 @@ switch ($config['version'])
         $redirect_url = VSHARE_URL . '/install/upgrade_finished.php';
         break;
 }
-
+require './tpl/footer.php';
 Http::redirect($redirect_url);
+

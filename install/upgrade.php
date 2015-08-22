@@ -14,14 +14,14 @@
 
 $html_title = 'VSHARE UPGRADE';
 require './tpl/header.php';
-
 ?>
 
-<p class="backup-warning">Before you continue with upgrade, you must
+<p class="text-danger lead"><span class="glyphicon glyphicon-warning-sign"></span> Before you continue with upgrade, you must
 take backup of your database and files.</p>
 
-<form action="upgrade_start.php" method="post"><input type="submit"
-	name="submit" class="button" value="Continue with upgrade" /></form>
+<form action="upgrade_start.php" method="post">
+<input type="submit" name="submit" class="btn btn-primary btn-lg" value="Continue with upgrade" />
+</form>
 
 <?php
 

@@ -23,37 +23,37 @@ if (isset($_POST['connect_info']))
     $site_url = $_POST['site_url'];
 
     if (strlen($site_url) < 12) {
-        $error .= '<li>Site url invalid.</li>';
+        $error .= '<li><span class="glyphicon glyphicon-remove"></span> <strong>Site url invalid</strong>.</li>';
     }
 
     $ffmpeg_path = $_POST['ffmpeg_path'];
 
     if (! file_exists($ffmpeg_path)) {
-        $error .= '<li>ffmpeg not found : ' . $ffmpeg_path . '</li>';
+        $error .= '<li><span class="glyphicon glyphicon-remove"></span> <strong>ffmpeg not found</strong> ' . $ffmpeg_path . '</li>';
     }
 
     $mplayer_path = $_POST['mplayer_path'];
 
     if (! file_exists($mplayer_path)) {
-        $error .= '<li>mplayer not found : ' . $mplayer_path . '</li>';
+        $error .= '<li><span class="glyphicon glyphicon-remove"></span> <strong>mplayer not found</strong>  ' . $mplayer_path . '</li>';
     }
 
     $mencoder_path = $_POST['mencoder_path'];
 
     if (! file_exists($mencoder_path)) {
-        $error .= '<li>mencoder not found : ' . $mencoder_path . '</li>';
+        $error .= '<li><span class="glyphicon glyphicon-remove"></span> mencoder not found ' . $mencoder_path . '</li>';
     }
 
     $flvtool_path = $_POST['flvtool_path'];
 
     if (! file_exists($flvtool_path)) {
-        $error .= '<li>flvtool2 not found : ' . $flvtool_path . '</li>';
+        $error .= '<li><span class="glyphicon glyphicon-remove"></span> <strong>flvtool2 not found</strong> ' . $flvtool_path . '</li>';
     }
 
     $qtfaststart_path = $_POST['qtfaststart_path'];
 
     if (! file_exists($qtfaststart_path)) {
-        $error .= '<li>Qt-faststart not found : ' . $qtfaststart_path . '</li>';
+        $error .= '<li><span class="glyphicon glyphicon-remove"></span> <strong>Qt-faststart not found</strong> ' . $qtfaststart_path . '</li>';
     }
 
     $db_server = $_POST['db_server'];
@@ -63,13 +63,13 @@ if (isset($_POST['connect_info']))
     $folder = $_POST['folder'];
 
     if (! is_dir($folder)) {
-        $error .= '<li>folder not found : ' . $folder . '</li>';
+        $error .= '<li><span class="glyphicon glyphicon-remove"></span> <strong>folder not found</strong> ' . $folder . '</li>';
     }
 
     $link = @mysqli_connect($db_server, $db_user, $db_pass, $db_name);
 
     if (! $link) {
-        $error .= '<li>Failed to connect to database server.</li>';
+        $error .= '<li><span class="glyphicon glyphicon-remove"></span><strong> Failed to connect to database server</strong>.</li>';
     } else {
         $_SESSION['VSHARE_INSTALL']['DB_NAME'] = $db_name;
         $_SESSION['VSHARE_INSTALL']['DB_USER'] = $db_user;
@@ -117,25 +117,32 @@ EOT;
 
         ?>
 
-<p class="config-created">Configuration file created
-(include/config.php)</p>
+<div class="row">
+    <div class="col-md-12">
 
-<form method="post" action="install_create_tables.php"><input
-	type="submit" class="button" name=submit value="Continue Installation">
-<input type="hidden" name="db_host" value="<?php
+        <div class="alert alert-success">
+            <strong>Configuration file created</strong>
+            (include/config.php)
+        </div>
+
+        <form method="post" action="install_create_tables.php"><input
+        type="submit" class="col-md-4 btn btn-primary btn-lg" name=submit value="Continue Installation">
+        <input type="hidden" name="db_host" value="<?php
         echo $db_server;
         ?>"> <input
-	type="hidden" name="db_name" value="<?php
+        type="hidden" name="db_name" value="<?php
         echo $db_name;
         ?>"> <input
-	type="hidden" name="db_user" value="<?php
+        type="hidden" name="db_user" value="<?php
         echo $db_user;
         ?>"> <input
-	type="hidden" name="db_pass" value="<?php
+        type="hidden" name="db_pass" value="<?php
         echo $db_pass;
         ?>"> <input
-	type="hidden" name="action" value="create_tables"></form>
-
+        type="hidden" name="action" value="create_tables">
+        </form>
+    </div>
+</div>
 <?php
 
         require 'tpl/footer.php';
@@ -210,122 +217,168 @@ require 'tpl/header.php';
 
 if ($error != '')
 {
-    echo '<div class="error"><ul>' . $error . '</ul></div>';
+    echo '<div class="text-danger"><ul class=list-unstyled>' . $error . '</ul></div>';
 }
 
 ?>
+<div class="page-header">
+    <h1>Database &amp; Website Settings</h1>
+</div>
 
-<h1>Database &amp; Website Settings</h1>
-
-<P>vShare only run if your server support all <a
-	href="http://buyscripts.in/requirements.html" target="_blank">requirements</A>.
+<p>vShare only run if your server support all <a
+	href="https://www.buyscripts.in/vshare-requirements" target="_blank">requirements</a>.
 If you don't know path to ffmpeg, mencoder, flvtool2, etc... installed
 on your server, ask your server provider.</p>
+<hr>
 
-<form name="myform2" method="POST" action="">
-
-<table width="96%" border="0" cellspacing="2" cellpadding="2"
-	align="center">
-
-	<tr>
-		<td width="30%">Site URL</td>
-		<td width="70%"><input type="text" name="site_url" size="33"
-			value="<?php
-echo $site_url;
-?>"> (i.e. <i>http://yoursite.com/vshare</i>)</td>
-	</tr>
-
-	<tr>
-		<td width="30%">Site Path</td>
-		<td width="70%"><input type="text" name="folder" size="33"
-			value="<?php
-echo $_POST['folder'];
-?>"> (i.e. <i>/home/username/public_html</i>)</td>
-	</tr>
-
-	<tr>
-		<td width="30%">FFMpeg binary</td>
-		<td width="70%"><input type="text" name="ffmpeg_path" size="33"
-			value="<?php
-echo $ffmpeg_path;
-?>"> (i.e. <i>/usr/bin/ffmpeg</i>)</td>
-	</tr>
-
-	<tr>
-		<td width="30%">Mencoder binary</td>
-		<td width="70%"><input type="text" name="mencoder_path" size="33"
-			value="<?php
-echo $mencoder_path;
-?>"> (i.e. <i>/usr/bin/mencoder</i>)</td>
-	</tr>
-
-	<tr>
-		<td width="30%">Mplayer binary</td>
-		<td width="70%"><input type="text" name="mplayer_path" size="33"
-			value="<?php
-echo $mplayer_path;
-?>"> (i.e. <i>/usr/bin/mplayer</i>)</td>
-	</tr>
-
-	<tr>
-		<td width="30%">FLVTool binary</td>
-		<td width="70%"><input type="text" name="flvtool_path" size="33"
-			value="<?php
-echo $flvtool_path;
-?>"> (i.e. <i>/usr/bin/flvtool2</i>)</td>
-	</tr>
-
-    <tr>
-        <td width="30%">Qt-faststart binary</td>
-        <td width="70%"><input type="text" name="qtfaststart_path" size="33"
+<form class="form-horizontal" name="myform2" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-md-3">Site URL</label>
+        <div class="col-md-5">
+            <input type="text" class="form-control" name="site_url" size="33"
             value="<?php
-echo $qtfaststart_path;
-?>"> (i.e. <i>/usr/bin/qt-faststart</i>)</td>
-    </tr>
+            echo $site_url;
+            ?>">
+        </div>
+        <div class="col-md-4">
+            (i.e. <i>http://yoursite.com/vshare</i>)
+        </div>
+    </div>
 
-	<tr>
-		<td width="30%">MySQL database server</td>
-		<td width="70%"><input type="text" name="db_server" size="33"
-			value="<?php
-echo $db_server;
-?>"> usually <i>localhost</i></td>
-	</tr>
+    <div class="form-group">
+        <label class="control-label col-md-3">Site Path</label>
+        <div class="col-md-5">
+            <input type="text" class="form-control" name="folder" size="33"
+            value="<?php
+            echo $_POST['folder'];
+            ?>">
+        </div>
+        <div class="col-md-4">
+            (i.e. <i>/home/username/public_html</i>)
+        </div>
+    </div>
 
-	<tr>
-		<td width="30%">Database name</td>
-		<td width="70%"><input type="text" name="db_name" size="33"
-			value="<?php
-echo $db_name;
-?>"></td>
-	</tr>
+    <div class="form-group">
+        <label class="control-label col-md-3">FFMpeg binary</label>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="ffmpeg_path" size="33"
+            value="<?php
+            echo $ffmpeg_path;
+            ?>">
+        </div>
+        <div class="col-md-4">
+            (i.e. <i>/usr/bin/ffmpeg</i>)
+        </div>
+    </div>
 
-	<tr>
-		<td width="30%">Database user name</td>
-		<td width="70%"><input type="text" name="db_user" size="33"
-			value="<?php
-echo $db_user;
-?>"></td>
-	</tr>
+    <div class="form-group">
+        <label class="control-label col-md-3">Mencoder binary</label>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="mencoder_path" size="33"
+            value="<?php
+            echo $mencoder_path;
+            ?>">
+        </div>
+        <div class="col-md-4">
+            (i.e. <i>/usr/bin/mencoder</i>)
+        </div>
+    </div>
 
-	<tr>
-		<td width="30%">Database password</td>
-		<td width="70%"><input type="text" name="db_pass" size="33"
-			value="<?php
-echo $db_pass;
-?>"></td>
-	</tr>
+    <div class="form-group">
+        <label class="control-label col-md-3">Mplayer binary</label>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="mplayer_path" size="33"
+            value="<?php
+            echo $mplayer_path;
+            ?>">
+        </div>
+        <div class="col-md-4">
+            (i.e. <i>/usr/bin/mplayer</i>)
+        </div>
+    </div>
 
-	<tr>
-		<td width="30%">&nbsp;</td>
-		<td width="70%"><i>(NB : Don't use any ending slash in you path)</i><br>
-		&nbsp;<BR>
-		<input type="submit" class="button" name="connect_info"
-			value="Continue Installation"><br>
-		<br>
-		</td>
-	</tr>
+    <div class="form-group">
+        <label class="control-label col-md-3">FLVTool binary</label>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="flvtool_path" size="33"
+            value="<?php
+            echo $flvtool_path;
+            ?>">
+        </div>
+        <div class="col-md-4">
+            (i.e. <i>/usr/bin/flvtool2</i>)
+        </div>
+    </div>
 
-</table>
+
+    <div class="form-group">
+        <label class="control-label col-md-3">Qt-faststart binary</label>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="qtfaststart_path" size="33"
+            value="<?php
+            echo $qtfaststart_path;
+            ?>">
+        </div>
+        <div class="col-md-4">
+            (i.e. <i>/usr/bin/qt-faststart</i>)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3">MySQL database server</label>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="db_server" size="33"
+            value="<?php
+            echo $db_server;
+            ?>">
+        </div>
+        <div class="col-md-4">
+            usually <i>localhost</i>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3">Database name</label>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="db_name" size="33"
+            value="<?php
+            echo $db_name;
+            ?>">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3">Database user name</label>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="db_user" size="33"
+            value="<?php
+            echo $db_user;
+            ?>">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3">Database password</label>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="db_pass" size="33"
+            value="<?php
+            echo $db_pass;
+            ?>">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-5">
+            <span class="text-info"><i>(NB : Don't use any ending slash in you path)</i></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-4">
+            <input type="submit" class='btn-block btn btn-primary btn-lg' name="connect_info"
+            value="Continue Installation">
+        </div>
+    </div>
 </form>
 
 <?php
