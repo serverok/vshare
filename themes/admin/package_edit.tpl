@@ -68,14 +68,12 @@
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label" for="package_trial">Is Trial:</label>
+        <label class="col-sm-2 control-label" for="package_trial">Trial Package:</label>
         <div class="col-sm-5">
-            <div class="radio">
-                <label><input type="radio" name="package_trial" value="yes"{if $package.package_trial eq "yes"} checked{/if}> Yes</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="package_trial" value="no"{if $package.package_trial eq "no"} checked{/if}> No</label>
-            </div>
+            <select class="form-control" name="package_trial">
+                <option value="yes"{if $package.package_trial eq "yes"} selected{/if}>Yes</option>
+                <option value="no"{if $package.package_trial eq "no"} selected{/if}>No</option>
+            </select>
         </div>
     </div>
 

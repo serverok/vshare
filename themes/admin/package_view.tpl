@@ -66,4 +66,5 @@
 <div class="btn-group">
     <a href="packages.php" class="btn btn-default">View Packages</a>
     <a href="package_edit.php?package_id={$package.package_id}" class="btn btn-default">Edit Package</a>
+    <a href="package_delete.php?package_id={$package.package_id}" class="btn btn-danger">Delete Package</a>
 </div>

@@ -26,7 +26,15 @@
         <td>{if $packages[aa].package_allow_download eq '1'} Yes {else} No {/if}</td>
         <td class="text-capitalize">{$packages[aa].package_trial}</td>
         <td>{$packages[aa].package_status}</td>
-        <td><a href="package_edit.php?package_id={$packages[aa].package_id}" data-toggle="tooltip" data-placement="bottom" title="Edit Package"><span class="glyphicon glyphicon-edit"></span></a></td>
+        <td>
+            <a href="package_edit.php?package_id={$packages[aa].package_id}" data-toggle="tooltip" data-placement="bottom" title="Edit Package">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+            &nbsp;
+            <a href="package_delete.php?package_id={$packages[aa].package_id}" data-toggle="tooltip" data-placement="bottom" title="Delete Package">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+        </td>
     </tr>
     {/section}
 
