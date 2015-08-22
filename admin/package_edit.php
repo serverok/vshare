@@ -26,6 +26,7 @@ if (isset($_POST['submit'])) {
          `package_space`='" . DB::quote($_POST['package_space']) . "',
          `package_price`= '" . DB::quote($_POST['package_price']) . "',
          `package_videos`='" . DB::quote($_POST['package_videos']) . "',
+         `package_trial`='" . DB::quote($_POST['package_trial']) . "',
          `package_period`='" . DB::quote($_POST['package_period']) . "',
          `package_status`='" . DB::quote($_POST['package_status']) . "',
          `package_trial_period`='" . DB::quote($package_trail_period) . "',
