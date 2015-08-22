@@ -52,6 +52,11 @@
 </tr>
 
 <tr>
+<td><b>Trial</b></td>
+<td class="text-capitalize">{$package.package_trial}</td>
+</tr>
+
+<tr>
 <td><b>Status</b></td>
 <td>{$package.package_status}</td>
 </tr>
