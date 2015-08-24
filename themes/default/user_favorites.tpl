@@ -32,9 +32,6 @@
 </div>
 
 <div class="col-md-3">
-    <a class="btn btn-default btn-block" href="{$base_url}/friends/invite/">Share your videos!</a>
-    <p class="clearfix"></p>
-
     {if $total gt "0"}
         <div class="page-header">
             <h2>My Tags</h2>
