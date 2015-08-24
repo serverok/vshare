@@ -399,30 +399,24 @@ CREATE TABLE IF NOT EXISTS `mails` (
 -- Dumping data for table `mails`
 
 
--- Table structure for table `packages`
-
 CREATE TABLE IF NOT EXISTS `packages` (
   `package_id` int(11) NOT NULL auto_increment,
   `package_name` varchar(255) NOT NULL,
   `package_description` text NOT NULL,
-  `package_space` int(11) NOT NULL default '0',
-  `package_price` int(11) NOT NULL default '0',
-  `package_videos` int(11) default NULL,
-  `package_period` enum('Day','Month','Year') NOT NULL default 'Month',
-  `package_status` enum('Active','Inactive') NOT NULL default 'Active',
-  `package_trial` char(3) NOT NULL default 'no',
-  `package_trial_period` int(11) default NULL,
-  `package_allow_download` INT( 11 ) NOT NULL DEFAULT '0',
+  `package_space` int(11) NOT NULL DEFAULT '0',
+  `package_price` int(11) NOT NULL DEFAULT '0',
+  `package_videos` int(11) DEFAULT NULL,
+  `package_period` enum('Day','Month','Year') NOT NULL DEFAULT 'Month',
+  `package_status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
+  `package_trial` char(3) NOT NULL DEFAULT 'no',
+  `package_trial_period` int(11) DEFAULT NULL,
+  `package_allow_download` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`package_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
--- Dumping data for table `packages`
-
-INSERT INTO `packages` (`package_id`, `package_name`, `package_description`, `package_space`, `package_price`, `package_videos`, `package_period`, `package_status`, `package_trial`, `package_trial_period`) VALUES(1, 'Gold', 'For ultimate service', 20100, 100, 501, 'Year', 'Active', 'no', NULL);
-INSERT INTO `packages` (`package_id`, `package_name`, `package_description`, `package_space`, `package_price`, `package_videos`, `package_period`, `package_status`, `package_trial`, `package_trial_period`) VALUES(3, 'Silver', 'This is for medium user', 512, 50, 0, 'Month', 'Active', 'no', NULL);
-INSERT INTO `packages` (`package_id`, `package_name`, `package_description`, `package_space`, `package_price`, `package_videos`, `package_period`, `package_status`, `package_trial`, `package_trial_period`) VALUES(4, 'Free Trial', 'Join now to test the system.', 200, 0, 100, 'Month', 'Active', 'yes', 600);
-INSERT INTO `packages` (`package_id`, `package_name`, `package_description`, `package_space`, `package_price`, `package_videos`, `package_period`, `package_status`, `package_trial`, `package_trial_period`) VALUES(5, 'Copper', 'Copper', 2000, 75, 100, 'Month', 'Active', 'no', NULL);
-INSERT INTO `packages` (`package_id`, `package_name`, `package_description`, `package_space`, `package_price`, `package_videos`, `package_period`, `package_status`, `package_trial`, `package_trial_period`) VALUES(6, 'Steal', 'Steal', 1000, 25, 20, 'Month', 'Active', 'no', NULL);
+INSERT INTO `packages` VALUES(1, 'FREE TRIAL', 'Free Trial', 200, 0, 100, 'Month', 'Active', 'yes', 600, 0);
+INSERT INTO `packages` VALUES(2, 'PLAN 1', 'PLAN 1', 512, 50, 100, 'Month', 'Active', 'no', NULL, 0);
+INSERT INTO `packages` VALUES(3, 'PLAN 2', 'PLAN 2', 20100, 100, 501, 'Year', 'Active', 'no', NULL, 0);
 
 -- Table structure for table `pages`
 
