@@ -24,8 +24,6 @@
 	</div>
 
 	<div class="col-md-3">
-        <a class="btn btn-default btn-sm btn-block" href="{$base_url}/friends/invite/">Share your videos!</a>
-
         <div class="page-header">
             <h2>My Tags</h2>
         </div>
