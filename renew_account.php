@@ -19,7 +19,9 @@ if ($config['enable_package'] == 'yes') {
     if (isset($_POST['submit'])) {
         $package_id = isset($_POST['package_id']) ? (int) $_POST['package_id'] : 0;
 
-        $sql = "SELECT * FROM `packages` WHERE `package_id`='$package_id'";
+        $sql = "SELECT * FROM `packages` WHERE
+               `package_id`='$package_id' AND
+               `package_trial`='no'";
         $package_info = DB::fetch1($sql);
 
         if (! $package_info) {
@@ -54,7 +56,8 @@ if ($config['enable_package'] == 'yes') {
     }
 
     $sql = "SELECT * FROM `packages` WHERE
-           `package_status`='Active'
+           `package_status`='Active' AND
+           `package_trial`='no'
             ORDER BY `package_price` DESC";
     $package = DB::fetch($sql);
     $smarty->assign('package', $package);
