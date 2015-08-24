@@ -387,10 +387,17 @@ if (isset($_POST['submit'])) {
 
         // package_enabled && package_trial == No
          else if ($paid_member == 2) {
+            $subscribe_time = date("Y-m-d H:i:s");
+            $expired_time = date("Y-m-d H:i:s");
+
+            if ($package_info['package_price'] == 0) {
+                $expired_time = date("Y-m-d H:i:s", strtotime("+1 $package_info[package_period]"));
+            }
+
             $sql = "UPDATE `subscriber` SET
                    `pack_id`='" . (int) $_POST['pack_id'] . "',
-                   `subscribe_time`='" . date("Y-m-d H:i:s") . "',
-                   `expired_time`='" . date("Y-m-d H:i:s") . "' WHERE
+                   `subscribe_time`='" . $subscribe_time . "',
+                   `expired_time`='" . $expired_time . "' WHERE
                    `UID`='" . (int) $userid . "'";
             DB::query($sql);
 
@@ -398,9 +405,12 @@ if (isset($_POST['submit'])) {
                    `user_account_status`='Inactive' WHERE
                    `user_id`='" . (int) $userid . "'";
             DB::query($sql);
-            set_message($lang['signup_success_payment'], 'success');
-            $redirect_url = VSHARE_URL . '/package_options.php?package_id=' . $_POST['pack_id'] . '&user_id=' . $userid;
-            Http::redirect($redirect_url);
+
+            if ($package_info['package_price'] > 0) {
+                set_message($lang['signup_success_payment'], 'success');
+                $redirect_url = VSHARE_URL . '/package_options.php?package_id=' . $_POST['pack_id'] . '&user_id=' . $userid;
+                Http::redirect($redirect_url);
+            }
         }
     }
 } else {
