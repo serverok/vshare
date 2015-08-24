@@ -111,14 +111,7 @@
 
        <div class="form-group">
             <div class="col-md-offset-3 col-md-9">
-                <ul class="list-unstyled">
-                    <li><span class="glyphicon glyphicon-ok"></span> I certify I am over {$age_minimum} years old.</li>
-                    <li> <span class="glyphicon glyphicon-ok"></span>
-                        I agree to the
-                        <a href="{$base_url}/pages/terms.html" target="_blank">terms of use</a> and
-                        <a href="{$base_url}/pages/privacy.html" target="_blank">privacy policy</a>.
-                    </li>
-                </ul>
+                By signing up you agree to the <a href="{$base_url}/pages/terms.html" target="_blank" class="text-nowrap">Terms of Service</a> and the <a href="{$base_url}/pages/privacy.html" target="_blank" class="text-nowrap">Privacy Policy</a>.
             </div>
         </div>
         <div class="form-group">
