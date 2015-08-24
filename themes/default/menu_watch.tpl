@@ -1,4 +1,4 @@
-<ul class="list-inline text-center">
+<ul class="dropdown-menu">
 	<li><a href="{$base_url}/{if $smarty.request.viewtype eq "detailed"}detailed/{/if}recent/">Most Recent</a></li>
 	<li><a href="{$base_url}/{if $smarty.request.viewtype eq "detailed"}detailed/{/if}viewed/">Most Viewed</a></li>
 	<li><a href="{$base_url}/{if $smarty.request.viewtype eq "detailed"}detailed/{/if}discussed/">Most Discussed</a></li>

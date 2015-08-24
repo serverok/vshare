@@ -196,7 +196,6 @@ $smarty->assign('html_description', $view['html_title']);
 $smarty->assign('view', $view);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
-$smarty->assign('sub_menu', 'menu_watch.tpl');
 $smarty->display('header.tpl');
 $smarty->display('video.tpl');
 $smarty->display('footer.tpl');
