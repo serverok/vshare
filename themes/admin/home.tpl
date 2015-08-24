@@ -1,5 +1,15 @@
 <h1>Site Statistics</h1>
 
+{if isset($total_users_inactive) && $total_users_inactive > 0}
+    <div class="alert alert-warning">
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <a href="user_inactive_manage.php" class="alert-link">
+            You have {$total_users_inactive}
+            {if $total_users_inactive eq 1}user{else}users{/if} waiting to be activated.
+        </a>
+    </div>
+{/if}
+
 <table class="table table-bordered table-striped">
 
 <tr class="tablerow1">
@@ -53,3 +63,5 @@ You are using vShare version: {$vshare_version} (DB Version: {$version})
     You need to set <a href="settings_miscellaneous.php#youtube_api_key">Youtube API Key</a> to add youtube videos.
 </div>
 {/if}
+
+

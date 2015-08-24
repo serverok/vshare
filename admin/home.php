@@ -54,6 +54,14 @@ $sql = "SELECT count(*) AS `total` FROM `groups`";
 $total_groups = DB::getTotal($sql);
 $smarty->assign('total_groups', $total_groups);
 
+if ($config['signup_verify'] == 2) {
+    $sql = "SELECT COUNT(`user_id`) AS `total` FROM `users` WHERE
+           `user_email_verified`='yes' AND
+           `user_account_status`='Inactive'";
+    $total_users_inactive = DB::getTotal($sql);
+    $smarty->assign('total_users_inactive', $total_users_inactive);
+}
+
 # check version
 $version_file = VSHARE_DIR . '/templates_c/version.txt';
 
@@ -73,7 +81,7 @@ if (file_exists($version_file)) {
 $errno = 0;
 
 if ($check_version_now == 1) {
-    $version_info = simplexml_load_file('https://buyscripts.in/version/vshare.xml');
+    $version_info = simplexml_load_file('https://www.buyscripts.in/version/vshare.xml');
     $latest_version = $version_info->version;
     $latest_release = $version_info->release_date;
     unset($version_info);
