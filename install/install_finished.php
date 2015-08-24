@@ -20,33 +20,28 @@ $buyscript_pass = $_POST['buyscript_pass'];
 
 echo <<<EOT
 
-<p class="install-finish-success">vShare Youtube Clone installation completed successfully.</p>
+<p class="text-success lead"><strong>vShare Youtube Clone installation completed successfully.</strong></p>
 
-<div class="login-info">
 
-You can login to vShare admin area at:<br /><br />
+<p>You can login to vShare admin area at:</p>
 
-<a href='$config[baseurl]/admin/' target="_blank">$config[baseurl]/admin/</a><br />
-
-<p>
-Username : admin<br />
-Password : buyscripts
+<p><a href='$config[baseurl]/admin/' target="_blank">$config[baseurl]/admin/</a><br>
+Username : <strong>admin</strong><br />
+Password : <strong>buyscripts</strong>
 </p>
 
-<p>You must change default admin password by logging into admin control panel.</p>
+<p class="text-warning"><strong>You must change default admin password by logging into admin control panel.</strong></p>
 
 <p>Test User Account</p>
 
-<p><a href='$config[baseurl]/login.php' target="_blank">$config[baseurl]/login.php</a></p>
+<p><a href='$config[baseurl]/login.php' target="_blank">$config[baseurl]/login.php</a><br>
 
-<p>
-Username : vshare<br />
-Password : $buyscript_pass
+Username : <strong>vshare</strong><br />
+Password : <strong>$buyscript_pass</strong>
 </p>
 
-</div>
 
-<p class="install-finish-warning">You must delete the "install" folder now. Also chmod 755 include/config.php</p>
+<p class="text-danger"><strong>You must delete the "install" folder now. Also chmod 755 include/config.php</strong></p>
 
 EOT;
 

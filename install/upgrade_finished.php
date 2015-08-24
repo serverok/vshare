@@ -15,7 +15,7 @@
 $html_title = 'VSHARE UPGRADE FINISHED';
 require '../include/config.php';
 require './tpl/header.php';
-echo '<p class="upgrade-finished">Upgrade Finished</h2>';
-echo '<p class="upgrade-finished-version">vShare upgraded to version ' . $config['version'] . '</p>';
-echo '<p class="upgrade-finish-warning">You must delete the "install" folder now.</p>';
+echo '<h1 class="page-header">Upgrade Finished</h1>';
+echo '<p class="text-success"><strong>vShare upgraded to version ' . $config['version'] . '</strong></p>';
+echo '<p class="text-danger lead"><span class="glyphicon glyphicon-warning-sign"></span> You must delete the "install" folder now.</p>';
 require './tpl/footer.php';

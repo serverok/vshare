@@ -3,15 +3,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php echo $html_title; ?></title>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="tpl/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
 </head>
 <body>
 
-<div id="wrapper">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <h1>Start your own video sharing site</h1>
+                <p class="text-center">Your own Open Source, Developer Friendly, video-sharing community </p>
+            </div>
 
-    <div id="header">
-	   <img height="90" border="0" width="800" alt="vShare Youtube Clone" src="tpl/images/header.jpg" />
-    </div>
-
-    <div id="page">
+<div class="install-wrap">

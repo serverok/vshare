@@ -1,167 +1,41 @@
 body {
-    font-family: sans-serif;
-    color: #16619C;
-    font-family:verdana;
-    margin:0;
-    padding:0;
-    background:#11568c url(./images/body-bg.jpg) repeat-x scroll center top;
-}
-input {
-    font-family:Verdana, Geneva, sans-serif;
-}
-div#wrapper {
-    width:800px;
-    margin:0 auto;
-    background-color:#fff;
-    border-left:3px dotted #16619c;
-    border-right:3px dotted #16619c
-}
-div#wrapper div#page {
-    padding:2em;
-}
-div#wrapper div#header {
-    background-color:#FFF;
-    position:relative;
-    border-bottom:1px solid #000;
-}
-div#wrapper div#header h1 {
-    position:absolute;
-    top:-0.4em;
-    right:1em;
-    display:block;
-    color:#39F;
-    font-size:1.5em;
-}
-div#wrapper div#footer {
-    background-color:#FFF;
-    padding:1px 0 1px 1em;
-    border-top:1px solid black
-}
-div#wrapper div#footer p {
-    font-size:0.8em;
-}
-div#wrapper div#page h1 {
-    font-size:1.4em;
-    color:#0172b6;
-    background-color:#F9FFFF;
-    border:1px solid #006699;
-    font-weight:bold;
-    padding:5px;
-    text-transform:uppercase
-}
-form#foler-input-form {
-    margin:1em 0 2em 0;
-}
-input {
-    font-size:16px;
-    margin:0.5em 0;
-    border:1px solid #075BB5;
-    width:25em;
-    padding:4px;
-    color: #03458C;
-    -moz-border-radius: 4px 4px 4px 4px;
-    -webkit-border-radius: 4px 4px 4px 4px;
-    border-radius: 4px 4px 4px 4px;
-    -o-border-radius: 4px 4px 4px 4px;
-}
-input:hover {
-    border:1px solid #F93;
-}
-input.button {
-    padding: 10px 5px;
-    width: auto;
-}
-div#wrapper div#page ul#check-default-folders li {
-    background:transparent url(./images/error.png) no-repeat scroll 1px 8px;
-    padding:0.5em 0 0.5em 2em;
-    color:#333;
-    list-style-type: none;
-}
-div#wrapper div#page ul#check-default-folders li.error {
-    background:transparent url(./images/error-tick.jpg) no-repeat scroll 1px 8px;
-    color:#F00;
-    font-weight:bold;
-}
-div.error {
-    color:#F00;
-}
-div.error li {
-    margin:0.5em 0;
-}
-p.config-created, p.tables-created {
-    font-weight:bold;
-    color:#093;
-    font-size:1em;
-    margin:2em 0;
-}
-p.table-already-exists {
-    font-weight:bold;
-    color:#F00;
-}
-p.install-finish-success {
-    color:#009900;
-    font-size:1.2em;
-    font-weight:bold;
-}
-p.install-finish-warning, p.upgrade-finish-warning {
-    color:#ff0000;
-    font-size:1em;
-    font-weight:bold
-}
-div.login-info {
-    font-size:14px;
-    margin-botton:1em;
-}
-div.login-info a, div.login-info a:visited {
-    color:#009;
-}
-div.login-info a:hover {
-    color:#f00;
+    background-color: #f9f9f9!important;
+    background:transparent url(./images/bg-back.png)
 }
 
-/* upgrade */
-
-p.backup-warning {
-    color:#ff0000;
-    font-weight:normal;
-    font-size:20px;
+@media (min-width: 1200px) {
+    .container {
+    width: 970px !important;
+    }
 }
 
-p.upgrade-finished {
-    font-weight:bold;
-    font-size:2em;
-    color:#090;
+.install-wrap{
+    background-color: #ffffff;
+    padding: 20px 20px 10px;
+    margin: 0px auto 25px;
+    border: 1px solid #dddddd;
+    border-radius: 0 0 6px 6px;
 }
 
-p.upgrade-finished-version {
-	font-weight:bold;
-	color:#666;
-}
-span.msg {
-    color: #FF4800;
-    font: 29px/29px "Lucida Sans Unicode";
-    letter-spacing: -2px;
-}
-.re-install-msg {
-     color:#828181;
-     font-size: 12px;
-}
-.button {
-	display: inline-block;
-	border: 1px solid rgb(0, 0, 0);
-	padding: 15px;
-	text-decoration: none;
-	-moz-border-radius: 3px 3px 3px 3px;
-	text-transform: uppercase;
-	background: none repeat scroll 0% 0% rgb(22, 97, 156);
-	color: rgb(255, 255, 255);
-	-moz-box-shadow: 5px 5px 5px #ccc;
-	-webkit-box-shadow: 5px 5px 5px #ccc;
-	font-size: 15px;
-	font-weight:bold
+.jumbotron{
+    margin-top: 20px;
+    margin-bottom: 0px!important;
+    background-color: #347ab8!important;
+    box-shadow: 1px 0 2px #2668a3 inset;
 }
 
-hr {
-    height: 2px;
-    text-align: left;
+.jumbotron {
+    border-radius: 6px 6px 0 0!important;
 }
+
+.jumbotron h1 {
+    font-size: 50px!important;
+    color:#fff!important;
+    text-shadow: 1px 1px #000;
+    font-weight: 700;
+}
+
+.jumbotron p {
+    color: #fff;
+}
+

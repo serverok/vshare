@@ -29,34 +29,43 @@ if ($vshare_installed == 1) {
     require '../include/config.php';
 ?>
 
-<span class="msg">vShare <?php echo $version; ?> Upgrade</span>
+<div class="page-header">
+    <h1>vShare <?php echo $version; ?> Upgrade</h1>
+</div>
 
-<div style="display: inline-block; width: 550px;">
-<hr />
-<span style="font-size: 12px;">vShare <?php echo $config['version']; ?> is already installed...</span>
-<br />
-<span class="re-install-msg">(If you want to re-install vshare delete "include/config.php")</span>
+<div class="row">
+    <div class="col-md-12">
+    <p class="text-success"><strong>vShare <?php echo $config['version']; ?> is already installed...</strong></p>
 
-<p class="backup-warning">Before you continue with upgrade, you must take backup of your database and files.</p>
-<a href="./upgrade_start.php" class="button">Upgrade Now</a></div>
+    <p>(If you want to re-install vshare delete "include/config.php")</p>
+
+    <p class="text-danger lead"><span class="glyphicon glyphicon-warning-sign"></span> Before you continue with upgrade, you must take backup of your database and files.</p>
+    <a href="./upgrade_start.php" class="col-md-4 btn btn-primary btn-lg">Upgrade Now</a>
+    </div>
+</div>
 
 <?php
 
 } else {
 
 ?>
-<span class="msg">vShare <?php echo $version; ?> Installation</span>
-<div style="display: inline-block; width: 550px;">
-<hr />
+<div class="page-header">
+    <h1><strong>vShare <?php echo $version; ?></strong><span class="text-muted"> Installation</span></h1>
+</div>
 
-<p>YouTube Clone Script allow you to run your own video sharing portal.
-Visitors will be able to upload video to your web site, view existing video, comment on video, share video with others.</p>
-
-<a href="./install.php" class="button">install vshare</a></div>
-
+<div class="row">
+    <div class="col-md-12">
+        <p class="lead">YouTube Clone Script allow you to run your own video sharing portal.
+        Visitors will be able to upload video to your web site, view existing video, comment on video, share video with others.</p>
+    </div>
+    <div class="col-md-4">
+        <br>
+         <a href="./install.php" class="btn btn-primary btn-lg btn-block">install vshare</a>
+        <br>
+    </div>
+</div>
 <?php } ?>
 
-<div style="height: 200px;"></div>
 
 <?php
 
