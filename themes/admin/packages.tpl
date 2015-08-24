@@ -1,4 +1,5 @@
 <div class="page-header">
+    <a class="btn btn-primary pull-right" href="package_add.php">Add New Package</a>
     <h1>Packages {if $enable_package eq "no"}(Disabled){/if}</h1>
 </div>
 
