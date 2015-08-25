@@ -882,3 +882,15 @@ CREATE TABLE IF NOT EXISTS `banned_ips` (
   `id` int(12) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `ip` varchar(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `payments` (
+`payment_id` int(11) unsigned NOT NULL auto_increment,
+  `payment_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `payment_user_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `payment_completed` smallint(1) NOT NULL DEFAULT '0',
+  `payment_package_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `payment_period` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `payment_amount` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+   PRIMARY KEY  (`payment_id`),
+   KEY `payment_hash` (`payment_hash`)
+);
