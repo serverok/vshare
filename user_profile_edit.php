@@ -44,6 +44,8 @@ if (isset($_POST['submit'])) {
     }
 
     if (($_POST['user_password'] != '') and ($_POST['password_new'] != '') and ($_POST['password_confirm'] != '')) {
+        $password_md5 = md5($_POST['user_password']);
+
         if ($user_info['user_password'] != $password_md5) {
             $err = $lang['password_invalid'];
         } else if ($_POST['password_new'] != $_POST['password_confirm']) {
