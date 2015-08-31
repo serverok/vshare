@@ -34,28 +34,6 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    $pass_change = 0;
-    #check current password
-
-    if (get_magic_quotes_gpc()) {
-        $_POST['user_password'] = stripslashes($_POST['user_password']);
-        $_POST['password_confirm'] = stripslashes($_POST['password_confirm']);
-        $_POST['password_new'] = stripslashes($_POST['password_new']);
-    }
-
-    if (($_POST['user_password'] != '') and ($_POST['password_new'] != '') and ($_POST['password_confirm'] != '')) {
-        $password_md5 = md5($_POST['user_password']);
-
-        if ($user_info['user_password'] != $password_md5) {
-            $err = $lang['password_invalid'];
-        } else if ($_POST['password_new'] != $_POST['password_confirm']) {
-            $err = $lang['password_match_error'];
-        } else if (mb_strlen($_POST['password_new']) < 4) {
-            $err = $lang['password_length_error'];
-        }
-        $pass_change = 1;
-    }
-
     if ($err == '') {
         $sql_extra = '';
 
@@ -129,15 +107,6 @@ if (isset($_POST['submit'])) {
                `user_id`='" . (int) $_SESSION['UID'] . "'";
 
         DB::query($sql);
-
-        if ($pass_change == 1) {
-            $password_new_md5 = md5($_POST['password_new']);
-            $sql = "UPDATE `users` SET
-                   `user_password`='$password_new_md5' WHERE
-                   `user_id`='" . (int) $_SESSION['UID'] . "'";
-            DB::query($sql);
-            $_SESSION['pwd'] = $password_new_md5;
-        }
 
         if ($user_info['user_email'] != $_POST['user_email']) {
 
