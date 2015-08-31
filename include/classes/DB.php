@@ -78,11 +78,11 @@ class DB
 
     public static function sqlDie($msg)
     {
-        echo "<FONT face=verdana SIZE=2 COLOR=#FF0000><B>ERROR: Unable to execute query</B></FONT><BR>";
+        echo "<p class=text-danger><b>ERROR: Unable to execute query</b></p>";
         echo "<pre>$msg</pre>";
-        echo "<FONT face=arial SIZE=2 COLOR=#0000FF><B>";
+        echo "<p class=text-warning><b>";
         echo mysqli_error(self::$link);
-        echo "</B></FONT><BR>";
+        echo "</p>";
         exit(0);
     }
 
