@@ -227,7 +227,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="youtube_api_key" id="youtube_api_key" value="{$youtube_api_key}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#youtube_api_key" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/how-to-enable-youtube-data-api" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
