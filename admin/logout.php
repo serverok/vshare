@@ -19,5 +19,5 @@ $_SESSION['AUID'] = '';
 $_SESSION['APASSWORD'] = '';
 DB::close();
 
-$redirect_url = VSHARE_URL . '/index.php';
+$redirect_url = VSHARE_URL . '/';
 Http::redirect($redirect_url);

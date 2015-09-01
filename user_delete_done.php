@@ -42,7 +42,7 @@ if (isset($_GET['k']) && isset($_GET['i'])) {
 
         DB::close();
         set_message($lang['account_deleted'], 'success');
-        $redirect_url = VSHARE_URL . '/index.php';
+        $redirect_url = VSHARE_URL . '/';
         Http::redirect($redirect_url);
     }
     else

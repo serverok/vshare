@@ -33,7 +33,7 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i'])) {
 
         if (! $verify_info) {
             set_message($lang['invalid_vcode'], 'error');
-            Http::redirect(VSHARE_URL . '/index.php');
+            Http::redirect(VSHARE_URL . '/');
         }
 
         $video_info = Video::getById($_GET['u']);

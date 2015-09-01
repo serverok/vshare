@@ -20,7 +20,7 @@ $user_info = User::getByName($_SESSION['USERNAME']);
 
 if (! $user_info) {
     set_message($lang['user_not_found'], 'error');
-    $redirect_url = VSHARE_URL . '/index.php';
+    $redirect_url = VSHARE_URL . '/';
     Http::redirect($redirect_url);
 }
 

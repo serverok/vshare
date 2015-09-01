@@ -23,7 +23,7 @@ if ($page < 1) {
 $user_info = User::getByName($_GET['user_name']);
 
 if (! $user_info) {
-    $redirect_url = VSHARE_URL . '/index.php';
+    $redirect_url = VSHARE_URL . '/';
     Http::redirect($redirect_url);
 }
 

@@ -36,14 +36,14 @@ $user_name = isset($_GET['user_name']) ? trim($_GET['user_name']) : '';
 
 if ($user_name == '') {
     set_message($lang['user_not_found'], 'error');
-    $redirect_url = VSHARE_URL . '/index.php';
+    $redirect_url = VSHARE_URL . '/';
 }
 
 $user_info = User::getByName($user_name);
 
 if (! $user_info) {
     set_message($lang['user_not_found'], 'error');
-    $redirect_url = VSHARE_URL . '/index.php';
+    $redirect_url = VSHARE_URL . '/';
     Http::redirect($redirect_url);
 }
 

@@ -13,7 +13,7 @@ class Css
         }
 
         if (stripos($redirect_url, VSHARE_URL) === false) {
-            $redirect_url = VSHARE_URL . '/index.php';
+            $redirect_url = VSHARE_URL . '/';
         }
 
         Http::redirect($redirect_url);

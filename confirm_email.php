@@ -46,7 +46,7 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i'])) {
                     DB::quote($sql);
 
                     set_message($msg, 'success');
-                    $redirect_url = VSHARE_URL . '/index.php';
+                    $redirect_url = VSHARE_URL . '/';
                     Http::redirect($redirect_url);
                 } else {
                     $err = $lang['invalid_vcode'];

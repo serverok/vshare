@@ -23,7 +23,7 @@ $uer_info = User::get_user_by_id($_SESSION['UID']);
 
 if ($uer_info == 0) {
     set_message($lang['group_security_error'], 'error');
-    $redirect_url = VSHARE_URL . '/index.php';
+    $redirect_url = VSHARE_URL . '/';
     Http::redirect($redirect_url);
 }
 
@@ -31,7 +31,7 @@ $group_info = Group::getById($group_id);
 
 if ($group_info == 0) {
     set_message($lang['group_security_error'], 'error');
-    $redirect_url = VSHARE_URL . '/index.php';
+    $redirect_url = VSHARE_URL . '/';
     Http::redirect($redirect_url);
 }
 

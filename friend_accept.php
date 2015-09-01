@@ -122,7 +122,7 @@ if (isset($_POST['friend_accept'])) {
             DB::query($sql);
 
             set_message($lang['friend_added'], 'success');
-            $redirect_url = VSHARE_URL . '/index.php';
+            $redirect_url = VSHARE_URL . '/';
             Http::redirect($redirect_url);
         }
 
@@ -146,7 +146,7 @@ if (isset($_POST['friend_deny'])) {
     DB::query($sql);
 
     set_message($lang['friend_deny'], 'success');
-    $redirect_url = VSHARE_URL . '/index.php';
+    $redirect_url = VSHARE_URL . '/';
     Http::redirect($redirect_url);
 }
 
