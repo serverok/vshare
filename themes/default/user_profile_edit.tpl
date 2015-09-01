@@ -16,27 +16,6 @@
                 <input maxlength="60" value="{$user_info.user_email}" name="user_email" class="form-control">
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-2">Current Password:</label>
-            <div class="col-md-4">
-                <input type="password" maxlength="20" name="user_password" autocomplete="off" class="form-control">
-                <span class="help-block">(Only required for changing password)</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-2">New Password:</label>
-            <div class="col-md-4">
-                <input type="password" maxlength="20" name="password_new" autocomplete="off" class="form-control">
-                <span class="help-block">(Only required for changing password)</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-2">Confirm Password:</label>
-            <div class="col-md-4">
-                <input type="password" maxlength="20" name="password_confirm" autocomplete="off" class="form-control">
-                <span class="help-block">(Only required for changing password)</span>
-            </div>
-        </div>
         <br>
 
         <h2>Personal Information:</h2>

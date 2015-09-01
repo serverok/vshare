@@ -458,4 +458,12 @@ class User
 
         return $age;
     }
+
+    public static function getPasswordToken($user_id)
+    {
+        $user_info = self::getById($user_id);
+        $token = $user_info['user_password'] . $user_info['user_salt'];
+        $token = md5($token);
+        return $token;
+    }
 }

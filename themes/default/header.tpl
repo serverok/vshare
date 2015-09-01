@@ -59,6 +59,8 @@
                         <li><a href="{$base_url}/{$smarty.session.USERNAME}/friends/">Friends</a></li>
                         <li><a href="{$base_url}/{$smarty.session.USERNAME}/playlist/">Playlist</a></li>
                         <li><a href="{$base_url}/{$smarty.session.USERNAME}/groups/">Groups</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{$base_url}/password/">Change Password</a></li>
                     </ul>
 
                     <a class="text-nowrap btn btn-primary" href="{$base_url}/mail.php?folder=inbox">
@@ -111,6 +113,8 @@
                                     <li><a href="{$base_url}/{$smarty.session.USERNAME}/playlist/">Playlist</a></li>
                                     <li><a href="{$base_url}/{$smarty.session.USERNAME}/groups/">Groups</a></li>
                                     <li><a href="{$base_url}/mail.php?folder=inbox">Inbox <span class="badge">{$total_msg}</span></a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/change_password/">Change Password</a></li>
                                     <li><a href="{$base_url}/logout/">Log Out</a></li>
                                     {else}
                                     <li><a href="{$base_url}/signup/">Sign Up</a></li>
