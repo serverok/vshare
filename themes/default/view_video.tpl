@@ -3,6 +3,9 @@
     <div class="embed-responsive embed-responsive-16by9" style="z-index: 0;">{$view.VSHARE_PLAYER}</div>
     <p class="clearfix"></p>
     {insert name=advertise adv_name='player_bottom'}
+
+    <div>{include file="view_video_episodes.tpl"}</div>
+
     <div class="panel panel-default">
         <div class="panel-body">
             <h1 class="view-video-title">{$view.video_info.video_title}</h1>

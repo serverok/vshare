@@ -128,6 +128,8 @@
                     <li><a href="thumbs_regenerate.php">Regenerate Thumbs</a></li>
                     <li><a href="users_inactive_delete.php">Delete Inactive Users</a></li>
                     <li><a href="phpinfo.php">View PHP Info</a></li>
+                    <li class="divider"></li>
+                    <li><a href="episodes.php">Episodes</a></li>
                 </ul>
             </li>
 

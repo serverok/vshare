@@ -99,6 +99,10 @@
                 <a href="video_edit.php?a={$a}&action=edit&video_id={$videos[aa].video_id}&page={$page}&sort={$smarty.request.sort}" data-toggle="tooltip" data-placement="bottom" title="Edit">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
+                &nbsp;
+                <a href="episode.php?video_id={$videos[aa].video_id}" data-toggle="tooltip" data-placement="bottom" title="Add to Episode">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
             </td>
         </tr>
 
