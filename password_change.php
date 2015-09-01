@@ -33,20 +33,10 @@ if (isset($_POST['submit'])) {
     }
 
     if ($err == '') {
-        $password_md5 = md5($_POST['user_password']);
-
-        if ($user_info['user_password'] != $password_md5) {
+        if (! User::validate($user_info['user_name'], $_POST['user_password'])) {
             $err = $lang['password_invalid'];
         } else {
-            $password_new_md5 = md5($_POST['password_new']);
-
-            $sql = "UPDATE `users` SET
-                   `user_password`='$password_new_md5' WHERE
-                   `user_id`='" . (int) $_SESSION['UID'] . "'";
-            DB::query($sql);
-
-            $token = User::getPasswordToken($_SESSION['UID']);
-            $_SESSION['pwd'] = $token;
+            User::changePassword($user_info['user_name'], $_POST['password_new']);
 
             set_message($lang['password_success'], 'success');
             $redirect_url = VSHARE_URL . '/' . $user_info['user_name'];

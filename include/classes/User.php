@@ -459,11 +459,45 @@ class User
         return $age;
     }
 
-    public static function getPasswordToken($user_id)
+    public static function getPasswordToken($user_name)
     {
-        $user_info = self::getById($user_id);
+        $user_info = self::getByName($user_name);
         $token = $user_info['user_password'] . $user_info['user_salt'];
         $token = md5($token);
         return $token;
+    }
+
+    public static function validate($user_name, $password)
+    {
+        $user_info = self::getByName($user_name);
+
+        if ($user_info) {
+            $password_md5 = md5($password . $user_info['user_salt']);
+            if ($user_info['user_password'] == $password_md5) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static function changePassword($user_name, $password_new)
+    {
+        $user_salt = self::makeSalt();
+        $password_new_md5 = md5($password_new . $user_salt);
+
+        $sql = "UPDATE `users` SET
+               `user_password`='$password_new_md5',
+               `user_salt`='$user_salt' WHERE
+               `user_name`='" . DB::quote($user_name) . "'";
+        DB::query($sql);
+
+        $token = self::getPasswordToken($user_name);
+        $_SESSION['pwd'] = $token;
+    }
+
+    public static function makeSalt()
+    {
+        $salt = md5(uniqid(rand(), TRUE));
+        return $salt;
     }
 }
