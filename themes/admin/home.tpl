@@ -58,7 +58,7 @@ You are using vShare version: {$vshare_version} (DB Version: {$version})
 </div>
 {/if}
 
-{if (empty(Config::get('youtube_api_key')))}
+{if Config::get('youtube_api_key') eq ""}
 <div class="alert alert-warning">
     You need to set <a href="settings_miscellaneous.php#youtube_api_key">Youtube API Key</a> to add youtube videos.
 </div>

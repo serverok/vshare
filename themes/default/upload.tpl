@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-        {if (empty(Config::get('youtube_api_key')))}
+        {if Config::get('youtube_api_key') eq ""}
         <input type="hidden" name="upload_from" value="local">
         {else}
         <div class="form-group">
