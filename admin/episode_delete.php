@@ -18,7 +18,6 @@ require '../include/config.php';
 Admin::auth();
 
 $episode_id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-$episode_info = Episode::getById($episode_id);
 
 Episode::delete($episode_id);
 
