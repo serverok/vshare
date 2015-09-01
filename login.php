@@ -37,7 +37,7 @@ if (isset($_POST['action_login']))
 
         $user_info = User::getByName($user_name);
 
-        if ($user_info['user_password'] != md5($password)) {
+        if (! User::validate($user_info['user_name'], $password)) {
             $err = $lang['invalid_login'];
         }
         else
