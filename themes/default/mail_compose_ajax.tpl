@@ -4,7 +4,7 @@
 
 <form action="javascript:void(0);" id="frm" method="post" onsubmit="javascript:mail.send();" class="form-horizontal" role="form">
     <div class="form-group">
-        <label class="control-label col-md-2">To:</label>
+        <label class="control-label col-md-2">Username:</label>
         <div class="col-md-6">
             <input type="text" name="mail_to" id="mail_to" maxlength="40" value="{$mail_to}" class="form-control" required>
         </div>
