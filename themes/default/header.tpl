@@ -126,7 +126,7 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <div class="row">
                                 <ul class="nav nav-tabs navbar-nav nav-justified">
-                                    <li><a class="no-bdr" href="{$base_url}/index.php"><strong>HOME</strong></a></li>
+                                    <li><a class="no-bdr" href="{$base_url}/"><strong>HOME</strong></a></li>
                                     <li><a href="{$base_url}/upload/"><strong>UPLOAD</strong></a></li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
