@@ -234,6 +234,21 @@
     </div>
 
     <div class="form-group">
+        <label class="col-sm-3 control-label" for="episodes">Episodes:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <select class="form-control" name="episodes" id="episodes">
+                    <option value="1"{if $episodes eq "1"} selected{/if}>Enable</option>
+                    <option value="0"{if $episodes eq "0"} selected{/if}>Disable</option>
+                </select>
+                <div class="input-group-addon">
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/miscellaneous#episodes" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
             <button type="submit" name="submit" class="btn btn-default btn-lg">Update</button>
         </div>
