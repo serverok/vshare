@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 require 'include/config.php';
-require 'include/language/' . LANG . '/lang_user_profile_edit.php';
+require 'include/language/' . LANG . '/lang_password_change.php';
 
 User::is_logged_in();
 
@@ -57,10 +57,10 @@ if (isset($_POST['submit'])) {
 
 $smarty->assign(array(
     'err' => $err,
-    'msg' => $msg,
-    'sub_menu' => 'menu_home.tpl',
+    'msg' => $msg
 ));
+
 $smarty->display('header.tpl');
-$smarty->display('user_password_change.tpl');
+$smarty->display('password_change.tpl');
 $smarty->display('footer.tpl');
 DB::close();

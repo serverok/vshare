@@ -76,6 +76,7 @@ RewriteRule ^privacy/ user_privacy.php [L,QSA]
 RewriteRule ^video_response_upload/(.*) upload_video_response.php?vid=$1 [L,QSA]
 RewriteRule ^response/(.*)/videos/(.*) video_responses.php?video_id=$1&page=$2 [L,QSA]
 RewriteRule ^verify/response/(.*)/(.*)/(.*)/ video_response_verify.php?u=$1&i=$2&k=$3
+RewriteRule ^password/ password_change.php [L,QSA]
 RewriteRule ^([^/\.]+)/account/ myaccount.php
 RewriteRule ^([^/\.]+)/favorites/(.*) user_favorites.php?user_name=$1&page=$2
 RewriteRule ^([^/\.]+)/playlist/(.*)/(.*) user_playlist.php?user_name=$1&playlist_id=$2&page=$3
@@ -87,7 +88,6 @@ RewriteRule ^([^/\.]+)/public/(.*)$ user_videos.php?user_name=$1&type=public&pag
 RewriteRule ^([^/\.]+)/private/(.*)$ user_videos.php?user_name=$1&type=private&page=$2 [L,QSA]
 RewriteRule ^([^/\.]+)/groups/(.*)$ user_groups.php?user_name=$1&page=$2 [L,QSA]
 RewriteRule ^([^/\.]+)/edit/(.*)$ user_profile_edit.php?user_name=$1 [L,QSA]
-RewriteRule ^([^/\.]+)/change_password/ user_password_change.php?user_name=$1 [L,QSA]
 RewriteRule ^([^/\.]+)/unsubscribe/(.*) email_unsubscribe.php?user_name=$1&vkey=$2 [L,QSA]
 RewriteRule ^([^/\.]+)?/?$ user.php?user_name=$1 [L,QSA]
 RewriteRule ^v/(.*) video_embed.php?video_id=$1 [L,QSA]

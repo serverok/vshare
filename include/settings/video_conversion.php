@@ -10,7 +10,8 @@ $cmd_mencoder = "$config[mencoder] '$video_src' -o $video_flv -of lavf -oac mp3l
 
 # Convert video to mp4
 $cmd_mp4 = "$config[ffmpeg] -i '$video_src' -acodec libfaac -ab 96k -vcodec libx264 -vpre hq -crf 22 -threads 0 -b 500k $video_flv";
-$cmd_mp4 = "$config[ffmpeg] -i '$video_src' -crf 22.0 -c:v libx264 -c:a libfaac -ar 48000 -b:a 160k -coder 1 -threads 0 $video_flv";
+#$cmd_mp4 = "$config[ffmpeg] -i '$video_src' -crf 22.0 -c:v libx264 -c:a libfaac -ar 48000 -b:a 160k -coder 1 -threads 0 $video_flv";
+$cmd_mp4 = "$config[ffmpeg] -i '$video_src' -crf 22.0 -c:v libx264 -c:a libfdk-aac -ar 48000 -b:a 160k -coder 1 -threads 0 $video_flv";
 
 $convert_mp4 = $cmd_mencoder;
 $convert_3gp = $cmd_mencoder;

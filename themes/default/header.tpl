@@ -60,7 +60,7 @@
                         <li><a href="{$base_url}/{$smarty.session.USERNAME}/playlist/">Playlist</a></li>
                         <li><a href="{$base_url}/{$smarty.session.USERNAME}/groups/">Groups</a></li>
                         <li class="divider"></li>
-                        <li><a href="{$base_url}/{$smarty.session.USERNAME}/change_password/">Change Password</a></li>
+                        <li><a href="{$base_url}/password/">Change Password</a></li>
                     </ul>
 
                     <a class="text-nowrap btn btn-primary" href="{$base_url}/mail.php?folder=inbox">
