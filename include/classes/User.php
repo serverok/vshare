@@ -80,7 +80,6 @@ class User
         if (isset($_SESSION['EMAIL'])) unset($_SESSION['EMAIL']);
         if (isset($_SESSION['USERNAME'])) unset($_SESSION['USERNAME']);
         if (isset($_SESSION['EMAILVERIFIED'])) unset($_SESSION['EMAILVERIFIED']);
-        if (isset($_SESSION['pwd'])) unset($_SESSION['pwd']);
         setcookie('VSHARE_AL_USER', '', $_SERVER['REQUEST_TIME'] - 10000, '/');
         setcookie('VSHARE_AL_PASSWORD', '', $_SERVER['REQUEST_TIME'] - 10000, '/');
         setcookie('vShareAllow', '', time() - 3600, '/');
@@ -201,13 +200,6 @@ class User
 
     static function set_auto_login_cookie($user_name)
     {
-        $user_salt = md5(uniqid(rand(), TRUE));
-
-        $sql = "UPDATE `users` SET
-               `user_salt`='" . DB::quote($user_salt) . "' WHERE
-               `user_name`='" . DB::quote($user_name) . "'";
-        DB::query($sql);
-
         $sql = "SELECT `user_password`,`user_salt` FROM `users` WHERE
                `user_name`='" . DB::quote($user_name) . "'";
         $user_info = DB::fetch1($sql);
@@ -218,10 +210,6 @@ class User
         $token = md5($token);
         setcookie('VSHARE_AL_USER', $user_name, time() + 60 * 60 * 24 * 100, '/');
         setcookie('VSHARE_AL_PASSWORD', $token, time() + 60 * 60 * 24 * 100, '/');
-        // set new token for session auth
-        $token = $password . $user_salt;
-        $token = md5($token);
-        $_SESSION['pwd'] = $token;
     }
 
     static function login_auto()
@@ -426,11 +414,6 @@ class User
         return $age;
     }
 
-    public static function updateToken($user_password, $user_salt)
-    {
-        $_SESSION['pwd'] = md5($user_password . $user_salt);
-    }
-
     public static function validate($user_name, $password)
     {
         $user_info = self::getByName($user_name);
@@ -454,8 +437,6 @@ class User
                `user_salt`='$user_salt' WHERE
                `user_name`='" . DB::quote($user_name) . "'";
         DB::query($sql);
-
-        self::updateToken($user_password, $user_salt);
     }
 
     public static function makeSalt()
