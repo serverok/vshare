@@ -458,7 +458,6 @@ $smarty->assign('age_minimum', Config::get('signup_age_min'));
 $smarty->assign('signup_dob', $signup_dob);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
-$smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
 
 if ($signup_enable == 1 && $msg == '') {

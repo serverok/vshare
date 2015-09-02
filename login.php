@@ -129,7 +129,6 @@ $smarty->assign('inactive_user', $inactive_user);
 $smarty->assign('user_name', $user_name);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
-$smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
 $smarty->display('login.tpl');
 $smarty->display('footer.tpl');

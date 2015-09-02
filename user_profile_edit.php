@@ -210,7 +210,6 @@ $smarty->assign('months', months($date[1]));
 $smarty->assign('years', years($date[0]));
 $smarty->assign('country', $country);
 $smarty->assign('user_info', $user_info);
-$smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
 $smarty->display('user_profile_edit.tpl');
 $smarty->display('footer.tpl');

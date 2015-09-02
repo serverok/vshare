@@ -40,7 +40,6 @@ $smarty->assign('photo_url', $photo_url);
 $smarty->assign('uid', $_SESSION['UID']);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
-$smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
 $smarty->display('user_photo_upload.tpl');
 $smarty->display('footer.tpl');

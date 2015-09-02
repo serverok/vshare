@@ -61,7 +61,6 @@ $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('chid', $chid);
 $smarty->assign('video_info', $video_info);
-$smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
 if ($is_video_owner) $smarty->display('video_edit.tpl');
 $smarty->display('footer.tpl');

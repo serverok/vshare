@@ -122,7 +122,6 @@ $user_info = User::getByName($_SESSION['INACTIVE_USER']);
 $smarty->assign('user_email', $user_info['user_email']);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
-$smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
 $smarty->display('resend_activation_mail.tpl');
 $smarty->display('footer.tpl');

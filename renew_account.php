@@ -65,7 +65,6 @@ if ($config['enable_package'] == 'yes') {
 
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
-$smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
 $smarty->display('renew_account.tpl');
 $smarty->display('footer.tpl');
