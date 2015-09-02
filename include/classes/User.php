@@ -246,29 +246,9 @@ class User
 
     static function is_logged_in()
     {
-        global $config;
-        $isLoggedIn = false;
-        $signup_enable = Config::get('signup_enable');
-        if (isset($_SESSION['UID']) and isset($_SESSION['pwd'])) {
-            $sql = "SELECT `user_password`,`user_salt` FROM `users` WHERE
-                   `user_id`='" . (int) $_SESSION['UID'] . "'";
-            $user_info = DB::fetch1($sql);
-            if ($user_info) {
-                $token = $user_info['user_password'] . $user_info['user_salt'];
-                $token = md5($token);
-                if ($token == $_SESSION['pwd']) {
-                    $loged_in = true;
-                }
-            }
-        }
-        if (!$isLoggedIn) {
+        if (! isset($_SESSION['USERNAME'])) {
             $_SESSION['REDIRECT'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-            if ($signup_enable != 1) {
-                $redirect_url = VSHARE_URL . '/login/';
-            } else {
-                $redirect_url = VSHARE_URL . '/signup/';
-            }
-            Http::redirect($redirect_url);
+            Http::redirect(VSHARE_URL . '/login/');
         }
     }
 
