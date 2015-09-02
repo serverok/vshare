@@ -19,17 +19,12 @@ $sql = "SELECT * FROM `pages` WHERE
 $page_info = DB::fetch1($sql);
 
 if (! $page_info) {
-    show_page_not_found();
+    require '404.php';
+    exit;
 }
 
 if ($page_info['page_members_only'] == 1) {
     User::is_logged_in();
-}
-
-function show_page_not_found() {
-    header("HTTP/1.0 404 Not Found");
-    echo "<html><head><title>Page Not Found</title></head><body>Page Not Found</body></html>";
-    exit(0);
 }
 
 $smarty->assign('err', $err);
