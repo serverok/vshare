@@ -459,12 +459,12 @@ class User
         return $age;
     }
 
-    public static function getPasswordToken($user_name)
+    public static function updatePasswordToken($user_name)
     {
         $user_info = self::getByName($user_name);
         $token = $user_info['user_password'] . $user_info['user_salt'];
         $token = md5($token);
-        return $token;
+        $_SESSION['pwd'] = $token;
     }
 
     public static function validate($user_name, $password)
@@ -491,8 +491,7 @@ class User
                `user_name`='" . DB::quote($user_name) . "'";
         DB::query($sql);
 
-        $token = self::getPasswordToken($user_name);
-        $_SESSION['pwd'] = $token;
+        self::updatePasswordToken($user_name);
     }
 
     public static function makeSalt()
