@@ -144,7 +144,6 @@ $smarty->assign('num_last_users_online', Config::get('num_last_users_online'));
 $smarty->assign('home_num_tags', Config::get('home_num_tags'));
 $smarty->assign('msg', $msg);
 $smarty->assign('err', $err);
-$smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->display('header.tpl');
 $smarty->display('index.tpl');
 $smarty->display('footer.tpl');

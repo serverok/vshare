@@ -106,7 +106,6 @@ if (isset($_POST['recover'])) {
 
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
-$smarty->assign('sub_menu', 'menu_home.tpl');
 $smarty->assign('html_title', 'Lost Password Recovery Form');
 $smarty->display('header.tpl');
 if (! $mail_send) $smarty->display('recoverpass.tpl');

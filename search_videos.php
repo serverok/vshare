@@ -145,9 +145,7 @@ $smarty->assign(array(
     'html_description' => $html_title,
     'err' => $err,
     'msg' => $msg,
-    'sub_menu' => 'menu_home.tpl'
 ));
-
 $smarty->display('header.tpl');
 $smarty->display('search_videos.tpl');
 $smarty->display('footer.tpl');
