@@ -32,8 +32,6 @@ class User
                    `user_name`='" . DB::quote($user_name) . "'";
             DB::query($sql);
 
-            self::updateToken($user_info['user_password'], $user_info['user_salt']);
-
             $_SESSION['EMAIL'] = $user_info['user_email'];
             $_SESSION['UID'] = $user_info['user_id'];
             $_SESSION['USERNAME'] = $user_info['user_name'];
