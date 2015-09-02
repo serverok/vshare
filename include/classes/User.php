@@ -32,16 +32,12 @@ class User
                    `user_name`='" . DB::quote($user_name) . "'";
             DB::query($sql);
 
-            $password = $user_info['user_password'];
-            $user_salt = $user_info['user_salt'];
-            $token = $password . $user_salt;
-            $token = md5($token);
+            self::updateToken($user_info['user_password'], $user_info['user_salt']);
 
             $_SESSION['EMAIL'] = $user_info['user_email'];
             $_SESSION['UID'] = $user_info['user_id'];
             $_SESSION['USERNAME'] = $user_info['user_name'];
             $_SESSION['EMAILVERIFIED'] = $user_info['user_email_verified'];
-            $_SESSION['pwd'] = $token;
 
             if (Config::get('hotlink_protection') == 2) {
                 setcookie('vShareAllow', 'yes', time() + 60 * 60 * 24 * 100, '/');
@@ -251,36 +247,27 @@ class User
     static function is_logged_in()
     {
         global $config;
-        $loged_in = 0;
+        $isLoggedIn = false;
         $signup_enable = Config::get('signup_enable');
-
         if (isset($_SESSION['UID']) and isset($_SESSION['pwd'])) {
-
             $sql = "SELECT `user_password`,`user_salt` FROM `users` WHERE
                    `user_id`='" . (int) $_SESSION['UID'] . "'";
             $user_info = DB::fetch1($sql);
-
             if ($user_info) {
-
                 $token = $user_info['user_password'] . $user_info['user_salt'];
                 $token = md5($token);
-
                 if ($token == $_SESSION['pwd']) {
-                    $loged_in = 1;
+                    $loged_in = true;
                 }
             }
         }
-
-        if ($loged_in == 0) {
-
+        if (!$isLoggedIn) {
             $_SESSION['REDIRECT'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-
             if ($signup_enable != 1) {
-                $redirect_url = $config['baseurl'] . '/login/';
+                $redirect_url = VSHARE_URL . '/login/';
             } else {
-                $redirect_url = $config['baseurl'] . '/signup/';
+                $redirect_url = VSHARE_URL . '/signup/';
             }
-
             Http::redirect($redirect_url);
         }
     }
@@ -459,12 +446,9 @@ class User
         return $age;
     }
 
-    public static function updatePasswordToken($user_name)
+    public static function updateToken($user_password, $user_salt)
     {
-        $user_info = self::getByName($user_name);
-        $token = $user_info['user_password'] . $user_info['user_salt'];
-        $token = md5($token);
-        $_SESSION['pwd'] = $token;
+        $_SESSION['pwd'] = md5($user_password . $user_salt);
     }
 
     public static function validate($user_name, $password)
@@ -483,15 +467,15 @@ class User
     public static function changePassword($user_name, $password_new)
     {
         $user_salt = self::makeSalt();
-        $password_new_md5 = md5($password_new . $user_salt);
+        $user_password = md5($password_new . $user_salt);
 
         $sql = "UPDATE `users` SET
-               `user_password`='$password_new_md5',
+               `user_password`='$user_password',
                `user_salt`='$user_salt' WHERE
                `user_name`='" . DB::quote($user_name) . "'";
         DB::query($sql);
 
-        self::updatePasswordToken($user_name);
+        self::updateToken($user_password, $user_salt);
     }
 
     public static function makeSalt()
