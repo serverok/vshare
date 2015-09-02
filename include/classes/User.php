@@ -498,6 +498,7 @@ class User
     public static function makeSalt()
     {
         $salt = md5(uniqid(rand(), TRUE));
+        $salt = substr($salt,0,10);
         return $salt;
     }
 }
