@@ -17,7 +17,7 @@ require '../include/config.php';
 
 Admin::auth();
 
-$video_id = $_GET['video_id'];
+$video_id = isset($_GET['video_id']) ? (int) $_GET['video_id'] : 0;
 
 $episode_video_info = EpisodeVideo::getByVideoId($video_id);
 $err_top = '';
