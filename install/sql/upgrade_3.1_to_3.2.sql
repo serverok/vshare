@@ -10,4 +10,4 @@ CREATE TABLE IF NOT EXISTS `episode_videos` (
   `ep_video_order` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MYISAM DEFAULT CHARSET=utf8 ;
 
-INSERT INTO `config` (`config_name`, `config_value`) VALUES ('episodes', '0');
+INSERT INTO `sconfig` (`soption`, `svalue`) VALUES ('episode_enable', '0');

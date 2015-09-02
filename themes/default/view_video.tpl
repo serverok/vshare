@@ -4,7 +4,7 @@
     <p class="clearfix"></p>
     {insert name=advertise adv_name='player_bottom'}
 
-    {if Config::get('episodes') eq '1'}
+    {if $episode_enable eq '1'}
     <div>{include file="view_video_episodes.tpl"}</div>
     {/if}
 

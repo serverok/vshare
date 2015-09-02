@@ -214,7 +214,7 @@ if (isset($show_video) && $show_video == 1 && $err == '') {
         $user_info = DB::fetch1($sql);
         $view['user_info'] = $user_info;
 
-        if (Config::get('episodes') == 1) {
+        if ($config['episode_enable'] == 1) {
             $ep_video_info = EpisodeVideo::getByVideoId($video_info['video_id']);
             if ($ep_video_info) {
                 $episode_info = Episode::getById($ep_video_info['ep_video_eid']);

@@ -128,7 +128,7 @@
                     <li><a href="thumbs_regenerate.php">Regenerate Thumbs</a></li>
                     <li><a href="users_inactive_delete.php">Delete Inactive Users</a></li>
                     <li><a href="phpinfo.php">View PHP Info</a></li>
-                    {if Config::get('episodes') eq '1'}
+                    {if $episode_enable eq '1'}
                     <li class="divider"></li>
                     <li><a href="episodes.php">Episodes</a></li>
                     {/if}

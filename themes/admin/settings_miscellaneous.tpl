@@ -234,12 +234,12 @@
     </div>
 
     <div class="form-group">
-        <label class="col-sm-3 control-label" for="episodes">Episodes:</label>
+        <label class="col-sm-3 control-label" for="episode_enable">Episodes:</label>
         <div class="col-sm-5">
             <div class="input-group">
-                <select class="form-control" name="episodes" id="episodes">
-                    <option value="1"{if $episodes eq "1"} selected{/if}>Enable</option>
-                    <option value="0"{if $episodes eq "0"} selected{/if}>Disable</option>
+                <select class="form-control" name="episode_enable" id="episode_enable">
+                    <option value="1"{if $episode_enable eq "1"} selected{/if}>Enable</option>
+                    <option value="0"{if $episode_enable eq "0"} selected{/if}>Disable</option>
                 </select>
                 <div class="input-group-addon">
                     <a href="https://www.buyscripts.in/docs/vshare/3.0/miscellaneous#episodes" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
