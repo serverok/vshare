@@ -137,7 +137,6 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('recaptcha_sitekey',
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('recaptcha_secretkey', '');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('spam_filter', '0');
 
-
 -- Table structure for table `contact`
 
 CREATE TABLE IF NOT EXISTS `contact` (
@@ -598,6 +597,7 @@ INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('user_comments_per_page', '5'
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('num_new_videos', '5');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('num_watch_videos', '20');
 INSERT INTO `sconfig` (`soption` ,`svalue`) VALUES('family_filter', '1');
+INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('episode_enable', '0');
 
 -- Table structure for table `servers`
 

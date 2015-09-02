@@ -4,7 +4,9 @@
     <p class="clearfix"></p>
     {insert name=advertise adv_name='player_bottom'}
 
+    {if $episode_enable eq '1'}
     <div>{include file="view_video_episodes.tpl"}</div>
+    {/if}
 
     <div class="panel panel-default">
         <div class="panel-body">

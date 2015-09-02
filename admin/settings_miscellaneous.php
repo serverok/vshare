@@ -144,9 +144,19 @@ if (isset($_POST['submit'])) {
             DB::query($sql);
         }
 
+        if (isset($_POST['episode_enable']))
+        {
+            $sql = "UPDATE `sconfig` SET
+                   `svalue`='" . (int) $_POST['episode_enable'] . "' WHERE
+                   `soption`='episode_enable'";
+            DB::query($sql);
+            $smarty->assign('episode_enable', $_POST['episode_enable']);
+        }
+
         $msg = $lang['settings_updated'];
     }
 }
+
 $smarty->assign('youtube_api_key', Config::get('youtube_api_key'));
 $smarty->assign('dailymotion_api_key', Config::get('dailymotion_api_key'));
 $smarty->assign('dailymotion_api_secret', Config::get('dailymotion_api_secret'));
