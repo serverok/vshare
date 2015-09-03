@@ -437,3 +437,20 @@ function getFamilyFilter()
 	}
 	return 0;
 }
+
+function size_in_bytes($size)
+{
+    $size = trim($size);
+    $size = strtolower($size);
+    $last = $size[strlen($size)-1];
+    $size = (int) trim($size, $last);
+
+    if ($last == 'g') {
+        $size = $size * 1024 * 1024 * 1024;
+    } else if ($last == 'm') {
+        $size = $size * 1024 * 1024;
+    } else if ($last == 'k') {
+        $size = $size * 1024;
+    }
+    return $size;
+}

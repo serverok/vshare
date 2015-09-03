@@ -149,6 +149,34 @@ if (isset($_GET['upload_id'])) {
     $upload_id = $_POST_DATA['upload_id'];
 
     } elseif ($upload_progress_bar == 'html5') {
+
+        switch ($_FILES['upfile_0']['error']) {
+            case 1:
+                $err = "The uploaded file exceeds the upload_max_filesize directive in php.ini";
+                break;
+            case 2:
+                $err = "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.";
+                break;
+            case 3:
+                $err = "The uploaded file was only partially uploaded.";
+                break;
+            case 4:
+                $err = "No file was uploaded.";
+                break;
+            case 6:
+                $err = "Missing a temporary folder.";
+                break;
+            case 7:
+                $err = "Failed to write file to disk.";
+                break;
+            default:
+                break;
+        }
+
+        if ($err != '') {
+            exit($err);
+        }
+
         $upload_dir = VSHARE_DIR . '/video';
         $upload_file_name = $_FILES['upfile_0']['name'];
 
@@ -349,6 +377,7 @@ if ($upload_progress_bar == 'uber') {
     $html_extra = '
     <script src="' . VSHARE_URL . '/js/jquery.form.js"></script>
     <script src="' . VSHARE_URL . '/js/upload_progress.js"></script>
+    <script>var upload_max_filesize = ' . size_in_bytes(ini_get('upload_max_filesize')) . ';</script>
     ';
 }
 

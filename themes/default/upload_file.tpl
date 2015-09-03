@@ -145,7 +145,7 @@
                 <div style="width:550px;">
                     <div class="formHighlight">
                         <div id="upload_slots">
-                            <input type="file" name="upfile_0">
+                            <input type="file" name="upfile_0" accept="video/*" required>
                         </div>
                          <div class="help-block">
                             <strong>Max. video file size: {ini_get('upload_max_filesize')}. No copyrighted {if $smarty.session.$upload_id.adult eq "0"}or obscene {/if}material.</strong><br />
@@ -168,7 +168,7 @@
                     <div id="processing" style="display: none;">
                         <img src="{$img_css_url}/images/loading.gif"> <strong>Processing...</strong>
                     </div>
-                    <div id="status"></div>
+                    <p id="status"></p>
                 </div>
             </div>
         </div>
