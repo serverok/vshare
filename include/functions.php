@@ -454,14 +454,3 @@ function size_in_bytes($size)
     }
     return $size;
 }
-
-function get_watermark_file_url()
-{
-    global $config;
-
-    $url = $config['watermark_file_url'];
-    if ($url == '') {
-        $url = VSHARE_URL . '/themes/default/images/watermark.gif';
-    }
-    return $url;
-}

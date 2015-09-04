@@ -598,7 +598,7 @@ INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('num_new_videos', '5');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('num_watch_videos', '20');
 INSERT INTO `sconfig` (`soption` ,`svalue`) VALUES('family_filter', '1');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('episode_enable', '0');
-INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('watermark_file_url', '');
+INSERT INTO `sconfig` (`soption`, `svalue`) VALUES('watermark_image_url', '/themes/default/images/watermark.gif');
 
 -- Table structure for table `servers`
 

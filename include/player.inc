@@ -64,7 +64,7 @@ jwplayer("vshare_player").setup({
     file: "{$file}",
     image: "{$video_thumb_url}/thumb/{$video_folder}{$video_id}.jpg",
     logo: {
-        file: "{$watermark_file_url}",
+        file: "{$config['watermark_image_url']}",
         link: "{$config["watermark_url"]}"
     },
     width: "100%",
