@@ -25,7 +25,7 @@
             <div class="col-md-3">
                 <h1>
                     <a href="{$base_url}/" title="{$site_name}">
-                    <img class="img-responsive" src="{$base_url}/themes/default/images/logo.jpg">
+                        <img class="img-responsive" src="{$logo_url_md}" alt="{$site_name}">
                     </a>
                 </h1>
             </div>
@@ -96,7 +96,7 @@
                                 <span class="icon-bar"></span>
                             </button>
                             <a class="navbar-brand navbar-brand-vshare visible-xs" href="{$base_url}/" title="{$site_name}">
-                                <img class="img-responsive" src="{$base_url}/themes/default/images/logo-small.png">
+                                <img class="img-responsive" src="{$logo_url_sm}" alt="{$site_name}">
                             </a>
                             <div class="pull-right dropdown visible-xs">
                                 <button class="btn btn-xs dropdown-toggle navbar-toggle navbar-btn-vshare" data-toggle="dropdown" aria-expanded="false">

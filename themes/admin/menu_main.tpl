@@ -30,7 +30,6 @@
                     <li><a href="settings_miscellaneous.php">Miscellaneous</a></li>
                     <li><a href="settings_home.php">Home Page</a></li>
                     <li class="divider"></li>
-                    <li><a href="upload_logo.php">Upload Logo</a></li>
                     <li><a href="advertisements.php">Advertisements</a></li>
                     <li><a href="email_templates.php">Email Templates</a></li>
                     <li class="divider"></li>

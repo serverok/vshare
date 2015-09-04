@@ -245,6 +245,16 @@ RewriteRule .* [F]
         fclose($fp);
     }
 
+    $sql = "UPDATE `sconfig` SET
+           `svalue`='" . DB::quote($_POST['logo_url_md']) . "' WHERE
+           `soption`='logo_url_md'";
+    DB::query($sql);
+
+    $sql = "UPDATE `sconfig` SET
+           `svalue`='" . DB::quote($_POST['logo_url_sm']) . "' WHERE
+           `soption`='logo_url_sm'";
+    DB::query($sql);
+
     if ($err == '')
     {
         set_message($lang['settings_updated'], 'success');
