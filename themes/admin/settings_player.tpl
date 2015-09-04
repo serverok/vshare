@@ -87,6 +87,30 @@
     </div>
 
     <div class="form-group">
+        <label class="col-sm-3 control-label" for="watermark_url">Watermark URL:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <input class="form-control" type="text" name="watermark_url" id="watermark_url" value="{$watermark_url}">
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/3.0/player_settings#watermark_url" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="watermark_image_url" class="col-sm-3 control-label">Watermark Image URL:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <input class="form-control" type="text" name="watermark_image_url" id="watermark_image_url" value="{$watermark_image_url}">
+                <div class="input-group-addon">
+                    <a href="http://buyscripts.in/docs/vshare/3.0/player_settings#watermark_image_url" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
             <button type="submit" name="submit" class="btn btn-default btn-lg">Update</button>
         </div>

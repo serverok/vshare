@@ -72,6 +72,18 @@ if (isset($_POST['submit']))
         DB::query($sql);
     }
 
+    $sql = "UPDATE `sconfig` SET
+           `svalue`='" . DB::quote($_POST['watermark_url']) . "' WHERE
+           `soption`='watermark_url'";
+    DB::query($sql);
+    $smarty->assign('watermark_url', $_POST['watermark_url']);
+
+    $sql = "UPDATE `sconfig` SET
+           `svalue`='" . DB::quote($_POST['watermark_image_url']) . "' WHERE
+           `soption`='watermark_image_url'";
+    DB::query($sql);
+    $smarty->assign('watermark_image_url', $_POST['watermark_image_url']);
+
     $msg = $lang['settings_updated'];
 }
 
