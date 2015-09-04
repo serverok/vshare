@@ -288,6 +288,20 @@
     </div>
 
     <div class="form-group">
+        <label class="control-label col-md-3">Logo URL:</label>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="logo_url_md" id="logo_url_md" value="{$logo_url_md}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3">Logo Small URL:</label>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="logo_url_sm" id="logo_url_sm" value="{$logo_url_sm}">
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
             <button type="submit" name="submit" class="btn btn-default btn-lg">Update</button>
         </div>
