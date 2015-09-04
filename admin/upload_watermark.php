@@ -25,24 +25,15 @@ if (isset($_POST['submit'])) {
            `soption`='watermark_url'";
     DB::query($sql);
 
+    $sql = "UPDATE `sconfig` SET
+           `svalue`='" . DB::quote($_POST['watermark_file_url']) . "' WHERE
+           `soption`='watermark_file_url'";
+    DB::query($sql);
+
+    $msg = $lang['watermark_uploaded'];
+
     $smarty->assign('watermark_url', $_POST['watermark_url']);
-
-    if (is_uploaded_file($_FILES['upfile']['tmp_name'])) {
-        $upfile_type = $_FILES['upfile']['type'];
-
-        if ($upfile_type == 'image/gif') {
-            $new_file_name = VSHARE_DIR . '/themes/default/images/watermark.gif';
-
-            if (move_uploaded_file($_FILES['upfile']['tmp_name'], $new_file_name)) {
-                chmod($new_file_name, 0777);
-                $msg = $lang['watermark_uploaded'];
-            } else {
-                $err = str_replace('[NEW_FILE_NAME]', $new_file_name, $lang['unable_to_move']);
-            }
-        } else {
-            $err = $lang['watermark_file_invalid'];
-        }
-    }
+    $smarty->assign('watermark_file_url', $_POST['watermark_file_url']);
 }
 
 $smarty->assign('vshare_rand', $_SERVER['REQUEST_TIME']);

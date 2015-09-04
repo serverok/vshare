@@ -58,6 +58,7 @@ class VideoPlayer
         $file = File::getVideoUrl($this->video_info['video_server_id'], $this->video_info['video_folder'], $this->video_info['video_flv_name']);
         $video_thumb_url = $servers[$this->video_info['video_thumb_server_id']];
         $vshare_player = Config::get('vshare_player');
+        $watermark_file_url = get_watermark_file_url();
 
         require VSHARE_DIR . '/include/player.inc';
         return $vshare_player;
@@ -75,6 +76,7 @@ class VideoPlayer
             $video_id = $this->video_info['video_id'];
             $video_thumb_url = $servers[$this->video_info['video_thumb_server_id']];
             $vshare_player = Config::get('vshare_player');
+            $watermark_file_url = get_watermark_file_url();
 
 	        require VSHARE_DIR . '/include/player.inc';
 	        return $vshare_player;

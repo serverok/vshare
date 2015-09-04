@@ -2,11 +2,12 @@
     <h1>Upload Watermark</h1>
 </div>
 
-<p>After uploading the new watermark image, you may see OLD image due to caching. To clear cache, open the <a href="{$img_css_url}/default/images/watermark.gif" target="_blank">Watermark Image</a> on a new browser and refresh it, so you will be able to see the new image.</p>
-
+{if $watermark_file_url ne ''}
+<p>After updating the new watermark image, you may see OLD image due to caching. To clear cache, open the <a href="{$watermark_file_url}" target="_blank">Watermark Image</a> on a new browser and refresh it, so you will be able to see the new image.</p>
 <div style="margin:2em 0em">
-    <img src="{$img_css_url}/default/images/watermark.gif?{$vshare_rand}" alt="watermark" />
+    <img src="{$watermark_file_url}?{$vshare_rand}" alt="watermark">
 </div>
+{/if}
 
 <div class="row">
     <div class="col-sm-8">
@@ -23,10 +24,10 @@
             </div>
 
             <div class="form-group">
-                <label for="upfile" class="col-sm-3 control-label">Select file:</label>
-                <div class="col-sm-5">
-                    <input class="form-control" type="file" name="upfile" id="upfile" />
-                    <span class="help-block">Watermark should be .gif format.</span>
+                <label for="watermark_file_url" class="col-sm-3 control-label">Watermark File URL:</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="url" name="watermark_file_url" id="watermark_file_url" value="{$watermark_file_url}" required>
+                    <span class="help-block">You should manually upload your watermark image file to '<b>assets</b>' folder. Then update the URL.<br>Eg: http://yoursite.com/assets/watermark.extn</span>
                 </div>
             </div>
 

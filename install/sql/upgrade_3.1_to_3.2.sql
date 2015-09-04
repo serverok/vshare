@@ -11,3 +11,4 @@ CREATE TABLE IF NOT EXISTS `episode_videos` (
 ) ENGINE=MYISAM DEFAULT CHARSET=utf8 ;
 
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES ('episode_enable', '0');
+INSERT INTO `sconfig` (`soption`, `svalue`) VALUES ('watermark_file_url', '');

@@ -109,6 +109,7 @@ if ($upload_id != 'remote') {
     unset($_SESSION["$upload_id"]['adult']);
 }
 
+$smarty->assign('watermark_file_url', get_watermark_file_url());
 $smarty->assign('video_processed', $video_processed);
 $smarty->assign('err', $err);
 if (isset($_GET['vid'])) $smarty->assign('vidid', $_GET['vid']);
