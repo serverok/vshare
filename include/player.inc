@@ -5,7 +5,13 @@ $displayheight = $config['player_height'] - 20;
 if ($vshare_player == "StrobeMediaPlayback")
 {
     $vshare_player = <<<EOT
-   <script type="text/javascript" src="{$config['baseurl']}/player/swfobject.js"></script>
+    <p id="vshare_player">
+       <a href="http://www.adobe.com/go/getflashplayer">
+           <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
+       </a>
+   </p>
+   <script src="{$config['baseurl']}/player/swfobject.js"></script>
+   <script src="{$config['baseurl']}/player/jquery.strobemediaplayback.js"></script>
    <script type="text/javascript">
    var parameterNames = new Array();
    var parameters =
@@ -38,11 +44,6 @@ if ($vshare_player == "StrobeMediaPlayback")
    , { name: "StrobeMediaPlayback" }
    );
    </script>
-   <p id="vshare_player">
-       <a href="http://www.adobe.com/go/getflashplayer">
-           <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
-       </a>
-   </p>
 
 EOT;
 
