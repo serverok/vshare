@@ -71,6 +71,25 @@ if (! empty($tables)) {
            `user_last_login_time`='" . time() . "'";
     DB::query($sql);
 
+    $logo_url_md = $config['baseurl'] . '/themes/default/images/logo.png';
+    $logo_url_sm = $config['baseurl'] . '/themes/default/images/logo-small.png';
+    $watermark_image_url = $config['baseurl'] . '/themes/default/images/watermark.png';
+
+    $sql = "UPDATE `sconfig` SET
+           `svalue`='" . DB::quote($logo_url_md) . "' WHERE
+           `soption`='logo_url_md'";
+    DB::query($sql);
+
+    $sql = "UPDATE `sconfig` SET
+           `svalue`='" . DB::quote($logo_url_sm) . "' WHERE
+           `soption`='logo_url_sm'";
+    DB::query($sql);
+
+    $sql = "UPDATE `sconfig` SET
+           `svalue`='" . DB::quote($watermark_image_url) . "' WHERE
+           `soption`='watermark_image_url'";
+    DB::query($sql);
+
     echo "
     <div class=row>
       <div class=col-md-12>
