@@ -166,36 +166,6 @@ class User
         return DB::fetch1($sql);
     }
 
-    static function validate_url($url)
-    {
-        if (! $parse_url = parse_url($url))
-        {
-            return '';
-        }
-
-        if (! isset($parse_url['scheme']) || $parse_url['scheme'] == '')
-        {
-            $url = 'http://' . $url;
-        }
-        else
-        {
-            $allowed_protocols = array(
-                'http',
-                'https',
-                'ftp',
-                'nntp',
-                'ssh',
-                'sftp'
-            );
-
-            if (! in_array($parse_url['scheme'], $allowed_protocols))
-            {
-                $url = str_replace($parse_url['scheme'], 'http', $url);
-            }
-        }
-        return $url;
-    }
-
     static function set_auto_login_cookie($user_name)
     {
         $sql = "SELECT `user_password`,`user_salt` FROM `users` WHERE
