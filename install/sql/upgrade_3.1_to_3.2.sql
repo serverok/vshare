@@ -14,3 +14,5 @@ INSERT INTO `sconfig` (`soption`, `svalue`) VALUES ('episode_enable', '0');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES ('watermark_image_url', '/themes/default/images/watermark.gif');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES ('logo_url_md', '/themes/default/images/logo.jpg');
 INSERT INTO `sconfig` (`soption`, `svalue`) VALUES ('logo_url_sm', '/themes/default/images/logo-small.png');
+
+UPDATE `sconfig` SET `svalue`='3.2' WHERE `soption`='version';
