@@ -73,7 +73,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Personal Website:</label>
             <div class="col-md-4">
-                <input type="text" maxlength="255" name="user_website" value="{$user_info.user_website}" class="form-control">
+                <input type="url" maxlength="255" name="user_website" value="{$user_info.user_website}" class="form-control">
             </div>
         </div>
         <br>

@@ -65,9 +65,9 @@ if (isset($_POST['submit'])) {
         }
 
         if ($_POST['user_website'] != '') {
-            $_POST['user_website'] = strip_tags($_POST['user_website']);
-            $_POST['user_website'] = User::validate_url($_POST['user_website']);
-            $sql_extra .= "`user_website`='" . DB::quote($_POST['user_website']) . "',";
+            if (Validate::url($_POST['user_website'])) {
+                $sql_extra .= "`user_website`='" . DB::quote($_POST['user_website']) . "',";
+            }
         }
 
         $user_first_name = htmlspecialchars_uni($_POST['user_first_name']);
