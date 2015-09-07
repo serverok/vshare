@@ -4,10 +4,6 @@ $vshare_version = '3.2';
 date_default_timezone_set('GMT');
 set_time_limit(0);
 
-/*
- * set variables
- */
-
 define('VSHARE_DIR', $config['basedir']);
 define('VSHARE_URL', $config['baseurl']);
 $config['TMB_DIR'] = VSHARE_DIR . '/thumb';
@@ -130,8 +126,7 @@ if ($config['family_filter'] == 1) {
     }
 }
 
-function dd($debug_message)
-{
+function dd($debug_message) {
     echo '<pre>';
     print_r($debug_message);
     exit;

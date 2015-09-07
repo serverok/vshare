@@ -1,27 +1,19 @@
 <?php
 
-if (function_exists('set_time_limit'))
-{
+if (function_exists('set_time_limit')) {
     @set_time_limit(0);
 }
 
-function upgrade_next_step($version_new = '', $next_step = '')
-{
+function upgrade_next_step($version_new = '', $next_step = '') {
     global $config;
 
-    if ($version_new != '')
-    {
+    if ($version_new != '') {
         echo '<p class="upgrade-finished">vShare upgraded from version ' . $config['version'] . " to $version_new</p>";
     }
 
-    $redirect_url = '';
-
-    if ($next_step == '')
-    {
+    if ($next_step == '') {
         $redirect_url = VSHARE_URL . '/install/upgrade_start.php';
-    }
-    else
-    {
+    } else {
         $redirect_url = $next_step;
     }
 
