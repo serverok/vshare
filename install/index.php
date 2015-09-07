@@ -12,7 +12,7 @@
  *
  ******************************************************************************/
 
-$version = '3.1';
+$version = '3.2';
 
 if (file_exists('../include/config.php') && filesize('../include/config.php') > 0) {
     $vshare_installed = 1;
@@ -37,7 +37,7 @@ if ($vshare_installed == 1) {
     <div class="col-md-12">
     <p class="text-success"><strong>vShare <?php echo $config['version']; ?> is already installed...</strong></p>
 
-    <p>(If you want to re-install vshare delete "include/config.php")</p>
+    <p>(If you want to re-install vShare delete "include/config.php")</p>
 
     <p class="text-danger lead"><span class="glyphicon glyphicon-warning-sign"></span> Before you continue with upgrade, you must take backup of your database and files.</p>
     <a href="./upgrade_start.php" class="col-md-4 btn btn-primary btn-lg">Upgrade Now</a>
@@ -60,7 +60,7 @@ if ($vshare_installed == 1) {
     </div>
     <div class="col-md-4">
         <br>
-         <a href="./install.php" class="btn btn-primary btn-lg btn-block">install vshare</a>
+         <a href="./install.php" class="btn btn-primary btn-lg btn-block">install vShare</a>
         <br>
     </div>
 </div>
