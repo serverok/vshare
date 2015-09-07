@@ -6,9 +6,7 @@ player/StrobeMediaPlayback.swf
 
 Open Source Player From Adobe
 
-http://sourceforge.net/adobe/smp/home/
-
-http://space.dl.sourceforge.net/project/smp.adobe/StrobeMediaPlayback_1.0/StrobeMediaPlayback_1.0-full.zip
+http://sourceforge.net/adobe/smp/home/Strobe%20Media%20Playback/
 
 
 =================================================
