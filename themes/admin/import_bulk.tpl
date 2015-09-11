@@ -16,21 +16,21 @@
     <div class="form-group">
         <label class="col-sm-3 control-label" for="keyword">Keyword:</label>
         <div class="col-sm-5">
-            <input class="form-control" name="keyword" id="keyword" value="{$smarty.get.keyword}" />
+            <input class="form-control" name="keyword" id="keyword" value="{$smarty.get.keyword}" required>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-3 control-label" for="user_name">Video added to:</label>
         <div class="col-sm-5">
-            <input class="form-control" name="user_name" id="user_name" value="{$smarty.get.user_name}" />
+            <input class="form-control" name="user_name" id="user_name" value="{$smarty.get.user_name}" required>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-3 control-label" for="channel" >Channel:</label>
         <div class="col-sm-5">
-            <select class="form-control" name="channel">
+            <select class="form-control" name="channel" required>
                 <option value="">-----------SELECT-----------</option>
                 {section name=i loop=$channels}
                     <option value="{$channels[i].channel_id}"{if $channels[i].channel_id eq $smarty.get.channel}selected="selected"{/if}>{$channels[i].channel_name_html}</option>
