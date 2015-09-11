@@ -70,6 +70,7 @@
         <input type="hidden" name="video_description[{$videos['videos'][i].video_id}]" value="{$videos['videos'][i].video_description}">
         <input type="hidden" name="video_keywords[{$videos['videos'][i].video_id}]" value="">
         <input type="hidden" name="video_duration[{$videos['videos'][i].video_id}]" value="{$videos['videos'][i].video_duration}">
+        <input type="hidden" name="page" value="{if isset($smarty.get.page)}{$smarty.get.page}{/if}">
 
         <div class="media{if $videos['videos'][i].imported ne "0"} bg-success{/if}">
             <div class="media-left">
