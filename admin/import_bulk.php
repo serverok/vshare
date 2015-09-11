@@ -29,7 +29,15 @@ if (isset($_GET['keyword'])) {
     $admin_listing_per_page = Config::get('admin_listing_per_page');
     $user_info = User::getByName($user_name);
 
-    if ($user_info) {
+    if ($search_string == '') {
+        $err = 'Please enter keyword for search.';
+    } else if (! $user_info) {
+        $err = 'User not found - ' . $_GET['user_name'];
+    } else if (! Channel::getById($channel_id)) {
+        $err = 'Please select a channel.';
+    }
+
+    if ($err == '') {
         $videos = Youtube::getVideos($search_string, 10, $page);
 
         if (count($videos['videos']) > 1) {
@@ -40,8 +48,6 @@ if (isset($_GET['keyword'])) {
 
         $smarty->assign('user_name', $user_name);
         $smarty->assign('channel_id', $channel_id);
-    } else {
-        $err = 'User not found - ' . $_GET['user_name'];
     }
 }
 
