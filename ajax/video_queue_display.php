@@ -18,7 +18,7 @@ if (isset($_COOKIE['video_queue'])) {
         $video_queue = array();
 
         foreach ($videos_all as $video_info) {
-            $video_info['video_thumb_url'] = $servers[$video_info['video_server_id']];
+            $video_info['video_thumb_url'] = $servers[$video_info['video_thumb_server_id']];
             $video_queue[] = $video_info;
         }
 
