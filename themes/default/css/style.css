@@ -56,7 +56,7 @@ header h1 {
 }
 
 .watch-uplod-share .icon{
-    background-color: #fff;
+    background-color: transparent;
     border-radius: 5px;
     color: #337ab7;
     float: left;
@@ -398,6 +398,7 @@ footer {
     background-color: #FFFFFF;
     bottom: 0;
     cursor: pointer;
+    left: 0;
     position: absolute;
     width: 100%;
 }
