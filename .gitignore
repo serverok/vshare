@@ -19,3 +19,4 @@ patch/*
 cgi-bin/*
 sitemap/*
 .idea
+themes/black
