@@ -1,12 +1,24 @@
 <h1>Site Statistics</h1>
 
-{if isset($total_users_inactive) && $total_users_inactive > 0}
+{if $show_inactive_users_warning eq 1 || $show_recaptcha_warning eq 1}
     <div class="alert alert-warning">
-        <span class="glyphicon glyphicon-warning-sign"></span>
-        <a href="user_inactive_manage.php" class="alert-link">
-            You have {$total_users_inactive}
-            {if $total_users_inactive eq 1}user{else}users{/if} waiting to be activated.
-        </a>
+        {if $show_inactive_users_warning eq 1}
+            <p>
+                <span class="glyphicon glyphicon-warning-sign"></span>
+                <a href="user_inactive_manage.php" class="alert-link">
+                    You have {$total_users_inactive}
+                    {if $total_users_inactive eq 1}user{else}users{/if} waiting to be activated.
+                </a>
+            </p>
+        {/if}
+        {if $show_recaptcha_warning eq 1}
+            <p>
+                <span class="glyphicon glyphicon-warning-sign"></span>
+                <a href="settings_signup.php" class="alert-link">
+                    Set reCaptcha Site Key and reCaptcha Secret Key to stop spam signups.
+                </a>
+            </p>
+        {/if}
     </div>
 {/if}
 
