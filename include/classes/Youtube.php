@@ -36,7 +36,7 @@ class Youtube
     {
         $search_string = urlencode($search_string);
         $youtube_api_key = Config::get('youtube_api_key');
-        $url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' . $search_string . '&type=video&videoCaption=closedCaption&key=' . $youtube_api_key . '&videoEmbeddable=true&maxResults=' . $max_results . '&order=relevance&pageToken=' . $page;
+        $url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' . $search_string . '&type=video&key=' . $youtube_api_key . '&videoEmbeddable=true&maxResults=' . $max_results . '&order=relevance&pageToken=' . $page;
         $contents = self::getContents($url);
         $contents = json_decode($contents, true);
 
