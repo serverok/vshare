@@ -518,7 +518,7 @@ class Upload
                     $channels_name = '';
                     $sql = "SELECT * FROM `channels` WHERE
                            `channel_id` IN ($ch_id)";
-                    $channels_all = DB::query($sql);
+                    $channels_all = DB::fetch($sql);
 
                     foreach ($channels_all as $channel) {
                         $channels_name .= $channel['channel_name'];
@@ -559,6 +559,16 @@ class Upload
                 $process_notify_user = Config::get('process_notify_user');
 
                 if ($process_notify_user == 1) {
+                    $ch_id = str_replace('|', ',', $download_info['channels']);
+                    $channels_name = '';
+                    $sql = "SELECT * FROM `channels` WHERE
+                           `channel_id` IN ($ch_id)";
+                    $channels_all = DB::fetch($sql);
+
+                    foreach ($channels_all as $channel) {
+                        $channels_name .= $channel['channel_name'];
+                        $channels_name .= '&nbsp;';
+                    }
 
                     $sql = "SELECT * FROM `email_templates` WHERE
     				       `email_id`='upload_notify_user'";
@@ -576,7 +586,7 @@ class Upload
                     $email_body = str_replace('[VIDEO_TITLE]', $download_info['title'], $email_body);
                     $email_body = str_replace('[DESCRIPTION]', $download_info['description'], $email_body);
                     $email_body = str_replace('[KEYWORDS]', $download_info['keywords'], $email_body);
-                    $email_body = str_replace('[CHANNELS]', $download_info['channels'], $email_body);
+                    $email_body = str_replace('[CHANNELS]', $channels_name, $email_body);
                     $email_body = str_replace('[TYPE]', $download_info['type'], $email_body);
                     $email_body = str_replace('[VIDEO_URL]', $video_url, $email_body);
 
