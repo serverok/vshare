@@ -15,6 +15,7 @@
 <p><strong>Correspondence URL:</strong></p>
 <pre>
 http://www.youtube.com/watch?v=xxxxxx
+http://www.dailymotion.com/video/xxxxx_yyyy
 http://revver.com/video/xxxxx/yyyyyyy
 http://www.metacafe.com/watch/xxxx/yyyy/
 </pre>
