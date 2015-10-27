@@ -50,7 +50,7 @@
     <td>{$videos[aa].inappropriate_request_count}</td>
     <td>{$videos[aa].inappropriate_request_date|date_format}</td>
     <td align="center">
-        <a href="videos.php?a={$smarty.request.a}&action=del&video_id={$videos[aa].inappropriate_request_video_id}&page={$page}&sort={$smarty.request.sort}" onclick='Javascript:return confirm("Are you sure you want to delete?");' data-toggle="tooltip" data-placement="bottom" title="Delete">
+        <a href="videos_inappropriate.php?a={$smarty.request.a}&action=del&video_id={$videos[aa].inappropriate_request_video_id}&page={$page}&sort={$smarty.request.sort}" onclick='Javascript:return confirm("Are you sure you want to delete?");' data-toggle="tooltip" data-placement="bottom" title="Delete">
             <span class="glyphicon glyphicon-trash"></span>
         </a>
     </td>
