@@ -35,11 +35,9 @@ if (isset($_GET['k']) && isset($_GET['u']) && isset($_GET['i'])) {
 
         if ($verify_info) {
             $password = $verify_info['data2'];
+            $user_name = User::get_user_name_by_id($_GET['u']);
 
-            $sql = "UPDATE `users` SET
-                   `user_password`='" . md5($password) . "' WHERE
-                   `user_id`='" . (int) $_GET['u'] . "'";
-            DB::query($sql);
+            User::changePassword($user_name, $password);
 
             $sql = "DELETE FROM `verify_code` WHERE
                    `id`='" . (int) $_GET['i'] . "'";
