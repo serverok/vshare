@@ -45,58 +45,22 @@ if (isset($_POST['submit'])) {
             $err = $lang['description_too_short'];
         } else if (strlen($video_keywords) < 4) {
             $err = $lang['tags_too_short'];
-        } else if (count($_POST['chlist']) < 1) {
+        } else if (! isset($_POST['chlist'])) {
             $err = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
-        }
-    }
-
-    $listch = implode('|', $_POST['chlist']);
-
-    if ($err == '') {
-
-        if (strstr($video_url, 'youtube.com')) {
-            // default
-        } else if (strstr($video_url, 'dailymotion.com')) {
-            $file = @file($video_url);
-            $count = count($file);
-            $flag = 0;
-            for ($i = 0; $i < $count; $i ++) {
-                if (strstr($file[$i], 'addVariable') and strstr($file[$i], '.flv') and strstr($file[$i], '"url"')) {
-                    $main = $file[$i];
-                    $flag = 1;
-                    break;
-                }
-            }
-
-            if ($flag == 1) {
-                $parse = explode("http%3A%2F%2F", $main);
-                $parse1 = explode('");', $parse[1]);
-                $parse1[0] = str_replace("%2F", "/", $parse1[0]);
-                $parse1[0] = str_replace("%3F", "?", $parse1[0]);
-                $parse1[0] = str_replace("%3D", "=", $parse1[0]);
-                $video_url = 'http://' . $parse1[0];
-                $file_extn = 'flv';
-            }
-
-            if ($flag == 0) {
-                $err = str_replace('[VIDEO_URL]', $video_url, $lang['download_failed_dailymotion']);
-            }
         } else {
-            $file_name = basename($video_url);
-            $pos = strrpos($file_name, '.');
-            $file_extn = strtolower(substr($file_name, $pos + 1, strlen($file_name) - $pos));
+            $file_extn = File::get_extension($video_url);
             if (! in_array($file_extn, $file_types)) {
                 $allowed_types = implode(',', $file_types);
                 $err = str_replace('[ALLOWED_TYPES]', $allowed_types, $lang['invalid_video_format']);
+            } else if ((check_field_exists($video_url, 'url', 'process_queue') == 1)) {
+                $err = $lang['import_video_url_exist'];
             }
         }
     }
 
-    if ((check_field_exists($video_url, 'url', 'process_queue') == 1)) {
-        $err = $lang['import_video_url_exist'];
-    }
-
     if ($err == '') {
+        $listch = implode('|', $_POST['chlist']);
+
         $sql = "INSERT INTO `process_queue`SET
                `user`='" . DB::quote($_POST['video_user']) . "',
                `title`='" . DB::quote($video_title) . "',
@@ -114,6 +78,7 @@ if (isset($_POST['submit'])) {
 }
 
 $smarty->assign('num_max_channels', $num_max_channels);
+$smarty->assign('allowed_types', implode(', ', $file_types));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('channels', Channel::get());

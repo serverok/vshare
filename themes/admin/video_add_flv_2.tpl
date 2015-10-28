@@ -16,14 +16,14 @@
             <div role="tabpanel" class="tab-pane fade in active" id="media_flv">
                 <div class="form-group">
                     <div class="col-md-6">
-                        <input type="text" name="flv_url" class="form-control" placeholder="Flv url">
+                        <input type="text" name="flv_url" class="form-control" placeholder="Flv url" value="{$flv_url}">
                     </div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="media_embed">
                 <div class="form-group">
                     <div class="col-md-6">
-                        <textarea name="embed_code" rows="3" class="form-control" placeholder="Embed code"></textarea>
+                        <textarea name="embed_code" rows="3" class="form-control" placeholder="Embed code">{$embed_code}</textarea>
                     </div>
                 </div>
             </div>
