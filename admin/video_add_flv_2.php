@@ -69,7 +69,7 @@ if (isset($_POST['submit'])) {
 
     if ($embed_code == '' && $flv_url == '') {
         $err = $lang['url_embed_empty'];
-    } else if (empty($_POST['embedded_code_image'][0]) && empty($_POST['embedded_code_image_local'][0])) {
+    } else if (empty($_POST['embedded_code_image'][0]) && empty($_FILES['embedded_code_image_local']['name'][0])) {
         $err = $lang['specify_image'];
     }
 
