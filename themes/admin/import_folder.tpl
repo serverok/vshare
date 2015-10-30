@@ -47,5 +47,5 @@
 {/if}
 
 <div>
-    <a href="import_folder_all.php">Import All Videos</a>
+    <a class="btn btn-default btn-lg" href="import_folder_all.php">Import All Videos</a>
 </div>
