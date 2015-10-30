@@ -7,3 +7,4 @@ $lang['description_too_short'] = 'Please enter a description with minimum 4 char
 $lang['tags_too_short'] = 'Please enter tags with minimum 4 characters.';
 $lang['user_not_found'] = 'User not found.';
 $lang['video_process'] = 'Your video is currently being processed and will be available to view in a few minutes.';
+$lang['video_not_exists'] = 'No video exists in templates_c/import folder.';

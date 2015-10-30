@@ -39,8 +39,6 @@ if (is_dir($import_folder)) {
             }
         }
     }
-} else {
-    $err = 1;
 }
 
 if (isset($_POST['submit'])) {
@@ -120,6 +118,7 @@ if (isset($_POST['submit'])) {
 
 if (empty($videos)) {
     $todo = 'folder_empty';
+    $err = $lang['video_not_exists'];
 }
 
 $smarty->assign('err', $err);
