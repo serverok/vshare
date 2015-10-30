@@ -97,7 +97,7 @@ if (isset($_POST['submit'])) {
 
                     $sql = "UPDATE `import_track` SET `import_track_video_id`=" . (int) $vid . " WHERE
                            `import_track_id`=" . (int) $import_track_id;
-                    $result = DB::fetch($sql);
+                    DB::query($sql);
 
                     User::updateVideoCount($user_id);
 
