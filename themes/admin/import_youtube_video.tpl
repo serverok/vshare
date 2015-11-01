@@ -6,7 +6,7 @@
     <div class="form-group">
         <label class="control-label col-md-2">Youtube Video URL</label>
         <div class="col-md-4">
-            <input type="url" name="url" id="url" class="form-control" value="{$video_url}" required placeholder="https://www.youtube.com/watch?v=SD8aha9">
+            <input type="url" name="url" id="url" class="form-control" value="{$video_url}" required placeholder="https://www.youtube.com/watch?v=XXXXXXXX">
         </div>
     </div>
     <div class="form-group">
