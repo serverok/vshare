@@ -96,9 +96,7 @@ if ($config['enable_package'] == 'yes' and isset($_SESSION['UID'])) {
     $u_info = DB::fetch1($sql);
     $smarty->assign('u_info', $u_info);
 
-    $sql = "SELECT * FROM `packages` WHERE
-           `package_id`='" . (int) $u_info['pack_id'] . "'";
-    $pack = DB::fetch($sql);
+    $pack = Package::find($u_info['pack_id']);
     $smarty->assign('pack', $pack);
 }
 

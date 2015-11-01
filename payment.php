@@ -29,7 +29,7 @@ $smarty->assign('user_info', $user_info);
 $countries = new Country();
 $smarty->assign('country', $countries->country_options($user_info['user_country']));
 
-$package = Package::getById($_POST['package_id']);
+$package = Package::find($_POST['package_id']);
 
 $totalprice = $_POST['period'] * $package['package_price'];
 

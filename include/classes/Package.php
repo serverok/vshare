@@ -2,7 +2,7 @@
 
 class Package
 {
-    public static function getById($package_id)
+    public static function find($package_id)
     {
         $sql = "SELECT * FROM `packages` WHERE
                 `package_id`=" . (int) $package_id;

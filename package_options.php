@@ -14,7 +14,7 @@
 
 require 'include/config.php';
 
-$package = Package::getById($_GET['package_id']);
+$package = Package::find($_GET['package_id']);
 
 $smarty->assign('package', $package);
 
