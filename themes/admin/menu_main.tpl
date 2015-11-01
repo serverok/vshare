@@ -106,6 +106,7 @@
                     <li><a href="import_folder.php">Import Folder</a></li>
                     <li><a href="import_bulk.php">Bulk Import</a></li>
                     <li><a href="video_add_flv.php">Add FLV/Embed</a></li>
+                    <li><a href="import_youtube_video.php">Import Youtube Video</a></li>
                 </ul>
             </li>
 
