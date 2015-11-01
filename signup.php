@@ -28,13 +28,9 @@ if ($spam_filter == 1) {
 $signup_dob = Config::get('signup_dob');
 $signup_enable = Config::get('signup_enable');
 
-if ($config['signup_captcha'] == 1) {
-    $captcha = new Captcha;
-    $captcha_enabled = $captcha->isEnabled();
-    $smarty->assign('captcha_html', $captcha->get());
-} else {
-    $captcha_enabled = 0;
-}
+$captcha = new Captcha;
+$captcha_enabled = $captcha->isEnabled();
+$smarty->assign('captcha_html', $captcha->get());
 $smarty->assign('captcha_enabled', $captcha_enabled);
 
 $signup = array();
@@ -117,12 +113,10 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    if (($config['signup_captcha'] == '1') and ($err == '')) {
-        if ($captcha_enabled) {
-            $captcha_response = isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : '';
-            if (! $captcha->validate($captcha_response)) {
-                $err = $lang['captcha_invalid'];
-            }
+    if ($captcha_enabled && $err == '') {
+        $captcha_response = isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : '';
+        if (! $captcha->validate($captcha_response)) {
+            $err = $lang['captcha_invalid'];
         }
     }
 

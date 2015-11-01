@@ -52,21 +52,6 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-sm-3 control-label" for="signup_captcha">Enable Captcha:</label>
-        <div class="col-sm-5">
-            <div class="input-group">
-            <select class="form-control" name="signup_captcha" id="signup_captcha">
-                <option value="1" {if $signup_captcha eq "1"}selected="selected"{/if}>Yes</option>
-                <option value="0" {if $signup_captcha eq "0"}selected="selected"{/if}>No</option>
-            </select>
-                <div class="input-group-addon">
-                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#signup_captcha" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="form-group recaptcha-keys">
         <label class="col-sm-3 control-label" for="recaptcha_sitekey">reCaptcha Site Key:</label>
         <div class="col-sm-5">

@@ -1,6 +1,15 @@
 <h1>Site Statistics</h1>
 
-{if isset($total_users_inactive) && $total_users_inactive > 0}
+{if Config::get('youtube_api_key') eq ""}
+    <div class="alert alert-info">
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <a href="settings_miscellaneous.php#youtube_api_key"  class="alert-link">
+            You need to set Youtube API Key to add youtube videos.
+        </a>
+    </div>
+{/if}
+
+{if isset($show_inactive_users_warning)}
     <div class="alert alert-warning">
         <span class="glyphicon glyphicon-warning-sign"></span>
         <a href="user_inactive_manage.php" class="alert-link">
@@ -9,6 +18,17 @@
         </a>
     </div>
 {/if}
+
+{if isset($show_recaptcha_warning)}
+    <div class="alert alert-danger">
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <a href="settings_signup.php" class="alert-link">
+            Set reCaptcha Site Key and reCaptcha Secret Key to stop spam signups.
+        </a>
+    </div>
+{/if}
+
+
 
 <table class="table table-bordered table-striped">
 
@@ -57,11 +77,4 @@ More information on vShare {$latest_version} available at <a href="https://www.b
 You are using vShare version: {$vshare_version} (DB Version: {$version})
 </div>
 {/if}
-
-{if Config::get('youtube_api_key') eq ""}
-<div class="alert alert-warning">
-    You need to set <a href="settings_miscellaneous.php#youtube_api_key">Youtube API Key</a> to add youtube videos.
-</div>
-{/if}
-
 

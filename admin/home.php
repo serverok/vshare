@@ -62,6 +62,15 @@ if ($config['signup_verify'] == 2) {
     $smarty->assign('total_users_inactive', $total_users_inactive);
 }
 
+if (isset($total_users_inactive) && $total_users_inactive > 0) {
+    $smarty->assign('show_inactive_users_warning', 1);
+}
+
+if (Config::get('recaptcha_sitekey') == '' || Config::get('recaptcha_secretkey') == '') {
+    $smarty->assign('show_recaptcha_warning', '1');
+}
+
+
 # check version
 $version_file = VSHARE_DIR . '/templates_c/version.txt';
 

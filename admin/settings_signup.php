@@ -67,15 +67,6 @@ if (isset($_POST['submit']))
     if (is_numeric($_POST['signup']))
     {
         $sql = "UPDATE `sconfig` SET
-               `svalue`='" . (int) $_POST['signup_captcha'] . "' WHERE
-               `soption`='signup_captcha'";
-        DB::query($sql);
-        $smarty->assign('signup_captcha', $_POST['signup_captcha']);
-    }
-
-    if (is_numeric($_POST['signup']))
-    {
-        $sql = "UPDATE `sconfig` SET
                `svalue`='" . (int) $_POST['signup_verify'] . "' WHERE
                `soption`='signup_verify'";
         DB::query($sql);
