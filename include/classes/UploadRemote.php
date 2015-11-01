@@ -140,6 +140,13 @@ class UploadRemote
 
     }
 
+    public function dailymotion($dailymotionVideoId)
+    {
+        $this->video_id = $dailymotionVideoId;
+        $this->upload_success('7');
+        return $this->err;
+    }
+
     function upload_failed()
     {
         global $lang;

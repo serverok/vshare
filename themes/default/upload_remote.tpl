@@ -15,6 +15,9 @@
 <p><strong>Correspondence URL:</strong></p>
 <pre>
 http://www.youtube.com/watch?v=xxxxxx
+{if Config::get('dailymotion_api_key') != '' && Config::get('dailymotion_api_secret') != ''}
+http://www.dailymotion.com/video/xxxxx_yyyy
+{/if}
 http://revver.com/video/xxxxx/yyyyyyy
 http://www.metacafe.com/watch/xxxx/yyyy/
 </pre>

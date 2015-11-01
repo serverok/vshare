@@ -44,7 +44,7 @@ class Dailymotion
     /**
      * Maximum number of secondes allowed to wait for connection establishment of HTTP requests
      */
-    public $connectionTimeout = 2;
+    public $connectionTimeout = 5;
 
     /**
      * An HTTP proxy to tunnel requests through (format: hostname[:port])
@@ -601,7 +601,7 @@ class Dailymotion
     protected function httpRequest($url, $payload, $headers = null, &$status_code = null, &$response_headers = null)
     {
         $ch = curl_init();
-        
+
         // Force removal of the Exept: 100-continue header automatically added by curl
         $headers[] = 'Expect:';
 

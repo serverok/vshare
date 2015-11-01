@@ -86,7 +86,7 @@ if (isset($_POST['submit'])) {
         $err = $lang['url_empty'];
     }
 
-    if ($err == '' && preg_match("/youtube/i", $url) || preg_match("/revver/i", $url) || preg_match("/metacafe/i", $url)) {
+    if ($err == '' && preg_match("/youtube/i", $url) || preg_match("/revver/i", $url) || preg_match("/metacafe/i", $url) || preg_match("/dailymotion/i", $url)) {
         # TO CREATE SEO NAME
         $seo_name = Url::seoName($upload_video_title);
 
@@ -101,6 +101,13 @@ if (isset($_POST['submit'])) {
                 $video_duration = Youtube::getVideoDuration($youtube_video_id);
                 $video_length = sec2hms($video_duration);
             }
+        } else if (preg_match("/dailymotion/i", $url)) {
+            $dailymotionVideo = new DailymotionVideo();
+            $dailymotionVideoId = $dailymotionVideo->getIdFromUrl($url);
+            $dailymotionVideo->videoId = $dailymotionVideoId;
+            $dailymotionVideoInfo = $dailymotionVideo->videoInfo();
+            $video_duration = $dailymotionVideoInfo['duration'];
+            $video_length = sec2hms($video_duration);
         }
 
         if ($config['approve'] == 1 && Config::get('moderate_video_links') == 1) {
@@ -149,6 +156,10 @@ if (isset($_POST['submit'])) {
             $err = $upload_remote->revver();
         } else if (preg_match("/metacafe/i", $url)) {
             $err = $upload_remote->metacafe();
+        } else if (preg_match('/dailymotion/', $url)) {
+            $dailymotionVideo->vshareVideoId = $video_id;
+            $dailymotionVideo->CreateThumb();
+            $err = $upload_remote->dailymotion($dailymotionVideoId);
         } else {
             $err = 'url not supported';
         }

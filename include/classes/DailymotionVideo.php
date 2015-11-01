@@ -39,8 +39,8 @@ class DailymotionVideo extends Dailymotion
                     'tags',
                     'description',
                     'duration',
-                    'thumbnail_medium_url',
-                    'thumbnail_url'
+                    'thumbnail_180_url',
+                    'thumbnail_360_url',
                 )
             ));
 
@@ -50,7 +50,7 @@ class DailymotionVideo extends Dailymotion
 
     public function CreateThumb()
     {
-        $sourceThumb = $this->videoResult['thumbnail_medium_url'];
+        $sourceThumb = $this->videoResult['thumbnail_180_url'];
         $noThumb = VSHARE_DIR . '/themes/default/images/no_thumbnail.gif';
         $spriteSourceThumb = str_replace('jpeg_preview_medium','jpeg_preview_sprite',$this->videoResult['thumbnail_medium_url']);
 
@@ -59,7 +59,7 @@ class DailymotionVideo extends Dailymotion
         $destinationThumb_2 = VSHARE_DIR . '/thumb/2_' . $this->vshareVideoId . '.jpg';
         $destinationThumb_3 = VSHARE_DIR . '/thumb/3_' . $this->vshareVideoId . '.jpg';
 
-        $thumbFileSize = Http::download($this->videoResult['thumbnail_url'],$destinationThumb);
+        $thumbFileSize = Http::download($this->videoResult['thumbnail_360_url'],$destinationThumb);
 
         if ($thumbFileSize < 2)
         {
@@ -105,4 +105,13 @@ class DailymotionVideo extends Dailymotion
         }
     }
 
+    public function getIdFromUrl($url)
+    {
+        if (preg_match('/.*dailymotion.com\/video\/([a-zA-Z0-9]+)+_/', $url, $matches)) {
+            if (isset($matches[1])) {
+                return $matches[1];
+            }
+        }
+        return 0;
+    }
 }
