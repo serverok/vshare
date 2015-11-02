@@ -1,3 +1,12 @@
+{if Config::get('youtube_api_key') eq ""}
+    <div class="alert alert-warning">
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <a href="settings_miscellaneous.php#youtube_api_key"  class="alert-link">
+            You need to set Youtube API Key to add youtube videos.
+        </a>
+    </div>
+{else}
+
 <div class="page-header">
     <h1>Bulk Import</h1>
 </div>
@@ -156,4 +165,5 @@ $(".btn-show-preview").on("click", function(e){
     </div>
 </div>
 
+{/if}
 {/if}
