@@ -1,3 +1,12 @@
+{if Config::get('youtube_api_key') eq ""}
+    <div class="alert alert-warning">
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <a href="settings_miscellaneous.php#youtube_api_key"  class="alert-link">
+            You need to set Youtube API Key to add youtube videos.
+        </a>
+    </div>
+{/if}
+
 <div class="page-header">
     <h1>Import Youtube Video</h1>
 </div>

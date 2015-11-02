@@ -17,10 +17,6 @@ require '../include/config.php';
 
 Admin::auth();
 
-if (Config::get('youtube_api_key') == '') {
-    $err = 'You must set <strong>Youtube API Key</strong> at Configuration -> Miscellaneous -> Youtube API Key:';
-}
-
 if (isset($_POST['submit'])) {
     $video_url = trim($_POST['url']);
     $user = trim($_POST['user']);
