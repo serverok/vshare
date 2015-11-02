@@ -203,7 +203,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" name="dailymotion_api_key" id="dailymotion_api_key" value="{$dailymotion_api_key}" />
                 <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#dailymotion_api_key" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/dailymotion_api_key" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
