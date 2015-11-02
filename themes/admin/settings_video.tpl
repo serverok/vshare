@@ -6,6 +6,7 @@
 
     <fieldset>
 
+    {if $video_output_format ne 'mp4'}
     <div class="form-group">
         <label class="col-sm-3 control-label" for="video_output_format">Video Output Format:</label>
         <div class="col-sm-5">
@@ -20,6 +21,9 @@
             </div>
         </div>
     </div>
+    {else}
+        <input type="hidden" name="video_output_format" value="mp4">
+    {/if}
 
     <div class="form-group">
         <label class="col-sm-3 control-label" for="process_upload">Video Processing:</label>
