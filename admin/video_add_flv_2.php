@@ -69,12 +69,12 @@ if (isset($_POST['submit'])) {
 
     if ($embed_code == '' && $flv_url == '') {
         $err = $lang['url_embed_empty'];
-    } else if (! isset($_POST['embedded_code_image']) && ! isset($_POST['embedded_code_image_local'])) {
+    } else if (empty($_POST['embedded_code_image'][0]) && empty($_FILES['embedded_code_image_local']['name'][0])) {
         $err = $lang['specify_image'];
     }
 
     if ($err == '') {
-        if (strlen($flv_url) > 30) {
+        if (strlen($flv_url) > 20) {
             $vtype = 2;
             $embed_code = $flv_url;
         } else {
@@ -119,38 +119,58 @@ if (isset($_POST['submit'])) {
         }
 
         if (! empty($_POST['embedded_code_image'][0])) {
+            // Make player image
             $embedded_image = $_POST['embedded_code_image'];
-            $destination = VSHARE_DIR . '/thumb/' . $video_id . '.jpg';
-            $source = $embedded_image[0];
-            Http::download($source, $destination);
+            $filename = basename($embedded_image[0]);
 
+            $destination_tmp = VSHARE_DIR . '/templates_c/' . $filename;
+            $source = $embedded_image[0];
+            Http::download($source, $destination_tmp);
+
+            $destination = VSHARE_DIR . '/thumb/' . $video_id . '.jpg';
+            $source = $destination_tmp;
+            $maxwidth = 500;
+            $maxheight = 300;
+            Image::createThumb($source, $destination, $maxwidth, $maxheight);
+
+            unlink($destination_tmp);
+
+            // Make thumbs
             $j = 0;
 
             for ($i = 0; $i < 3; $i ++) {
                 $j ++;
-                if (! empty($embedded_image[$i]) && strstr($embedded_image[$i], '.jpg')) {
-                    $destination = VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg';
-                    echo '<br />';
+                if (! empty($embedded_image[$i])) {
+                    $filename = basename($embedded_image[$i]);
+                    $destination_tmp = VSHARE_DIR . '/templates_c/' . $filename;
                     $source = $embedded_image[$i];
-                    Http::download($source, $destination);
+                    Http::download($source, $destination_tmp);
+
+                    $destination = VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg';
+                    $source = $destination_tmp;
+                    Image::createThumb($source, $destination, $config['img_max_width'], $config['img_max_height']);
+
+                    unlink($destination_tmp);
                 } else {
                     $destination = VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg';
                     copy(VSHARE_DIR . '/themes/default/images/no_thumbnail.gif', $destination);
                 }
             }
         } else if (! empty($_FILES['embedded_code_image_local']['tmp_name'][0])) {
-            $fd = VSHARE_DIR . '/thumb/' . $video_id . '.jpg';
-            $maxwidth = $config['img_max_width'];
-            $maxheight = $config['img_max_height'];
-            Image::createThumb($_FILES['embedded_code_image_local']['tmp_name'][0], $fd, $maxwidth, $maxheight);
+            // Make player image
+            $destination = VSHARE_DIR . '/thumb/' . $video_id . '.jpg';
+            $source = $_FILES['embedded_code_image_local']['tmp_name'][0];
+            $maxwidth = 500;
+            $maxheight = 300;
+            Image::createThumb($source, $destination, $maxwidth, $maxheight);
 
-            //$limit = count($_FILES['embedded_code_image_local']['name']);
+            // Make thumbs
             $j = 0;
             for ($i = 0; $i < 3; $i ++) {
                 $j ++;
-                if (! empty($_FILES['embedded_code_image_local']['name'][$i]) && ($_FILES['embedded_code_image_local']['type'][$i] == "image/jpeg")) {
-                    $fd = VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg';
-                    Image::createThumb($_FILES['embedded_code_image_local']['tmp_name'][$i], $fd, $maxwidth, $maxheight);
+                if (! empty($_FILES['embedded_code_image_local']['name'][$i])) {
+                    $destination = VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg';
+                    Image::createThumb($_FILES['embedded_code_image_local']['tmp_name'][$i], $destination, $config['img_max_width'], $config['img_max_height']);
                 } else {
                     copy(VSHARE_DIR . '/themes/default/images/no_thumbnail.gif', VSHARE_DIR . '/thumb/' . $j . '_' . $video_id . '.jpg');
                 }
@@ -160,8 +180,12 @@ if (isset($_POST['submit'])) {
         $msg = $lang['video_added'];
         $success = 1;
     }
+} else {
+    $embed_code = $flv_url = '';
 }
 
+$smarty->assign('embed_code', $embed_code);
+$smarty->assign('flv_url', $flv_url);
 $smarty->assign('success', $success);
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);

@@ -10,9 +10,10 @@
 <form method="post" action="import_video.php" id="import-video" name="import-video" class="form-horizontal" role="form">
 
     <div class="form-group">
-        <label class="col-sm-2 control-label" for="video_url">URL:</label>
+        <label class="col-sm-2 control-label" for="video_url">Video URL:</label>
         <div class="col-sm-5">
-            <input class="form-control" type="text" maxlength="200" name="video_url" id="video_url" value="{$smarty.post.video_url}">
+            <input class="form-control" type="text" maxlength="200" name="video_url" id="video_url" value="{$smarty.post.video_url}" placeholder="http://site.com/video.mp4">
+            <span class="help-block">Allowed formats: {$allowed_types}</span>
         </div>
     </div>
 
