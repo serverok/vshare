@@ -26,6 +26,7 @@ LOCAL              0		Video Hosted on vShare site (local and remote servers)
 YOUTUBE            1		Embed Youtube Video
 FLV FILE           2		Hotlink remote FLV
 STAGE6.COM         3
+REVVER.COM         4        DEAD, NOT USED
 METACAFE.COM       5
 ENBEDDED           6
 ===========================================================
