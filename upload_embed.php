@@ -89,7 +89,7 @@ if (isset($_POST['action_upload'])) {
 
                 if ($type == 'public' && $config['approve'] == 1) {
                     $current_keyword = DB::quote($video_info['video_keywords']);
-                    $tags = new Tag($current_keyword, $video_id, $_SESSION['UID'], "0|$channels|0");
+                    $tags = new Tag($current_keyword, $video_id, $_SESSION['UID'], "0|$channel|0");
                     $tags->add();
                 }
 
@@ -152,7 +152,7 @@ if (isset($_POST['action_upload'])) {
 
                             if ($type == 'public' && $config['approve'] == 1) {
                                 $current_keyword = DB::quote($dailymotionVideoKeywords);
-                                $tags = new Tag($current_keyword, $video_id, $_SESSION['UID'], "0|$channels|0");
+                                $tags = new Tag($current_keyword, $video_id, $_SESSION['UID'], "0|$channel|0");
                                 $tags->add();
                             }
 

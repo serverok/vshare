@@ -18,13 +18,12 @@
     <div class="form-group">
         <label class="control-label col-md-2">Channels</label>
         <div class="col-md-4">
-            {foreach Channel::get() as $channel}
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="channels[]" value="{$channel['channel_id']}"> {$channel['channel_name']}
-                </label>
-            </div>
-            {/foreach}
+            <select id="channel" name="channel" class="form-control" required="required">
+                <option value="">--SELECT--</option>
+                {foreach Channel::get() as $channel}
+                <option value="{$channel['channel_id']}">{$channel['channel_name']}</option>
+                {/foreach}
+            </select>
         </div>
     </div>
     <div class="form-group">

@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
     $user = trim($_POST['user']);
     $privacy = trim($_POST['privacy']);
     $privacy = ($privacy == 'private') ? 'private' : 'public';
-    $channels = isset($_POST['channels']) ? $_POST['channels'] : array();
+    $channel = isset($_POST['channel']) ? $_POST['channel'] : '';
 
     if (filter_var($video_url, FILTER_VALIDATE_URL, FILTER_FLAG_QUERY_REQUIRED) === false) {
         $err = 'Invalid Youtube video url.';
@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
     if ($err == '') {
         if (! check_field_exists($user, 'user_name', 'users')) {
             $err = 'User not found.';
-        } else if (empty($channels)) {
+        } else if (empty($channel)) {
             $err = 'Please select atleast one channel.';
         }
     }
@@ -49,7 +49,6 @@ if (isset($_POST['submit'])) {
         $video_info = Youtube::getVideoInfo($youtube_video_id);
         $user_info = User::getByName($user);
         $seo_name = Url::seoName($video_info['video_title']);
-        $channels = implode('|', $channels);
 
         $sql = "INSERT INTO `videos` SET
                `video_user_id`='" . (int) $user_info['user_id'] . "',
@@ -57,7 +56,7 @@ if (isset($_POST['submit'])) {
                `video_description`='" . DB::quote($video_info['video_description']) . "',
                `video_keywords`='" . DB::quote($video_info['video_keywords']) . "',
                `video_seo_name`='" . DB::quote($seo_name) . "',
-               `video_channels`='0|" . DB::quote($channels) . "|0',
+               `video_channels`='0|" . DB::quote($channel) . "|0',
                `video_type`='" . DB::quote($privacy) . "',
                `video_duration`='" . (int) $video_info['video_duration'] . "',
                `video_length`='" . DB::quote($video_info['video_length']) . "',
@@ -75,7 +74,7 @@ if (isset($_POST['submit'])) {
 
         if ($config['approve'] == 1) {
             if (! empty($video_info['video_keywords'])) {
-                $tags = new Tag($video_info['video_keywords'], $vid, $user_id, "0|$channels|0");
+                $tags = new Tag($video_info['video_keywords'], $vid, $user_id, "0|$channel|0");
                 $tags->add();
                 $video_tags = $tags->get_tags();
                 $sql = "UPDATE `videos` SET
