@@ -59,47 +59,6 @@ class UploadRemote
         return $this->err;
     }
 
-    function revver()
-    {
-
-        global $config;
-
-        $vid = $this->vid;
-        $url = $this->url;
-        $url = explode('/', $url);
-
-        for ($i = 0; $i < count($url); $i ++) {
-            if (is_numeric($url[$i])) {
-                $video_id = $url[$i];
-            }
-        }
-
-        $videojpg = $vid . ".jpg";
-        $this->video_id = $video_id;
-
-        if ($this->err == '') {
-            for ($i = 1; $i <= 3; $i ++) {
-                $source = "http://frame.revver.com/frame/120x190/" . $video_id . ".jpg";
-                $desination = VSHARE_DIR . "/thumb/" . $i . "_" . $videojpg;
-                $this->upload = Http::download($source, $desination);
-                if ($this->debug) {
-                    echo "<p>$source,$desination</p>";
-                }
-            }
-            $source = "http://frame.revver.com/frame/120x190/" . $video_id . ".jpg";
-            $desination = VSHARE_DIR . "/thumb/" . $vid . ".jpg";
-            $this->upload = Http::download($source, $desination);
-        }
-
-        if ($this->upload <= 0) {
-            $this->upload_failed();
-        } else {
-            $this->upload_success('4');
-        }
-
-        return $this->err;
-    }
-
     function metacafe()
     {
         global $config;

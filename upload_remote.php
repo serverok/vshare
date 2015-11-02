@@ -37,7 +37,6 @@ LOCAL              0
 YOUTUBE            1
 FLV FILE           2
 STAGE6.COM         3
-REVVER.COM         4
 METACAFE.COM       5
 ENBEDDED           6
 --------------------------
@@ -86,7 +85,7 @@ if (isset($_POST['submit'])) {
         $err = $lang['url_empty'];
     }
 
-    if ($err == '' && preg_match("/youtube/i", $url) || preg_match("/revver/i", $url) || preg_match("/metacafe/i", $url) || preg_match("/dailymotion/i", $url)) {
+    if ($err == '' && preg_match("/youtube/i", $url) || preg_match("/metacafe/i", $url) || preg_match("/dailymotion/i", $url)) {
         # TO CREATE SEO NAME
         $seo_name = Url::seoName($upload_video_title);
 
@@ -152,8 +151,6 @@ if (isset($_POST['submit'])) {
 
         if (preg_match("/youtube/i", $url)) {
             $err = $upload_remote->youtube();
-        } else if (preg_match("/revver/i", $url)) {
-            $err = $upload_remote->revver();
         } else if (preg_match("/metacafe/i", $url)) {
             $err = $upload_remote->metacafe();
         } else if (preg_match('/dailymotion/', $url)) {
