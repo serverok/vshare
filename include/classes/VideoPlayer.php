@@ -30,9 +30,6 @@ class VideoPlayer
             case 3:
                 return $this->divx();
                 break;
-            case 4:
-                return $this->revver();
-                break;
             case 5:
                 return $this->metcafe();
                 break;
@@ -89,17 +86,6 @@ class VideoPlayer
         global $config;
 
         $vshare_player = '<iframe frameborder="0" width="' . $config['player_width'] . '" height="' . $config['player_height'] . '" src="//www.dailymotion.com/embed/video/' . $this->video_info['video_name'] . '?logo=0&info=0&autoPlay=' . $config['player_autostart'] . '" allowfullscreen></iframe>';
-        return $vshare_player;
-    }
-
-    function revver()
-    {
-        global $config;
-        $vshare_player = "<embed type=\"application/x-shockwave-flash\"
-						src=\"http://flash.revver.com/player/1.0/player.swf\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\"
-						scale=\"noScale\" salign=\"TL\" bgcolor=\"#000000\" allowScriptAccess=\"always\"
-						flashvars=\"mediaId={$this->video_info['video_name']}&affiliateId=0&allowFullScreen=true\" allowfullscreen=\"true\"
-						height=\"$config[player_height]\" width=\"$config[player_width]\"></embed>";
         return $vshare_player;
     }
 
