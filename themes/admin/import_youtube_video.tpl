@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1>Import Youtube Videos</h1>
+    <h1>Import Youtube Video</h1>
 </div>
 
 <form method="post" action="" class="form-horizontal">
