@@ -5,7 +5,7 @@
             You need to set Youtube API Key to add youtube videos.
         </a>
     </div>
-{/if}
+{else}
 
 <div class="page-header">
     <h1>Import Youtube Video</h1>
@@ -50,3 +50,4 @@
         </div>
     </div>
 </form>
+{/if}
