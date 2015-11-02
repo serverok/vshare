@@ -43,8 +43,12 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Video Channels:</label>
         <div class="col-sm-5">
-            {$ch_checkbox}
-            <p class="help-block">Select between 1 to {$num_max_channels} channels that best describe your video.</p>
+            <select name="channel" required="required" class="form-control">
+                <option value="">--SELECT--</option>
+                {foreach $channels as $channel}
+                    <option value="{$channel['channel_id']}">{$channel['channel_name']}</option>
+                {/foreach}
+            </select>
         </div>
     </div>
 

@@ -34,13 +34,11 @@ if (isset($_POST['submit'])) {
         $err = $lang['description_too_short'];
     } else if (strlen($_POST['video_keywords']) < 4) {
         $err = $lang['tags_too_short'];
-    } else if (! isset($_POST['channel'])) {
-        $err = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
-    } else if ((count($_POST['channel']) < 1) || (count($_POST['channel']) > $num_max_channels)) {
+    } else if (empty($_POST['channel'])) {
         $err = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
     }
+
     if (empty($err)) {
-        $listch = implode('|', $_POST['channel']);
 
         if ($_POST['video_privacy'] != 'public') {
             $_POST['video_privacy'] = 'private';
@@ -50,7 +48,7 @@ if (isset($_POST['submit'])) {
         $_SESSION['description'] = $_POST['video_description'];
         $_SESSION['title'] = $_POST['video_title'];
         $_SESSION['keywords'] = $_POST['video_keywords'];
-        $_SESSION['channels'] = $listch;
+        $_SESSION['channels'] = $_POST['channel'];
         $_SESSION['user_id'] = $user_info['user_id'];
         $_SESSION['adult'] = 0;
         $redirect_url = VSHARE_URL . '/admin/video_add_flv_2.php';
@@ -58,19 +56,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$ch = Channel::get();
-
-$channel_checkbox = '';
-
-for ($i = 0; $i < count($ch); $i ++) {
-    $channel_checkbox .= '<div class="checkbox">' .
-                         '<label for="channel-' . $ch[$i]['channel_id'] . '">' .
-                         '<input type="checkbox" name="channel[]" value="' . $ch[$i]['channel_id'] . '" id="channel-' . $ch[$i]['channel_id'] . '" />' . $ch[$i]['channel_name_html'] .
-                         '</label>' .
-                         '</div>';
-}
-
-$smarty->assign('ch_checkbox', $channel_checkbox);
+$smarty->assign('channels', Channel::get());
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
