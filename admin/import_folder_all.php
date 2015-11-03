@@ -20,7 +20,6 @@ require '../include/language/' . LANG . '/admin/import_folder_all.php';
 Admin::auth();
 
 $import_folder = VSHARE_DIR . '/templates_c/import';
-$num_max_channels = Config::get('num_max_channels');
 
 $videos = array();
 
@@ -53,8 +52,6 @@ if (isset($_POST['submit'])) {
         $err = $lang['user_name_null'];
     } else if (strlen($video_title) < 4) {
         $err = $lang['title_too_short'];
-    } else if ((count($_POST['chlist']) < 1) || (count($_POST['chlist']) > $num_max_channels)) {
-        $err = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
     } else if (strlen($video_description) < 4) {
         $err = $lang['description_too_short'];
     } else if ($tags == '') {
@@ -62,7 +59,7 @@ if (isset($_POST['submit'])) {
     }
 
     if ($err == '') {
-        $channel = implode('|', $_POST['chlist']);
+        $channel = $_POST['channel'];
         $user_info = User::getByName($user);
 
         if (! $user_info) {
@@ -123,7 +120,6 @@ if (empty($videos)) {
 
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
-$smarty->assign('num_max_channels', $num_max_channels);
 $smarty->assign('todo', $todo);
 $smarty->assign('channels', Channel::get());
 $smarty->display('admin/header.tpl');

@@ -28,8 +28,6 @@ if (isset($_POST['submit'])) {
         $err = 'Video description is too short.';
     } else if (strlen($_POST['video_keywords']) < 4) {
         $err = 'Video keywords too short.';
-    } else if (empty($_POST['chlist'])) {
-        $err = 'Please select a channel (maximum $num_max_channels channels).';
     } else if (strlen($_POST['video_url']) < 10) {
         $err = 'Please enter a video url.';
     } else if (empty($_POST['embedded_code_image'][0]) && empty($_FILES['embedded_code_image_local']['name'][0])) {
@@ -41,8 +39,7 @@ if (isset($_POST['submit'])) {
         $video_title = $_POST['video_title'];
         $video_description = $_POST['video_description'];
         $video_keywords = $_POST['video_keywords'];
-        $chlist = $_POST['chlist'];
-        $video_channels = implode('|', $chlist);
+        $video_channels = $_POST['channel'];
         $video_type = $_POST['video_privacy'];
         $video_url = $_POST['video_url'];
         $vtype = 2;

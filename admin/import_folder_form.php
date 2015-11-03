@@ -18,8 +18,6 @@ require '../include/language/' . LANG . '/admin/import_folder_form.php';
 
 Admin::auth();
 
-$num_max_channels = Config::get('num_max_channels');
-
 $todo = '';
 
 if (isset($_POST['submit'])) {
@@ -34,15 +32,13 @@ if (isset($_POST['submit'])) {
         $err = $lang['user_name_null'];
     } else if (strlen($video_title) < 4) {
         $err = $lang['title_too_short'];
-    } else if ((count($_POST['chlist']) < 1) || (count($_POST['chlist']) > $num_max_channels)) {
-        $err = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
     } else if (strlen($video_description) < 4) {
         $err = $lang['description_too_short'];
     } else if ($_POST['video_keywords'] == '') {
         $err = $lang['tags_too_short'];
     }
 
-    $channel = implode('|', $_POST['chlist']);
+    $channel = $_POST['channel'];
 
     if ($err == '') {
         $user_info = User::getByName($user);

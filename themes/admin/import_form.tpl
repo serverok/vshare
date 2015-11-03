@@ -23,16 +23,14 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label" for="chlist">Video Channels:</label>
-      <div class="col-sm-5">
-        {foreach from=$channels item=channel}
-            <div class="checkbox">
-                <label for="channel-{$channel.channel_id}">
-                    <input type="checkbox" name="chlist[]" value="{$channel.channel_id}" id="channel-{$channel.channel_id}"> {$channel.channel_name_html}
-                </label>
-            </div>
-        {/foreach}
-        <p class="help-block">Select between 1 to {$num_max_channels} channels that best describe your video.</p>
+    <label class="col-sm-2 control-label" for="chlist">Video Channel:</label>
+    <div class="col-sm-5">
+        <select name="channel" id="channel" class="form-control" required>
+            <option value="">-- Select --</option>
+            {foreach from=$channels item=channel}
+            <option value="{$channel.channel_id}"{if isset($smarty.post.channel) && $smarty.post.channel eq $channel.channel_id} selected{/if}>{$channel.channel_name}</option>
+            {/foreach}
+        </select>
     </div>
 </div>
 <div class="form-group">

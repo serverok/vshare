@@ -19,8 +19,6 @@ require '../include/language/' . LANG . '/admin/import_video.php';
 
 Admin::auth();
 
-$num_max_channels = Config::get('num_max_channels');
-
 if (isset($_POST['submit'])) {
     $video_url = $_POST['video_url'];
     $video_title = $_POST['video_title'];
@@ -45,8 +43,6 @@ if (isset($_POST['submit'])) {
             $err = $lang['description_too_short'];
         } else if (strlen($video_keywords) < 4) {
             $err = $lang['tags_too_short'];
-        } else if (! isset($_POST['chlist'])) {
-            $err = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
         } else {
             $file_extn = File::get_extension($video_url);
             if (! in_array($file_extn, $file_types)) {
@@ -59,7 +55,7 @@ if (isset($_POST['submit'])) {
     }
 
     if ($err == '') {
-        $listch = implode('|', $_POST['chlist']);
+        $channel = $_POST['channel'];
 
         $sql = "INSERT INTO `process_queue`SET
                `user`='" . DB::quote($_POST['video_user']) . "',
@@ -68,7 +64,7 @@ if (isset($_POST['submit'])) {
                `keywords`='" . DB::quote($video_keywords) . "',
                `process_queue_upload_ip`='" . User::get_ip() . "',
                `type`='" . DB::quote($_POST['video_privacy']) . "',
-               `channels`='$listch',
+               `channels`='$channel',
                `status`=0,
                `url`='" . DB::quote($video_url) . "'";
         DB::query($sql);
@@ -77,7 +73,6 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$smarty->assign('num_max_channels', $num_max_channels);
 $smarty->assign('allowed_types', implode(', ', $file_types));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
