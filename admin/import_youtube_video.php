@@ -14,6 +14,7 @@
 
 require 'admin_config.php';
 require '../include/config.php';
+require '../include/language/' . LANG . '/admin/import_video.php';
 
 Admin::auth();
 
@@ -25,19 +26,19 @@ if (isset($_POST['submit'])) {
     $channel = isset($_POST['channel']) ? $_POST['channel'] : '';
 
     if (filter_var($video_url, FILTER_VALIDATE_URL, FILTER_FLAG_QUERY_REQUIRED) === false) {
-        $err = 'Invalid Youtube video url.';
+        $err = $lang['youtube_url_null'];
     } else {
         $youtube_video_id = BulkImport::getYoutubeVideoId($video_url);
         if (BulkImport::checkImported($youtube_video_id, 'youtube')) {
-            $err = 'Video already imported.';
+            $err = $lang['import_duplicate'];
         }
     }
 
     if ($err == '') {
         if (! check_field_exists($user, 'user_name', 'users')) {
-            $err = 'User not found.';
+            $err = $lang['user_not_found'];
         } else if (! is_numeric($channel)) {
-            $err = 'Please select a channel.';
+            $err = $lang['channel_not_selected'];
         }
     }
 
@@ -88,7 +89,7 @@ if (isset($_POST['submit'])) {
 
         User::updateVideoCount($user_info['user_id']);
 
-        $msg = 'Video has been imported successfully.';
+        $msg = $lang['video_added'];
         set_message($msg, 'success');
         DB::close();
         Http::redirect('video_details.php?id=' . $vid);
