@@ -28,6 +28,8 @@ if (isset($_POST['submit'])) {
         $err = 'Video description is too short.';
     } else if (strlen($_POST['video_keywords']) < 4) {
         $err = 'Video keywords too short.';
+    } else if (! is_numeric($_POST['channel'])) {
+        $err = 'Please select a channel.';
     } else if (strlen($_POST['video_url']) < 10) {
         $err = 'Please enter a video url.';
     } else if (empty($_POST['embedded_code_image'][0]) && empty($_FILES['embedded_code_image_local']['name'][0])) {
