@@ -25,10 +25,10 @@
 <div class="form-group">
     <label class="col-sm-2 control-label" for="chlist">Video Channel:</label>
     <div class="col-sm-5">
-        <select name="chlist" id="chlist" class="form-control" required>
+        <select name="channel" id="channel" class="form-control" required>
             <option value="">-- Select --</option>
             {foreach from=$channels item=channel}
-            <option value="{$channel.channel_id}">{$channel.channel_name}</option>
+            <option value="{$channel.channel_id}"{if isset($smarty.post.channel) && $smarty.post.channel eq $channel.channel_id} selected{/if}>{$channel.channel_name}</option>
             {/foreach}
         </select>
     </div>
