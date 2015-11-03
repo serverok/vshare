@@ -27,6 +27,7 @@ if (isset($_POST['submit'])) {
     $type = $_POST['video_privacy'];
     $video = urldecode($_POST['video_name']);
     $video_description = $_POST['video_description'];
+    $channel = $_POST['channel'];
 
     if ($user == '') {
         $err = $lang['user_name_null'];
@@ -36,9 +37,9 @@ if (isset($_POST['submit'])) {
         $err = $lang['description_too_short'];
     } else if ($_POST['video_keywords'] == '') {
         $err = $lang['tags_too_short'];
+    } else if (! is_numeric($channel)) {
+        $err = $lang['channel_not_selected'];
     }
-
-    $channel = $_POST['channel'];
 
     if ($err == '') {
         $user_info = User::getByName($user);

@@ -43,6 +43,8 @@ if (isset($_POST['submit'])) {
             $err = $lang['description_too_short'];
         } else if (strlen($video_keywords) < 4) {
             $err = $lang['tags_too_short'];
+        } else if (! is_numeric($_POST['channel'])) {
+            $err = $lang['channel_not_selected'];
         } else {
             $file_extn = File::get_extension($video_url);
             if (! in_array($file_extn, $file_types)) {
