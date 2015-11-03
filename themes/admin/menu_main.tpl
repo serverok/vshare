@@ -83,7 +83,8 @@
                     <li><a href="import_video.php">Import Video</a></li>
                     <li><a href="import_folder.php">Import Folder</a></li>
                     <li><a href="import_bulk.php">Bulk Import</a></li>
-                    <li><a href="video_add_flv.php">Add FLV/Embed</a></li>
+                    <li><a href="import_embed_video.php">Add Embed Video</a></li>
+                    <li><a href="import_remote_video.php">Add Remote Video (Hotlink)</a></li>
                 </ul>
             </li>
 

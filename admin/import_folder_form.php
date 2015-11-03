@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
         $err = $lang['user_name_null'];
     } else if (strlen($video_title) < 4) {
         $err = $lang['title_too_short'];
-    } else if ((count($_POST['channel']) < 1) || (count($_POST['channel']) > $num_max_channels)) {
+    } else if ((count($_POST['chlist']) < 1) || (count($_POST['chlist']) > $num_max_channels)) {
         $err = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
     } else if (strlen($video_description) < 4) {
         $err = $lang['description_too_short'];
@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
         $err = $lang['tags_too_short'];
     }
 
-    $channel = implode('|', $_POST['channel']);
+    $channel = implode('|', $_POST['chlist']);
 
     if ($err == '') {
         $user_info = User::getByName($user);
@@ -101,14 +101,7 @@ if (isset($_GET['video'])) {
     }
 }
 
-$channel_checkbox = '';
-$ch = Channel::get();
-
-for ($i = 0; $i < count($ch); $i ++) {
-    $channel_checkbox .= '<input type="checkbox" name="channel[]" value="' . $ch[$i]['channel_id'] . '" />' . htmlspecialchars($ch[$i]['channel_name'], ENT_QUOTES, 'UTF-8') . '<br />';
-}
-
-$smarty->assign('channel_checkbox', $channel_checkbox);
+$smarty->assign('channels', Channel::get());
 $smarty->assign('todo', $todo);
 $smarty->assign('video_name', $video);
 $smarty->assign('msg', $msg);

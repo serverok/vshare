@@ -14,106 +14,61 @@
 
 require 'admin_config.php';
 require '../include/config.php';
-require '../include/language/' . LANG . '/admin/video_add_flv_2.php';
 
 Admin::auth();
 
-$success = 0;
-
-if (isset($_SESSION['keywords'])) {
-    $upload_video_keywords = $_SESSION['keywords'];
-} else {
-    $err = $lang['keywords_empty'];
-}
-
-if (isset($_SESSION['title'])) {
-    $video_title = $_SESSION['title'];
-} else {
-    $err = $lang['title_empty'];
-}
-
-if (isset($_SESSION['description'])) {
-    $video_description = $_SESSION['description'];
-} else {
-    $err = $lang['description_empty'];
-}
-
-if (isset($_SESSION['channels'])) {
-    $video_channels = $_SESSION['channels'];
-} else {
-    $err = $lang['channels_empty'];
-}
-
-if (isset($_SESSION['video_privacy'])) {
-    $video_type = $_SESSION['video_privacy'];
-} else {
-    $err = $lang['type_empty'];
-}
-
-if (isset($_SESSION['user_id'])) {
-    $video_user_id = $_SESSION['user_id'];
-} else {
-    $err = $lang['userid_not_set'];
-}
-
-if ($err != '') {
-    set_message($err, 'error');
-    $redirect_url = VSHARE_URL . '/admin/video_add_flv.php';
-    Http::redirect($redirect_url);
-}
-
 if (isset($_POST['submit'])) {
-    $video_adult = isset($_SESSION['adult']) ? $_SESSION['adult'] : 0;
-    $embed_code = isset($_POST['embed_code']) ? $_POST['embed_code'] : '';
-    $flv_url = isset($_POST['flv_url']) ? $_POST['flv_url'] : '';
+    $user_info = User::getByName($_POST['video_user']);
 
-    if ($embed_code == '' && $flv_url == '') {
-        $err = $lang['url_embed_empty'];
+    if (! $user_info) {
+        $err = 'User not found.';
+    } else if (strlen($_POST['video_title']) < 4) {
+        $err = 'Video title is too short.';
+    } else if (strlen($_POST['video_description']) < 4) {
+        $err = 'Video description is too short.';
+    } else if (strlen($_POST['video_keywords']) < 4) {
+        $err = 'Video keywords too short.';
+    } else if (empty($_POST['chlist'])) {
+        $err = 'Please select a channel (maximum $num_max_channels channels).';
+    } else if (strlen($_POST['embed_code']) < 10) {
+        $err = 'Please enter video embed code.';
     } else if (empty($_POST['embedded_code_image'][0]) && empty($_FILES['embedded_code_image_local']['name'][0])) {
-        $err = $lang['specify_image'];
+        $err = 'Please select image for video.';
     }
 
     if ($err == '') {
-        if (strlen($flv_url) > 20) {
-            $vtype = 2;
-            $embed_code = $flv_url;
-        } else {
-            $vtype = 6;
-        }
-
-        $video_duration = '1';
-        $video_length = '01:00';
-
-        if (preg_match("/youtube/i", $embed_code)) {
-            $youtube_video_id = BulkImport::getYoutubeVideoId($embed_code);
-            if (! empty($youtube_video_id)) {
-                $video_duration = Youtube::getVideoDuration($youtube_video_id);
-                $video_length = sec2hms($video_duration);
-            }
-        }
+        $video_user_id = $user_info['user_id'];
+        $video_title = $_POST['video_title'];
+        $video_description = $_POST['video_description'];
+        $video_keywords = $_POST['video_keywords'];
+        $chlist = $_POST['chlist'];
+        $video_channels = implode('|', $chlist);
+        $video_type = $_POST['video_privacy'];
+        $embed_code = $_POST['embed_code'];
+        $vtype = 6;
+        $video_duration = 60;
+        $video_length = '1.00';
 
         $sql = "INSERT INTO `videos` SET
                `video_user_id`=" . (int) $video_user_id . ",
                `video_title`='" . DB::quote($video_title) . "',
                `video_description`='" . DB::quote($video_description) . "',
-               `video_keywords`='" . DB::quote($upload_video_keywords) . "',
+               `video_keywords`='" . DB::quote($video_keywords) . "',
                `video_seo_name`='" . Url::seoName($video_title) . "',
                `video_embed_code`='" . DB::quote($embed_code) . "',
                `video_channels`='0|$video_channels|0',
                `video_type`='$video_type',
                `video_vtype`=$vtype,
-               `video_adult`='$video_adult',
                `video_duration`='" . (int) $video_duration . "',
                `video_length`='" . DB::quote($video_length) . "',
                `video_add_time`='" . time() . "',
                `video_add_date`='" . date("Y-m-d") . "',
                `video_active`='1',
                `video_approve`='$config[approve]'";
-
         $video_id = DB::insertGetId($sql);
 
         if ($video_type == 'public' && $config['approve'] == 1) {
-            $current_keyword = DB::quote($upload_video_keywords);
+            $current_keyword = DB::quote($video_keywords);
             $tags = new Tag($current_keyword, $video_id, $video_user_id, $video_channels);
             $tags->add();
         }
@@ -177,19 +132,16 @@ if (isset($_POST['submit'])) {
             }
         }
 
-        $msg = $lang['video_added'];
-        $success = 1;
+        $msg = 'Video has been added.';
+        set_message($msg, 'success');
+        Http::redirect('import_embed_video.php');
     }
-} else {
-    $embed_code = $flv_url = '';
 }
 
-$smarty->assign('embed_code', $embed_code);
-$smarty->assign('flv_url', $flv_url);
-$smarty->assign('success', $success);
+$smarty->assign('channels', Channel::get());
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');
-$smarty->display('admin/video_add_flv_2.tpl');
+$smarty->display('admin/import_embed_video.tpl');
 $smarty->display('admin/footer.tpl');
 DB::close();

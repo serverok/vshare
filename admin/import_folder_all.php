@@ -125,7 +125,7 @@ $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->assign('num_max_channels', $num_max_channels);
 $smarty->assign('todo', $todo);
-$smarty->assign('chinfo', Channel::get());
+$smarty->assign('channels', Channel::get());
 $smarty->display('admin/header.tpl');
 $smarty->display('admin/import_folder_all.tpl');
 $smarty->display('admin/footer.tpl');
