@@ -36,8 +36,8 @@ if (isset($_POST['submit'])) {
     if ($err == '') {
         if (! check_field_exists($user, 'user_name', 'users')) {
             $err = 'User not found.';
-        } else if (empty($channel)) {
-            $err = 'Please select atleast one channel.';
+        } else if (! is_numeric($channel)) {
+            $err = 'Please select a channel.';
         }
     }
 
