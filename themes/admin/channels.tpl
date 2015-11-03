@@ -3,16 +3,6 @@
 <table class="table table-striped">
 
     <tr>
-
-        <td width="80">
-            <b>ID</b>
-            <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=channel_id+asc&page={$page}">
-                <span class="glyphicon glyphicon-arrow-up"></span>
-            </a>
-            <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=channel_id+desc&page={$page}">
-                <span class="glyphicon glyphicon-arrow-down"></span>
-            </a>
-        </td>
         <td>
             <b>Name</b>
             <a href="?a={$smarty.request.a}&status={$smarty.request.status}&sort=channel_name+asc&page={$page}">
@@ -33,7 +23,6 @@
         {insert name=channel_count assign=count cid=$channels[aa].channel_id}
 
         <tr>
-            <td>{$channels[aa].channel_id}</td>
             <td><a href="channel_search.php?id={$channels[aa].channel_id}&action=search">{$channels[aa].channel_name}</a></td>
             <td>{$channels[aa].channel_description}</td>
             <td>{if $count[1] ne "0"}<a href="channel_videos.php?chid={$channels[aa].channel_id}">{$count[1]}</a>{else}0{/if}</td>
