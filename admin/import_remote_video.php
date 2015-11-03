@@ -14,6 +14,7 @@
 
 require 'admin_config.php';
 require '../include/config.php';
+require '../include/language/' . LANG . '/admin/import_video.php';
 
 Admin::auth();
 
@@ -21,19 +22,19 @@ if (isset($_POST['submit'])) {
     $user_info = User::getByName($_POST['video_user']);
 
     if (! $user_info) {
-        $err = 'User not found.';
+        $err = $lang['user_not_found'];
     } else if (strlen($_POST['video_title']) < 4) {
-        $err = 'Video title is too short.';
+        $err = $lang['title_too_short'];
     } else if (strlen($_POST['video_description']) < 4) {
-        $err = 'Video description is too short.';
+        $err = $lang['description_too_short'];
     } else if (strlen($_POST['video_keywords']) < 4) {
-        $err = 'Video keywords too short.';
+        $err = $lang['tags_too_short'];
     } else if (! is_numeric($_POST['channel'])) {
-        $err = 'Please select a channel.';
+        $err = $lang['channel_not_selected'];
     } else if (strlen($_POST['video_url']) < 10) {
-        $err = 'Please enter a video url.';
+        $err = $lang['video_url_null'];
     } else if (empty($_POST['embedded_code_image'][0]) && empty($_FILES['embedded_code_image_local']['name'][0])) {
-        $err = 'Please select image for video.';
+        $err = $lang['image_null'];
     }
 
     if ($err == '') {
@@ -131,7 +132,7 @@ if (isset($_POST['submit'])) {
             }
         }
 
-        $msg = 'Video has been added.';
+        $msg = $lang['video_added'];
         set_message($msg, 'success');
         Http::redirect('import_remote_video.php');
     }
