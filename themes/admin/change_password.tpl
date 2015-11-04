@@ -2,7 +2,6 @@
     <h1>Change Admin Password</h1>
 </div>
 
-{if $msg eq ""}
 
 <form method="post" action="" class="form-horizontal" role="form">
 
@@ -46,4 +45,3 @@
 
 </form>
 
-{/if}
