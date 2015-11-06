@@ -7,10 +7,8 @@
             <h4>Categories</h4>
         </span>
         {section name=i loop=$view.channels}
-            {insert name=channel_count assign=chinfo cid=$view.channels[i].channel_id}
             <a class="list-group-item{if $view.channels[i].channel_id eq $smarty.get.chid} active{/if}" href="{$base_url}/channel/{$view.channels[i].channel_id}/{$view.category}/{$view.view_type}/1">
                 {$view.channels[i].channel_name}
-                <span class="badge">{$chinfo[1]}</span>
             </a>
         {/section}
     </div>
