@@ -78,11 +78,11 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-save"></span> Add Videos <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="import_youtube_video.php">Add Youtube Video</a></li>
-                    <li><a href="import_video.php">Import Video</a></li>
-                    <li><a href="import_folder.php">Import Folder</a></li>
-                    <li><a href="import_bulk.php">Bulk Import</a></li>
                     <li><a href="import_embed_video.php">Add Embed Video</a></li>
                     <li><a href="import_remote_video.php">Add Remote Video (Hotlink)</a></li>
+                    <li><a href="import_bulk.php">Bulk Import</a></li>
+                    <li><a href="import_video.php">Import Video</a></li>
+                    <li><a href="import_folder.php">Import Folder</a></li>
                 </ul>
             </li>
 
