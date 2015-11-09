@@ -45,7 +45,7 @@
 
     <div class="row">
         <div class="col-md-4 col-md-offset-4 text-center">
-            <p><br>Powered by: <a href="http://buyscripts.in/youtube_clone.html" target="_blank">vShare</a></p>
+            <p><br>Powered by: <a href="https://www.buyscripts.in/vshare-youtube-clone" target="_blank">vShare</a></p>
         </div>
     </div>
 </div>
