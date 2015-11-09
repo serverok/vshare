@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="{$base_url}/css/bootstrap.min.css" rel="stylesheet">
 <link href="{$base_url}/themes/admin/css/admin.css" rel="stylesheet" type="text/css" />
-<body  class="background">
+<body>
 
 <div class="container">
     <div class="row">
