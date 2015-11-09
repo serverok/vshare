@@ -6,38 +6,47 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="{$base_url}/css/bootstrap.min.css" rel="stylesheet">
-<body>
+<link href="{$base_url}/themes/admin/css/admin.css" rel="stylesheet" type="text/css" />
+<body  class="background">
 
 <div class="container">
-    <div class="col-md-4 col-md-offset-3">
-        <form  action="" method="post" class="form-signin" role="form">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 admin-login text-center">
+            <form  action="" method="post" class="form-signin" role="form">
+                <div class="box-icon">
+                    <i class="glyphicon glyphicon-user"></i>
+                </div>
 
-            <h2 class="form-signin-heading">Login</h2>
+                <h2>Admin Login</h2>
 
-            {if $login_error ne ''}
-                <div class="alert alert-danger">{$login_error}</div>
-            {/if}
+                {if $login_error ne ''}
+                <div class="alert alert-danger">
+                    <i class="glyphicon glyphicon-warning-sign"></i>{$login_error}
+                </div>
+                {/if}
 
-            <div class="form-group">
-                <input type="text" name="user_name" class="form-control" placeholder="Username" required autofocus>
-            </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text" name="user_name" class="form-control input-lg" placeholder="Username" required autofocus>
+                </div>
 
-            <div class="form-group">
-                <input type="password" name="password" class="form-control" placeholder="Password" required>
-            </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password" name="password" class="form-control input-lg" placeholder="Password" required>
+                </div>
 
-            <div class="form-group">
-                <button class="btn btn-lg btn-default btn-lg" type="submit" name="submit">Log In</button>
-            </div>
-
-            <a href="./lost_password.php" class="btn">Lost Password?</a>
-        </form>
+                <div class="form-group">
+                    <button class="btn btn-success btn-block input-lg" type="submit" name="submit"><b>Log In </b></button>
+                </div>
+                 <a href="./lost_password.php" class="btn">Lost Password?</a>
+            </form>
+        </div>
     </div>
 
-    <div class="clearfix">&nbsp;</div>
-    <div class="clearfix">&nbsp;</div>
-    <div class="col-md-offset-4">
-        Powered by: <a href="http://buyscripts.in/youtube_clone.html" target="_blank">vShare</a>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <p><br>Powered by: <a href="http://buyscripts.in/youtube_clone.html" target="_blank">vShare</a></p>
+        </div>
     </div>
 </div>
 
