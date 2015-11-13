@@ -26,9 +26,10 @@
         <div class="form-group">
             <label class="control-label col-md-2">Video Channels:</label>
             <div class="col-md-6">
-                <select class="form-control">
+                <select class="form-control" name="channel" id="channel" required>
+                    <option value="">-- Select --</option>
                     {section name=i loop=$channel_info}
-                        <option name="chlist[]" value="{$channel_info[i].channel_id}" />{$channel_info[i].channel_name_html}</option>
+                        <option value="{$channel_info[i].channel_id}">{$channel_info[i].channel_name_html}</option>
                     {/section}
                 </select>
             </div>
