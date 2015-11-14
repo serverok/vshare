@@ -5,10 +5,8 @@
 {if $total > 0}
 
 <table class="table table-striped table-hover">
-
 	<tr>
-
-		<td width="90">
+		<td>
 			<b>ID</b>
 			<a href="?sort=video_id+asc">
 				<span class="glyphicon glyphicon-arrow-up"></span>
@@ -28,7 +26,7 @@
 			</a>
 		</td>
 
-		<td width="90">
+		<td class="text-center">
 			<b>Type</b>
 			<a href="?sort=video_type+asc">
 				<span class="glyphicon glyphicon-arrow-up"></span>
@@ -38,7 +36,7 @@
 			</a>
 		</td>
 
-		<td width="120">
+		<td class="text-center">
 			<b>Duration</b>
 			<a href="?sort=video_duration+asc">
 				<span class="glyphicon glyphicon-arrow-up"></span>
@@ -48,7 +46,7 @@
 			</a>
 		</td>
 
-		<td width="120">
+		<td class="text-center">
 			<b>Featured</b>
 			<a href="?sort=video_featured+asc">
 				<span class="glyphicon glyphicon-arrow-up"></span>
@@ -58,7 +56,7 @@
 			</a>
 		</td>
 
-		<td width="90">
+		<td class="text-center">
 			<b>Date</b>
 			<a href="?sort=video_add_date+asc">
 				<span class="glyphicon glyphicon-arrow-up"></span>
@@ -67,7 +65,7 @@
 				<span class="glyphicon glyphicon-arrow-down"></span>
 			</a>
 		</td>
-		<td align="center">
+		<td class="text-center">
 			<b>Action</b>
 		</td>
 	</tr>
@@ -80,22 +78,22 @@
 		</td>
 		<td>
 			<a href="video_details.php?id={$videos[i].video_id}&page={$page}">
-				{$videos[i].video_title}
+				{$videos[i].video_title|truncate:40:"...":true}
 			</a>
 		</td>
-		<td align="center">
+		<td class="text-center">
 			{$videos[i].video_type}
 		</td>
-		<td align="center">
+		<td class="text-center">
 			{$videos[i].video_length}
 		</td>
-		<td align="center">
+		<td class="text-center">
 			{$videos[i].video_featured}
 		</td>
-		<td align="center">
+		<td class="text-center">
 			{$videos[i].video_add_date|date_format}
 		</td>
-		<td align="center">
+		<td class="text-center">
 			<a href="?action=approve&video_id={$videos[i].video_id}&page={$smarty.request.page}&sort={$smarty.request.sort}">
                 <span class="glyphicon glyphicon-ok"></span>
             </a>
