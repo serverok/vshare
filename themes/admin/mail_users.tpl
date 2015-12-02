@@ -1,4 +1,5 @@
 <div class="page-header">
+    <a href="switch_editor.php?editor=editor_wysiwyg_email" class="btn btn-info pull-right">Switch Editor</a>
     <h1>Send Email to {if $smarty.request.a eq "user"}User{elseif $smarty.request.a eq "group"}Group{else}{$smarty.request.uname}{/if}</h1>
 </div>
 

@@ -1,4 +1,5 @@
 <div class="page-header">
+    <a href="switch_editor.php?editor=editor_wysiwyg_admin" class="btn btn-info pull-right">Switch Editor</a>
     <h1>Edit Page: {$page_edit.page_name}.html</h1>
 </div>
 
