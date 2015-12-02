@@ -34,18 +34,7 @@ if (isset($_POST['action_upload'])) {
         $_POST['video_description'] = stripslashes($_POST['video_description']);
     }
 
-    $_POST['chlist'] = isset($_POST['chlist']) ? $_POST['chlist'] : array();
-
-    $channel_arr = array();
-
-    foreach ($_POST['chlist'] as $channel) {
-        $channel = (int) $channel;
-        if (! in_array($channel, $channel_arr) && check_field_exists($channel, 'channel_id', 'channels')) {
-            $channel_arr[] = $channel;
-        }
-    }
-
-    $_POST['chlist'] = $channel_arr;
+    $channel = isset($_POST['channel']) ? (int) $_POST['channel'] : 0;
 
     $_POST['video_description'] = Xss::clean($_POST['video_description']);
     $_POST['video_title'] = htmlspecialchars_uni($_POST['video_title']);
@@ -57,21 +46,14 @@ if (isset($_POST['action_upload'])) {
         $err = $lang['description_too_short'];
     } else if (strlen_uni($_POST['video_keywords']) < 4) {
         $err = $lang['tags_too_short'];
-    } else if (! isset($_POST['chlist']) || count($_POST['chlist']) < 1 || count($_POST['chlist']) > $num_max_channels) {
-        $err = str_replace('[NUM_MAX_CHANNELS]', $num_max_channels, $lang['channel_not_selected']);
+    } else if (! check_field_exists($channel, 'channel_id', 'channels')) {
+        $err = $lang['channel_not_selected'];
     }
 
     $upload_from = isset($_POST['upload_from']) ? $_POST['upload_from'] : 'local';
 
     if ($_POST['field_privacy'] != 'public') {
         $_POST['field_privacy'] = 'private';
-    }
-
-    $listch = '';
-
-    if (isset($_POST['chlist']) && count($_POST['chlist']) > 0) {
-        $listch = implode('|', $_POST['chlist']);
-        $listch = htmlspecialchars_uni($listch);
     }
 
     if ($_POST['video_adult'] != 1) {
@@ -83,7 +65,7 @@ if (isset($_POST['action_upload'])) {
     $upload_info['title'] = $_POST['video_title'];
     $upload_info['description'] = $_POST['video_description'];
     $upload_info['keywords'] = $_POST['video_keywords'];
-    $upload_info['channels'] = $listch;
+    $upload_info['channels'] = $channel;
     $upload_info['field_privacy'] = $_POST['field_privacy'];
     $upload_info['adult'] = $_POST['video_adult'];
     $upload_info['type'] = $_POST['field_privacy'];

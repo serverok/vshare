@@ -26,18 +26,12 @@
         <div class="form-group">
             <label class="control-label col-md-2">Video Channels:</label>
             <div class="col-md-6">
-                {section name=i loop=$channel_info}
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="chlist[]" value="{$channel_info[i].channel_id}" />{$channel_info[i].channel_name_html}
-                    </label>
-                </div>
-                {/section}
-                <p class="help-block">
-                    <strong>Select between 1 to {$num_max_channels} channels that best describe your video.</strong>
-                    <br />
-                    It helps to use relevant channels so that others can find your video!.
-                <p>
+                <select class="form-control" name="channel" id="channel" required>
+                    <option value="">-- Select --</option>
+                    {section name=i loop=$channel_info}
+                        <option value="{$channel_info[i].channel_id}">{$channel_info[i].channel_name_html}</option>
+                    {/section}
+                </select>
             </div>
         </div>
         <div class="form-group">
