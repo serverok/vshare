@@ -1,4 +1,5 @@
 <div class="page-header">
+    <a href="switch_editor.php?editor=editor_wysiwyg_email" class="btn btn-info pull-right">Switch Editor</a>
     <h1>Edit Email Template - ({$email.email_id})</h1>
 </div>
 

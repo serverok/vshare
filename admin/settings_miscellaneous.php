@@ -78,20 +78,6 @@ if (isset($_POST['submit'])) {
             $smarty->assign('user_comments_per_page', $_POST['user_comments_per_page']);
         }
 
-        if (is_numeric($_POST['editor_wysiwyg_admin'])) {
-            $sql = "UPDATE `config` SET
-                   `config_value`='" . (int) $_POST['editor_wysiwyg_admin'] . "' WHERE
-                   `config_name`='editor_wysiwyg_admin'";
-            DB::query($sql);
-        }
-
-        if (is_numeric($_POST['editor_wysiwyg_email'])) {
-            $sql = "UPDATE `config` SET
-                   `config_value`='" . (int) $_POST['editor_wysiwyg_email'] . "' WHERE
-                   `config_name`='editor_wysiwyg_email'";
-            DB::query($sql);
-        }
-
         if (is_numeric($_POST['mail_abuse_report'])) {
             $sql = "UPDATE `config` SET
                    `config_value`='" . (int) $_POST['mail_abuse_report'] . "' WHERE

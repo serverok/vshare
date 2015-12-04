@@ -35,6 +35,7 @@
 {/if}
 
 <div class="page-header">
+    <a href="switch_editor.php?editor=editor_wysiwyg_admin" class="btn btn-info pull-right">Switch Editor</a>
     <h1>Add New Page</h1>
 </div>
 

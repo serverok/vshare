@@ -127,38 +127,6 @@
     </div>
 
     <div class="form-group">
-        <label class="col-sm-3 control-label" for="editor_wysiwyg_admin">WYSIWYG Editor:</label>
-        <div class="col-sm-5">
-            <div class="input-group">
-            <select class="form-control" name="editor_wysiwyg_admin" id="editor_wysiwyg_admin">
-                <option value="0" {if $editor_wysiwyg_admin =='0'}selected="selected"{/if}>Disable</option>
-                <option value="1" {if $editor_wysiwyg_admin =='1'}selected="selected"{/if}>Enable</option>
-            </select>
-                <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#editor_wysiwyg_admin" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
-                </div>
-            </div>
-            <span class="help-block">(For Web Pages)</span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-3 control-label" for="editor_wysiwyg_email">WYSIWYG Editor:</label>
-        <div class="col-sm-5">
-            <div class="input-group">
-            <select class="form-control" name="editor_wysiwyg_email" id="editor_wysiwyg_email">
-                <option value="0" {if $editor_wysiwyg_email =='0'}selected="selected"{/if}>Disable</option>
-                <option value="1" {if $editor_wysiwyg_email =='1'}selected="selected"{/if}>Enable</option>
-            </select>
-                <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/miscellaneous#editor_wysiwyg_email" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
-                </div>
-            </div>
-            <span class="help-block">(For Email Templates)</span>
-        </div>
-    </div>
-
-    <div class="form-group">
         <label class="col-sm-3 control-label" for="mail_abuse_report">Mail Admin on Abuse:</label>
         <div class="col-sm-5">
             <div class="input-group">
