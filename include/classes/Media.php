@@ -48,7 +48,9 @@ class Media
         global $config;
 
         if (! isset($config['qt-faststart'])) {
-            $log_text = '<h3 class="text-danger">ERROR: qt-faststart not found.</h3>';
+            $log_text = '<h3 class="text-danger">ERROR: qt-faststart path not set.</h3>';
+            $log_text .= '<p class="text-danger">Add below code in <b>include/config.php</b> file to set it.</p>';
+            $log_text .= "<pre class=\"text-danger\">\$config['qt-faststart'] = '/path/to/qt-faststart';</pre>";
             write_log($log_text, $log_file_name, $debug, 'html');
             return ;
         }
