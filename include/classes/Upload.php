@@ -210,8 +210,16 @@ class Upload
                 $video_folder = trim($video_folder);
                 $video_folder .= '/';
 
-                if (! is_dir(VSHARE_DIR . '/flvideo/' . $video_folder)){
-                    mkdir(VSHARE_DIR . '/flvideo/' . $video_folder);
+                $videoOutFolder = VSHARE_DIR . '/flvideo/' . $video_folder;
+
+                if (! is_dir($videoOutFolder)) {
+                    if (! @mkdir($videoOutFolder)) {
+                        $log_text ="<p><b>ERROR: Could not create folder $videoOutFolder. Please check permission.</b></p>";
+                        write_log($log_text, $log_file_name, $debug, 'html');
+                        $sql = "UPDATE `process_queue` SET `status`='6' WHERE `id`=" . (int) $vid;
+                        DB::query($sql);
+                        return 0;
+                    }
                 }
 
                 if ($config['approve'] == 1 && Config::get('moderate_video_links') == 1) {
