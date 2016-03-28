@@ -210,6 +210,18 @@ class Upload
                 $video_folder = trim($video_folder);
                 $video_folder .= '/';
 
+                if (! is_dir(VSHARE_DIR . '/flvideo')) {
+                    $log_text = '<p><b>ERROR: Folder "' . VSHARE_DIR . '/flvideo" not found.</b></p>';
+                    write_log($log_text, $log_file_name, $debug, 'html');
+
+                    $sql = "UPDATE `process_queue` SET
+                           `status`='6' WHERE
+                           `id`='$vid'";
+                    DB::query($sql);
+
+                    return 0;
+                }
+
                 if (! is_dir(VSHARE_DIR . '/flvideo/' . $video_folder)){
                     mkdir(VSHARE_DIR . '/flvideo/' . $video_folder);
                 }
