@@ -106,7 +106,7 @@ class Upload
     				   `status`='2',
     				   `file`='$file_name' WHERE
     				   `id`='$vid'";
-            } else {a
+            } else {
                 $sql = "UPDATE `process_queue` SET
     			       `status`=3 WHERE
     			       `id`='$vid'";
