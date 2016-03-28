@@ -106,7 +106,7 @@ class Upload
     				   `status`='2',
     				   `file`='$file_name' WHERE
     				   `id`='$vid'";
-            } else {
+            } else {a
                 $sql = "UPDATE `process_queue` SET
     			       `status`=3 WHERE
     			       `id`='$vid'";
@@ -210,25 +210,16 @@ class Upload
                 $video_folder = trim($video_folder);
                 $video_folder .= '/';
 
-                if (! is_dir(VSHARE_DIR . '/flvideo')) {
-                    $err = 1;
-                    $log_text = '<p><b>ERROR: Folder "' . VSHARE_DIR . '/flvideo" not found.</b></p>';
-                    write_log($log_text, $log_file_name, $debug, 'html');
-                } else if (! is_dir(VSHARE_DIR . '/flvideo/' . $video_folder)){
-                    if (! @mkdir(VSHARE_DIR . '/flvideo/' . $video_folder)) {
-                        $err = 1;
-                        $log_text = '<p><b>ERROR: Could not create "' . VSHARE_DIR . '/flvideo/' . $video_folder . '" folder. Please check the folder (flvideo) permission.</b></p>';
+                $videoOutFolder = VSHARE_DIR . '/flvideo/' . $video_folder;
+
+                if (! is_dir($videoOutFolder)) {
+                    if (! @mkdir($videoOutFolder)) {
+                        $log_text ="<p><b>ERROR: Could not create folder $videoOutFolder. Please check permission.</b></p>";
                         write_log($log_text, $log_file_name, $debug, 'html');
+                        $sql = "UPDATE `process_queue` SET `status`='6' WHERE `id`=" . (int) $vid;
+                        DB::query($sql);
+                        return 0;
                     }
-                }
-
-                if ($err == 1) {
-                    $sql = "UPDATE `process_queue` SET
-                           `status`='6' WHERE
-                           `id`='$vid'";
-                    DB::query($sql);
-
-                    return 0;
                 }
 
                 if ($config['approve'] == 1 && Config::get('moderate_video_links') == 1) {
