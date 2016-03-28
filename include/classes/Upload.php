@@ -292,6 +292,18 @@ class Upload
                 $re_convert = 1;
                 DB::freeResult();
 
+                $videoOutFolder = VSHARE_DIR . '/flvideo/' . $video_folder;
+
+                if (! is_dir($videoOutFolder)) {
+                    if (! @mkdir($videoOutFolder)) {
+                        $log_text ="<p><b>ERROR: Could not create folder $videoOutFolder. Please check permission.</b></p>";
+                        write_log($log_text, $log_file_name, $debug, 'html');
+                        $sql = "UPDATE `process_queue` SET `status`='6' WHERE `id`=" . (int) $vid;
+                        DB::query($sql);
+                        return 0;
+                    }
+                }
+
                 $rand_flv_name_old = $rand_flv_name;
                 $rand_flv_name_arr = explode('.', $rand_flv_name);
 
