@@ -150,15 +150,18 @@ if (isset($_POST['submit'])) {
     if ($err == '') {
         $request_password = $_POST['password'];
         $request_password = md5($request_password);
-        $sql = "INSERT INTO `users` SET
-               `user_email`='" . DB::quote($_POST['email']) . "',
-               `user_name`='" . DB::quote($_POST['user_name']) . "',
-               `user_password`='" . DB::quote($request_password) . "',
-               `user_salt`='',
-               `user_join_time`='" . $_SERVER['REQUEST_TIME'] . "',
-               `user_last_login_time`='" . $_SERVER['REQUEST_TIME'] . "',
-               `user_ip`='" . DB::quote($user_ip) . "'";
-        $userid = DB::insertGetId($sql);
+
+        $user_data = array(
+            'user_email' => $_POST['email'],
+            'user_name' => $_POST['user_name'],
+            'user_password' => $request_password,
+        );
+
+        if ($signup_dob == 1) {
+            $user_data['user_birth_date'] = $bdate;
+        }
+
+        $userid = User::create($user_data);
 
         if (! $userid) {
             echo 'Unable to get last insert ID';
@@ -169,13 +172,6 @@ if (isset($_POST['submit'])) {
 
         if ((strlen($auto_friend) > 1) && (check_field_exists($auto_friend, 'user_name', 'users'))) {
             Friend::makeFriends($auto_friend, $_POST['user_name']);
-        }
-
-        if ($signup_dob == 1) {
-            $sql = "UPDATE `users` SET
-                   `user_birth_date`='" . DB::quote($bdate) . "' WHERE
-                   `user_id`='" . (int) $userid . "'";
-            DB::query($sql);
         }
 
         $sql = "INSERT INTO `subscriber` SET `UID`='" . (int) $userid . "'";
