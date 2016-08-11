@@ -38,14 +38,14 @@ if (isset($_POST['submit'])) {
         $request_password = $_POST['user_password'];
         $request_password = md5($request_password);
 
-        $sql = "INSERT INTO `users` SET
-               `user_email`='" . DB::quote($_POST['user_email']) . "',
-               `user_name`='" . DB::quote($_POST['user_name']) . "',
-               `user_password`='" . DB::quote($request_password) . "',
-               `user_join_time`='" . $_SERVER['REQUEST_TIME'] . "',
-               `user_last_login_time`='" . $_SERVER['REQUEST_TIME'] . "',
-               `user_email_verified`='yes'";
-        $user_id = DB::insertGetId($sql);
+        $user_data = array(
+            'user_email' => $_POST['user_email'],
+            'user_name' => $_POST['user_name'],
+            'user_password' => $request_password,
+            'user_email_verified' => 'yes',
+        );
+
+        $user_id = User::create($user_data);
 
         if ($config['enable_package'] == 'yes') {
 

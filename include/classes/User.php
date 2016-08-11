@@ -413,4 +413,37 @@ class User
         $salt = substr($salt,0,10);
         return $salt;
     }
+
+    public static function create($data = array())
+    {
+        $data['user_join_time'] = $_SERVER['REQUEST_TIME'];
+        $data['user_last_login_time'] = $_SERVER['REQUEST_TIME'];
+        $data['user_ip'] = self::get_ip();
+
+        $sql = "SHOW COLUMNS FROM `users`";
+        $users_fields = DB::fetch($sql);
+
+        $data_default = array();
+
+        foreach ($users_fields as $field) {
+            if ($field['Field'] == 'user_id') continue;
+
+            $data_default[$field['Field']] = $field['Default'];
+        }
+
+        $fields_tmp = array_merge($data_default, $data);
+
+        $sql_extra_array = array();
+
+        foreach ($fields_tmp as $field => $value) {
+            $sql_extra_array[] = "`$field`='" . DB::quote($value) . "'";
+        }
+
+        $sql_extra = implode(', ', $sql_extra_array);
+
+        $sql = "INSERT INTO `users` SET $sql_extra";
+        $user_id = DB::insertGetId($sql);
+
+        return $user_id;
+    }
 }
