@@ -426,6 +426,8 @@ class User
         $data_default = array();
 
         foreach ($users_fields as $field) {
+            if ($field['Field'] == 'user_id') continue;
+
             $data_default[$field['Field']] = $field['Default'];
         }
 
