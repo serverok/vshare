@@ -242,10 +242,12 @@ if (isset($_POST['submit'])) {
                 $vkey = $_SERVER['REQUEST_TIME'] . rand(1, 99999999);
                 $vkey = md5($vkey);
 
-                $sql = "INSERT INTO `verify_code` SET
-                       `vkey`='" . DB::quote($vkey) . "',
-                       `data1`='" . DB::quote($data1) . "'";
-                $verify_id = DB::insertGetId($sql);
+                $verify_code_data = array(
+                    'vkey' => $vkey,
+                    'data1' => $data1
+                );
+
+                $verify_id = VerifyCode::create($verify_code_data);
             }
 
             $sql = "SELECT * FROM `email_templates` WHERE
