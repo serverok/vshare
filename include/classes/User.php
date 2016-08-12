@@ -419,7 +419,10 @@ class User
         $sql = "INSERT INTO `users` SET
                `user_email`='" . DB::quote($data['user_email']) . "',
                `user_name`='" . DB::quote($data['user_name']) . "',
-               `user_password`='" . DB::quote($data['user_password']) . "'";
+               `user_password`='" . DB::quote($data['user_password']) . "',
+               `user_join_time`='" . DB::quote($_SERVER['REQUEST_TIME']) . "',
+               `user_last_login_time`='" . DB::quote($_SERVER['REQUEST_TIME']) . "',
+               `user_ip`='" . DB::quote(User::get_ip()) . "'";
 
         if (isset($data['user_salt'])) {
             $sql .= ",`user_salt`='" . DB::quote($data['user_salt']) . "'";
@@ -442,7 +445,7 @@ class User
         if (isset($data['user_birth_date'])) {
             $sql .= ",`user_birth_date`='" . DB::quote($data['user_birth_date']) . "'";
         } else {
-            $sql .= ",`user_birth_date`=''";
+            $sql .= ",`user_birth_date`='0000-00-00'";
         }
 
         if (isset($data['user_gender'])) {
@@ -538,61 +541,43 @@ class User
         if (isset($data['user_friends_type'])) {
             $sql .= ",`user_friends_type`='" . DB::quote($data['user_friends_type']) . "'";
         } else {
-            $sql .= ",`user_friends_type`=''";
+            $sql .= ",`user_friends_type`='All|Family|Friends'";
         }
 
         if (isset($data['user_video_viewed'])) {
             $sql .= ",`user_video_viewed`='" . DB::quote($data['user_video_viewed']) . "'";
         } else {
-            $sql .= ",`user_video_viewed`=''";
+            $sql .= ",`user_video_viewed`='0'";
         }
 
         if (isset($data['user_profile_viewed'])) {
             $sql .= ",`user_profile_viewed`='" . DB::quote($data['user_profile_viewed']) . "'";
         } else {
-            $sql .= ",`user_profile_viewed`=''";
+            $sql .= ",`user_profile_viewed`='0'";
         }
 
         if (isset($data['user_watched_video'])) {
             $sql .= ",`user_watched_video`='" . DB::quote($data['user_watched_video']) . "'";
         } else {
-            $sql .= ",`user_watched_video`=''";
-        }
-
-        if (isset($data['user_join_time'])) {
-            $sql .= ",`user_join_time`='" . DB::quote($data['user_join_time']) . "'";
-        } else {
-            $sql .= ",`user_join_time`=''";
-        }
-
-        if (isset($data['user_last_login_time'])) {
-            $sql .= ",`user_last_login_time`='" . DB::quote($data['user_last_login_time']) . "'";
-        } else {
-            $sql .= ",`user_last_login_time`=''";
-        }
-
-        if (isset($data['user_ip'])) {
-            $sql .= ",`user_ip`='" . DB::quote($data['user_ip']) . "'";
-        } else {
-            $sql .= ",`user_ip`=''";
+            $sql .= ",`user_watched_video`='0'";
         }
 
         if (isset($data['user_email_verified'])) {
             $sql .= ",`user_email_verified`='" . DB::quote($data['user_email_verified']) . "'";
         } else {
-            $sql .= ",`user_email_verified`=''";
+            $sql .= ",`user_email_verified`='no'";
         }
 
         if (isset($data['user_subscribe_admin_mail'])) {
             $sql .= ",`user_subscribe_admin_mail`='" . DB::quote($data['user_subscribe_admin_mail']) . "'";
         } else {
-            $sql .= ",`user_subscribe_admin_mail`=''";
+            $sql .= ",`user_subscribe_admin_mail`='1'";
         }
 
         if (isset($data['user_account_status'])) {
             $sql .= ",`user_account_status`='" . DB::quote($data['user_account_status']) . "'";
         } else {
-            $sql .= ",`user_account_status`=''";
+            $sql .= ",`user_account_status`='Active'";
         }
 
         if (isset($data['user_vote'])) {
@@ -604,13 +589,13 @@ class User
         if (isset($data['user_rated_by'])) {
             $sql .= ",`user_rated_by`='" . DB::quote($data['user_rated_by']) . "'";
         } else {
-            $sql .= ",`user_rated_by`=''";
+            $sql .= ",`user_rated_by`='0'";
         }
 
         if (isset($data['user_rate'])) {
             $sql .= ",`user_rate`='" . DB::quote($data['user_rate']) . "'";
         } else {
-            $sql .= ",`user_rate`=''";
+            $sql .= ",`user_rate`='0'";
         }
 
         if (isset($data['user_parents_name'])) {
@@ -640,19 +625,19 @@ class User
         if (isset($data['user_adult'])) {
             $sql .= ",`user_adult`='" . DB::quote($data['user_adult']) . "'";
         } else {
-            $sql .= ",`user_adult`=''";
+            $sql .= ",`user_adult`='0'";
         }
 
         if (isset($data['user_photo'])) {
             $sql .= ",`user_photo`='" . DB::quote($data['user_photo']) . "'";
         } else {
-            $sql .= ",`user_photo`=''";
+            $sql .= ",`user_photo`='0'";
         }
 
         if (isset($data['user_background'])) {
             $sql .= ",`user_background`='" . DB::quote($data['user_background']) . "'";
         } else {
-            $sql .= ",`user_background`=''";
+            $sql .= ",`user_background`='0'";
         }
 
         if (isset($data['user_style'])) {
@@ -664,37 +649,37 @@ class User
         if (isset($data['user_friend_invition'])) {
             $sql .= ",`user_friend_invition`='" . DB::quote($data['user_friend_invition']) . "'";
         } else {
-            $sql .= ",`user_friend_invition`=''";
+            $sql .= ",`user_friend_invition`='1'";
         }
 
         if (isset($data['user_private_message'])) {
             $sql .= ",`user_private_message`='" . DB::quote($data['user_private_message']) . "'";
         } else {
-            $sql .= ",`user_private_message`=''";
+            $sql .= ",`user_private_message`='1'";
         }
 
         if (isset($data['user_profile_comment'])) {
             $sql .= ",`user_profile_comment`='" . DB::quote($data['user_profile_comment']) . "'";
         } else {
-            $sql .= ",`user_profile_comment`=''";
+            $sql .= ",`user_profile_comment`='1'";
         }
 
         if (isset($data['user_favourite_public'])) {
             $sql .= ",`user_favourite_public`='" . DB::quote($data['user_favourite_public']) . "'";
         } else {
-            $sql .= ",`user_favourite_public`=''";
+            $sql .= ",`user_favourite_public`='1'";
         }
 
         if (isset($data['user_playlist_public'])) {
             $sql .= ",`user_playlist_public`='" . DB::quote($data['user_playlist_public']) . "'";
         } else {
-            $sql .= ",`user_playlist_public`=''";
+            $sql .= ",`user_playlist_public`='1'";
         }
 
         if (isset($data['user_videos'])) {
             $sql .= ",`user_videos`='" . DB::quote($data['user_videos']) . "'";
         } else {
-            $sql .= ",`user_videos`=''";
+            $sql .= ",`user_videos`='0'";
         }
 
         $user_id = DB::insertGetId($sql);
