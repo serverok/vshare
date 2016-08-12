@@ -416,32 +416,287 @@ class User
 
     public static function create($data = array())
     {
-        $data['user_join_time'] = $_SERVER['REQUEST_TIME'];
-        $data['user_last_login_time'] = $_SERVER['REQUEST_TIME'];
-        $data['user_ip'] = self::get_ip();
+        $sql = "INSERT INTO `users` SET
+               `user_email`='" . DB::quote($data['user_email']) . "',
+               `user_name`='" . DB::quote($data['user_name']) . "',
+               `user_password`='" . DB::quote($data['user_password']) . "'";
 
-        $sql = "SHOW COLUMNS FROM `users`";
-        $users_fields = DB::fetch($sql);
-
-        $data_default = array();
-
-        foreach ($users_fields as $field) {
-            if ($field['Field'] == 'user_id') continue;
-
-            $data_default[$field['Field']] = $field['Default'];
+        if (isset($data['user_salt'])) {
+            $sql .= ",`user_salt`='" . DB::quote($data['user_salt']) . "'";
+        } else {
+            $sql .= ",`user_salt`=''";
         }
 
-        $fields_tmp = array_merge($data_default, $data);
-
-        $sql_extra_array = array();
-
-        foreach ($fields_tmp as $field => $value) {
-            $sql_extra_array[] = "`$field`='" . DB::quote($value) . "'";
+        if (isset($data['user_first_name'])) {
+            $sql .= ",`user_first_name`='" . DB::quote($data['user_first_name']) . "'";
+        } else {
+            $sql .= ",`user_first_name`=''";
         }
 
-        $sql_extra = implode(', ', $sql_extra_array);
+        if (isset($data['user_last_name'])) {
+            $sql .= ",`user_last_name`='" . DB::quote($data['user_last_name']) . "'";
+        } else {
+            $sql .= ",`user_last_name`=''";
+        }
 
-        $sql = "INSERT INTO `users` SET $sql_extra";
+        if (isset($data['user_birth_date'])) {
+            $sql .= ",`user_birth_date`='" . DB::quote($data['user_birth_date']) . "'";
+        } else {
+            $sql .= ",`user_birth_date`=''";
+        }
+
+        if (isset($data['user_gender'])) {
+            $sql .= ",`user_gender`='" . DB::quote($data['user_gender']) . "'";
+        } else {
+            $sql .= ",`user_gender`=''";
+        }
+
+        if (isset($data['user_relation'])) {
+            $sql .= ",`user_relation`='" . DB::quote($data['user_relation']) . "'";
+        } else {
+            $sql .= ",`user_relation`=''";
+        }
+
+        if (isset($data['user_about_me'])) {
+            $sql .= ",`user_about_me`='" . DB::quote($data['user_about_me']) . "'";
+        } else {
+            $sql .= ",`user_about_me`=''";
+        }
+
+        if (isset($data['user_website'])) {
+            $sql .= ",`user_website`='" . DB::quote($data['user_website']) . "'";
+        } else {
+            $sql .= ",`user_website`=''";
+        }
+
+        if (isset($data['user_town'])) {
+            $sql .= ",`user_town`='" . DB::quote($data['user_town']) . "'";
+        } else {
+            $sql .= ",`user_town`=''";
+        }
+
+        if (isset($data['user_city'])) {
+            $sql .= ",`user_city`='" . DB::quote($data['user_city']) . "'";
+        } else {
+            $sql .= ",`user_city`=''";
+        }
+
+        if (isset($data['user_zip'])) {
+            $sql .= ",`user_zip`='" . DB::quote($data['user_zip']) . "'";
+        } else {
+            $sql .= ",`user_zip`=''";
+        }
+
+        if (isset($data['user_country'])) {
+            $sql .= ",`user_country`='" . DB::quote($data['user_country']) . "'";
+        } else {
+            $sql .= ",`user_country`=''";
+        }
+
+        if (isset($data['user_occupation'])) {
+            $sql .= ",`user_occupation`='" . DB::quote($data['user_occupation']) . "'";
+        } else {
+            $sql .= ",`user_occupation`=''";
+        }
+
+        if (isset($data['user_company'])) {
+            $sql .= ",`user_company`='" . DB::quote($data['user_company']) . "'";
+        } else {
+            $sql .= ",`user_company`=''";
+        }
+
+        if (isset($data['user_school'])) {
+            $sql .= ",`user_school`='" . DB::quote($data['user_school']) . "'";
+        } else {
+            $sql .= ",`user_school`=''";
+        }
+
+        if (isset($data['user_interest_hobby'])) {
+            $sql .= ",`user_interest_hobby`='" . DB::quote($data['user_interest_hobby']) . "'";
+        } else {
+            $sql .= ",`user_interest_hobby`=''";
+        }
+
+        if (isset($data['user_fav_movie_show'])) {
+            $sql .= ",`user_fav_movie_show`='" . DB::quote($data['user_fav_movie_show']) . "'";
+        } else {
+            $sql .= ",`user_fav_movie_show`=''";
+        }
+
+        if (isset($data['user_fav_music'])) {
+            $sql .= ",`user_fav_music`='" . DB::quote($data['user_fav_music']) . "'";
+        } else {
+            $sql .= ",`user_fav_music`=''";
+        }
+
+        if (isset($data['user_fav_book'])) {
+            $sql .= ",`user_fav_book`='" . DB::quote($data['user_fav_book']) . "'";
+        } else {
+            $sql .= ",`user_fav_book`=''";
+        }
+
+        if (isset($data['user_friends_type'])) {
+            $sql .= ",`user_friends_type`='" . DB::quote($data['user_friends_type']) . "'";
+        } else {
+            $sql .= ",`user_friends_type`=''";
+        }
+
+        if (isset($data['user_video_viewed'])) {
+            $sql .= ",`user_video_viewed`='" . DB::quote($data['user_video_viewed']) . "'";
+        } else {
+            $sql .= ",`user_video_viewed`=''";
+        }
+
+        if (isset($data['user_profile_viewed'])) {
+            $sql .= ",`user_profile_viewed`='" . DB::quote($data['user_profile_viewed']) . "'";
+        } else {
+            $sql .= ",`user_profile_viewed`=''";
+        }
+
+        if (isset($data['user_watched_video'])) {
+            $sql .= ",`user_watched_video`='" . DB::quote($data['user_watched_video']) . "'";
+        } else {
+            $sql .= ",`user_watched_video`=''";
+        }
+
+        if (isset($data['user_join_time'])) {
+            $sql .= ",`user_join_time`='" . DB::quote($data['user_join_time']) . "'";
+        } else {
+            $sql .= ",`user_join_time`=''";
+        }
+
+        if (isset($data['user_last_login_time'])) {
+            $sql .= ",`user_last_login_time`='" . DB::quote($data['user_last_login_time']) . "'";
+        } else {
+            $sql .= ",`user_last_login_time`=''";
+        }
+
+        if (isset($data['user_ip'])) {
+            $sql .= ",`user_ip`='" . DB::quote($data['user_ip']) . "'";
+        } else {
+            $sql .= ",`user_ip`=''";
+        }
+
+        if (isset($data['user_email_verified'])) {
+            $sql .= ",`user_email_verified`='" . DB::quote($data['user_email_verified']) . "'";
+        } else {
+            $sql .= ",`user_email_verified`=''";
+        }
+
+        if (isset($data['user_subscribe_admin_mail'])) {
+            $sql .= ",`user_subscribe_admin_mail`='" . DB::quote($data['user_subscribe_admin_mail']) . "'";
+        } else {
+            $sql .= ",`user_subscribe_admin_mail`=''";
+        }
+
+        if (isset($data['user_account_status'])) {
+            $sql .= ",`user_account_status`='" . DB::quote($data['user_account_status']) . "'";
+        } else {
+            $sql .= ",`user_account_status`=''";
+        }
+
+        if (isset($data['user_vote'])) {
+            $sql .= ",`user_vote`='" . DB::quote($data['user_vote']) . "'";
+        } else {
+            $sql .= ",`user_vote`=''";
+        }
+
+        if (isset($data['user_rated_by'])) {
+            $sql .= ",`user_rated_by`='" . DB::quote($data['user_rated_by']) . "'";
+        } else {
+            $sql .= ",`user_rated_by`=''";
+        }
+
+        if (isset($data['user_rate'])) {
+            $sql .= ",`user_rate`='" . DB::quote($data['user_rate']) . "'";
+        } else {
+            $sql .= ",`user_rate`=''";
+        }
+
+        if (isset($data['user_parents_name'])) {
+            $sql .= ",`user_parents_name`='" . DB::quote($data['user_parents_name']) . "'";
+        } else {
+            $sql .= ",`user_parents_name`=''";
+        }
+
+        if (isset($data['user_parents_email'])) {
+            $sql .= ",`user_parents_email`='" . DB::quote($data['user_parents_email']) . "'";
+        } else {
+            $sql .= ",`user_parents_email`=''";
+        }
+
+        if (isset($data['user_friends_name'])) {
+            $sql .= ",`user_friends_name`='" . DB::quote($data['user_friends_name']) . "'";
+        } else {
+            $sql .= ",`user_friends_name`=''";
+        }
+
+        if (isset($data['user_friends_email'])) {
+            $sql .= ",`user_friends_email`='" . DB::quote($data['user_friends_email']) . "'";
+        } else {
+            $sql .= ",`user_friends_email`=''";
+        }
+
+        if (isset($data['user_adult'])) {
+            $sql .= ",`user_adult`='" . DB::quote($data['user_adult']) . "'";
+        } else {
+            $sql .= ",`user_adult`=''";
+        }
+
+        if (isset($data['user_photo'])) {
+            $sql .= ",`user_photo`='" . DB::quote($data['user_photo']) . "'";
+        } else {
+            $sql .= ",`user_photo`=''";
+        }
+
+        if (isset($data['user_background'])) {
+            $sql .= ",`user_background`='" . DB::quote($data['user_background']) . "'";
+        } else {
+            $sql .= ",`user_background`=''";
+        }
+
+        if (isset($data['user_style'])) {
+            $sql .= ",`user_style`='" . DB::quote($data['user_style']) . "'";
+        } else {
+            $sql .= ",`user_style`=''";
+        }
+
+        if (isset($data['user_friend_invition'])) {
+            $sql .= ",`user_friend_invition`='" . DB::quote($data['user_friend_invition']) . "'";
+        } else {
+            $sql .= ",`user_friend_invition`=''";
+        }
+
+        if (isset($data['user_private_message'])) {
+            $sql .= ",`user_private_message`='" . DB::quote($data['user_private_message']) . "'";
+        } else {
+            $sql .= ",`user_private_message`=''";
+        }
+
+        if (isset($data['user_profile_comment'])) {
+            $sql .= ",`user_profile_comment`='" . DB::quote($data['user_profile_comment']) . "'";
+        } else {
+            $sql .= ",`user_profile_comment`=''";
+        }
+
+        if (isset($data['user_favourite_public'])) {
+            $sql .= ",`user_favourite_public`='" . DB::quote($data['user_favourite_public']) . "'";
+        } else {
+            $sql .= ",`user_favourite_public`=''";
+        }
+
+        if (isset($data['user_playlist_public'])) {
+            $sql .= ",`user_playlist_public`='" . DB::quote($data['user_playlist_public']) . "'";
+        } else {
+            $sql .= ",`user_playlist_public`=''";
+        }
+
+        if (isset($data['user_videos'])) {
+            $sql .= ",`user_videos`='" . DB::quote($data['user_videos']) . "'";
+        } else {
+            $sql .= ",`user_videos`=''";
+        }
+
         $user_id = DB::insertGetId($sql);
 
         return $user_id;
