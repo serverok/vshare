@@ -4,13 +4,8 @@ class VerifyCode {
 
     public static function create($data = array())
     {
-        $sql = "INSERT INTO `verify_code` SET ";
-
-        if (isset($data['vkey'])) {
-            $sql .= "`vkey`='" . DB::quote($data['vkey']) . "'";
-        } else {
-            $sql .= "`vkey`=''";
-        }
+        $sql = "INSERT INTO `verify_code` SET
+               `vkey`='" . DB::quote($data['vkey']) . "'";
 
         if (isset($data['data1'])) {
             $sql .= ",`data1`='" . DB::quote($data['data1']) . "'";
