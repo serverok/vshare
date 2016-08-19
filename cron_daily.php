@@ -84,16 +84,16 @@ foreach ($auto_import_all as $import_auto_info) {
 
                 } else if ($import_auto_info['import_auto_download'] == 1) {
 
-                    $sql = "INSERT INTO `process_queue`SET
-			               `user`='" . DB::quote($user_info['user_name']) . "',
-			               `title`='" . DB::quote($video_info['video_title']) . "',
-			               `description`='" . DB::quote($video_info['video_description']) . "',
-			               `keywords`='" . DB::quote($video_info['video_keywords']) . "',
-			               `type`='public',
-			               `channels`='0|" . DB::quote($channel_id) . "|0',
-			               `status`='0',
-			               `url`='" . DB::quote($video_url) . "'";
-                    DB::query($sql);
+                    $qid = ProcessQueue::create(array(
+                        'title' => $video_info['video_title'],
+                        'description' => $video_info['video_description'],
+                        'keywords' => $video_info['video_keywords'],
+                        'channels' => '0|' . $channel_id . '|0',
+                        'type' => 'public',
+                        'user' => $user_info['user_name'],
+                        'status' => 0,
+                        'url' => $video_url
+                    ));
                 }
             }
         }

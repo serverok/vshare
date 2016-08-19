@@ -71,16 +71,17 @@ if (isset($_POST['submit'])) {
             copy($source, $file_path);
             unlink($source);
 
-            $sql = "INSERT INTO `process_queue` SET
-                   `user`='" . DB::quote($user) . "',
-                   `title`='" . DB::quote($video_title) . "',
-                   `description`='" . DB::quote($video_description) . "',
-                   `keywords`='" . DB::quote($_POST['video_keywords']) . "',
-                   `type`='" . DB::quote($type) . "',
-                   `channels`='" . DB::quote($channel) . "',
-                   `file`='" . DB::quote($file_name) . "',
-                   `status`='2'";
-            DB::query($sql);
+            $qid = ProcessQueue::create(array(
+                'file' => $file_name,
+                'title' => $video_title,
+                'description' => $video_description,
+                'keywords' => $_POST['video_keywords'],
+                'channels' => $channel,
+                'type' => $type,
+                'user' => $user,
+                'status' => 2
+            ));
+
             $msg = $lang['video_process'];
             $todo = 'finished';
         }
