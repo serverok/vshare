@@ -102,18 +102,17 @@ if (isset($_POST['submit'])) {
                     User::updateVideoCount($user_id);
 
                 } else {
-                    $sql = "INSERT INTO `process_queue`SET
-                           `user`='" . DB::quote($user_name) . "',
-                           `title`='" . DB::quote($video_info['video_title']) . "',
-                           `description`='" . DB::quote($video_info['video_description']) . "',
-                           `keywords`='" . DB::quote($video_info['video_keywords']) . "',
-                           `process_queue_upload_ip`='" . User::get_ip() . "',
-                           `type`='public',
-                           `channels`='0|" . DB::quote($channel_id) . "|0',
-                           `status`='0',
-                           `url`='" . DB::quote($video_url) . "',
-                           `import_track_id`=" . (int) $import_track_id;
-                    DB::query($sql);
+                    $qid = ProcessQueue::create(array(
+                        'title' => $video_info['video_title'],
+                        'description' => $video_info['video_description'],
+                        'keywords' => $video_info['video_keywords'],
+                        'channels' => '0|' . $channel_id . '|0',
+                        'type' => 'public',
+                        'user' => $user_name,
+                        'status' => 0,
+                        'url' => $video_url,
+                        'import_track_id' => $import_track_id,
+                    ));
                 }
 
                 $user_video_num++;

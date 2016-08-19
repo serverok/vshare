@@ -317,19 +317,17 @@ if (isset($process_video) && $process_video == 1) {
         $user_name = $_SESSION['USERNAME'];
     }
 
-    $sql = "INSERT INTO `process_queue` SET
-           `file`='" . DB::quote($upload_file_name) . "',
-           `title`='" . DB::quote($video_title) . "',
-           `description`='" . DB::quote($video_descr) . "',
-           `keywords`='" . DB::quote($video_keywords) . "',
-           `channels`='" . DB::quote($video_channels) . "',
-           `type`='" . DB::quote($video_privacy) . "',
-           `user`='" . DB::quote($user_name) . "',
-           `process_queue_upload_ip`='" . User::get_ip() . "',
-           `status`='2',
-           `adult`='" . (int) $video_adult . "'";
-
-    $qid = DB::insertGetId($sql);
+    $qid = ProcessQueue::create(array(
+        'file' => $upload_file_name,
+        'title' => $video_title,
+        'description' => $video_descr,
+        'keywords' => $video_keywords,
+        'channels' => $video_channels,
+        'type' => $video_privacy,
+        'user' => $user_name,
+        'status' => 2,
+        'adult' => (int) $video_adult
+    ));
 
     $process_upload = Config::get('process_upload');
 

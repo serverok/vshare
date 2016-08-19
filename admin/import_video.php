@@ -59,17 +59,17 @@ if (isset($_POST['submit'])) {
     if ($err == '') {
         $channel = $_POST['channel'];
 
-        $sql = "INSERT INTO `process_queue`SET
-               `user`='" . DB::quote($_POST['video_user']) . "',
-               `title`='" . DB::quote($video_title) . "',
-               `description`='" . DB::quote($video_description) . "',
-               `keywords`='" . DB::quote($video_keywords) . "',
-               `process_queue_upload_ip`='" . User::get_ip() . "',
-               `type`='" . DB::quote($_POST['video_privacy']) . "',
-               `channels`='$channel',
-               `status`=0,
-               `url`='" . DB::quote($video_url) . "'";
-        DB::query($sql);
+        $qid = ProcessQueue::create(array(
+            'title' => $video_title,
+            'description' => $video_description,
+            'keywords' => $video_keywords,
+            'channels' => $channel,
+            'type' => $_POST['video_privacy'],
+            'user' => $_POST['video_user'],
+            'status' => 0,
+            'url' => $video_url
+        ));
+
         $msg = $lang['video_process'];
         $smarty->assign('finished', 1);
     }
