@@ -64,7 +64,13 @@ if (isset($_POST['submit'])) {
                `video_add_time`='" . time() . "',
                `video_add_date`='" . date("Y-m-d") . "',
                `video_active`='1',
-               `video_approve`='$config[approve]'";
+               `video_approve`='$config[approve]',
+               `video_name`='',
+               `video_location`='',
+               `video_country`='',
+               `video_view_time`='" . DB::quote($_SERVER['REQUEST_TIME']) . "',
+               `video_voter_id`='',
+               `video_folder`=''";
         $video_id = DB::insertGetId($sql);
 
         if ($video_type == 'public' && $config['approve'] == 1) {
