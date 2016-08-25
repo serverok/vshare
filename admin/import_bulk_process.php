@@ -72,7 +72,14 @@ if (isset($_POST['submit'])) {
 		                   `video_add_time`='" . $_SERVER['REQUEST_TIME'] . "',
 		                   `video_add_date`='" . date('Y-m-d') . "',
 		                   `video_active`='1',
-		                   `video_approve`='$config[approve]'";
+		                   `video_approve`='$config[approve]',
+                           `video_name`='',
+                           `video_vtype`='0',
+                           `video_location`='',
+                           `video_country`='',
+                           `video_view_time`='" . DB::quote($_SERVER['REQUEST_TIME']) . "',
+                           `video_voter_id`='',
+                           `video_folder`=''";
                     $vid = DB::insertGetId($sql);
 
                     $upload = new UploadRemote();
