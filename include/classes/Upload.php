@@ -243,7 +243,13 @@ class Upload
                        `video_active`='0',
                        `video_approve`='" . $config['approve'] . "',
                        `video_adult`='" . (int) $download_info['adult'] . "',
-                       `video_folder`='" . DB::quote($video_folder) . "'";
+                       `video_folder`='" . DB::quote($video_folder) . "',
+                       `video_vtype`='0',
+                       `video_location`='',
+                       `video_country`='',
+                       `video_view_time`='" . DB::quote($_SERVER['REQUEST_TIME']) . "',
+                       `video_embed_code`='',
+                       `video_voter_id`=''";
 
                 $convert_vid = DB::insertGetId($sql);
 
