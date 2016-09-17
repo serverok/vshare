@@ -59,57 +59,18 @@ if (! empty($tables)) {
     $buyscript_pass = rand();
     $buyscript_pass_md5 = md5($buyscript_pass);
 
-    $sql = "INSERT INTO `users` SET
-           `user_email`='you@yourdomain.com',
-           `user_name`='vshare',
-           `user_password`='$buyscript_pass_md5',
-           `user_website`='http://buyscripts.in',
-           `user_salt` = '',
-           `user_first_name` = '',
-           `user_last_name` = '',
-           `user_birth_date` = '0000-00-00',
-           `user_gender` = '',
-           `user_relation` = '',
-           `user_about_me` = '',
-           `user_town` = '',
-           `user_city` = '',
-           `user_zip` = '',
-           `user_country` = '',
-           `user_occupation` = '',
-           `user_company` = '',
-           `user_school` = '',
-           `user_interest_hobby` = '',
-           `user_fav_movie_show` = '',
-           `user_fav_music` = '',
-           `user_fav_book` = '',
-           `user_friends_type`='All|Family|Friends',
-           `user_video_viewed` = '0',
-           `user_profile_viewed` = '0',
-           `user_watched_video` = '0',
-           `user_ip` = '',
-           `user_email_verified`='yes',
-           `user_subscribe_admin_mail` = '1',
-           `user_account_status`='Active',
-           `user_vote` = '',
-           `user_rated_by` = '0',
-           `user_rate` = '0',
-           `user_parents_name` = '',
-           `user_parents_email` = '',
-           `user_friends_name` = '',
-           `user_friends_email` = '',
-           `user_adult` = '0',
-           `user_photo` = '0',
-           `user_background` = '0',
-           `user_style` = '',
-           `user_friend_invition` = '1',
-           `user_private_message` = '1',
-           `user_profile_comment` = '1',
-           `user_favourite_public` = '1',
-           `user_playlist_public` = '1',
-           `user_videos` = '0',
-           `user_join_time`='" . time() . "',
-           `user_last_login_time`='" . time() . "'";
-    DB::query($sql);
+    require '../include/classes/User.php';
+
+    User::create(array(
+        'user_email' => 'you@yourdomain.com',
+        'user_name' => 'vshare',
+        'user_password' => $buyscript_pass_md5,
+        'user_website' => 'http://buyscripts.in',
+        'user_email_verified' => 'yes',
+        'user_account_status' => 'Active',
+        'user_join_time' => time(),
+        'user_last_login_time' => time(),
+    ));
 
     $logo_url_md = $config['baseurl'] . '/themes/default/images/logo.png';
     $logo_url_sm = $config['baseurl'] . '/themes/default/images/logo-small.png';
