@@ -360,7 +360,7 @@ CREATE TABLE IF NOT EXISTS `import_auto` (
 CREATE TABLE IF NOT EXISTS `import_track` (
   `import_track_id` int(11) NOT NULL auto_increment,
   `import_track_unique_id` varchar(255) NOT NULL,
-  `import_track_video_id` INT( 11 ) NOT NULL,
+  `import_track_video_id` INT( 11 ) NOT NULL default '0',
   `import_track_site` varchar(255) NOT NULL,
   PRIMARY KEY  (`import_track_id`),
   UNIQUE KEY `import_track_unique_id` (`import_track_unique_id`)
