@@ -31,9 +31,9 @@
 
             if (msg.messageType == 'success') {
                 var percentVal = "0%";
-                var profile_cover_src = $("img.profile-cover").attr("src");
+                var profile_cover_src = baseurl + '/photo/cover/' + user_id + '.jpg';
                 $("img.profile-cover").attr("src", profile_cover_src + '?' + Math.random());
-                $('#profileCoverModal').modal('hide')
+                $('#profileCoverModal').modal('hide');
             } else {
                 status.html('<span class="alert alert-danger">' + msg.message + '</span>');
                 upload_button.prop("disabled", false);
