@@ -240,12 +240,14 @@ img.preview {
     z-index: 0;
     width: 100%;
     margin-bottom: 10px;
+    max-height: 227px;
 }
 
 .user-page .profile-pic {
     margin: -90px 10px 0px 50px;
     z-index: 9;
     min-height: 160px;
+    position: relative;
 }
 
 .user-page .userinfo{
@@ -480,4 +482,15 @@ h5.video-title {
 }
 .members .caption {
     padding: 5px 0;
+}
+.profile-cover-container {
+    position: relative;
+}
+.profile-cover-container .btn-edit {
+    position: absolute;
+    right: 0;
+    display: none;
+}
+.profile-cover-container:hover .btn-edit {
+    display: block;
 }

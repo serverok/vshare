@@ -2,7 +2,52 @@
 <div class="col-md-12">
     <div class="panel panel-default clearfix">
         <div class="user-page">
-        <img align="left" class="profile-cover" src="{$base_url}/themes/default/images/profile-cover.jpg" alt="Profile image example"/>
+            <div class="profile-cover-container">
+                <img align="left" class="profile-cover" src="{$cover_photo_url}" alt="Profile image example"/>
+                {if isset($smarty.session.UID) && $smarty.session.UID eq $user_info.user_id}
+                <button type="button" class="btn btn-sm btn-default btn-edit" title="Edit" data-toggle="modal" data-target="#profileCoverModal">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </button>
+                <div class="modal fade" tabindex="-1" role="dialog" id="profileCoverModal">
+                    <div class="modal-dialog" role="document">
+                        <form method="post" action="{$base_url}/upload_cover_photo.php" enctype="multipart/form-data" class="form-horizontal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Change Cover Photo</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Select Photo</label>
+                                        <div class="col-md-9">
+                                            <input type="file" name="cover_photo" accept="image/jpeg">
+                                            <div class="help-block">
+                                                <p>Recommended size 1138×227</p>
+                                                <div class="progress">
+                                                    <div class="progress-bar bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                                        <span class="sr-only percent">0%</span>
+                                                    </div>
+                                                </div>
+                                                <div id="processing" style="display: none;">
+                                                    <img src="{$img_css_url}/images/loading.gif"> <strong>Processing...</strong>
+                                                </div>
+                                                <p id="status"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {/if}
+            </div>
+            <script src="{$base_url}/js/jquery.form.js"></script>
+            <script src="{$base_url}/js/upload_cover_photo.js"></script>
         <a href="{$base_url}/{$user_info.user_name}">
         <img align="left" class="profile-pic thumbnail" src="{$photo_url}"  alt="{$user_info.user_name}">
         </a>

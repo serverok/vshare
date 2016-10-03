@@ -686,4 +686,16 @@ class User
 
         return $user_id;
     }
+
+    public static function getCoverPhotoURL($user_id = 0)
+    {
+        $photo_dir = VSHARE_DIR . '/photo/cover';
+        $photo_name = $user_id . '.jpg';
+
+        if (file_exists($photo_dir . '/' . $photo_name)) {
+            return VSHARE_URL . '/photo/cover/' . $photo_name;
+        }
+
+        return VSHARE_URL . '/themes/default/images/profile-cover.jpg';
+    }
 }

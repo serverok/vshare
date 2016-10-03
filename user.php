@@ -176,6 +176,7 @@ $smarty->assign('new_video_total', count($new_videos));
 $smarty->assign('videos', $new_videos);
 $smarty->assign('popular', $popular_videos);
 $smarty->assign('popular_total', count($popular_videos));
+$smarty->assign('cover_photo_url', User::getCoverPhotoURL($user_info['user_id']));
 
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
