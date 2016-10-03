@@ -48,10 +48,15 @@
             </div>
             <script src="{$base_url}/js/jquery.form.js"></script>
             <script src="{$base_url}/js/upload_cover_photo.js"></script>
-        <a href="{$base_url}/{$user_info.user_name}">
-        <img align="left" class="profile-pic thumbnail" src="{$photo_url}"  alt="{$user_info.user_name}">
-        </a>
 
+            <div class="profile-pic-container thumbnail">
+                {if isset($smarty.session.UID) && $smarty.session.UID eq $user_info.user_id}
+                <a href="{$base_url}/user_photo_upload.php" class="btn btn-sm btn-default btn-edit" title="Edit">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+                {/if}
+                <img align="left" class="" src="{$photo_url}"  alt="{$user_info.user_name}">
+            </div>
         <div class="userinfo">
             <h1>{$user_info.user_name}
             <span class="pull-right small">{if $user_info.user_country ne ""}
@@ -90,7 +95,6 @@ Last Login: {insert name=time_range assign=rtime time=$user_info.user_last_login
 
             <ul class="user-stats">
             <li> <a  href="{$base_url}/{$user_info.user_name}/edit/">Edit Profile</a></li>
-            <li> <a href="{$base_url}/user_photo_upload.php">Upload Photo</a></li>
             <li><a  href="{$base_url}/privacy/">Privacy Settings</a></li>
             {if $enable_package eq "yes"}
             <li> <a href="{$base_url}/renew_account.php?uid={$user_info.user_id}&action=upgrade">Upgrade Package</a></li>
