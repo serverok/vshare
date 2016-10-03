@@ -19,12 +19,18 @@ User::is_logged_in();
 
 $user_info = User::getById($_SESSION['UID']);
 
+$allowed_mimes = array(
+    'image/jpeg',
+    'image/pjpeg',
+    'image/png',
+);
+
 if (isset($_FILES['photo']['tmp_name']) && is_uploaded_file($_FILES['photo']['tmp_name'])) {
     $file_type = $_FILES['photo']['type'];
     $file_tmp_name = $_FILES['photo']['tmp_name'];
-    if (($file_type == 'image/jpeg') || ($file_type == 'image/pjpeg')) {
+    if (in_array($file_type, $allowed_mimes)) {
         $image_size = getimagesize($file_tmp_name);
-        if ($image_size[2] == 2) {
+        if ($image_size[2] == 2 || $image_size[2] == 3) {
             User::upload_photo();
             $msg = $lang['photo_uploaded'];
         }
