@@ -11,9 +11,9 @@
     <form action="user_photo_upload.php" method="post" enctype="multipart/form-data" name="profile-photo-upload" id="profile-photo-upload" class="form-horizontal">
         <div class="form-group">
             <div class="col-md-2">
-             <div class="thumbnail well">
-            <img class="img-responsive" src="{$photo_url}?{$vshare_rand}" alt="">
-            </div>
+                <div class="profile-pic-container thumbnail" style="margin: 0;">
+                    <img class="img-responsive" src="{$photo_url}?{$vshare_rand}" alt="">
+                </div>
             </div>
             <div class="col-md-5">
             <label class="control-label">Select file to upload:</label>
