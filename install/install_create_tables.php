@@ -59,17 +59,18 @@ if (! empty($tables)) {
     $buyscript_pass = rand();
     $buyscript_pass_md5 = md5($buyscript_pass);
 
-    $sql = "INSERT INTO `users` SET
-           `user_email`='you@yourdomain.com',
-           `user_name`='vshare',
-           `user_password`='$buyscript_pass_md5',
-           `user_website`='http://buyscripts.in',
-           `user_friends_type`='All|Family|Friends',
-           `user_email_verified`='yes',
-           `user_account_status`='Active',
-           `user_join_time`='" . time() . "',
-           `user_last_login_time`='" . time() . "'";
-    DB::query($sql);
+    require '../include/classes/User.php';
+
+    User::create(array(
+        'user_email' => 'you@yourdomain.com',
+        'user_name' => 'vshare',
+        'user_password' => $buyscript_pass_md5,
+        'user_website' => 'http://buyscripts.in',
+        'user_email_verified' => 'yes',
+        'user_account_status' => 'Active',
+        'user_join_time' => time(),
+        'user_last_login_time' => time(),
+    ));
 
     $logo_url_md = $config['baseurl'] . '/themes/default/images/logo.png';
     $logo_url_sm = $config['baseurl'] . '/themes/default/images/logo-small.png';
