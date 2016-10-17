@@ -47,6 +47,21 @@ if ($vshare_player == "StrobeMediaPlayback")
 
 EOT;
 
+} else if ($vshare_player == 'HTML5 Player') {
+
+    $vshare_player = <<<EOT
+<link href="{$config['baseurl']}/css/video-js.css" rel="stylesheet">
+<script src="{$config['baseurl']}/js/video.js"></script>
+<script src="{$config['baseurl']}/js/videojs.watermark.js"></script>
+<video id="vshare_player" class="video-js vjs-big-play-centered vjs-16-9" controls preload="auto" width="100%" poster="{$video_thumb_url}/thumb/{$video_folder}{$video_id}.jpg" data-setup='{ "plugins": { "watermark": { "file": "{$config['watermark_image_url']}", "xpos": "500", "ypos": "50", "clickable": "true", "url": "{$config["watermark_url"]}" } } }'>
+    <source src="{$file}" type='video/mp4'>
+    <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a web browser that
+        <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+    </p>
+</video>
+EOT;
+
 }
 else
 {
