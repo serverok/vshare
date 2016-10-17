@@ -61,6 +61,7 @@
         <div class="col-sm-5">
             <div class="input-group">
             <select class="form-control" name="vshare_player" id="vshare_player">
+                <option value="videojs" {if $vshare_player == 'videojs'}selected="selected"{/if}>VideoJS Player</option>
                 <option value="JW Player" {if $vshare_player == 'JW Player'}selected="selected"{/if}>JW Player</option>
                 <option value="StrobeMediaPlayback" {if $vshare_player == 'StrobeMediaPlayback'}selected="selected"{/if}>StrobeMediaPlayback</option>
             </select>
