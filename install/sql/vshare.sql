@@ -117,7 +117,7 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('num_channel_video',
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('guest_upload', '0');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('guest_upload_user', '');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('youtube_player', 'youtube');
-INSERT INTO `config` (`config_name`, `config_value`) VALUES('vshare_player', 'StrobeMediaPlayback');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('vshare_player', 'videojs');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min_enforce', '0');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('signup_age_min', '18');
 INSERT INTO `config` (`config_name` ,`config_value`) VALUES('user_daily_mail_limit', '50');

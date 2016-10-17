@@ -47,7 +47,7 @@ if ($vshare_player == "StrobeMediaPlayback")
 
 EOT;
 
-} else if ($vshare_player == 'HTML5 Player') {
+} else if ($vshare_player == 'videojs') {
 
     $vshare_player = <<<EOT
 <link href="{$config['baseurl']}/css/video-js.css" rel="stylesheet">
