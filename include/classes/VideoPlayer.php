@@ -56,6 +56,12 @@ class VideoPlayer
         $video_thumb_url = $servers[$this->video_info['video_thumb_server_id']];
         $vshare_player = Config::get('vshare_player');
 
+        if ($vshare_player == 'videojs') {
+            if (strpos($file, '.flv') !== false) {
+                $vshare_player = 'JW Player';
+            }
+        }
+
         require VSHARE_DIR . '/include/player.inc';
         return $vshare_player;
     }
