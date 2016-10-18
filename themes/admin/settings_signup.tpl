@@ -58,7 +58,7 @@
             <div class="input-group">
                 <input type="text" name="recaptcha_sitekey" id="recaptcha_sitekey" value="{$recaptcha_sitekey}" class="form-control">
                 <div class="input-group-addon">
-                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#recaptcha_sitekey" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/how_to_enable_captcha" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
             <div class="input-group">
                 <input type="text" name="recaptcha_secretkey" id="recaptcha_secretkey" value="{$recaptcha_secretkey}" class="form-control">
                 <div class="input-group-addon">
-                    <a href="https://www.buyscripts.in/docs/vshare/3.0/signup_settings#recaptcha_secretkey" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
+                    <a href="https://www.buyscripts.in/docs/vshare/3.0/how_to_enable_captcha" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
                 </div>
             </div>
         </div>
