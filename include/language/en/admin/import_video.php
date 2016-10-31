@@ -19,3 +19,4 @@ $lang['video_added'] = 'Video has been added.';
 $lang['youtube_url_null'] = 'Invalid Youtube video URL.';
 $lang['import_duplicate'] = 'Video already imported.';
 $lang['video_url_null'] = 'Please enter a video URL.';
+$lang['image_download_failed'] = 'Image download failed.';
