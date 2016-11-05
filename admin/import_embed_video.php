@@ -86,7 +86,11 @@ if (isset($_POST['submit'])) {
 
             $destination_tmp = VSHARE_DIR . '/templates_c/' . $filename;
             $source = $embedded_image[0];
-            Http::download($source, $destination_tmp);
+            if (! Http::download($source, $destination_tmp)) {
+                $err = $lang['image_download_failed'];
+                set_message($err, 'error');
+                Http::redirect('import_embed_video.php');
+            }
 
             $destination = VSHARE_DIR . '/thumb/' . $video_id . '.jpg';
             $source = $destination_tmp;
@@ -118,6 +122,13 @@ if (isset($_POST['submit'])) {
                 }
             }
         } else if (! empty($_FILES['embedded_code_image_local']['tmp_name'][0])) {
+
+            if (! is_uploaded_file($_FILES['embedded_code_image_local']['tmp_name'][0])) {
+                $err = $lang['image_download_failed'];
+                set_message($err, 'error');
+                Http::redirect('import_embed_video.php');
+            }
+
             // Make player image
             $destination = VSHARE_DIR . '/thumb/' . $video_id . '.jpg';
             $source = $_FILES['embedded_code_image_local']['tmp_name'][0];
