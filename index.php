@@ -136,6 +136,7 @@ if (! $view) {
     Cache::save($cache_id, $view);
 }
 
+$smarty->assign('home_page_slider', Config::get('home_page_slider'));
 $smarty->assign('html_keywords', '');
 $smarty->assign('html_description', '');
 $smarty->assign('view', $view);

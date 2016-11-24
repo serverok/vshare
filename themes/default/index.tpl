@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div id="flash_recent_videos"></div>
+    <div id="flash_recent_videos"{if $home_page_slider eq '2'} class="hidden-xs hidden-sm"{/if}></div>
 
     <!-- new videos -->
 

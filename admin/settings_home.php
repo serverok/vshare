@@ -66,11 +66,17 @@ if (isset($_POST['submit']))
     DB::query($sql);
     $smarty->assign('show_stats', $_POST['show_stats']);
 
+    $sql = "UPDATE `config` SET
+           `config_value` ='" . (int) $_POST['home_page_slider'] . "' WHERE
+           `config_name`='home_page_slider'";
+    DB::query($sql);
+
     $msg = $lang['settings_updated'];
 }
 
 $smarty->assign('home_num_tags', Config::get('home_num_tags'));
 $smarty->assign('num_last_users_online', Config::get('num_last_users_online'));
+$smarty->assign('home_page_slider', Config::get('home_page_slider'));
 $smarty->assign('err', $err);
 $smarty->assign('msg', $msg);
 $smarty->display('admin/header.tpl');

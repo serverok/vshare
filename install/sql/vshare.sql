@@ -136,6 +136,7 @@ INSERT INTO `config` (`config_name`, `config_value`) VALUES('user_avatar_height'
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('recaptcha_sitekey', '');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('recaptcha_secretkey', '');
 INSERT INTO `config` (`config_name`, `config_value`) VALUES('spam_filter', '0');
+INSERT INTO `config` (`config_name`, `config_value`) VALUES('home_page_slider', '2');
 
 -- Table structure for table `contact`
 
