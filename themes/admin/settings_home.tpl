@@ -84,22 +84,6 @@
     </div>
 
     <div class="form-group">
-        <label class="col-sm-3 control-label" for="home_page_slider">Home Page Slider:</label>
-        <div class="col-sm-5">
-            <div class="input-group">
-            <select class="form-control" name="home_page_slider" id="home_page_slider">
-                <option value="0" {if $home_page_slider eq "0"}selected="selected"{/if}>Hide</option>
-                <option value="1" {if $home_page_slider eq "1"}selected="selected"{/if}>Show</option>
-                <option value="2" {if $home_page_slider eq "2"}selected="selected"{/if}>Hide in small devices (mobiles, tabs etc.)</option>
-            </select>
-                <div class="input-group-addon">
-                    <a href="http://buyscripts.in/docs/vshare/3.0/home_page#home_page_slider" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
         <div class="col-sm-offset-3 col-sm-5">
             <button type="submit" name="submit" class="btn btn-default btn-lg">Update</button>
         </div>
