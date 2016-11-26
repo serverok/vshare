@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div id="flash_recent_videos" class="hidden-xs"></div>
+    <div id="flash_recent_videos" class="hidden-xs hidden-sm"></div>
 
     <!-- new videos -->
 
