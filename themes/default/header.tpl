@@ -89,38 +89,42 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
                             <a class="navbar-brand navbar-brand-vshare visible-xs" href="{$base_url}/" title="{$site_name}">
                                 <img class="img-responsive" src="{$logo_url_sm}" alt="{$site_name}">
                             </a>
-                            <div class="pull-right dropdown visible-xs">
-                                <button class="btn btn-xs dropdown-toggle navbar-toggle navbar-btn-vshare" data-toggle="dropdown" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-user"></span> <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    {if $smarty.session.USERNAME ne ""}
-                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}">My profile</a></li>
-                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/account/">My Account</a></li>
-                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/public/">Public Videos</a></li>
-                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/private/">Private Videos</a></li>
-                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/favorites/">Favorites</a></li>
-                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/friends/">Friends</a></li>
-                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/playlist/">Playlist</a></li>
-                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/groups/">Groups</a></li>
-                                    <li><a href="{$base_url}/mail.php?folder=inbox">Inbox <span class="badge">{$total_msg}</span></a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="{$base_url}/{$smarty.session.USERNAME}/change_password/">Change Password</a></li>
-                                    <li><a href="{$base_url}/logout/">Log Out</a></li>
-                                    {else}
-                                    <li><a href="{$base_url}/signup/">Sign Up</a></li>
-                                    <li><a href="{$base_url}/login/">Log In</a></li>
-                                    {/if}
-                                </ul>
+                            <div class="pull-right visible-xs">
+                                <div class="btn-group" role="group" aria-label="">
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-xs dropdown-toggle navbar-toggle navbar-btn-vshare" data-toggle="dropdown" aria-expanded="false" style="margin-right:0;">
+                                            <span class="glyphicon glyphicon-user"></span> <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            {if $smarty.session.USERNAME ne ""}
+                                            <li><a href="{$base_url}/{$smarty.session.USERNAME}">My profile</a></li>
+                                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/account/">My Account</a></li>
+                                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/public/">Public Videos</a></li>
+                                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/private/">Private Videos</a></li>
+                                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/favorites/">Favorites</a></li>
+                                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/friends/">Friends</a></li>
+                                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/playlist/">Playlist</a></li>
+                                            <li><a href="{$base_url}/{$smarty.session.USERNAME}/groups/">Groups</a></li>
+                                            <li><a href="{$base_url}/mail.php?folder=inbox">Inbox <span class="badge">{$total_msg}</span></a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="{$base_url}/password/">Change Password</a></li>
+                                            <li><a href="{$base_url}/logout/">Log Out</a></li>
+                                            {else}
+                                            <li><a href="{$base_url}/signup/">Sign Up</a></li>
+                                            <li><a href="{$base_url}/login/">Log In</a></li>
+                                            {/if}
+                                        </ul>
+                                    </div>
+                                    <button class="btn btn-xs navbar-toggle navbar-btn-vshare" data-toggle="modal" data-target="#searchModal" style="margin-right:0;">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                    <button class="btn btn-xs navbar-toggle navbar-btn-vshare" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                        <span class="glyphicon glyphicon-option-vertical"></span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -145,19 +149,28 @@
                     </div>
                 </div>
             </nav>
-            <div class="row search-box-xs visible-xs">
-                <form method="get" action="{$base_url}/search_videos.php" class="form-horizontal">
-                    <input type="hidden" name="type" value="video">
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <input class="form-control" placeholder="Search" required value="{$smarty.request.search_string}" name="search_string" />
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                            </span>
+            <div class="modal" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form method="get" action="{$base_url}/search_videos.php" class="form-horizontal">
+                                <input type="hidden" name="type" value="video">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="Search" required value="{$smarty.request.search_string}" name="search_string" />
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                                    </span>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
+            <script>
+            $('#searchModal').on('shown.bs.modal', function (e) {
+                $("input[name=search_string]").focus();
+            })
+            </script>
     </div>
 </div>
 
