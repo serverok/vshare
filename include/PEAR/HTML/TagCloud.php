@@ -1,59 +1,100 @@
 <?php
 /**
+ * TagCloud.php
+ *
+ * TagCloud.php contains class HTML_TagCloud.
+ *
+ * PHP version 5
+ *
+ * LICENSE: This source file is subject to version 3.01 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @category  HTML
+ * @package   HTML_TagCloud
+ * @author    Shoma Suzuki <shoma@catbot.net>
+ * @author    Bastian Onken <bastianonken@php.net>
+ * @copyright 2010 Bastian Onken
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   SVN: $Id: TagCloud.php 295253 2010-02-19 11:50:01Z bastianonken $
+ * @link      http://pear.php.net/package/HTML_TagCloud
+ * @since     File available since Release 0.1.0
+ */
+
+// {{{ class HTML_TagCloud
+
+/**
  * HTML Tag Cloud
  *
  * HTML_TagCloud enables you to generate a "tag cloud" in HTML.
  *
- * PHP version 5
- *
- * LICENSE: This source file is subject to version 3.0 of the PHP license
- * that is available through the world-wide-web at the following URI:
- * http://www.php.net/license/3_0.txt.  If you did not receive a copy of
- * the PHP License and are unable to obtain it through the web, please
- * send a note to license@php.net so we can mail you a copy immediately.
- *
- * @category   HTML
- * @package    HTML_TagCloud
- * @author     Shoma Suzuki <shoma@catbot.net>
- * @copyright  2006 Shoma Suzuki
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id: TagCloud.php,v 1.2 2007/11/22 12:35:56 bastianonken Exp $
- * @see        http://search.cpan.org/~lyokato/HTML-TagCloud-Extended-0.10/lib/HTML/TagCloud/Extended.pm
- *
+ * @category  HTML
+ * @package   HTML_TagCloud
+ * @author    Shoma Suzuki <shoma@catbot.net>
+ * @author    Bastian Onken <bastianonken@php.net>
+ * @copyright 2010 Bastian Onken
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   Release: 1.0.0
+ * @link      http://pear.php.net/package/HTML_TagCloud
+ * @link      http://search.cpan.org/~lyokato/HTML-TagCloud-Extended-0.10/lib/HTML/TagCloud/Extended.pm
+ * @since     Class available since Release 0.1.0
  */
-// {{{ class HTML_TagCloud
-class HTML_TagCloud {
-    // {{{ class vars
+class HTML_TagCloud
+{
+    // {{{ properties
 
     /**
-     * @var    int
-     * @access var
+     * Defines the base font size
+     *
+     * @var int
      */
-    var $baseFontSize = 24;
-    /**
-     * @var    int
-     * @access var
-     */
-    var $fontSizeRange = 12;
+    protected $baseFontSize = 24;
 
     /**
-     * @var    string
-     * @access var
+     * Limits the range of generated font-sizes
+     *
+     * @var int
      */
-    var $cssClass = 'tagcloud';
+    protected $fontSizeRange = 12;
 
     /**
-     * @var    string
-     * @access var
-     * mm,cm,in,pt,pc,px,em
+     * Name of CSS class the TagCloud will get (assigned to the div the cloud
+     * will get wrapped into)
+     *
+     * @var string
      */
-    var $sizeSuffix = 'px';
+    protected $cssClass = 'tagcloud';
 
     /**
-     * @var    array
-     * @access var
+     * Stores the font-size unit, potentional values are: mm,cm,in,pt,pc,px,em
+     *
+     * @var string
      */
-    var $epocLevel = array(
+    protected $sizeSuffix = 'px';
+
+    /**
+     * Stores the separator string which will be put between the tags
+     *
+     * @var string
+     */
+    protected $tagSeparator = " &nbsp;\n";
+
+    /**
+     * Stores the number of color thresholds
+     *
+     * @var int
+     */
+    protected $thresholds = 4;
+
+    /**
+     * Defines colors of the different levels to that tags will be assigned to
+     * (based on tag's age)
+     *
+     * @var array
+     */
+    protected $epocLevel = array(
         array(
             'earliest' => array(
                 'link'    => 'cccccc',
@@ -87,369 +128,623 @@ class HTML_TagCloud {
             ),
         ),
     );
-    /**
-     * @var    array
-     * @access private
-     */
-    var $_elements = array();
 
     /**
-     * @var    int
-     * @access var
+     * Stores the TagCloud elements
+     *
+     * @var array
      */
-    var $_max = 0;
+    private $_elements = array();
 
     /**
-     * @var    int
-     * @access var
+     * @var int
      */
-    var $_min = 0;
-
+    private $_max = 0;
 
     /**
-     * @var    int
-     * @access var
+     * @var int
      */
-    var $_maxEpoc;
+    private $_min = 0;
 
     /**
-     * @var    int
-     * @access var
+     * @var int
      */
-    var $_minEpoc;
+    private $_maxEpoc;
 
     /**
-     * @var    float
-     * @access var
+     * @var int
      */
-    var $_factor = 1;
+    private $_minEpoc;
 
     /**
-     * @var    float
-     * @access var
+     * @var float
      */
-    var $_epocFactor = 1;
+    private $_factor = 1;
 
+    /**
+     * @var float
+     */
+    private $_epocFactor = 1;
+
+    /**
+     * @var int
+     */
+    private $_minFontSize;
+
+    /**
+     * @var int
+     */
+    private $_maxFontSize;
+
+    /**
+     * Stores an unique TagCloud-ID, necessary for multiple TagClouds on one
+     * HTML page
+     *
+     * @var string
+     */
+    private $_uid;
 
     // }}}
-    // {{{ function __construct($baseFontSize = 24, $fontSizeRange = 12)
+    // {{{ public function __construct()
+
     /**
-    *
-    * Class constructor
-    *
-    * @param   int $baseFontSize    base font size of output tag (option)
-    * @param   int $fontSizeRange   font size range
-    * @access  public
-    */
-    function HTML_TagCloud($baseFontSize = 24, $fontSizeRange = 12)
-    {
-        $this->baseFontSize = $baseFontSize;
-        $this->fontSizeRange = $fontSizeRange;
-        if ($this->baseFontSize - $this->fontSizeRange > 0){
-            $this->minFontSize = $this->baseFontSize - $this->fontSizeRange;
-        } else {
-            $this->minFontSize = 0;
+     * Class constructor
+     *
+     * @param int    $baseFontSize  base font size of output tag (optional)
+     * @param int    $fontSizeRange font size range (optional)
+     * @param string $latestColor   color of latest tag, usually dark (optional)
+     * @param string $earliestColor color of earliest tag, usually light
+     *                              (optional)
+     * @param int    $thresholds    number of timelines to set up (optional)
+     * @param string $sizeSuffix    CSS font size unit (optional)
+     * @param string $tagSeparator  separator printed between tags (optional)
+     *
+     * @since Method available since Release 0.1.0
+     */
+    public function __construct($baseFontSize = null, $fontSizeRange = null,
+        $latestColor = null, $earliestColor = null, $thresholds = null,
+        $sizeSuffix = null, $tagSeparator = null
+    ) {
+        // to be able to set up multiple tag clouds in one page we need to set
+        //  up a unique id that will prefix the css names later
+        $this->_uid = 'tagcloud'.uniqid();
+
+        // if $baseFontSize was given, set to value, otherwise keep the original
+        //  value of HTML_TagCloud::baseFontSize
+        if ($baseFontSize !== null) {
+            $this->baseFontSize = $baseFontSize;
         }
-        $this->maxFontSize = $this->baseFontSize + $this->fontSizeRange;
+
+        // if $fontSizeRange was given, set to value, otherwise keep the
+        //  original value of HTML_TagCloud::fontSizeRange
+        if ($fontSizeRange !== null) {
+            $this->fontSizeRange = $fontSizeRange;
+        }
+
+        // make sure that we are in a positive font range
+        if ($this->baseFontSize - $this->fontSizeRange > 0) {
+            $this->_minFontSize = $this->baseFontSize - $this->fontSizeRange;
+        } else {
+            $this->_minFontSize = 0;
+        }
+        $this->_maxFontSize = $this->baseFontSize + $this->fontSizeRange;
+
+        // override default sizeSuffix value
+        if ($sizeSuffix !== null) {
+            $this->sizeSuffix = $sizeSuffix;
+        }
+
+        // override default threshold setting
+        if ($thresholds !== null) {
+            $this->thresholds = $thresholds;
+        }
+
+        // override default epocLevel settings
+        if ($latestColor !== null
+            && $earliestColor !== null
+            && $this->thresholds > 0
+        ) {
+            $this->epocLevel = $this->_generateEpocLevel(
+                $latestColor, $earliestColor, $this->thresholds
+            );
+        }
+
+        // override default tagSeparator setting
+        if ($tagSeparator !== null) {
+            $this->tagSeparator = $tagSeparator;
+        }
     }
+
     // }}}
-    // {{{ function addElement($name = '', $url ='', $count = 0, $timestamp = null)
+    // {{{ public function getUid()
+
     /**
-    *
-    * add a Tag Element to build Tag Cloud
-    *
-    * @return  void
-    * @param   string  $tag
-    * @param   string  $url
-    * @param   int     $count
-    * @param   int     $timestamp unixtimestamp
-    * @access  public
-    */
-    function addElement($name = '', $url ='', $count = 0, $timestamp = null)
+     * returns the unique id of the tag cloud
+     *
+     * @return string unique id
+     *
+     * @since Method available since Release 0.2.0
+     */
+    public function getUid()
     {
-        $i = count($this->_elements);
-        $this->_elements[$i]['name'] = $name;
-        $this->_elements[$i]['url'] = $url;
-        $this->_elements[$i]['count'] = $count;
+        return $this->_uid;
+    }
+
+    // }}}
+    // {{{ public function getElementCount()
+
+    /**
+     * returns the number of elements in the tag cloud
+     *
+     * @return integer number of elements in the tag cloud
+     *
+     * @since Method available since Release 0.2.2
+     */
+    public function getElementCount()
+    {
+        return count($this->_elements);
+    }
+
+    // }}}
+    // {{{ public function addElement()
+
+    /**
+     * add a Tag Element to build Tag Cloud
+     *
+     * @param string $name      tagname
+     * @param string $url       URL to which the tag leads to
+     * @param int    $count     number of occurrences of this tag
+     * @param int    $timestamp unixtimestamp
+     *
+     * @return void
+     *
+     * @since Method available since Release 0.1.0
+     */
+    public function addElement($name, $url = '', $count = 0, $timestamp = null)
+    {
+        $i                                = count($this->_elements);
+        $this->_elements[$i]['name']      = $name;
+        $this->_elements[$i]['url']       = $url;
+        $this->_elements[$i]['count']     = $count;
         $this->_elements[$i]['timestamp'] = $timestamp == null ? time() : $timestamp;
     }
+
     // }}}
-    // {{{ function addElements($tags)
+    // {{{ public function addElements()
+
     /**
-    *
-    * add a Tag Element to build Tag Cloud
-    *
-    * @return  void
-    * @param   array   $tags Associative array to $this->_elements
-    * @access  public
-    */
-    function addElements($tags)
+     * add a Tag Element to build Tag Cloud
+     *
+     * @param array $tags Associative array to $this->_elements
+     *
+     * @return  void
+     *
+     * @since Method available since Release 0.1.0
+     */
+    public function addElements($tags)
     {
         $this->_elements = array_merge($this->_elements, $tags);
     }
+
     // }}}
-    // {{{ function clearElements()
+    // {{{ public function clearElements()
+
     /**
-    *
-    * clear Tag Elements
-    *
-    * @access  public
-    */
-    function clearElements()
+     * clear Tag Elements
+     *
+     * @return void
+     *
+     * @since Method available since Release 0.1.0
+     */
+    public function clearElements()
     {
         $this->_elements = array();
     }
+
     // }}}
-    // {{{ function buildAll($param = array())
+    // {{{ public function buildAll()
+
     /**
-    *
-    * build HTML and CSS at once.
-    *
-    * @return  string HTML and CSS
-    * @param   array $param
-    * @see     _buidHTMLTags
-    * @access  public
-    */
-    function buildAll($param = array())
+     * build HTML and CSS at once.
+     *
+     * @param array $param parameters that influence the HTML output
+     *
+     * @return string HTML and CSS
+     *
+     * @since Method available since Release 0.1.0
+     */
+    public function buildAll($param = array())
     {
-        $html = '<style type="text/css">'."\n";
-        $html .= $this->buildCSS()."</style>\n";
+        $html  = '<style type="text/css">'."\n";
+        $html .= $this->buildCSS().'</style>'."\n";
         $html .= $this->buildHTML($param);
         return $html;
     }
+
     // }}}
-    // {{{ function html_and_css($param = array())
+    // {{{ public function html_and_css()
+
     /**
-    *
-    * Alias to buildAll. Compatibilities for Perl Module.
-    *
-    * @return  string HTML and CSS
-    * @param   array  $param 'limit' => int limit of generation tag num.
-    * @access  public
-    */
-    function html_and_css($param = array())
+     * Alias to buildAll. Compatibilities for Perl Module.
+     *
+     * @param array $param 'limit' => int limit of generation tag num.
+     *
+     * @return string HTML and CSS
+     *
+     * @see HTML_TagCloud::buildAll
+     * @since Method available since Release 0.1.0
+     * @deprecated Method deprecated in Release 0.1.3
+     * @legacy
+     */
+    public function html_and_css($param = array())
     {
         return $this->buildAll($param);
     }
+
     // }}}
-    // {{{ function buildHTML($param = array())
+    // {{{ public function buildHTML()
+
     /**
-    *
-    * build HTML part
-    *
-    * @return  string HTML
-    * @param   array  $param 'limit' => int limit of generation tag num.
-    * @access  public
-    */
-    function buildHTML($param = array())
+     * build HTML part
+     *
+     * @param array $param 'limit' => int limit of generation tag num.
+     *
+     * @return string HTML
+     *
+     * @since Method available since Release 0.1.0
+     */
+    public function buildHTML($param = array())
     {
         $htmltags = $this->_buidHTMLTags($param);
         return $this->_wrapDiv($htmltags);
     }
+
     // }}}
-    // {{{ function buildCSS()
+    // {{{ public function buildCSS()
+
     /**
-    *
-    * build CSS part
-    *
-    * @return  string base CSS
-    * @access  public
-    */
-    function buildCSS()
+     * build CSS part
+     *
+     * @return string base CSS
+     *
+     * @since Method available since Release 0.1.0
+     */
+    public function buildCSS()
     {
         $css = '';
         foreach ($this->epocLevel as $item) {
             foreach ($item as $epocName => $colors) {
                 foreach ($colors as $attr => $color) {
-                    $css .= "a.{$epocName}:{$attr} {text-decoration: none; color: #{$color};}\n";
+                    $css .= 'a.'.$this->_uid.'_'.$epocName.':'.$attr.' {'
+                           .'text-decoration: none; color: #'.$color.';}'."\n";
                 }
             }
         }
         return $css;
     }
+
     // }}}
-    // {{{ private function _buidHTMLTags($param)
+    // {{{ private function _buidHTMLTags()
+
     /**
-    *
-    * calc Tag level and create whole HTML of each Tags
-    *
-    * @return  string HTML
-    * @param   array $param limit of Tag Number
-    * @access  private
-    */
-    function _buidHTMLTags($param)
+     * calc Tag level and create whole HTML of each Tags
+     *
+     * @param array $param limit of Tag Number
+     *
+     * @return string HTML
+     *
+     * @since Method available since Release 0.1.0
+     */
+    private function _buidHTMLTags($param)
     {
-        $this->total = count($this->_elements);
-        // no tags elements
-        if ($this->total == 0) {
-            return array();
-        } elseif ($this->total == 1) {
-            $tag = $this->_elements[0];
-            return $this->_createHTMLTag($tag, 'latest', $this->baseFontSize);
+        // get total number of tags
+        $total = count($this->_elements);
+        if ($total == 0) {
+            // no tag elements, return with "not enough data"
+            return '<p>not enough data</p>';
+        } elseif ($total == 1) {
+            // only 1 element was set, no need to process sizes or colors, so
+            // just create html with standard setup and return
+            $tag  = $this->_elements[0];
+            $type = $this->_uid.'_'
+                   .key($this->epocLevel[count($this->epocLevel) - 1]);
+            return $this->createHTMLTag($tag, $type, $this->baseFontSize);
         }
-
+        // okay, there are more elements, let's calculate their environment
+        // at first, check if there is a limit of returned elements set up
         $limit = array_key_exists('limit', $param) ? $param['limit'] : 0;
+        // sort elements, consider limit if available ("0" will disable limit)
         $this->_sortTags($limit);
+        // get maximum and minimum count values
+        //  (values will be stored in $this->_min and $this->_max
         $this->_calcMumCount();
+        // get maximum and minimum timestamp values
+        //  (values will be stored in $this->_minEpoc and $this->_maxEpoc
         $this->_calcMumEpoc();
-
-        $range = $this->maxFontSize - $this->minFontSize;
+        // get font size delta
+        $range = $this->_maxFontSize - $this->_minFontSize;
+        // calculate the factor for building the font size deltas
         if ($this->_max != $this->_min) {
             $this->_factor = $range / (sqrt($this->_max) - sqrt($this->_min));
         } else {
             $this->_factor = 1;
         }
-
-       if ($this->_maxEpoc != $this->_minEpoc) {
-           $this->_epocFactor = count($this->epocLevel)
-                                   / (sqrt($this->_maxEpoc) - sqrt($this->_minEpoc));
-       } else {
-           $this->_epocFactor = 1;
-       }
-       $rtn = array();
+        // calculate the factor for building the color deltas
+        if ($this->_maxEpoc != $this->_minEpoc) {
+            $this->_epocFactor = count($this->epocLevel) /
+                                 (sqrt($this->_maxEpoc) - sqrt($this->_minEpoc));
+        } else {
+            $this->_epocFactor = 1;
+        }
+        // build html
+        $rtn = array();
         foreach ($this->_elements as $tag) {
-            $countLv = $this->_getCountLevel($tag['count']);
-            if (! isset($tag['timestamp']) || empty($tag['timestamp'])) {
+            $count   = isset($tag['count']) ? $tag['count'] : 0;
+            $countLv = $this->_getCountLevel($count);
+            if (!isset($tag['timestamp']) || empty($tag['timestamp'])) {
                 $epocLv = count($this->epocLevel) - 1;
             } else {
-                $epocLv  = $this->_getEpocLevel($tag['timestamp']);
+                $epocLv = $this->_getEpocLevel($tag['timestamp']);
             }
             $colorType = $this->epocLevel[$epocLv];
-            $fontSize  = $this->minFontSize + $countLv;
-            $rtn[] = $this->_createHTMLTag($tag, key($colorType), $fontSize);
+            $type      = $this->_uid.'_'.key($colorType);
+            $fontSize  = $this->_minFontSize + $countLv;
+            $rtn[]     = $this->createHTMLTag($tag, $type, $fontSize);
         }
-        return implode("", $rtn);
+        return implode($this->tagSeparator, $rtn);
     }
+
     // }}}
-    // {{{ var function _createHTMLTag($tag, $type, $fontSize)
+    // {{{ protected function _createHTMLTag()
+
     /**
-    *
-    * create a Element of HTML part
-    *
-    * @return  string a Element of Tag HTML
-    * @param   array  $tag
-    * @param   string $type css class of time line param
-    * @param   float  $fontSize
-    * @access  var
-    */
-    function _createHTMLTag($tag, $type, $fontSize)
+     * create a Element of HTML part
+     *
+     * deprecated due to wrong function naming: one leading underscore must only
+     * be used in private context.
+     *
+     * @param array  $tag      tagname
+     * @param string $type     css class of time line param
+     * @param float  $fontSize size of the font for this tag
+     *
+     * @return string a Element of Tag HTML
+     *
+     * @see HTML_TagCloud::createHTMLTag()
+     * @since Method available since Release 0.1.0
+     * @deprecated Method deprecated in Release 0.1.3
+     * @legacy
+     */
+    protected function _createHTMLTag($tag, $type, $fontSize)
     {
-        return '<a href="'. $tag['url'] . '" style="font-size: '.
-               $fontSize . $this->sizeSuffix . ';" class="'.  $type .'">' .
-               htmlspecialchars($tag['name']) . '</a>&nbsp;'. "\n";
+        return $this->createHTMLTag($tag, $type, $fontSize);
     }
+
     // }}}
-    // {{{ private function _sortTags($limit = 0)
+    // {{{ protected function createHTMLTag()
+
     /**
-    *
-    * sort tags by name
-    *
-    * @return  array
-    * @param   int  $limit limit element number of create TagCloud
-    * @access  private
-    */
-    function _sortTags($limit = 0)
+     * create a Element of HTML part
+     *
+     * @param array  $tag      tagname
+     * @param string $type     css class of time line param
+     * @param float  $fontSize size of the font for this tag
+     *
+     * @return string a Element of Tag HTML
+     *
+     * @since Method available since Release 0.1.3
+     */
+    protected function createHTMLTag($tag, $type, $fontSize)
     {
-        usort($this->_elements, array($this, "_cmpElementsName"));
+        return '<a href="'.(!empty($tag['url']) ? $tag['url'] : '').'"'
+               .' style="font-size:'.$fontSize.$this->sizeSuffix.';"'
+               .' class="tagcloudElement '.$type.'">'
+               .htmlspecialchars($tag['name'])
+               .'</a>';
+    }
+
+    // }}}
+    // {{{ protected function generateEpocLevel()
+
+    /**
+     * build the epocLevel Array automatically by calculating an array of colors
+     *
+     * @param string $latestColor   color of latest epocLevel (usually dark)
+     * @param string $earliestColor color of earliest epocLevel (usually light)
+     * @param int    $thresholds    number of levels to generate colors for
+     *
+     * @return array epocLevel
+     *
+     * @since Method available since Release 0.2.0
+     */
+    private function _generateEpocLevel($latestColor, $earliestColor, $thresholds)
+    {
+        include_once 'Image/Color.php';
+        $imageColor = new Image_Color();
+        $imageColor->setWebSafe(false);
+        $imageColor->setColors($latestColor, $earliestColor);
+        $epocLevel = array();
+        foreach ($imageColor->getRange($thresholds) as $key => $color) {
+            $epocLevel[]['epocLevel'.$key] = array(
+                'link'    => $color,
+                'visited' => $color
+            );
+        }
+        return array_reverse($epocLevel);
+    }
+
+    // }}}
+    // {{{ private function _sortTags()
+
+    /**
+     * sort tags by name
+     *
+     * @param int $limit limit element number of create TagCloud
+     *
+     * @return array
+     *
+     * @since Method available since Release 0.1.0
+     */
+    private function _sortTags($limit = 0)
+    {
         if ($limit != 0) {
+            usort($this->_elements, array($this, "_cmpElementsCountTimestamp"));
             $this->_elements = array_splice($this->_elements, 0, $limit);
+            usort($this->_elements, array($this, "_cmpElementsName"));
+        } else {
+            usort($this->_elements, array($this, "_cmpElementsName"));
         }
     }
+
     // }}}
-    // {{{ private function _cmpElementsName($a, $b)
+    // {{{ private function _cmpElementsName()
+
     /**
-    *
-    * using for usort()
-    *
-    * @return  int (bool)
-    * @access  public
-    */
-    function _cmpElementsName($a, $b)
+     * callback for usort(), considers string value "name" of a tag element
+     *
+     * @param array $a first element to compare
+     * @param array $b second element to compare
+     *
+     * @return int (bool)
+     *
+     * @since Method available since Release 0.1.0
+     */
+    private function _cmpElementsName($a, $b)
     {
         if ($a['name'] == $b['name']) {
             return 0;
         }
         return ($a['name'] < $b['name']) ? -1 : 1;
     }
+
+    // }}}
+    // {{{ private function _cmpElementsCountTimestamp($a, $b)
+
+    /**
+     * callback for usort(), considers count and if count values are equal it
+     *  considers timestamp as well.
+     *
+     * @param array $a first element to compare
+     * @param array $b second element to compare
+     *
+     * @return int (bool)
+     *
+     * @since Method available since Release 0.2.1
+     */
+    private function _cmpElementsCountTimestamp($a, $b)
+    {
+        if ($a['count'] == $b['count']) {
+            if ($a['timestamp'] == $b['timestamp']) {
+                return 0;
+            } else {
+                return ($a['timestamp'] > $b['timestamp']) ? -1 : 1;
+            }
+        }
+        return ($a['count'] > $b['count']) ? -1 : 1;
+    }
+
     // }}}
     // {{{ private function _calcMumCount()
+
     /**
-    *
-    * calc max and min tag count of use
-    *
-    * @access  private
-    */
-    function _calcMumCount()
+     * calc max and min tag count values
+     *
+     * @return void
+     *
+     * @since Method available since Release 0.1.0
+     */
+    private function _calcMumCount()
     {
+        $array = array();
         foreach ($this->_elements as $item) {
-            $array[] = $item['count'];
+            if (isset($item['count'])) {
+                $array[] = (int)$item['count'];
+            } else {
+                $array[] = 0;
+            }
         }
         $this->_min = min($array);
         $this->_max = max($array);
     }
+
     // }}}
     // {{{ private function _calcMumEpoc()
+
     /**
-    *
-    * calc max and min timestamp
-    *
-    * @access  private
-    */
-    function _calcMumEpoc()
+     * calc max and min timestamp
+     *
+     * @return void
+     *
+     * @since Method available since Release 0.1.0
+     */
+    private function _calcMumEpoc()
     {
         $array = array();
         foreach ($this->_elements as $item) {
-            if (isset($item['timestamp'])){
-                $array[] = $item['timestamp'];
+            if (isset($item['timestamp'])) {
+                $array[] = (int)$item['timestamp'];
+            } else {
+                $array[] = time();
             }
         }
         $this->_minEpoc = min($array);
         $this->_maxEpoc = max($array);
     }
+
     // }}}
-    // {{{ private function _getCountLevel($count = 0)
+    // {{{ private function _getCountLevel()
+
     /**
-    *
-    * calc Tag Level of size
-    *
-    * @return  int level
-    * @param   int $count
-    * @access  private
-    */
-    function _getCountLevel($count = 0)
+     * calc Tag Level of size
+     *
+     * @param int $count number of occurrences of tag to analyze
+     *
+     * @return int level
+     *
+     * @since Method available since Release 0.1.0
+     */
+    private function _getCountLevel($count = 0)
     {
         return (int)(sqrt($count) - sqrt($this->_min) ) * $this->_factor;
     }
+
     // }}}
-    // {{{ private function _getEpocLevel($timestamp = 0)
+    // {{{ private function _getEpocLevel()
+
     /**
-    *
-    * calc timeline level of Tag
-    *
-    * @return  int     level of timeline
-    * @param   int     $timestamp
-    * @access  private
-    */
-    function _getEpocLevel($timestamp = 0)
+     * calc timeline level of Tag
+     *
+     * @param int $timestamp timestamp of tag to analyze
+     *
+     * @return int level of timeline
+     *
+     * @since Method available since Release 0.1.0
+     */
+    private function _getEpocLevel($timestamp = 0)
     {
-        return (int) (sqrt($timestamp) - sqrt($this->_minEpoc)) * $this->_epocFactor;
+        return (int)(sqrt($timestamp) - sqrt($this->_minEpoc)) * $this->_epocFactor;
     }
+
     // }}}
-    // {{{ private function _wrapDiv($html)
+    // {{{ private function _wrapDiv()
+
     /**
-    *
-    * wrap div tag
-    *
-    * @return  string
-    * @param   string $html
-    * @access  private
-    */
-    function _wrapDiv($html)
+     * wrap div tag
+     *
+     * @param string $html HTML to wrap into a div element
+     *
+     * @return string HTML wrapped into a div set up with $this::cssClass
+     *
+     * @since Method available since Release 0.1.0
+     */
+    private function _wrapDiv($html)
     {
-        return $html == '' ? '' : '<div class="'.$this->cssClass .'">'.$html.'</div>'."\n";
+        return $html == '' ? '' : '<div class="'.$this->cssClass.' '.$this->_uid.'">'
+                                  ."\n".$html."\n</div>\n";
     }
+
     // }}}
 }
+
 // }}}
 
 /*
