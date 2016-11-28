@@ -149,7 +149,7 @@
                     </div>
                 </div>
             </nav>
-            <div class="modal" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal modal-search" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-body">

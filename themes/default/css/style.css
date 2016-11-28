@@ -509,3 +509,12 @@ h5.video-title {
 .profile-cover-container:hover .btn-edit {
     display: block;
 }
+.modal-search {
+    width: 100vw;
+}
+.modal-search .modal-dialog {
+    margin: 0;
+}
+.modal-search .modal-content {
+    border-radius: 0;
+}
