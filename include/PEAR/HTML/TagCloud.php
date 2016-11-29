@@ -79,7 +79,7 @@ class HTML_TagCloud
      *
      * @var string
      */
-    protected $tagSeparator = "&nbsp;\n";
+    protected $tagSeparator = " &nbsp;\n";
 
     /**
      * Stores the number of color thresholds
