@@ -79,7 +79,7 @@ class HTML_TagCloud
      *
      * @var string
      */
-    protected $tagSeparator = " &nbsp;\n";
+    protected $tagSeparator = "&nbsp;\n";
 
     /**
      * Stores the number of color thresholds
@@ -487,7 +487,8 @@ class HTML_TagCloud
                 $epocLv = $this->_getEpocLevel($tag['timestamp']);
             }
             $colorType = $this->epocLevel[$epocLv];
-            $type      = $this->_uid.'_'.key($colorType);
+            // $type      = $this->_uid.'_'.key($colorType);
+            $type      = key($colorType);
             $fontSize  = $this->_minFontSize + $countLv;
             $rtn[]     = $this->createHTMLTag($tag, $type, $fontSize);
         }
