@@ -84,7 +84,6 @@
 
 
 <div class="row">
-    <div class="col-md-12">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="row">
@@ -171,7 +170,6 @@
                 $("input[name=search_string]").focus();
             })
             </script>
-    </div>
 </div>
 
     {if $sub_menu ne ""}
