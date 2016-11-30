@@ -130,7 +130,7 @@
     </div>
 
     {if $home_num_tags gt 0}
-    <div class="panel panel-default">
+    <div class="panel panel-default hidden-xs">
         <div class="panel-heading">
             <h3 class="panel-title"><span class="glyphicon glyphicon-tag"></span> <b> Recent Tags</b></h3>
         </div>
