@@ -12,7 +12,6 @@
 </div>
 
 <script language="JavaScript" type="text/javascript" src="{$base_url}/js/admin_bulk_import.js"></script>
-<script language="JavaScript" type="text/javascript" src="{$base_url}/js/jquery.validate.min.js"></script>
 
 {if $videos eq ''}
 
@@ -58,21 +57,13 @@
 
 </form>
 
-{literal}
-<script>
-    $(function(){
-        validate_bulk_import_search_form();
-    });
-</script>
-{/literal}
-
 {/if}
 
 {if $smarty.get.keyword ne ''}
 
 {if $videos['total'] gt '0'}
 
-<form action="import_bulk_process.php" method="post" name="bulk_import" onsubmit="return validate_frm();" class="form-horizontal">
+<form action="import_bulk_process.php" method="post" id="bulk_import" onsubmit="return validate_frm();" class="form-horizontal">
 
     {section name=i loop=$videos['videos']}
         <input type="hidden" name="video_title[{$videos['videos'][i].video_id}]" value="{$videos['videos'][i].video_title}">
