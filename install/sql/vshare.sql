@@ -311,19 +311,6 @@ CREATE TABLE IF NOT EXISTS `guest_info` (
 
 -- Dumping data for table `guest_info`
 
-
--- Table structure for table `import_auto`
-
-CREATE TABLE IF NOT EXISTS `import_auto` (
-  `import_auto_id` int(11) unsigned NOT NULL auto_increment,
-  `import_auto_keywords` text NOT NULL,
-  `import_auto_download` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`import_auto_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- Dumping data for table `import_auto`
-
-
 -- Table structure for table `import_track`
 
 CREATE TABLE IF NOT EXISTS `import_track` (
