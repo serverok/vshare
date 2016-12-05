@@ -4,8 +4,6 @@
 
 {if $total > 0}
 
-<script language="JavaScript" type="text/javascript" src="{$base_url}/js/admin_user_deleted_videos.js"></script>
-
 <table class="table table-striped table-hover">
 
 <tr>
@@ -75,7 +73,7 @@
 <div>
     <div class="col-md-10 pull-left">{$links}</div>
     <div class="pull-right">
-        <a href="{$base_url}/admin/video_user_deleted_all.php" class="btn btn-danger">
+        <a href="{$base_url}/admin/video_user_deleted_all.php" class="btn btn-danger" onclick='Javascript:return confirm("Are you sure want to delete permanently?");' data-toggle="tooltip" data-placement="bottom" title="Delete Videos Permanently">
             Delete All
         </a>
     </div>
