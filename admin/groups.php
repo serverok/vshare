@@ -38,9 +38,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'del') {
     $sql = "DELETE FROM `group_videos` WHERE
            `group_video_group_id`='" . (int) $_GET['gid'] . "'";
     DB::query($sql);
-    $sql = "DELETE FROM `group_topics` WHERE
-           `group_topic_group_id`='" . (int) $_GET['gid'] . "'";
-    DB::query($sql);
     $sql = "DELETE FROM `group_members` WHERE
            `group_member_group_id`='" . (int) $_GET['gid'] . "'";
     DB::query($sql);

@@ -56,7 +56,6 @@
         <a class="list-group-item" href="{$base_url}/groups/recent/1">Most Recent</a>
         <a class="list-group-item" href="{$base_url}/groups/members/1">Most Members</a>
         <a class="list-group-item" href="{$base_url}/groups/videos/1">Most Videos</a>
-        <a class="list-group-item" href="{$base_url}/groups/topics/1">Most Topics</a>
     </div>
 
     <div class="page-header">

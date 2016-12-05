@@ -59,8 +59,6 @@
 
         {insert name=group_info_count assign=gmemcount tbl=group_members gid=$groups[aa].group_id query="1" field1=group_member_approved field2=group_member_group_id}
         {insert name=group_info_count assign=gvdocount tbl=group_videos gid=$groups[aa].group_id query="1" field1=group_video_approved field2=group_video_group_id}
-        {insert name=group_info_count assign=gtpscount tbl=group_topics gid=$groups[aa].group_id query="1" field1=group_topic_approved field2=group_topic_group_id}
-
         {insert name=id_to_name assign=uname un=$groups[aa].group_owner_id}
 
         <tr>

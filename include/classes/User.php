@@ -250,14 +250,6 @@ class User
                `playlist_user_id`='" . (int) $user_id . "'";
         DB::query($sql);
 
-        $sql = "DELETE FROM `group_topics` WHERE
-               `group_topic_user_id`='" . (int) $user_id . "'";
-        DB::query($sql);
-
-        $sql = "DELETE FROM `group_topic_posts` WHERE
-               `group_topic_post_user_id`='" . (int) $user_id . "'";
-        DB::query($sql);
-
         $sql = "DELETE FROM `comments` WHERE
                `comment_user_id`='" . (int) $user_id . "'";
         DB::query($sql);
