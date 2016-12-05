@@ -40,62 +40,6 @@ $sql = "SELECT * FROM `groups` WHERE
        `group_url`='" . DB::quote($_GET['group_url']) . "'";
 $group_info = DB::fetch1($sql);
 
-if ($group_info) {
-    if (isset($_SESSION['UID']) && $_SESSION['UID'] == $group_info['group_owner_id']) {
-        $sql = "SELECT count(*) AS `total` FROM
-               `group_topics` WHERE
-               `group_topic_group_id`='" . (int) $group_info['group_id'] . "'";
-    } else {
-        $sql = "SELECT count(*) AS `total` FROM
-               `group_topics` WHERE
-               `group_topic_group_id`=" . (int) $group_info['group_id'] . " AND
-               `group_topic_approved`='yes'";
-    }
-    $total = DB::getTotal($sql);
-    $tpage = ceil($total / $config['items_per_page']);
-
-    if ($tpage == 0) {
-        $spage = $tpage + 1;
-    } else {
-        $spage = $tpage;
-    }
-
-    $start_from = ($page - 1) * $config['items_per_page'];
-
-    if (isset($_SESSION['UID']) && $_SESSION['UID'] == $group_info['group_owner_id']) {
-        $sql = "SELECT * FROM `group_topics` WHERE
-               `group_topic_group_id`=" . (int) $group_info['group_id'] . "
-                ORDER BY `group_topic_id` DESC
-                LIMIT $start_from, $config[items_per_page]";
-    } else {
-        $sql = "SELECT * FROM `group_topics` WHERE
-               `group_topic_group_id`=" . (int) $group_info['group_id'] . " AND
-               `group_topic_approved`='yes'
-                ORDER BY `group_topic_id` DESC
-                LIMIT $start_from, $config[items_per_page]";
-    }
-
-    $tarry = DB::fetch($sql);
-    $smarty->assign('grptps', $tarry);
-
-    $start_num = $start_from + 1;
-    $end_num = $start_from + count($tarry);
-
-    $page_link = '';
-
-    for ($k = 1; $k <= $tpage; $k ++) {
-        if ($page != $k) {
-            $page_link .= '<a class="pagination" href="' . VSHARE_URL . '/group/' . $group_url . '/?page=' . $k . '">' . $k . '</a>';
-        } else {
-            $page_link .= "<span class=pagination>$k</span>";
-        }
-    }
-
-    $smarty->assign('start_num', $start_num);
-    $smarty->assign('end_num', $end_num);
-    $smarty->assign('page_link', $page_link);
-}
-
 # fetch recent videos from current group
 $sql = "SELECT * FROM `group_videos` WHERE
        `group_video_group_id`=" . (int) $group_info['group_id'] . " AND
@@ -200,6 +144,5 @@ $smarty->assign('group_info', $group_info);
 $smarty->assign('sub_menu', 'menu_group_members.tpl');
 $smarty->display('header.tpl');
 $smarty->display('group_home.tpl');
-$smarty->assign('html_extra', $smarty->fetch('group_home_js.tpl'));
 $smarty->display('footer.tpl');
 DB::close();

@@ -1,6 +1,5 @@
 {insert name=group_info_count assign=num_group_members tbl=group_members gid=$group.group_id query="1" field1=group_member_approved field2=group_member_group_id}
 {insert name=group_info_count assign=num_group_videos tbl=group_videos gid=$group.group_id query="1" field1=group_video_approved field2=group_video_group_id}
-{insert name=group_info_count assign=num_group_topics tbl=group_topics gid=$group.group_id query="1" field1=group_topic_approved field2=group_topic_group_id}
 {insert name=id_to_name assign=uname un=$group.group_owner_id}
 
 
@@ -61,11 +60,6 @@
 	<tr>
 		<td>Total Member</td>
 		<td><a href="group_members.php?group_id={$group.group_id}">{$num_group_members}</a></td>
-	</tr>
-
-	<tr>
-		<td>Total Topics</td>
-		<td><a href="group_topics.php?gid={$group.group_id}">{$num_group_topics}</a></td>
 	</tr>
 
 	<tr>

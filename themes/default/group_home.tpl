@@ -10,7 +10,6 @@
         <div class="row">
             {insert name=group_info_count assign=gmemcount tbl=group_members gid=$group_info.group_id query="1" field1=group_member_approved field2=group_member_group_id}
             {insert name=group_info_count assign=gvdocount tbl=group_videos gid=$group_info.group_id query="1" field1=group_video_approved field2=group_video_group_id}
-            {insert name=group_info_count assign=gtpscount tbl=group_topics gid=$group_info.group_id query="1" field1=group_topic_approved field2=group_topic_group_id}
             {insert name=check_group_mem assign=checkmem gid=$group_info.group_id}
             {insert name=group_image assign=group_image_info gid=$group_info.group_id tbl=group_videos}
             <div class="col-orient-ls col-sm-6 col-md-4">

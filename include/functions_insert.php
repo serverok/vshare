@@ -203,7 +203,6 @@ function insert_row_count($a)
     $table_arr = array(
         'group_members',
         'group_videos',
-        'group_topics'
     );
 
     if (! in_array($a['table'], $table_arr)) {
@@ -213,7 +212,6 @@ function insert_row_count($a)
     $field_arr1 = array(
         'group_member_group_id',
         'group_video_group_id',
-        'group_topic_group_id'
     );
 
     if (! in_array($a['field1'], $field_arr1)) {
@@ -223,7 +221,6 @@ function insert_row_count($a)
     $field_arr2 = array(
         'group_member_approved',
         'group_video_approved',
-        'group_topic_approved'
     );
 
     if (! in_array($a['field2'], $field_arr2)) {
@@ -419,7 +416,6 @@ function insert_group_info_count($a)
         $table_arr = array(
             'group_members',
             'group_videos',
-            'group_topics'
         );
 
         if (! in_array($a['tbl'], $table_arr)) {
@@ -429,7 +425,6 @@ function insert_group_info_count($a)
         $field_arr1 = array(
             'group_member_approved',
             'group_video_approved',
-            'group_topic_approved'
         );
 
         if (! in_array($a['field1'], $field_arr1)) {
@@ -439,7 +434,6 @@ function insert_group_info_count($a)
         $field_arr2 = array(
             'group_member_group_id',
             'group_video_group_id',
-            'group_topic_group_id'
         );
 
         if (! in_array($a['field2'], $field_arr2)) {
@@ -454,29 +448,6 @@ function insert_group_info_count($a)
             return "error";
         }
     }
-}
-
-function insert_topic_count($a)
-{
-    $sql = "SELECT count(*) AS `total` FROM `group_topics` WHERE
-           `group_topic_group_id`='" . (int) $a['GID'] . "' AND
-           `group_topic_approved`='yes'";
-    return DB::getTotal($sql);
-}
-
-function insert__count($a)
-{
-    $sql = "SELECT count(*) AS `total` FROM `group_topics` WHERE
-           `group_topic_group_id`='" . (int) $a['GID'] . "' AND
-           `group_topic_approved`='yes'";
-    return DB::getTotal($sql);
-}
-
-function insert_post_count($a)
-{
-    $sql = "SELECT count(*) AS `total` FROM `group_topic_posts` WHERE
-           `group_topic_post_topic_id`='" . (int) $a['TID'] . "'";
-    return DB::getTotal($sql);
 }
 
 function insert_group_image($a)
@@ -666,7 +637,6 @@ function insert_getfield($v)
 
     $table_arr = array(
         'groups',
-        'group_topic_posts',
         'videos',
         'users'
     );
@@ -677,7 +647,6 @@ function insert_getfield($v)
 
     $field_arr = array(
         'group_owner_id',
-        'group_topic_post_date',
         'video_title',
         'video_seo_name',
         'video_user_id',
@@ -690,7 +659,6 @@ function insert_getfield($v)
 
     $qfield_arr = array(
         'group_id',
-        'group_topic_post_topic_id',
         'video_id',
         'group_owner_id',
         'user_id'
@@ -703,7 +671,6 @@ function insert_getfield($v)
     if (isset($v['order'])) {
 
         $order_arr = array(
-            'order by group_topic_post_id desc',
             'order by video_id desc',
             'order by user_id desc',
             'order by group_id desc'
