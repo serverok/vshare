@@ -68,15 +68,6 @@ if (isset($_GET['chid']) && is_numeric($_GET['chid'])) {
                 ORDER BY `total` DESC";
         $rows = 1;
         $category_tpl = 'Most Videos';
-    } else {
-        $sql = "SELECT DISTINCT *,count(gt.group_topic_group_id) AS `total` FROM
-               `group_topics` AS gt,
-               `groups` AS g WHERE
-                gt.group_topic_group_id=g.group_id
-                GROUP BY gt.group_topic_group_id
-                ORDER BY `total` DESC";
-        $rows = 1;
-        $category_tpl = 'Most Topics';
     }
 }
 
@@ -117,14 +108,6 @@ if (isset($_GET['chid']) && is_numeric($_GET['chid'])) {
                `groups` AS g WHERE
                 gv.group_video_group_id=g.group_id
                 GROUP BY gv.group_video_group_id
-                ORDER BY `total` DESC
-                LIMIT $start_from, $config[items_per_page]";
-    } else {
-        $sql = "SELECT DISTINCT *,count(gt.group_topic_group_id) AS `total` FROM
-               `group_topics` AS gt,
-               `groups` AS g WHERE
-                gt.group_topic_group_id=g.group_id
-                GROUP BY gt.group_topic_group_id
                 ORDER BY `total` DESC
                 LIMIT $start_from, $config[items_per_page]";
     }

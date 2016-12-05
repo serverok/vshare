@@ -393,14 +393,6 @@ class Video
             $sql = "DELETE FROM `playlists_videos` WHERE
                    `playlists_videos_video_id`='" . (int) $video_id . "'";
             DB::query($sql);
-            $sql = "UPDATE `group_topics` SET
-                   `group_topic_video_id`='0' WHERE
-                   `group_topic_video_id`='" . (int) $video_id . "'";
-            DB::query($sql);
-            $sql = "UPDATE `group_topic_posts` SET
-                   `group_topic_post_video_id`='0' WHERE
-                   `group_topic_post_video_id`='" . (int) $video_id . "'";
-            DB::query($sql);
 
             if ($delete == 1) {
                 $ff = VSHARE_DIR . '/thumb/' . $video_folder . $video_id . '.jpg';

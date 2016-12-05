@@ -284,37 +284,6 @@ CREATE TABLE IF NOT EXISTS `group_members` (
 -- Dumping data for table `group_members`
 
 
--- Table structure for table `group_topics`
-
-CREATE TABLE IF NOT EXISTS `group_topics` (
-  `group_topic_id` int(11) NOT NULL auto_increment,
-  `group_topic_group_id` int(11) NOT NULL default '0',
-  `group_topic_user_id` int(11) NOT NULL default '0',
-  `group_topic_add_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  `group_topic_title` text NOT NULL,
-  `group_topic_video_id` int(11) NOT NULL default '0',
-  `group_topic_approved` char(3) NOT NULL default 'yes',
-  PRIMARY KEY  (`group_topic_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- Dumping data for table `group_topics`
-
-
--- Table structure for table `group_topic_posts`
-
-CREATE TABLE IF NOT EXISTS `group_topic_posts` (
-  `group_topic_post_id` int(11) NOT NULL auto_increment,
-  `group_topic_post_topic_id` int(11) NOT NULL default '0',
-  `group_topic_post_user_id` int(11) NOT NULL default '0',
-  `group_topic_post_video_id` int(11) default NULL,
-  `group_topic_post_description` text NOT NULL,
-  `group_topic_post_date` int(11) NOT NULL,
-  PRIMARY KEY  (`group_topic_post_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- Dumping data for table `group_topic_posts`
-
-
 -- Table structure for table `group_videos`
 
 CREATE TABLE IF NOT EXISTS `group_videos` (

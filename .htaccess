@@ -54,7 +54,6 @@ RewriteRule ^group/(.*)/members/(.*) group_members.php?group_url=$1&page=$2
 RewriteRule ^group/(.*)/videos/(.*) group_videos.php?group_url=$1&page=$2
 RewriteRule ^group/(.*)/add/(.*) group_add_videos.php?group_url=$1&page=$2
 RewriteRule ^group/(.*)/fav/(.*) group_add_fav_videos.php?group_url=$1&page=$2
-RewriteRule ^group/(.*)/topic/(.*) group_posts.php?group_url=$1&topic_id=$2
 RewriteRule ^group/(.*)/invite/ invite_members.php?group_url=$1 [L,QSA]
 RewriteRule ^group/(.*)/edit/ group_edit.php?group_url=$1 [L,QSA]
 RewriteRule ^group/(.*)/ group_home.php?group_url=$1  [L,QSA]
