@@ -46,10 +46,18 @@ class Tag
                        `tag`='" . $this->tags[$i] . "'";
                 $tag_info = DB::fetch1($sql);
 
-                if ($tag_info && $tag_info['tag_count'] > 0) {
-                    $sql = "UPDATE `tags` SET `tag_count`=`tag_count`-1 WHERE
-                           `tag`='" . $this->tags[$i] . "'";
-                    DB::query($sql);
+                if ($tag_info) {
+                    if ($tag_info['tag_count'] > 1) {
+                        $sql = "UPDATE `tags` SET `tag_count`=`tag_count`-1 WHERE
+                               `tag`='" . $this->tags[$i] . "'
+                                LIMIT 1";
+                        DB::query($sql);
+                    } else {
+                        $sql = "DELETE FROM `tags` WHERE
+                               `tag`='" . $this->tags[$i] . "'
+                                LIMIT 1";
+                        DB::query($sql);
+                    }
                 }
             }
         }
