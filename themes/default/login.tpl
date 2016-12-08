@@ -6,7 +6,7 @@
 
 {else}
 
-<div class="col-md-7">
+<div class="col-md-7 hidden-xs">
     <div class="panel panel-default well">
         <div class="panel-body">
             <h2>What is {$site_name}?</h2>
