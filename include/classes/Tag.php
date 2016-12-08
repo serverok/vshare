@@ -51,13 +51,12 @@ class Tag
                         $sql = "UPDATE `tags` SET `tag_count`=`tag_count`-1 WHERE
                                `tag`='" . $this->tags[$i] . "'
                                 LIMIT 1";
-                        DB::query($sql);
                     } else {
                         $sql = "DELETE FROM `tags` WHERE
                                `tag`='" . $this->tags[$i] . "'
                                 LIMIT 1";
-                        DB::query($sql);
                     }
+                    DB::query($sql);
                 }
             }
         }
