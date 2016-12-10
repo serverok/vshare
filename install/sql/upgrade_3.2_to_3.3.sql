@@ -1,1 +1,2 @@
 DELETE FROM `sconfig` WHERE `soption`='signup_captcha';
+ALTER TABLE `tags` ADD UNIQUE INDEX `ix_tag` (`tag`);

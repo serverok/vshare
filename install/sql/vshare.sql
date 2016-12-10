@@ -600,7 +600,8 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `tag_count` int(11) NOT NULL default '0',
   `used_on` int(11) NOT NULL default '0',
   `active` tinyint(1) NOT NULL default '1',
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `ix_tag` (`tag`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- Dumping data for table `tags`
