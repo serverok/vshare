@@ -33,25 +33,16 @@ class Image
 
         if ($imagetype == 2) {
             $src_img = imagecreatefromjpeg($oldimg);
-            $dst_img = imageCreateTrueColor($dest_width, $dest_height);
-            ImageCopyResampled($dst_img, $src_img, 0, 0, 0, 0, $dest_width, $dest_height, $imagewidth, $imageheight);
-            imagejpeg($dst_img, $newimg, 100);
-            imagedestroy($src_img);
-            imagedestroy($dst_img);
         } else if ($imagetype == 3) {
             $src_img = imagecreatefrompng($oldimg);
-            $dst_img = imageCreateTrueColor($dest_width, $dest_height);
-            ImageCopyResampled($dst_img, $src_img, 0, 0, 0, 0, $dest_width, $dest_height, $imagewidth, $imageheight);
-            imagepng($dst_img, $newimg, 100);
-            imagedestroy($src_img);
-            imagedestroy($dst_img);
         } else {
             $src_img = imagecreatefromgif($oldimg);
-            $dst_img = imageCreateTrueColor($dest_width, $dest_height);
-            ImageCopyResampled($dst_img, $src_img, 0, 0, 0, 0, $dest_width, $dest_height, $imagewidth, $imageheight);
-            imagejpeg($dst_img, $newimg, 100);
-            imagedestroy($src_img);
-            imagedestroy($dst_img);
         }
+
+        $dst_img = imageCreateTrueColor($dest_width, $dest_height);
+        ImageCopyResampled($dst_img, $src_img, 0, 0, 0, 0, $dest_width, $dest_height, $imagewidth, $imageheight);
+        imagejpeg($dst_img, $newimg, 100);
+        imagedestroy($src_img);
+        imagedestroy($dst_img);
     }
 }
