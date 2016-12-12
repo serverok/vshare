@@ -1,3 +1,7 @@
+<div class="col-md-3">
+    {include file="menu_settings.tpl" active="delete"}
+</div>
+<div class="col-md-9">
 {if $mail_send == 0}
 
     <div class="text-center">
@@ -22,3 +26,4 @@
     </div>
 
 {/if}
+</div>

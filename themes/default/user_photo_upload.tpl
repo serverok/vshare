@@ -1,6 +1,9 @@
 <script language="JavaScript" type="text/javascript" src="{$base_url}/js/fileinput.min.js"></script>
 <link href="{$base_url}/themes/default/css/fileinput.css" rel="stylesheet">
-<div class="col-md-12">
+<div class="col-md-3">
+    {include file="menu_settings.tpl" active="profile_photo"}
+</div>
+<div class="col-md-9">
     <div class="page-header">
         <h1>
             Upload Photo
@@ -10,12 +13,12 @@
 
     <form action="user_photo_upload.php" method="post" enctype="multipart/form-data" name="profile-photo-upload" id="profile-photo-upload" class="form-horizontal">
         <div class="form-group">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="profile-pic-container thumbnail" style="margin: 0;">
                     <img class="img-responsive" src="{$photo_url}?{$vshare_rand}" alt="">
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-9">
             <label class="control-label">Select file to upload:</label>
                 <input type="file" name="photo" class="file" accept="image/jpeg,image/png">
                 <span class="help-block">Photo must be in JPG format. Recommended size {Config::get('user_photo_width')}x{Config::get('user_photo_height')}</span>
