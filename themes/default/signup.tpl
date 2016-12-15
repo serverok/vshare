@@ -7,7 +7,7 @@
     <p><a href="{$base_url}/">Return to the home page</a></p>
 </div>
 {else}
-<div class="col-md-7">
+<div class="col-md-6 col-md-offset-3">
     <div class="panel panel-default">
         <div class="panel-body">
             <h2>New Member? Sign up</h2>
@@ -147,39 +147,6 @@
             <p></p>
             <p class="hidden-xs">&nbsp;</p>
         </div>
-    </div>
-</div>
-
-<div class="col-md-5">
-    <div class="panel panel-default">
-    <div class="panel-body">
-        <h2>{$site_name} Log In</h2>
-        <p class="lead text-muted">Welcome back. Log in to your account</p>
-    <hr>
-    <form method="post" action="{$base_url}/login/" id="login-form" role="form">
-        <div class="form-group">
-            <label>User Name:</label>
-            <input type="text" name="user_name" value="{$user_name}" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label>Password:</label>
-            <input type="password" id="password" name="user_password" class="form-control" required>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="autologin">Remember</label>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-default btn-lg" name="action_login">Log In</button>
-        </div>
-    </form>
-
-    <br>
-
-    <div class="forget-passsword">
-        <a href="{$base_url}/recoverpass.php">Forgot your password?</a> <br>
-        <a href="{$base_url}/pages/help.html">Need Help? </a>
-    </div>
-    </div>
     </div>
 </div>
 {/if}
