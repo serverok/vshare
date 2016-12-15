@@ -176,8 +176,6 @@ if (! $view) {
         $videos[] = $video;
     }
 
-    $view['start_num'] = $start_from + 1;
-    $view['end_num'] = $start_from + $video_count;
     $view['page'] = $page;
     $view['page_links'] = Paginate::getLinks2($view['total'], $config['num_watch_videos'], './', $page);
     $view['videos'] = $videos;

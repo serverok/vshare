@@ -15,20 +15,9 @@
 </div>
 
 <div class="col-sm-8 col-md-9">
-    <div class="page-header row">
-        <div class="col-md-9">
-            <h2>
-                <button data-toggle="offcanvas" class="btn btn-default btn-sm pull-left visible-xs" type="button" title="Categories">
-                    <span class="glyphicon glyphicon-menu-right"></span>
-                </button>
-                {$view.display_order}
-                {if $channel_name ne ''}
-                {$channel_name} videos
-                {/if}
-            </h2>
-        </div>
-        <div class="col-md-3 text-right">
-            <br>
+    <div class="page-header">
+        <div class="pull-right hidden-xs">
+            <span class="small text-muted">About {$view.total} results &nbsp;&nbsp;</span>
             <div class="btn-group btn-group-sm">
                 {if $channel_name ne ""}
                     <a class="btn btn-default{if $view.view_type eq 'basic'} disabled{/if}" href="{$base_url}/{if $channel_name ne ''}channel/{$smarty.get.chid}/{/if}{$view.category}/basic/{$view.page}" title="Grid view">
@@ -46,8 +35,16 @@
                     </a>
                 {/if}
             </div>
-            <small class="text-muted">&nbsp; Videos {$view.start_num}-{$view.end_num} of {$view.total}</small>
         </div>
+        <h2>
+            <button data-toggle="offcanvas" class="btn btn-default btn-sm pull-left visible-xs" type="button" title="Categories">
+                <span class="glyphicon glyphicon-menu-right"></span>
+            </button>
+            {$view.display_order}
+            {if $channel_name ne ''}
+            {$channel_name} videos
+            {/if}
+        </h2>
     </div>
 
     {if $smarty.request.view_type eq "" or $smarty.request.view_type eq "basic"}
