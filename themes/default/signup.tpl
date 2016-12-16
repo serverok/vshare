@@ -7,43 +7,39 @@
     <p><a href="{$base_url}/">Return to the home page</a></p>
 </div>
 {else}
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-6 col-md-offset-3 signup-box">
     <div class="panel panel-default">
         <div class="panel-body">
-            <h2>New Member? Sign up</h2>
-            <p class="text-muted">Just fill out the account information below:</p>
+            <h2 class="text-center">New Member? Sign up</h2>
+            <p class="text-muted text-center">Just fill out the account information below:</p>
             <hr>
 
             <form  method="post" action="{$base_url}/signup/" id="signup-form" class="" role="form">
                 <div class="form-group">
-                    <label for="user_name" class="control-label">User Name</label>
                     <div class="input-group">
                         <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                        <input type="text" id="user_name" name="user_name" value="{$signup.user_name}" class="form-control input-lg" required autofocus>
+                        <input type="text" id="user_name" name="user_name" value="{$signup.user_name}" class="form-control input-lg" placeholder="User Name" required autofocus>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="email" class="control-label">E-Mail Address</label>
                     <div class="input-group">
                         <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
-                        <input type="email" name="email" id="email" value="{$signup.email}" class="form-control input-lg" required>
+                        <input type="email" name="email" id="email" value="{$signup.email}" class="form-control input-lg" placeholder="E-Mail Address" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="password" class="control-label">Your Password</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                <input type="password" id="password" name="password" value="" class="form-control input-lg" required>
+                                <input type="password" id="password" name="password" value="" class="form-control input-lg" placeholder="Password" required>
                             </div>
                         </div>
                         <p class="visible-xs visible-sm"></p>
                         <div class="col-md-6">
-                            <label for="password_confirm" class="control-label">Confirm Your Password</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                <input type="password" id="password_confirm" name="password_confirm" class="form-control input-lg" required>
+                                <input type="password" id="password_confirm" name="password_confirm" class="form-control input-lg" placeholder="Confirm Password" required>
                             </div>
                         </div>
                     </div>
@@ -97,12 +93,12 @@
                 {/if}
 
                 {if $captcha_enabled eq "1"}
+                <div class="col-md-6 col-md-offset-3">
                     <div class="form-group">
-                        <label class="control-label">Verify you are human:</label>
-                        <div class="col-md-offset-1">
+                        <label class="control-label">Verify you are human:</label>                     
                             {$captcha_html}
-                        </div>
-                    </div>
+                     </div>
+                </div>
                 {/if}
 
                 {if $enable_package eq "yes"}
@@ -133,19 +129,21 @@
                         </div>
                     </div>
                 {/if}
-
-               <div class="form-group">
-                    <div class="col-md-8 col-sm-8">
-                        <small>By signing up you agree to the <a href="{$base_url}/pages/terms.html" target="_blank" class="text-nowrap">Terms of Service</a> and the <a href="{$base_url}/pages/privacy.html" target="_blank" class="text-nowrap">Privacy Policy</a>.</small>
-                    </div>
-                    <div class="col-md-4 col-sm-4">
-                        <p class="visible-xs">&nbsp;</p>
-                        <button type="submit" class="btn btn-success btn-lg btn-block" name="submit">Sign Up</button>
+             
+                <div class="col-md-12"> 
+                    <hr>
+                    <div class="form-group text-center">
+                    <span class="text-muted"><span class="label label-danger">Note:-</span> 
+                        <small>By signing up you agree to the <a href="{$base_url}/pages/terms.html" target="_blank" class="text-nowrap">Terms of Service</a> and the <a href="{$base_url}/pages/privacy.html" target="_blank" class="text-nowrap">Privacy Policy</a>.</small>                    
                     </div>
                 </div>
+
+                <div class="col-md-6 col-sm-6 col-md-offset-3">
+                    <p class="visible-xs">&nbsp;</p>
+                    <button type="submit" class="btn btn-success btn-lg btn-block" name="submit">Sign Up</button>
+                </div>
+
             </form>
-            <p></p>
-            <p class="hidden-xs">&nbsp;</p>
         </div>
     </div>
 </div>
