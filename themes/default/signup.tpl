@@ -93,11 +93,13 @@
                 {/if}
 
                 {if $captcha_enabled eq "1"}
-                <div class="col-md-6 col-md-offset-3">
-                    <div class="form-group">
-                        <label class="control-label">Verify you are human:</label>                     
-                            {$captcha_html}
-                     </div>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="form-group">
+                            <label class="control-label">Verify you are human:</label>                     
+                                {$captcha_html}
+                         </div>
+                    </div>
                 </div>
                 {/if}
 
