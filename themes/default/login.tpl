@@ -51,13 +51,13 @@
                     </div>
 
 					<div class="row checkbox">
-						<div class="col-md-6 col-sm-4">
+						<div class="col-md-6 col-sm-4 col-xs-6">
 							<label>
 								<input type="checkbox" name="autologin"> Remember me
 							</label>
 						</div>
-						<div class="col-md-6 col-sm-4">
-							<p><a href="{$base_url}/recoverpass.php">Forgot your password?</a></p>
+						<div class="col-md-6 col-sm-4 col-xs-6">
+							<p class="text-right"><a href="{$base_url}/recoverpass.php">Forgot password?</a></p>
 						</div>
 					</div>
                     
