@@ -27,7 +27,7 @@
                         <input type="email" name="email" id="email" value="{$signup.email}" class="form-control input-lg" placeholder="E-Mail Address" required>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                     </div>
-                        
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <div class="input-group">
@@ -49,7 +49,7 @@
                 </div>
 
                 {if $signup_dob eq "1"}
-                    
+
                         <label class="control-label">Date of Birth:</label>
                         <div class="row">
                             <div class="col-md-4">
@@ -98,14 +98,14 @@
                                 </div>
                             </div>
                         </div>
-                    
+
                 {/if}
 
                 {if $captcha_enabled eq "1"}
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <div class="form-group">
-                            <label class="control-label">Verify you are human:</label>                     
+                            <label class="control-label">Verify you are human:</label>
                                 {$captcha_html}
                          </div>
                     </div>
@@ -140,17 +140,20 @@
                         </div>
                     </div>
                 {/if}
-             
-                <div class="col-md-12"> 
-                    <hr>
-                    <div class="form-group text-center">
-                    <span class="text-muted"><span class="label label-danger">Note:-</span> 
-                        <small>By signing up you agree to the <a href="{$base_url}/pages/terms.html" target="_blank" class="text-nowrap">Terms of Service</a> and the <a href="{$base_url}/pages/privacy.html" target="_blank" class="text-nowrap">Privacy Policy</a>.</small>                    
+
+                <hr>
+
+                <div class="col-md-12 col-md-offset-1">
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="agree" checked required> I agree to the <a href="{$base_url}/pages/terms.html" target="_blank" class="text-nowrap">Terms of Service</a> and the <a href="{$base_url}/pages/privacy.html" target="_blank" class="text-nowrap">Privacy Policy</a>
+                            </label>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-sm-6 col-md-offset-3">
-                    <p class="visible-xs">&nbsp;</p>
                     <button type="submit" class="btn btn-success btn-lg btn-block" name="submit">Sign Up</button>
                 </div>
 
