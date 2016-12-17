@@ -27,16 +27,19 @@
                         <input type="email" name="email" id="email" value="{$signup.email}" class="form-control input-lg" placeholder="E-Mail Address" required>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-6">
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
                                 <input type="password" id="password" name="password" value="" class="form-control input-lg" placeholder="Password" required>
                             </div>
                         </div>
-                        <p class="visible-xs visible-sm"></p>
-                        <div class="col-md-6">
+                    </div>
+                        
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
                                 <input type="password" id="password_confirm" name="password_confirm" class="form-control input-lg" placeholder="Confirm Password" required>
@@ -46,50 +49,56 @@
                 </div>
 
                 {if $signup_dob eq "1"}
-                    <div class="form-group">
+                    
                         <label class="control-label">Date of Birth:</label>
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </div>
+                                        <select name="month" class="form-control input-lg" required>
+                                            <option value="">Month</option>
+                                            {foreach from=$months item=month}
+                                                <option {if $month eq $signup.month} selected {/if}>{$month}</option>
+                                            {/foreach}
+                                        </select>
                                     </div>
-                                    <select name="month" class="form-control input-lg" required>
-                                        <option value="">Month</option>
-                                        {foreach from=$months item=month}
-                                            <option {if $month eq $signup.month} selected {/if}>{$month}</option>
-                                        {/foreach}
-                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </div>
+                                        <select name="day" class="form-control input-lg" required>
+                                            <option value="">Day</option>
+                                            {foreach from=$days item=day}
+                                                <option {if $day eq $signup.day} selected {/if}>{$day}</option>
+                                            {/foreach}
+                                        </select>
                                     </div>
-                                    <select name="day" class="form-control input-lg" required>
-                                        <option value="">Day</option>
-                                        {foreach from=$days item=day}
-                                            <option {if $day eq $signup.day} selected {/if}>{$day}</option>
-                                        {/foreach}
-                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </div>
+                                        <select name="year" class="form-control input-lg" required>
+                                            <option value="">Year</option>
+                                            {foreach from=$years item=year}
+                                                <option {if $year eq $signup.year} selected {/if}>{$year}</option>
+                                            {/foreach}
+                                        </select>
                                     </div>
-                                    <select name="year" class="form-control input-lg" required>
-                                        <option value="">Year</option>
-                                        {foreach from=$years item=year}
-                                            <option {if $year eq $signup.year} selected {/if}>{$year}</option>
-                                        {/foreach}
-                                    </select>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    
                 {/if}
 
                 {if $captcha_enabled eq "1"}
