@@ -50,23 +50,23 @@
                         </div>
                     </div>
 
-					<div class="row checkbox">
-						<div class="col-md-6 col-sm-4 col-xs-6">
-							<label>
-								<input type="checkbox" name="autologin"> Remember me
-							</label>
-						</div>
-						<div class="col-md-6 col-sm-4 col-xs-6">
-							<p class="text-right"><a href="{$base_url}/recoverpass.php">Forgot password?</a></p>
-						</div>
-					</div>
+                    <div class="row checkbox">
+                        <div class="col-md-6 col-sm-4 col-xs-6">
+                            <label>
+                                <input type="checkbox" name="autologin"> Remember me
+                            </label>
+                        </div>
+                        <div class="col-md-6 col-sm-4 col-xs-6">
+                            <p class="text-right"><a href="{$base_url}/recoverpass.php">Forgot password?</a></p>
+                        </div>
+                    </div>
                     
-                        <div class="row">
-	                        <div class="form-group">
-	                            <div class="col-md-4 col-sm-4">
-	                                <button type="submit" name="action_login" class="btn btn-success btn-lg btn-block">Log In</button>
-	                            </div>
-	                        </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4 col-sm-4">
+                                <button type="submit" name="action_login" class="btn btn-success btn-lg btn-block">Log In</button>
+                            </div>
+                        </div>
                     </div>
                 </form>                             
             </div>
