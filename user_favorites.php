@@ -59,12 +59,14 @@ $results_on_this_page = count($result);
 
 $video_keywords_all = '';
 $favorite_videos = array();
+$video_users = array();
 
 foreach ($result as $favorite_video) {
     $favorite_video['video_thumb_url'] = $servers[$favorite_video['video_thumb_server_id']];
     $favorite_video['video_keywords_array'] = explode(' ', $favorite_video['video_keywords']);
     $video_keywords_all .= $favorite_video['video_keywords'] . ' ';
     $favorite_videos[] = $favorite_video;
+    $video_users[] = $favorite_video['video_user_id'];
 }
 
 $view = array();
@@ -74,6 +76,18 @@ $view['video_keywords_all_array'] = array_remove_duplicate($video_keywords_all);
 $start_num = $start_from + 1;
 $end_num = $start_from + $results_on_this_page;
 $page_links = Paginate::getLinks2($total, $config['items_per_page'], './', $page);
+
+$video_user_names = array();
+
+if (! empty($video_users)) {
+    $video_users = array_unique($video_users);
+
+    foreach ($video_users as $user_id) {
+        $video_user_names[$user_id] = User::get_user_name_by_id($user_id);
+    }
+}
+
+$view['video_user_names'] = $video_user_names;
 
 $allow_playlist = $user_info['user_playlist_public'];
 $allow_favorite = $user_info['user_favourite_public'];

@@ -170,12 +170,25 @@ if (! $view) {
     }
 
     $videos = array();
+    $video_users = array();
 
     foreach ($videos_all AS $video) {
         $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
         $videos[] = $video;
+        $video_users[] = $video['video_user_id'];
     }
 
+    $video_user_names = array();
+
+    if (! empty($video_users)) {
+        $video_users = array_unique($video_users);
+
+        foreach ($video_users as $user_id) {
+            $video_user_names[$user_id] = User::get_user_name_by_id($user_id);
+        }
+    }
+
+    $view['video_user_names'] = $video_user_names;
     $view['page'] = $page;
     $view['page_links'] = Paginate::getLinks2($view['total'], $config['num_watch_videos'], './', $page);
     $view['videos'] = $videos;

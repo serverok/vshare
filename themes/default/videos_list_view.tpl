@@ -14,7 +14,6 @@
     </h4>
     <p class="text-muted small">
         {if !isset($hide_owner_info)}
-            {insert name=id_to_name assign=user_name un=$video_info.video_user_id}
             by <a href="{$base_url}/{$user_name}">{$user_name}</a>
             <br>
         {/if}

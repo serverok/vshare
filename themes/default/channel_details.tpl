@@ -64,6 +64,7 @@
     <div class="video-block">
         <div class="row">
             {section name=i loop=$recent_channel_videos}
+                {assign var=user_name value=$video_user_names[$recent_channel_videos[i].video_user_id]}
                 {include file="videos_grid_view.tpl" video_info=$recent_channel_videos[i]}
             {/section}
         </div>
@@ -83,6 +84,7 @@
     <div class="video-block">
         <div class="row">
             {section name=i loop=$mostview}
+                {assign var=user_name value=$video_user_names[$mostview[i].video_user_id]}
                 {include file="videos_grid_view.tpl" video_info=$mostview[i]}
             {/section}
         </div>
