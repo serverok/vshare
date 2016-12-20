@@ -542,3 +542,14 @@ h5.video-title {
 .signup-box .input-lg {
     font-size: 14px;
 }
+
+.login-box .glyphicon-ok-circle{
+    color:#347ab6;
+    font-size: 15px
+}
+
+.login-box .input-group-addon{
+      background-color: #347ab6;
+      border:1px solid #347ab6;
+      color:#fff;
+}
