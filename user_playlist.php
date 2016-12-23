@@ -102,18 +102,31 @@ if ($playlists) {
         $results_on_this_page = count($videos);
         $video_keywords_all = '';
         $video_info = array();
+        $video_users = array();
 
         foreach ($videos as $video) {
             $video['video_thumb_url'] = $servers[$video['video_thumb_server_id']];
             $video['video_keywords_array'] = preg_split('[ ]', $video['video_keywords']);
             $video_keywords_all .= $video['video_keywords'] . ' ';
             $video_info[] = $video;
+            $video_users[] = $video['video_user_id'];
         }
 
         $start_num = $start_from + 1;
         $end_num = $start_from + $results_on_this_page;
         $page_links = Paginate::getLinks2($total, $config['items_per_page'], './', $page);
 
+        $video_user_names = array();
+
+        if (! empty($video_users)) {
+            $video_users = array_unique($video_users);
+
+            foreach ($video_users as $user_id) {
+                $video_user_names[$user_id] = User::get_user_name_by_id($user_id);
+            }
+        }
+
+        $smarty->assign('video_user_names', $video_user_names);
         $smarty->assign('start_num', $start_num);
         $smarty->assign('end_num', $end_num);
         $smarty->assign('page_links', $page_links);

@@ -132,6 +132,7 @@
         <div class="row">
             <div class="video-block">
                 {section name=i loop=$group_videos}
+                {assign var=user_name value=$video_user_names[$group_videos[i].video_user_id]}
                 {include file="videos_grid_view.tpl" video_info=$group_videos[i]}
                 {sectionelse}
                 <br>

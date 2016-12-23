@@ -11,6 +11,7 @@
 
             <div class="video-block">
                 {section name=i loop=$video_info}
+                {assign var=user_name value=$user_names[$video_info[i].video_user_id]}
                 {include file="videos_grid_view.tpl" video_info=$video_info[i]}
                 {sectionelse}
                 <br>
@@ -19,6 +20,7 @@
             </div>
 
         {if $page_links ne ""}
+            <p class="clearfix"></p>
             <div>{$page_links}</div>
         {/if}
     </div>

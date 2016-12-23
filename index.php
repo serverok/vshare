@@ -75,15 +75,28 @@ if (! $view) {
     }
 
     $featured_videos = array();
+    $video_users = array();
 
     foreach ($videos as $featured_video) {
         $featured_video['video_thumb_url'] = $servers[$featured_video['video_thumb_server_id']];
         $featured_video['video_keywords_array'] = explode(' ', $featured_video['video_keywords']);
         $featured_videos[] = $featured_video;
+        $video_users[] = $featured_video['video_user_id'];
     }
 
     if (count($featured_videos) > 0) {
+        $video_user_names = array();
+
+        if (! empty($video_users)) {
+            $video_users = array_unique($video_users);
+
+            foreach ($video_users as $user_id) {
+                $video_user_names[$user_id] = User::get_user_name_by_id($user_id);
+            }
+        }
+
         $smarty->assign('featured_videos', $featured_videos);
+        $smarty->assign('video_user_names', $video_user_names);
         $view['featured_video_block'] = $smarty->fetch('index_featured_videos.tpl');
     } else {
         $view['featured_video_block'] = '';

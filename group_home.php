@@ -48,18 +48,32 @@ $sql = "SELECT * FROM `group_videos` WHERE
         LIMIT 0, 4";
 $grp_videos = DB::fetch($sql);
 $group_videos = array();
+$video_users = array();
 foreach ($grp_videos as $tmp) {
     if (isset($tmp['group_video_video_id'])) {
         $sql = "SELECT * FROM `videos` WHERE
     	       `video_id`=" . $tmp['group_video_video_id'];
         $video_row = DB::fetch1($sql);
         $video_row['video_thumb_url'] = $servers[$video_row['video_thumb_server_id']];
+        $video_users[] = $video_row['video_user_id'];
     }
 
     $group_videos[] = $video_row;
 }
 
 $smarty->assign('group_videos', $group_videos);
+
+$video_user_names = array();
+
+if (! empty($video_users)) {
+    $video_users = array_unique($video_users);
+
+    foreach ($video_users as $user_id) {
+        $video_user_names[$user_id] = User::get_user_name_by_id($user_id);
+    }
+}
+
+$smarty->assign('video_user_names', $video_user_names);
 
 $sql = "SELECT count(*) AS `total` FROM `group_videos` WHERE
        `group_video_approved`='no' AND

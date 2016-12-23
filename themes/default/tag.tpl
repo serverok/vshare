@@ -18,6 +18,7 @@
 
     <div class="video-block clearfix">
         {section name=i loop=$video_info}
+        {assign var=user_name value=$user_names[$video_info[i].video_user_id]}
         {include file="videos_grid_view.tpl" video_info=$video_info[i]}
         {sectionelse}
         <br>

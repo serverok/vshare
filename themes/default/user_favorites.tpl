@@ -7,6 +7,7 @@
     </div>
     <div class="video-block video-block-list">
         {section name=i loop=$favVideos}
+            {assign var=user_name value=$view.video_user_names[$favVideos[i].video_user_id]}
             <div class="row">
                 {include file="videos_list_view.tpl" video_info=$favVideos[i]}
                 {if $smarty.session.USERNAME eq $user_info.user_name}
