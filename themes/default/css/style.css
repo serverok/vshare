@@ -84,9 +84,15 @@ header h1 {
 }
 .preview {
     position: relative;
+    margin: 0;
+    overflow: hidden;
 }
 .preview img {
     max-height: 125px;
+    transition: -webkit-transform 0.3s ease 0s, opacity 0.3s ease 0s;
+}
+.preview:hover .img-responsive {
+    transform: scale3d(1.1, 1.1, 1) rotate(0.02deg);
 }
 .preview .video-time {
     background-color: #000000;
