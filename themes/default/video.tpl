@@ -63,6 +63,7 @@
     <div class="video-block video-block-list">
         {section name=i loop=$view.videos}
             <div class="row">
+                {assign var=user_name value=$view.video_user_names[$view.videos[i].video_user_id]}
                 {include file="videos_list_view.tpl" video_info=$view.videos[i]}
             </div>
              <hr>
