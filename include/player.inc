@@ -49,6 +49,17 @@ EOT;
 
 } else if ($vshare_player == 'videojs') {
 
+    if (isset($youtube_player)) {
+        $vshare_player = <<<EOT
+<link href="{$config['baseurl']}/css/video-js.css" rel="stylesheet">
+<script src="{$config['baseurl']}/js/video.js"></script>
+<script src="{$config['baseurl']}/js/videojs.watermark.js"></script>
+<script src="{$config['baseurl']}/js/youtube.min.js"></script>
+<video id="vshare_player" class="video-js vjs-big-play-centered vjs-16-9" controls width="100%" data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "{$file}"}] }'></video>
+EOT;
+
+    } else {
+
     $vshare_player = <<<EOT
 <link href="{$config['baseurl']}/css/video-js.css" rel="stylesheet">
 <script src="{$config['baseurl']}/js/video.js"></script>
@@ -61,6 +72,7 @@ EOT;
     </p>
 </video>
 EOT;
+    }
 
 }
 else
