@@ -34,7 +34,9 @@ if (isset($_POST['create_playlist'])) {
 
     User::is_logged_in();
 
-    $playlist_name = trim($_POST['playlist_name']);
+    $playlist_name = $_POST['playlist_name'];
+    $playlist_name = Url::cleanSpecialChrs($playlist_name);
+    $playlist_name = trim($playlist_name);
 
     if (! empty($playlist_name)) {
 
