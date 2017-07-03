@@ -29,16 +29,6 @@
         </div>
 
         <div class="form-group">
-            <label for="hotlink_protection" class="col-sm-3 control-label">Enable private message</label>
-            <div class="col-sm-4">
-                <select name="user_private_message" class="form-control">
-                <option {if $user_info.user_private_message eq '1'}selected{/if} value="1">Yes</option>
-                <option {if $user_info.user_private_message eq '0'}selected{/if} value="0">No</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
             <label for="hotlink_protection" class="col-sm-3 control-label">Public favourites</label>
             <div class="col-sm-4">
                 <select name="user_favourite_public" class="form-control">
