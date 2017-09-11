@@ -36,7 +36,7 @@
 
 
 <div class="well">
-    <img src="{$base_url}/chimg/{$channel.channel_id}.jpg" width="120" height="90" alt="channel" />
+    <img src="{$base_url}/chimg/{$channel.channel_id}.jpg?no-cache={$smarty.now}" width="120" height="90" alt="channel" />
 </div>
 
 <table class="table table-striped table-hover">
