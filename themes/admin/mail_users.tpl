@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-group">
-        <div class="col-sm-7">
+        <div class="col-md-12">
             <textarea class="form-control" name="htmlCode" cols="100" rows="22">{$smarty.request.htmlCode}</textarea>
         </div>
     </div>
