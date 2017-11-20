@@ -19,6 +19,8 @@ if (isset($_GET['thumbs_regenerate'])) {
     $start = ($page - 1) * $items_per_page;
     $page++;
 
+    $thumbnails = isset($_GET['thumbnails']) ? $_GET['thumbnails'] : 'missing';
+
     $last_video_id = 0;
     $thumb_last_video_info_file = VSHARE_DIR . '/templates_c/thumbs_regenerate.txt';
     if (file_exists($thumb_last_video_info_file)) {
@@ -40,6 +42,16 @@ if (isset($_GET['thumbs_regenerate'])) {
         $tool_video_thumb = Config::get('tool_video_thumb');
 
         foreach ($videos as $video) {
+            if ($thumbnails == 'missing') {
+                $video_thumb = VSHARE_DIR . '/thumb/' . $video['video_folder'] . '1_' . $video['video_id'] . '.jpg';
+
+                if (file_exists($video_thumb)) {
+                    if (filesize($video_thumb) > 100) {
+                        continue;
+                    }
+                }
+            }
+
             if ($video['video_vtype'] == 0) {
                 $video_src = VSHARE_DIR . '/video/' . $video['video_name'];
                 if (! file_exists($video_src)) {
@@ -83,7 +95,7 @@ if (isset($_GET['thumbs_regenerate'])) {
         }
 
         echo "<p>Please wait...</p>";
-        echo '<meta http-equiv="refresh" content="3;url=' . VSHARE_URL . '/admin/thumbs_regenerate.php?thumbs_regenerate&items_per_page=' . $items_per_page . '&page=' . $page . '">';
+        echo '<meta http-equiv="refresh" content="3;url=' . VSHARE_URL . '/admin/thumbs_regenerate.php?thumbs_regenerate&items_per_page=' . $items_per_page . '&page=' . $page . '&thumbnails=' . $thumbnails . '">';
     } else {
         set_message('Thumbs created successfully');
         $redirect_url = VSHARE_URL . '/admin/thumbs_regenerate.php';
