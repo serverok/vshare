@@ -114,6 +114,7 @@ function format_size($size)
 
 function upload_jpg($FILE, $var_name, $file_name, $img_width = 128, $dir = "upload/", $rename = '')
 {
+    $err = '';
 
     if ($FILE[$var_name]['name']) {
         $file_url = $dir . uniqid("") . 'tmp';

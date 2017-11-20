@@ -10,6 +10,15 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="col-sm-4 control-label" for="">Thumbnails for:</label>
+        <div class="col-sm-5">
+            <select name="thumbnails" class="form-control">
+                <option value="all">All Videos</option>
+                <option value="missing">Only Missing Thumbnails</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
         <div class="col-sm-offset-4 col-sm-5">
             <button type="submit" name="thumbs_regenerate" class="btn btn-default btn-lg">Generate</button>
         </div>
