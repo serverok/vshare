@@ -81,9 +81,8 @@ class Paginate
         $pagination_output = '';
         $pagination_output .= '<ul class="pagination pagination-lg">';
 
-        $previous_page = ($current_page > 1) ? $current_page - 1 : 1;
         $li_class = ($current_page == 1) ? ' class="disabled"' : '';
-        $pagination_output .= '<li' . $li_class . '><a href="' . $page_url . $previous_page . '">&laquo;</a></li>';
+        $pagination_output .= '<li' . $li_class . '><a href="' . $page_url . '1">&laquo;</a></li>';
 
         $k = 1;
 
@@ -106,9 +105,8 @@ class Paginate
             }
         }
 
-        $next_page = ($current_page >= $total_pages) ? $current_page : $current_page + 1;
         $li_class = ($current_page >= $total_pages) ? ' class="disabled"' : '';
-        $pagination_output .= '<li' . $li_class . '><a href="' . $page_url . $next_page . '">&raquo;</a></li>';
+        $pagination_output .= '<li' . $li_class . '><a href="' . $page_url . $total_pages . '">&raquo;</a></li>';
         $pagination_output .= '</ul>';
 
         return $pagination_output;
