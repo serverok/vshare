@@ -30,8 +30,15 @@ class Captcha
     private function _reCaptcha()
     {
         $captcha_code = '
-        <div class="g-recaptcha" data-sitekey=' . $this->public_key . '></div>
-        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" value="">
+        <script src="https://www.google.com/recaptcha/api.js?render=' . $this->public_key . '"></script>
+        <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute("' . $this->public_key . '", {action: "homepage"}).then(function(token) {
+                document.getElementById("g-recaptcha-response").value = token;
+            });
+        });
+        </script>
         ';
         return $captcha_code;
     }
@@ -71,6 +78,11 @@ class Captcha
         curl_close($ch);
 
         $response = json_decode($response);
-        return $response->success;
+
+        if ($response->success)
+            if ($response->score >= 0.5)
+                return true;
+
+        return false;
     }
 }
