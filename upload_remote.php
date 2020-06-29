@@ -17,13 +17,17 @@ require 'include/language/' . LANG . '/lang_upload_remote.php';
 
 $guest_upload = Config::get('guest_upload');
 
-if ($guest_upload == 0) {
-    User::is_logged_in();
+if (isset($_SESSION['USERNAME'])) {
     $user_id = $_SESSION['UID'];
-} else {
+} else if ($guest_upload) {
     $user_name = Config::get('guest_upload_user');
     $user_info = User::getByName($user_name);
+    if (!$user_info) {
+        die("Specify guest user in Admin > Video Settings > Video Settings");
+    }
     $user_id = $user_info['user_id'];
+} else {
+    Http::redirect(VSHARE_URL . '/login/');
 }
 
 $upload_id = $_GET['upload_id'];
