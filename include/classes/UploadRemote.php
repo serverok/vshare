@@ -19,13 +19,13 @@ class UploadRemote
             $yt_url = explode('&feature=', $url);
             $url = $yt_url[0];
         }
-
+        
         $pattern = '/v=([^&]+)/';
         preg_match($pattern, $url, $matches);
         $video_id = $matches[1];
         $videojpg = $vid . '.jpg';
         $this->video_id = $video_id;
-        $source = 'http://img.youtube.com/vi/' . $video_id . '/1.jpg';
+        $source = 'https://i.ytimg.com/vi/' . $video_id . '/1.jpg';
 
         if ($this->err == '') {
             for ($i = 1; $i <= 3; $i ++) {
@@ -34,7 +34,7 @@ class UploadRemote
                 } else {
                     $thumb_name = $i . '.jpg';
                 }
-                $source = 'http://img.youtube.com/vi/' . $video_id . '/' . $thumb_name;
+                $source = 'https://i.ytimg.com/vi/' . $video_id . '/' . $thumb_name;
                 $desination = VSHARE_DIR . '/thumb/' . $i . '_' . $videojpg;
                 $this->upload = Http::download($source, $desination);
 
@@ -45,7 +45,7 @@ class UploadRemote
                 }
             }
             #Create Main Image
-            $source = 'http://img.youtube.com/vi/' . $video_id . '/hqdefault.jpg';
+            $source = 'https://i.ytimg.com/vi/' . $video_id . '/hqdefault.jpg';
             $desination = VSHARE_DIR . '/thumb/' . $vid . '.jpg';
             $this->upload = Http::download($source, $desination);
         }
