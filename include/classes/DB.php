@@ -59,14 +59,9 @@ class DB
 
     public static function quote($value)
     {
-        if (get_magic_quotes_gpc()) {
-            $value = stripslashes($value);
-        }
-
         if (! is_numeric($value)) {
             $value = mysqli_real_escape_string(self::$link, $value);
         }
-
         return $value;
     }
 
