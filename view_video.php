@@ -140,7 +140,7 @@ if (isset($show_video) && $show_video == 1 && $err == '') {
         $related_videos = Video::getRelatedVideos($video_id, $related_video_string);
         $view['related_videos'] = $related_videos;
 
-        $video_this = '';
+        $video_this = null;
 
         for ($i = 0; $i < count($related_videos); $i ++) {
             if ($related_videos[$i]['video_id'] == $video_id) {
@@ -149,12 +149,14 @@ if (isset($show_video) && $show_video == 1 && $err == '') {
             }
         }
 
-        if ($video_this === '') {
+        if ($video_this === null) {
             $num_related_videos = count($related_videos);
             if ($num_related_videos > 4) {
-                $video_this = (int) $num_related_videos / 2;
+                $video_this = intdiv($num_related_videos, 2);
                 $related_videos[$video_this] = $video_info;
             } else if ($num_related_videos > 2) {
+                $video_this = 0;
+            } else {
                 $video_this = 0;
             }
         }
