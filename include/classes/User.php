@@ -168,31 +168,50 @@ class User
 
     static function set_auto_login_cookie($user_name)
     {
-        $sql = "SELECT `user_password`,`user_salt` FROM `users` WHERE
+        $token = bin2hex(random_bytes(32));
+        $token_hash = hash('sha256', $token);
+
+        $sql = "UPDATE `users` SET
+               `user_auto_login_token`='" . DB::quote($token_hash) . "' WHERE
                `user_name`='" . DB::quote($user_name) . "'";
-        $user_info = DB::fetch1($sql);
-        $password = $user_info['user_password'];
-        $user_salt = $user_info['user_salt'];
-        $user_agent = $_SERVER['HTTP_USER_AGENT'];
-        $token = $password . $user_salt . $user_agent;
-        $token = md5($token);
-        setcookie('VSHARE_AL_USER', $user_name, time() + 60 * 60 * 24 * 100, '/');
-        setcookie('VSHARE_AL_PASSWORD', $token, time() + 60 * 60 * 24 * 100, '/');
+        DB::query($sql);
+
+        setcookie('VSHARE_AL_USER', $user_name, time() + 60 * 60 * 24 * 100, '/', '', true, true);
+        setcookie('VSHARE_AL_PASSWORD', $token, time() + 60 * 60 * 24 * 100, '/', '', true, true);
     }
 
     static function login_auto()
     {
-        $sql = "SELECT user_password,user_salt FROM `users` WHERE
+        $sql = "SELECT user_auto_login_token FROM `users` WHERE
                `user_name`='" . DB::quote($_COOKIE['VSHARE_AL_USER']) . "'";
         $user_info = DB::fetch1($sql);
 
-        if ($user_info) {
-            $user_agent = $_SERVER['HTTP_USER_AGENT'];
-            $auth_string = $user_info['user_password'] . $user_info['user_salt'] . $user_agent;
-            $auth_string = md5($auth_string);
+        if ($user_info && !empty($user_info['user_auto_login_token'])) {
+            $token_hash = hash('sha256', $_COOKIE['VSHARE_AL_PASSWORD']);
 
-            if ($_COOKIE['VSHARE_AL_PASSWORD'] == $auth_string) {
+            if (hash_equals($user_info['user_auto_login_token'], $token_hash)) {
                 User::login($_COOKIE['VSHARE_AL_USER']);
+            } else {
+                setcookie('VSHARE_AL_USER', '', time() - 10000, '/');
+                setcookie('VSHARE_AL_PASSWORD', '', time() - 10000, '/');
+            }
+        } else {
+            $sql_old = "SELECT user_password,user_salt FROM `users` WHERE
+                   `user_name`='" . DB::quote($_COOKIE['VSHARE_AL_USER']) . "'";
+            $user_info_old = DB::fetch1($sql_old);
+
+            if ($user_info_old) {
+                $user_agent = $_SERVER['HTTP_USER_AGENT'];
+                $auth_string = $user_info_old['user_password'] . $user_info_old['user_salt'] . $user_agent;
+                $auth_string = md5($auth_string);
+
+                if ($_COOKIE['VSHARE_AL_PASSWORD'] == $auth_string) {
+                    User::login($_COOKIE['VSHARE_AL_USER']);
+                    User::set_auto_login_cookie($_COOKIE['VSHARE_AL_USER']);
+                } else {
+                    setcookie('VSHARE_AL_USER', '', time() - 10000, '/');
+                    setcookie('VSHARE_AL_PASSWORD', '', time() - 10000, '/');
+                }
             } else {
                 setcookie('VSHARE_AL_USER', '', time() - 10000, '/');
                 setcookie('VSHARE_AL_PASSWORD', '', time() - 10000, '/');
@@ -379,9 +398,21 @@ class User
         $user_info = self::getByName($user_name);
 
         if ($user_info) {
-            $password_md5 = md5($password . $user_info['user_salt']);
-            if ($user_info['user_password'] == $password_md5) {
-                return true;
+            if (password_needs_rehash($user_info['user_password'], PASSWORD_DEFAULT)) {
+                $password_md5 = md5($password . $user_info['user_salt']);
+                if ($user_info['user_password'] == $password_md5) {
+                    $new_hash = password_hash($password, PASSWORD_DEFAULT);
+                    $sql = "UPDATE `users` SET
+                           `user_password`='" . DB::quote($new_hash) . "',
+                           `user_salt`='' WHERE
+                           `user_id`='" . (int) $user_info['user_id'] . "'";
+                    DB::query($sql);
+                    return true;
+                }
+            } else {
+                if (password_verify($password, $user_info['user_password'])) {
+                    return true;
+                }
             }
         }
         return false;
@@ -389,21 +420,18 @@ class User
 
     public static function changePassword($user_name, $password_new)
     {
-        $user_salt = self::makeSalt();
-        $user_password = md5($password_new . $user_salt);
+        $user_password = password_hash($password_new, PASSWORD_DEFAULT);
 
         $sql = "UPDATE `users` SET
-               `user_password`='$user_password',
-               `user_salt`='$user_salt' WHERE
+               `user_password`='" . DB::quote($user_password) . "',
+               `user_salt`='' WHERE
                `user_name`='" . DB::quote($user_name) . "'";
         DB::query($sql);
     }
 
     public static function makeSalt()
     {
-        $salt = md5(uniqid(rand(), TRUE));
-        $salt = substr($salt,0,10);
-        return $salt;
+        return bin2hex(random_bytes(16));
     }
 
     public static function create($data = array())

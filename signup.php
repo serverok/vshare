@@ -143,8 +143,7 @@ if (isset($_POST['submit'])) {
     }
 
     if ($err == '') {
-        $request_password = $_POST['password'];
-        $request_password = md5($request_password);
+        $request_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
         $user_data = array(
             'user_email' => $_POST['email'],

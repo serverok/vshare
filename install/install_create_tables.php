@@ -57,14 +57,14 @@ if (! empty($tables)) {
     $sql_import->import();
 
     $buyscript_pass = rand();
-    $buyscript_pass_md5 = md5($buyscript_pass);
+    $buyscript_pass_hash = password_hash($buyscript_pass, PASSWORD_DEFAULT);
 
     require '../include/classes/User.php';
 
     User::create(array(
         'user_email' => 'you@yourdomain.com',
         'user_name' => 'vshare',
-        'user_password' => $buyscript_pass_md5,
+        'user_password' => $buyscript_pass_hash,
         'user_website' => 'http://buyscripts.in',
         'user_email_verified' => 'yes',
         'user_account_status' => 'Active',

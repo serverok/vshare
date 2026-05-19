@@ -21,7 +21,7 @@ Admin::auth();
 if (isset($_POST['submit'])) {
     if ($_POST['admin_name'] == '') {
         $err = $lang['admin_name_null'];
-    } else if (md5($_POST['password']) != $_SESSION['APASSWORD']) {
+    } else if (!password_verify($_POST['password'], $config['admin_pass'])) {
         $err = $lang['password_wrong'];
     } else if (strlen($_POST['password_new']) < 4) {
         $err = $lang['password_short'];
@@ -39,12 +39,12 @@ if (isset($_POST['submit'])) {
             $smarty->assign('admin_name', $_POST['admin_name']);
         }
 
-        $password_new_md5 = md5($_POST['password_new']);
+        $password_new_hash = password_hash($_POST['password_new'], PASSWORD_DEFAULT);
         $sql = "UPDATE `sconfig` SET
-               `svalue`='$password_new_md5' WHERE
+               `svalue`='$password_new_hash' WHERE
                `soption`='admin_pass'";
         DB::query($sql);
-        $_SESSION['APASSWORD'] = $password_new_md5;
+        $_SESSION['APASSWORD'] = $password_new_hash;
         $msg = $lang['password_changed'];
     }
 }
