@@ -30,11 +30,6 @@ if (isset($_POST['action_login']))
     }
 
     if ($err == '') {
-        if (get_magic_quotes_gpc()) {
-            $user_name = stripslashes($user_name);
-            $password = stripslashes($password);
-        }
-
         $user_info = User::getByName($user_name);
 
         if (! User::validate($user_info['user_name'], $password)) {

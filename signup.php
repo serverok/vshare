@@ -43,11 +43,6 @@ $signup_verification_msg = '';
 
 if (isset($_POST['submit'])) {
 
-    if (get_magic_quotes_gpc()) {
-        $_POST['password'] = stripslashes($_POST['password']);
-        $_POST['password_confirm'] = stripslashes($_POST['password_confirm']);
-    }
-
     $_POST['user_name'] = trim($_POST['user_name']);
     $signup['user_name'] = $_POST['user_name'] = htmlspecialchars_uni($_POST['user_name']);
 

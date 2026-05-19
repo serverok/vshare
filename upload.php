@@ -28,12 +28,6 @@ $smarty->assign('num_max_channels', $num_max_channels);
 
 if (isset($_POST['action_upload'])) {
 
-    if (get_magic_quotes_gpc()) {
-        $_POST['video_keywords'] = stripslashes($_POST['video_keywords']);
-        $_POST['video_title'] = stripslashes($_POST['video_title']);
-        $_POST['video_description'] = stripslashes($_POST['video_description']);
-    }
-
     $channel = isset($_POST['channel']) ? (int) $_POST['channel'] : 0;
 
     $_POST['video_description'] = Xss::clean($_POST['video_description']);

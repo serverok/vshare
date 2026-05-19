@@ -27,11 +27,6 @@ if (isset($_POST['submit'])) {
     $user_password = $_POST['password'];
     $user_name = $_POST['user_name'];
 
-    if (get_magic_quotes_gpc()) {
-        $user_password = stripslashes($user_password);
-        $user_name = stripslashes($user_name);
-    }
-
     $user_password_md5 = md5($user_password);
 
     if ($user_name == '' || $user_password == '') {

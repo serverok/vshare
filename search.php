@@ -41,11 +41,6 @@ if ($search_string == '')
     $err = $lang['search_empty'];
 }
 
-if (get_magic_quotes_gpc())
-{
-    $search_string = stripslashes($search_string);
-}
-
 if ($err == '')
 {
     if ($search_type == 'user')

@@ -6,10 +6,6 @@ require '../include/language/' . LANG . '/lang_video_comment_add.php';
 $comments_value = isset($_POST['comments_value']) ? $_POST['comments_value'] : '';
 $video_id = isset($_POST['video_id']) ? (int) $_POST['video_id'] : '';
 
-if (get_magic_quotes_gpc()) {
-	$comments_value = stripslashes($comments_value);
-}
-
 $comments_value = Xss::clean($comments_value);
 $comments_value = nl2br($comments_value);
 

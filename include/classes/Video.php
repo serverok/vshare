@@ -21,7 +21,7 @@ class Video
     public $is_admin = 0;
     public $video_info;
 
-    public function Video()
+    public function __construct()
     {
 
     }
@@ -161,10 +161,6 @@ class Video
         $this->video_keywords = trim($this->video_keywords);
 
         $this->video_description = trim($this->video_description);
-
-        if (get_magic_quotes_gpc()) {
-            $this->video_description = stripslashes($this->video_description);
-        }
 
         if ($this->is_admin == 0) {
             $this->video_description = Xss::clean($this->video_description);

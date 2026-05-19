@@ -20,11 +20,6 @@ Admin::auth();
 
 if (isset($_POST['submit'])) {
 
-    if (get_magic_quotes_gpc()) {
-        $_POST['htmlCode'] = stripslashes($_POST['htmlCode']);
-        $_POST['subj'] = stripslashes($_POST['subj']);
-    }
-
     $a = isset($_GET['a']) ? $_GET['a'] : '';
 
     if ($a == 'user') {

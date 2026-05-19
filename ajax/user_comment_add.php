@@ -23,10 +23,6 @@ if (!empty($err)) {
 if (isset($_SESSION['USERNAME'])) {
 	$voter_id = (int) $_SESSION['UID'];
 
-	if (get_magic_quotes_gpc()) {
-		$comments = stripslashes($comments);
-	}
-
 	$comments = Xss::clean($comments);
 	$comments = trim($comments);
 

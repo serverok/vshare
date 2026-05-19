@@ -13,7 +13,7 @@ class Ftp
     private $video_info = array();
     private $server_info = array();
 
-    function Ftp()
+    function __construct()
     {
         $this->log('<p>Initialize Ftp class</p>');
     }
