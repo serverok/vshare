@@ -8,7 +8,8 @@ define('VSHARE_DIR', $config['basedir']);
 define('VSHARE_URL', $config['baseurl']);
 $config['TMB_DIR'] = VSHARE_DIR . '/thumb';
 
-require VSHARE_DIR . '/include/smarty/libs/Smarty.class.php';
+// Load Composer autoloader
+require_once VSHARE_DIR . '/vendor/autoload.php';
 
 $smarty = new Smarty();
 if (defined('ADMIN_AREA')) {
@@ -28,15 +29,9 @@ $smarty->cache_dir = VSHARE_DIR . '/templates_c/cache';
 $smarty->caching = 0;
 $smarty->error_reporting = E_ALL & ~E_NOTICE;
 
-function vshare_autoload ($my_class_name) {
-        include(__DIR__ . '/classes/' . $my_class_name . ".php");
-}
-
-spl_autoload_register("vshare_autoload");
+require VSHARE_DIR . '/include/functions.php';
 
 DB::connect($db_host, $db_user, $db_pass, $db_name);
-
-require VSHARE_DIR . '/include/functions.php';
 
 $sql = "SELECT * FROM `sconfig`";
 $result = DB::query($sql);

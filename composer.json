@@ -1,0 +1,27 @@
+{
+    "name": "serverok/vshare",
+    "description": "vShare - YouTube Clone Video Sharing Platform",
+    "homepage": "https://github.com/serverok/vshare",
+    "type": "project",
+    "license": "proprietary",
+    "support": {
+        "issues": "https://github.com/serverok/vshare/issues",
+        "source": "https://github.com/serverok/vshare"
+    },
+    "require": {
+        "php": ">=8.2",
+        "smarty/smarty": "^4.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "classmap": [
+            "include/classes/"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    }
+}
