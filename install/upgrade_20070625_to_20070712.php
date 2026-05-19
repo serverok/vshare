@@ -7,7 +7,7 @@
  *   LICENSE: http://buyscripts.in/vshare-license
  *   WEBSITE: http://buyscripts.in/vshare-youtube-clone
  *
- *   This program is a commercial software and any kind of using it must agree 
+ *   This program is a commercial software and any kind of using it must agree
  *   to vShare license.
  *
  ******************************************************************************/
@@ -24,10 +24,10 @@ if ($config['version'] != '20070625')
 
 write_log('#### UPGRADE 20070625 to 20070712 STARTED ####', 'vshare_upgrade', 0,'txt');
 
-$sql = "UPDATE `sconfig` SET 
-       `svalue`='20070712' WHERE 
+$sql = "UPDATE `sconfig` SET
+       `svalue`='20070712' WHERE
        `soption` = 'version'";
-$result = mysql_query($sql) or mysql_die();
+DB::query($sql);
 
 write_log('#### UPGRADE 20070625 to 20070712 FINISHED ####', 'vshare_upgrade', 0,'txt');
 

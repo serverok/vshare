@@ -29,11 +29,12 @@ $new_line = "<br />>";
 
 $sql = "SELECT * FROM `import_video`";
 
-$result = mysql_query($sql) or die ("Unable to execute query: $sql<br />>" . mysql_error());
+$result = DB::query($sql);
 
-echo "Totial Videos: " .  mysql_num_rows($result) . $new_line . $new_line;
+$total = mysqli_num_rows($result);
+echo "Totial Videos: $total" . $new_line . $new_line;
 
-while($myobj = mysql_fetch_object($result)) {
+while($myobj = mysqli_fetch_object($result)) {
 
 $video_id = $myobj->VID;
 $video_title = $myobj->title;
@@ -64,8 +65,8 @@ if (file_exists($video_src_path)) {
 	$pos = strrpos($file_name,".");
 	$file_extn = strtolower(substr($file_name,$pos+1,strlen($file_name)-$pos));
 	$file_no_extn = basename($file_name,".$file_extn");
-	$file_no_extn = ereg_replace("[&$#]+"," ",$file_no_extn);
-	$file_no_extn = ereg_replace("[ ]+","-",$file_no_extn);
+	$file_no_extn = preg_replace("/[&$#]+/"," ",$file_no_extn);
+	$file_no_extn = preg_replace("/[ ]+/","-",$file_no_extn);
 	$file_name = $file_no_extn . "." . $file_extn;
 	$file_path = VSHARE_DIR . "/video/" . $file_name;
 
@@ -92,11 +93,11 @@ if (file_exists($video_src_path)) {
 
 	echo "<p>$sql</p>";
 
-	$result_2 = mysql_query($sql) or die("Unable to execute query: $sql<br />>" . mysql_error());
-	$vid = mysql_insert_id();
+	DB::query($sql);
+	$vid = DB::insertGetId($sql);
 
-	$sql="DELETE FROM `import_video` WHERE `VID`=$video_id";
-	$result_2 = mysql_query($sql) or die("Unable to execute query: $sql<br />>" . mysql_error());
+	$sql="DELETE FROM `import_video` WHERE `VID`='$video_id'";
+	DB::query($sql);
 
 	if(!unlink($video_src_path)) {
 		echo "Unable to delete the file: $video_src_path";

@@ -3,9 +3,9 @@
 require '../include/config.php';
 
 $sql = "SELECT * FROM `users`";
-$result = mysql_query($sql);
+$result = DB::query($sql);
 
-while ($userRow = mysql_fetch_assoc($result))
+while ($userRow = mysqli_fetch_assoc($result))
 {
 	$user_name = $userRow['user_name'];
 	$user_id = $userRow['user_id'];
@@ -17,10 +17,10 @@ while ($userRow = mysql_fetch_assoc($result))
 	else
 	{
 		$user_password_md5 = md5($user_password);
-		$sql = "UPDATE `users` SET 
-			   `user_password`='" . $user_password_md5 . "' WHERE
-			   `user_id`='$user_id'";
+		$sql = "UPDATE `users` SET
+			   `user_password`='" . DB::quote($user_password_md5) . "' WHERE
+			   `user_id`='" . (int) $user_id . "'";
 		echo "<p>$sql</p>";
-		$tmp = mysql_query($sql) or die(mysql_error());
+		DB::query($sql);
 	}
 }

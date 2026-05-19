@@ -7,7 +7,7 @@
  *   LICENSE: http://buyscripts.in/vshare-license.html
  *   WEBSITE: http://buyscripts.in/youtube_clone.html
  *
- *   This program is a commercial software and any kind of using it must agree 
+ *   This program is a commercial software and any kind of using it must agree
  *   to vShare license.
  *
  ******************************************************************************/
@@ -32,32 +32,31 @@ else
 }
 
 $sql = "SELECT * FROM `videos` WHERE `video_server_id`='0'";
-$result = mysql_query($sql) or die('Unable to execute query');
+$result = DB::query($sql);
 
-while ($videoInfo = mysql_fetch_assoc($result))
+while ($videoInfo = mysqli_fetch_assoc($result))
 {
     $videoFileName = $videoInfo['video_folder'] . $videoInfo['video_flv_name'];
     $fileExtension = getFileExtension($videoInfo['video_flv_name']);
     $input_path = VSHARE_DIR . '/flvideo/' . $videoFileName;
-    
+
     if (! file_exists($input_path))
     {
         echo 'ERROR: File Not found ' . $input_path . "\n";
         continue;
     }
-    
+
     if ($fileExtension == 'flv')
     {
         $output_path = VSHARE_DIR . '/flvideo_new/' . $videoFileName;
-        
+
         if (! is_dir(VSHARE_DIR . '/flvideo_new/' . $videoInfo['video_folder']))
         {
             mkdir(VSHARE_DIR . '/flvideo_new/' . $videoInfo['video_folder']);
         }
-        
+
         $cmd = "/usr/bin/yamdi -i $input_path -o $output_path";
         exec($cmd);
         echo $cmd . "\n";
     }
 }
-

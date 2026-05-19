@@ -44,7 +44,6 @@ if (isset($_GET['search'])) {
         $video_info = DB::fetch1($sql);
 
         if ($video_info) {
-            $video_info = mysql_fetch_assoc($result);
             $redirect_url = VSHARE_URL . '/admin/video_details.php?id=' . $video_info['video_id'];
             Http::redirect($redirect_url);
         } else {

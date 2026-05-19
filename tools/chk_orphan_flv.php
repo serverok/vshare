@@ -12,14 +12,12 @@ if (is_dir($dir)) {
             if(is_file($dir.$file)){
             	if (preg_match("/flv/i",$file)) {
             		$sql = "SELECT * FROM `videos` WHERE
-                           `video_flv_name`='$file'";
-            		$result = mysql_query($sql);
-            		$num_result = mysql_num_rows($result);
-            		if($num_result == 1){
-//            			echo "<font color="green"><b>The file have a parent - $file</b></font><br />";
+                           `video_flv_name`='" . DB::quote($file) . "'";
+            		$result = DB::fetch1($sql);
+            		if($result){
             			$not_orphan++;
         			} else {
-						echo "<font color=\"red\"><b>$file $sql</b></font><br />";
+						echo "<font color=\"red\"><b>$file</b></font><br />";
 						$orphan++;
 						$orphan_file_path = $dir . $file;
 						$orphan_file_new_path = "/home/video/public_html/templates_c/" . $file;

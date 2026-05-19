@@ -4,7 +4,7 @@ require '../include/config.php';
 require '../include/class.tags.php';
 
 $sql = "DROP TABLE `tags`, `tag_video`";
-mysql_query($sql) or die ('Unable to execute query' . $sql);
+DB::query($sql);
 
 $sql = "
 CREATE TABLE IF NOT EXISTS `tags` (
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
-mysql_query($sql) or die ('Unable to execute query' . $sql);
+DB::query($sql);
 
 $sql = "
 CREATE TABLE IF NOT EXISTS `tag_video` (
@@ -27,13 +27,13 @@ CREATE TABLE IF NOT EXISTS `tag_video` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
-mysql_query($sql) or die ('Unable to execute query' . $sql);
+DB::query($sql);
 
 
 $sql = "SELECT * FROM `videos` WHERE `video_type`='public'";
-$result = mysql_query($sql) or die($sql);
+$result = DB::query($sql);
 
-while ($video_info = mysql_fetch_assoc($result))
+while ($video_info = mysqli_fetch_assoc($result))
 {
     $video_id = $video_info['video_id'];
     $video_keywords = $video_info['video_keywords'];
@@ -44,16 +44,15 @@ while ($video_info = mysql_fetch_assoc($result))
     $tags = new Tags($video_keywords, $video_id, $video_user_id, $video_channels);
     $tags->settime($video_add_time);
     $tags->add();
-    
+
     $video_tags = $tags->get_tags();
     $video_keywords_new = implode(' ', $video_tags);
-    
-    echo $sql = "UPDATE `videos` SET 
-                  `video_keywords`='" . DB::quote($video_keywords_new) . "' WHERE 
+
+    echo $sql = "UPDATE `videos` SET
+                  `video_keywords`='" . DB::quote($video_keywords_new) . "' WHERE
                   `video_id`='" . (int) $video_id . "'";
     var_dump($video_keywords);
     echo "<p>$sql</p><br>";
-    
-    mysql_query($sql) or die($sql);
-}
 
+    DB::query($sql);
+}
