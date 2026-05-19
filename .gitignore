@@ -1,22 +1,90 @@
-photo/*
-templates_c/*
-photo/*.jpg
-thumb/*
-flvideo/*
-video/*
-include/htmlpurifier/HTMLPurifier/DefinitionCache/Serializer/HTML/*
-include/qt_faststart/qt-faststart
-.settings/*
-.cache/*
+# PHP
+*.log
+*.pid
+*.pid.lock
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Composer
+/vendor/
+composer.lock
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
 .project
 .buildpath
-cache
-tools/test/test_media/*
-chimg/*
+.settings/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+
+# Application
+cache/*
+!cache/.gitkeep
+templates_c/*
+!templates_c/.gitkeep
 include/config.php
-patch/*
-cgi-bin/*
+include/config.php.bak
+
+# Media uploads (generated content)
+photo/*
+!photo/.gitkeep
+thumb/*
+!thumb/.gitkeep
+flvideo/*
+!flvideo/.gitkeep
+video/*
+!video/.gitkeep
+chimg/*
+!chimg/.gitkeep
+
+# Tools test data
+tools/test/test_media/*
+
+# HTMLPurifier cache
+include/htmlpurifier/HTMLPurifier/DefinitionCache/Serializer/HTML/*
+
+# Qt faststart binary
+include/qt_faststart/qt-faststart
+
+# Sitemap generated files
 sitemap/*
-.idea
-themes/black
+!sitemap/.gitkeep
+
+# CGI
+cgi-bin/*
+
+# Patches
+patch/*
+
+# Themes (if not using)
+# themes/black
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.orig
